@@ -1,0 +1,42 @@
+/**
+ * Copyright (c) 2016-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant 
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+#import "IGListTestSection.h"
+
+@implementation IGListTestSection
+
+- (NSArray <Class> *)cellClasses {
+    return @[UICollectionViewCell.class];
+}
+
+- (NSUInteger)numberOfItems {
+    return self.items;
+}
+
+- (CGSize)sizeForItemAtIndex:(NSInteger)index {
+    return CGSizeMake(100, 10);
+}
+
+- (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
+    return [self.collectionContext dequeReusableCellOfClass:UICollectionViewCell.class
+                                      forItemController:self
+                                                    atIndex:index];
+}
+
+- (void)didUpdateToItem:(id)item {
+    if ([item isKindOfClass:[NSNumber class]]) {
+        self.items = [item integerValue];
+    }
+}
+
+- (void)didSelectItemAtIndex:(NSInteger)index {}
+
+- (void)didDeselectItemAtIndex:(NSInteger)index {}
+
+@end
