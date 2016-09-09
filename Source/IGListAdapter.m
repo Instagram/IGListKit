@@ -65,7 +65,9 @@
     IGAssertMainThread();
     IGParameterAssert([collectionView isKindOfClass:[IGListCollectionView class]]);
 
-    if (_collectionView != collectionView) {
+    // if collection view has been used by a different list adapter, treat it as if we were using a new collection view
+    // this happens when embedding a IGListCollectionView inside a UICollectionViewCell that is reused
+    if (_collectionView != collectionView || _collectionView.dataSource != self) {
         // dump old registered item controllers in the case that we are changing collection views or setting for
         // the first time
         _registeredCellClasses = [NSMutableSet new];

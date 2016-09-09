@@ -225,6 +225,32 @@
     XCTAssertNotNil([otherCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
 }
 
+- (void)test_whenChangingCollectionViewsToACollectionViewInUseByAnotherAdapter_thatCollectionViewDelegateIsUpdated {
+    IGListTestAdapterDataSource *dataSource1 = [[IGListTestAdapterDataSource alloc] init];
+    dataSource1.objects = @[@1];
+    IGListAdapterUpdater *updater1 = [[IGListAdapterUpdater alloc] init];
+    IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdatingDelegate:updater1 viewController:nil workingRangeSize:0];
+    adapter1.dataSource = dataSource1;
+
+    IGListTestAdapterDataSource *dataSource2 = [[IGListTestAdapterDataSource alloc] init];
+    dataSource1.objects = @[@1];
+    IGListAdapterUpdater *updater2 = [[IGListAdapterUpdater alloc] init];
+    IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdatingDelegate:updater2 viewController:nil workingRangeSize:0];
+    adapter1.dataSource = dataSource2;
+
+    // associate collection view with adapter1
+    adapter1.collectionView = self.collectionView;
+    XCTAssertEqual(self.collectionView.dataSource, adapter1);
+
+    // associate collection view with adapter2
+    adapter2.collectionView = self.collectionView;
+    XCTAssertEqual(self.collectionView.dataSource, adapter2);
+
+    // associate collection view with adapter1
+    adapter1.collectionView = self.collectionView;
+    XCTAssertEqual(self.collectionView.dataSource, adapter1);
+}
+
 - (void)test_whenCellsExtendBeyondBounds_thatVisibleItemControllersAreLimited {
     // # of items for each object == [item integerValue], so @2 has 2 items (cells)
     self.dataSource.objects = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12];
