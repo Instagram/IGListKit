@@ -111,7 +111,7 @@
     XCTestExpectation *expectation = genExpectation;
     [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
         IGTestCell *cell2 = (IGTestCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
-        XCTAssertEqualObjects(cell2.label.text, @"Qux");
+        XCTAssertEqual(cell2.label.text, @"Qux");
         [expectation fulfill];
     }];
     [self waitForExpectationsWithTimeout:10 handler:nil];
