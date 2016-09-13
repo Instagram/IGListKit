@@ -9,15 +9,13 @@
 
 #import <XCTest/XCTest.h>
 
-#import <OCMock/OCMockObject.h>
-
 #import "IGListAdapterUpdaterInternal.h"
 #import "IGListTestUICollectionViewDataSource.h"
 
 #define genTestObject(k, v) [[IGSectionObject alloc] initWithKey:k value:v]
 
 #define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
-#define waitExpectation [self waitForExpectationsWithTimeout:10 handler:nil]
+#define waitExpectation [self waitForExpectationsWithTimeout:15 handler:nil]
 
 @interface IGListAdapterUpdaterTests : XCTestCase
 
@@ -111,7 +109,7 @@
         XCTAssertEqual([self.collectionView numberOfSections], 2);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenDeletingSection_thatCollectionViewUpdates {
@@ -132,7 +130,7 @@
         XCTAssertEqual([self.collectionView numberOfSections], 1);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenInsertingSection_withItemChanges_thatCollectionViewUpdates {
@@ -156,7 +154,7 @@
         XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 2);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenInsertingSection_withDeletedSection_thatCollectionViewUpdates {
@@ -184,7 +182,7 @@
         XCTAssertEqual([self.collectionView numberOfItemsInSection:2], 3);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenReloadingSections_thatCollectionViewUpdates {
@@ -230,7 +228,7 @@
         XCTAssertEqual([self.collectionView numberOfSections], 1);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenUpdatesAreReentrant_thatUpdatesExecuteSerially {
@@ -273,7 +271,7 @@
         completionCounter++;
         XCTAssertEqual(completionCounter, 1);
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenQueuingItemUpdates_thatUpdaterHasChanges {
@@ -287,7 +285,7 @@
         // expectation should be triggered. test failure is a timeout
         [expectation fulfill];
     } completion:nil];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenQueueingItemUpdates_withBatchUpdate_thatItemUpdateBlockExecutes {
@@ -314,7 +312,7 @@
         XCTAssertTrue(sectionUpdateBlockExecuted);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenItemsMoveAndUpdate_thatCollectionViewWorks {
@@ -351,7 +349,7 @@
         XCTAssertEqual([self.collectionView numberOfItemsInSection:2], 3);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenConvertingReloads_withoutChanges_thatOriginalIndexUsed {

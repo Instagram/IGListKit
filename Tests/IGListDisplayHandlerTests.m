@@ -8,8 +8,7 @@
  */
 
 #import <XCTest/XCTest.h>
-
-#import <OCMock/OCMockObject.h>
+#import <OCMock/OCMock.h>
 
 #import <IGListKit/IGListKit.h>
 

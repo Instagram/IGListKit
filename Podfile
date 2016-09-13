@@ -1,14 +1,9 @@
 source 'https://github.com/CocoaPods/Specs.git'
-workspace 'IGListKit'
 use_frameworks!
+platform :ios, '8.0'
 
-target 'IGListKitExample' do
-  pod 'IGListKit', :path => 'IGListKit.podspec'
-  xcodeproj 'IGListKit.xcodeproj'
-end
+workspace 'IGListKit'
 
 target 'IGListKitTests' do
-  pod 'IGListKit', :path => 'IGListKit.podspec'
-  pod 'OCMock', '2.2.4'
-  xcodeproj 'IGListKit.xcodeproj'
+    pod 'OCMock', '~> 3.0'
 end

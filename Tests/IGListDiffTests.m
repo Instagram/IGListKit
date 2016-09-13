@@ -9,6 +9,7 @@
 
 #import "IGListDiffTests.h"
 
+#import <XCTest/XCTest.h>
 #import <UIKit/UIKit.h>
 
 #import <IGListKit/IGListDiff.h>
@@ -26,6 +27,7 @@
     XCTAssertTrue([haystack containsObject:needle], @"%@ does not contain %@", haystack, needle); \
     } while(0)
 
+
 static NSIndexSet *indexSetWithIndexes(NSArray *indexes) {
     NSMutableIndexSet *indexset = [NSMutableIndexSet new];
     for (NSNumber *i in indexes) {
@@ -34,26 +36,36 @@ static NSIndexSet *indexSetWithIndexes(NSArray *indexes) {
     return indexset;
 }
 
+
 static NSArray *sorted(NSArray *arr) {
     return [arr sortedArrayUsingSelector:@selector(compare:)];
 }
 
+
 @interface IGListIndexSetResult (UnitTests)
 - (NSUInteger)changeCount;
 @end
+
 @implementation IGListIndexSetResult (UnitTests)
 - (NSUInteger)changeCount {
     return self.inserts.count + self.deletes.count + self.moves.count + self.updates.count;
 }
 @end
 
+
 @interface IGListIndexPathResult (UnitTests)
 - (NSUInteger)changeCount;
 @end
+
 @implementation IGListIndexPathResult (UnitTests)
 - (NSUInteger)changeCount {
     return self.inserts.count + self.deletes.count + self.moves.count + self.updates.count;
 }
+@end
+
+
+@interface IGListDiffTests : XCTestCase
+
 @end
 
 @implementation IGListDiffTests
