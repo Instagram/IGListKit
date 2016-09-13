@@ -81,7 +81,7 @@ func itemsForListAdapter(listAdapter: IGListAdapter) -> [IGListDiffable] {
   return [ "Foo", "Bar", 42, "Biz" ]
 }
 
-func listAdapter(listAdapter: IGListAdapter, 
+func listAdapter(listAdapter: IGListAdapter,
     itemControllerForItem item: AnyObject) -> IGListItemController {
   if let _ = item as? String {
     return LabelItemController()
@@ -168,7 +168,7 @@ The `IGListAdapter` must be initialized with a range value in order to work. Thi
 
 ```swift
 let adapter = IGListAdapter(updatingDelegate: IGListAdapterUpdater(),
-                              viewController: self, 
+                              viewController: self,
                             workingRangeSize: 0.5) // 0.5x the visible size
 ```
 
@@ -188,7 +188,14 @@ Check out the updater `IGListReloadDataUpdater` used in unit tests for an exampl
 
 ## Documentation
 
-TODO #2
+Read [the docs here](https://instagram.github.io/IGListKit). Documentation is generated with [jazzy](https://github.com/realm/jazzy) and hosted on [GitHub-Pages](https://pages.github.com).
+
+#### Generating docs
+
+```bash
+$ ./build_docs.sh
+$ open -a safari docs/index.html  # preview in Safari
+```
 
 ## Contributing
 

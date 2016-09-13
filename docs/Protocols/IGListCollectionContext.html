@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>IGListCollectionContext Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/objc/Protocol/IGListCollectionContext" class="dashAnchor"></a>
+    <a title="IGListCollectionContext Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">IGListKit Docs</a> (78% documented)</p>
+        <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">IGListKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        IGListCollectionContext Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Categories.html">Categories</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Categories.html#/c:objc(cy)NSObject@IGListDiffable">NSObject(IGListDiffable)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/IGListAdapter.html">IGListAdapter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListIndexSetResult.html">IGListIndexSetResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListItemController.html">IGListItemController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListMoveIndex.html">IGListMoveIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListMoveIndexPath.html">IGListMoveIndexPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/c:objc(cs)IGListReloadDataUpdater">IGListReloadDataUpdater</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListSingleItemController.html">IGListSingleItemController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListStackedItemController.html">IGListStackedItemController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Constants.html">Constants</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@IGListKitVersionNumber">IGListKitVersionNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@IGListKitVersionString">IGListKitVersionString</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/IGListDiffOption.html">IGListDiffOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/IGListExperiment.html">IGListExperiment</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterDataSource.html">IGListAdapterDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListDiffable.html">IGListDiffable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListItemType.html">IGListItemType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListSingleItemControllerDelegate.html">IGListSingleItemControllerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListWorkingRangeDelegate.html">IGListWorkingRangeDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Type Definitions.html">Type Definitions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemTransitionBlock">IGListItemTransitionBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/c:@F@IGListDiff">IGListDiff</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>IGListCollectionContext</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListCollectionContext</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+
+                </div>
+              </div>
+            <p>The collection context provides limited access to the collection related information that
+item controllers need for things like sizing, dequeing cells, insterting/deleting/reloading, etc.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(py)containerSize"></a>
+                    <a name="//apple_ref/objc/Property/containerSize" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(py)containerSize">containerSize</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Size of the collection view containing the items. Provided primarily for sizing cells.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGSize</span> <span class="n">containerSize</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">containerSize</span><span class="p">:</span> <span class="kt">Int32</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(im)indexForCell:itemController:"></a>
+                    <a name="//apple_ref/objc/Method/-indexForCell:itemController:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)indexForCell:itemController:">-indexForCell:itemController:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Query for the index a cell in the collection relative to the item controller.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nf">indexForCell</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">cell</span>
+            <span class="nf">itemController</span><span class="p">:</span>
+                <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">itemController</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">indexForCell</span><span class="p">(</span><span class="nv">cell</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="nv">itemController</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cell</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An existing cell in the collection.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>itemController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The item controller requesting this information.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The index of the cell or NSNotFound if it does not exist in the collection.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(im)cellForItemAtIndex:itemController:"></a>
+                    <a name="//apple_ref/objc/Method/-cellForItemAtIndex:itemController:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)cellForItemAtIndex:itemController:">-cellForItemAtIndex:itemController:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Query for a cell in the collection. May return nil if the cell is offscreen.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="nf">cellForItemAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">index</span>
+          <span class="nf">itemController</span><span class="p">:</span>
+              <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">itemController</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">cellForItemAtIndex</span><span class="p">(</span><span class="nv">index</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="nv">itemController</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the desired cell.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>itemController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The item controller requesting this information.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The collection view cell, or <code>nil</code> if not found.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(im)visibleCellsForItemController:"></a>
+                    <a name="//apple_ref/objc/Method/-visibleCellsForItemController:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)visibleCellsForItemController:">-visibleCellsForItemController:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Query for the visible cells for the given item controller.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nf">visibleCellsForItemController</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">itemController</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">visibleCellsForItemController</span><span class="p">(</span><span class="nv">itemController</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>itemController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The item controller requesting this information.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of visible cells, or an empty array if none are found.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(im)deselectItemAtIndex:itemController:animated:"></a>
+                    <a name="//apple_ref/objc/Method/-deselectItemAtIndex:itemController:animated:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)deselectItemAtIndex:itemController:animated:">-deselectItemAtIndex:itemController:animated:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Deselects a cell in the collection.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">deselectItemAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">index</span>
+             <span class="nf">itemController</span><span class="p">:</span>
+                 <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">itemController</span>
+                   <span class="nf">animated</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">deselectItemAtIndex</span><span class="p">(</span><span class="nv">index</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="nv">itemController</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the item to deselect.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>itemController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The item controller requesting this information.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>animated</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Pass <code>YES</code> to animate the change, <code>NO</code> otherwise.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(im)sectionForItemController:"></a>
+                    <a name="//apple_ref/objc/Method/-sectionForItemController:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)sectionForItemController:">-sectionForItemController:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Query the section index of an item controller.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nf">sectionForItemController</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">itemController</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">sectionForItemController</span><span class="p">(</span><span class="nv">itemController</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>itemController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An item controller object.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The section index of the list if found, otherwise <code>NSNotFound</code>.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(im)dequeReusableCellOfClass:forItemController:atIndex:"></a>
+                    <a name="//apple_ref/objc/Method/-dequeReusableCellOfClass:forItemController:atIndex:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeReusableCellOfClass:forItemController:atIndex:">-dequeReusableCellOfClass:forItemController:atIndex:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Dequeues a cell from the UICollectionView reuse pool.</p>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This method uses a string representation of the cell class as the identifier.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="nf">dequeReusableCellOfClass</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">Class</span><span class="p">)</span><span class="nv">cellClass</span>
+             <span class="nf">forItemController</span><span class="p">:</span>
+                 <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">itemController</span>
+                       <span class="nf">atIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">index</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">dequeReusableCellOfClass</span><span class="p">(</span><span class="nv">cellClass</span><span class="p">:</span> <span class="kt">AnyClass</span><span class="o">!</span><span class="p">,</span> <span class="n">forItemController</span> <span class="nv">itemController</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="n">atIndex</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cellClass</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The class of the cell you want to dequeue.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>itemController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The item controller requesting this information.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the cell.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A cell dequeued from the reuse pool or newly created.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(im)dequeReusableSupplementaryViewOfKind:forItemController:class:atIndex:"></a>
+                    <a name="//apple_ref/objc/Method/-dequeReusableSupplementaryViewOfKind:forItemController:class:atIndex:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeReusableSupplementaryViewOfKind:forItemController:class:atIndex:">-dequeReusableSupplementaryViewOfKind:forItemController:class:atIndex:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Dequeues a supplementary view from the UICollectionView reuse pool.</p>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This method uses a string representation of the view class as the identifier.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="nf">dequeReusableSupplementaryViewOfKind</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">elementKind</span>
+                         <span class="nf">forItemController</span><span class="p">:</span>
+                             <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span>
+                                 <span class="n">itemController</span>
+                                     <span class="n">class</span><span class="o">:</span><span class="p">(</span><span class="n">nonnull</span> <span class="n">Class</span><span class="p">)</span><span class="n">viewClass</span>
+                                   <span class="n">atIndex</span><span class="o">:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="n">index</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">dequeReusableSupplementaryViewOfKind</span><span class="p">(</span><span class="nv">elementKind</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="n">forItemController</span> <span class="nv">itemController</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="kd">class</span> <span class="nv">viewClass</span><span class="p">:</span> <span class="kt">AnyClass</span><span class="o">!</span><span class="p">,</span> <span class="n">atIndex</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>elementKind</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The kind of supplementary veiw.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>itemController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The item controller requesting this information.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>viewClass</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The class of the supplementary view.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the supplementary vew.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A supplementary view dequeued from the reuse pool or newly created.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(im)reloadItemsInItemController:atIndexes:"></a>
+                    <a name="//apple_ref/objc/Method/-reloadItemsInItemController:atIndexes:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)reloadItemsInItemController:atIndexes:">-reloadItemsInItemController:atIndexes:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reloads list items in the feed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadItemsInItemController</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">itemController</span>
+                          <span class="nf">atIndexes</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexes</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">reloadItemsInItemController</span><span class="p">(</span><span class="nv">itemController</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="n">atIndexes</span> <span class="nv">indexes</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>itemController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The item controller that needs reloading.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexes</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The indexes of items that need reloading.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(im)insertItemsInItemController:atIndexes:"></a>
+                    <a name="//apple_ref/objc/Method/-insertItemsInItemController:atIndexes:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)insertItemsInItemController:atIndexes:">-insertItemsInItemController:atIndexes:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Inserts list items in the feed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">insertItemsInItemController</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">itemController</span>
+                          <span class="nf">atIndexes</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexes</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">insertItemsInItemController</span><span class="p">(</span><span class="nv">itemController</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="n">atIndexes</span> <span class="nv">indexes</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>itemController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The item controller that needs items inserted.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexes</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The indexes of items that need inserting.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(im)deleteItemsInItemController:atIndexes:"></a>
+                    <a name="//apple_ref/objc/Method/-deleteItemsInItemController:atIndexes:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)deleteItemsInItemController:atIndexes:">-deleteItemsInItemController:atIndexes:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Deletes list items in the feed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">deleteItemsInItemController</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">itemController</span>
+                          <span class="nf">atIndexes</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexes</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">deleteItemsInItemController</span><span class="p">(</span><span class="nv">itemController</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="n">atIndexes</span> <span class="nv">indexes</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>itemController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The item controller that needs items deleted.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexes</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The indexes of items that need deleting.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(im)reloadItemController:"></a>
+                    <a name="//apple_ref/objc/Method/-reloadItemController:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)reloadItemController:">-reloadItemController:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reloads all items in an item controller.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadItemController</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">itemController</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">reloadItemController</span><span class="p">(</span><span class="nv">itemController</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>itemController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The list object who&rsquo;s cells need reloading.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(im)performBatchAnimated:updates:completion:"></a>
+                    <a name="//apple_ref/objc/Method/-performBatchAnimated:updates:completion:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)performBatchAnimated:updates:completion:">-performBatchAnimated:updates:completion:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Batch many item-level updates in a single transaction.</p>
+
+<p>@discussion Use this method to batch item updates (inserts, deletes, reloads) into a single transaction. This lets you
+make many changes to your data store and perform all the transitions at once.</p>
+
+<p>For example, inside your item controllers, you may want to delete /and/ insert into the data source that backs your
+item controller:</p>
+
+<p>[self.collectionContext performBatchItemUpdates:^{
+// perform data source changes inside the update block
+[self.items addObject:newItem];
+[self.items removeObjectAtIndex:0];</p>
+
+<p>NSIndexSet *inserts = [NSIndexSet indexSetWithIndex:[self.items count] - 1];
+[self.collectionContext insertItemsInItemController:self atIndexes:inserts];</p>
+
+<p>NSIndexSet *deletes = [NSIndexSet indexSetWithIndex:0];
+[self.collectionContext deleteItemsInItemController:self deletes];
+} completion:nil];</p>
+
+<p>Note that you <strong>must</strong> perform data modifications <strong>inside</strong> the update block. Updates will not be performed
+synchronously, so you should make sure that your data source changes only when necessary.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">performBatchAnimated</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+                     <span class="nf">updates</span><span class="p">:(</span><span class="n">nonnull</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)())</span><span class="nv">updates</span>
+                  <span class="nf">completion</span><span class="p">:(</span><span class="n">nullable</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">BOOL</span><span class="p">))</span><span class="nv">completion</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">performBatchAnimated</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="nv">updates</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span><span class="o">!</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Int32</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>animated</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A flag indicating if the transition should be animated.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>updates</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A block containing all of the item updates.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional completion block to execute when the updates are finished.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-13)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
