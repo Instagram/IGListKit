@@ -8,7 +8,6 @@
  */
 
 #import <XCTest/XCTest.h>
-
 #import <OCMock/OCMock.h>
 
 #import <IGListKit/IGListReloadDataUpdater.h>

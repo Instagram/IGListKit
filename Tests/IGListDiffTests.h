@@ -2,6 +2,8 @@
 
 #import <XCTest/XCTest.h>
 
+// Exposed for internal benchmark tests
 @interface IGListDiffTests : XCTestCase
 
 @end
+

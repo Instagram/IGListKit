@@ -8,8 +8,7 @@
  */
 
 #import <XCTest/XCTest.h>
-
-#import <OCMock/OCMockObject.h>
+#import <OCMock/OCMock.h>
 
 #import <IGListKit/IGListKit.h>
 #import <IGListKit/IGListReloadDataUpdater.h>
@@ -376,7 +375,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
         [mockDelegate verify];
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenQueryingVisibleItemControllers_withCellsOffscreen_thatOnlyVisibleReturned {
@@ -429,7 +428,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
         [section2.collectionContext deleteItemsInItemController:section2 atIndexes:[NSIndexSet indexSetWithIndex:0]];
     } completion:nil];
 
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 @end

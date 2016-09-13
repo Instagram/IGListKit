@@ -8,10 +8,7 @@
  */
 
 #import <XCTest/XCTest.h>
-
-#import <OCMock/OCMArg.h>
-#import <OCMock/OCMockObject.h>
-#import <OCMock/OCMockRecorder.h>
+#import <OCMock/OCMock.h>
 
 #import <IGListKit/IGListKit.h>
 
@@ -117,7 +114,7 @@
         XCTAssertEqual(cell.delegate, [self.adapter itemControllerForItem:self.dataSource.objects[0]]);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenReloadingItem_cellConfigurationChanges {
@@ -171,7 +168,7 @@
         XCTAssertEqual([self.collectionView numberOfItemsInSection:2], 2);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenUpdatesComplete_thatCellsExist {
@@ -187,7 +184,7 @@
         XCTAssertNotNil([self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1]]);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenReloadDataCompletes_thatCellsExist {
@@ -203,7 +200,7 @@
         XCTAssertNotNil([self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1]]);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenItemControllerInsertsIndexes_thatCountsAreUpdated {
@@ -224,7 +221,7 @@
         XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenItemControllerDeletesIndexes_thatCountsAreUpdated {
@@ -246,7 +243,7 @@
         XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 1);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenItemControllerReloadsIndexes_thatCellConfigurationUpdates {
@@ -271,7 +268,7 @@
         XCTAssertEqualObjects(updatedCell.label.text, @"c");
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenItemControllerReloads_thatCountsAreUpdated {
@@ -292,7 +289,7 @@
         XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenPerformingUpdates_withItemControllerMutations_thatCollectionCountsAreUpdated {
@@ -330,7 +327,7 @@
         XCTAssertEqual([self.collectionView numberOfItemsInSection:2], 3);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenItemControllerMoves_withItemControllerMutations_thatCollectionViewWorks {
@@ -362,7 +359,7 @@
         XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 3);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenItemIsRemoved_withItemControllerMutations_thatCollectionViewWorks {
@@ -391,7 +388,7 @@
         [expectation fulfill];
     }];
 
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenPerformingUpdates_withUnequalItem_withItemMoving_thatCollectionViewCountsUpdate {
@@ -412,7 +409,7 @@
         XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 3);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenPerformingUpdates_withItemMoving_withItemControllerReloadIndexes_thatCollectionViewCountsUpdate {
@@ -439,7 +436,7 @@
         XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 2);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenPerformingUpdates_withItemControllerReloadIndexes_withItemDeleted_thatCollectionViewCountsUpdate {
@@ -464,7 +461,7 @@
         XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenPerformingUpdates_withNewItemInstances_thatItemControllersEqual {
@@ -497,7 +494,7 @@
         [expectation fulfill];
     }];
 
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenPerformingMultipleUpdates_withNewItemInstances_thatItemControllersReceiveNewInstances {
@@ -538,7 +535,7 @@
             [expectation fulfill];
         }];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenQueryingCollectionContext_withNewItemInstances_thatSectionMatchesCurrentIndex {
@@ -571,7 +568,7 @@
         }];
     }];
 
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenItemControllerMutates_withReloadData_thatItemControllerMutationIsApplied {
@@ -595,7 +592,7 @@
         XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenContentOffsetChanges_withPerformUpdates_thatCollectionViewWorks {
@@ -620,7 +617,7 @@
         XCTAssertEqual([self.collectionView numberOfSections], 2);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenReloadingItems_withNewItemInstances_thatItemControllersReceiveNewInstances {
@@ -676,7 +673,7 @@
         XCTAssertEqual([self.collectionView numberOfItemsInSection:2], 2);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenItemControllerMutates_whenThereIsNoWindow_thatCollectionViewCountsAreUpdated {
@@ -703,7 +700,7 @@
         XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 6);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenPerformingUpdates_withoutSettingDataSource_thatCompletionBlockExecutes {
@@ -741,7 +738,7 @@
     // simulate display reloading data on the collection view
     [collectionView layoutIfNeeded];
 
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenPerformingUpdates_withItemsMovingInBlocks_thatCollectionViewWorks {
@@ -785,7 +782,7 @@
         XCTAssertEqual([collectionView numberOfSections], 10);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenReleasingObjects_thatAssertDoesntFire {
@@ -813,7 +810,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [expectation fulfill];
     });
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenItemDeleted_withDisplayDelegate_thatDelegateReceivesDeletedItem {
@@ -838,7 +835,7 @@
         XCTAssertTrue(finished2);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenItemReloaded_withDisplacingMutations_thatCollectionViewWorks {
@@ -863,7 +860,7 @@
         XCTAssertTrue(finished);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenCollectionViewAppears_thatWillDisplayEventsAreSent {
@@ -912,7 +909,7 @@
         XCTAssertEqual([ic2.didEndDisplayCellIndexes countForObject:@1], 1);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenAdapterUpdates_withItemRemoved_thatdidEndDisplayEventsAreSent {
@@ -942,7 +939,7 @@
         XCTAssertEqual([ic2.didEndDisplayCellIndexes countForObject:@1], 1);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 - (void)test_whenAdapterUpdates_withEmptyItems_thatdidEndDisplayEventsAreSent {
@@ -965,7 +962,7 @@
         XCTAssertEqual([ic2.didEndDisplayCellIndexes countForObject:@1], 1);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 @end
