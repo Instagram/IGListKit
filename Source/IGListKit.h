@@ -15,6 +15,7 @@ FOUNDATION_EXPORT double IGListKitVersionNumber;
 //! Project version string for IGListKit.
 FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 
+#import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListAdapter.h>
 #import <IGListKit/IGListAdapterDataSource.h>
 #import <IGListKit/IGListAdapterDelegate.h>
