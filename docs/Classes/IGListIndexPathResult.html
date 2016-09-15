@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>IGListIndexPathResult Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/objc/Class/IGListIndexPathResult" class="dashAnchor"></a>
+    <a title="IGListIndexPathResult Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">IGListKit Docs</a> (78% documented)</p>
+        <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">IGListKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        IGListIndexPathResult Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Categories.html">Categories</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Categories.html#/c:objc(cy)NSObject@IGListDiffable">NSObject(IGListDiffable)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/IGListAdapter.html">IGListAdapter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListIndexSetResult.html">IGListIndexSetResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListItemController.html">IGListItemController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListMoveIndex.html">IGListMoveIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListMoveIndexPath.html">IGListMoveIndexPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/c:objc(cs)IGListReloadDataUpdater">IGListReloadDataUpdater</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListSingleItemController.html">IGListSingleItemController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListStackedItemController.html">IGListStackedItemController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Constants.html">Constants</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@IGListKitVersionNumber">IGListKitVersionNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@IGListKitVersionString">IGListKitVersionString</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/IGListDiffOption.html">IGListDiffOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/IGListExperiment.html">IGListExperiment</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterDataSource.html">IGListAdapterDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListDiffable.html">IGListDiffable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListItemType.html">IGListItemType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListSingleItemControllerDelegate.html">IGListSingleItemControllerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListWorkingRangeDelegate.html">IGListWorkingRangeDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Type Definitions.html">Type Definitions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemTransitionBlock">IGListItemTransitionBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/c:@F@IGListDiff">IGListDiff</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>IGListIndexPathResult</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListIndexPathResult</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>Result object returned when diffing with sections.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListIndexPathResult(py)inserts"></a>
+                    <a name="//apple_ref/objc/Property/inserts" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListIndexPathResult(py)inserts">inserts</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Index paths inserted into the new collection.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">inserts</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">inserts</span><span class="p">:</span> <span class="p">[</span><span class="kt">NSIndexPath</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListIndexPathResult(py)deletes"></a>
+                    <a name="//apple_ref/objc/Property/deletes" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListIndexPathResult(py)deletes">deletes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Index paths deleted from the old collection.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">deletes</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">deletes</span><span class="p">:</span> <span class="p">[</span><span class="kt">NSIndexPath</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListIndexPathResult(py)updates"></a>
+                    <a name="//apple_ref/objc/Property/updates" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListIndexPathResult(py)updates">updates</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Index paths in the new collection that need updated.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">updates</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">updates</span><span class="p">:</span> <span class="p">[</span><span class="kt">NSIndexPath</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListIndexPathResult(py)moves"></a>
+                    <a name="//apple_ref/objc/Property/moves" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListIndexPathResult(py)moves">moves</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Moves from an index path in the old collection to an index path in the new collection.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">moves</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">moves</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyObject</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListIndexPathResult(im)hasChanges"></a>
+                    <a name="//apple_ref/objc/Method/-hasChanges" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListIndexPathResult(im)hasChanges">-hasChanges</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convenience to query if the result has any changes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">hasChanges</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">hasChanges</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>YES if the result has changes, NO otherwise.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListIndexPathResult(im)oldIndexPathForIdentifier:"></a>
+                    <a name="//apple_ref/objc/Method/-oldIndexPathForIdentifier:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListIndexPathResult(im)oldIndexPathForIdentifier:">-oldIndexPathForIdentifier:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetch the index path of the object with identifier before the diff.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nf">oldIndexPathForIdentifier</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">identifier</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">oldIndexPathForIdentifier</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="kt">NSObjectProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSIndexPath</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>identifier</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The diff identifier of the object. See -[IGListDiffable diffIdentifier].</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The index path of the object before the diff, or nil.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListIndexPathResult(im)newIndexPathForIdentifier:"></a>
+                    <a name="//apple_ref/objc/Method/-newIndexPathForIdentifier:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListIndexPathResult(im)newIndexPathForIdentifier:">-newIndexPathForIdentifier:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetch the index path of the object with identifier after the diff.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nf">newIndexPathForIdentifier</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">identifier</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">newIndexPathForIdentifier</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="kt">NSObjectProtocol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSIndexPath</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>identifier</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The diff identifier of the object. See -[IGListDiffable diffIdentifier].</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The index path of the object after the diff, or nil.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListIndexPathResult(im)resultWithUpdatedMovesAsDeleteInserts"></a>
+                    <a name="//apple_ref/objc/Method/-resultWithUpdatedMovesAsDeleteInserts" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListIndexPathResult(im)resultWithUpdatedMovesAsDeleteInserts">-resultWithUpdatedMovesAsDeleteInserts</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a new result object transforming index paths that are both moved and updated into delete and inserts.</p>
+
+<p>@discussion This is a convenience method for using a result object to perform UICollectionView and UITableView updates.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">IGListIndexPathResult</span> <span class="o">*</span><span class="p">)</span><span class="n">resultWithUpdatedMovesAsDeleteInserts</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">resultWithUpdatedMovesAsDeleteInserts</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">IGListIndexPathResult</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListIndexPathResult(im)init"></a>
+                    <a name="//apple_ref/objc/Method/-init" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListIndexPathResult(im)init">-init</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListIndexPathResult</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListIndexPathResult(cm)new"></a>
+                    <a name="//apple_ref/objc/Method/+new" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListIndexPathResult(cm)new">+new</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListIndexPathResult</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-13)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
