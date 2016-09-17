@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
+ * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
@@ -15,9 +15,8 @@
  Bitmask-able options used for prerelease feature testing.
  */
 typedef NS_OPTIONS (NSUInteger, IGListExperiment) {
-  IGListExperimentLayoutBeforeUpdate = 1 << 0,
-  IGListExperimentUICVReloadedInSetter = 1 << 1,
-  IGListExperimentSkipPass4and5 = 1 << 2
+    IGListExperimentLayoutBeforeUpdate = 1 << 0,
+    IGListExperimentUICVReloadedInSetter = 1 << 1,
 };
 
 /**
@@ -29,7 +28,7 @@ typedef NS_OPTIONS (NSUInteger, IGListExperiment) {
  @return YES if the option is in the bitmask, otherwise NO.
  */
 static inline BOOL IGListExperimentEnabled(IGListExperiment mask, IGListExperiment option) {
-  return (mask & option) != 0;
+    return (mask & option) != 0;
 }
 
 NS_ASSUME_NONNULL_BEGIN

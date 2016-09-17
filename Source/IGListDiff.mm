@@ -158,46 +158,6 @@ static id IGListDiffing(BOOL returnIndexPaths,
         }
     }
 
-    // iterate na in ascending order
-    // if na[i] == oa[j] and na[i+1] == oa[j+1], assign them to the opposite index+1
-    // pass 4 is for ascending and 5 descending, block covers logic for both
-    void (^pass4And5Block)(BOOL, vector<IGListRecord>&, vector<IGListRecord>&) = ^(BOOL ascending, vector<IGListRecord> &newResults, vector<IGListRecord> &oldResults) {
-        const NSInteger offset = ascending ? 1 : -1;
-        for (NSInteger i = ascending ? 0 : newCount - 1;
-             (ascending && i < newCount - 1) || (!ascending && i > 0);
-             ascending ? i++ : i--) {
-
-            // don't check block moves for new elements
-            if (IGListRecordIsInsert(newResults[i])) {
-                continue;
-            }
-
-            const NSInteger nj = newResults[i].index + offset;
-            const NSInteger ni = i + offset;
-            const IGListRecord next = newResults[ni];
-            const IGListEntry *entry = next.entry;
-
-            // if we are comparing the same entry, it hasn't been updated, and its identity count hasn't changed
-            // we can mark the record as part of a block so it isn't counted as an insert/delete
-            if (nj < oldCount
-                && nj > 0
-                && entry == oldResults[nj].entry
-                && !entry->updated
-                && entry->oldCounter == entry->newCounter) {
-                oldResults[nj].index = ni;
-                newResults[ni].index = nj;
-            }
-        }
-    };
-
-    if (!IGListExperimentEnabled(experiments, IGListExperimentSkipPass4and5)) {
-        // pass 4
-        pass4And5Block(YES, newResultsArray, oldResultsArray);
-
-        // pass 5
-        pass4And5Block(NO, newResultsArray, oldResultsArray);
-    }
-
     // storage for final NSIndexPaths or indexes
     id mInserts, mMoves, mUpdates, mDeletes;
     if (returnIndexPaths) {

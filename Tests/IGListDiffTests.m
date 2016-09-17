@@ -291,10 +291,10 @@ static NSArray *sorted(NSArray *arr) {
     XCTAssertFalse([result hasChanges]);
 }
 
-- (void)test_whenSkippingPass4and5_withDuplicateObjects_thatMovesAreUnique {
+- (void)test_whenDuplicateObjects_thatMovesAreUnique {
     NSArray *o = @[@"cat", [NSObject new], @"dog", @"dog", [NSObject new], [NSObject new], @"cat", @65];
     NSArray *n = @[@"cat", o[1], @"dog", o[4], @"dog", o[5], @"cat", @"cat", @"fish", @65];
-    IGListIndexSetResult *result = IGListDiffExperiment(o, n, IGListDiffEquality, IGListExperimentSkipPass4and5);
+    IGListIndexSetResult *result = IGListDiff(o, n, IGListDiffEquality);
     XCTAssertEqual([[NSSet setWithArray:[[result moves] valueForKeyPath:@"from"]] count], [result.moves count]);
 }
 
