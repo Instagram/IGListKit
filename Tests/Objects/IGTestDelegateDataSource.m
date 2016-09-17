@@ -21,7 +21,9 @@
 }
 
 - (IGListItemController <IGListItemType> *)listAdapter:(IGListAdapter *)listAdapter itemControllerForItem:(id)item {
-    return [[IGTestDelegateController alloc] init];
+    IGTestDelegateController *itemController = [[IGTestDelegateController alloc] init];
+    itemController.cellConfigureBlock = self.cellConfigureBlock;
+    return itemController;
 }
 
 - (nullable UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {

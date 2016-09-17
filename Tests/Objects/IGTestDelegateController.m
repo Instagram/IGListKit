@@ -38,6 +38,9 @@
                                                           forItemController:self atIndex:index];
     [[cell label] setText:[NSString stringWithFormat:@"%@", self.item.value]];
     [cell setDelegate:self];
+    if (self.cellConfigureBlock) {
+        self.cellConfigureBlock(self);
+    }
     return cell;
 }
 

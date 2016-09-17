@@ -19,6 +19,7 @@
 
 @implementation IGListAdapter {
     NSMapTable<UICollectionViewCell *, IGListItemController<IGListItemType> *> *_cellItemControllerMap;
+    BOOL _isDequeuingCell;
 }
 
 - (void)dealloc {
@@ -535,7 +536,12 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     IGListItemController<IGListItemType> *itemController = [self.itemMap itemControllerForSection:indexPath.section];
+
+    // flag that a cell is being dequeued in case it tries to access a cell in the process
+    _isDequeuingCell = YES;
     UICollectionViewCell *cell = [itemController cellForItemAtIndex:indexPath.item];
+    _isDequeuingCell = NO;
+
     IGAssert(cell != nil, @"Returned a nil cell at indexPath <%@> from item controller: <%@>", indexPath, itemController);
 
     // associate the item controller with the cell so that we know which item controller is using it
@@ -634,6 +640,12 @@
                                    itemController:(IGListItemController <IGListItemType> *)itemController {
     IGAssertMainThread();
     IGParameterAssert(itemController != nil);
+
+    // if this is accessed while a cell is being dequeued, just return nil
+    if (_isDequeuingCell) {
+        return nil;
+    }
+
     NSIndexPath *indexPath = [self indexPathForItemController:itemController index:index];
     // prevent querying the collection view if it isn't fully reloaded yet for the current data set
     if (indexPath != nil

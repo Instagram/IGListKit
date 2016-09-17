@@ -965,4 +965,34 @@
     [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
+- (void)test_whenBatchUpdating_withCellQuery_thatCellIsNil {
+    __block BOOL executed = NO;
+    __weak __typeof__(self) weakSelf = self;
+    void (^block)(IGTestDelegateController *) = ^(IGTestDelegateController *ic) {
+        executed = YES;
+        XCTAssertNil([weakSelf.adapter cellForItemAtIndex:0 itemController:ic]);
+    };
+    self.dataSource.cellConfigureBlock = block;
+
+    [self setupWithObjects:@[
+                             genTestObject(@1, @1),
+                             genTestObject(@2, @1),
+                             genTestObject(@3, @1),
+                             ]];
+
+    // delete the last object from the original array
+    self.dataSource.objects = @[
+                                genTestObject(@1, @1),
+                                genTestObject(@2, @1),
+                                genTestObject(@4, @1),
+                                genTestObject(@5, @1),
+                                genTestObject(@6, @1),
+                                ];
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
 @end

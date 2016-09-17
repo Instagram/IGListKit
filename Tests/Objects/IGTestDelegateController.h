@@ -18,6 +18,7 @@
 @property (nonatomic, strong, readonly) IGTestObject *item;
 
 @property (nonatomic, copy) void (^itemUpdateBlock)();
+@property (nonatomic, copy) void (^cellConfigureBlock)(IGTestDelegateController *);
 @property (nonatomic, assign, readonly) NSUInteger updateCount;
 
 @property (nonatomic, assign) NSUInteger willDisplayCount;

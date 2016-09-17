@@ -12,9 +12,12 @@
 #import <IGListKit/IGListAdapterDataSource.h>
 
 @class IGTestObject;
+@class IGTestDelegateController;
 
 @interface IGTestDelegateDataSource : NSObject <IGListAdapterDataSource>
 
 @property (nonatomic, strong) NSArray <IGTestObject *> *objects;
+
+@property (nonatomic, copy) void (^cellConfigureBlock)(IGTestDelegateController *);
 
 @end
