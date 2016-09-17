@@ -29,13 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)didSelectSingleItemController:(IGListSingleItemController *)itemController;
 
-/**
- Tells the delegate that the item controller was deselected.
-
- @param itemController The item controller that was deselected.
- */
-- (void)didDeselectSingleItemController:(IGListSingleItemController *)itemController;
-
 @end
 
 /**

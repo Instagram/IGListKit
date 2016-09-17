@@ -566,16 +566,6 @@
     [itemController didSelectItemAtIndex:indexPath.item];
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    id<UICollectionViewDelegate> collectionViewDelegate = self.collectionViewDelegate;
-    if ([collectionViewDelegate respondsToSelector:@selector(collectionView:didDeselectItemAtIndexPath:)]) {
-        [collectionViewDelegate collectionView:collectionView didDeselectItemAtIndexPath:indexPath];
-    }
-
-    IGListItemController <IGListItemType> * itemController = [self.itemMap itemControllerForSection:indexPath.section];
-    [itemController didDeselectItemAtIndex:indexPath.item];
-}
-
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     // forward this method to the delegate b/c this implementation will steal the message from the proxy
     id<UICollectionViewDelegate> collectionViewDelegate = self.collectionViewDelegate;

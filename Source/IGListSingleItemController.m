@@ -61,8 +61,4 @@
     [self.selectionDelegate didSelectSingleItemController:self];
 }
 
-- (void)didDeselectItemAtIndex:(NSInteger)index {
-    [self.selectionDelegate didDeselectSingleItemController:self];
-}
-
 @end

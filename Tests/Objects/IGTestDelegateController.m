@@ -54,7 +54,6 @@
 }
 
 - (void)didSelectItemAtIndex:(NSInteger)index {}
-- (void)didDeselectItemAtIndex:(NSInteger)index {}
 
 #pragma mark - IGListDisplayDelegate
 

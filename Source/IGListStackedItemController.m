@@ -148,9 +148,6 @@ static void * kStackedItemControllerIndexKey = &kStackedItemControllerIndexKey;
     [itemController didSelectItemAtIndex:localIndex];
 }
 
-- (void)didDeselectItemAtIndex:(NSInteger)index {}
-
-
 #pragma mark - IGListCollectionContext
 
 - (CGSize)containerSize {

@@ -88,15 +88,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)didSelectItemAtIndex:(NSInteger)index;
 
-/**
- Tells the IGListItemType that the item at the specified index path was deselected.
-
- @param index The index of the requested row.
-
- @discussion Implementation of this method is required for compile-time safety, but you are free to do nothing.
- */
-- (void)didDeselectItemAtIndex:(NSInteger)index;
-
 @end
 
 NS_ASSUME_NONNULL_END
