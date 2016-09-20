@@ -11,6 +11,7 @@
 
 #import <IGListKit/IGListCollectionContext.h>
 #import <IGListKit/IGListDisplayDelegate.h>
+#import <IGListKit/IGListScrollDelegate.h>
 #import <IGListKit/IGListSupplementaryViewSource.h>
 #import <IGListKit/IGListWorkingRangeDelegate.h>
 
@@ -80,5 +81,14 @@
  @discussion You may wish to return self if your item controller implements this protocol.
  */
 @property (nonatomic, weak, nullable) id <IGListWorkingRangeDelegate> workingRangeDelegate;
+
+/**
+ An object that handles display events for the item controller. Can be nil.
+
+ @return An object that conforms to IGListDisplayDelegate or nil.
+
+ @discussion You may wish to return self if your item controller implements this protocol.
+ */
+@property (nonatomic, weak, nullable) id <IGListScrollDelegate> scrollDelegate;
 
 @end

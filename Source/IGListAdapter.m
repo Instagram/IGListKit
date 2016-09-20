@@ -607,6 +607,8 @@
     [self removeMapForCell:cell];
 }
 
+#pragma mark - UIScrollViewDelegate
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     // forward this method to the delegate b/c this implementation will steal the message from the proxy
     id<UIScrollViewDelegate> scrollViewDelegate = self.scrollViewDelegate;
@@ -615,7 +617,31 @@
     }
     NSArray<IGListItemController<IGListItemType> *> *visibleItemControllers = [self visibleItemControllers];
     for (IGListItemController<IGListItemType> *itemController in visibleItemControllers) {
-        [[itemController displayDelegate] listAdapter:self didScrollItemController:itemController];
+        [[itemController scrollDelegate] listAdapter:self didScrollItemController:itemController];
+    }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    // forward this method to the delegate b/c this implementation will steal the message from the proxy
+    id<UIScrollViewDelegate> scrollViewDelegate = self.scrollViewDelegate;
+    if ([scrollViewDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
+        [scrollViewDelegate scrollViewDidScroll:scrollView];
+    }
+    NSArray<IGListItemController<IGListItemType> *> *visibleItemControllers = [self visibleItemControllers];
+    for (IGListItemController<IGListItemType> *itemController in visibleItemControllers) {
+        [[itemController scrollDelegate] listAdapter:self willBeginDraggingItemController:itemController];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    // forward this method to the delegate b/c this implementation will steal the message from the proxy
+    id<UIScrollViewDelegate> scrollViewDelegate = self.scrollViewDelegate;
+    if ([scrollViewDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
+        [scrollViewDelegate scrollViewDidScroll:scrollView];
+    }
+    NSArray<IGListItemController<IGListItemType> *> *visibleItemControllers = [self visibleItemControllers];
+    for (IGListItemController<IGListItemType> *itemController in visibleItemControllers) {
+        [[itemController scrollDelegate] listAdapter:self didEndDraggingItemController:itemController willDecelerate:decelerate];
     }
 }
 

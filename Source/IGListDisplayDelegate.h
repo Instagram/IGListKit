@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- Implement this protocol to receive display events for a list.
+ Implement this protocol to receive display events for an item controller when it is on screen.
  */
 @protocol IGListDisplayDelegate <NSObject>
 
@@ -52,22 +52,14 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Tells the delegate that a row in the specified list is no longer being displayed.
 
- @param listAdapter        The list adapter that the list was displayed in.
+ @param listAdapter    The list adapter that the list was displayed in.
  @param itemController The item controller that is no longer displaying the cell.
- @param cell               The cell that is no longer displayed.
- @param index              The index of the row.
+ @param cell           The cell that is no longer displayed.
+ @param index          The index of the row.
  */
 - (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingItemController:(IGListItemController <IGListItemType> *)itemController
                cell:(UICollectionViewCell *)cell
             atIndex:(NSInteger)index;
-
-/**
- Tells the delegate that the item controller was scrolled on screen.
-
- @param listAdapter        The list adapter whose collection view was scrolled.
- @param itemController The visible item controller that was scrolled.
- */
-- (void)listAdapter:(IGListAdapter *)listAdapter didScrollItemController:(IGListItemController <IGListItemType> *)itemController;
 
 @end
 

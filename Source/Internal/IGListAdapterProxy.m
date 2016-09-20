@@ -29,7 +29,9 @@ static BOOL isInterceptedSelector(SEL sel) {
             sel == @selector(collectionView:layout:referenceSizeForFooterInSection:) ||
             sel == @selector(collectionView:layout:referenceSizeForHeaderInSection:) ||
             // UIScrollViewDelegate
-            sel == @selector(scrollViewDidScroll:)
+            sel == @selector(scrollViewDidScroll:) ||
+            sel == @selector(scrollViewWillBeginDragging:) ||
+            sel == @selector(scrollViewDidEndDragging:willDecelerate:)
             );
 }
 

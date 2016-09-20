@@ -12,7 +12,11 @@
 #import "IGListStackedItemController.h"
 
 @interface IGListStackedItemController ()
-<IGListCollectionContext, IGListDisplayDelegate>
+<
+IGListCollectionContext,
+IGListDisplayDelegate,
+IGListScrollDelegate
+>
 
 @property (nonatomic, strong, readonly) NSOrderedSet<__kindof IGListItemController<IGListItemType> *> *itemControllers;
 

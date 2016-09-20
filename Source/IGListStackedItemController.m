@@ -59,6 +59,7 @@ static void * kStackedItemControllerIndexKey = &kStackedItemControllerIndexKey;
         _itemControllers = [NSOrderedSet orderedSetWithArray:itemControllers];
 
         self.displayDelegate = self;
+        self.scrollDelegate = self;
 
         [self reloadData];
     }
@@ -277,9 +278,23 @@ static void * kStackedItemControllerIndexKey = &kStackedItemControllerIndexKey;
 - (void)listAdapter:(IGListAdapter *)listAdapter willDisplayItemController:(IGListItemController<IGListItemType> *)itemController {}
 - (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingItemController:(IGListItemController<IGListItemType> *)itemController {}
 
+#pragma mark - IGListScrollDelegate
+
 - (void)listAdapter:(IGListAdapter *)listAdapter didScrollItemController:(IGListItemController<IGListItemType> *)itemController {
     for (IGListItemController<IGListItemType> *childItemController in self.itemControllers) {
-        [[childItemController displayDelegate] listAdapter:listAdapter didScrollItemController:childItemController];
+        [[childItemController scrollDelegate] listAdapter:listAdapter didScrollItemController:childItemController];
+    }
+}
+
+- (void)listAdapter:(IGListAdapter *)listAdapter willBeginDraggingItemController:(IGListItemController<IGListItemType> *)itemController {
+    for (IGListItemController<IGListItemType> *childItemController in self.itemControllers) {
+        [[childItemController scrollDelegate] listAdapter:listAdapter willBeginDraggingItemController:itemController];
+    }
+}
+
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDraggingItemController:(IGListItemController<IGListItemType> *)itemController willDecelerate:(BOOL)decelerate {
+    for (IGListItemController<IGListItemType> *childItemController in self.itemControllers) {
+        [[childItemController scrollDelegate] listAdapter:listAdapter didEndDraggingItemController:childItemController willDecelerate:decelerate];
     }
 }
 
