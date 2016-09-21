@@ -624,8 +624,8 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     // forward this method to the delegate b/c this implementation will steal the message from the proxy
     id<UIScrollViewDelegate> scrollViewDelegate = self.scrollViewDelegate;
-    if ([scrollViewDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
-        [scrollViewDelegate scrollViewDidScroll:scrollView];
+    if ([scrollViewDelegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]) {
+        [scrollViewDelegate scrollViewWillBeginDragging:scrollView];
     }
     NSArray<IGListSectionController<IGListSectionType> *> *visibleSectionControllers = [self visibleSectionControllers];
     for (IGListSectionController<IGListSectionType> *sectionController in visibleSectionControllers) {
@@ -636,8 +636,8 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     // forward this method to the delegate b/c this implementation will steal the message from the proxy
     id<UIScrollViewDelegate> scrollViewDelegate = self.scrollViewDelegate;
-    if ([scrollViewDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
-        [scrollViewDelegate scrollViewDidScroll:scrollView];
+    if ([scrollViewDelegate respondsToSelector:@selector(scrollViewDidEndDragging:willDecelerate:)]) {
+        [scrollViewDelegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
     }
     NSArray<IGListSectionController<IGListSectionType> *> *visibleSectionControllers = [self visibleSectionControllers];
     for (IGListSectionController<IGListSectionType> *sectionController in visibleSectionControllers) {
