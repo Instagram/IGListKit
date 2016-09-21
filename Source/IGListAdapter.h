@@ -14,12 +14,12 @@
 #import <IGListKit/IGListCollectionContext.h>
 #import <IGListKit/IGListCollectionView.h>
 #import <IGListKit/IGListExperiments.h>
-#import <IGListKit/IGListItemType.h>
+#import <IGListKit/IGListSectionType.h>
 #import <IGListKit/IGListMacros.h>
 
 @protocol IGListUpdatingDelegate;
 
-@class IGListItemController;
+@class IGListSectionController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,11 +27,11 @@ typedef void (^IGListUpdaterCompletion)(BOOL finished);
 
 /**
  IGListAdapter objects provide an abstraction for feeds of objects in a UICollectionView by breaking each object into
- individual sections, called "list items". These items (objects conforming to IGListItemType) act as a data source
- and delegate for each section.
+ individual sections, called "section controllers". These controllers (objects conforming to IGListSectionType) act as a
+ data source and delegate for each section.
 
- Feed implementations must act as the data source for an IGListAdapter in order to drive the objects and list items in a
- collection view.
+ Feed implementations must act as the data source for an IGListAdapter in order to drive the objects and section 
+ controllers in a collection view.
  */
 IGLK_SUBCLASSING_RESTRICTED
 @interface IGListAdapter : NSObject
@@ -52,7 +52,7 @@ IGLK_SUBCLASSING_RESTRICTED
 @property (nonatomic, nullable, weak) id <IGListAdapterDataSource> dataSource;
 
 /**
- The object that receives high level display events for list items.
+ The object that receives top-level events for section controllers.
  */
 @property (nonatomic, nullable, weak) id <IGListAdapterDelegate> delegate;
 
@@ -78,22 +78,20 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @param updatingDelegate An object that manages updates to the UICollectionView.
  @param viewController   The view controller that will house the adapter.
- @param workingRangeSize The number of items before and after the viewport to consider within the working range.
+ @param workingRangeSize The number of objects before and after the viewport to consider within the working range.
 
  @return A new IGListAdapter object.
 
- @discussion The working range is the number of items beyond the visible items (plus and minus) that should be notified
- when they are close to being visible. For instance, if you have 3 items on screen and a working range of 2, the
- previous and succeeding 2 items will be notified that they are within the working range. As you scroll the list the
- range is updated as items enter and exit the working range.
+ @discussion The working range is the number of objects beyond the visible objects (plus and minus) that should be 
+ notified when they are close to being visible. For instance, if you have 3 objects on screen and a working range of 2,
+ the previous and succeeding 2 objects will be notified that they are within the working range. As you scroll the list the
+ range is updated as objects enter and exit the working range.
 
  To opt out of using the working range, you can provide a value of 0.
  */
 - (instancetype)initWithUpdatingDelegate:(id <IGListUpdatingDelegate>)updatingDelegate
                           viewController:(nullable UIViewController *)viewController
                         workingRangeSize:(NSUInteger)workingRangeSize NS_DESIGNATED_INITIALIZER;
-
-#pragma mark - Editing
 
 /**
  Perform an update from the previous state of the data source. This is analagous to calling
@@ -105,99 +103,90 @@ IGLK_SUBCLASSING_RESTRICTED
 - (void)performUpdatesAnimated:(BOOL)animated completion:(nullable IGListUpdaterCompletion)completion;
 
 /**
- Perform an immediate reload of the data in the data source, discarding the old items.
+ Perform an immediate reload of the data in the data source, discarding the old objectss.
 
  @param completion A block executed when the reload completes.
  */
 - (void)reloadDataWithCompletion:(nullable IGListUpdaterCompletion)completion;
 
 /**
- Reload the infra for specific items only.
+ Reload the infra for specific objectss only.
 
- @param items The items to reload.
+ @param objectss The objects to reload.
  */
-- (void)reloadItems:(NSArray *)items;
-
-
-#pragma mark - Items & Sections
+- (void)reloadObjects:(NSArray *)objects;
 
 /**
  Query the section index of a list. Constant time lookup.
 
- @param itemController A list object.
+ @param sectionController A list object.
 
  @return The section index of the list or NSNotFound.
  */
-- (NSUInteger)sectionForItemController:(IGListItemController <IGListItemType> *)itemController;
+- (NSUInteger)sectionForSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
 
 /**
- Fetch an item controller for an object in the feed. Constant time lookup.
+ Fetch an section controller for an object in the feed. Constant time lookup.
 
- @param item An item from the data source.
+ @param object An object from the data source.
 
- @return An item controller or nil.
+ @return An section controller or nil.
 
- @see -[IGListAdapterDataSource listAdapter:itemControllerForItem:]
+ @see -[IGListAdapterDataSource listAdapter:sectionControllerForObject:]
  */
-- (__kindof IGListItemController <IGListItemType> * _Nullable)itemControllerForItem:(id)item;
+- (__kindof IGListSectionController <IGListSectionType> * _Nullable)sectionControllerForObject:(id)object;
 
 /**
- Fetch the item corresponding to a section in the feed. Constant time lookup.
+ Fetch the object corresponding to a section in the feed. Constant time lookup.
 
  @param section A section in the feed.
 
- @return An item or nil.
+ @return An object or nil.
  */
-- (nullable id)itemAtSection:(NSUInteger)section;
+- (nullable id)objectAtSection:(NSUInteger)section;
 
 /**
- Fetch the section corresponding to an item in the feed. Constant time lookup.
+ Fetch the section corresponding to an object in the feed. Constant time lookup.
 
- @param item An item in the feed
+ @param object An object in the feed
 
  @return A section index if found or NSNotFound.
  */
-- (NSUInteger)sectionForItem:(id)item;
+- (NSUInteger)sectionForObject:(id)object;
 
 /**
- A copy of all the items currently powering the adapter.
+ A copy of all the objects currently powering the adapter.
 
- @return An array of items.
+ @return An array of objects.
  */
-- (NSArray *)items;
+- (NSArray *)objects;
 
 /**
- An unordered array of the currently visible item controllers.
+ An unordered array of the currently visible section controllers.
 
- @return An array of item controllers.
+ @return An array of section controllers.
  */
-- (NSArray<IGListItemController<IGListItemType> *> *)visibleItemControllers;
-
-
-#pragma mark - UICollectionView
+- (NSArray<IGListSectionController<IGListSectionType> *> *)visibleSectionControllers;
 
 /**
- Scroll to an item in the list adapter.
+ Scroll to an object in the list adapter.
 
- @param item               The item to scroll to.
+ @param object             The object to scroll to.
  @param supplementaryKinds The types of supplementary views in the section.
  @param scrollDirection    A flag indicating the direction to scroll.
  @param animated           A flag indicating if the transition should be animated.
  */
-- (void)scrollToItem:(id)item
+- (void)scrollToObject:(id)object
   supplementaryKinds:(nullable NSArray<NSString *> *)supplementaryKinds
      scrollDirection:(UICollectionViewScrollDirection)scrollDirection
             animated:(BOOL)animated;
 
-
-#pragma mark - Layout
-
 /**
- Query the size of an item in the list at the specified index path.
+ Query the size of a cell at the specified index path.
 
- @param indexPath The index path of the item.
+ @param indexPath The index path of the cell.
 
- @return The size of the item.
+ @return The size of the cell.
  */
 - (CGSize)sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
 

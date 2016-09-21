@@ -9,24 +9,24 @@
 
 #import "IGTestStackedDataSource.h"
 
-#import <IGListKit/IGListStackedItemController.h>
+#import <IGListKit/IGListStackedSectionController.h>
 
 #import "IGListTestSection.h"
 
 @implementation IGTestStackedDataSource
 
-- (NSArray *)itemsForListAdapter:(IGListAdapter *)listAdapter {
+- (NSArray *)objectsForListAdapter:(IGListAdapter *)listAdapter {
     return self.objects;
 }
 
-- (IGListItemController <IGListItemType> *)listAdapter:(IGListAdapter *)listAdapter itemControllerForItem:(id)object {
+- (IGListSectionController <IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
     NSMutableArray *controllers = [[NSMutableArray alloc] init];
     for (NSNumber *num in [(IGTestObject *)object value]) {
         IGListTestSection *controller = [[IGListTestSection alloc] init];
         controller.items = [num integerValue];
         [controllers addObject:controller];
     }
-    return [[IGListStackedItemController alloc] initWithItemControllers:controllers];
+    return [[IGListStackedSectionController alloc] initWithSectionControllers:controllers];
 }
 
 - (nullable UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {

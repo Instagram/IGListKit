@@ -21,7 +21,7 @@
 @interface _IGTestWorkingRangeAdapterDataSource : NSObject <IGListAdapterDataSource>
 
 - (instancetype)initWithObjects:(NSArray *)objects
-          objectToControllerMap:(NSDictionary<id, IGListItemController *> *)map;
+          objectToControllerMap:(NSDictionary<id, IGListSectionController *> *)map;
 
 @end
 
@@ -31,7 +31,7 @@
 }
 
 - (instancetype)initWithObjects:(NSArray *)objects
-          objectToControllerMap:(NSDictionary<id,IGListItemController *> *)map {
+          objectToControllerMap:(NSDictionary<id,IGListSectionController *> *)map {
     if (self = [super init]) {
         _objects = objects;
         _map = map;
@@ -43,13 +43,13 @@
     return nil;
 }
 
-- (NSArray<id<IGListDiffable>> *)itemsForListAdapter:(IGListAdapter *)listAdapter {
+- (NSArray<id<IGListDiffable>> *)objectsForListAdapter:(IGListAdapter *)listAdapter {
     return _objects;
 }
 
-- (IGListItemController<IGListItemType> *)listAdapter:(IGListAdapter *)listAdapter
-                            itemControllerForItem:(id)item {
-    return [_map objectForKey:item];
+- (IGListSectionController<IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter
+                            sectionControllerForObject:(id)object {
+    return [_map objectForKey:object];
 }
 
 @end
@@ -79,7 +79,7 @@
     [adapter performUpdatesAnimated:NO completion:nil];
 
     // Act: Tell the working range handler that the first, and only item in the list will be displayed.
-    [[mockWorkingRangeDelegate expect] listAdapter:adapter itemControllerWillEnterWorkingRange:controller];
+    [[mockWorkingRangeDelegate expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller];
     [adapter.workingRangeHandler willDisplayItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] forListAdapter:adapter];
 
     [mockWorkingRangeDelegate verifyWithDelay:5];
@@ -104,14 +104,14 @@
     [adapter performUpdatesAnimated:NO completion:nil];
 
     // Arrange 3: Tell the working range handler that the first, and only item in the list will be displayed.
-    [[mockWorkingRangeDelegate expect] listAdapter:adapter itemControllerWillEnterWorkingRange:controller];
+    [[mockWorkingRangeDelegate expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller];
     [adapter.workingRangeHandler willDisplayItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] forListAdapter:adapter];
 
     // Arrange 4: Wait for the item to move in-range
     [mockWorkingRangeDelegate verifyWithDelay:5];
 
     // Act: Tell the working range handler that the first item is now hidden.
-    [[mockWorkingRangeDelegate expect] listAdapter:adapter itemControllerDidExitWorkingRange:controller];
+    [[mockWorkingRangeDelegate expect] listAdapter:adapter sectionControllerDidExitWorkingRange:controller];
     [adapter.workingRangeHandler didEndDisplayingItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] forListAdapter:adapter];
 
     [mockWorkingRangeDelegate verifyWithDelay:5];
@@ -139,7 +139,7 @@
     [adapter performUpdatesAnimated:NO completion:nil];
 
     // Act: Tell the working range handler that the first, and only item in the list will be displayed.
-    [[mockWorkingRangeDelegate expect] listAdapter:adapter itemControllerWillEnterWorkingRange:controller2];
+    [[mockWorkingRangeDelegate expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller2];
     [adapter.workingRangeHandler willDisplayItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] forListAdapter:adapter];
 
     [mockWorkingRangeDelegate verifyWithDelay:5];
@@ -172,8 +172,8 @@
     [adapter performUpdatesAnimated:NO completion:nil];
 
     // Act: Tell the working range handler that the first, and only item in the list will be displayed.
-    [[mockWorkingRangeDelegate2 expect] listAdapter:adapter itemControllerWillEnterWorkingRange:controller2];
-    [[mockWorkingRangeDelegate3 reject] listAdapter:[OCMArg any] itemControllerWillEnterWorkingRange:[OCMArg any]];
+    [[mockWorkingRangeDelegate2 expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller2];
+    [[mockWorkingRangeDelegate3 reject] listAdapter:[OCMArg any] sectionControllerWillEnterWorkingRange:[OCMArg any]];
     [adapter.workingRangeHandler willDisplayItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] forListAdapter:adapter];
 
     [mockWorkingRangeDelegate2 verifyWithDelay:5];
@@ -202,14 +202,14 @@
     [adapter performUpdatesAnimated:NO completion:nil];
 
     // Arrange 3: Tell the working range handler that the first, and only item in the list will be displayed.
-    [[mockWorkingRangeDelegate expect] listAdapter:adapter itemControllerWillEnterWorkingRange:controller2];
+    [[mockWorkingRangeDelegate expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller2];
     [adapter.workingRangeHandler willDisplayItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] forListAdapter:adapter];
 
     // Arrange 4: Wait for the item to move in-range.
     [mockWorkingRangeDelegate verifyWithDelay:5];
 
     // Act: Hide the first item, and watch for the second item to leave the working range.
-    [[mockWorkingRangeDelegate expect] listAdapter:adapter itemControllerDidExitWorkingRange:controller2];
+    [[mockWorkingRangeDelegate expect] listAdapter:adapter sectionControllerDidExitWorkingRange:controller2];
     [adapter.workingRangeHandler didEndDisplayingItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] forListAdapter:adapter];
 
     [mockWorkingRangeDelegate verifyWithDelay:5];

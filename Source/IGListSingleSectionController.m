@@ -7,11 +7,11 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGListSingleItemController.h"
+#import "IGListSingleSectionController.h"
 
 #import <IGListKit/IGListAssert.h>
 
-@interface IGListSingleItemController ()
+@interface IGListSingleSectionController ()
 
 @property (nonatomic, strong, readonly) Class cellClass;
 @property (nonatomic, strong, readonly) void (^configureBlock)(id, __kindof UICollectionViewCell *);
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation IGListSingleItemController
+@implementation IGListSingleSectionController
 
 - (instancetype)initWithCellClass:(Class)cellClass
                    configureBlock:(void (^)(id, __kindof UICollectionViewCell *))configureBlock
@@ -36,7 +36,7 @@
     return self;
 }
 
-#pragma mark - IGListItemType
+#pragma mark - IGListSectionType
 
 - (NSUInteger)numberOfItems {
     return 1;
@@ -48,17 +48,17 @@
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
     IGParameterAssert(index == 0);
-    id cell = [self.collectionContext dequeReusableCellOfClass:self.cellClass forItemController:self atIndex:index];
+    id cell = [self.collectionContext dequeReusableCellOfClass:self.cellClass forSectionController:self atIndex:index];
     self.configureBlock(self.item, cell);
     return cell;
 }
 
-- (void)didUpdateToItem:(id)item {
-    self.item = item;
+- (void)didUpdateToObject:(id)object {
+    self.item = object;
 }
 
 - (void)didSelectItemAtIndex:(NSInteger)index {
-    [self.selectionDelegate didSelectSingleItemController:self];
+    [self.selectionDelegate didSelectSingleSectionController:self];
 }
 
 @end

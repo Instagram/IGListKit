@@ -10,14 +10,14 @@
 #import <UIKit/UIKit.h>
 
 @class IGListAdapter;
-@class IGListItemController;
+@class IGListSectionController;
 
-@protocol IGListItemType;
+@protocol IGListSectionType;
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- Implement this protocol to receive display events for an item controller when it is on screen.
+ Implement this protocol to receive display events for an section controller when it is on screen.
  */
 @protocol IGListDisplayDelegate <NSObject>
 
@@ -25,27 +25,27 @@ NS_ASSUME_NONNULL_BEGIN
  Tells the delegate that the specified list is about to be displayed.
 
  @param listAdapter        The list adapter that the list will display in.
- @param itemController The list about to be displayed.
+ @param sectionController The list about to be displayed.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter willDisplayItemController:(IGListItemController <IGListItemType> *)itemController;
+- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController <IGListSectionType> *)sectionController;
 
 /**
  Tells the delegate that the specified list is no longer being displayed.
 
  @param listAdapter        The list adapter that the list was displayed in.
- @param itemController The list that is no longer displayed.
+ @param sectionController The list that is no longer displayed.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingItemController:(IGListItemController <IGListItemType> *)itemController;
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
 
 /**
  Tells the delegate that a row in the specified list is about to be displayed.
 
  @param listAdapter        The list adapter that row will display in.
- @param itemController The item controller that is displaying.
+ @param sectionController The section controller that is displaying.
  @param cell               The cell about to be displayed.
  @param index              The index of the row.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter willDisplayItemController:(IGListItemController <IGListItemType> *)itemController
+- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController <IGListSectionType> *)sectionController
                cell:(UICollectionViewCell *)cell
             atIndex:(NSInteger)index;
 
@@ -53,11 +53,11 @@ NS_ASSUME_NONNULL_BEGIN
  Tells the delegate that a row in the specified list is no longer being displayed.
 
  @param listAdapter    The list adapter that the list was displayed in.
- @param itemController The item controller that is no longer displaying the cell.
+ @param sectionController The section controller that is no longer displaying the cell.
  @param cell           The cell that is no longer displayed.
  @param index          The index of the row.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingItemController:(IGListItemController <IGListItemType> *)itemController
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController <IGListSectionType> *)sectionController
                cell:(UICollectionViewCell *)cell
             atIndex:(NSInteger)index;
 

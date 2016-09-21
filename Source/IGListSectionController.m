@@ -7,55 +7,55 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGListItemControllerInternal.h"
+#import "IGListSectionControllerInternal.h"
 
 #import <IGListKit/IGListMacros.h>
 #import <IGListKit/IGListAssert.h>
 
-static NSString * const kIGListItemControllerThreadKey = @"kIGListItemControllerThreadKey";
+static NSString * const kIGListSectionControllerThreadKey = @"kIGListSectionControllerThreadKey";
 
-@interface IGListItemControllerThreadContext : NSObject
+@interface IGListSectionControllerThreadContext : NSObject
 @property (nonatomic, weak) UIViewController *viewController;
 @property (nonatomic, weak) id<IGListCollectionContext> collectionContext;
 @end
-@implementation IGListItemControllerThreadContext
+@implementation IGListSectionControllerThreadContext
 @end
 
-static NSMutableArray<IGListItemControllerThreadContext *> *threadContextStack(void) {
+static NSMutableArray<IGListSectionControllerThreadContext *> *threadContextStack(void) {
     IGAssertMainThread();
     NSMutableDictionary *threadDictionary = [[NSThread currentThread] threadDictionary];
-    NSMutableArray *stack = threadDictionary[kIGListItemControllerThreadKey];
+    NSMutableArray *stack = threadDictionary[kIGListSectionControllerThreadKey];
     if (stack == nil) {
         stack = [NSMutableArray new];
-        threadDictionary[kIGListItemControllerThreadKey] = stack;
+        threadDictionary[kIGListSectionControllerThreadKey] = stack;
     }
     return stack;
 }
 
-void IGListItemControllerPushThread(UIViewController *viewController, id<IGListCollectionContext> collectionContext) {
-    IGListItemControllerThreadContext *context = [IGListItemControllerThreadContext new];
+void IGListSectionControllerPushThread(UIViewController *viewController, id<IGListCollectionContext> collectionContext) {
+    IGListSectionControllerThreadContext *context = [IGListSectionControllerThreadContext new];
     context.viewController = viewController;
     context.collectionContext = collectionContext;
 
     [threadContextStack() addObject:context];
 }
 
-void IGListItemControllerPopThread(void) {
+void IGListSectionControllerPopThread(void) {
     NSMutableArray *stack = threadContextStack();
-    IGAssert(stack.count > 0, @"IGListItemController thread stack is empty");
+    IGAssert(stack.count > 0, @"IGListSectionController thread stack is empty");
     [stack removeLastObject];
 }
 
-@implementation IGListItemController
+@implementation IGListSectionController
 
 - (instancetype)init {
     if (self = [super init]) {
-        IGListItemControllerThreadContext *context = [threadContextStack() lastObject];
+        IGListSectionControllerThreadContext *context = [threadContextStack() lastObject];
         _viewController = context.viewController;
         _collectionContext = context.collectionContext;
 
         if (_collectionContext == nil) {
-            IGLKLog(@"Warning: Creating %@ outside of -[IGListAdapterDataSource listAdapter:itemControllerForItem:]. Collection context and view controller will be set later.",
+            IGLKLog(@"Warning: Creating %@ outside of -[IGListAdapterDataSource listAdapter:sectionControllerForObject:]. Collection context and view controller will be set later.",
                     NSStringFromClass([self class]));
         }
 

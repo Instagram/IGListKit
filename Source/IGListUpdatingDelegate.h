@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
+ * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
@@ -14,7 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^IGListUpdatingCompletion)(BOOL finished);
-typedef void (^IGListItemTransitionBlock)(NSArray *toItems);
+typedef void (^IGListObjectTransitionBlock)(NSArray *toObjects);
 typedef void (^IGListItemUpdateBlock)();
 typedef void (^IGListReloadUpdateBlock)();
 
@@ -25,41 +25,41 @@ typedef void (^IGListReloadUpdateBlock)();
 @protocol IGListUpdatingDelegate
 
 /**
- Asks the delegate for the pointer functions for looking up an item in a collection.
+ Asks the delegate for the pointer functions for looking up an object in a collection.
 
  @return Pointer functions for looking up an object in a collection.
 
- @discussion Since the updating delegate is responsible for transitioning between item sets, it becomes the "source of
- truth" for how items and their corresponding item controllers are mapped. This allows the updater to control if items
+ @discussion Since the updating delegate is responsible for transitioning between object sets, it becomes the "source of
+ truth" for how objects and their corresponding section controllers are mapped. This allows the updater to control if objects
  are looked up by pointer, or more traditionally, with hash/isEqual.
 
  For behavior similar to NSDictionary, simply return
  +[NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsObjectPersonality].
  */
-- (NSPointerFunctions *)itemLookupPointerFunctions;
+- (NSPointerFunctions *)objectLookupPointerFunctions;
 
 /**
- Tells the delegate to perform a section transition from an old array of items to a new one.
+ Tells the delegate to perform a section transition from an old array of objects to a new one.
 
- @param collectionView      The collection view to perform the transition on.
- @param fromItems           The previous items in the collection view. Items must conform to the IGListDiffable protocol.
- @param toItems             The new items in collection view. Items must conform to the IGListDiffable protocol.
- @param animated            A flag indicating if the transition should be animated.
- @param itemTransitionBlock A block that must be called when the adapter applies changes to the collection view.
- @param completion          A completion block to execute when the update is finished.
+ @param collectionView        The collection view to perform the transition on.
+ @param fromObjects           The previous objects in the collection view. Objects must conform to the IGListDiffable protocol.
+ @param toObjects             The new objects in collection view. Objects must conform to the IGListDiffable protocol.
+ @param animated              A flag indicating if the transition should be animated.
+ @param objectTransitionBlock A block that must be called when the adapter applies changes to the collection view.
+ @param completion            A completion block to execute when the update is finished.
 
- @discussion Implementations determine how to transition between items. You can perform a diff on the items, reload each
+ @discussion Implementations determine how to transition between objects. You can perform a diff on the objects, reload each
  section, or simply call -reloadData on the collection view. In the end, the collection view must be setup with a
- section for each item in the toItems array.
+ section for each object in the toObjects array.
 
- The `itemUpdateBlock` block should be called prior to making any UICollectionView updates, passing in the `toItems`
+ The `objectUpdateBlock` block should be called prior to making any UICollectionView updates, passing in the `toObjects`
  that the updater is applying.
  */
 - (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
-                              fromItems:(nullable NSArray<id <IGListDiffable>> *)fromItems
-                                toItems:(nullable NSArray<id <IGListDiffable>> *)toItems
+                            fromObjects:(nullable NSArray<id <IGListDiffable>> *)fromObjects
+                              toObjects:(nullable NSArray<id <IGListDiffable>> *)toObjects
                                animated:(BOOL)animated
-                    itemTransitionBlock:(IGListItemTransitionBlock)itemTransitionBlock
+                  objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
                              completion:(nullable IGListUpdatingCompletion)completion;
 
 /**
@@ -89,12 +89,12 @@ typedef void (^IGListReloadUpdateBlock)();
 /**
  Completely reload data in the collection.
 
- @param collectionView  The collection view to reload.
- @param itemUpdateBlock A block that must be called when the adapter reloads the collection view.
- @param completion      A completion block to execute when the reload is finished.
+ @param collectionView    The collection view to reload.
+ @param reloadUpdateBlock A block that must be called when the adapter reloads the collection view.
+ @param completion        A completion block to execute when the reload is finished.
  */
 - (void)reloadDataWithCollectionView:(UICollectionView *)collectionView
-                     itemUpdateBlock:(IGListReloadUpdateBlock)itemUpdateBlock
+                   reloadUpdateBlock:(IGListReloadUpdateBlock)reloadUpdateBlock
                           completion:(nullable IGListUpdatingCompletion)completion;
 
 /**

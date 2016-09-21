@@ -7,13 +7,13 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGListItemController.h"
+#import "IGListSectionController.h"
 
-FOUNDATION_EXTERN void IGListItemControllerPushThread(UIViewController *viewController, id<IGListCollectionContext> collectionContext);
+FOUNDATION_EXTERN void IGListSectionControllerPushThread(UIViewController *viewController, id<IGListCollectionContext> collectionContext);
 
-FOUNDATION_EXTERN void IGListItemControllerPopThread(void);
+FOUNDATION_EXTERN void IGListSectionControllerPopThread(void);
 
-@interface IGListItemController()
+@interface IGListSectionController()
 
 @property (nonatomic, weak, readwrite) id<IGListCollectionContext> collectionContext;
 

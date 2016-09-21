@@ -17,6 +17,6 @@
 
 @property (nonatomic, weak) id<IGListCollectionContext> collectionContext;
 
-@property (nonatomic, weak) IGListItemController<IGListItemType> *itemController;
+@property (nonatomic, weak) IGListSectionController<IGListSectionType> *sectionController;
 
 @end

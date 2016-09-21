@@ -10,9 +10,9 @@
 #import <UIKit/UIKit.h>
 
 @class IGListAdapter;
-@class IGListItemController;
+@class IGListSectionController;
 
-@protocol IGListItemType;
+@protocol IGListSectionType;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,20 +25,20 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol IGListWorkingRangeDelegate <NSObject>
 
 /**
- Notifies the delegate that an item controller will enter the working range.
+ Notifies the delegate that an section controller will enter the working range.
 
  @param listAdapter    The adapter controlling the feed.
- @param itemController The item controller entering the range.
+ @param sectionController The section controller entering the range.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter itemControllerWillEnterWorkingRange:(IGListItemController <IGListItemType> *)itemController;
+- (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerWillEnterWorkingRange:(IGListSectionController <IGListSectionType> *)sectionController;
 
 /**
- Notifies the delegate that an item controller exited the working range.
+ Notifies the delegate that an section controller exited the working range.
 
  @param listAdapter    The adapter controlling the feed.
- @param itemController The item controller that exited the range.
+ @param sectionController The section controller that exited the range.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter itemControllerDidExitWorkingRange:(IGListItemController <IGListItemType> *)itemController;
+- (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerDidExitWorkingRange:(IGListSectionController <IGListSectionType> *)sectionController;
 
 @end
 

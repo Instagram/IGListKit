@@ -16,14 +16,14 @@
 
 @implementation IGTestDelegateDataSource
 
-- (NSArray *)itemsForListAdapter:(IGListAdapter *)listAdapter {
+- (NSArray *)objectsForListAdapter:(IGListAdapter *)listAdapter {
     return self.objects;
 }
 
-- (IGListItemController <IGListItemType> *)listAdapter:(IGListAdapter *)listAdapter itemControllerForItem:(id)item {
-    IGTestDelegateController *itemController = [[IGTestDelegateController alloc] init];
-    itemController.cellConfigureBlock = self.cellConfigureBlock;
-    return itemController;
+- (IGListSectionController <IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
+    IGTestDelegateController *sectionController = [[IGTestDelegateController alloc] init];
+    sectionController.cellConfigureBlock = self.cellConfigureBlock;
+    return sectionController;
 }
 
 - (nullable UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {

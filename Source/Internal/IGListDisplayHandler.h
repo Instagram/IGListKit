@@ -12,9 +12,9 @@
 #import <IGListKit/IGListMacros.h>
 
 @class IGListAdapter;
-@class IGListItemController;
+@class IGListSectionController;
 
-@protocol IGListItemType;
+@protocol IGListSectionType;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,13 +26,13 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @param cell               A cell that will display.
  @param listAdapter        The adapter managing the infra.
- @param itemController The item controller the cell is in.
- @param object             The object associated with the item controller.
+ @param sectionController The section controller the cell is in.
+ @param object             The object associated with the section controller.
  @param indexPath          The index path of the cell in the UICollectionView.
  */
 - (void)willDisplayCell:(UICollectionViewCell *)cell
          forListAdapter:(IGListAdapter *)listAdapter
-     itemController:(IGListItemController<IGListItemType> *)itemController
+     sectionController:(IGListSectionController<IGListSectionType> *)sectionController
                  object:(id)object
               indexPath:(NSIndexPath *)indexPath;
 
@@ -41,12 +41,12 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @param cell               A cell that did end display.
  @param listAdapter        The adapter managing the infra.
- @param itemController The item controller the cell is in.
+ @param sectionController The section controller the cell is in.
  @param indexPath          The index path of the cell in the UICollectionView.
  */
 - (void)didEndDisplayingCell:(UICollectionViewCell *)cell
               forListAdapter:(IGListAdapter *)listAdapter
-          itemController:(IGListItemController<IGListItemType> *)itemController
+          sectionController:(IGListSectionController<IGListSectionType> *)sectionController
                    indexPath:(NSIndexPath *)indexPath;
 
 @end

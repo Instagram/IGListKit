@@ -15,7 +15,7 @@
 
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListAdapter.h>
-#import <IGListKit/IGListItemController.h>
+#import <IGListKit/IGListSectionController.h>
 #import <IGListKit/IGListWorkingRangeDelegate.h>
 
 #import "IGListWorkingRangeDelegate.h"
@@ -30,11 +30,11 @@ struct _IGListWorkingRangeHandlerIndexPath {
     }
 };
 
-struct _IGListWorkingRangeHandlerItemControllerWrapper {
-    IGListItemController<IGListItemType> *itemController;
+struct _IGListWorkingRangeHandlerSectionControllerWrapper {
+    IGListSectionController<IGListSectionType> *sectionController;
 
-    bool operator==(const _IGListWorkingRangeHandlerItemControllerWrapper &other) const {
-        return (itemController == other.itemController);
+    bool operator==(const _IGListWorkingRangeHandlerSectionControllerWrapper &other) const {
+        return (sectionController == other.sectionController);
     }
 };
 
@@ -45,12 +45,12 @@ struct _IGListWorkingRangeHandlerIndexPathHash {
 };
 
 struct _IGListWorkingRangeHashID {
-    size_t operator()(const _IGListWorkingRangeHandlerItemControllerWrapper &o) const {
-        return (size_t)[o.itemController hash];
+    size_t operator()(const _IGListWorkingRangeHandlerSectionControllerWrapper &o) const {
+        return (size_t)[o.sectionController hash];
     }
 };
 
-typedef std::unordered_set<_IGListWorkingRangeHandlerItemControllerWrapper, _IGListWorkingRangeHashID> _IGListWorkingRangeItemControllerSet;
+typedef std::unordered_set<_IGListWorkingRangeHandlerSectionControllerWrapper, _IGListWorkingRangeHashID> _IGListWorkingRangeSectionControllerSet;
 typedef std::unordered_set<_IGListWorkingRangeHandlerIndexPath, _IGListWorkingRangeHandlerIndexPathHash> _IGListWorkingRangeIndexPathSet;
 
 @interface IGListWorkingRangeHandler ()
@@ -61,7 +61,7 @@ typedef std::unordered_set<_IGListWorkingRangeHandlerIndexPath, _IGListWorkingRa
 
 @implementation IGListWorkingRangeHandler {
     _IGListWorkingRangeIndexPathSet _visibleSectionIndices;
-    _IGListWorkingRangeItemControllerSet _workingRangeItemControllers;
+    _IGListWorkingRangeSectionControllerSet _workingRangeSectionControllers;
 }
 
 - (instancetype)initWithWorkingRangeSize:(NSInteger)workingRangeSize {
@@ -119,42 +119,42 @@ typedef std::unordered_set<_IGListWorkingRangeHandlerIndexPath, _IGListWorkingRa
         end = 0;
     } else {
         start = MAX(*visibleSectionSet.begin() - _workingRangeSize, 0);
-        end = MIN(*visibleSectionSet.rbegin() + 1 + _workingRangeSize, (NSInteger)listAdapter.items.count);
+        end = MIN(*visibleSectionSet.rbegin() + 1 + _workingRangeSize, (NSInteger)listAdapter.objects.count);
     }
 
-    // Build the current set of working range item controllers
-    _IGListWorkingRangeItemControllerSet workingRangeItemControllers (visibleSectionSet.size());
+    // Build the current set of working range section controllers
+    _IGListWorkingRangeSectionControllerSet workingRangeSectionControllers (visibleSectionSet.size());
     for (NSInteger idx = start; idx < end; idx++) {
-        id item = [listAdapter itemAtSection:idx];
-        id <IGListItemType> itemController = [listAdapter itemControllerForItem:item];
-        workingRangeItemControllers.insert({itemController});
+        id item = [listAdapter objectAtSection:idx];
+        id <IGListSectionType> sectionController = [listAdapter sectionControllerForObject:item];
+        workingRangeSectionControllers.insert({sectionController});
     }
 
-    IGAssert(workingRangeItemControllers.size() < 1000, @"This algorithm is way too slow with so many objects:%lu", workingRangeItemControllers.size());
+    IGAssert(workingRangeSectionControllers.size() < 1000, @"This algorithm is way too slow with so many objects:%lu", workingRangeSectionControllers.size());
 
-    // Tell any new item controllers that they have entered the working range
-    for (const _IGListWorkingRangeHandlerItemControllerWrapper &wrapper : workingRangeItemControllers) {
+    // Tell any new section controllers that they have entered the working range
+    for (const _IGListWorkingRangeHandlerSectionControllerWrapper &wrapper : workingRangeSectionControllers) {
         // Check if the item exists in the old working range item array.
-        auto it = _workingRangeItemControllers.find(wrapper);
-        if (it == _workingRangeItemControllers.end()) {
-            // The item controller isn't in the existing list, so it's new.
-            id <IGListWorkingRangeDelegate> workingRangeDelegate = wrapper.itemController.workingRangeDelegate;
-            [workingRangeDelegate listAdapter:listAdapter itemControllerWillEnterWorkingRange:wrapper.itemController];
+        auto it = _workingRangeSectionControllers.find(wrapper);
+        if (it == _workingRangeSectionControllers.end()) {
+            // The section controller isn't in the existing list, so it's new.
+            id <IGListWorkingRangeDelegate> workingRangeDelegate = wrapper.sectionController.workingRangeDelegate;
+            [workingRangeDelegate listAdapter:listAdapter sectionControllerWillEnterWorkingRange:wrapper.sectionController];
         }
     }
 
-    // Tell any removed item controllers that they have exited the working range
-    for (const _IGListWorkingRangeHandlerItemControllerWrapper &wrapper : _workingRangeItemControllers) {
-        // Check if the item exists in the new list of item controllers
-        auto it = workingRangeItemControllers.find(wrapper);
-        if (it == workingRangeItemControllers.end()) {
+    // Tell any removed section controllers that they have exited the working range
+    for (const _IGListWorkingRangeHandlerSectionControllerWrapper &wrapper : _workingRangeSectionControllers) {
+        // Check if the item exists in the new list of section controllers
+        auto it = workingRangeSectionControllers.find(wrapper);
+        if (it == workingRangeSectionControllers.end()) {
             // If the item does not exist in the new list, then it's been removed.
-            id <IGListWorkingRangeDelegate> workingRangeDelegate = wrapper.itemController.workingRangeDelegate;
-            [workingRangeDelegate listAdapter:listAdapter itemControllerDidExitWorkingRange:wrapper.itemController];
+            id <IGListWorkingRangeDelegate> workingRangeDelegate = wrapper.sectionController.workingRangeDelegate;
+            [workingRangeDelegate listAdapter:listAdapter sectionControllerDidExitWorkingRange:wrapper.sectionController];
         }
     }
 
-    _workingRangeItemControllers = workingRangeItemControllers;
+    _workingRangeSectionControllers = workingRangeSectionControllers;
 }
 
 @end

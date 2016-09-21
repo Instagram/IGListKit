@@ -16,7 +16,7 @@
 - (UICollectionReusableView *)viewForSupplementaryElementOfKind:(NSString *)elementKind
                                                         atIndex:(NSInteger)index {
     return [self.collectionContext dequeReusableSupplementaryViewOfKind:elementKind
-                                                  forItemController:self.itemController
+                                                  forSectionController:self.sectionController
                                                                   class:[UICollectionReusableView class]
                                                                 atIndex:index];
 }

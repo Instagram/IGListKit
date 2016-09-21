@@ -17,21 +17,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Implement this protocol in order to be used within the IGListKit data infrastructure and be registered for use in an
- IGListAdapter. An IGListItemType conforming object represents a single instance of an object in a collection of
+ IGListAdapter. An IGListSectionType conforming object represents a single instance of an object in a collection of
  objects.
 
- The infrastructure uses each IGListItemType conforming object as a "view model" to populate and control cells as
- part of a section in a UICollectionView feed. IGListItemType objects should be architected without knowledge of
+ The infrastructure uses each IGListSectionType conforming object as a "view model" to populate and control cells as
+ part of a section in a UICollectionView feed. IGListSectionType objects should be architected without knowledge of
  "global" state of the feed they are contained in.
 
  Index paths are used as a convenience for communicating the section index to each section object without allowing each
  section to mutate its own position within a feed. The row of an index path can be directly mapped to a cell within
- an IGListItemType conforming object.
+ an IGListSectionType conforming object.
  */
-@protocol IGListItemType <NSObject>
+@protocol IGListSectionType <NSObject>
 
 /**
- The number of items in the IGListItemType.
+ The number of items in the IGListSectionType.
 
  @return A count of items in the list.
 
@@ -49,12 +49,12 @@ NS_ASSUME_NONNULL_BEGIN
 
  @discussion The returned size is not garaunteed to be used. The feed implementation may query list items for their
  layout information at will, or use its own layout metrics. For example, consider a dynamic-text sized feed vs. a fixed
- height-and-width grid feed. The former will ask each IGListItemType for a size, and the latter will likely not.
+ height-and-width grid feed. The former will ask each IGListSectionType for a size, and the latter will likely not.
  */
 - (CGSize)sizeForItemAtIndex:(NSInteger)index;
 
 /**
- Asks the item controller for a fully configured cell at an index path.
+ Asks the section controller for a fully configured cell at an index path.
 
  @param index The index of the requested row.
 
@@ -67,22 +67,22 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index;
 
 /**
- Tells the IGListItemType that the item controller was updated to a new item.
+ Tells the IGListSectionType that the section controller was updated to a new item.
 
- @param item The data item mapped to this item controller.
+ @param object The object mapped to this section controller.
 
- @discussion When this method is called, all available contexts and configurations have been set for the item
+ @discussion When this method is called, all available contexts and configurations have been set for the section
  controller. Also, depending on the updating strategy used, your item models may have changed objects in memory, so you
- can use this event to update the object stored on your item controller.
+ can use this event to update the object stored on your section controller.
 
  This method will only be called when the object instance has changed, either from nil or a previous object.
  */
-- (void)didUpdateToItem:(id)item;
+- (void)didUpdateToObject:(id)object;
 
 /**
- Tells the IGListItemType that the item at the specified index path was selected.
+ Tells the IGListSectionType that the cell at the specified index path was selected.
 
- @param index The index of the requested row.
+ @param index The index of the selected cell.
 
  @discussion Implementation of this method is required for compile-time safety, but you are free to do nothing.
  */

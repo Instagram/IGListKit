@@ -62,54 +62,54 @@
     self.dataSource = nil;
 }
 
-- (void)test_whenAdapterNotUpdated_withDataSourceUpdated_thatAdapterHasNoItemControllers {
+- (void)test_whenAdapterNotUpdated_withDataSourceUpdated_thatAdapterHasNoSectionControllers {
     self.dataSource.objects = @[@0, @1, @2];
-    XCTAssertNil([self.adapter itemControllerForItem:@0]);
-    XCTAssertNil([self.adapter itemControllerForItem:@1]);
-    XCTAssertNil([self.adapter itemControllerForItem:@2]);
+    XCTAssertNil([self.adapter sectionControllerForObject:@0]);
+    XCTAssertNil([self.adapter sectionControllerForObject:@1]);
+    XCTAssertNil([self.adapter sectionControllerForObject:@2]);
 }
 
-- (void)test_whenAdapterUpdated_thatAdapterHasItemControllers {
+- (void)test_whenAdapterUpdated_thatAdapterHasSectionControllers {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    XCTAssertNotNil([self.adapter itemControllerForItem:@0]);
-    XCTAssertNotNil([self.adapter itemControllerForItem:@1]);
-    XCTAssertNotNil([self.adapter itemControllerForItem:@2]);
+    XCTAssertNotNil([self.adapter sectionControllerForObject:@0]);
+    XCTAssertNotNil([self.adapter sectionControllerForObject:@1]);
+    XCTAssertNotNil([self.adapter sectionControllerForObject:@2]);
 }
 
-- (void)test_whenAdapterReloaded_thatAdapterHasItemControllers {
+- (void)test_whenAdapterReloaded_thatAdapterHasSectionControllers {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];
-    XCTAssertNotNil([self.adapter itemControllerForItem:@0]);
-    XCTAssertNotNil([self.adapter itemControllerForItem:@1]);
-    XCTAssertNotNil([self.adapter itemControllerForItem:@2]);
+    XCTAssertNotNil([self.adapter sectionControllerForObject:@0]);
+    XCTAssertNotNil([self.adapter sectionControllerForObject:@1]);
+    XCTAssertNotNil([self.adapter sectionControllerForObject:@2]);
 }
 
-- (void)test_whenAdapterUpdated_thatItemControllerHasSection {
+- (void)test_whenAdapterUpdated_thatSectionControllerHasSection {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListItemController <IGListItemType> * list = [self.adapter itemControllerForItem:@1];
-    XCTAssertEqual([self.adapter sectionForItemController:list], 1);
+    IGListSectionController <IGListSectionType> * list = [self.adapter sectionControllerForObject:@1];
+    XCTAssertEqual([self.adapter sectionForSectionController:list], 1);
 }
 
-- (void)test_whenAdapterUpdated_withUnknownItem_thatItemControllerHasNoSection {
+- (void)test_whenAdapterUpdated_withUnknownItem_thatSectionControllerHasNoSection {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListItemController <IGListItemType> * randomList = [[IGListTestSection alloc] init];
-    XCTAssertEqual([self.adapter sectionForItemController:randomList], NSNotFound);
+    IGListSectionController <IGListSectionType> * randomList = [[IGListTestSection alloc] init];
+    XCTAssertEqual([self.adapter sectionForSectionController:randomList], NSNotFound);
 }
 
-- (void)test_whenQueryingAdapter_withUnknownItem_thatItemControllerIsNil {
+- (void)test_whenQueryingAdapter_withUnknownItem_thatSectionControllerIsNil {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    XCTAssertNil([self.adapter itemControllerForItem:@3]);
+    XCTAssertNil([self.adapter sectionControllerForObject:@3]);
 }
 
-- (void)test_whenQueryingIndexPaths_withItemController_thatPathsAreEqual {
+- (void)test_whenQueryingIndexPaths_withSectionController_thatPathsAreEqual {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListItemController <IGListItemType> * second = [self.adapter itemControllerForItem:@1];
-  NSArray *paths0 = [self.adapter indexPathsFromItemController:second
+    IGListSectionController <IGListSectionType> * second = [self.adapter sectionControllerForObject:@1];
+  NSArray *paths0 = [self.adapter indexPathsFromSectionController:second
                                                        indexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 4)]
                                           adjustForUpdateBlock:NO];
     NSArray *expected = @[
@@ -124,11 +124,11 @@
 - (void)test_whenQueryingIndexPaths_insideBatchUpdateBlock_thatPathsAreEqual {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListItemController <IGListItemType> * second = [self.adapter itemControllerForItem:@1];
+    IGListSectionController <IGListSectionType> * second = [self.adapter sectionControllerForObject:@1];
 
     __block BOOL executed = NO;
     [self.adapter performBatchAnimated:YES updates:^{
-      NSArray *paths = [self.adapter indexPathsFromItemController:second
+      NSArray *paths = [self.adapter indexPathsFromSectionController:second
                                                           indexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 2)]
                                              adjustForUpdateBlock:YES];
         NSArray *expected = @[
@@ -166,13 +166,13 @@
     XCTAssertTrue(executed);
 }
 
-- (void)test_whenReloadingData_thatNewItemControllersAreCreated {
+- (void)test_whenReloadingData_thatNewSectionControllersAreCreated {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];
-    IGListItemController <IGListItemType> *oldItemController = [self.adapter itemControllerForItem:@1];
+    IGListSectionController <IGListSectionType> *oldSectionController = [self.adapter sectionControllerForObject:@1];
     [self.adapter reloadDataWithCompletion:nil];
-    IGListItemController <IGListItemType> *newItemController = [self.adapter itemControllerForItem:@1];
-    XCTAssertNotEqual(oldItemController, newItemController);
+    IGListSectionController <IGListSectionType> *newSectionController = [self.adapter sectionControllerForObject:@1];
+    XCTAssertNotEqual(oldSectionController, newSectionController);
 }
 
 - (void)test_whenSettingCollectionView_thenSettingDataSource_thatViewControllerIsSet {
@@ -183,8 +183,8 @@
                                                             workingRangeSize:0];
     adapter.collectionView = self.collectionView;
     adapter.dataSource = self.dataSource;
-    IGListItemController <IGListItemType> *itemController = [adapter itemControllerForItem:@1];
-    XCTAssertEqual(controller, itemController.viewController);
+    IGListSectionController <IGListSectionType> *sectionController = [adapter sectionControllerForObject:@1];
+    XCTAssertEqual(controller, sectionController.viewController);
 }
 
 - (void)test_whenSettingCollectionView_thenSettingDataSource_thatCellExists {
@@ -250,33 +250,33 @@
     XCTAssertEqual(self.collectionView.dataSource, adapter1);
 }
 
-- (void)test_whenCellsExtendBeyondBounds_thatVisibleItemControllersAreLimited {
+- (void)test_whenCellsExtendBeyondBounds_thatVisibleSectionControllersAreLimited {
     // # of items for each object == [item integerValue], so @2 has 2 items (cells)
     self.dataSource.objects = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual([self.collectionView numberOfSections], 12);
-    NSArray *visibleItemControllers = [self.adapter visibleItemControllers];
+    NSArray *visibleSectionControllers = [self.adapter visibleSectionControllers];
     // UIWindow is 100x100, each cell is 100x10 so should have the following section/cell count: 1 + 2 + 3 + 4 = 10 (100 tall)
-    XCTAssertEqual(visibleItemControllers.count, 4);
-    XCTAssertTrue([visibleItemControllers containsObject:[self.adapter itemControllerForItem:@1]]);
-    XCTAssertTrue([visibleItemControllers containsObject:[self.adapter itemControllerForItem:@2]]);
-    XCTAssertTrue([visibleItemControllers containsObject:[self.adapter itemControllerForItem:@3]]);
-    XCTAssertTrue([visibleItemControllers containsObject:[self.adapter itemControllerForItem:@4]]);
+    XCTAssertEqual(visibleSectionControllers.count, 4);
+    XCTAssertTrue([visibleSectionControllers containsObject:[self.adapter sectionControllerForObject:@1]]);
+    XCTAssertTrue([visibleSectionControllers containsObject:[self.adapter sectionControllerForObject:@2]]);
+    XCTAssertTrue([visibleSectionControllers containsObject:[self.adapter sectionControllerForObject:@3]]);
+    XCTAssertTrue([visibleSectionControllers containsObject:[self.adapter sectionControllerForObject:@4]]);
 }
 
-- (void)test_whenCellsExtendBeyondBounds_thatVisibleCellsExistForItemControllers {
+- (void)test_whenCellsExtendBeyondBounds_thatVisibleCellsExistForSectionControllers {
     self.dataSource.objects = @[@2, @3, @4, @5, @6];
     [self.adapter reloadDataWithCompletion:nil];
-    id itemController2 = [self.adapter itemControllerForItem:@2];
-    id itemController3 = [self.adapter itemControllerForItem:@3];
-    id itemController4 = [self.adapter itemControllerForItem:@4];
-    id itemController5 = [self.adapter itemControllerForItem:@5];
-    id itemController6 = [self.adapter itemControllerForItem:@6];
-    XCTAssertEqual([self.adapter visibleCellsForItemController:itemController2].count, 2);
-    XCTAssertEqual([self.adapter visibleCellsForItemController:itemController3].count, 3);
-    XCTAssertEqual([self.adapter visibleCellsForItemController:itemController4].count, 4);
-    XCTAssertEqual([self.adapter visibleCellsForItemController:itemController5].count, 1);
-    XCTAssertEqual([self.adapter visibleCellsForItemController:itemController6].count, 0);
+    id sectionController2 = [self.adapter sectionControllerForObject:@2];
+    id sectionController3 = [self.adapter sectionControllerForObject:@3];
+    id sectionController4 = [self.adapter sectionControllerForObject:@4];
+    id sectionController5 = [self.adapter sectionControllerForObject:@5];
+    id sectionController6 = [self.adapter sectionControllerForObject:@6];
+    XCTAssertEqual([self.adapter visibleCellsForSectionController:sectionController2].count, 2);
+    XCTAssertEqual([self.adapter visibleCellsForSectionController:sectionController3].count, 3);
+    XCTAssertEqual([self.adapter visibleCellsForSectionController:sectionController4].count, 4);
+    XCTAssertEqual([self.adapter visibleCellsForSectionController:sectionController5].count, 1);
+    XCTAssertEqual([self.adapter visibleCellsForSectionController:sectionController6].count, 0);
 }
 
 - (void)test_whenDataSourceAddsItems_thatEmptyViewBecomesVisible {
@@ -357,9 +357,9 @@
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
 
-    IGListItemController<IGListItemType> *controller = [self.adapter itemControllerForItem:@1];
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@1];
     controller.supplementaryViewSource = supplementarySource;
-    supplementarySource.itemController = controller;
+    supplementarySource.sectionController = controller;
 
     [self.adapter performUpdatesAnimated:NO completion:nil];
 
@@ -369,8 +369,8 @@
     XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
 }
 
-- (void)test_whenAdapterReleased_withItemControllerStrongRefToCell_thatItemControllersRelease {
-    __weak id weakCollectionView = nil, weakAdapter = nil, weakItemController = nil;
+- (void)test_whenAdapterReleased_withSectionControllerStrongRefToCell_thatSectionControllersRelease {
+    __weak id weakCollectionView = nil, weakAdapter = nil, weakSectionController = nil;
 
     @autoreleasepool {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -387,30 +387,30 @@
         adapter.dataSource = dataSource;
         weakAdapter = adapter;
 
-        IGListItemController *itemController = [adapter itemControllerForItem:@1];
-        weakItemController = itemController;
+        IGListSectionController *sectionController = [adapter sectionControllerForObject:@1];
+        weakSectionController = sectionController;
 
         // force the collection view to layout and generate cells
         [collectionView layoutIfNeeded];
 
         UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
         XCTAssertNotNil(cell);
-        // strongly attach the cell to an item controller
-        objc_setAssociatedObject(itemController, @"some_random_key", cell, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        // strongly attach the cell to an section controller
+        objc_setAssociatedObject(sectionController, @"some_random_key", cell, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
         // weak refs should exist at this point
         XCTAssertNotNil(weakCollectionView);
         XCTAssertNotNil(weakAdapter);
-        XCTAssertNotNil(weakItemController);
+        XCTAssertNotNil(weakSectionController);
     }
 
     XCTAssertNil(weakCollectionView);
     XCTAssertNil(weakAdapter);
-    XCTAssertNil(weakItemController);
+    XCTAssertNil(weakSectionController);
 }
 
-- (void)test_whenAdapterReleased_withItemControllerStrongRefToCollectionView_thatItemControllersRelease {
-    __weak id weakCollectionView = nil, weakAdapter = nil, weakItemController = nil;
+- (void)test_whenAdapterReleased_withSectionControllerStrongRefToCollectionView_thatSectionControllersRelease {
+    __weak id weakCollectionView = nil, weakAdapter = nil, weakSectionController = nil;
 
     @autoreleasepool {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -427,24 +427,24 @@
         adapter.dataSource = dataSource;
         weakAdapter = adapter;
 
-        IGListItemController *itemController = [adapter itemControllerForItem:@1];
-        weakItemController = itemController;
+        IGListSectionController *sectionController = [adapter sectionControllerForObject:@1];
+        weakSectionController = sectionController;
 
         // force the collection view to layout and generate cells
         [collectionView layoutIfNeeded];
 
-        // strongly attach the cell to an item controller
-        objc_setAssociatedObject(itemController, @"some_random_key", collectionView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        // strongly attach the cell to an section controller
+        objc_setAssociatedObject(sectionController, @"some_random_key", collectionView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
         // weak refs should exist at this point
         XCTAssertNotNil(weakCollectionView);
         XCTAssertNotNil(weakAdapter);
-        XCTAssertNotNil(weakItemController);
+        XCTAssertNotNil(weakSectionController);
     }
 
     XCTAssertNil(weakCollectionView);
     XCTAssertNil(weakAdapter);
-    XCTAssertNil(weakItemController);
+    XCTAssertNil(weakSectionController);
 }
 
 @end

@@ -16,12 +16,12 @@
 #import <IGListKit/IGListWorkingRangeDelegate.h>
 
 /**
- The base class for item controllers used in the list infra. This class is meant to be subclassed.
+ The base class for section controllers used in the list infra. This class is meant to be subclassed.
  */
-@interface IGListItemController : NSObject
+@interface IGListSectionController : NSObject
 
 /**
- The view controller housing the adapter that created this item controller.
+ The view controller housing the adapter that created this section controller.
 
  @discussion Use this view controller to push, pop, present, or do other custom transitions. It is considered very bad
  practice to cast this to a known view controller and call methods on it other than for navigations and transitions.
@@ -35,7 +35,7 @@
 @property (nonatomic, weak, nullable, readonly) id <IGListCollectionContext> collectionContext;
 
 /**
- The margins used to lay out content in the item controller.
+ The margins used to lay out content in the section controller.
 
  @see -[UICollectionViewFlowLayout sectionInset]
  */
@@ -56,38 +56,38 @@
 @property (nonatomic, assign) CGFloat minimumInteritemSpacing;
 
 /**
- The supplementary view source for the item controller. Can be nil.
+ The supplementary view source for the section controller. Can be nil.
 
  @return An object that conforms to IGListSupplementaryViewSource or nil.
 
- @discussion You may wish to return self if your item controller implements this protocol.
+ @discussion You may wish to return self if your section controller implements this protocol.
  */
 @property (nonatomic, weak, nullable) id <IGListSupplementaryViewSource> supplementaryViewSource;
 
 /**
- An object that handles display events for the item controller. Can be nil.
+ An object that handles display events for the section controller. Can be nil.
 
  @return An object that conforms to IGListDisplayDelegate or nil.
 
- @discussion You may wish to return self if your item controller implements this protocol.
+ @discussion You may wish to return self if your section controller implements this protocol.
  */
 @property (nonatomic, weak, nullable) id <IGListDisplayDelegate> displayDelegate;
 
 /**
- An object that handles working range events for the item controller. Can be nil.
+ An object that handles working range events for the section controller. Can be nil.
 
  @return An object that conforms to IGListWorkingRangeDelegate or nil.
 
- @discussion You may wish to return self if your item controller implements this protocol.
+ @discussion You may wish to return self if your section controller implements this protocol.
  */
 @property (nonatomic, weak, nullable) id <IGListWorkingRangeDelegate> workingRangeDelegate;
 
 /**
- An object that handles display events for the item controller. Can be nil.
+ An object that handles display events for the section controller. Can be nil.
 
  @return An object that conforms to IGListDisplayDelegate or nil.
 
- @discussion You may wish to return self if your item controller implements this protocol.
+ @discussion You may wish to return self if your section controller implements this protocol.
  */
 @property (nonatomic, weak, nullable) id <IGListScrollDelegate> scrollDelegate;
 

@@ -18,15 +18,15 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
                                                    NSMutableIndexSet *deletes,
                                                    NSMutableIndexSet *inserts,
                                                    IGListIndexSetResult *result,
-                                                   NSArray<id<IGListDiffable>> *fromItems);
+                                                   NSArray<id<IGListDiffable>> *fromObjects);
 
 @interface IGListAdapterUpdater ()
 
 @property (nonatomic, strong, readonly) NSMutableArray<IGListUpdatingCompletion> *completionBlocks;
 
-@property (nonatomic, copy, nullable) NSArray *fromItems;
-@property (nonatomic, copy, nullable) NSArray *toItems;
-@property (nonatomic, copy, nullable) NSArray *pendingTransitionToItems;
+@property (nonatomic, copy, nullable) NSArray *fromObjects;
+@property (nonatomic, copy, nullable) NSArray *toObjects;
+@property (nonatomic, copy, nullable) NSArray *pendingTransitionToObjects;
 
 @property (nonatomic, assign) BOOL queuedUpdateIsAnimated;
 
@@ -35,7 +35,7 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 @property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *reloadIndexPaths;
 @property (nonatomic, strong, readonly) NSMutableIndexSet *reloadSections;
 
-@property (nonatomic, copy, nullable) IGListItemTransitionBlock itemTransitionBlock;
+@property (nonatomic, copy, nullable) IGListObjectTransitionBlock objectTransitionBlock;
 @property (nonatomic, copy, nullable) NSMutableArray<IGListItemUpdateBlock> *itemUpdateBlocks;
 
 @property (nonatomic, copy, nullable) IGListReloadUpdateBlock reloadUpdates;

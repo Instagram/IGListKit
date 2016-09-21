@@ -9,10 +9,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import <IGListKit/IGListItemController.h>
-#import <IGListKit/IGListItemType.h>
+#import <IGListKit/IGListSectionController.h>
+#import <IGListKit/IGListSectionType.h>
 
-@interface IGListTestSection : IGListItemController <IGListItemType>
+@interface IGListTestSection : IGListSectionController <IGListSectionType>
 
 @property (nonatomic, assign) NSInteger items;
 

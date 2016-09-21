@@ -9,44 +9,44 @@
 
 #import <UIKit/UIKit.h>
 
-#import <IGListKit/IGListItemController.h>
-#import <IGListKit/IGListItemType.h>
+#import <IGListKit/IGListSectionController.h>
+#import <IGListKit/IGListSectionType.h>
 #import <IGListKit/IGListMacros.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class IGListSingleItemController;
+@class IGListSingleSectionController;
 
 /**
- A delegate that can receive selection events on an IGListSingleItemController.
+ A delegate that can receive selection events on an IGListSingleSectionController.
  */
-@protocol IGListSingleItemControllerDelegate <NSObject>
+@protocol IGListSingleSectionControllerDelegate <NSObject>
 
 /**
- Tells the delegate that the item controller was selected.
+ Tells the delegate that the section controller was selected.
 
- @param itemController The item controller that was selected.
+ @param sectionController The section controller that was selected.
  */
-- (void)didSelectSingleItemController:(IGListSingleItemController *)itemController;
+- (void)didSelectSingleSectionController:(IGListSingleSectionController *)sectionController;
 
 @end
 
 /**
- This item controller is meant to make building simple, single-cell feeds easier. By providing the type of cell, a block
+ This section controller is meant to make building simple, single-cell feeds easier. By providing the type of cell, a block
  to configure the cell, and a block to return the size of a cell, you can use an IGListAdapter-powered feed without
  overcomplicating your architecture.
  */
 IGLK_SUBCLASSING_RESTRICTED
-@interface IGListSingleItemController : IGListItemController <IGListItemType>
+@interface IGListSingleSectionController : IGListSectionController <IGListSectionType>
 
 /**
- Create a new item controller for a given cell type that will always have only one cell when present in a feed.
+ Create a new section controller for a given cell type that will always have only one cell when present in a feed.
 
  @param cellClass      The UICollectionViewCell subclass for the single cell.
- @param configureBlock A block that configures the cell with the item given to the item controller.
+ @param configureBlock A block that configures the cell with the item given to the section controller.
  @param sizeBlock      A block that returns the size for the cell given the collection context.
 
- @return A new item controller.
+ @return A new section controller.
 
  @warning Be VERY CAREFUL not to create retain cycles by holding strong references to: the object that owns the adapter
  (usually "self") or the IGListAdapter. Pass in locally scoped objects or use weak references!
@@ -58,7 +58,7 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  An optional delegate that handles selection and deselection.
  */
-@property (nonatomic, weak, nullable) id<IGListSingleItemControllerDelegate> selectionDelegate;
+@property (nonatomic, weak, nullable) id<IGListSingleSectionControllerDelegate> selectionDelegate;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;

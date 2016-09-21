@@ -27,9 +27,9 @@ IGLK_SUBCLASSING_RESTRICTED
 - (void)deleteSections:(NSIndexSet *)sections IGLK_UNAVAILABLE("Call -[IGListAdapter performUpdatesWithCompletion:] instead");
 - (void)moveSection:(NSInteger)section toSection:(NSInteger)newSection IGLK_UNAVAILABLE("Call -[IGListAdapter performUpdatesWithCompletion:] instead");
 
-- (void)insertItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths IGLK_UNAVAILABLE("Call -[<IGListCollectionContext> insertItemController:forItems:completion:] instead");
-- (void)reloadItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths IGLK_UNAVAILABLE("Call -[<IGListCollectionContext> reloadItemController:forItems:completion:] instead");
-- (void)deleteItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths IGLK_UNAVAILABLE("Call -[<IGListCollectionContext> deleteItemController:forItems:completion:] instead");
+- (void)insertItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths IGLK_UNAVAILABLE("Call -[<IGListCollectionContext> insertSectionController:forItems:completion:] instead");
+- (void)reloadItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths IGLK_UNAVAILABLE("Call -[<IGListCollectionContext> reloadSectionController:forItems:completion:] instead");
+- (void)deleteItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths IGLK_UNAVAILABLE("Call -[<IGListCollectionContext> deleteSectionController:forItems:completion:] instead");
 - (void)moveItemAtIndexPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath IGLK_UNAVAILABLE("Moving items currently unsupported");
 
 - (void)setDelegate:(id<UICollectionViewDelegate>)delegate IGLK_UNAVAILABLE("IGListAdapter should be the delegate of the collection view");

@@ -15,11 +15,11 @@
 
 @implementation IGListTestAdapterDataSource
 
-- (NSArray *)itemsForListAdapter:(IGListAdapter *)listAdapter {
+- (NSArray *)objectsForListAdapter:(IGListAdapter *)listAdapter {
     return self.objects;
 }
 
-- (IGListItemController <IGListItemType> *)listAdapter:(IGListAdapter *)listAdapter itemControllerForItem:(id)object {
+- (IGListSectionController <IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
     IGListTestSection *list = [[IGListTestSection alloc] init];
     return list;
 }

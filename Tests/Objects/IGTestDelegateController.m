@@ -35,7 +35,7 @@
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
     IGTestCell *cell = [self.collectionContext dequeReusableCellOfClass:IGTestCell.class
-                                                          forItemController:self atIndex:index];
+                                                          forSectionController:self atIndex:index];
     [[cell label] setText:[NSString stringWithFormat:@"%@", self.item.value]];
     [cell setDelegate:self];
     if (self.cellConfigureBlock) {
@@ -44,9 +44,9 @@
     return cell;
 }
 
-- (void)didUpdateToItem:(id)item {
+- (void)didUpdateToObject:(id)object {
     _updateCount++;
-    _item = item;
+    _item = object;
     if (self.itemUpdateBlock) {
         self.itemUpdateBlock();
     }
@@ -60,25 +60,25 @@
 
 #pragma mark - IGListDisplayDelegate
 
-- (void)listAdapter:(IGListAdapter *)listAdapter willDisplayItemController:(IGListItemController <IGListItemType> *)itemController {
+- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController <IGListSectionType> *)sectionController {
     self.willDisplayCount++;
 }
 
-- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingItemController:(IGListItemController <IGListItemType> *)itemController {
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController <IGListSectionType> *)sectionController {
     self.didEndDisplayCount++;
 }
 
-- (void)listAdapter:(IGListAdapter *)listAdapter willDisplayItemController:(IGListItemController <IGListItemType> *)itemController
+- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController <IGListSectionType> *)sectionController
                cell:(UICollectionViewCell *)cell
             atIndex:(NSInteger)index {
     [self.willDisplayCellIndexes addObject:@(index)];
 }
-- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingItemController:(IGListItemController <IGListItemType> *)itemController
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController <IGListSectionType> *)sectionController
                cell:(UICollectionViewCell *)cell
             atIndex:(NSInteger)index {
     [self.didEndDisplayCellIndexes addObject:@(index)];
 }
 
-- (void)listAdapter:(IGListAdapter *)listAdapter didScrollItemController:(IGListItemController <IGListItemType> *)itemController {}
+- (void)listAdapter:(IGListAdapter *)listAdapter didScrollSectionController:(IGListSectionController <IGListSectionType> *)sectionController {}
 
 @end

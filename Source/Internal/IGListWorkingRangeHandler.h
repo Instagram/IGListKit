@@ -11,7 +11,7 @@
 
 @class IGListAdapter;
 
-@protocol IGListItemType;
+@protocol IGListSectionType;
 
 @interface IGListWorkingRangeHandler : NSObject
 

@@ -9,24 +9,24 @@
 
 #import "IGTestSingleItemDataSource.h"
 
-#import <IGListKit/IGListSingleItemController.h>
+#import <IGListKit/IGListSingleSectionController.h>
 
 #import "IGTestCell.h"
 
 @implementation IGTestSingleItemDataSource
 
-- (NSArray *)itemsForListAdapter:(IGListAdapter *)listAdapter {
+- (NSArray *)objectsForListAdapter:(IGListAdapter *)listAdapter {
     return self.objects;
 }
 
-- (IGListItemController <IGListItemType> *)listAdapter:(IGListAdapter *)listAdapter itemControllerForItem:(id)object {
+- (IGListSectionController <IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
     void (^configureBlock)(id, __kindof UICollectionViewCell *) = ^(IGTestObject *item, IGTestCell *cell) {
         cell.label.text = [item.value description];
     };
     CGSize (^sizeBlock)(id<IGListCollectionContext>) = ^CGSize(id<IGListCollectionContext> collectionContext) {
         return CGSizeMake([collectionContext containerSize].width, 44);
     };
-    return [[IGListSingleItemController alloc] initWithCellClass:IGTestCell.class
+    return [[IGListSingleSectionController alloc] initWithCellClass:IGTestCell.class
                                                   configureBlock:configureBlock
                                                        sizeBlock:sizeBlock];
 }

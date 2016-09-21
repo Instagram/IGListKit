@@ -12,9 +12,9 @@
 #import <IGListKit/IGListDiffable.h>
 
 @class IGListAdapter;
-@class IGListItemController;
+@class IGListSectionController;
 
-@protocol IGListItemType;
+@protocol IGListSectionType;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,33 +24,33 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol IGListAdapterDataSource <NSObject>
 
 /**
- Asks the data source for an array of items for each list in your feed.
+ Asks the data source for an array of objects for each list in your feed.
 
  @param listAdapter The list adapter requesting this information.
 
- @return An array of items for each item in the feed.
+ @return An array of objects for the feed.
  */
-- (NSArray<id <IGListDiffable>> *)itemsForListAdapter:(IGListAdapter *)listAdapter;
+- (NSArray<id <IGListDiffable>> *)objectsForListAdapter:(IGListAdapter *)listAdapter;
 
 /**
- Asks the data source for an item controller for the specified data item.
+ Asks the data source for a section controller for the specified data object.
 
  @param listAdapter The list adapter requesting this information.
- @param item        An item in the feed, provided in -itemsForListAdapter:. You can also pass this to your list.
+ @param object      An object in the feed, provided in -objectsForListAdapter:.
 
- @return An IGListItemType conforming item that can be displayed in the feed.
+ @return An IGListSectionType conforming object that can be displayed in the feed.
 
- @discussion New list items should be initialized here for items when asked. You are free to inject the item into the
- list, as there are no other ways for a list to query its item beyond this point. You may also pass any other
- information to the list at this time.
+ @discussion New section controllers should be initialized here for objects when asked. You may pass any other data to
+ the section controller at this time.
 
- List items are initialized for all items whenever the IGListAdapter is created or asked to reload. If the order of an
- item has changed, the list will be reused.
+ Section controllers are initialized for all objects whenever the IGListAdapter is created, updated, or reloaded.
+ Section controllers are reused when objects are moved or updated. Maintaining the -[IGListDiffable diffIdentifier]
+ gauruntees this.
  */
-- (IGListItemController <IGListItemType> *)listAdapter:(IGListAdapter *)listAdapter itemControllerForItem:(id)item;
+- (IGListSectionController <IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object;
 
 /**
- Asks the data source for a view to use as the collection view background when there are no items.
+ Asks the data source for a view to use as the collection view background when there are no objects.
 
  @param listAdapter The list adapter requesting this information.
 

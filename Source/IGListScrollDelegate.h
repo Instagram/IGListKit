@@ -10,37 +10,37 @@
 #import <UIKit/UIKit.h>
 
 @class IGListAdapter;
-@class IGListItemController;
+@class IGListSectionController;
 
-@protocol IGListItemType;
+@protocol IGListSectionType;
 
 /**
- Implement this protocol to receive display events for an item controller when it is on screen.
+ Implement this protocol to receive display events for an section controller when it is on screen.
  */
 @protocol IGListScrollDelegate <NSObject>
 
 /**
- Tells the delegate that the item controller was scrolled on screen.
+ Tells the delegate that the section controller was scrolled on screen.
 
  @param listAdapter    The list adapter whose collection view was scrolled.
- @param itemController The visible item controller that was scrolled.
+ @param sectionController The visible section controller that was scrolled.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter didScrollItemController:(IGListItemController <IGListItemType> *)itemController;
+- (void)listAdapter:(IGListAdapter *)listAdapter didScrollSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
 
 /**
- Tells the delegate that the item controller will be dragged on screen.
+ Tells the delegate that the section controller will be dragged on screen.
 
  @param listAdapter    The list adapter whose collection view will drag.
- @param itemController The visible item controller that will drag.
+ @param sectionController The visible section controller that will drag.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter willBeginDraggingItemController:(IGListItemController <IGListItemType> *)itemController;
+- (void)listAdapter:(IGListAdapter *)listAdapter willBeginDraggingSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
 
 /**
- Tells the delegate that the item controller did end dragging on screen.
+ Tells the delegate that the section controller did end dragging on screen.
 
  @param listAdapter    The list adapter whose collection view ended dragging.
- @param itemController The visible item controller that ended dragging.
+ @param sectionController The visible section controller that ended dragging.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter didEndDraggingItemController:(IGListItemController <IGListItemType> *)itemController willDecelerate:(BOOL)decelerate;
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDraggingSectionController:(IGListSectionController <IGListSectionType> *)sectionController willDecelerate:(BOOL)decelerate;
 
 @end

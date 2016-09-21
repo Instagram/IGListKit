@@ -14,21 +14,21 @@
 @protocol IGListAdapterDelegate <NSObject>
 
 /**
- Notifies the delegate that a list item is about to be displayed
+ Notifies the delegate that a list object is about to be displayed
 
  @param listAdapter The list adapter sending this information.
- @param item        The item vended to the list adapter for the list item from the data source's -itemsForListAdapter:.
- @param index       The index of the item/object in the list.
+ @param object      The object that will display.
+ @param index       The index of the object in the list.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter willDisplayItem:(id)item atIndex:(NSInteger)index;
+- (void)listAdapter:(IGListAdapter *)listAdapter willDisplayObject:(id)object atIndex:(NSInteger)index;
 
 /**
  Notifies the delegate that a list item is no longer being displayed
 
  @param listAdapter The list adapter sending this information.
- @param item        The item vended to the list adapter for the list item from the data source's -itemsForListAdapter:.
+ @param object      The object that ended display.
  @param index       The index of the item/object in the list.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingItem:(id)item atIndex:(NSInteger)index;
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingObject:(id)object atIndex:(NSInteger)index;
 
 @end

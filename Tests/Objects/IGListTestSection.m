@@ -25,13 +25,13 @@
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
     return [self.collectionContext dequeReusableCellOfClass:UICollectionViewCell.class
-                                      forItemController:self
+                                      forSectionController:self
                                                     atIndex:index];
 }
 
-- (void)didUpdateToItem:(id)item {
-    if ([item isKindOfClass:[NSNumber class]]) {
-        self.items = [item integerValue];
+- (void)didUpdateToObject:(id)object {
+    if ([object isKindOfClass:[NSNumber class]]) {
+        self.items = [object integerValue];
     }
 }
 

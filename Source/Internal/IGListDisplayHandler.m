@@ -12,7 +12,7 @@
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListAdapter.h>
 #import <IGListKit/IGListDisplayDelegate.h>
-#import <IGListKit/IGListItemController.h>
+#import <IGListKit/IGListSectionController.h>
 
 @interface IGListDisplayHandler ()
 
@@ -33,7 +33,7 @@
 
 - (void)willDisplayCell:(UICollectionViewCell *)cell
          forListAdapter:(IGListAdapter *)listAdapter
-     itemController:(IGListItemController<IGListItemType> *)itemController
+     sectionController:(IGListSectionController<IGListSectionType> *)sectionController
                  object:(id)object
               indexPath:(NSIndexPath *)indexPath {
     IGParameterAssert(cell != nil);
@@ -41,22 +41,22 @@
     IGParameterAssert(object != nil);
     IGParameterAssert(indexPath != nil);
 
-    id <IGListDisplayDelegate> displayDelegate = [itemController displayDelegate];
+    id <IGListDisplayDelegate> displayDelegate = [sectionController displayDelegate];
 
-    [displayDelegate listAdapter:listAdapter willDisplayItemController:itemController cell:cell atIndex:indexPath.item];
+    [displayDelegate listAdapter:listAdapter willDisplaySectionController:sectionController cell:cell atIndex:indexPath.item];
 
     [self.visibleCellObjectMap setObject:object forKey:cell];
 
-    if ([self.visibleListSections countForObject:itemController] == 0) {
-        [displayDelegate listAdapter:listAdapter willDisplayItemController:itemController];
-        [listAdapter.delegate listAdapter:listAdapter willDisplayItem:object atIndex:indexPath.section];
+    if ([self.visibleListSections countForObject:sectionController] == 0) {
+        [displayDelegate listAdapter:listAdapter willDisplaySectionController:sectionController];
+        [listAdapter.delegate listAdapter:listAdapter willDisplayObject:object atIndex:indexPath.section];
     }
-    [self.visibleListSections addObject:itemController];
+    [self.visibleListSections addObject:sectionController];
 }
 
 - (void)didEndDisplayingCell:(UICollectionViewCell *)cell
               forListAdapter:(IGListAdapter *)listAdapter
-          itemController:(IGListItemController<IGListItemType> *)itemController
+          sectionController:(IGListSectionController<IGListSectionType> *)sectionController
                    indexPath:(NSIndexPath *)indexPath {
     IGParameterAssert(cell != nil);
     IGParameterAssert(listAdapter != nil);
@@ -68,18 +68,18 @@
     id object = [cellObjectMap objectForKey:cell];
     [cellObjectMap removeObjectForKey:cell];
 
-    if (object == nil || itemController == nil) {
+    if (object == nil || sectionController == nil) {
         return;
     }
 
-    id <IGListDisplayDelegate> displayDelegate = [itemController displayDelegate];
-    [displayDelegate listAdapter:listAdapter didEndDisplayingItemController:itemController cell:cell atIndex:indexPath.item];
+    id <IGListDisplayDelegate> displayDelegate = [sectionController displayDelegate];
+    [displayDelegate listAdapter:listAdapter didEndDisplayingSectionController:sectionController cell:cell atIndex:indexPath.item];
 
     NSCountedSet *visibleSections = self.visibleListSections;
-    [visibleSections removeObject:itemController];
-    if ([visibleSections countForObject:itemController] == 0) {
-        [displayDelegate listAdapter:listAdapter didEndDisplayingItemController:itemController];
-        [listAdapter.delegate listAdapter:listAdapter didEndDisplayingItem:object atIndex:section];
+    [visibleSections removeObject:sectionController];
+    if ([visibleSections countForObject:sectionController] == 0) {
+        [displayDelegate listAdapter:listAdapter didEndDisplayingSectionController:sectionController];
+        [listAdapter.delegate listAdapter:listAdapter didEndDisplayingObject:object atIndex:section];
     }
 }
 
