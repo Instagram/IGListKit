@@ -32,10 +32,12 @@ class User: IGListDiffable {
         return pk as NSObjectProtocol
     }
 
-    func isEqual(_ object: Any?) -> Bool {
+    func isEqual(_ object: IGListDiffable?) -> Bool {
+        if self === object {
+            return true
+        }
         if let object = object as? User {
-            return self === object
-                || (name == object.name && handle == object.handle)
+            return name == object.name && handle == object.handle
         }
         return false
     }

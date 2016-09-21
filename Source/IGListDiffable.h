@@ -42,6 +42,6 @@
  return [[self diffIdentifier] hash];
  }
  */
-- (BOOL)isEqual:(nullable id)object;
+- (BOOL)isEqual:(nullable id<IGListDiffable>)object;
 
 @end
