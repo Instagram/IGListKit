@@ -1,0 +1,58 @@
+/**
+ Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
+
+ The examples provided by Facebook are for non-commercial testing and evaluation
+ purposes only. Facebook reserves all rights not expressly granted.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+import IGListKit
+
+protocol RemoveItemControllerDelegate: class {
+    func removeItemControllerWantsRemoved(_ itemController: RemoveItemController)
+}
+
+class RemoveItemController: IGListItemController, IGListItemType, RemoveCellDelegate {
+
+    weak var delegate: RemoveItemControllerDelegate?
+    var number: Int?
+
+    override init() {
+        super.init()
+        inset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+    }
+
+    func numberOfItems() -> UInt {
+        return 1
+    }
+
+    func sizeForItem(at index: Int) -> CGSize {
+        return CGSize(width: collectionContext!.containerSize.width, height: 55)
+    }
+
+    func cellForItem(at index: Int) -> UICollectionViewCell {
+        let cell = collectionContext?.dequeReusableCell(of: RemoveCell.self, for: self, at: index) as! RemoveCell
+        cell.label.text = "Cell: \((number ?? 0) + 1)"
+        cell.delegate = self
+        return cell
+    }
+
+    func didUpdate(toItem item: Any) {
+        number = item as? Int
+    }
+
+    func didSelect(at index: Int) {}
+
+    //MARK: RemoveCellDelegate
+
+    func removeCellDidTapButton(_ cell: RemoveCell) {
+        delegate?.removeItemControllerWantsRemoved(self)
+    }
+
+}
