@@ -30,9 +30,9 @@ class DemoItem: NSObject {
 
 }
 
-class DemoItemController: IGListItemController, IGListItemType {
+class DemoSectionController: IGListSectionController, IGListSectionType {
 
-    var item: DemoItem?
+    var object: DemoItem?
 
     func numberOfItems() -> UInt {
         return 1
@@ -44,17 +44,17 @@ class DemoItemController: IGListItemController, IGListItemType {
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
-        cell.label.text = item?.name
+        cell.label.text = object?.name
         return cell
     }
 
-    func didUpdate(toItem item: Any) {
-        self.item = item as? DemoItem
+    func didUpdate(to object: Any) {
+        self.object = object as? DemoItem
     }
 
-    func didSelect(at index: Int) {
-        if let controller = item?.controllerClass.init() {
-            controller.title = item?.name
+    func didSelectItem(at index: Int) {
+        if let controller = object?.controllerClass.init() {
+            controller.title = object?.name
             viewController?.navigationController?.pushViewController(controller, animated: true)
         }
     }

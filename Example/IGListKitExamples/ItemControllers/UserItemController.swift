@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class UserItemController: IGListItemController, IGListItemType {
+class UserSectionController: IGListSectionController, IGListSectionType {
 
     var user: User?
 
@@ -34,10 +34,10 @@ class UserItemController: IGListItemController, IGListItemType {
         return cell
     }
 
-    func didUpdate(toItem item: Any) {
-        self.user = item as? User
+    func didUpdate(to object: Any) {
+        self.user = object as? User
     }
 
-    func didSelect(at index: Int) {}
+    func didSelectItem(at index: Int) {}
 
 }

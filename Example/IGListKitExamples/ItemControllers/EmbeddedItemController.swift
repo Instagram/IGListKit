@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class EmbeddedItemController: IGListItemController, IGListItemType {
+class EmbeddedSectionController: IGListSectionController, IGListSectionType {
 
     var number: Int?
 
@@ -41,10 +41,10 @@ class EmbeddedItemController: IGListItemController, IGListItemType {
         return cell
     }
 
-    func didUpdate(toItem item: Any) {
-        number = item as? Int
+    func didUpdate(to object: Any) {
+        number = object as? Int
     }
 
-    func didSelect(at index: Int) {}
+    func didSelectItem(at index: Int) {}
 
 }

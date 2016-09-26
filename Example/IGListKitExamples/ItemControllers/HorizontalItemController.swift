@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class HorizontalItemController: IGListItemController, IGListItemType, IGListAdapterDataSource {
+class HorizontalSectionController: IGListSectionController, IGListSectionType, IGListAdapterDataSource {
 
     var number: Int?
 
@@ -41,15 +41,15 @@ class HorizontalItemController: IGListItemController, IGListItemType, IGListAdap
         return cell
     }
 
-    func didUpdate(toItem item: Any) {
-        number = item as? Int
+    func didUpdate(to object: Any) {
+        number = object as? Int
     }
 
-    func didSelect(at index: Int) {}
+    func didSelectItem(at index: Int) {}
 
     //MARK: IGListAdapterDataSource
 
-    func items(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
         var numbers = [Int]()
         for i in 0..<(number ?? 0) {
             numbers.append(i)
@@ -57,8 +57,8 @@ class HorizontalItemController: IGListItemController, IGListItemType, IGListAdap
         return numbers as [IGListDiffable]
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, itemControllerForItem item: Any) -> IGListItemController {
-        return EmbeddedItemController()
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+        return EmbeddedSectionController()
     }
 
     func emptyView(for listAdapter: IGListAdapter) -> UIView? {

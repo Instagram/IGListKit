@@ -14,13 +14,13 @@
 
 import IGListKit
 
-protocol SearchItemControllerDelegate: class {
-    func searchItemController(_ itemController: SearchItemController, didChangeText text: String)
+protocol SearchSectionControllerDelegate: class {
+    func searchSectionController(_ sectionController: SearchSectionController, didChangeText text: String)
 }
 
-class SearchItemController: IGListItemController, IGListItemType, IGListDisplayDelegate, UISearchBarDelegate {
+class SearchSectionController: IGListSectionController, IGListSectionType, IGListDisplayDelegate, UISearchBarDelegate {
 
-    weak var delegate: SearchItemControllerDelegate?
+    weak var delegate: SearchSectionControllerDelegate?
 
     override init() {
         super.init()
@@ -41,31 +41,31 @@ class SearchItemController: IGListItemController, IGListItemType, IGListDisplayD
         return cell
     }
 
-    func didUpdate(toItem item: Any) {}
-    func didSelect(at index: Int) {}
+    func didUpdate(to object: Any) {}
+    func didSelectItem(at index: Int) {}
 
     //MARK: UISearchBarDelegate
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        delegate?.searchItemController(self, didChangeText: searchText)
+        delegate?.searchSectionController(self, didChangeText: searchText)
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        delegate?.searchItemController(self, didChangeText: "")
+        delegate?.searchSectionController(self, didChangeText: "")
     }
 
     //MARK: IGListDisplayDelegate
 
-    func listAdapter(_ listAdapter: IGListAdapter, didScrollItemController itemController: IGListItemController) {
-        if let searchBar = (collectionContext?.cellForItem(at: 0, itemController: self) as? SearchCell)?.searchBar {
+    func listAdapter(_ listAdapter: IGListAdapter, didScrollSectionController sectionController: IGListSectionController) {
+        if let searchBar = (collectionContext?.cellForItem(at: 0, sectionController: self) as? SearchCell)?.searchBar {
             searchBar.text = ""
             searchBar.resignFirstResponder()
         }
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, willDisplay itemController: IGListItemController) {}
-    func listAdapter(_ listAdapter: IGListAdapter, willDisplay itemController: IGListItemController, cell: UICollectionViewCell, at index: Int) {}
-    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying itemController: IGListItemController) {}
-    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying itemController: IGListItemController, cell: UICollectionViewCell, at index: Int) {}
+    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController) {}
+    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {}
+    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController) {}
+    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {}
 
 }

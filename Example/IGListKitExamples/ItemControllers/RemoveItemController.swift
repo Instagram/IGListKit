@@ -14,13 +14,13 @@
 
 import IGListKit
 
-protocol RemoveItemControllerDelegate: class {
-    func removeItemControllerWantsRemoved(_ itemController: RemoveItemController)
+protocol RemoveSectionControllerDelegate: class {
+    func removeSectionControllerWantsRemoved(_ sectionController: RemoveSectionController)
 }
 
-class RemoveItemController: IGListItemController, IGListItemType, RemoveCellDelegate {
+class RemoveSectionController: IGListSectionController, IGListSectionType, RemoveCellDelegate {
 
-    weak var delegate: RemoveItemControllerDelegate?
+    weak var delegate: RemoveSectionControllerDelegate?
     var number: Int?
 
     override init() {
@@ -43,16 +43,16 @@ class RemoveItemController: IGListItemController, IGListItemType, RemoveCellDele
         return cell
     }
 
-    func didUpdate(toItem item: Any) {
-        number = item as? Int
+    func didUpdate(to object: Any) {
+        number = object as? Int
     }
 
-    func didSelect(at index: Int) {}
+    func didSelectItem(at index: Int) {}
 
     //MARK: RemoveCellDelegate
 
     func removeCellDidTapButton(_ cell: RemoveCell) {
-        delegate?.removeItemControllerWantsRemoved(self)
+        delegate?.removeSectionControllerWantsRemoved(self)
     }
 
 }

@@ -41,7 +41,7 @@ class LoadMoreViewController: UIViewController, IGListAdapterDataSource, UIScrol
 
     //MARK: IGListAdapterDataSource
 
-    func items(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
         var items: [IGListDiffable] = words as [IGListDiffable]
         if loading {
             items.append(spinToken)
@@ -49,11 +49,11 @@ class LoadMoreViewController: UIViewController, IGListAdapterDataSource, UIScrol
         return items
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, itemControllerForItem item: Any) -> IGListItemController {
-        if let obj = item as? NSObject, obj === spinToken {
-            return spinnerItemController()
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+        if let obj = object as? NSObject, obj === spinToken {
+            return spinnerSectionController()
         } else {
-            return LabelItemController()
+            return LabelSectionController()
         }
     }
 

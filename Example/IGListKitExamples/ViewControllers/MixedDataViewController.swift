@@ -70,7 +70,7 @@ class MixedDataViewController: UIViewController, IGListAdapterDataSource {
 
     //MARK: IGListAdapterDataSource
 
-    func items(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
         var items = [IGListDiffable]()
         for obj in data {
             if selectedClass == nil || type(of: obj) == selectedClass! {
@@ -80,13 +80,13 @@ class MixedDataViewController: UIViewController, IGListAdapterDataSource {
         return items
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, itemControllerForItem item: Any) -> IGListItemController {
-        if let _ = item as? String {
-            return ExpandableItemController()
-        } else if let _ = item as? GridItem {
-            return GridItemController()
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+        if let _ = object as? String {
+            return ExpandableSectionController()
+        } else if let _ = object as? GridItem {
+            return GridSectionController()
         } else {
-            return UserItemController()
+            return UserSectionController()
         }
     }
 

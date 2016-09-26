@@ -47,15 +47,15 @@ class NestedAdapterViewController: UIViewController, IGListAdapterDataSource {
 
     //MARK: IGListAdapterDataSource
 
-    func items(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
         return data as! [IGListDiffable]
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, itemControllerForItem item: Any) -> IGListItemController {
-        if let _ = item as? Int {
-            return HorizontalItemController()
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+        if let _ = object as? Int {
+            return HorizontalSectionController()
         } else {
-            return LabelItemController()
+            return LabelSectionController()
         }
     }
 

@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class EmptyViewController: UIViewController, IGListAdapterDataSource, RemoveItemControllerDelegate {
+class EmptyViewController: UIViewController, IGListAdapterDataSource, RemoveSectionControllerDelegate {
 
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updatingDelegate: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
@@ -65,25 +65,25 @@ class EmptyViewController: UIViewController, IGListAdapterDataSource, RemoveItem
 
     //MARK: IGListAdapterDataSource
 
-    func items(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
         return data as [IGListDiffable]
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, itemControllerForItem item: Any) -> IGListItemController {
-        let itemController = RemoveItemController()
-        itemController.delegate = self
-        return itemController
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+        let sectionController = RemoveSectionController()
+        sectionController.delegate = self
+        return sectionController
     }
 
     func emptyView(for listAdapter: IGListAdapter) -> UIView? {
         return emptyLabel
     }
 
-    //MARK: RemoveItemControllerDelegate
+    //MARK: RemoveSectionControllerDelegate
 
-    func removeItemControllerWantsRemoved(_ itemController: RemoveItemController) {
-        let section = adapter.section(for: itemController)
-        guard let item = adapter.item(atSection: section) as? Int, let index = data.index(of: item) else { return }
+    func removeSectionControllerWantsRemoved(_ sectionController: RemoveSectionController) {
+        let section = adapter.section(for: sectionController)
+        guard let object = adapter.object(atSection: section) as? Int, let index = data.index(of: object) else { return }
         data.remove(at: index)
         adapter.performUpdates(animated: true, completion: nil)
     }

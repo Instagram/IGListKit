@@ -45,12 +45,12 @@ class DemosViewController: UIViewController, IGListAdapterDataSource {
 
     //MARK: IGListAdapterDataSource
 
-    func items(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
         return demos
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, itemControllerForItem item: Any) -> IGListItemController {
-        return DemoItemController()
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+        return DemoSectionController()
     }
 
     func emptyView(for listAdapter: IGListAdapter) -> UIView? {

@@ -15,10 +15,10 @@
 import UIKit
 import IGListKit
 
-class ExpandableItemController: IGListItemController, IGListItemType {
+class ExpandableSectionController: IGListSectionController, IGListSectionType {
 
     var expanded = false
-    var item: String?
+    var object: String?
 
     func numberOfItems() -> UInt {
         return 1
@@ -26,22 +26,22 @@ class ExpandableItemController: IGListItemController, IGListItemType {
 
     func sizeForItem(at index: Int) -> CGSize {
         let width = collectionContext!.containerSize.width
-        let height = expanded ? LabelCell.textHeight(item ?? "", width: width) : LabelCell.singleLineHeight
+        let height = expanded ? LabelCell.textHeight(object ?? "", width: width) : LabelCell.singleLineHeight
         return CGSize(width: width, height: height)
     }
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
         cell.label.numberOfLines = expanded ? 0 : 1
-        cell.label.text = item
+        cell.label.text = object
         return cell
     }
 
-    func didUpdate(toItem item: Any) {
-        self.item = item as? String
+    func didUpdate(to object: Any) {
+        self.object = object as? String
     }
 
-    func didSelect(at index: Int) {
+    func didSelectItem(at index: Int) {
         expanded = !expanded
         collectionContext?.reload(self)
     }

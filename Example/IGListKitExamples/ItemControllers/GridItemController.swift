@@ -27,9 +27,9 @@ class GridItem: NSObject {
 
 }
 
-class GridItemController: IGListItemController, IGListItemType {
+class GridSectionController: IGListSectionController, IGListSectionType {
 
-    var item: GridItem?
+    var object: GridItem?
 
     override init() {
         super.init()
@@ -38,7 +38,7 @@ class GridItemController: IGListItemController, IGListItemType {
     }
 
     func numberOfItems() -> UInt {
-        return item?.itemCount ?? 0
+        return object?.itemCount ?? 0
     }
 
     func sizeForItem(at index: Int) -> CGSize {
@@ -50,14 +50,14 @@ class GridItemController: IGListItemController, IGListItemType {
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeReusableCell(of: CenterLabelCell.self, for: self, at: index) as! CenterLabelCell
         cell.label.text = "\(index + 1)"
-        cell.backgroundColor = item?.color
+        cell.backgroundColor = object?.color
         return cell
     }
 
-    func didUpdate(toItem item: Any) {
-        self.item = item as? GridItem
+    func didUpdate(to object: Any) {
+        self.object = object as? GridItem
     }
 
-    func didSelect(at index: Int) {}
+    func didSelectItem(at index: Int) {}
 
 }

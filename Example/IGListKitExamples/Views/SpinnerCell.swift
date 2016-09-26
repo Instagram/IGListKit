@@ -15,12 +15,12 @@
 import UIKit
 import IGListKit
 
-func spinnerItemController() -> IGListSingleItemController {
+func spinnerSectionController() -> IGListSingleSectionController {
     let configureBlock = { (item: Any, cell: UICollectionViewCell) in}
     let sizeBlock = { (context: IGListCollectionContext) -> CGSize in
         return CGSize(width: context.containerSize.width, height: 100)
     }
-    return IGListSingleItemController(cellClass: SpinnerCell.self, configureBlock: configureBlock, sizeBlock: sizeBlock)
+    return IGListSingleSectionController(cellClass: SpinnerCell.self, configureBlock: configureBlock, sizeBlock: sizeBlock)
 }
 
 class SpinnerCell: UICollectionViewCell {

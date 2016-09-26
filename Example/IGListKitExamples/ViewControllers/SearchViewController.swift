@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class SearchViewController: UIViewController, IGListAdapterDataSource, SearchItemControllerDelegate {
+class SearchViewController: UIViewController, IGListAdapterDataSource, SearchSectionControllerDelegate {
 
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updatingDelegate: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
@@ -47,7 +47,7 @@ class SearchViewController: UIViewController, IGListAdapterDataSource, SearchIte
 
     //MARK: IGListAdapterDataSource
 
-    func items(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
         var items: [IGListDiffable] = [searchToken]
         for word in words {
             if filterString == "" || word.lowercased().contains(filterString.lowercased()) {
@@ -57,13 +57,13 @@ class SearchViewController: UIViewController, IGListAdapterDataSource, SearchIte
         return items
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, itemControllerForItem item: Any) -> IGListItemController {
-        if let obj = item as? NSObject, obj === searchToken {
-            let itemController = SearchItemController()
-            itemController.delegate = self
-            return itemController
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+        if let obj = object as? NSObject, obj === searchToken {
+            let sectionController = SearchSectionController()
+            sectionController.delegate = self
+            return sectionController
         } else {
-            return LabelItemController()
+            return LabelSectionController()
         }
     }
 
@@ -71,9 +71,9 @@ class SearchViewController: UIViewController, IGListAdapterDataSource, SearchIte
         return nil
     }
 
-    //MARK: SearchItemControllerDelegate
+    //MARK: SearchSectionControllerDelegate
 
-    func searchItemController(_ itemController: SearchItemController, didChangeText text: String) {
+    func searchSectionController(_ sectionController: SearchSectionController, didChangeText text: String) {
         filterString = text
         adapter.performUpdates(animated: true, completion: nil)
     }

@@ -15,9 +15,9 @@
 import UIKit
 import IGListKit
 
-class LabelItemController: IGListItemController, IGListItemType {
+class LabelSectionController: IGListSectionController, IGListSectionType {
 
-    var item: String?
+    var object: String?
 
     func numberOfItems() -> UInt {
         return 1
@@ -29,14 +29,14 @@ class LabelItemController: IGListItemController, IGListItemType {
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
-        cell.label.text = item
+        cell.label.text = object
         return cell
     }
 
-    func didUpdate(toItem item: Any) {
-        self.item = item as? String
+    func didUpdate(to object: Any) {
+        self.object = object as? String
     }
 
-    func didSelect(at index: Int) {}
+    func didSelectItem(at index: Int) {}
 
 }
