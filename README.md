@@ -11,13 +11,13 @@
 
 ------------------------
 
-A data-driven `UICollectionView` framework for building fast and flexible feeds.
+A data-driven `UICollectionView` framework for building fast and flexible lists.
 
          | Main Features
 ---------|---------------
 :no_good: | Never call `performBatchUpdates(_:, completion:)` or `reloadData()` again
-:house: | Better architecture with reusable cells and feed components
-:capital_abcd: | Create feeds with multiple data types
+:house: | Better architecture with reusable cells and components
+:capital_abcd: | Create collections with multiple data types
 :mag: | Customize your diffing behavior for your models
 :white_check_mark: | Fully unit tested
 :iphone: | Simply `UICollectionView` at its core
@@ -40,25 +40,25 @@ You can also manually install the framework by dragging and dropping the `IGList
 
 `IGListKit` supports a minimum iOS version of 8.0.
 
-## Creating your first feed
+## Creating your first list
 
-After installing `IGListKit`, creating a new feed is really simple.
+After installing `IGListKit`, creating a new list is really simple.
 
-### Creating an item controller
+### Creating a section controller
 
-Creating a new item controller is very simple. You just subclass `IGListItemController` and conform to the `IGListItemType` protocol. Once you conform to `IGListItemType`, the compiler will make sure you implement all of the required methods.
+Creating a new section controller is very simple. You just subclass `IGListSectionController` and conform to the `IGListSectionType` protocol. Once you conform to `IGListSectionType`, the compiler will make sure you implement all of the required methods.
 
-Take a look at [LabelItemController](TODO URL) for an example item controller that handles a `String` and configures a single cell with a `UILabel`.
+Take a look at [LabelSectionController](TODO URL) for an example section controller that handles a `String` and configures a single cell with a `UILabel`.
 
 ```swift
-class LabelItemController: IGListItemController, IGListItemType {
+class LabelSectionController: IGListSectionController, IGListSectionType {
   // ...
 }
 ```
 
 ### Creating the UI
 
-After creating at least one item controller, you must create an `IGListCollectionView` and `IGListAdapter`.
+After creating at least one section controller, you must create an `IGListCollectionView` and `IGListAdapter`.
 
 ```swift
 let layout = UICollectionViewFlowLayout()
@@ -76,17 +76,17 @@ adapter.collectionView = collectionView
 The last step is the `IGListAdapter`'s data source and returning some data.
 
 ```swift
-func itemsForListAdapter(listAdapter: IGListAdapter) -> [IGListDiffable] {
+func objectssForListAdapter(listAdapter: IGListAdapter) -> [IGListDiffable] {
   // this can be anything!
   return [ "Foo", "Bar", 42, "Biz" ]
 }
 
 func listAdapter(listAdapter: IGListAdapter,
-    itemControllerForItem item: AnyObject) -> IGListItemController {
-  if let _ = item as? String {
-    return LabelItemController()
+    sectionControllerForObject(object: AnyObject) -> IGListSectionController {
+  if let _ = object as? String {
+    return LabelSectionController()
   } else {
-    return NumberItemController()
+    return NumberSectionController()
   }
 }
 
@@ -146,7 +146,7 @@ extension User: IGListDiffable {
 
 The algorithm will skip updating two `User` objects that have the same `primaryKey` and `name`, even if they are different instances! You now avoid unecessary UI updates in the collection view even when providing new instances.
 
-> **Note:** Remember that `isEqual(_:)` should return `false` when you want to reload the cells in the corresponding item controller.
+> **Note:** Remember that `isEqual(_:)` should return `false` when you want to reload the cells in the corresponding section controller.
 
 ## Advanced Features
 
@@ -154,15 +154,15 @@ The algorithm will skip updating two `User` objects that have the same `primaryK
 
 **Supplementary Views**
 
-Adding supplementary views to item controllers is as simple as setting the weak `supplementaryViewSource` and implementing the `IGListSupplementaryViewSource` protocol. This protocol works nearly the same as returning and configuring cells.
+Adding supplementary views to section controllers is as simple as setting the weak `supplementaryViewSource` and implementing the `IGListSupplementaryViewSource` protocol. This protocol works nearly the same as returning and configuring cells.
 
 **Display Delegate**
 
-Item controllers can set the weak `displayDelegate` delegate to an object, including `self`, to receive display events about an item controller and individual cells.
+Section controllers can set the weak `displayDelegate` delegate to an object, including `self`, to receive display events about an section controller and individual cells.
 
 **Working Range**
 
-A *working range* is a distance before and after the visible bounds of the `UICollectionView` where item controllers within this bounds are notified of their entrance and exit. This concept lets your item controllers **prepare content** before they come on screen (e.g. download images).
+A *working range* is a distance before and after the visible bounds of the `UICollectionView` where section controllers within this bounds are notified of their entrance and exit. This concept lets your section controllers **prepare content** before they come on screen (e.g. download images).
 
 The `IGListAdapter` must be initialized with a range value in order to work. This value is a multiple of the visible height or width, depending on the scroll-direction.
 
@@ -174,7 +174,7 @@ let adapter = IGListAdapter(updatingDelegate: IGListAdapterUpdater(),
 
 ![working-range](Resources/workingrange.png)
 
-You can set the weak `workingRangeDelegate` on an item controller to receive events.
+You can set the weak `workingRangeDelegate` on an section controller to receive events.
 
 ### Custom Updaters
 
