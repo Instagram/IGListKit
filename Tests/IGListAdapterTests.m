@@ -47,7 +47,7 @@
     IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
 
     self.dataSource = [[IGListTestAdapterDataSource alloc] init];
-    self.adapter = [[IGListAdapter alloc] initWithUpdatingDelegate:updater
+    self.adapter = [[IGListAdapter alloc] initWithUpdater:updater
                                                     viewController:nil
                                                   workingRangeSize:0];
     self.adapter.collectionView = self.collectionView;
@@ -178,7 +178,7 @@
 - (void)test_whenSettingCollectionView_thenSettingDataSource_thatViewControllerIsSet {
     self.dataSource.objects = @[@0, @1, @2];
     UIViewController *controller = [UIViewController new];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdatingDelegate:[IGListReloadDataUpdater new]
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
                                                               viewController:controller
                                                             workingRangeSize:0];
     adapter.collectionView = self.collectionView;
@@ -189,7 +189,7 @@
 
 - (void)test_whenSettingCollectionView_thenSettingDataSource_thatCellExists {
     self.dataSource.objects = @[@1];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdatingDelegate:[IGListReloadDataUpdater new]
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
                                                               viewController:nil
                                                             workingRangeSize:0];
     adapter.collectionView = self.collectionView;
@@ -200,7 +200,7 @@
 
 - (void)test_whenSettingDataSource_thenSettingCollectionView_thatCellExists {
     self.dataSource.objects = @[@1];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdatingDelegate:[IGListReloadDataUpdater new]
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
                                                               viewController:nil
                                                             workingRangeSize:0];
     adapter.dataSource = self.dataSource;
@@ -212,7 +212,7 @@
 - (void)test_whenChangingCollectionViews_thatCellsExist {
     self.dataSource.objects = @[@1];
     IGListAdapterUpdater *updater = [[IGListAdapterUpdater alloc] init];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdatingDelegate:updater viewController:nil workingRangeSize:0];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:0];
     adapter.dataSource = self.dataSource;
     adapter.collectionView = self.collectionView;
     [self.collectionView layoutIfNeeded];
@@ -228,13 +228,13 @@
     IGListTestAdapterDataSource *dataSource1 = [[IGListTestAdapterDataSource alloc] init];
     dataSource1.objects = @[@1];
     IGListAdapterUpdater *updater1 = [[IGListAdapterUpdater alloc] init];
-    IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdatingDelegate:updater1 viewController:nil workingRangeSize:0];
+    IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:updater1 viewController:nil workingRangeSize:0];
     adapter1.dataSource = dataSource1;
 
     IGListTestAdapterDataSource *dataSource2 = [[IGListTestAdapterDataSource alloc] init];
     dataSource1.objects = @[@1];
     IGListAdapterUpdater *updater2 = [[IGListAdapterUpdater alloc] init];
-    IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdatingDelegate:updater2 viewController:nil workingRangeSize:0];
+    IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdater:updater2 viewController:nil workingRangeSize:0];
     adapter1.dataSource = dataSource2;
 
     // associate collection view with adapter1
@@ -382,7 +382,7 @@
         dataSource.objects = @[@0, @1, @2];
 
         IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
-        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdatingDelegate:updater viewController:nil workingRangeSize:0];
+        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:0];
         adapter.collectionView = collectionView;
         adapter.dataSource = dataSource;
         weakAdapter = adapter;
@@ -422,7 +422,7 @@
         dataSource.objects = @[@0, @1, @2];
 
         IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
-        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdatingDelegate:updater viewController:nil workingRangeSize:0];
+        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:0];
         adapter.collectionView = collectionView;
         adapter.dataSource = dataSource;
         weakAdapter = adapter;

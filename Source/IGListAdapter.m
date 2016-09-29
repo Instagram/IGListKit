@@ -34,7 +34,7 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithUpdatingDelegate:(id <IGListUpdatingDelegate>)updatingDelegate
+- (instancetype)initWithUpdater:(id <IGListUpdatingDelegate>)updatingDelegate
                           viewController:(UIViewController *)viewController
                         workingRangeSize:(NSUInteger)workingRangeSize {
     IGAssertMainThread();

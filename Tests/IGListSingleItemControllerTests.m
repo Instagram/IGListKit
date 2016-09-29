@@ -36,7 +36,7 @@
     [self.window addSubview:self.collectionView];
     self.dataSource = [[IGTestSingleItemDataSource alloc] init];
     self.updater = [[IGListAdapterUpdater alloc] init];
-    self.adapter = [[IGListAdapter alloc] initWithUpdatingDelegate:self.updater viewController:nil workingRangeSize:2];
+    self.adapter = [[IGListAdapter alloc] initWithUpdater:self.updater viewController:nil workingRangeSize:2];
 }
 
 - (void)tearDown {

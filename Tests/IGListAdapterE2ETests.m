@@ -49,7 +49,7 @@
     self.dataSource = [[IGTestDelegateDataSource alloc] init];
 
     self.updater = [[IGListAdapterUpdater alloc] init];
-    self.adapter = [[IGListAdapter alloc] initWithUpdatingDelegate:self.updater viewController:nil workingRangeSize:2];
+    self.adapter = [[IGListAdapter alloc] initWithUpdater:self.updater viewController:nil workingRangeSize:2];
 }
 
 - (void)tearDown {
@@ -706,7 +706,7 @@
 - (void)test_whenPerformingUpdates_withoutSettingDataSource_thatCompletionBlockExecutes {
     IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
     [self.window addSubview:collectionView];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdatingDelegate:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
     adapter.collectionView = collectionView;
 
     self.dataSource.objects = @[
@@ -757,7 +757,7 @@
     IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
     [self.window addSubview:collectionView];
     IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdatingDelegate:updater viewController:nil workingRangeSize:0];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:0];
     adapter.dataSource = self.dataSource;
     adapter.collectionView = collectionView;
     [collectionView layoutSubviews];
@@ -794,7 +794,7 @@
     // controller is nil. the adapter should be released and the completion block never called.
     @autoreleasepool {
         IGListAdapterUpdater *updater = [[IGListAdapterUpdater alloc] init];
-        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdatingDelegate:updater viewController:nil workingRangeSize:2];
+        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:2];
         adapter.collectionView = self.collectionView;
         adapter.dataSource = self.dataSource;
         [adapter performUpdatesAnimated:NO completion:^(BOOL finished) {

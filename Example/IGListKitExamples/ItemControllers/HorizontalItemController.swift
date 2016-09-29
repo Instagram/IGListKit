@@ -20,7 +20,7 @@ class HorizontalSectionController: IGListSectionController, IGListSectionType, I
     var number: Int?
 
     lazy var adapter: IGListAdapter = {
-        let adapter = IGListAdapter(updatingDelegate: IGListAdapterUpdater(),
+        let adapter = IGListAdapter(updater: IGListAdapterUpdater(),
                                     viewController: self.viewController,
                                     workingRangeSize: 0)
         adapter.dataSource = self

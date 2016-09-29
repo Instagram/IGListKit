@@ -89,7 +89,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  To opt out of using the working range, you can provide a value of 0.
  */
-- (instancetype)initWithUpdatingDelegate:(id <IGListUpdatingDelegate>)updatingDelegate
+- (instancetype)initWithUpdater:(id <IGListUpdatingDelegate>)updatingDelegate
                           viewController:(nullable UIViewController *)viewController
                         workingRangeSize:(NSUInteger)workingRangeSize NS_DESIGNATED_INITIALIZER;
 

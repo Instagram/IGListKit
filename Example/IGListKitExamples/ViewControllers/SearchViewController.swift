@@ -18,7 +18,7 @@ import IGListKit
 class SearchViewController: UIViewController, IGListAdapterDataSource, SearchSectionControllerDelegate {
 
     lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updatingDelegate: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
     let collectionView = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     lazy var words: [String] = {

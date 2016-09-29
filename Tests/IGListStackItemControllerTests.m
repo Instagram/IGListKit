@@ -42,7 +42,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     [self.window addSubview:self.collectionView];
 
     self.dataSource = [[IGTestStackedDataSource alloc] init];
-    self.adapter = [[IGListAdapter alloc] initWithUpdatingDelegate:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
+    self.adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
 }
 
 - (void)tearDown {
