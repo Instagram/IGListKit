@@ -36,7 +36,7 @@ class SearchSectionController: IGListSectionController, IGListSectionType, IGLis
     }
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeReusableCell(of: SearchCell.self, for: self, at: index) as! SearchCell
+        let cell = collectionContext!.dequeueReusableCell(of: SearchCell.self, for: self, at: index) as! SearchCell
         cell.searchBar.delegate = self
         return cell
     }

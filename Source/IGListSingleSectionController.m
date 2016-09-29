@@ -48,7 +48,7 @@
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
     IGParameterAssert(index == 0);
-    id cell = [self.collectionContext dequeReusableCellOfClass:self.cellClass forSectionController:self atIndex:index];
+    id cell = [self.collectionContext dequeueReusableCellOfClass:self.cellClass forSectionController:self atIndex:index];
     self.configureBlock(self.item, cell);
     return cell;
 }

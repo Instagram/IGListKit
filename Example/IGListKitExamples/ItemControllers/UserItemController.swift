@@ -28,7 +28,7 @@ class UserSectionController: IGListSectionController, IGListSectionType {
     }
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeReusableCell(of: DetailLabelCell.self, for: self, at: index) as! DetailLabelCell
+        let cell = collectionContext!.dequeueReusableCell(of: DetailLabelCell.self, for: self, at: index) as! DetailLabelCell
         cell.titleLabel.text = user?.name
         cell.detailLabel.text = "@" + (user?.handle ?? "")
         return cell

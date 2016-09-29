@@ -708,7 +708,7 @@
     [self.collectionView deselectItemAtIndexPath:indexPath animated:animated];
 }
 
-- (__kindof UICollectionViewCell *)dequeReusableCellOfClass:(Class)cellClass
+- (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
                                        forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
                                                     atIndex:(NSInteger)index {
     IGAssertMainThread();
@@ -724,7 +724,7 @@
     return [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
 }
 
-- (__kindof UICollectionReusableView *)dequeReusableSupplementaryViewOfKind:(NSString *)elementKind
+- (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
                                                        forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
                                                                       class:(Class)viewClass
                                                                     atIndex:(NSInteger)index {

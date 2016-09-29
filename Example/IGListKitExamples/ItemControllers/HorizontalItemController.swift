@@ -36,7 +36,7 @@ class HorizontalSectionController: IGListSectionController, IGListSectionType, I
     }
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeReusableCell(of: EmbeddedCollectionViewCell.self, for: self, at: index) as! EmbeddedCollectionViewCell
+        let cell = collectionContext!.dequeueReusableCell(of: EmbeddedCollectionViewCell.self, for: self, at: index) as! EmbeddedCollectionViewCell
         adapter.collectionView = cell.collectionView
         return cell
     }

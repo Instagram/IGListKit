@@ -37,7 +37,7 @@ class RemoveSectionController: IGListSectionController, IGListSectionType, Remov
     }
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext?.dequeReusableCell(of: RemoveCell.self, for: self, at: index) as! RemoveCell
+        let cell = collectionContext?.dequeueReusableCell(of: RemoveCell.self, for: self, at: index) as! RemoveCell
         cell.label.text = "Cell: \((number ?? 0) + 1)"
         cell.delegate = self
         return cell

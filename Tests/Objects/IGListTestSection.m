@@ -24,7 +24,7 @@
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
-    return [self.collectionContext dequeReusableCellOfClass:UICollectionViewCell.class
+    return [self.collectionContext dequeueReusableCellOfClass:UICollectionViewCell.class
                                       forSectionController:self
                                                     atIndex:index];
 }

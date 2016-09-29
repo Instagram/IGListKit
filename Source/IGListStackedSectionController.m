@@ -187,21 +187,21 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     return [self.collectionContext sectionForSectionController:self];
 }
 
-- (UICollectionViewCell *)dequeReusableCellOfClass:(Class)cellClass
+- (UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
                              forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
                                            atIndex:(NSInteger)index {
     const NSUInteger offset = [self offsetForSectionController:sectionController];
-    return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeReusableCellOfClass:cellClass
+    return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeueReusableCellOfClass:cellClass
                                                                       forSectionController:self
                                                                                     atIndex:(index + offset)];
 }
 
-- (UICollectionReusableView *)dequeReusableSupplementaryViewOfKind:(NSString *)elementKind
+- (UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
                                              forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
                                                              class:(Class)viewClass
                                                            atIndex:(NSInteger)index {
     const NSUInteger offset = [self offsetForSectionController:sectionController];
-    return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeReusableSupplementaryViewOfKind:elementKind
+    return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeueReusableSupplementaryViewOfKind:elementKind
                                                                                   forSectionController:self
                                                                                                   class:viewClass
                                                                                                 atIndex:(index + offset)];
