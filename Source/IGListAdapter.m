@@ -112,7 +112,7 @@
 
 - (void)updateAfterPublicSettingsChange {
     if (_collectionView != nil && _dataSource != nil) {
-        [self updateObjects:[_dataSource objectsForListAdapter:self]];
+        [self updateObjects:[[_dataSource objectsForListAdapter:self] copy]];
 
         if (IGListExperimentEnabled(self.experiments, IGListExperimentUICVReloadedInSetter)) {
             [_collectionView reloadData];
@@ -217,7 +217,7 @@
     }
 
     NSArray *fromObjects = [self.sectionMap.objects copy];
-    NSArray *newItems = [dataSource objectsForListAdapter:self];
+    NSArray *newItems = [[dataSource objectsForListAdapter:self] copy];
 
     __weak __typeof__(self) weakSelf = self;
     [self.updatingDelegate performUpdateWithCollectionView:collectionView
@@ -252,7 +252,7 @@
         }
     }
 
-    NSArray *newItems = [dataSource objectsForListAdapter:self];
+    NSArray *newItems = [[dataSource objectsForListAdapter:self] copy];
 
     __weak __typeof__(self) weakSelf = self;
     [self.updatingDelegate reloadDataWithCollectionView:collectionView reloadUpdateBlock:^{
@@ -369,10 +369,10 @@
 
 // this method is what updates the "source of truth"
 // this should only be called just before the collection view is updated
-- (void)updateObjects:(NSArray *)items {
+- (void)updateObjects:(NSArray *)objects {
 #if DEBUG
-    for (id item in items) {
-        IGAssert([item isEqual:item], @"Object instance %@ not equal to itself. This will break infra map tables.", item);
+    for (id object in objects) {
+        IGAssert([object isEqual:object], @"Object instance %@ not equal to itself. This will break infra map tables.", object);
     }
 #endif
 
@@ -380,19 +380,19 @@
     IGListSectionMap *map = self.sectionMap;
 
     // collect items that have changed since the last update
-    NSMutableSet *updatedItems = [NSMutableSet new];
+    NSMutableSet *updatedObjects = [NSMutableSet new];
 
     // push the view controller and collection context into a local thread container so they are available on init
     // for IGListSectionController subclasses after calling [super init]
     IGListSectionControllerPushThread(self.viewController, self);
 
-    for (id item in items) {
+    for (id object in objects) {
         // infra checks to see if a controller exists
-        IGListSectionController <IGListSectionType> *sectionController = [map sectionControllerForObject:item];
+        IGListSectionController <IGListSectionType> *sectionController = [map sectionControllerForObject:object];
 
         // if not, query the data source for a new one
         if (sectionController == nil) {
-            sectionController = [self.dataSource listAdapter:self sectionControllerForObject:item];
+            sectionController = [self.dataSource listAdapter:self sectionControllerForObject:object];
         }
 
         IGAssert(sectionController != nil, @"Data source <%@> cannot return a nil section controller.", self.dataSource);
@@ -405,9 +405,9 @@
         sectionController.viewController = self.viewController;
 
         // check if the item has changed instances or is new
-        const NSUInteger oldSection = [map sectionForObject:item];
-        if (oldSection == NSNotFound || [map objectForSection:oldSection] != item) {
-            [updatedItems addObject:item];
+        const NSUInteger oldSection = [map sectionForObject:object];
+        if (oldSection == NSNotFound || [map objectForSection:oldSection] != object) {
+            [updatedObjects addObject:object];
         }
 
         [sectionControllers addObject:sectionController];
@@ -416,11 +416,11 @@
     // clear the view controller and collection context
     IGListSectionControllerPopThread();
 
-    [map updateWithObjects:items sectionControllers:sectionControllers];
+    [map updateWithObjects:objects sectionControllers:[sectionControllers copy]];
 
     // now that the maps have been created and contexts are assigned, we consider the section controller "fully loaded"
-    for (id item in updatedItems) {
-        [[map sectionControllerForObject:item] didUpdateToObject:item];
+    for (id object in updatedObjects) {
+        [[map sectionControllerForObject:object] didUpdateToObject:object];
     }
 
     NSUInteger itemCount = 0;
