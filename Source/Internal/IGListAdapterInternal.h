@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
+ * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
@@ -52,8 +52,8 @@ IGListCollectionContext
 @property (nonatomic, strong) NSMutableSet<Class> *registeredSupplementaryViewClasses;
 
 - (NSArray *)indexPathsFromSectionController:(IGListSectionController <IGListSectionType> *)sectionController
-                                  indexes:(NSIndexSet *)indexes
-                     adjustForUpdateBlock:(BOOL)adjustForUpdateBlock;
+                                     indexes:(NSIndexSet *)indexes
+                        adjustForUpdateBlock:(BOOL)adjustForUpdateBlock;
 
 - (NSString *)reusableViewIdentifierForClass:(Class)viewClass;
 

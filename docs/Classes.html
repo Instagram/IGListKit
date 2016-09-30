@@ -13,7 +13,7 @@
     <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (78% documented)</p>
+        <p><a href="index.html">IGListKit Docs</a> (79% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -57,9 +57,6 @@
                 <a href="Classes/IGListIndexSetResult.html">IGListIndexSetResult</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/IGListItemController.html">IGListItemController</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Classes/IGListMoveIndex.html">IGListMoveIndex</a>
               </li>
               <li class="nav-group-task">
@@ -69,10 +66,13 @@
                 <a href="Classes.html#/c:objc(cs)IGListReloadDataUpdater">IGListReloadDataUpdater</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/IGListSingleItemController.html">IGListSingleItemController</a>
+                <a href="Classes/IGListSectionController.html">IGListSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/IGListStackedItemController.html">IGListStackedItemController</a>
+                <a href="Classes/IGListSingleSectionController.html">IGListSingleSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListStackedSectionController.html">IGListStackedSectionController</a>
               </li>
             </ul>
           </li>
@@ -120,10 +120,13 @@
                 <a href="Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="Protocols/IGListItemType.html">IGListItemType</a>
+                <a href="Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="Protocols/IGListSingleItemControllerDelegate.html">IGListSingleItemControllerDelegate</a>
+                <a href="Protocols/IGListSectionType.html">IGListSectionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
@@ -140,10 +143,10 @@
             <a href="Type Definitions.html">Type Definitions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemTransitionBlock">IGListItemTransitionBlock</a>
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
               </li>
               <li class="nav-group-task">
                 <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
@@ -202,11 +205,11 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>IGListAdapter objects provide an abstraction for feeds of objects in a UICollectionView by breaking each object into
-individual sections, called <q>list items</q>. These items (objects conforming to IGListItemType) act as a data source
-and delegate for each section.</p>
+individual sections, called <q>section controllers</q>. These controllers (objects conforming to IGListSectionType) act as a
+data source and delegate for each section.</p>
 
-<p>Feed implementations must act as the data source for an IGListAdapter in order to drive the objects and list items in a
-collection view.</p>
+<p>Feed implementations must act as the data source for an IGListAdapter in order to drive the objects and section
+controllers in a collection view.</p>
 
                         <a href="Classes/IGListAdapter.html" class="slightly-smaller">See more</a>
                       </div>
@@ -321,7 +324,7 @@ methods are called on the collection view returned by -[IGListAdapter collection
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListCollectionView</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListCollectionView</span> <span class="p">:</span> <span class="nc">UICollectionView</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -401,43 +404,6 @@ methods are called on the collection view returned by -[IGListAdapter collection
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">class</span> <span class="kt">IGListIndexSetResult</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(cs)IGListItemController"></a>
-                    <a name="//apple_ref/objc/Class/IGListItemController" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListItemController">IGListItemController</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The base class for item controllers used in the list infra. This class is meant to be subclassed.</p>
-
-                        <a href="Classes/IGListItemController.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListItemController</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">IGListItemController</span></code></pre>
 
                         </div>
                       </div>
@@ -548,9 +514,9 @@ methods are called on the collection view returned by -[IGListAdapter collection
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListSingleItemController"></a>
-                    <a name="//apple_ref/objc/Class/IGListSingleItemController" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListSingleItemController">IGListSingleItemController</a>
+                    <a name="/c:objc(cs)IGListSectionController"></a>
+                    <a name="//apple_ref/objc/Class/IGListSectionController" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController">IGListSectionController</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -558,22 +524,20 @@ methods are called on the collection view returned by -[IGListAdapter collection
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This item controller is meant to make building simple, single-cell feeds easier. By providing the type of cell, a block
-to configure the cell, and a block to return the size of a cell, you can use an IGListAdapter-powered feed without
-overcomplicating your architecture.</p>
+                        <p>The base class for section controllers used in the list infra. This class is meant to be subclassed.</p>
 
-                        <a href="Classes/IGListSingleItemController.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/IGListSectionController.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListSingleItemController</span> <span class="p">:</span> <span class="nc">IGListItemController</span> <span class="o">&lt;</span><span class="n"><a href="Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListSectionController</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">IGListSingleItemController</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">IGListSectionController</span></code></pre>
 
                         </div>
                       </div>
@@ -587,9 +551,9 @@ overcomplicating your architecture.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListStackedItemController"></a>
-                    <a name="//apple_ref/objc/Class/IGListStackedItemController" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListStackedItemController">IGListStackedItemController</a>
+                    <a name="/c:objc(cs)IGListSingleSectionController"></a>
+                    <a name="//apple_ref/objc/Class/IGListSingleSectionController" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListSingleSectionController">IGListSingleSectionController</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -597,26 +561,67 @@ overcomplicating your architecture.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is a clustered item controller, composed of many child item controllers. It constructs and routes item-level
-indexes to the appropriate child item controller with a local index. This lets you build item controllers made up of
-individual units that can be shared and reused with other item controllers.</p>
+                        <p>This section controller is meant to make building simple, single-cell feeds easier. By providing the type of cell, a block
+to configure the cell, and a block to return the size of a cell, you can use an IGListAdapter-powered feed without
+overcomplicating your architecture.</p>
 
-<p>For example, you can create a <q>Comments</q> item controller that displays lists of text that is used alongside photo,
-video, or slideshow item controllers. You then have four small and manageable item controllers instead of one huge
-class.</p>
-
-                        <a href="Classes/IGListStackedItemController.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/IGListSingleSectionController.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListStackedItemController</span> <span class="p">:</span> <span class="nc">IGListItemController</span> <span class="o">&lt;</span><span class="n"><a href="Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListSingleSectionController</span>
+    <span class="p">:</span> <span class="nc">IGListSectionController</span> <span class="o">&lt;</span><span class="n"><a href="Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">IGListStackedItemController</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">IGListSingleSectionController</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListStackedSectionController"></a>
+                    <a name="//apple_ref/objc/Class/IGListStackedSectionController" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListStackedSectionController">IGListStackedSectionController</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is a clustered section controller, composed of many child section controllers. It constructs and routes item-level
+indexes to the appropriate child section controller with a local index. This lets you build section controllers made up
+of individual units that can be shared and reused with other section controllers.</p>
+
+<p>For example, you can create a <q>Comments</q> section controller that displays lists of text that is used alongside photo,
+video, or slideshow section controllers. You then have four small and manageable section controllers instead of one
+huge class.</p>
+
+                        <a href="Classes/IGListStackedSectionController.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListStackedSectionController</span>
+    <span class="p">:</span> <span class="nc">IGListSectionController</span> <span class="o">&lt;</span><span class="n"><a href="Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">IGListStackedSectionController</span></code></pre>
 
                         </div>
                       </div>
@@ -628,8 +633,8 @@ class.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-13)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

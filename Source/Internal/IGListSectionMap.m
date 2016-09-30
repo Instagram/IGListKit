@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
+ * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
@@ -31,8 +31,8 @@
 
         // lookup list objects by pointer equality
         _sectionControllerToSectionMap = [[NSMapTable alloc] initWithKeyOptions:NSMapTableStrongMemory | NSMapTableObjectPointerPersonality
-                                                  valueOptions:NSMapTableStrongMemory
-                                                      capacity:0];
+                                                                   valueOptions:NSMapTableStrongMemory
+                                                                       capacity:0];
         _objects = [NSArray new];
     }
     return self;

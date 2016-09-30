@@ -14,7 +14,7 @@
     <a title="IGListMoveIndexPath Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (78% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (79% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -58,9 +58,6 @@
                 <a href="../Classes/IGListIndexSetResult.html">IGListIndexSetResult</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListItemController.html">IGListItemController</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/IGListMoveIndex.html">IGListMoveIndex</a>
               </li>
               <li class="nav-group-task">
@@ -70,10 +67,13 @@
                 <a href="../Classes.html#/c:objc(cs)IGListReloadDataUpdater">IGListReloadDataUpdater</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListSingleItemController.html">IGListSingleItemController</a>
+                <a href="../Classes/IGListSectionController.html">IGListSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListStackedItemController.html">IGListStackedItemController</a>
+                <a href="../Classes/IGListSingleSectionController.html">IGListSingleSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListStackedSectionController.html">IGListStackedSectionController</a>
               </li>
             </ul>
           </li>
@@ -121,10 +121,13 @@
                 <a href="../Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/IGListItemType.html">IGListItemType</a>
+                <a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/IGListSingleItemControllerDelegate.html">IGListSingleItemControllerDelegate</a>
+                <a href="../Protocols/IGListSectionType.html">IGListSectionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
@@ -141,10 +144,10 @@
             <a href="../Type Definitions.html">Type Definitions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemTransitionBlock">IGListItemTransitionBlock</a>
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
@@ -220,7 +223,7 @@
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">NSIndexPath</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">IndexPath</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -252,7 +255,7 @@
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">to</span><span class="p">:</span> <span class="kt">NSIndexPath</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">to</span><span class="p">:</span> <span class="kt">IndexPath</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -318,8 +321,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-13)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

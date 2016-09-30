@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
+ * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
@@ -24,29 +24,29 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  Tells the handler that a cell will be displayed in the IGListKit infra.
 
- @param cell               A cell that will display.
- @param listAdapter        The adapter managing the infra.
+ @param cell              A cell that will display.
+ @param listAdapter       The adapter managing the infra.
  @param sectionController The section controller the cell is in.
- @param object             The object associated with the section controller.
- @param indexPath          The index path of the cell in the UICollectionView.
+ @param object            The object associated with the section controller.
+ @param indexPath         The index path of the cell in the UICollectionView.
  */
 - (void)willDisplayCell:(UICollectionViewCell *)cell
          forListAdapter:(IGListAdapter *)listAdapter
-     sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+      sectionController:(IGListSectionController<IGListSectionType> *)sectionController
                  object:(id)object
               indexPath:(NSIndexPath *)indexPath;
 
 /**
  Tells the handler that a cell did end display in the IGListKit infra.
 
- @param cell               A cell that did end display.
- @param listAdapter        The adapter managing the infra.
+ @param cell              A cell that did end display.
+ @param listAdapter       The adapter managing the infra.
  @param sectionController The section controller the cell is in.
- @param indexPath          The index path of the cell in the UICollectionView.
+ @param indexPath         The index path of the cell in the UICollectionView.
  */
 - (void)didEndDisplayingCell:(UICollectionViewCell *)cell
               forListAdapter:(IGListAdapter *)listAdapter
-          sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+           sectionController:(IGListSectionController<IGListSectionType> *)sectionController
                    indexPath:(NSIndexPath *)indexPath;
 
 @end

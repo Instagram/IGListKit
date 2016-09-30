@@ -14,7 +14,7 @@
     <a title="IGListDisplayDelegate Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (78% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (79% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -58,9 +58,6 @@
                 <a href="../Classes/IGListIndexSetResult.html">IGListIndexSetResult</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListItemController.html">IGListItemController</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/IGListMoveIndex.html">IGListMoveIndex</a>
               </li>
               <li class="nav-group-task">
@@ -70,10 +67,13 @@
                 <a href="../Classes.html#/c:objc(cs)IGListReloadDataUpdater">IGListReloadDataUpdater</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListSingleItemController.html">IGListSingleItemController</a>
+                <a href="../Classes/IGListSectionController.html">IGListSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListStackedItemController.html">IGListStackedItemController</a>
+                <a href="../Classes/IGListSingleSectionController.html">IGListSingleSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListStackedSectionController.html">IGListStackedSectionController</a>
               </li>
             </ul>
           </li>
@@ -121,10 +121,13 @@
                 <a href="../Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/IGListItemType.html">IGListItemType</a>
+                <a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/IGListSingleItemControllerDelegate.html">IGListSingleItemControllerDelegate</a>
+                <a href="../Protocols/IGListSectionType.html">IGListSectionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
@@ -141,10 +144,10 @@
             <a href="../Type Definitions.html">Type Definitions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemTransitionBlock">IGListItemTransitionBlock</a>
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
@@ -189,7 +192,7 @@
 
                 </div>
               </div>
-            <p>Implement this protocol to receive display events for a list.</p>
+            <p>Implement this protocol to receive display events for an section controller when it is on screen.</p>
 
           </section>
           <section class="section task-group-section">
@@ -198,9 +201,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListDisplayDelegate(im)listAdapter:willDisplayItemController:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapter:willDisplayItemController:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListDisplayDelegate(im)listAdapter:willDisplayItemController:">-listAdapter:willDisplayItemController:</a>
+                    <a name="/c:objc(pl)IGListDisplayDelegate(im)listAdapter:willDisplaySectionController:"></a>
+                    <a name="//apple_ref/objc/Method/-listAdapter:willDisplaySectionController:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListDisplayDelegate(im)listAdapter:willDisplaySectionController:">-listAdapter:willDisplaySectionController:</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -216,13 +219,8 @@
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
-    <span class="nf">willDisplayItemController</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">itemController</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="o">!</span><span class="p">,</span> <span class="n">willDisplayItemController</span> <span class="nv">itemController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">!</span><span class="p">)</span></code></pre>
+    <span class="nf">willDisplaySectionController</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -246,7 +244,7 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>itemController</em>
+                                <em>sectionController</em>
                                 </code>
                               </td>
                               <td>
@@ -265,9 +263,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListDisplayDelegate(im)listAdapter:didEndDisplayingItemController:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapter:didEndDisplayingItemController:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListDisplayDelegate(im)listAdapter:didEndDisplayingItemController:">-listAdapter:didEndDisplayingItemController:</a>
+                    <a name="/c:objc(pl)IGListDisplayDelegate(im)listAdapter:didEndDisplayingSectionController:"></a>
+                    <a name="//apple_ref/objc/Method/-listAdapter:didEndDisplayingSectionController:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListDisplayDelegate(im)listAdapter:didEndDisplayingSectionController:">-listAdapter:didEndDisplayingSectionController:</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -283,13 +281,8 @@
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
-    <span class="nf">didEndDisplayingItemController</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">itemController</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="o">!</span><span class="p">,</span> <span class="n">didEndDisplayingItemController</span> <span class="nv">itemController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">!</span><span class="p">)</span></code></pre>
+    <span class="nf">didEndDisplayingSectionController</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -313,7 +306,7 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>itemController</em>
+                                <em>sectionController</em>
                                 </code>
                               </td>
                               <td>
@@ -332,9 +325,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListDisplayDelegate(im)listAdapter:willDisplayItemController:cell:atIndex:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapter:willDisplayItemController:cell:atIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListDisplayDelegate(im)listAdapter:willDisplayItemController:cell:atIndex:">-listAdapter:willDisplayItemController:cell:atIndex:</a>
+                    <a name="/c:objc(pl)IGListDisplayDelegate(im)listAdapter:willDisplaySectionController:cell:atIndex:"></a>
+                    <a name="//apple_ref/objc/Method/-listAdapter:willDisplaySectionController:cell:atIndex:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListDisplayDelegate(im)listAdapter:willDisplaySectionController:cell:atIndex:">-listAdapter:willDisplaySectionController:cell:atIndex:</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -350,15 +343,10 @@
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
-    <span class="nf">willDisplayItemController</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">itemController</span>
-                         <span class="nf">cell</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">cell</span>
-                      <span class="nf">atIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">index</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="o">!</span><span class="p">,</span> <span class="n">willDisplayItemController</span> <span class="nv">itemController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">!</span><span class="p">,</span> <span class="nv">cell</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="n">atIndex</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">)</span></code></pre>
+    <span class="nf">willDisplaySectionController</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span>
+                            <span class="nf">cell</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionViewCell</span> <span class="o">*</span><span class="p">)</span><span class="nv">cell</span>
+                         <span class="nf">atIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">index</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -382,12 +370,12 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>itemController</em>
+                                <em>sectionController</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The item controller that is displaying.</p>
+                                  <p>The section controller that is displaying.</p>
 
                                 </div>
                               </td>
@@ -427,9 +415,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListDisplayDelegate(im)listAdapter:didEndDisplayingItemController:cell:atIndex:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapter:didEndDisplayingItemController:cell:atIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListDisplayDelegate(im)listAdapter:didEndDisplayingItemController:cell:atIndex:">-listAdapter:didEndDisplayingItemController:cell:atIndex:</a>
+                    <a name="/c:objc(pl)IGListDisplayDelegate(im)listAdapter:didEndDisplayingSectionController:cell:atIndex:"></a>
+                    <a name="//apple_ref/objc/Method/-listAdapter:didEndDisplayingSectionController:cell:atIndex:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListDisplayDelegate(im)listAdapter:didEndDisplayingSectionController:cell:atIndex:">-listAdapter:didEndDisplayingSectionController:cell:atIndex:</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -445,15 +433,10 @@
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
-    <span class="nf">didEndDisplayingItemController</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">itemController</span>
-                              <span class="nf">cell</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">cell</span>
-                           <span class="nf">atIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">index</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="o">!</span><span class="p">,</span> <span class="n">didEndDisplayingItemController</span> <span class="nv">itemController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">!</span><span class="p">,</span> <span class="nv">cell</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">,</span> <span class="n">atIndex</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">)</span></code></pre>
+    <span class="nf">didEndDisplayingSectionController</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span>
+                                 <span class="nf">cell</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionViewCell</span> <span class="o">*</span><span class="p">)</span><span class="nv">cell</span>
+                              <span class="nf">atIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">index</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -477,12 +460,12 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>itemController</em>
+                                <em>sectionController</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The item controller that is no longer displaying the cell.</p>
+                                  <p>The section controller that is no longer displaying the cell.</p>
 
                                 </div>
                               </td>
@@ -519,80 +502,13 @@
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(pl)IGListDisplayDelegate(im)listAdapter:didScrollItemController:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapter:didScrollItemController:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListDisplayDelegate(im)listAdapter:didScrollItemController:">-listAdapter:didScrollItemController:</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Tells the delegate that the item controller was scrolled on screen.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
-    <span class="nf">didScrollItemController</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListItemType.html">IGListItemType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">itemController</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="o">!</span><span class="p">,</span> <span class="n">didScrollItemController</span> <span class="nv">itemController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListItemController.html">IGListItemController</a></span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>listAdapter</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The list adapter whose collection view was scrolled.</p>
-
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>itemController</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The visible item controller that was scrolled.</p>
-
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-13)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

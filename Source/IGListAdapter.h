@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
+ * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
@@ -30,7 +30,7 @@ typedef void (^IGListUpdaterCompletion)(BOOL finished);
  individual sections, called "section controllers". These controllers (objects conforming to IGListSectionType) act as a
  data source and delegate for each section.
 
- Feed implementations must act as the data source for an IGListAdapter in order to drive the objects and section 
+ Feed implementations must act as the data source for an IGListAdapter in order to drive the objects and section
  controllers in a collection view.
  */
 IGLK_SUBCLASSING_RESTRICTED
@@ -82,16 +82,16 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return A new IGListAdapter object.
 
- @discussion The working range is the number of objects beyond the visible objects (plus and minus) that should be 
+ @discussion The working range is the number of objects beyond the visible objects (plus and minus) that should be
  notified when they are close to being visible. For instance, if you have 3 objects on screen and a working range of 2,
- the previous and succeeding 2 objects will be notified that they are within the working range. As you scroll the list the
- range is updated as objects enter and exit the working range.
+ the previous and succeeding 2 objects will be notified that they are within the working range. As you scroll the list
+ the range is updated as objects enter and exit the working range.
 
  To opt out of using the working range, you can provide a value of 0.
  */
 - (instancetype)initWithUpdater:(id <IGListUpdatingDelegate>)updatingDelegate
-                          viewController:(nullable UIViewController *)viewController
-                        workingRangeSize:(NSUInteger)workingRangeSize NS_DESIGNATED_INITIALIZER;
+                 viewController:(nullable UIViewController *)viewController
+               workingRangeSize:(NSUInteger)workingRangeSize NS_DESIGNATED_INITIALIZER;
 
 /**
  Perform an update from the previous state of the data source. This is analagous to calling
@@ -112,7 +112,7 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  Reload the infra for specific objectss only.
 
- @param objectss The objects to reload.
+ @param objects The objects to reload.
  */
 - (void)reloadObjects:(NSArray *)objects;
 
@@ -177,9 +177,9 @@ IGLK_SUBCLASSING_RESTRICTED
  @param animated           A flag indicating if the transition should be animated.
  */
 - (void)scrollToObject:(id)object
-  supplementaryKinds:(nullable NSArray<NSString *> *)supplementaryKinds
-     scrollDirection:(UICollectionViewScrollDirection)scrollDirection
-            animated:(BOOL)animated;
+    supplementaryKinds:(nullable NSArray<NSString *> *)supplementaryKinds
+       scrollDirection:(UICollectionViewScrollDirection)scrollDirection
+              animated:(BOOL)animated;
 
 /**
  Query the size of a cell at the specified index path.

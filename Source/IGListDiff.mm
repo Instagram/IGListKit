@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
+ * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
@@ -71,12 +71,12 @@ struct IGListHashID {
 };
 
 static id IGListDiffing(BOOL returnIndexPaths,
-                      NSInteger fromSection,
-                      NSInteger toSection,
-                      NSArray<id<IGListDiffable>> *oldArray,
-                      NSArray<id<IGListDiffable>> *newArray,
-                      IGListDiffOption option,
-                      IGListExperiment experiments) {
+                        NSInteger fromSection,
+                        NSInteger toSection,
+                        NSArray<id<IGListDiffable>> *oldArray,
+                        NSArray<id<IGListDiffable>> *newArray,
+                        IGListDiffOption option,
+                        IGListExperiment experiments) {
     const NSInteger newCount = newArray.count;
     const NSInteger oldCount = oldArray.count;
 
@@ -259,47 +259,47 @@ static id IGListDiffing(BOOL returnIndexPaths,
 
     if (returnIndexPaths) {
         return [[IGListIndexPathResult alloc] initWithInserts:mInserts
-                                                    deletes:mDeletes
-                                                    updates:mUpdates
-                                                      moves:mMoves
+                                                      deletes:mDeletes
+                                                      updates:mUpdates
+                                                        moves:mMoves
                                               oldIndexPathMap:oldMap
                                               newIndexPathMap:newMap];
     } else {
         return [[IGListIndexSetResult alloc] initWithInserts:mInserts
-                                                   deletes:mDeletes
-                                                   updates:mUpdates
-                                                     moves:mMoves
+                                                     deletes:mDeletes
+                                                     updates:mUpdates
+                                                       moves:mMoves
                                                  oldIndexMap:oldMap
                                                  newIndexMap:newMap];
     }
 }
 
 IGListIndexSetResult *IGListDiff(NSArray<id<IGListDiffable> > *oldArray,
-                                NSArray<id<IGListDiffable>> *newArray,
-                                IGListDiffOption option) {
+                                 NSArray<id<IGListDiffable>> *newArray,
+                                 IGListDiffOption option) {
     return IGListDiffing(NO, 0, 0, oldArray, newArray, option, 0);
 }
 
 IGListIndexPathResult *IGListDiffPaths(NSInteger fromSection,
-                                      NSInteger toSection,
-                                      NSArray<id<IGListDiffable>> *oldArray,
-                                      NSArray<id<IGListDiffable>> *newArray,
-                                      IGListDiffOption option) {
+                                       NSInteger toSection,
+                                       NSArray<id<IGListDiffable>> *oldArray,
+                                       NSArray<id<IGListDiffable>> *newArray,
+                                       IGListDiffOption option) {
     return IGListDiffing(YES, fromSection, toSection, oldArray, newArray, option, 0);
 }
 
 IGListIndexSetResult *IGListDiffExperiment(NSArray<id<IGListDiffable>> *_Nullable oldArray,
-                                          NSArray<id<IGListDiffable>> *_Nullable newArray,
-                                          IGListDiffOption option,
-                                          IGListExperiment experiments) {
+                                           NSArray<id<IGListDiffable>> *_Nullable newArray,
+                                           IGListDiffOption option,
+                                           IGListExperiment experiments) {
     return IGListDiffing(NO, 0, 0, oldArray, newArray, option, experiments);
 }
 
 IGListIndexPathResult *IGListDiffPathsExperiment(NSInteger fromSection,
-                                                NSInteger toSection,
-                                                NSArray<id<IGListDiffable>> *_Nullable oldArray,
-                                                NSArray<id<IGListDiffable>> *_Nullable newArray,
-                                                IGListDiffOption option,
-                                                IGListExperiment experiments) {
+                                                 NSInteger toSection,
+                                                 NSArray<id<IGListDiffable>> *_Nullable oldArray,
+                                                 NSArray<id<IGListDiffable>> *_Nullable newArray,
+                                                 IGListDiffOption option,
+                                                 IGListExperiment experiments) {
     return IGListDiffing(YES, fromSection, toSection, oldArray, newArray, option, experiments);
 }

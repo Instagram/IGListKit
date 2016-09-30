@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
+ * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
@@ -188,23 +188,23 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 }
 
 - (UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
-                             forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
-                                           atIndex:(NSInteger)index {
+                                forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                             atIndex:(NSInteger)index {
     const NSUInteger offset = [self offsetForSectionController:sectionController];
     return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeueReusableCellOfClass:cellClass
-                                                                      forSectionController:self
-                                                                                    atIndex:(index + offset)];
+                                                                         forSectionController:self
+                                                                                      atIndex:(index + offset)];
 }
 
 - (UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
-                                             forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
-                                                             class:(Class)viewClass
-                                                           atIndex:(NSInteger)index {
+                                                forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                                               class:(Class)viewClass
+                                                             atIndex:(NSInteger)index {
     const NSUInteger offset = [self offsetForSectionController:sectionController];
     return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeueReusableSupplementaryViewOfKind:elementKind
-                                                                                  forSectionController:self
-                                                                                                  class:viewClass
-                                                                                                atIndex:(index + offset)];
+                                                                                     forSectionController:self
+                                                                                                    class:viewClass
+                                                                                                  atIndex:(index + offset)];
 }
 
 - (void)reloadInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {

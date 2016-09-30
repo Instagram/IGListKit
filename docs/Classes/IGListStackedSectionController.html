@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>IGListAdapterUpdater Class Reference</title>
+    <title>IGListStackedSectionController Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/objc/Class/IGListAdapterUpdater" class="dashAnchor"></a>
-    <a title="IGListAdapterUpdater Class Reference"></a>
+    <a name="//apple_ref/objc/Class/IGListStackedSectionController" class="dashAnchor"></a>
+    <a title="IGListStackedSectionController Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">IGListKit Docs</a> (79% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">IGListKit Reference</a>
         <img id="carat" src="../img/carat.png" />
-        IGListAdapterUpdater Class Reference
+        IGListStackedSectionController Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -185,18 +185,21 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>IGListAdapterUpdater</h1>
+            <h1>IGListStackedSectionController</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListAdapterUpdater</span> <span class="p">:</span> <span class="nc">NSObject</span> <span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a></span><span class="o">&gt;</span></code></pre>
+                  <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListStackedSectionController</span>
+    <span class="p">:</span> <span class="nc">IGListSectionController</span> <span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span></code></pre>
 
                 </div>
               </div>
-            <p>This is an out-of-box upater for IGListAdapters. It conforms to IGListUpdatingDelegate and does re-entrant, coalesced
-updating on a UICollectionView.</p>
+            <p>This is a clustered section controller, composed of many child section controllers. It constructs and routes item-level
+indexes to the appropriate child section controller with a local index. This lets you build section controllers made up
+of individual units that can be shared and reused with other section controllers.</p>
 
-<p>It also uses IGDiffKit (a least-minimal diff) for calculating UI updates when IGListAdapter calls
--performUpdateWithCollectionView:fromObjects:toObjects:completion:.</p>
+<p>For example, you can create a <q>Comments</q> section controller that displays lists of text that is used alongside photo,
+video, or slideshow section controllers. You then have four small and manageable section controllers instead of one
+huge class.</p>
 
           </section>
           <section class="section task-group-section">
@@ -205,9 +208,9 @@ updating on a UICollectionView.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListAdapterUpdater(py)delegate"></a>
-                    <a name="//apple_ref/objc/Property/delegate" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapterUpdater(py)delegate">delegate</a>
+                    <a name="/c:objc(cs)IGListStackedSectionController(im)initWithSectionControllers:"></a>
+                    <a name="//apple_ref/objc/Method/-initWithSectionControllers:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListStackedSectionController(im)initWithSectionControllers:">-initWithSectionControllers:</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -215,15 +218,71 @@ updating on a UICollectionView.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A delegate that receives events with data on the performance of a transition.</p>
+                        <p>Create a new stacked section controller.</p>
+
+<p>@discussion The order of the section controllers dictates the order in which they appear. The first section controller
+that is the supplementary source decides which supplementary views get displayed.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
-    <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a></span><span class="o">&gt;</span> <span class="n">_Nullable</span> <span class="n">delegate</span><span class="p">;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithSectionControllers</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionControllers</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="nf">init</span><span class="o">!</span><span class="p">(</span><span class="nv">sectionControllers</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sectionControllers</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of section controllers that make up the stack.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListStackedSectionController(im)init"></a>
+                    <a name="//apple_ref/objc/Method/-init" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListStackedSectionController(im)init">-init</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListStackedSectionController</span>
+    <span class="p">:</span> <span class="nc">IGListSectionController</span> <span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -233,9 +292,9 @@ updating on a UICollectionView.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListAdapterUpdater(py)movesAsDeletesInserts"></a>
-                    <a name="//apple_ref/objc/Property/movesAsDeletesInserts" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapterUpdater(py)movesAsDeletesInserts">movesAsDeletesInserts</a>
+                    <a name="/c:objc(cs)IGListStackedSectionController(cm)new"></a>
+                    <a name="//apple_ref/objc/Method/+new" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListStackedSectionController(cm)new">+new</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -243,41 +302,15 @@ updating on a UICollectionView.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A flag indicating if a move should be treated as a delete+insert.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">movesAsDeletesInserts</span><span class="p">;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(cs)IGListAdapterUpdater(py)experiments"></a>
-                    <a name="//apple_ref/objc/Property/experiments" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapterUpdater(py)experiments">experiments</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>A bitmask of experiments to conduct on the updater.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="n">experiments</span><span class="p">;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListStackedSectionController</span>
+    <span class="p">:</span> <span class="nc">IGListSectionController</span> <span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>

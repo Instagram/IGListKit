@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Query for the index a cell in the collection relative to the section controller.
 
- @param cell               An existing cell in the collection.
+ @param cell              An existing cell in the collection.
  @param sectionController The section controller requesting this information.
 
  @return The index of the cell or NSNotFound if it does not exist in the collection.
@@ -39,13 +39,13 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Query for a cell in the collection. May return nil if the cell is offscreen.
 
- @param index              The index of the desired cell.
+ @param index             The index of the desired cell.
  @param sectionController The section controller requesting this information.
 
  @return The collection view cell, or `nil` if not found.
  */
 - (nullable __kindof UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index
-                                      sectionController:(IGListSectionController<IGListSectionType> *)sectionController;
+                                             sectionController:(IGListSectionController<IGListSectionType> *)sectionController;
 
 /**
  Query for the visible cells for the given section controller.
@@ -59,9 +59,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Deselects a cell in the collection.
 
- @param index              The index of the item to deselect.
+ @param index             The index of the item to deselect.
  @param sectionController The section controller requesting this information.
- @param animated           Pass `YES` to animate the change, `NO` otherwise.
+ @param animated          Pass `YES` to animate the change, `NO` otherwise.
  */
 - (void)deselectItemAtIndex:(NSInteger)index
           sectionController:(IGListSectionController<IGListSectionType> *)sectionController
@@ -79,34 +79,34 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Dequeues a cell from the UICollectionView reuse pool.
 
- @param cellClass          The class of the cell you want to dequeue.
+ @param cellClass         The class of the cell you want to dequeue.
  @param sectionController The section controller requesting this information.
- @param index              The index of the cell.
+ @param index             The index of the cell.
 
  @return A cell dequeued from the reuse pool or newly created.
 
  @note This method uses a string representation of the cell class as the identifier.
  */
 - (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
-                                       forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
-                                                    atIndex:(NSInteger)index;
+                                         forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                                      atIndex:(NSInteger)index;
 
 /**
  Dequeues a supplementary view from the UICollectionView reuse pool.
 
- @param elementKind        The kind of supplementary veiw.
+ @param elementKind       The kind of supplementary veiw.
  @param sectionController The section controller requesting this information.
- @param viewClass          The class of the supplementary view.
- @param index              The index of the supplementary vew.
+ @param viewClass         The class of the supplementary view.
+ @param index             The index of the supplementary vew.
 
  @return A supplementary view dequeued from the reuse pool or newly created.
 
  @note This method uses a string representation of the view class as the identifier.
  */
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
-                                                       forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
-                                                                      class:(Class)viewClass
-                                                                    atIndex:(NSInteger)index;
+                                                         forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                                                        class:(Class)viewClass
+                                                                      atIndex:(NSInteger)index;
 
 /**
  Reloads cells in the section controller.

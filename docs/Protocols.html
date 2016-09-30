@@ -13,7 +13,7 @@
     <a title="Protocols  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (78% documented)</p>
+        <p><a href="index.html">IGListKit Docs</a> (79% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -57,9 +57,6 @@
                 <a href="Classes/IGListIndexSetResult.html">IGListIndexSetResult</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/IGListItemController.html">IGListItemController</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Classes/IGListMoveIndex.html">IGListMoveIndex</a>
               </li>
               <li class="nav-group-task">
@@ -69,10 +66,13 @@
                 <a href="Classes.html#/c:objc(cs)IGListReloadDataUpdater">IGListReloadDataUpdater</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/IGListSingleItemController.html">IGListSingleItemController</a>
+                <a href="Classes/IGListSectionController.html">IGListSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/IGListStackedItemController.html">IGListStackedItemController</a>
+                <a href="Classes/IGListSingleSectionController.html">IGListSingleSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListStackedSectionController.html">IGListStackedSectionController</a>
               </li>
             </ul>
           </li>
@@ -120,10 +120,13 @@
                 <a href="Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="Protocols/IGListItemType.html">IGListItemType</a>
+                <a href="Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="Protocols/IGListSingleItemControllerDelegate.html">IGListSingleItemControllerDelegate</a>
+                <a href="Protocols/IGListSectionType.html">IGListSectionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
@@ -140,10 +143,10 @@
             <a href="Type Definitions.html">Type Definitions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemTransitionBlock">IGListItemTransitionBlock</a>
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
               </li>
               <li class="nav-group-task">
                 <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
@@ -300,7 +303,7 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>The collection context provides limited access to the collection related information that
-item controllers need for things like sizing, dequeing cells, insterting/deleting/reloading, etc.</p>
+section controllers need for things like sizing, dequeing cells, insterting/deleting/reloading, etc.</p>
 
                         <a href="Protocols/IGListCollectionContext.html" class="slightly-smaller">See more</a>
                       </div>
@@ -375,7 +378,7 @@ one of the IGKAlgorithm functions.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Implement this protocol to receive display events for a list.</p>
+                        <p>Implement this protocol to receive display events for an section controller when it is on screen.</p>
 
                         <a href="Protocols/IGListDisplayDelegate.html" class="slightly-smaller">See more</a>
                       </div>
@@ -402,9 +405,9 @@ one of the IGKAlgorithm functions.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListItemType"></a>
-                    <a name="//apple_ref/objc/Protocol/IGListItemType" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListItemType">IGListItemType</a>
+                    <a name="/c:objc(pl)IGListScrollDelegate"></a>
+                    <a name="//apple_ref/objc/Protocol/IGListScrollDelegate" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListScrollDelegate">IGListScrollDelegate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -412,30 +415,20 @@ one of the IGKAlgorithm functions.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Implement this protocol in order to be used within the IGListKit data infrastructure and be registered for use in an
-IGListAdapter. An IGListItemType conforming object represents a single instance of an object in a collection of
-objects.</p>
+                        <p>Implement this protocol to receive display events for an section controller when it is on screen.</p>
 
-<p>The infrastructure uses each IGListItemType conforming object as a <q>view model</q> to populate and control cells as
-part of a section in a UICollectionView feed. IGListItemType objects should be architected without knowledge of
-<q>global</q> state of the feed they are contained in.</p>
-
-<p>Index paths are used as a convenience for communicating the section index to each section object without allowing each
-section to mutate its own position within a feed. The row of an index path can be directly mapped to a cell within
-an IGListItemType conforming object.</p>
-
-                        <a href="Protocols/IGListItemType.html" class="slightly-smaller">See more</a>
+                        <a href="Protocols/IGListScrollDelegate.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListItemType</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListScrollDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListItemType</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListScrollDelegate</span></code></pre>
 
                         </div>
                       </div>
@@ -449,9 +442,9 @@ an IGListItemType conforming object.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListSingleItemControllerDelegate"></a>
-                    <a name="//apple_ref/objc/Protocol/IGListSingleItemControllerDelegate" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListSingleItemControllerDelegate">IGListSingleItemControllerDelegate</a>
+                    <a name="/c:objc(pl)IGListSectionType"></a>
+                    <a name="//apple_ref/objc/Protocol/IGListSectionType" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListSectionType">IGListSectionType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -459,20 +452,67 @@ an IGListItemType conforming object.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A delegate that can receive selection events on an IGListSingleItemController.</p>
+                        <p>Implement this protocol in order to be used within the IGListKit data infrastructure and be registered for use in an
+IGListAdapter. An IGListSectionType conforming object represents a single instance of an object in a collection of
+objects.</p>
 
-                        <a href="Protocols/IGListSingleItemControllerDelegate.html" class="slightly-smaller">See more</a>
+<p>The infrastructure uses each IGListSectionType conforming object as a <q>view model</q> to populate and control cells as
+part of a section in a UICollectionView feed. IGListSectionType objects should be architected without knowledge of
+<q>global</q> state of the feed they are contained in.</p>
+
+<p>Index paths are used as a convenience for communicating the section index to each section object without allowing each
+section to mutate its own position within a feed. The row of an index path can be directly mapped to a cell within
+an IGListSectionType conforming object.</p>
+
+                        <a href="Protocols/IGListSectionType.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListSingleItemControllerDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListSectionType</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListSingleItemControllerDelegate</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListSectionType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListSingleSectionControllerDelegate"></a>
+                    <a name="//apple_ref/objc/Protocol/IGListSingleSectionControllerDelegate" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListSingleSectionControllerDelegate">IGListSingleSectionControllerDelegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A delegate that can receive selection events on an IGListSingleSectionController.</p>
+
+                        <a href="Protocols/IGListSingleSectionControllerDelegate.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListSingleSectionControllerDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListSingleSectionControllerDelegate</span></code></pre>
 
                         </div>
                       </div>
@@ -601,8 +641,8 @@ you could begin decoding images, or warming text caches.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-13)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

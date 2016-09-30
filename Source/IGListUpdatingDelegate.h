@@ -30,8 +30,8 @@ typedef void (^IGListReloadUpdateBlock)();
  @return Pointer functions for looking up an object in a collection.
 
  @discussion Since the updating delegate is responsible for transitioning between object sets, it becomes the "source of
- truth" for how objects and their corresponding section controllers are mapped. This allows the updater to control if objects
- are looked up by pointer, or more traditionally, with hash/isEqual.
+ truth" for how objects and their corresponding section controllers are mapped. This allows the updater to control if
+ objects are looked up by pointer, or more traditionally, with hash/isEqual.
 
  For behavior similar to NSDictionary, simply return
  +[NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsObjectPersonality].
@@ -42,14 +42,14 @@ typedef void (^IGListReloadUpdateBlock)();
  Tells the delegate to perform a section transition from an old array of objects to a new one.
 
  @param collectionView        The collection view to perform the transition on.
- @param fromObjects           The previous objects in the collection view. Objects must conform to the IGListDiffable protocol.
- @param toObjects             The new objects in collection view. Objects must conform to the IGListDiffable protocol.
+ @param fromObjects           The previous objects in the collection view. Objects must conform to IGListDiffable.
+ @param toObjects             The new objects in collection view. Objects must conform to IGListDiffable.
  @param animated              A flag indicating if the transition should be animated.
  @param objectTransitionBlock A block that must be called when the adapter applies changes to the collection view.
  @param completion            A completion block to execute when the update is finished.
 
- @discussion Implementations determine how to transition between objects. You can perform a diff on the objects, reload each
- section, or simply call -reloadData on the collection view. In the end, the collection view must be setup with a
+ @discussion Implementations determine how to transition between objects. You can perform a diff on the objects, reload
+ each section, or simply call -reloadData on the collection view. In the end, the collection view must be setup with a
  section for each object in the toObjects array.
 
  The `objectUpdateBlock` block should be called prior to making any UICollectionView updates, passing in the `toObjects`

@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
+ * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
@@ -19,14 +19,14 @@ NS_ASSUME_NONNULL_BEGIN
  An option on how to do comparisons between similar objects.
  */
 typedef NS_ENUM(NSUInteger, IGListDiffOption) {
-  /**
-   Compare objects using pointer personality.
-   */
-  IGListDiffPointerPersonality,
-  /**
-   Compare objects using -[NSObject isEqual:].
-   */
-  IGListDiffEquality
+    /**
+     Compare objects using pointer personality.
+     */
+    IGListDiffPointerPersonality,
+    /**
+     Compare objects using -[NSObject isEqual:].
+     */
+    IGListDiffEquality
 };
 
 /**
@@ -49,7 +49,7 @@ FOUNDATION_EXTERN IGListIndexSetResult *IGListDiff(NSArray<id<IGListDiffable> > 
  @param toSection   The new section used to seed returned index paths.
  @param oldArray    The old objects to diff against.
  @param newArray    The new objects to diff with.
- @param option   An option on how to compare objects.
+ @param option      An option on how to compare objects.
 
  @return Result object with effected index paths.
  */

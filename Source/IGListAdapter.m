@@ -35,8 +35,8 @@
 #pragma mark - Init
 
 - (instancetype)initWithUpdater:(id <IGListUpdatingDelegate>)updatingDelegate
-                          viewController:(UIViewController *)viewController
-                        workingRangeSize:(NSUInteger)workingRangeSize {
+                 viewController:(UIViewController *)viewController
+               workingRangeSize:(NSUInteger)workingRangeSize {
     IGAssertMainThread();
     IGParameterAssert(updatingDelegate);
 
@@ -663,7 +663,7 @@
 }
 
 - (__kindof UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index
-                             sectionController:(IGListSectionController <IGListSectionType> *)sectionController {
+                                    sectionController:(IGListSectionController <IGListSectionType> *)sectionController {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
 
@@ -709,8 +709,8 @@
 }
 
 - (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
-                                       forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
-                                                    atIndex:(NSInteger)index {
+                                         forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+                                                      atIndex:(NSInteger)index {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(cellClass != nil);
@@ -725,9 +725,9 @@
 }
 
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
-                                                       forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
-                                                                      class:(Class)viewClass
-                                                                    atIndex:(NSInteger)index {
+                                                         forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+                                                                        class:(Class)viewClass
+                                                                      atIndex:(NSInteger)index {
     IGAssertMainThread();
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");

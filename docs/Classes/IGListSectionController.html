@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>IGListItemController Class Reference</title>
+    <title>IGListSectionController Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,11 +10,11 @@
     
   </head>
   <body>
-    <a name="//apple_ref/objc/Class/IGListItemController" class="dashAnchor"></a>
-    <a title="IGListItemController Class Reference"></a>
+    <a name="//apple_ref/objc/Class/IGListSectionController" class="dashAnchor"></a>
+    <a title="IGListSectionController Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (78% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (79% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">IGListKit Reference</a>
         <img id="carat" src="../img/carat.png" />
-        IGListItemController Class Reference
+        IGListSectionController Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -58,9 +58,6 @@
                 <a href="../Classes/IGListIndexSetResult.html">IGListIndexSetResult</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListItemController.html">IGListItemController</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/IGListMoveIndex.html">IGListMoveIndex</a>
               </li>
               <li class="nav-group-task">
@@ -70,10 +67,13 @@
                 <a href="../Classes.html#/c:objc(cs)IGListReloadDataUpdater">IGListReloadDataUpdater</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListSingleItemController.html">IGListSingleItemController</a>
+                <a href="../Classes/IGListSectionController.html">IGListSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListStackedItemController.html">IGListStackedItemController</a>
+                <a href="../Classes/IGListSingleSectionController.html">IGListSingleSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListStackedSectionController.html">IGListStackedSectionController</a>
               </li>
             </ul>
           </li>
@@ -121,10 +121,13 @@
                 <a href="../Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/IGListItemType.html">IGListItemType</a>
+                <a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/IGListSingleItemControllerDelegate.html">IGListSingleItemControllerDelegate</a>
+                <a href="../Protocols/IGListSectionType.html">IGListSectionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
@@ -141,10 +144,10 @@
             <a href="../Type Definitions.html">Type Definitions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemTransitionBlock">IGListItemTransitionBlock</a>
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
@@ -182,14 +185,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>IGListItemController</h1>
+            <h1>IGListSectionController</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListItemController</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
+                  <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListSectionController</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                 </div>
               </div>
-            <p>The base class for item controllers used in the list infra. This class is meant to be subclassed.</p>
+            <p>The base class for section controllers used in the list infra. This class is meant to be subclassed.</p>
 
           </section>
           <section class="section task-group-section">
@@ -198,9 +201,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListItemController(py)viewController"></a>
+                    <a name="/c:objc(cs)IGListSectionController(py)viewController"></a>
                     <a name="//apple_ref/objc/Property/viewController" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListItemController(py)viewController">viewController</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(py)viewController">viewController</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -208,7 +211,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The view controller housing the adapter that created this item controller.</p>
+                        <p>The view controller housing the adapter that created this section controller.</p>
 
 <p>@discussion Use this view controller to push, pop, present, or do other custom transitions. It is considered very bad
 practice to cast this to a known view controller and call methods on it other than for navigations and transitions.</p>
@@ -218,7 +221,7 @@ practice to cast this to a known view controller and call methods on it other th
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">nullable</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">UIViewController</span> <span class="o">*</span><span class="n">viewController</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">UIViewController</span> <span class="o">*</span><span class="n">viewController</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -228,9 +231,9 @@ practice to cast this to a known view controller and call methods on it other th
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListItemController(py)collectionContext"></a>
+                    <a name="/c:objc(cs)IGListSectionController(py)collectionContext"></a>
                     <a name="//apple_ref/objc/Property/collectionContext" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListItemController(py)collectionContext">collectionContext</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(py)collectionContext">collectionContext</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -246,8 +249,8 @@ reloading/inserting/deleting, etc.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a></span><span class="o">&gt;</span> <span class="n">collectionContext</span><span class="p">;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a></span><span class="o">&gt;</span>
+    <span class="n">collectionContext</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -262,9 +265,9 @@ reloading/inserting/deleting, etc.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListItemController(py)inset"></a>
+                    <a name="/c:objc(cs)IGListSectionController(py)inset"></a>
                     <a name="//apple_ref/objc/Property/inset" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListItemController(py)inset">inset</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(py)inset">inset</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -272,7 +275,7 @@ reloading/inserting/deleting, etc.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The margins used to lay out content in the item controller.</p>
+                        <p>The margins used to lay out content in the section controller.</p>
 
 <div class="aside aside-see">
     <p class="aside-title">See</p>
@@ -285,7 +288,7 @@ reloading/inserting/deleting, etc.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="kt">int</span> <span class="n">inset</span><span class="p">;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIEdgeInsets</span> <span class="n">inset</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -300,9 +303,9 @@ reloading/inserting/deleting, etc.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListItemController(py)minimumLineSpacing"></a>
+                    <a name="/c:objc(cs)IGListSectionController(py)minimumLineSpacing"></a>
                     <a name="//apple_ref/objc/Property/minimumLineSpacing" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListItemController(py)minimumLineSpacing">minimumLineSpacing</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(py)minimumLineSpacing">minimumLineSpacing</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -338,9 +341,9 @@ reloading/inserting/deleting, etc.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListItemController(py)minimumInteritemSpacing"></a>
+                    <a name="/c:objc(cs)IGListSectionController(py)minimumInteritemSpacing"></a>
                     <a name="//apple_ref/objc/Property/minimumInteritemSpacing" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListItemController(py)minimumInteritemSpacing">minimumInteritemSpacing</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(py)minimumInteritemSpacing">minimumInteritemSpacing</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -376,9 +379,9 @@ reloading/inserting/deleting, etc.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListItemController(py)supplementaryViewSource"></a>
+                    <a name="/c:objc(cs)IGListSectionController(py)supplementaryViewSource"></a>
                     <a name="//apple_ref/objc/Property/supplementaryViewSource" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListItemController(py)supplementaryViewSource">supplementaryViewSource</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(py)supplementaryViewSource">supplementaryViewSource</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -386,16 +389,17 @@ reloading/inserting/deleting, etc.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The supplementary view source for the item controller. Can be nil.</p>
+                        <p>The supplementary view source for the section controller. Can be nil.</p>
 
-<p>@discussion You may wish to return self if your item controller implements this protocol.</p>
+<p>@discussion You may wish to return self if your section controller implements this protocol.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span> <span class="n">supplementaryViewSource</span><span class="p">;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a></span><span class="o">&gt;</span>
+    <span class="n">supplementaryViewSource</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -415,9 +419,9 @@ reloading/inserting/deleting, etc.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListItemController(py)displayDelegate"></a>
+                    <a name="/c:objc(cs)IGListSectionController(py)displayDelegate"></a>
                     <a name="//apple_ref/objc/Property/displayDelegate" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListItemController(py)displayDelegate">displayDelegate</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(py)displayDelegate">displayDelegate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -425,17 +429,17 @@ reloading/inserting/deleting, etc.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An object that handles display events for the item controller. Can be nil.</p>
+                        <p>An object that handles display events for the section controller. Can be nil.</p>
 
-<p>@discussion You may wish to return self if your item controller implements this protocol.</p>
+<p>@discussion You may wish to return self if your section controller implements this protocol.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a></span><span class="o">&gt;</span> <span class="n">displayDelegate</span><span class="p">;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a></span><span class="o">&gt;</span>
+    <span class="n">displayDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -455,9 +459,9 @@ reloading/inserting/deleting, etc.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListItemController(py)workingRangeDelegate"></a>
+                    <a name="/c:objc(cs)IGListSectionController(py)workingRangeDelegate"></a>
                     <a name="//apple_ref/objc/Property/workingRangeDelegate" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListItemController(py)workingRangeDelegate">workingRangeDelegate</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(py)workingRangeDelegate">workingRangeDelegate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -465,16 +469,17 @@ reloading/inserting/deleting, etc.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An object that handles working range events for the item controller. Can be nil.</p>
+                        <p>An object that handles working range events for the section controller. Can be nil.</p>
 
-<p>@discussion You may wish to return self if your item controller implements this protocol.</p>
+<p>@discussion You may wish to return self if your section controller implements this protocol.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span> <span class="n">workingRangeDelegate</span><span class="p">;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListWorkingRangeDelegate.html">IGListWorkingRangeDelegate</a></span><span class="o">&gt;</span>
+    <span class="n">workingRangeDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -491,13 +496,53 @@ reloading/inserting/deleting, etc.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListSectionController(py)scrollDelegate"></a>
+                    <a name="//apple_ref/objc/Property/scrollDelegate" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(py)scrollDelegate">scrollDelegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An object that handles display events for the section controller. Can be nil.</p>
+
+<p>@discussion You may wish to return self if your section controller implements this protocol.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a></span><span class="o">&gt;</span>
+    <span class="n">scrollDelegate</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">scrollDelegate</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An object that conforms to IGListDisplayDelegate or nil.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-13)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

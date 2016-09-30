@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
+ * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Notifies the delegate that an section controller will enter the working range.
 
- @param listAdapter    The adapter controlling the feed.
+ @param listAdapter       The adapter controlling the feed.
  @param sectionController The section controller entering the range.
  */
 - (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerWillEnterWorkingRange:(IGListSectionController <IGListSectionType> *)sectionController;
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Notifies the delegate that an section controller exited the working range.
 
- @param listAdapter    The adapter controlling the feed.
+ @param listAdapter       The adapter controlling the feed.
  @param sectionController The section controller that exited the range.
  */
 - (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerDidExitWorkingRange:(IGListSectionController <IGListSectionType> *)sectionController;
