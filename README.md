@@ -24,8 +24,9 @@ A data-driven `UICollectionView` framework for building fast and flexible lists.
 :rocket: | Extendable updating API
 :key: | Decoupled diffing algorithm
 :bulb: | Display and near-display delegate events
+:bird: | Written in Objective-C with full Swift interop support
 
-`IGListKit` powers every major product in Instagram for hundreds of millions of users. It was built to be fast, efficient, and stable.
+`IGListKit` is built and maintained by [Instagram engineering](https://engineering.instagram.com/), using the open source version to power Instagram for millions of people every day.
 
 ## Installation
 
@@ -48,7 +49,7 @@ After installing `IGListKit`, creating a new list is really simple.
 
 Creating a new section controller is very simple. You just subclass `IGListSectionController` and conform to the `IGListSectionType` protocol. Once you conform to `IGListSectionType`, the compiler will make sure you implement all of the required methods.
 
-Take a look at [LabelSectionController](TODO URL) for an example section controller that handles a `String` and configures a single cell with a `UILabel`.
+Take a look at [LabelSectionController](https://github.com/Instagram/IGListKit/blob/master/Example/IGListKitExamples/SectionControllers/LabelSectionController.swift) for an example section controller that handles a `String` and configures a single cell with a `UILabel`.
 
 ```swift
 class LabelSectionController: IGListSectionController, IGListSectionType {
@@ -76,7 +77,7 @@ adapter.collectionView = collectionView
 The last step is the `IGListAdapter`'s data source and returning some data.
 
 ```swift
-func objectssForListAdapter(listAdapter: IGListAdapter) -> [IGListDiffable] {
+func objectsForListAdapter(listAdapter: IGListAdapter) -> [IGListDiffable] {
   // this can be anything!
   return [ "Foo", "Bar", 42, "Biz" ]
 }
@@ -95,7 +96,7 @@ func emptyViewForListAdapter(listAdapter: IGListAdapter) -> UIView? {
 }
 ```
 
-You can return an array of _any_ type of data, as long as it conforms to `IGListDiffable`. We've included a [default implementation](TODO URL) for all objects, but adding your own implementation can unlock even better diffing.
+You can return an array of _any_ type of data, as long as it conforms to `IGListDiffable`. We've included a [default implementation](https://github.com/Instagram/IGListKit/blob/master/Source/NSObject%2BIGListDiffable.m) for all objects, but adding your own implementation can unlock even better diffing.
 
 ## Diffing
 
@@ -148,6 +149,16 @@ The algorithm will skip updating two `User` objects that have the same `primaryK
 
 > **Note:** Remember that `isEqual(_:)` should return `false` when you want to reload the cells in the corresponding section controller.
 
+### Diffing outside of IGListKit
+
+If you want to use the diffing algorithm outside of `IGListAdapter` and `UICollectionView`, you can! The diffing algorithm was built with the flexibility to be used with any models that conform to `IGListDiffable`.
+
+```swift
+let result = IGListDiff(oldUsers, newUsers, .equality)
+```
+
+With this you have all of the deletes, reloads, moves, and inserts! There's even a function to generate `NSIndexPath` results.
+
 ## Advanced Features
 
 ### Delegates
@@ -189,13 +200,6 @@ Check out the updater `IGListReloadDataUpdater` used in unit tests for an exampl
 ## Documentation
 
 Read [the docs here](https://instagram.github.io/IGListKit). Documentation is generated with [jazzy](https://github.com/realm/jazzy) and hosted on [GitHub-Pages](https://pages.github.com).
-
-#### Generating docs
-
-```bash
-$ ./build_docs.sh
-$ open -a safari docs/index.html  # preview in Safari
-```
 
 ## Contributing
 
