@@ -72,7 +72,7 @@
         // dump old registered section controllers in the case that we are changing collection views or setting for
         // the first time
         _registeredCellClasses = [NSMutableSet new];
-        _registeredSupplementaryViewClasses = [NSMutableSet new];
+        _registeredSupplementaryViewIdentifiers = [NSMutableSet new];
 
         _collectionView = collectionView;
         _collectionView.dataSource = self;
@@ -448,6 +448,10 @@
     return NSStringFromClass(viewClass);
 }
 
+- (NSString *)reusableViewIdentifierForClass:(Class)viewClass elementKind:(NSString *)elementKind {
+    return [elementKind stringByAppendingString:NSStringFromClass(viewClass)];
+}
+
 - (IGListSectionMap *)sectionMapAdjustForUpdateBlock:(BOOL)adjustForUpdateBlock {
     // if we are inside an update block, we may have to use the /previous/ item map for some operations
     if (adjustForUpdateBlock && self.isInUpdateBlock && self.previoussectionMap != nil) {
@@ -719,6 +723,7 @@
     NSString *identifier = [self reusableViewIdentifierForClass:cellClass];
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index];
     if (![self.registeredCellClasses containsObject:cellClass]) {
+        [self.registeredCellClasses addObject:cellClass];
         [collectionView registerClass:cellClass forCellWithReuseIdentifier:identifier];
     }
     return [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
@@ -731,9 +736,10 @@
     IGAssertMainThread();
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
-    NSString *identifier = [self reusableViewIdentifierForClass:viewClass];
+    NSString *identifier = [self reusableViewIdentifierForClass:viewClass elementKind:elementKind];
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index];
-    if (![self.registeredSupplementaryViewClasses containsObject:viewClass]) {
+    if (![self.registeredSupplementaryViewIdentifiers containsObject:identifier]) {
+        [self.registeredSupplementaryViewIdentifiers addObject:identifier];
         [collectionView registerClass:viewClass forSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier];
     }
     return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];

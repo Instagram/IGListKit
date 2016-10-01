@@ -49,7 +49,7 @@ IGListCollectionContext
 @property (nonatomic, strong, nullable) IGListSectionMap *previoussectionMap;
 
 @property (nonatomic, strong) NSMutableSet<Class> *registeredCellClasses;
-@property (nonatomic, strong) NSMutableSet<Class> *registeredSupplementaryViewClasses;
+@property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewIdentifiers;
 
 - (NSArray *)indexPathsFromSectionController:(IGListSectionController <IGListSectionType> *)sectionController
                                      indexes:(NSIndexSet *)indexes
