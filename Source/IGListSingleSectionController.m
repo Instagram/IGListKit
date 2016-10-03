@@ -38,7 +38,7 @@
 
 #pragma mark - IGListSectionType
 
-- (NSUInteger)numberOfItems {
+- (NSInteger)numberOfItems {
     return 1;
 }
 

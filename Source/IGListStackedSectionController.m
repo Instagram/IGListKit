@@ -121,7 +121,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 
 #pragma mark - IGListSectionType
 
-- (NSUInteger)numberOfItems {
+- (NSInteger)numberOfItems {
     return self.flattenedNumberOfItems;
 }
 

@@ -19,7 +19,7 @@ class UserSectionController: IGListSectionController, IGListSectionType {
 
     var user: User?
 
-    func numberOfItems() -> UInt {
+    func numberOfItems() -> Int {
         return 1
     }
 

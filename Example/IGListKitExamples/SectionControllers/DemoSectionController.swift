@@ -34,7 +34,7 @@ class DemoSectionController: IGListSectionController, IGListSectionType {
 
     var object: DemoItem?
 
-    func numberOfItems() -> UInt {
+    func numberOfItems() -> Int {
         return 1
     }
 

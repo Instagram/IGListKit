@@ -20,7 +20,7 @@ class ExpandableSectionController: IGListSectionController, IGListSectionType {
     var expanded = false
     var object: String?
 
-    func numberOfItems() -> UInt {
+    func numberOfItems() -> Int {
         return 1
     }
 

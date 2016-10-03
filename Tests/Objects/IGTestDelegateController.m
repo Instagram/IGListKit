@@ -22,7 +22,7 @@
     return self;
 }
 
-- (NSUInteger)numberOfItems {
+- (NSInteger)numberOfItems {
     if ([self.item.value isKindOfClass:[NSNumber class]]) {
         return [self.item.value integerValue];
     }

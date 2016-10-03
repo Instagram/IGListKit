@@ -28,7 +28,7 @@ class RemoveSectionController: IGListSectionController, IGListSectionType, Remov
         inset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
     }
 
-    func numberOfItems() -> UInt {
+    func numberOfItems() -> Int {
         return 1
     }
 

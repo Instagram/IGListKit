@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
  @discussion The count returned is used to drive the number of cells displayed for this list. You are free to change
  this value between data loading passes.
  */
-- (NSUInteger)numberOfItems;
+- (NSInteger)numberOfItems;
 
 /**
  The specific size for the item at the specified index.

@@ -27,7 +27,7 @@ class HorizontalSectionController: IGListSectionController, IGListSectionType, I
         return adapter
     }()
 
-    func numberOfItems() -> UInt {
+    func numberOfItems() -> Int {
         return 1
     }
 

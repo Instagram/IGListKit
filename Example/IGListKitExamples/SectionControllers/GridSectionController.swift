@@ -18,9 +18,9 @@ import IGListKit
 class GridItem: NSObject {
 
     let color: UIColor
-    let itemCount: UInt
+    let itemCount: Int
 
-    init(color: UIColor, itemCount: UInt) {
+    init(color: UIColor, itemCount: Int) {
         self.color = color
         self.itemCount = itemCount
     }
@@ -37,7 +37,7 @@ class GridSectionController: IGListSectionController, IGListSectionType {
         self.minimumLineSpacing = 1
     }
 
-    func numberOfItems() -> UInt {
+    func numberOfItems() -> Int {
         return object?.itemCount ?? 0
     }
 

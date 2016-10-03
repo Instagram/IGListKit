@@ -15,7 +15,7 @@
     return @[UICollectionViewCell.class];
 }
 
-- (NSUInteger)numberOfItems {
+- (NSInteger)numberOfItems {
     return self.items;
 }
 

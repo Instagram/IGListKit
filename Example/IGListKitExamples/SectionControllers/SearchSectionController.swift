@@ -27,7 +27,7 @@ class SearchSectionController: IGListSectionController, IGListSectionType, IGLis
         displayDelegate = self
     }
 
-    func numberOfItems() -> UInt {
+    func numberOfItems() -> Int {
         return 1
     }
 

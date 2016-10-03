@@ -19,7 +19,7 @@ class LabelSectionController: IGListSectionController, IGListSectionType {
 
     var object: String?
 
-    func numberOfItems() -> UInt {
+    func numberOfItems() -> Int {
         return 1
     }
 
