@@ -18,12 +18,11 @@ A data-driven `UICollectionView` framework for building fast and flexible lists.
 :no_good: | Never call `performBatchUpdates(_:, completion:)` or `reloadData()` again
 :house: | Better architecture with reusable cells and components
 :capital_abcd: | Create collections with multiple data types
-:mag: | Customize your diffing behavior for your models
-:white_check_mark: | Fully unit tested
-:iphone: | Simply `UICollectionView` at its core
-:rocket: | Extendable updating API
 :key: | Decoupled diffing algorithm
-:bulb: | Display and near-display delegate events
+:white_check_mark: | Fully unit tested
+:mag: | Customize your diffing behavior for your models
+:iphone: | Simply `UICollectionView` at its core
+:rocket: | Extendable API
 :bird: | Written in Objective-C with full Swift interop support
 
 `IGListKit` is built and maintained by [Instagram engineering](https://engineering.instagram.com/), using the open source version to power Instagram for millions of people every day.
@@ -66,7 +65,7 @@ let layout = UICollectionViewFlowLayout()
 let collectionView = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: layout)
 
 let updater = IGListAdapterUpdater()
-let adapter = IGListAdapter(updatingDelegate: updater, viewController: self, workingRangeSize: 0)
+let adapter = IGListAdapter(updater: updater, viewController: self, workingRangeSize: 0)
 adapter.collectionView = collectionView
 ```
 
@@ -83,7 +82,7 @@ func objectsForListAdapter(listAdapter: IGListAdapter) -> [IGListDiffable] {
 }
 
 func listAdapter(listAdapter: IGListAdapter,
-    sectionControllerForObject(object: AnyObject) -> IGListSectionController {
+    sectionControllerForObject(object: Any) -> IGListSectionController {
   if let _ = object as? String {
     return LabelSectionController()
   } else {
@@ -119,11 +118,11 @@ The user's `primaryKey` uniquely identifies user data, and the `name` is just th
 Consider the following two users:
 
 ```swift
-let jack = User(primaryKey: 2, name: "Jack")
-let jill = User(primaryKey: 2, name: "Jill")
+let shayne = User(primaryKey: 2, name: "Shayne")
+let ann = User(primaryKey: 2, name: "Ann")
 ```
 
-Both `jack` and `jill` represent the same *unique* data because they share the same `primaryKey`, but they are not *equal* because their names are different.
+Both `shayne` and `ann` represent the same *unique* data because they share the same `primaryKey`, but they are not *equal* because their names are different.
 
 To represent this in `IGListKit`'s diffing, add and implement the `IGListDiffable` protocol:
 
@@ -133,10 +132,7 @@ extension User: IGListDiffable {
     return pk
   }
 
-  func isEqual(object: AnyObject?) -> Bool {
-    if object === self {
-      return true
-    }
+  func isEqual(object: Any?) -> Bool {
     if let object = object as? User {
       return name == object.name
     }
@@ -161,49 +157,43 @@ With this you have all of the deletes, reloads, moves, and inserts! There's even
 
 ## Advanced Features
 
-### Delegates
-
-**Supplementary Views**
-
-Adding supplementary views to section controllers is as simple as setting the weak `supplementaryViewSource` and implementing the `IGListSupplementaryViewSource` protocol. This protocol works nearly the same as returning and configuring cells.
-
-**Display Delegate**
-
-Section controllers can set the weak `displayDelegate` delegate to an object, including `self`, to receive display events about an section controller and individual cells.
-
-**Working Range**
+### Working Range
 
 A *working range* is a distance before and after the visible bounds of the `UICollectionView` where section controllers within this bounds are notified of their entrance and exit. This concept lets your section controllers **prepare content** before they come on screen (e.g. download images).
 
 The `IGListAdapter` must be initialized with a range value in order to work. This value is a multiple of the visible height or width, depending on the scroll-direction.
 
 ```swift
-let adapter = IGListAdapter(updatingDelegate: IGListAdapterUpdater(),
-                              viewController: self,
-                            workingRangeSize: 0.5) // 0.5x the visible size
+let adapter = IGListAdapter(updater: IGListAdapterUpdater(),
+                     viewController: self,
+                   workingRangeSize: 0.5) // 0.5x the visible size
 ```
 
 ![working-range](Resources/workingrange.png)
 
 You can set the weak `workingRangeDelegate` on an section controller to receive events.
 
+### Supplementary Views
+
+Adding supplementary views to section controllers is as simple as setting the weak `supplementaryViewSource` and implementing the `IGListSupplementaryViewSource` protocol. This protocol works nearly the same as returning and configuring cells.
+
+### Display Delegate
+
+Section controllers can set the weak `displayDelegate` delegate to an object, including `self`, to receive display events about a section controller and individual cells.
+
 ### Custom Updaters
 
 The default `IGListAdapterUpdater` should handle any `UICollectionView` update that you need. However, if you find the functionality lacking, or want to perform updates in a very specific way, you can create an object that conforms to the `IGListUpdatingDelegate` protocol and initialize a new `IGListAdapter` with it.
 
-Check out the updater `IGListReloadDataUpdater` used in unit tests for an example.
-
-### Experiments
-
-`IGListKit` comes with the ability to add experimental (or prerelease) features. If an enhancement or fix cannot be proven with a unit test, we encourage you to wrap changes in an experiment so that it can be properly tested in production.
+Check out the updater `IGListReloadDataUpdater` (used in unit tests) for an example.
 
 ## Documentation
 
-Read [the docs here](https://instagram.github.io/IGListKit). Documentation is generated with [jazzy](https://github.com/realm/jazzy) and hosted on [GitHub-Pages](https://pages.github.com).
+You can find [the docs here](https://instagram.github.io/IGListKit). Documentation is generated with [jazzy](https://github.com/realm/jazzy) and hosted on [GitHub-Pages](https://pages.github.com).
 
 ## Contributing
 
-See the [CONTRIBUTING](CONTRIBUTING.md) file for how to help out.
+Please see the [CONTRIBUTING](CONTRIBUTING.md) file for how to help out. At Instagram we sync the open source version of `IGListKit` almost daily, so we're always testing the latest changes. But that requires all changes be thoroughly tested follow our style guide.
 
 ## License
 
