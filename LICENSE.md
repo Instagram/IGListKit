@@ -1,6 +1,6 @@
 BSD License
 
-For IGListKit software
+For `IGListKit` software
 
 Copyright (c) 2016, Facebook, Inc. All rights reserved.
 
