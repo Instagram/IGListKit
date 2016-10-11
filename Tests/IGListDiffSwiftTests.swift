@@ -26,10 +26,10 @@ class SwiftClass: IGListDiffable {
     }
 
     @objc func diffIdentifier() -> NSObjectProtocol {
-        return NSNumber(int: Int32(id))
+        return NSNumber(value: id)
     }
 
-    @objc func isEqual(object: AnyObject?) -> Bool {
+    func isEqual(_ object: IGListDiffable?) -> Bool {
         if let object = object as? SwiftClass {
             return id == object.id && value == object.value
         }
@@ -41,25 +41,25 @@ class SwiftClass: IGListDiffable {
 class IGDiffingSwiftTests: XCTestCase {
 
     func testConformance() {
-        XCTAssertTrue(ObjCClass.conformsToProtocol(IGListDiffable))
+        XCTAssertTrue(ObjCClass.conforms(to: IGListDiffable.self))
     }
 
     func testDiffingStrings() {
-        let o = ["a", "b", "c"]
-        let n = ["a", "c", "d"]
-        let result = IGListDiff(o, n, .Equality)
-        XCTAssertEqual(result.deletes, NSIndexSet(index: 1))
-        XCTAssertEqual(result.inserts, NSIndexSet(index: 2))
+        let o: [NSString] = ["a", "b", "c"]
+        let n: [NSString] = ["a", "c", "d"]
+        let result = IGListDiff(o as [IGListDiffable]?, n, .equality)
+        XCTAssertEqual(result.deletes, IndexSet(integer: 1))
+        XCTAssertEqual(result.inserts, IndexSet(integer: 2))
         XCTAssertEqual(result.moves.count, 0)
         XCTAssertEqual(result.updates.count, 0)
     }
 
     func testDiffingNumbers() {
-        let o = [0, 1, 2]
-        let n = [0, 2, 4]
-        let result = IGListDiff(o, n, .Equality)
-        XCTAssertEqual(result.deletes, NSIndexSet(index: 1))
-        XCTAssertEqual(result.inserts, NSIndexSet(index: 2))
+        let o: [NSNumber] = [0, 1, 2]
+        let n: [NSNumber] = [0, 2, 4]
+        let result = IGListDiff(o as [IGListDiffable]?, n, .equality)
+        XCTAssertEqual(result.deletes, IndexSet(integer: 1))
+        XCTAssertEqual(result.inserts, IndexSet(integer: 2))
         XCTAssertEqual(result.moves.count, 0)
         XCTAssertEqual(result.updates.count, 0)
     }
@@ -67,9 +67,9 @@ class IGDiffingSwiftTests: XCTestCase {
     func testDiffingSwiftClass() {
         let o = [SwiftClass(id: 0, value: "a"), SwiftClass(id: 1, value: "b"), SwiftClass(id: 2, value: "c")]
         let n = [SwiftClass(id: 0, value: "a"), SwiftClass(id: 2, value: "c"), SwiftClass(id: 4, value: "d")]
-        let result = IGListDiff(o, n, .Equality)
-        XCTAssertEqual(result.deletes, NSIndexSet(index: 1))
-        XCTAssertEqual(result.inserts, NSIndexSet(index: 2))
+        let result = IGListDiff(o, n, .equality)
+        XCTAssertEqual(result.deletes, IndexSet(integer: 1))
+        XCTAssertEqual(result.inserts, IndexSet(integer: 2))
         XCTAssertEqual(result.moves.count, 0)
         XCTAssertEqual(result.updates.count, 0)
     }
@@ -77,9 +77,9 @@ class IGDiffingSwiftTests: XCTestCase {
     func testDiffingSwiftClassPointerComparison() {
         let o = [SwiftClass(id: 0, value: "a"), SwiftClass(id: 1, value: "b"), SwiftClass(id: 2, value: "c")]
         let n = [SwiftClass(id: 0, value: "a"), SwiftClass(id: 2, value: "c"), SwiftClass(id: 4, value: "d")]
-        let result = IGListDiff(o, n, .PointerPersonality)
-        XCTAssertEqual(result.deletes, NSIndexSet(index: 1))
-        XCTAssertEqual(result.inserts, NSIndexSet(index: 2))
+        let result = IGListDiff(o, n, .pointerPersonality)
+        XCTAssertEqual(result.deletes, IndexSet(integer: 1))
+        XCTAssertEqual(result.inserts, IndexSet(integer: 2))
         XCTAssertEqual(result.moves.count, 0)
         XCTAssertEqual(result.updates.count, 2)
     }
@@ -87,7 +87,7 @@ class IGDiffingSwiftTests: XCTestCase {
     func testDiffingSwiftClassWithUpdates() {
         let o = [SwiftClass(id: 0, value: "a"), SwiftClass(id: 1, value: "b"), SwiftClass(id: 2, value: "c")]
         let n = [SwiftClass(id: 0, value: "b"), SwiftClass(id: 1, value: "b"), SwiftClass(id: 2, value: "b")]
-        let result = IGListDiff(o, n, .Equality)
+        let result = IGListDiff(o, n, .equality)
         XCTAssertEqual(result.deletes.count, 0)
         XCTAssertEqual(result.inserts.count, 0)
         XCTAssertEqual(result.moves.count, 0)
