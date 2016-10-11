@@ -24,6 +24,7 @@ A data-driven `UICollectionView` framework for building fast and flexible lists.
 
 ## Installation
 
+### Cocoapods
 The preferred installation method for `IGListKit` is with [CocoaPods](http://cocoapods.org). Simply add the following to your Podfile:
 
 ```ruby
@@ -31,6 +32,16 @@ The preferred installation method for `IGListKit` is with [CocoaPods](http://coc
 pod 'IGListKit'
 ```
 
+### Carthage
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+To integrate IGListKit into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+github "Instagram/IGListKit" ~> 1.0.0
+```
+
+### Manually
 You can also manually install the framework by dragging and dropping the `IGListKit.xcodeproj` into your workspace.
 
 `IGListKit` supports a minimum iOS version of 8.0.
