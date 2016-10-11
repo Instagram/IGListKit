@@ -78,7 +78,7 @@ func objectsForListAdapter(listAdapter: IGListAdapter) -> [IGListDiffable] {
 
 func listAdapter(listAdapter: IGListAdapter,
     sectionControllerForObject(object: Any) -> IGListSectionController {
-  if let _ = object as? String {
+  if object is String {
     return LabelSectionController()
   } else {
     return NumberSectionController()
