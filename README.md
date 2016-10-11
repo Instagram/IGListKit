@@ -1,13 +1,8 @@
 <p align="center">
-  <img src="Resources/logo-animation.gif" width=400 />
+  <img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/logo-animation.gif" width=400 />
 </p>
 
-<!--
-[![Build Status](https://secure.travis-ci.org/Instagram/IGListKit.svg)](https://travis-ci.org/Instagram/IGListKit)
-[![Version Status](https://img.shields.io/cocoapods/v/IGListKit.svg)][podLink] [![license MIT](https://img.shields.io/cocoapods/l/IGListKit.svg)][mitLink]
-[![codecov](https://codecov.io/gh/Instagram/IGListKit/branch/develop/graph/badge.svg)](https://codecov.io/gh/Instagram/IGListKit)
-[![Platform](https://img.shields.io/cocoapods/p/IGListKit.svg)][docsLink]
--->
+[![Build Status](https://secure.travis-ci.org/Instagram/IGListKit.svg)](https://travis-ci.org/Instagram/IGListKit) [![Version Status](https://img.shields.io/cocoapods/v/IGListKit.svg)](https://cocoapods.org/pods/IGListKit) [![license BSD](https://img.shields.io/cocoapods/l/IGListKit.svg)](https://opensource.org/licenses/BSD-3-Clause) [![Platform](https://img.shields.io/cocoapods/p/IGListKit.svg)](https://instagram.github.io/IGListKit)
 
 ------------------------
 
@@ -15,15 +10,15 @@ A data-driven `UICollectionView` framework for building fast and flexible lists.
 
          | Main Features
 ---------|---------------
-:no_good: | Never call `performBatchUpdates(_:, completion:)` or `reloadData()` again
-:house: | Better architecture with reusable cells and components
-:capital_abcd: | Create collections with multiple data types
-:key: | Decoupled diffing algorithm
-:white_check_mark: | Fully unit tested
-:mag: | Customize your diffing behavior for your models
-:iphone: | Simply `UICollectionView` at its core
-:rocket: | Extendable API
-:bird: | Written in Objective-C with full Swift interop support
+&#128581; | Never call `performBatchUpdates(_:, completion:)` or `reloadData()` again
+&#127968; | Better architecture with reusable cells and components
+&#128288; | Create collections with multiple data types
+&#128273; | Decoupled diffing algorithm
+&#9989; | Fully unit tested
+&#128269; | Customize your diffing behavior for your models
+&#128241; | Simply `UICollectionView` at its core
+&#128640; | Extendable API
+&#128038; | Written in Objective-C with full Swift interop support
 
 `IGListKit` is built and maintained by [Instagram engineering](https://engineering.instagram.com/), using the open source version for the Instagram app.
 
