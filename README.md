@@ -120,10 +120,15 @@ class User {
 
 The user's `primaryKey` uniquely identifies user data, and the `name` is just the value for that user.
 
-Consider the following two users:
+Let's say a server returns a `User` object that looks like this:
 
 ```swift
 let shayne = User(primaryKey: 2, name: "Shayne")
+```
+
+But sometime after the client receives `shayne`, someone changes their name:
+
+```swift
 let ann = User(primaryKey: 2, name: "Ann")
 ```
 
