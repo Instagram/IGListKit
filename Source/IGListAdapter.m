@@ -248,8 +248,8 @@
     if (dataSource == nil || collectionView == nil) {
         if (completion) {
             completion(NO);
-            return;
         }
+        return;
     }
 
     NSArray *newItems = [[dataSource objectsForListAdapter:self] copy];

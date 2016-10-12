@@ -103,14 +103,14 @@ IGLK_SUBCLASSING_RESTRICTED
 - (void)performUpdatesAnimated:(BOOL)animated completion:(nullable IGListUpdaterCompletion)completion;
 
 /**
- Perform an immediate reload of the data in the data source, discarding the old objectss.
+ Perform an immediate reload of the data in the data source, discarding the old objects.
 
  @param completion A block executed when the reload completes.
  */
 - (void)reloadDataWithCompletion:(nullable IGListUpdaterCompletion)completion;
 
 /**
- Reload the infra for specific objectss only.
+ Reload the infra for specific objects only.
 
  @param objects The objects to reload.
  */
