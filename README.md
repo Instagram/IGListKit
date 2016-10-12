@@ -139,7 +139,7 @@ To represent this in `IGListKit`'s diffing, add and implement the `IGListDiffabl
 ```swift
 extension User: IGListDiffable {
   func diffIdentifier() -> NSObjectProtocol {
-    return pk
+    return primaryKey
   }
 
   func isEqual(object: Any?) -> Bool {
