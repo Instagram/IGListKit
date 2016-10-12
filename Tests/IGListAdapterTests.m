@@ -143,8 +143,13 @@
 }
 
 - (void)test_whenQueryingReusableIdentifier_thatIdentifierEqualsClassName {
-    NSString *identifier = [self.adapter reusableViewIdentifierForClass:UICollectionViewCell.class];
+    NSString *identifier = IGListReusableViewIdentifier(UICollectionViewCell.class, nil);
     XCTAssertEqualObjects(identifier, @"UICollectionViewCell");
+}
+
+- (void)test_whenQueryingReusableIdentifier_thatIdentifierEqualsClassNameAndSupplimentaryKind {
+    NSString *identifier = IGListReusableViewIdentifier(UICollectionViewCell.class, UICollectionElementKindSectionFooter);
+    XCTAssertEqualObjects(identifier, @"UICollectionElementKindSectionFooterUICollectionViewCell");
 }
 
 - (void)test_whenDataSourceChanges_thatBackgroundViewVisibilityChanges {

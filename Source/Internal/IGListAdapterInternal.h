@@ -17,6 +17,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// Generate a string representation of a reusable view class when registering with a UICollectionView.
+NS_INLINE NSString *IGListReusableViewIdentifier(Class viewClass, NSString * _Nullable kind) {
+  return [NSString stringWithFormat:@"%@%@", kind ?: @"", NSStringFromClass(viewClass)];
+}
+
 @interface IGListAdapter ()
 <
 UICollectionViewDataSource,
@@ -54,8 +59,6 @@ IGListCollectionContext
 - (NSArray *)indexPathsFromSectionController:(IGListSectionController <IGListSectionType> *)sectionController
                                      indexes:(NSIndexSet *)indexes
                         adjustForUpdateBlock:(BOOL)adjustForUpdateBlock;
-
-- (NSString *)reusableViewIdentifierForClass:(Class)viewClass;
 
 @end
 

@@ -443,15 +443,6 @@
     _collectionView.backgroundView.hidden = itemCount > 0;
 }
 
-// use the string representation of a reusable view class when registering with a UICollectionView
-- (NSString *)reusableViewIdentifierForClass:(Class)viewClass {
-    return NSStringFromClass(viewClass);
-}
-
-- (NSString *)reusableViewIdentifierForClass:(Class)viewClass elementKind:(NSString *)elementKind {
-    return [elementKind stringByAppendingString:NSStringFromClass(viewClass)];
-}
-
 - (IGListSectionMap *)sectionMapAdjustForUpdateBlock:(BOOL)adjustForUpdateBlock {
     // if we are inside an update block, we may have to use the /previous/ item map for some operations
     if (adjustForUpdateBlock && self.isInUpdateBlock && self.previoussectionMap != nil) {
@@ -720,7 +711,7 @@
     IGParameterAssert(cellClass != nil);
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
-    NSString *identifier = [self reusableViewIdentifierForClass:cellClass];
+    NSString *identifier = IGListReusableViewIdentifier(cellClass, nil);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index];
     if (![self.registeredCellClasses containsObject:cellClass]) {
         [self.registeredCellClasses addObject:cellClass];
@@ -736,7 +727,7 @@
     IGAssertMainThread();
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
-    NSString *identifier = [self reusableViewIdentifierForClass:viewClass elementKind:elementKind];
+    NSString *identifier = IGListReusableViewIdentifier(viewClass, elementKind);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index];
     if (![self.registeredSupplementaryViewIdentifiers containsObject:identifier]) {
         [self.registeredSupplementaryViewIdentifiers addObject:identifier];
