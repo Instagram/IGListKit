@@ -24,7 +24,7 @@ A data-driven `UICollectionView` framework for building fast and flexible lists.
 
 ## Installation
 
-### Cocoapods
+### CocoaPods
 The preferred installation method for `IGListKit` is with [CocoaPods](http://cocoapods.org). Simply add the following to your Podfile:
 
 ```ruby
