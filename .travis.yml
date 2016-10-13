@@ -24,7 +24,7 @@ env:
 
 script:
 - if [ $POD_LINT == "YES" ]; then
-      bundle exec pod spec lint;
+      bundle exec pod lib lint;
   fi
 
 
