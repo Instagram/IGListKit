@@ -452,4 +452,29 @@
     XCTAssertNil(weakSectionController);
 }
 
+- (void)test_whenAdapterUpdatedTwice_withThreeSections_thatSectionsUpdatedFirstLast {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    XCTAssertTrue([[self.adapter sectionControllerForObject:@0] isFirstSection]);
+    XCTAssertFalse([[self.adapter sectionControllerForObject:@1] isFirstSection]);
+    XCTAssertFalse([[self.adapter sectionControllerForObject:@2] isFirstSection]);
+
+    XCTAssertFalse([[self.adapter sectionControllerForObject:@0] isLastSection]);
+    XCTAssertFalse([[self.adapter sectionControllerForObject:@1] isLastSection]);
+    XCTAssertTrue([[self.adapter sectionControllerForObject:@2] isLastSection]);
+
+    // update and shift objects to test that first/last flags are also updated
+    self.dataSource.objects = @[@2, @0, @1];
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+
+    XCTAssertFalse([[self.adapter sectionControllerForObject:@0] isFirstSection]);
+    XCTAssertFalse([[self.adapter sectionControllerForObject:@1] isFirstSection]);
+    XCTAssertTrue([[self.adapter sectionControllerForObject:@2] isFirstSection]);
+
+    XCTAssertFalse([[self.adapter sectionControllerForObject:@0] isLastSection]);
+    XCTAssertTrue([[self.adapter sectionControllerForObject:@1] isLastSection]);
+    XCTAssertFalse([[self.adapter sectionControllerForObject:@2] isLastSection]);
+}
+
 @end

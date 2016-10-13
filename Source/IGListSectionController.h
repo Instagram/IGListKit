@@ -35,6 +35,16 @@
 @property (nonatomic, weak, nullable, readonly) id <IGListCollectionContext> collectionContext;
 
 /**
+ Returns YES if the section controller is the first section in the list.
+ */
+@property (nonatomic, assign, readonly) BOOL isFirstSection;
+
+/**
+ Returns YES if the section controller is the last section in the list.
+ */
+@property (nonatomic, assign, readonly) BOOL isLastSection;
+
+/**
  The margins used to lay out content in the section controller.
 
  @see -[UICollectionViewFlowLayout sectionInset]
