@@ -29,13 +29,13 @@ script:
 
 
 - if [ $BUILD_EXAMPLE == "YES" ]; then
-      xcodebuild clean build -workspace Example/IGListKitExamples.xcworkspace -scheme IGListKitExamples -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
+      xcodebuild clean build -workspace Example/IGListKitExamples.xcworkspace -scheme IGListKitExamples -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO | bundle exec xcpretty -c;
   fi
 
 
 - if [ $RUN_TESTS == "YES" ]; then
-      xcodebuild test -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
+      xcodebuild test -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO | bundle exec xcpretty -c;
   else
-      xcodebuild clean build -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
+      xcodebuild clean build -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO | bundle exec xcpretty -c;
   fi
 
