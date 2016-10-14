@@ -12,6 +12,6 @@
 @interface IGTestCell : UICollectionViewCell
 
 @property (nonatomic, weak) id delegate;
-@property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) IBOutlet UILabel *label;
 
 @end

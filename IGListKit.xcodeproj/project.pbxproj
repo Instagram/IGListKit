@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26271C851DAE8E030073E116 /* IGTestNibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26271C841DAE8E030073E116 /* IGTestNibCell.xib */; };
+		26271C8A1DAE94E40073E116 /* IGTestSingleNibItemDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 26271C891DAE94E40073E116 /* IGTestSingleNibItemDataSource.m */; };
+		26271C8C1DAE96740073E116 /* IGListSingleNibItemControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 26271C8B1DAE96740073E116 /* IGListSingleNibItemControllerTests.m */; };
 		296176F71D9D54C100F40F34 /* IGListScrollDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 296176EF1D9D54C100F40F34 /* IGListScrollDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		296176F81D9D54C100F40F34 /* IGListSectionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 296176F01D9D54C100F40F34 /* IGListSectionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		296176F91D9D54C100F40F34 /* IGListSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 296176F11D9D54C100F40F34 /* IGListSectionController.m */; };
@@ -108,6 +111,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		26271C841DAE8E030073E116 /* IGTestNibCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IGTestNibCell.xib; sourceTree = "<group>"; };
+		26271C881DAE94E40073E116 /* IGTestSingleNibItemDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGTestSingleNibItemDataSource.h; sourceTree = "<group>"; };
+		26271C891DAE94E40073E116 /* IGTestSingleNibItemDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGTestSingleNibItemDataSource.m; sourceTree = "<group>"; };
+		26271C8B1DAE96740073E116 /* IGListSingleNibItemControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListSingleNibItemControllerTests.m; sourceTree = "<group>"; };
 		296176EF1D9D54C100F40F34 /* IGListScrollDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListScrollDelegate.h; sourceTree = "<group>"; };
 		296176F01D9D54C100F40F34 /* IGListSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListSectionController.h; sourceTree = "<group>"; };
 		296176F11D9D54C100F40F34 /* IGListSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListSectionController.m; sourceTree = "<group>"; };
@@ -261,10 +268,13 @@
 				88144EFC1D870EDC007C7F66 /* IGTestDelegateController.m */,
 				88144EFD1D870EDC007C7F66 /* IGTestDelegateDataSource.h */,
 				88144EFE1D870EDC007C7F66 /* IGTestDelegateDataSource.m */,
+				26271C841DAE8E030073E116 /* IGTestNibCell.xib */,
 				88144EFF1D870EDC007C7F66 /* IGTestObject.h */,
 				88144F001D870EDC007C7F66 /* IGTestObject.m */,
 				88144F011D870EDC007C7F66 /* IGTestSingleItemDataSource.h */,
 				88144F021D870EDC007C7F66 /* IGTestSingleItemDataSource.m */,
+				26271C881DAE94E40073E116 /* IGTestSingleNibItemDataSource.h */,
+				26271C891DAE94E40073E116 /* IGTestSingleNibItemDataSource.m */,
 				88144F031D870EDC007C7F66 /* IGTestStackedDataSource.h */,
 				88144F041D870EDC007C7F66 /* IGTestStackedDataSource.m */,
 				88144F051D870EDC007C7F66 /* IGTestSupplementarySource.h */,
@@ -386,6 +396,7 @@
 				88144EEB1D870EDC007C7F66 /* IGListKitTests-Bridging-Header.h */,
 				88144EEC1D870EDC007C7F66 /* IGListObjectMapTests.m */,
 				88144EED1D870EDC007C7F66 /* IGListSingleItemControllerTests.m */,
+				26271C8B1DAE96740073E116 /* IGListSingleNibItemControllerTests.m */,
 				88144EEE1D870EDC007C7F66 /* IGListStackItemControllerTests.m */,
 				88144EEF1D870EDC007C7F66 /* IGListWorkingRangeHandlerTests.m */,
 				887D0B571D870E1E009E01F7 /* Info.plist */,
@@ -549,6 +560,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26271C851DAE8E030073E116 /* IGTestNibCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,6 +661,7 @@
 				88144F191D870EDC007C7F66 /* IGTestDelegateDataSource.m in Sources */,
 				88144F0C1D870EDC007C7F66 /* IGListDiffTests.m in Sources */,
 				88144F0A1D870EDC007C7F66 /* IGListBatchUpdateDataTests.m in Sources */,
+				26271C8C1DAE96740073E116 /* IGListSingleNibItemControllerTests.m in Sources */,
 				88144F101D870EDC007C7F66 /* IGListSingleItemControllerTests.m in Sources */,
 				88144F121D870EDC007C7F66 /* IGListWorkingRangeHandlerTests.m in Sources */,
 				88144F151D870EDC007C7F66 /* IGListTestSection.m in Sources */,
@@ -657,6 +670,7 @@
 				88144F161D870EDC007C7F66 /* IGListTestUICollectionViewDataSource.m in Sources */,
 				88144F091D870EDC007C7F66 /* IGListAdapterUpdaterTests.m in Sources */,
 				88144F0F1D870EDC007C7F66 /* IGListObjectMapTests.m in Sources */,
+				26271C8A1DAE94E40073E116 /* IGTestSingleNibItemDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
