@@ -1,11 +1,10 @@
 language: objective-c
 osx_image: xcode8.3
+gemfile: Gemfile
 
 cache:
   - cocoapods
-  - slather
-  - danger
-  - danger-swiftlint
+  - bundler
 
 env:
    global:
@@ -47,9 +46,6 @@ env:
    - DESTINATION="arch=x86_64" SDK="$MACOS_SDK" SCHEME="$MACOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="YES" POD_LINT="NO"
 
 before_install:
-  - gem install slather --no-rdoc --no-ri --no-document --quiet
-  - gem install danger --version '~> 4.3'
-  - gem install danger-swiftlint
   - ruby scripts/generate_ci_yaml.rb
 
 script:
@@ -65,38 +61,38 @@ script:
 
 
 - if [ $POD_LINT == "YES" ]; then
-      pod lib lint;
+      bundle exec pod lib lint;
   fi
 
 
 - if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $IOS_SDK ]; then
-      xcodebuild build -workspace "$IOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
+      xcodebuild build -workspace "$IOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
   fi
 
 
 - if [ $RUN_UI_TESTS == "YES" ] && [ $SDK == $IOS_SDK ]; then
-      xcodebuild build test -workspace "$IOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
+      xcodebuild build test -workspace "$IOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
   fi
 
 
 - if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $TVOS_SDK ]; then
-      xcodebuild build -workspace "$TVOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
+      xcodebuild build -workspace "$TVOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
   fi
 
 
 - if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $MACOS_SDK ]; then
-      xcodebuild build -workspace "$MACOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
+      xcodebuild build -workspace "$MACOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
   fi
 
 
 - if [ $RUN_TESTS == "YES" ]; then
-      xcodebuild build build-for-testing -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | xcpretty -c;
-      xcodebuild analyze test-without-building -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | xcpretty -c;
+      xcodebuild build build-for-testing -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c;
+      xcodebuild analyze test-without-building -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c;
   else
-      xcodebuild build analyze -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
+      xcodebuild build analyze -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
   fi
 
-- danger
+- bundle exec danger
 
 after_success:
-  - slather
+  - bundle exec slather
