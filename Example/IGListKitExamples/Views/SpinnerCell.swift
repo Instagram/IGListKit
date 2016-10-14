@@ -20,7 +20,9 @@ func spinnerSectionController() -> IGListSingleSectionController {
     let sizeBlock = { (context: IGListCollectionContext) -> CGSize in
         return CGSize(width: context.containerSize.width, height: 100)
     }
-    return IGListSingleSectionController(cellClass: SpinnerCell.self, configureBlock: configureBlock, sizeBlock: sizeBlock)
+    return IGListSingleSectionController(cellClass: SpinnerCell.self,
+                                         configureBlock: configureBlock,
+                                         sizeBlock: sizeBlock)
 }
 
 class SpinnerCell: UICollectionViewCell {
