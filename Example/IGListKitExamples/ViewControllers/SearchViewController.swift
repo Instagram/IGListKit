@@ -48,13 +48,8 @@ class SearchViewController: UIViewController, IGListAdapterDataSource, SearchSec
     //MARK: IGListAdapterDataSource
 
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        var items: [IGListDiffable] = [searchToken]
-        for word in words {
-            if filterString == "" || word.lowercased().contains(filterString.lowercased()) {
-                items.append(word as IGListDiffable)
-            }
-        }
-        return items
+        guard filterString != "" else { return [searchToken] + words.map { $0 as IGListDiffable } }
+        return [searchToken] + words.filter { $0.lowercased().contains(filterString.lowercased()) }.map { $0 as IGListDiffable }
     }
 
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {

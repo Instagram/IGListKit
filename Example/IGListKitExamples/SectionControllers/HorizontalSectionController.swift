@@ -50,11 +50,8 @@ class HorizontalSectionController: IGListSectionController, IGListSectionType, I
     //MARK: IGListAdapterDataSource
 
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        var numbers = [Int]()
-        for i in 0..<(number ?? 0) {
-            numbers.append(i)
-        }
-        return numbers as [IGListDiffable]
+        guard let number = number else { return [] }
+        return (0..<number).map { $0 as IGListDiffable }
     }
 
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
