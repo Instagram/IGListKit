@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="FdF-s4-jhs" customClass="IGTestCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hn-N9-ggr">
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="9hn-N9-ggr" firstAttribute="leading" secondItem="FdF-s4-jhs" secondAttribute="leadingMargin" id="DtU-p7-rcX"/>
+                <constraint firstAttribute="trailingMargin" secondItem="9hn-N9-ggr" secondAttribute="trailing" id="ISb-zm-nSg"/>
+                <constraint firstAttribute="bottomMargin" secondItem="9hn-N9-ggr" secondAttribute="bottom" id="OJz-Ho-W0g"/>
+                <constraint firstItem="9hn-N9-ggr" firstAttribute="top" secondItem="FdF-s4-jhs" secondAttribute="topMargin" id="RKw-fJ-1ln"/>
+            </constraints>
+            <size key="customSize" width="429" height="79"/>
+            <connections>
+                <outlet property="label" destination="9hn-N9-ggr" id="u5N-L3-ZVs"/>
+            </connections>
+            <point key="canvasLocation" x="-330.5" y="-343.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

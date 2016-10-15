@@ -27,8 +27,8 @@
         return CGSizeMake([collectionContext containerSize].width, 44);
     };
     return [[IGListSingleSectionController alloc] initWithCellClass:IGTestCell.class
-                                                  configureBlock:configureBlock
-                                                       sizeBlock:sizeBlock];
+                                                     configureBlock:configureBlock
+                                                          sizeBlock:sizeBlock];
 }
 
 - (nullable UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {

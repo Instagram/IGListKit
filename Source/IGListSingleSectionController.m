@@ -13,9 +13,11 @@
 
 @interface IGListSingleSectionController ()
 
+@property (nonatomic, strong, readonly) NSString *nibName;
+@property (nonatomic, strong, readonly) NSBundle *bundle;
 @property (nonatomic, strong, readonly) Class cellClass;
-@property (nonatomic, strong, readonly) void (^configureBlock)(id, __kindof UICollectionViewCell *);
-@property (nonatomic, strong, readonly) CGSize (^sizeBlock)(id<IGListCollectionContext>);
+@property (nonatomic, strong, readonly) IGListSingleSectionCellConfigureBlock configureBlock;
+@property (nonatomic, strong, readonly) IGListSingleSectionCellSizeBlock sizeBlock;
 
 @property (nonatomic, strong) id item;
 
@@ -24,12 +26,27 @@
 @implementation IGListSingleSectionController
 
 - (instancetype)initWithCellClass:(Class)cellClass
-                   configureBlock:(void (^)(id, __kindof UICollectionViewCell *))configureBlock
-                        sizeBlock:(CGSize (^)(id<IGListCollectionContext>))sizeBlock {
+                   configureBlock:(IGListSingleSectionCellConfigureBlock)configureBlock
+                        sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock {
     IGParameterAssert(cellClass != nil);
     IGParameterAssert(configureBlock != nil);
     if (self = [super init]) {
         _cellClass = cellClass;
+        _configureBlock = [configureBlock copy];
+        _sizeBlock = [sizeBlock copy];
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibName
+                         bundle:(NSBundle *)bundle
+                 configureBlock:(IGListSingleSectionCellConfigureBlock)configureBlock
+                      sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock {
+    IGParameterAssert(nibName != nil);
+    IGParameterAssert(configureBlock != nil);
+    if (self = [super init]) {
+        _nibName = nibName;
+        _bundle = bundle;
         _configureBlock = [configureBlock copy];
         _sizeBlock = [sizeBlock copy];
     }
@@ -48,7 +65,16 @@
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
     IGParameterAssert(index == 0);
-    id cell = [self.collectionContext dequeueReusableCellOfClass:self.cellClass forSectionController:self atIndex:index];
+    id cell;
+    id<IGListCollectionContext> collectionContext = self.collectionContext;
+    if ([self.nibName length] > 0) {
+        cell = [collectionContext dequeueReusableCellWithNibName:self.nibName
+                                                          bundle:self.bundle
+                                            forSectionController:self
+                                                         atIndex:index];
+    } else {
+        cell = [collectionContext dequeueReusableCellOfClass:self.cellClass forSectionController:self atIndex:index];
+    }
     self.configureBlock(self.item, cell);
     return cell;
 }

@@ -15,6 +15,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^IGListSingleSectionCellConfigureBlock)(id item, __kindof UICollectionViewCell *cell);
+typedef CGSize (^IGListSingleSectionCellSizeBlock)(id<IGListCollectionContext> _Nullable collectionContext);
+
 @class IGListSingleSectionController;
 
 /**
@@ -41,19 +44,37 @@ IGLK_SUBCLASSING_RESTRICTED
 
 /**
  Create a new section controller for a given cell type that will always have only one cell when present in a feed.
-
+ 
  @param cellClass      The UICollectionViewCell subclass for the single cell.
  @param configureBlock A block that configures the cell with the item given to the section controller.
  @param sizeBlock      A block that returns the size for the cell given the collection context.
-
+ 
  @return A new section controller.
-
+ 
  @warning Be VERY CAREFUL not to create retain cycles by holding strong references to: the object that owns the adapter
  (usually "self") or the IGListAdapter. Pass in locally scoped objects or use weak references!
  */
 - (instancetype)initWithCellClass:(Class)cellClass
-                   configureBlock:(void (^)(id item, __kindof UICollectionViewCell *cell))configureBlock
-                        sizeBlock:(CGSize (^)(id<IGListCollectionContext> collectionContext))sizeBlock NS_DESIGNATED_INITIALIZER;
+                   configureBlock:(IGListSingleSectionCellConfigureBlock)configureBlock
+                        sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock;
+
+/**
+ Create a new section controller for a given nib name and bundle that will always have only one cell when present in a feed.
+ 
+ @param nibName        The name of the nib file for the single cell.
+ @param bundle         The bundle in which to search for the nib file. If nil, this method looks for the file in the main bundle.
+ @param configureBlock A block that configures the cell with the item given to the section controller.
+ @param sizeBlock      A block that returns the size for the cell given the collection context.
+ 
+ @return A new section controller.
+ 
+ @warning Be VERY CAREFUL not to create retain cycles by holding strong references to: the object that owns the adapter
+ (usually "self") or the IGListAdapter. Pass in locally scoped objects or use weak references!
+ */
+- (instancetype)initWithNibName:(NSString *)nibName
+                         bundle:(nullable NSBundle *)bundle
+                 configureBlock:(IGListSingleSectionCellConfigureBlock)configureBlock
+                      sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock;
 
 /**
  An optional delegate that handles selection and deselection.

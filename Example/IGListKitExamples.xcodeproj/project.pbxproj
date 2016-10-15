@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26271C8E1DAE9D3F0073E116 /* SingleSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26271C8D1DAE9D3F0073E116 /* SingleSectionViewController.swift */; };
+		26271C921DAE9EFC0073E116 /* NibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26271C911DAE9EFC0073E116 /* NibCell.xib */; };
+		26271C941DAE9F050073E116 /* NibCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26271C931DAE9F050073E116 /* NibCell.swift */; };
 		2942FF8C1D9F39E00015D24B /* DemoSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2942FF831D9F39E00015D24B /* DemoSectionController.swift */; };
 		2942FF8D1D9F39E00015D24B /* EmbeddedSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2942FF841D9F39E00015D24B /* EmbeddedSectionController.swift */; };
 		2942FF8E1D9F39E00015D24B /* ExpandableSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2942FF851D9F39E00015D24B /* ExpandableSectionController.swift */; };
@@ -37,6 +40,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		26271C8D1DAE9D3F0073E116 /* SingleSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleSectionViewController.swift; sourceTree = "<group>"; };
+		26271C911DAE9EFC0073E116 /* NibCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NibCell.xib; sourceTree = "<group>"; };
+		26271C931DAE9F050073E116 /* NibCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibCell.swift; sourceTree = "<group>"; };
 		2942FF831D9F39E00015D24B /* DemoSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoSectionController.swift; sourceTree = "<group>"; };
 		2942FF841D9F39E00015D24B /* EmbeddedSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedSectionController.swift; sourceTree = "<group>"; };
 		2942FF851D9F39E00015D24B /* ExpandableSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableSectionController.swift; sourceTree = "<group>"; };
@@ -148,6 +154,7 @@
 				299068271D75BFEC00A62888 /* MixedDataViewController.swift */,
 				2991F9231D7BB89F00B0C58F /* NestedAdapterViewController.swift */,
 				299B53FF1D6BD6630074A202 /* SearchViewController.swift */,
+				26271C8D1DAE9D3F0073E116 /* SingleSectionViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -162,6 +169,8 @@
 				2991F92B1D7BBE5400B0C58F /* RemoveCell.swift */,
 				2961B3AF1D68B28E001C9451 /* SearchCell.swift */,
 				2961B3A81D68B0B5001C9451 /* SpinnerCell.swift */,
+				26271C931DAE9F050073E116 /* NibCell.swift */,
+				26271C911DAE9EFC0073E116 /* NibCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -247,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2961B3981D68B031001C9451 /* LaunchScreen.storyboard in Resources */,
+				26271C921DAE9EFC0073E116 /* NibCell.xib in Resources */,
 				2961B3951D68B031001C9451 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,7 +306,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -314,6 +324,7 @@
 				2942FF931D9F39E00015D24B /* SearchSectionController.swift in Sources */,
 				2942FF911D9F39E00015D24B /* LabelSectionController.swift in Sources */,
 				2961B3AC1D68B0B5001C9451 /* LoadMoreViewController.swift in Sources */,
+				26271C941DAE9F050073E116 /* NibCell.swift in Sources */,
 				2991F9191D7BADC900B0C58F /* CenterLabelCell.swift in Sources */,
 				29628F141D91905A0026B15A /* DetailLabelCell.swift in Sources */,
 				2991F9301D7BC0E400B0C58F /* EmptyViewController.swift in Sources */,
@@ -326,6 +337,7 @@
 				2991F9281D7BB9EC00B0C58F /* EmbeddedCollectionViewCell.swift in Sources */,
 				2942FF8F1D9F39E00015D24B /* GridSectionController.swift in Sources */,
 				2942FF921D9F39E00015D24B /* RemoveSectionController.swift in Sources */,
+				26271C8E1DAE9D3F0073E116 /* SingleSectionViewController.swift in Sources */,
 				2961B3AD1D68B0B5001C9451 /* LabelCell.swift in Sources */,
 				2942FF901D9F39E00015D24B /* HorizontalSectionController.swift in Sources */,
 				2961B3AB1D68B0B5001C9451 /* DemosViewController.swift in Sources */,

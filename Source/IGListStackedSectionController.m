@@ -196,6 +196,18 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
                                                                                       atIndex:(index + offset)];
 }
 
+- (UICollectionViewCell *)dequeueReusableCellWithNibName:(NSString *)nibName
+                                                  bundle:(NSBundle *)bundle
+                                    forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                                 atIndex:(NSInteger)index
+{
+    const NSUInteger offset = [self offsetForSectionController:sectionController];
+    return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeueReusableCellWithNibName:nibName
+                                                                                           bundle:bundle
+                                                                             forSectionController:self
+                                                                                          atIndex:(index + offset)];
+}
+
 - (UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
                                                 forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
                                                                class:(Class)viewClass
