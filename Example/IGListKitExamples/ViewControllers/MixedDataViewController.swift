@@ -71,13 +71,8 @@ class MixedDataViewController: UIViewController, IGListAdapterDataSource {
     //MARK: IGListAdapterDataSource
 
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        var items = [IGListDiffable]()
-        for obj in data {
-            if selectedClass == nil || type(of: obj) == selectedClass! {
-                items.append(obj as! IGListDiffable)
-            }
-        }
-        return items
+        guard selectedClass != nil else { return data.map { $0 as! IGListDiffable } }
+        return data.filter { type(of: $0) == selectedClass! }.map { $0 as! IGListDiffable }
     }
 
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
