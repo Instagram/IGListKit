@@ -23,7 +23,7 @@ final class SingleSectionViewController: UIViewController, IGListAdapterDataSour
     
     let collectionView = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    lazy var data: [Int] = { return Array(0..<20) }()
+    let data = Array(0..<20)
     
     // MARK: - Lifecycle
     
