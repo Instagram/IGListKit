@@ -23,17 +23,13 @@ final class SingleSectionViewController: UIViewController, IGListAdapterDataSour
     
     let collectionView = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    var data = [Int]()
+    lazy var data: [Int] = { return Array(0..<20) }()
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        for index in 0..<20 {
-            data.append(index)
-        }
-        
+
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
