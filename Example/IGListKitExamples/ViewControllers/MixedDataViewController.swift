@@ -81,12 +81,10 @@ class MixedDataViewController: UIViewController, IGListAdapterDataSource {
     }
 
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
-        if let _ = object as? String {
-            return ExpandableSectionController()
-        } else if let _ = object as? GridItem {
-            return GridSectionController()
-        } else {
-            return UserSectionController()
+        switch object {
+        case is String:   return ExpandableSectionController()
+        case is GridItem: return GridSectionController()
+        default:          return UserSectionController()
         }
     }
 
