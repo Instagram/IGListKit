@@ -52,7 +52,7 @@ class NestedAdapterViewController: UIViewController, IGListAdapterDataSource {
     }
 
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
-        if let _ = object as? Int {
+        if object is Int {
             return HorizontalSectionController()
         } else {
             return LabelSectionController()
