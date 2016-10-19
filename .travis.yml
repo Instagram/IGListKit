@@ -2,6 +2,10 @@ language: objective-c
 osx_image: xcode8
 gemfile: Gemfile
 
+cache:
+  - bundler
+  - cocoapods
+  
 env:
    global:
    - LANG=en_US.UTF-8
@@ -11,8 +15,6 @@ env:
    - IOS_SDK=iphonesimulator10.0
 
    matrix:
-   # These always hang on travis. Ignore until Xcode/travis is fixed.
-   # Know how to fix? Submit a PR! :)
    - DESTINATION="OS=8.1,name=iPhone 6" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="NO" BUILD_EXAMPLE="YES" POD_LINT="YES"
    - DESTINATION="OS=8.2,name=iPhone 6" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="NO" BUILD_EXAMPLE="NO"  POD_LINT="NO"
    - DESTINATION="OS=8.3,name=iPhone 6" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="NO" BUILD_EXAMPLE="NO"  POD_LINT="NO"
