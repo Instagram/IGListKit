@@ -213,20 +213,20 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
                                                                class:(Class)viewClass
                                                              atIndex:(NSInteger)index {
     const NSUInteger offset = [self offsetForSectionController:sectionController];
-    return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeueReusableSupplementaryViewOfKind:elementKind
+    return (UICollectionReusableView *_Nonnull)[self.collectionContext dequeueReusableSupplementaryViewOfKind:elementKind
                                                                                      forSectionController:self
                                                                                                     class:viewClass
                                                                                                   atIndex:(index + offset)];
 }
 
-- (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
-                                                         forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
-                                                                      nibName:(NSString *)nibName
-                                                                       bundle:(NSBundle *)bundle
-                                                                      atIndex:(NSInteger)index
+- (UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
+                                                forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+                                                             nibName:(NSString *)nibName
+                                                              bundle:(NSBundle *)bundle
+                                                             atIndex:(NSInteger)index
 {
     const NSUInteger offset = [self offsetForSectionController:sectionController];
-    return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeueReusableSupplementaryViewOfKind:elementKind
+    return (UICollectionReusableView *_Nonnull)[self.collectionContext dequeueReusableSupplementaryViewOfKind:elementKind
                                                                                      forSectionController:self
                                                                                                   nibName:nibName
                                                                                                    bundle:bundle

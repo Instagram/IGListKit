@@ -732,6 +732,7 @@
                                     forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
                                                  atIndex:(NSInteger)index {
     IGAssertMainThread();
+    IGParameterAssert([nibName length] > 0);
     IGParameterAssert(sectionController != nil);
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
@@ -766,6 +767,8 @@
                                                                        bundle:(NSBundle *)bundle
                                                                       atIndex:(NSInteger)index {
     IGAssertMainThread();
+    IGParameterAssert([nibName length] > 0);
+    IGParameterAssert([elementKind length] > 0);
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index];

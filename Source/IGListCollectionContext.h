@@ -141,7 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
                                                          forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
                                                                       nibName:(NSString *)nibName
-                                                                       bundle:(NSBundle *)bundle
+                                                                       bundle:(nullable NSBundle *)bundle
                                                                       atIndex:(NSInteger)index;
 
 /**
