@@ -169,19 +169,19 @@ With this you have all of the deletes, reloads, moves, and inserts! There's even
 
 ### Working Range
 
-A *working range* is a distance before and after the visible bounds of the `UICollectionView` where section controllers within this bounds are notified of their entrance and exit. This concept lets your section controllers **prepare content** before they come on screen (e.g. download images).
+A *working range* is a range of section controllers who aren't yet visible, but are near the screen. Section controllers are notified of their entrance and exit to this range. This concept lets your section controllers **prepare content** before they come on screen (e.g. download images).
 
 The `IGListAdapter` must be initialized with a range value in order to work. This value is a multiple of the visible height or width, depending on the scroll-direction.
 
 ```swift
 let adapter = IGListAdapter(updater: IGListAdapterUpdater(),
                      viewController: self,
-                   workingRangeSize: 0.5) // 0.5x the visible size
+                   workingRangeSize: 1) // 1 before/after visible objects
 ```
 
 ![working-range](Resources/workingrange.png)
 
-You can set the weak `workingRangeDelegate` on an section controller to receive events.
+You can set the weak `workingRangeDelegate` on a section controller to receive events.
 
 ### Supplementary Views
 
