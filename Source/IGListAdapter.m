@@ -74,6 +74,7 @@
         _registeredCellClasses = [NSMutableSet new];
         _registeredNibNames = [NSMutableSet new];
         _registeredSupplementaryViewIdentifiers = [NSMutableSet new];
+        _registeredSupplementaryViewNibNames = [NSMutableSet new];
 
         _collectionView = collectionView;
         _collectionView.dataSource = self;
@@ -757,6 +758,23 @@
         [collectionView registerClass:viewClass forSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier];
     }
     return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
+}
+
+- (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
+                                                         forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+                                                                      nibName:(NSString *)nibName
+                                                                       bundle:(NSBundle *)bundle
+                                                                      atIndex:(NSInteger)index {
+    IGAssertMainThread();
+    UICollectionView *collectionView = self.collectionView;
+    IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
+    NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index];
+    if (![self.registeredSupplementaryViewNibNames containsObject:nibName]) {
+        [self.registeredSupplementaryViewNibNames addObject:nibName];
+        UINib *nib = [UINib nibWithNibName:nibName bundle:bundle];
+        [collectionView registerNib:nib forSupplementaryViewOfKind:elementKind withReuseIdentifier:nibName];
+    }
+    return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:nibName forIndexPath:indexPath];
 }
 
 - (void)reloadInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {
