@@ -22,7 +22,6 @@ class StoryboardLabelSectionController: IGListSectionController, IGListSectionTy
     }
     
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        //let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
         let cell = collectionContext!.dequeueReusableCellFromStoryboard(withIdentifier: "cell", for: self, at: index) as! StoryboardCell
         cell.textLabel.text = object
         return cell

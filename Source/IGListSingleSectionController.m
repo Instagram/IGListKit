@@ -55,12 +55,12 @@
 }
 
 - (instancetype)initWithStoryboardCellIdentifier:(NSString *)identifier
-                              configureBlock:(IGListSingleSectionCellConfigureBlock)configureBlock
-                                   sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock {
+                                  configureBlock:(IGListSingleSectionCellConfigureBlock)configureBlock
+                                       sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock {
     IGParameterAssert(identifier != nil);
     IGParameterAssert(configureBlock != nil);
     if (self = [super init]) {
-        _identifier = identifier;
+        _identifier = [identifier copy];
         _configureBlock = [configureBlock copy];
         _sizeBlock = [sizeBlock copy];
     }
@@ -89,8 +89,8 @@
                                                          atIndex:index];
     } else if ([self.identifier length] > 0) {
         cell = [collectionContext dequeueReusableCellFromStoryboardWithIdentifier:self.identifier
-                                            forSectionController:self
-                                                         atIndex:index];
+                                                             forSectionController:self
+                                                                          atIndex:index];
     } else {
         cell = [collectionContext dequeueReusableCellOfClass:self.cellClass forSectionController:self atIndex:index];
     }

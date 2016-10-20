@@ -10,5 +10,4 @@ import UIKit
 
 class StoryboardCell: UICollectionViewCell {
     @IBOutlet weak var textLabel: UILabel!
-    
 }

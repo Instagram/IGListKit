@@ -10,6 +10,7 @@
 #import <XCTest/XCTest.h>
 
 #import "IGTestStoryboardCell.h"
+#import "IGTestSingleStoryboardItemDataSource.h"
 #import "IGTestSingleStoryboardViewController.h"
 
 #define genTestObject(k, v) [[IGTestObject alloc] initWithKey:k value:v]
@@ -21,6 +22,7 @@
 @property (nonatomic, strong) IGListCollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
 @property (nonatomic, strong) IGListAdapterUpdater *updater;
+@property (nonatomic, strong) IGTestSingleStoryboardItemDataSource *dataSource;
 @property (nonatomic, strong) IGTestSingleStoryboardViewController *viewController;
 
 @end
@@ -32,8 +34,8 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"IGTestStoryboard" bundle:[NSBundle bundleForClass:self.class]];
     self.viewController = [storyboard instantiateViewControllerWithIdentifier:@"testVC"];
     [self.viewController performSelectorOnMainThread:@selector(loadView) withObject:nil waitUntilDone:YES];
-    XCTAssertNotNil(self.viewController.collectionView, @"collectionView should be connected");
     self.collectionView = self.viewController.collectionView;
+    self.dataSource = [[IGTestSingleStoryboardItemDataSource alloc] init];
     self.updater = [[IGListAdapterUpdater alloc] init];
     self.adapter = [[IGListAdapter alloc] initWithUpdater:self.updater viewController:self.viewController workingRangeSize:2];
 }
@@ -46,9 +48,9 @@
 }
 
 - (void)setupWithObjects:(NSArray *)objects {
-    self.viewController.objects = objects;
-    self.adapter.collectionView = self.collectionView;
-    self.adapter.dataSource = self.viewController;
+    self.dataSource.objects = objects;
+    self.adapter.collectionView = self.viewController.collectionView;
+    self.adapter.dataSource = self.dataSource;
     [self.collectionView layoutIfNeeded];
 }
 
@@ -101,7 +103,7 @@
                              genTestObject(@2, @"Bar"),
                              genTestObject(@3, @"Baz"),
                              ]];
-    self.viewController.objects = @[
+    self.dataSource.objects = @[
                                 genTestObject(@1, @"Foo"),
                                 genTestObject(@2, @"Qux"), // new value
                                 genTestObject(@3, @"Baz"),

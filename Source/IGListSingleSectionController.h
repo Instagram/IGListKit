@@ -89,8 +89,8 @@ IGLK_SUBCLASSING_RESTRICTED
  (usually "self") or the IGListAdapter. Pass in locally scoped objects or use weak references!
  */
 - (instancetype)initWithStoryboardCellIdentifier:(NSString *)identifier
-                              configureBlock:(IGListSingleSectionCellConfigureBlock)configureBlock
-                                   sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock;
+                                  configureBlock:(IGListSingleSectionCellConfigureBlock)configureBlock
+                                       sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock;
 
 /**
  An optional delegate that handles selection and deselection.

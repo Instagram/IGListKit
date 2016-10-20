@@ -7,8 +7,14 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestStoryboardCell.h"
+#import <Foundation/Foundation.h>
 
-@implementation IGTestStoryboardCell
+#import <IGListKit/IGListAdapterDataSource.h>
+
+#import "IGTestObject.h"
+
+@interface IGTestSingleStoryboardItemDataSource : NSObject <IGListAdapterDataSource>
+
+@property (nonatomic, strong) NSArray <IGTestObject *> *objects;
 
 @end
