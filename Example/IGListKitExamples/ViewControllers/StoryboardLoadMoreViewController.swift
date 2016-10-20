@@ -29,13 +29,7 @@ class StoryboardLoadMoreViewController: UIViewController, IGListAdapterDataSourc
         adapter.scrollViewDelegate = self
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        collectionView.frame = view.bounds
-    }
-    
     //MARK: IGListAdapterDataSource
-    
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
         var items: [IGListDiffable] = words as [IGListDiffable]
         if loading {
