@@ -44,7 +44,7 @@ class WorkingRangeViewController: UIViewController, IGListAdapterDataSource {
     //MARK: IGListAdapterDataSource
 
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return data as [NSNumber]
+        return data as [IGListDiffable]
     }
 
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
