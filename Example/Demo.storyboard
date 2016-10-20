@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Storyboard Load More View Controller-->
+        <scene sceneID="oB3-c8-g1U">
+            <objects>
+                <viewController storyboardIdentifier="demo" id="5n3-mX-NaJ" customClass="StoryboardLoadMoreViewController" customModule="IGListKitExamples" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VEL-Rj-Wcy"/>
+                        <viewControllerLayoutGuide type="bottom" id="wYR-29-GPY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="s2P-10-T78">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LKS-vo-Ytk" customClass="IGListCollectionView">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QR6-31-kTQ">
+                                    <size key="itemSize" width="309" height="65"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="Eqn-FQ-8Sv" customClass="StoryboardCell" customModule="IGListKitExamples" customModuleProvider="target">
+                                        <rect key="frame" x="33" y="0.0" width="309" height="65"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="309" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vx-C5-AAO">
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="1vx-C5-AAO" firstAttribute="leading" secondItem="Eqn-FQ-8Sv" secondAttribute="leading" constant="15" id="hC4-dW-fKl"/>
+                                            <constraint firstItem="1vx-C5-AAO" firstAttribute="centerY" secondItem="Eqn-FQ-8Sv" secondAttribute="centerY" id="jSJ-a7-q5U"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="textLabel" destination="1vx-C5-AAO" id="QUu-x5-Hgm"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LKS-vo-Ytk" firstAttribute="leading" secondItem="s2P-10-T78" secondAttribute="leading" id="cc8-Hj-dNE"/>
+                            <constraint firstItem="wYR-29-GPY" firstAttribute="top" secondItem="LKS-vo-Ytk" secondAttribute="bottom" id="gUx-kz-UpS"/>
+                            <constraint firstItem="LKS-vo-Ytk" firstAttribute="top" secondItem="VEL-Rj-Wcy" secondAttribute="bottom" id="mfr-lC-pWc"/>
+                            <constraint firstAttribute="trailing" secondItem="LKS-vo-Ytk" secondAttribute="trailing" id="tnZ-7G-n7P"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="LKS-vo-Ytk" id="rhv-M3-HDp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WwB-xb-Qef" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="37.600000000000001" y="113.79310344827587"/>
+        </scene>
+    </scenes>
+</document>
