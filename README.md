@@ -1,6 +1,5 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/logo-animation.gif" width=400 />
-</p>
 
 [![Build Status](https://travis-ci.org/Instagram/IGListKit.svg?branch=master)](https://travis-ci.org/Instagram/IGListKit) [![Version Status](https://img.shields.io/cocoapods/v/IGListKit.svg)](https://cocoapods.org/pods/IGListKit) [![license BSD](https://img.shields.io/cocoapods/l/IGListKit.svg)](https://opensource.org/licenses/BSD-3-Clause) [![Platform](https://img.shields.io/cocoapods/p/IGListKit.svg)](https://instagram.github.io/IGListKit) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Coverage Status](https://coveralls.io/repos/github/Instagram/IGListKit/badge.svg?branch=master)](https://coveralls.io/github/Instagram/IGListKit?branch=master)
 
