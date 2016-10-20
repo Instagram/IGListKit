@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong, readonly) NSString *nibName;
 @property (nonatomic, strong, readonly) NSBundle *bundle;
+@property (nonatomic, strong, readonly) NSString *identifier;
 @property (nonatomic, strong, readonly) Class cellClass;
 @property (nonatomic, strong, readonly) IGListSingleSectionCellConfigureBlock configureBlock;
 @property (nonatomic, strong, readonly) IGListSingleSectionCellSizeBlock sizeBlock;
@@ -53,6 +54,20 @@
     return self;
 }
 
+- (instancetype)initWithStoryboardCellIdentifier:(NSString *)identifier
+                              configureBlock:(IGListSingleSectionCellConfigureBlock)configureBlock
+                                   sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock {
+    IGParameterAssert(identifier != nil);
+    IGParameterAssert(configureBlock != nil);
+    if (self = [super init]) {
+        _identifier = identifier;
+        _configureBlock = [configureBlock copy];
+        _sizeBlock = [sizeBlock copy];
+    }
+    return self;
+
+}
+
 #pragma mark - IGListSectionType
 
 - (NSInteger)numberOfItems {
@@ -70,6 +85,10 @@
     if ([self.nibName length] > 0) {
         cell = [collectionContext dequeueReusableCellWithNibName:self.nibName
                                                           bundle:self.bundle
+                                            forSectionController:self
+                                                         atIndex:index];
+    } else if ([self.identifier length] > 0) {
+        cell = [collectionContext dequeueReusableCellFromStoryboardWithIdentifier:self.identifier
                                             forSectionController:self
                                                          atIndex:index];
     } else {

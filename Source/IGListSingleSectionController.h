@@ -77,6 +77,22 @@ IGLK_SUBCLASSING_RESTRICTED
                       sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock;
 
 /**
+ Create a new section controller for a given nib name and bundle that will always have only one cell when present in a feed.
+ 
+ @param identifier     The identifier of the cell prototype in storyboard.
+ @param configureBlock A block that configures the cell with the item given to the section controller.
+ @param sizeBlock      A block that returns the size for the cell given the collection context.
+ 
+ @return A new section controller.
+ 
+ @warning Be VERY CAREFUL not to create retain cycles by holding strong references to: the object that owns the adapter
+ (usually "self") or the IGListAdapter. Pass in locally scoped objects or use weak references!
+ */
+- (instancetype)initWithStoryboardCellIdentifier:(NSString *)identifier
+                              configureBlock:(IGListSingleSectionCellConfigureBlock)configureBlock
+                                   sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock;
+
+/**
  An optional delegate that handles selection and deselection.
  */
 @property (nonatomic, weak, nullable) id<IGListSingleSectionControllerDelegate> selectionDelegate;

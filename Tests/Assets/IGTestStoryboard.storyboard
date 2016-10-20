@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Test Single Storyboard View Controller-->
+        <scene sceneID="MHF-id-jj0">
+            <objects>
+                <viewController storyboardIdentifier="testVC" id="sjG-Zg-Rb6" customClass="IGTestSingleStoryboardViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Njh-ay-cN4"/>
+                        <viewControllerLayoutGuide type="bottom" id="eCh-tf-16v"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="znT-3C-QXg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="o7u-vG-QOG" customClass="IGListCollectionView">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QMm-nm-Opt">
+                                    <size key="itemSize" width="375" height="44"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="IGTestStoryboardCell" id="tBn-dt-d3p" customClass="IGTestStoryboardCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwu-Hy-ntD">
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailingMargin" secondItem="xwu-Hy-ntD" secondAttribute="trailing" id="8Rc-rx-ssc"/>
+                                            <constraint firstItem="xwu-Hy-ntD" firstAttribute="top" secondItem="tBn-dt-d3p" secondAttribute="topMargin" id="Zm7-hJ-G4P"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="xwu-Hy-ntD" secondAttribute="bottom" id="gJv-id-PGH"/>
+                                            <constraint firstItem="xwu-Hy-ntD" firstAttribute="leading" secondItem="tBn-dt-d3p" secondAttribute="leadingMargin" id="oFb-rm-rQY"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="label" destination="xwu-Hy-ntD" id="Lfj-NG-EDI"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eCh-tf-16v" firstAttribute="top" secondItem="o7u-vG-QOG" secondAttribute="bottom" id="5iZ-Mc-i0b"/>
+                            <constraint firstItem="o7u-vG-QOG" firstAttribute="leading" secondItem="znT-3C-QXg" secondAttribute="leading" id="qxi-Zj-lQL"/>
+                            <constraint firstItem="o7u-vG-QOG" firstAttribute="top" secondItem="znT-3C-QXg" secondAttribute="top" id="uTz-Ra-JcF"/>
+                            <constraint firstAttribute="trailing" secondItem="o7u-vG-QOG" secondAttribute="trailing" id="y3M-rE-vAV"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="o7u-vG-QOG" id="CfC-T6-0wR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4CZ-JB-VqL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="106.40000000000001" y="-291.90404797601201"/>
+        </scene>
+    </scenes>
+</document>
