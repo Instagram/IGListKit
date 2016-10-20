@@ -18,13 +18,13 @@ protocol SearchSectionControllerDelegate: class {
     func searchSectionController(_ sectionController: SearchSectionController, didChangeText text: String)
 }
 
-class SearchSectionController: IGListSectionController, IGListSectionType, IGListDisplayDelegate, UISearchBarDelegate {
+class SearchSectionController: IGListSectionController, IGListSectionType, UISearchBarDelegate, IGListScrollDelegate {
 
     weak var delegate: SearchSectionControllerDelegate?
 
     override init() {
         super.init()
-        displayDelegate = self
+        scrollDelegate = self
     }
 
     func numberOfItems() -> Int {
@@ -54,18 +54,16 @@ class SearchSectionController: IGListSectionController, IGListSectionType, IGLis
         delegate?.searchSectionController(self, didChangeText: "")
     }
 
-    //MARK: IGListDisplayDelegate
+    //MARK: IGListScrollDelegate
 
-    func listAdapter(_ listAdapter: IGListAdapter, didScrollSectionController sectionController: IGListSectionController) {
+    func listAdapter(_ listAdapter: IGListAdapter, didScroll sectionController: IGListSectionController) {
         if let searchBar = (collectionContext?.cellForItem(at: 0, sectionController: self) as? SearchCell)?.searchBar {
             searchBar.text = ""
             searchBar.resignFirstResponder()
         }
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController) {}
-    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {}
-    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController) {}
-    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {}
+    func listAdapter(_ listAdapter: IGListAdapter!, willBeginDragging sectionController: IGListSectionController!) {}
+    func listAdapter(_ listAdapter: IGListAdapter!, didEndDragging sectionController: IGListSectionController!, willDecelerate decelerate: Bool) {}
 
 }
