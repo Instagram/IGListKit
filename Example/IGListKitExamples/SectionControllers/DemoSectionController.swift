@@ -55,7 +55,7 @@ class DemoSectionController: IGListSectionController, IGListSectionType {
     func didSelectItem(at index: Int) {
         if object?.name == "Storyboard" {
             let storyboard = UIStoryboard(name: "Demo", bundle: nil)
-            let controller = storyboard.instantiateViewController(withIdentifier: "demo") as! StoryboardLoadMoreViewController
+            let controller = storyboard.instantiateViewController(withIdentifier: "demo") as! StoryboardViewController
             controller.title = object?.name
             viewController?.navigationController?.pushViewController(controller, animated: true)
         } else if let controller = object?.controllerClass.init() {

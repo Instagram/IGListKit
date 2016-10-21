@@ -31,6 +31,7 @@
                         sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock {
     IGParameterAssert(cellClass != nil);
     IGParameterAssert(configureBlock != nil);
+    IGParameterAssert(sizeBlock != nil);
     if (self = [super init]) {
         _cellClass = cellClass;
         _configureBlock = [configureBlock copy];
@@ -45,6 +46,7 @@
                       sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock {
     IGParameterAssert(nibName != nil);
     IGParameterAssert(configureBlock != nil);
+    IGParameterAssert(sizeBlock != nil);
     if (self = [super init]) {
         _nibName = nibName;
         _bundle = bundle;
@@ -57,8 +59,9 @@
 - (instancetype)initWithStoryboardCellIdentifier:(NSString *)identifier
                                   configureBlock:(IGListSingleSectionCellConfigureBlock)configureBlock
                                        sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock {
-    IGParameterAssert(identifier != nil);
+    IGParameterAssert(identifier.length > 0);
     IGParameterAssert(configureBlock != nil);
+    IGParameterAssert(sizeBlock != nil);
     if (self = [super init]) {
         _identifier = [identifier copy];
         _configureBlock = [configureBlock copy];

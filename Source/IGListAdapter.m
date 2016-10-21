@@ -727,8 +727,8 @@
 }
 
 - (__kindof UICollectionViewCell *)dequeueReusableCellFromStoryboardWithIdentifier:(NSString *)identifier
-                                         forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
-                                                      atIndex:(NSInteger)index {
+                                                              forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+                                                                           atIndex:(NSInteger)index {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(identifier != nil);

@@ -109,7 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                           atIndex:(NSInteger)index;
 
 /**
- Dequeues a cell from the UICollectionView reuse pool.
+ Dequeues a storyboard prototype cell from the UICollectionView reuse pool.
  
  @param identifier        The identifier of the cell prototype in storyboard.
  @param sectionController The section controller requesting this information.

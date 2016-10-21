@@ -199,8 +199,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 - (UICollectionViewCell *)dequeueReusableCellWithNibName:(NSString *)nibName
                                                   bundle:(NSBundle *)bundle
                                     forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
-                                                 atIndex:(NSInteger)index
-{
+                                                 atIndex:(NSInteger)index {
     const NSUInteger offset = [self offsetForSectionController:sectionController];
     return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeueReusableCellWithNibName:nibName
                                                                                            bundle:bundle
@@ -210,8 +209,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 
 - (UICollectionViewCell *)dequeueReusableCellFromStoryboardWithIdentifier:(NSString *)identifier
                                                      forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
-                                                                  atIndex:(NSInteger)index
-{
+                                                                  atIndex:(NSInteger)index {
     const NSUInteger offset = [self offsetForSectionController:sectionController];
     return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeueReusableCellFromStoryboardWithIdentifier:identifier
                                                                              forSectionController:self
