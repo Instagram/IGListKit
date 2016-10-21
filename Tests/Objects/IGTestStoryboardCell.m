@@ -11,10 +11,4 @@
 
 @implementation IGTestStoryboardCell
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    self.label.text = @"";
-    return self;
-}
-
 @end
