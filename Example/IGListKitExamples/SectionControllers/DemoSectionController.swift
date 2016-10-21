@@ -58,6 +58,11 @@ class DemoSectionController: IGListSectionController, IGListSectionType {
             let controller = storyboard.instantiateViewController(withIdentifier: "demo") as! StoryboardViewController
             controller.title = object?.name
             viewController?.navigationController?.pushViewController(controller, animated: true)
+        } else if object?.name == "Single Section Storyboard" {
+            let storyboard = UIStoryboard(name: "Demo", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "singleSectionDemo") as! SingleSectionStoryboardViewController
+            controller.title = object?.name
+            viewController?.navigationController?.pushViewController(controller, animated: true)
         } else if let controller = object?.controllerClass.init() {
             controller.title = object?.name
             viewController?.navigationController?.pushViewController(controller, animated: true)

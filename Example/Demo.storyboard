@@ -66,7 +66,69 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WwB-xb-Qef" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="37.600000000000001" y="113.79310344827587"/>
+            <point key="canvasLocation" x="-145" y="91"/>
+        </scene>
+        <!--Single Section Storyboard View Controller-->
+        <scene sceneID="VLx-Fb-fo0">
+            <objects>
+                <viewController storyboardIdentifier="singleSectionDemo" id="frc-YL-WX9" customClass="SingleSectionStoryboardViewController" customModule="IGListKitExamples" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VaC-h1-D9B"/>
+                        <viewControllerLayoutGuide type="bottom" id="jSR-p6-C72"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bMx-bC-IhF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Lqf-9C-lS3" customClass="IGListCollectionView">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vuu-gE-rAa">
+                                    <size key="itemSize" width="309" height="65"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="fD7-7i-CX0" customClass="StoryboardCell" customModule="IGListKitExamples" customModuleProvider="target">
+                                        <rect key="frame" x="33" y="0.0" width="309" height="65"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="309" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2N-aR-93q">
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="y2N-aR-93q" firstAttribute="leading" secondItem="fD7-7i-CX0" secondAttribute="leading" constant="15" id="kVn-2C-bNo"/>
+                                            <constraint firstItem="y2N-aR-93q" firstAttribute="centerY" secondItem="fD7-7i-CX0" secondAttribute="centerY" id="zXx-Fd-B4q"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="textLabel" destination="y2N-aR-93q" id="SPh-KG-DJQ"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Lqf-9C-lS3" firstAttribute="leading" secondItem="bMx-bC-IhF" secondAttribute="leading" id="2B9-1H-mjw"/>
+                            <constraint firstAttribute="trailing" secondItem="Lqf-9C-lS3" secondAttribute="trailing" id="6St-9C-UOf"/>
+                            <constraint firstItem="jSR-p6-C72" firstAttribute="top" secondItem="Lqf-9C-lS3" secondAttribute="bottom" id="DXu-g4-tJP"/>
+                            <constraint firstItem="Lqf-9C-lS3" firstAttribute="top" secondItem="VaC-h1-D9B" secondAttribute="bottom" id="WaC-lj-82X"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="Lqf-9C-lS3" id="me8-q7-8f5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T5T-i5-O9g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-825" y="90"/>
         </scene>
     </scenes>
 </document>

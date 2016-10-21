@@ -30,6 +30,7 @@ class DemosViewController: UIViewController, IGListAdapterDataSource {
         DemoItem(name: "Empty View", controllerClass: EmptyViewController.self),
         DemoItem(name: "Single Section Controller", controllerClass: SingleSectionViewController.self),
         DemoItem(name: "Storyboard", controllerClass: SingleSectionViewController.self),
+        DemoItem(name: "Single Section Storyboard", controllerClass: SingleSectionViewController.self),
         DemoItem(name: "Working Range", controllerClass: WorkingRangeViewController.self)
     ]
 
