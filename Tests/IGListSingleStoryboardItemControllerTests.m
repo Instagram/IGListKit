@@ -24,6 +24,7 @@
 @property (nonatomic, strong) IGListAdapterUpdater *updater;
 @property (nonatomic, strong) IGTestSingleStoryboardItemDataSource *dataSource;
 @property (nonatomic, strong) IGTestSingleStoryboardViewController *viewController;
+@property (nonatomic, strong) UIWindow *window;
 
 @end
 
@@ -31,8 +32,10 @@
 
 - (void)setUp {
     [super setUp];
+    self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"IGTestStoryboard" bundle:[NSBundle bundleForClass:self.class]];
     self.viewController = [storyboard instantiateViewControllerWithIdentifier:@"testVC"];
+    [self.window addSubview:self.viewController.view];
     [self.viewController performSelectorOnMainThread:@selector(loadView) withObject:nil waitUntilDone:YES];
     self.collectionView = self.viewController.collectionView;
     self.dataSource = [[IGTestSingleStoryboardItemDataSource alloc] init];
@@ -42,6 +45,7 @@
 
 - (void)tearDown {
     [super tearDown];
+    self.window = nil;
     self.viewController = nil;
     self.collectionView = nil;
     self.adapter = nil;
