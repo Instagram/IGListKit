@@ -24,14 +24,11 @@ class WorkingRangeViewController: UIViewController, IGListAdapterDataSource {
     let collectionView = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let data: [Int] = {
-        var arr = [Int]()
-        while arr.count < 20 {
-            let int = Int(arc4random_uniform(200)) + 200
-            guard !arr.contains(int) else { continue }
-            // only use unique values
-            arr.append(int)
+        var set = Set<Int>() // only use unique values
+        while set.count < 20 {
+            set.insert( Int(arc4random_uniform(200)) + 200 )
         }
-        return arr
+        return Array(set)
     }()
 
     override func viewDidLoad() {
