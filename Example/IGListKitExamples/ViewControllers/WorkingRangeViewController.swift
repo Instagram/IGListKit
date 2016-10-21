@@ -27,10 +27,9 @@ class WorkingRangeViewController: UIViewController, IGListAdapterDataSource {
         var arr = [Int]()
         while arr.count < 20 {
             let int = Int(arc4random_uniform(200)) + 200
+            guard !arr.contains(int) else { continue }
             // only use unique values
-            if !arr.contains(int) {
-                arr.append(int)
-            }
+            arr.append(int)
         }
         return arr
     }()
@@ -51,7 +50,7 @@ class WorkingRangeViewController: UIViewController, IGListAdapterDataSource {
     //MARK: IGListAdapterDataSource
 
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return data as [NSNumber]
+        return data as [IGListDiffable]
     }
 
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
