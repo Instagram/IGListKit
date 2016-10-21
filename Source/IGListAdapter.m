@@ -711,7 +711,7 @@
 }
 
 - (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
-                                         forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+                                         forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
                                                       atIndex:(NSInteger)index {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
@@ -746,7 +746,7 @@
 }
 
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
-                                                         forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+                                                         forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
                                                                         class:(Class)viewClass
                                                                       atIndex:(NSInteger)index {
     IGAssertMainThread();
@@ -762,7 +762,7 @@
 }
 
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
-                                                         forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+                                                         forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
                                                                       nibName:(NSString *)nibName
                                                                        bundle:(NSBundle *)bundle
                                                                       atIndex:(NSInteger)index {

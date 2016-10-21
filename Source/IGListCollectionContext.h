@@ -139,7 +139,7 @@ NS_ASSUME_NONNULL_BEGIN
  @note This method uses a string representation of the view class as the identifier.
  */
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
-                                                         forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+                                                         forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
                                                                       nibName:(NSString *)nibName
                                                                        bundle:(nullable NSBundle *)bundle
                                                                       atIndex:(NSInteger)index;

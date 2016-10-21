@@ -199,8 +199,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 - (UICollectionViewCell *)dequeueReusableCellWithNibName:(NSString *)nibName
                                                   bundle:(NSBundle *)bundle
                                     forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
-                                                 atIndex:(NSInteger)index
-{
+                                                 atIndex:(NSInteger)index {
     const NSUInteger offset = [self offsetForSectionController:sectionController];
     return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeueReusableCellWithNibName:nibName
                                                                                            bundle:bundle
@@ -213,20 +212,19 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
                                                                class:(Class)viewClass
                                                              atIndex:(NSInteger)index {
     const NSUInteger offset = [self offsetForSectionController:sectionController];
-    return (UICollectionReusableView *_Nonnull)[self.collectionContext dequeueReusableSupplementaryViewOfKind:elementKind
+    return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeueReusableSupplementaryViewOfKind:elementKind
                                                                                      forSectionController:self
                                                                                                     class:viewClass
                                                                                                   atIndex:(index + offset)];
 }
 
 - (UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
-                                                forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+                                                forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
                                                              nibName:(NSString *)nibName
                                                               bundle:(NSBundle *)bundle
-                                                             atIndex:(NSInteger)index
-{
+                                                             atIndex:(NSInteger)index {
     const NSUInteger offset = [self offsetForSectionController:sectionController];
-    return (UICollectionReusableView *_Nonnull)[self.collectionContext dequeueReusableSupplementaryViewOfKind:elementKind
+    return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeueReusableSupplementaryViewOfKind:elementKind
                                                                                      forSectionController:self
                                                                                                   nibName:nibName
                                                                                                    bundle:bundle
