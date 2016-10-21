@@ -77,7 +77,7 @@ IGLK_SUBCLASSING_RESTRICTED
                       sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock;
 
 /**
- Create a new section controller for a given nib name and bundle that will always have only one cell when present in a feed.
+ Create a new section controller for a given storyboard cell identifier that will always have only one cell when present in a feed.
  
  @param identifier     The identifier of the cell prototype in storyboard.
  @param configureBlock A block that configures the cell with the item given to the section controller.
