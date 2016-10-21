@@ -96,9 +96,6 @@
     XCTAssertEqual(cell1.frame.size.height, 44);
     XCTAssertEqual(cell2.frame.size.height, 44);
     XCTAssertEqual(cell3.frame.size.height, 44);
-    XCTAssertEqual(cell1.frame.size.width, 100);
-    XCTAssertEqual(cell2.frame.size.width, 100);
-    XCTAssertEqual(cell3.frame.size.width, 100);
 }
 
 - (void)test_whenItemUpdated_thatCellIsConfigured {
