@@ -84,8 +84,8 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/IGListKit-iOS8.0/IGListKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/IGListKit-iOS10.0/IGListKit.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/IGListKit-iOS8.0/IGListKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/IGListKit-iOS10.0/IGListKit.framework"
 fi
