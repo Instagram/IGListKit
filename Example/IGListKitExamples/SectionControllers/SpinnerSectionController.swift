@@ -1,9 +1,9 @@
 /**
  Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
-
+ 
  The examples provided by Facebook are for non-commercial testing and evaluation
  purposes only. Facebook reserves all rights not expressly granted.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -13,19 +13,25 @@
  */
 
 import UIKit
+import IGListKit
 
-class SpinnerCell: UICollectionViewCell {
-
-    lazy var activityIndicator: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        self.contentView.addSubview(view)
-        return view
-    }()
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let bounds = contentView.bounds
-        activityIndicator.center = CGPoint(x: bounds.midX, y: bounds.midY)
+class SpinnerSectionController: IGListSectionController, IGListSectionType {
+    
+    func numberOfItems() -> Int {
+        return 1
     }
+    
+    func sizeForItem(at index: Int) -> CGSize {
+        return CGSize(width: collectionContext!.containerSize.width, height: 100)
+    }
+    
+    func cellForItem(at index: Int) -> UICollectionViewCell {
+        let cell = collectionContext!.dequeueReusableCell(of: SpinnerCell.self, for: self, at: index) as! SpinnerCell
+        cell.activityIndicator.startAnimating()
+        return cell
+    }
+    
+    func didUpdate(to object: Any) {}
+    func didSelectItem(at index: Int) {}
     
 }

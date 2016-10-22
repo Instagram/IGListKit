@@ -22,7 +22,7 @@ class LoadMoreViewController: UIViewController, IGListAdapterDataSource, UIScrol
     }()
     let collectionView = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-    lazy var words = "Maecenas faucibus mollis interdum Praesent commodo cursus magna, vel scelerisque nisl consectetur et".components(separatedBy: " ")
+    lazy var items = Array(0...20)
     var loading = false
     let spinToken = NSObject()
 
@@ -42,16 +42,18 @@ class LoadMoreViewController: UIViewController, IGListAdapterDataSource, UIScrol
     //MARK: IGListAdapterDataSource
 
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        var items: [IGListDiffable] = words as [IGListDiffable]
+        var objects = items as [IGListDiffable]
+        
         if loading {
-            items.append(spinToken)
+            objects.append(spinToken)
         }
-        return items
+        
+        return objects
     }
 
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
         if let obj = object as? NSObject, obj === spinToken {
-            return spinnerSectionController()
+            return SpinnerSectionController()
         } else {
             return LabelSectionController()
         }
@@ -71,7 +73,8 @@ class LoadMoreViewController: UIViewController, IGListAdapterDataSource, UIScrol
                 sleep(2)
                 DispatchQueue.main.async {
                     self.loading = false
-                    self.words.append(contentsOf: "Etiam porta sem malesuada magna mollis euismod".components(separatedBy: " "))
+                    let itemCount = self.items.count
+                    self.items.append(contentsOf: Array(itemCount..<itemCount + 5))
                     self.adapter.performUpdates(animated: true, completion: nil)
                 }
             })
