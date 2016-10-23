@@ -18,10 +18,10 @@ class CenterLabelCell: UICollectionViewCell {
 
     lazy var label: UILabel = {
         let view = UILabel()
-        view.backgroundColor = UIColor.clear
+        view.backgroundColor = .clear
         view.textAlignment = .center
-        view.textColor = UIColor.white
-        view.font = UIFont.boldSystemFont(ofSize: 18)
+        view.textColor = .white
+        view.font = .boldSystemFont(ofSize: 18)
         self.contentView.addSubview(view)
         return view
     }()

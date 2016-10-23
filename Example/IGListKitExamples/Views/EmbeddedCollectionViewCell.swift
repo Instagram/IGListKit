@@ -21,7 +21,7 @@ class EmbeddedCollectionViewCell: UICollectionViewCell {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let view = IGListCollectionView(frame: .zero, collectionViewLayout: layout)
-        view.backgroundColor = UIColor.clear
+        view.backgroundColor = .clear
         view.alwaysBounceVertical = false
         view.alwaysBounceHorizontal = true
         self.contentView.addSubview(view)
