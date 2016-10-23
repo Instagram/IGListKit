@@ -20,7 +20,7 @@ class EmptyViewController: UIViewController, IGListAdapterDataSource, RemoveSect
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let emptyLabel: UILabel = {
         let label = UILabel()
