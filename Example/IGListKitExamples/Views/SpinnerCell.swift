@@ -13,6 +13,23 @@
  */
 
 import UIKit
+import IGListKit
+
+func spinnerSectionController() -> IGListSingleSectionController {
+    let configureBlock = { (item: Any, cell: UICollectionViewCell) in
+        guard let cell = cell as? SpinnerCell else { return }
+        cell.activityIndicator.startAnimating()
+    }
+    
+    let sizeBlock = { (context: IGListCollectionContext?) -> CGSize in
+        guard let context = context else { return CGSize.zero }
+        return CGSize(width: context.containerSize.width, height: 100)
+    }
+    
+    return IGListSingleSectionController(cellClass: SpinnerCell.self,
+                                         configureBlock: configureBlock,
+                                         sizeBlock: sizeBlock)
+}
 
 class SpinnerCell: UICollectionViewCell {
 

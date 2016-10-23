@@ -53,7 +53,7 @@ class LoadMoreViewController: UIViewController, IGListAdapterDataSource, UIScrol
 
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
         if let obj = object as? NSObject, obj === spinToken {
-            return SpinnerSectionController()
+            return spinnerSectionController()
         } else {
             return LabelSectionController()
         }
