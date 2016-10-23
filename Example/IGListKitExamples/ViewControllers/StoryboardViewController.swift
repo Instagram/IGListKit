@@ -27,14 +27,8 @@ class StoryboardViewController: UIViewController, IGListAdapterDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        collectionView.frame = view.bounds
     }
     
     //MARK: IGListAdapterDataSource

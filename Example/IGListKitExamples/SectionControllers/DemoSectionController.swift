@@ -19,13 +19,16 @@ class DemoItem: NSObject {
 
     let name: String
     let controllerClass: UIViewController.Type
+    let controllerIdentifier: String?
 
     init(
         name: String,
-        controllerClass: UIViewController.Type
+        controllerClass: UIViewController.Type,
+        controllerIdentifier: String?=nil
         ) {
         self.name = name
         self.controllerClass = controllerClass
+        self.controllerIdentifier = controllerIdentifier
     }
 
 }
@@ -53,14 +56,9 @@ class DemoSectionController: IGListSectionController, IGListSectionType {
     }
 
     func didSelectItem(at index: Int) {
-        if object?.name == "Storyboard" {
+        if let identifier = object?.controllerIdentifier {
             let storyboard = UIStoryboard(name: "Demo", bundle: nil)
-            let controller = storyboard.instantiateViewController(withIdentifier: "demo") as! StoryboardViewController
-            controller.title = object?.name
-            viewController?.navigationController?.pushViewController(controller, animated: true)
-        } else if object?.name == "Single Section Storyboard" {
-            let storyboard = UIStoryboard(name: "Demo", bundle: nil)
-            let controller = storyboard.instantiateViewController(withIdentifier: "singleSectionDemo") as! SingleSectionStoryboardViewController
+            let controller = storyboard.instantiateViewController(withIdentifier: identifier)
             controller.title = object?.name
             viewController?.navigationController?.pushViewController(controller, animated: true)
         } else if let controller = object?.controllerClass.init() {

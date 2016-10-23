@@ -29,17 +29,10 @@ final class SingleSectionStoryboardViewController: UIViewController, IGListAdapt
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        collectionView.frame = view.bounds
-    }
-    
+
     //MARK: - IGListAdapterDataSource
     
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
@@ -51,16 +44,14 @@ final class SingleSectionStoryboardViewController: UIViewController, IGListAdapt
             guard let cell = cell as? StoryboardCell, let number = data as? Int else { return }
             cell.textLabel.text = "Cell: \(number + 1)"
         }
-        
         let sizeBlock = { (context: IGListCollectionContext?) -> CGSize in
-            guard let context = context else { return CGSize() }
+            guard let context = context else { return .zero }
             return CGSize(width: context.containerSize.width, height: 44)
         }
         let sectionController = IGListSingleSectionController(storyboardCellIdentifier: "cell",
                                                               configureBlock: configureBlock,
                                                               sizeBlock: sizeBlock)
         sectionController.selectionDelegate = self
-        
         return sectionController
     }
     
