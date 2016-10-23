@@ -20,7 +20,7 @@ class MixedDataViewController: UIViewController, IGListAdapterDataSource {
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let data = [
         "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.",

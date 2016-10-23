@@ -67,7 +67,7 @@ After creating at least one section controller, you must create an `IGListCollec
 
 ```swift
 let layout = UICollectionViewFlowLayout()
-let collectionView = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: layout)
 
 let updater = IGListAdapterUpdater()
 let adapter = IGListAdapter(updater: updater, viewController: self, workingRangeSize: 0)

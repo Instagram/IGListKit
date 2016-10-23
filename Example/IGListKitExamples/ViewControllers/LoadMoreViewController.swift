@@ -20,7 +20,7 @@ class LoadMoreViewController: UIViewController, IGListAdapterDataSource, UIScrol
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     lazy var words = "Maecenas faucibus mollis interdum Praesent commodo cursus magna, vel scelerisque nisl consectetur et".components(separatedBy: " ")
     var loading = false
