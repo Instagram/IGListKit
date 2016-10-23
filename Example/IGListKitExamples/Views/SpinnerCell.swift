@@ -22,7 +22,7 @@ func spinnerSectionController() -> IGListSingleSectionController {
     }
     
     let sizeBlock = { (context: IGListCollectionContext?) -> CGSize in
-        guard let context = context else { return CGSize.zero }
+        guard let context = context else { return .zero }
         return CGSize(width: context.containerSize.width, height: 100)
     }
     
