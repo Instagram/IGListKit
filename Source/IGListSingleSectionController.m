@@ -13,7 +13,7 @@
 
 @interface IGListSingleSectionController ()
 
-@property (nonatomic, strong, readonly) NSString *nibName;
+@property (nonatomic, copy, readonly) NSString *nibName;
 @property (nonatomic, strong, readonly) NSBundle *bundle;
 @property (nonatomic, strong, readonly) NSString *identifier;
 @property (nonatomic, strong, readonly) Class cellClass;
@@ -48,7 +48,7 @@
     IGParameterAssert(configureBlock != nil);
     IGParameterAssert(sizeBlock != nil);
     if (self = [super init]) {
-        _nibName = nibName;
+        _nibName = [nibName copy];
         _bundle = bundle;
         _configureBlock = [configureBlock copy];
         _sizeBlock = [sizeBlock copy];
