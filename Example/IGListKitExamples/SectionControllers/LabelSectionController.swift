@@ -34,7 +34,7 @@ class LabelSectionController: IGListSectionController, IGListSectionType {
     }
 
     func didUpdate(to object: Any) {
-        self.object = object as? String
+        self.object = String(describing: object)
     }
 
     func didSelectItem(at index: Int) {}

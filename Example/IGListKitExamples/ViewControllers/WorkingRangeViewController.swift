@@ -15,26 +15,25 @@
 import UIKit
 import IGListKit
 
-class DemosViewController: UIViewController, IGListAdapterDataSource {
+class WorkingRangeViewController: UIViewController, IGListAdapterDataSource {
 
     lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
+
     let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-    let demos: [DemoItem] = [
-        DemoItem(name: "Tail Loading", controllerClass: LoadMoreViewController.self),
-        DemoItem(name: "Search Autocomplete", controllerClass: SearchViewController.self),
-        DemoItem(name: "Mixed Data", controllerClass: MixedDataViewController.self),
-        DemoItem(name: "Nested Adapter", controllerClass: NestedAdapterViewController.self),
-        DemoItem(name: "Empty View", controllerClass: EmptyViewController.self),
-        DemoItem(name: "Single Section Controller", controllerClass: SingleSectionViewController.self),
-        DemoItem(name: "Working Range", controllerClass: WorkingRangeViewController.self)
-    ]
+    let data: [Int] = {
+        var set = Set<Int>() // only use unique values
+        while set.count < 20 {
+            set.insert( Int(arc4random_uniform(200)) + 200 )
+        }
+        return Array(set)
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Demos"
+
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
@@ -48,11 +47,11 @@ class DemosViewController: UIViewController, IGListAdapterDataSource {
     //MARK: IGListAdapterDataSource
 
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return demos
+        return data as [IGListDiffable]
     }
 
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
-        return DemoSectionController()
+        return WorkingRangeSectionController()
     }
 
     func emptyView(for listAdapter: IGListAdapter) -> UIView? {

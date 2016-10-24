@@ -20,7 +20,7 @@ class EmbeddedCollectionViewCell: UICollectionViewCell {
     lazy var collectionView: IGListCollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let view = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        let view = IGListCollectionView(frame: .zero, collectionViewLayout: layout)
         view.backgroundColor = UIColor.clear
         view.alwaysBounceVertical = false
         view.alwaysBounceHorizontal = true

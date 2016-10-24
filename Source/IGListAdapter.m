@@ -716,6 +716,7 @@
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(cellClass != nil);
+    IGParameterAssert(index >= 0);
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
     NSString *identifier = IGListReusableViewIdentifier(cellClass, nil, nil);
@@ -734,6 +735,7 @@
     IGAssertMainThread();
     IGParameterAssert([nibName length] > 0);
     IGParameterAssert(sectionController != nil);
+    IGParameterAssert(index >= 0);
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index];
@@ -750,6 +752,10 @@
                                                                         class:(Class)viewClass
                                                                       atIndex:(NSInteger)index {
     IGAssertMainThread();
+    IGParameterAssert(elementKind.length > 0);
+    IGParameterAssert(sectionController != nil);
+    IGParameterAssert(viewClass != nil);
+    IGParameterAssert(index >= 0);
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
     NSString *identifier = IGListReusableViewIdentifier(viewClass, nil, elementKind);
