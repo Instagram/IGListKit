@@ -27,7 +27,7 @@ class EmptyViewController: UIViewController, IGListAdapterDataSource, RemoveSect
         label.numberOfLines = 0
         label.textAlignment = .center
         label.text = "No more data!"
-        label.backgroundColor = UIColor.clear
+        label.backgroundColor = .clear
         return label
     }()
 
