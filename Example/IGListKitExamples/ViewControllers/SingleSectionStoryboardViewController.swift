@@ -55,9 +55,7 @@ final class SingleSectionStoryboardViewController: UIViewController, IGListAdapt
         return sectionController
     }
     
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
-        return nil
-    }
+    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
     
     // MARK: - IGListSingleSectionControllerDelegate
     

@@ -732,7 +732,7 @@
                                                                            atIndex:(NSInteger)index {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
-    IGParameterAssert(identifier != nil);
+    IGParameterAssert(identifier.length > 0);
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index];

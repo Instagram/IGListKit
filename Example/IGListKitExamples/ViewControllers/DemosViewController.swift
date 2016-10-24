@@ -57,8 +57,6 @@ class DemosViewController: UIViewController, IGListAdapterDataSource {
         return DemoSectionController()
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
-        return nil
-    }
+    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
 
 }

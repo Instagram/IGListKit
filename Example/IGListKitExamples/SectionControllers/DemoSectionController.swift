@@ -24,7 +24,7 @@ class DemoItem: NSObject {
     init(
         name: String,
         controllerClass: UIViewController.Type,
-        controllerIdentifier: String?=nil
+        controllerIdentifier: String? = nil
         ) {
         self.name = name
         self.controllerClass = controllerClass

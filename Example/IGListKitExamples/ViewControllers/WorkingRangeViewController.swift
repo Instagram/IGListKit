@@ -54,8 +54,6 @@ class WorkingRangeViewController: UIViewController, IGListAdapterDataSource {
         return WorkingRangeSectionController()
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
-        return nil
-    }
+    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
 
 }

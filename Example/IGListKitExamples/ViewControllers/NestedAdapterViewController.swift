@@ -59,8 +59,6 @@ class NestedAdapterViewController: UIViewController, IGListAdapterDataSource {
         }
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
-        return nil
-    }
+    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
 
 }

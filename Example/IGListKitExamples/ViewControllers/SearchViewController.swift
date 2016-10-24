@@ -62,9 +62,7 @@ class SearchViewController: UIViewController, IGListAdapterDataSource, SearchSec
         }
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
-        return nil
-    }
+    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
 
     //MARK: SearchSectionControllerDelegate
 

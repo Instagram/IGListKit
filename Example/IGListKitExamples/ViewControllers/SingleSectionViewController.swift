@@ -65,9 +65,7 @@ final class SingleSectionViewController: UIViewController, IGListAdapterDataSour
         return sectionController
     }
     
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
-        return nil
-    }
+    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
     
     // MARK: - IGListSingleSectionControllerDelegate
     
