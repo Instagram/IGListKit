@@ -34,22 +34,22 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  Clean section moves.
  */
-@property (nonatomic, strong, readonly) NSSet<IGListMoveIndex *> *moveSections;
+@property (nonatomic, copy, readonly) NSSet<IGListMoveIndex *> *moveSections;
 
 /**
  Clean item insert index paths.
  */
-@property (nonatomic, strong, readonly) NSSet<NSIndexPath *> *insertIndexPaths;
+@property (nonatomic, copy, readonly) NSSet<NSIndexPath *> *insertIndexPaths;
 
 /**
  Clean item delete index paths.
  */
-@property (nonatomic, strong, readonly) NSSet<NSIndexPath *> *deleteIndexPaths;
+@property (nonatomic, copy, readonly) NSSet<NSIndexPath *> *deleteIndexPaths;
 
 /**
  Clean item reload index paths.
  */
-@property (nonatomic, strong, readonly) NSSet<NSIndexPath *> *reloadIndexPaths;
+@property (nonatomic, copy, readonly) NSSet<NSIndexPath *> *reloadIndexPaths;
 
 /**
  Create a new batch update object with section and item operations.
