@@ -11,7 +11,7 @@
 
 /**
  The IGListDiffable protocol provides the base methods needed to compare the identity and equality of two objects using
- one of the IGKAlgorithm functions.
+ one of the IGListDiff functions.
  */
 @protocol IGListDiffable
 
