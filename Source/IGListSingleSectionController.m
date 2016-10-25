@@ -17,8 +17,8 @@
 @property (nonatomic, strong, readonly) NSBundle *bundle;
 @property (nonatomic, strong, readonly) NSString *identifier;
 @property (nonatomic, strong, readonly) Class cellClass;
-@property (nonatomic, strong, readonly) IGListSingleSectionCellConfigureBlock configureBlock;
-@property (nonatomic, strong, readonly) IGListSingleSectionCellSizeBlock sizeBlock;
+@property (nonatomic, copy, readonly) IGListSingleSectionCellConfigureBlock configureBlock;
+@property (nonatomic, copy, readonly) IGListSingleSectionCellSizeBlock sizeBlock;
 
 @property (nonatomic, strong) id item;
 
