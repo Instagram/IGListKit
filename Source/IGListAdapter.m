@@ -286,7 +286,7 @@
     }
 
     UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Reloading adapter without a collection view");
+    IGAssert(collectionView != nil, @"Tried to reload the adapter without a collection view");
 
     [self.updatingDelegate reloadCollectionView:collectionView sections:sections];
 }
@@ -716,7 +716,7 @@
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(cellClass != nil);
     UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
+    IGAssert(collectionView != nil, @"Dequeueing cell of class %@ from section controller %@ without a collection view at index %zi", NSStringFromClass(cellClass), sectionController, index);
     NSString *identifier = IGListReusableViewIdentifier(cellClass, nil, nil);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index];
     if (![self.registeredCellClasses containsObject:cellClass]) {
@@ -733,7 +733,7 @@
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
     UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
+    IGAssert(collectionView != nil, @"Dequeueing cell with nib name %@ and bundle %@ from section controller %@ without a collection view at index %zi.", nibName, bundle, sectionController, index);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index];
     if (![self.registeredNibNames containsObject:nibName]) {
         [self.registeredNibNames addObject:nibName];
@@ -749,7 +749,7 @@
                                                                       atIndex:(NSInteger)index {
     IGAssertMainThread();
     UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
+    IGAssert(collectionView != nil, @"Dequeueing cell of class %@ from section controller %@ without a collection view at index %zi with supplementary view %@", NSStringFromClass(viewClass), sectionController, index, elementKind);
     NSString *identifier = IGListReusableViewIdentifier(viewClass, nil, elementKind);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index];
     if (![self.registeredSupplementaryViewIdentifiers containsObject:identifier]) {
@@ -764,7 +764,7 @@
     IGParameterAssert(indexes != nil);
     IGParameterAssert(sectionController != nil);
     UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Reloading from %@ without a collection view.", sectionController);
+    IGAssert(collectionView != nil, @"Tried to reload the adapter from %@ without a collection view at indexes %@.", sectionController, indexes);
 
     if (indexes.count == 0) {
         return;
@@ -779,7 +779,7 @@
     IGParameterAssert(indexes != nil);
     IGParameterAssert(sectionController != nil);
     UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Inserting items from %@ without a collection view.", sectionController);
+    IGAssert(collectionView != nil, @"Inserting items from %@ without a collection view at indexes %@.", sectionController, indexes);
 
     if (indexes.count == 0) {
         return;
@@ -794,7 +794,7 @@
     IGParameterAssert(indexes != nil);
     IGParameterAssert(sectionController != nil);
     UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Deleting items from %@ without a collection view.", sectionController);
+    IGAssert(collectionView != nil, @"Deleting items from %@ without a collection view at indexes %@.", sectionController, indexes);
 
     if (indexes.count == 0) {
         return;
