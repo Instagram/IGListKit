@@ -58,8 +58,6 @@ class HorizontalSectionController: IGListSectionController, IGListSectionType, I
         return EmbeddedSectionController()
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
-        return nil
-    }
+    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
 
 }

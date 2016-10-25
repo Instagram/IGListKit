@@ -15,13 +15,13 @@
 import UIKit
 import IGListKit
 
-final class SingleSectionViewController: UIViewController, IGListAdapterDataSource, IGListSingleSectionControllerDelegate {
+final class SingleSectionStoryboardViewController: UIViewController, IGListAdapterDataSource, IGListSingleSectionControllerDelegate {
     
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
     
-    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    @IBOutlet weak var collectionView: IGListCollectionView!
     
     let data = Array(0..<20)
     
@@ -29,17 +29,10 @@ final class SingleSectionViewController: UIViewController, IGListAdapterDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        collectionView.frame = view.bounds
-    }
-    
+
     //MARK: - IGListAdapterDataSource
     
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
@@ -48,20 +41,17 @@ final class SingleSectionViewController: UIViewController, IGListAdapterDataSour
     
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
         let configureBlock = { (data: Any, cell: UICollectionViewCell) in
-            guard let cell = cell as? NibCell, let number = data as? Int else { return }
+            guard let cell = cell as? StoryboardCell, let number = data as? Int else { return }
             cell.textLabel.text = "Cell: \(number + 1)"
         }
-        
         let sizeBlock = { (context: IGListCollectionContext?) -> CGSize in
-            guard let context = context else { return CGSize() }
+            guard let context = context else { return .zero }
             return CGSize(width: context.containerSize.width, height: 44)
         }
-        let sectionController = IGListSingleSectionController(nibName: NibCell.nibName,
-                                                              bundle: nil,
+        let sectionController = IGListSingleSectionController(storyboardCellIdentifier: "cell",
                                                               configureBlock: configureBlock,
                                                               sizeBlock: sizeBlock)
         sectionController.selectionDelegate = self
-        
         return sectionController
     }
     
