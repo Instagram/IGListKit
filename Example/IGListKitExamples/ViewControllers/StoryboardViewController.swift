@@ -1,9 +1,9 @@
 /**
  Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
-
+ 
  The examples provided by Facebook are for non-commercial testing and evaluation
  purposes only. Facebook reserves all rights not expressly granted.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -15,47 +15,32 @@
 import UIKit
 import IGListKit
 
-class WorkingRangeViewController: UIViewController, IGListAdapterDataSource {
+class StoryboardViewController: UIViewController, IGListAdapterDataSource {
 
+    @IBOutlet weak var collectionView: IGListCollectionView!
+    
     lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 2)
+        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-
-    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-
-    let data: [Int] = {
-        var set = Set<Int>() // only use unique values
-        while set.count < 20 {
-            set.insert( Int(arc4random_uniform(200)) + 200 )
-        }
-        return Array(set)
-    }()
-
+    
+    lazy var words = "Maecenas faucibus mollis interdum Praesent commodo cursus magna, vel scelerisque nisl consectetur et".components(separatedBy: " ")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        collectionView.frame = view.bounds
-    }
-
+    
     //MARK: IGListAdapterDataSource
-
+    
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return data as [IGListDiffable]
+        let items: [IGListDiffable] = words as [IGListDiffable]
+        return items
     }
-
+    
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
-        return WorkingRangeSectionController()
+        return StoryboardLabelSectionController()
     }
-
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
-        return nil
-    }
-
+    
+    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
 }

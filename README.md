@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/logo-animation.gif" width=400 />
 </p>
 
-[![Build Status](https://travis-ci.org/Instagram/IGListKit.svg?branch=master)](https://travis-ci.org/Instagram/IGListKit) [![Version Status](https://img.shields.io/cocoapods/v/IGListKit.svg)](https://cocoapods.org/pods/IGListKit) [![license BSD](https://img.shields.io/cocoapods/l/IGListKit.svg)](https://opensource.org/licenses/BSD-3-Clause) [![Platform](https://img.shields.io/cocoapods/p/IGListKit.svg)](https://instagram.github.io/IGListKit) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Build Status](https://travis-ci.org/Instagram/IGListKit.svg?branch=master)](https://travis-ci.org/Instagram/IGListKit) [![Version Status](https://img.shields.io/cocoapods/v/IGListKit.svg)](https://cocoapods.org/pods/IGListKit) [![license BSD](https://img.shields.io/cocoapods/l/IGListKit.svg)](https://opensource.org/licenses/BSD-3-Clause) [![Platform](https://img.shields.io/cocoapods/p/IGListKit.svg)](https://instagram.github.io/IGListKit) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Coverage Status](https://coveralls.io/repos/github/Instagram/IGListKit/badge.svg?branch=master)](https://coveralls.io/github/Instagram/IGListKit?branch=master)
 
 ------------------------
 
@@ -22,10 +22,17 @@ A data-driven `UICollectionView` framework for building fast and flexible lists.
 
 `IGListKit` is built and maintained by [Instagram engineering](https://engineering.instagram.com/), using the open source version for the Instagram app.
 
+## Requirements
+
+- Xcode 8.0+
+- iOS 8.0+
+- Interoperability with Swift 3.0+
+
 ## Installation
 
 ### CocoaPods
-The preferred installation method for `IGListKit` is with [CocoaPods](http://cocoapods.org). Simply add the following to your Podfile:
+
+The preferred installation method for `IGListKit` is with [CocoaPods](http://cocoapods.org). Simply add the following to your `Podfile`:
 
 ```ruby
 # Latest release of IGListKit
@@ -41,9 +48,8 @@ github "Instagram/IGListKit" ~> 1.0.0
 ```
 
 ### Manually
-You can also manually install the framework by dragging and dropping the `IGListKit.xcodeproj` into your workspace.
 
-`IGListKit` supports a minimum iOS version of 8.0.
+You can also manually install the framework by dragging and dropping the `IGListKit.xcodeproj` into your project or workspace.
 
 ## Creating your first list
 
@@ -67,7 +73,7 @@ After creating at least one section controller, you must create an `IGListCollec
 
 ```swift
 let layout = UICollectionViewFlowLayout()
-let collectionView = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: layout)
 
 let updater = IGListAdapterUpdater()
 let adapter = IGListAdapter(updater: updater, viewController: self, workingRangeSize: 0)

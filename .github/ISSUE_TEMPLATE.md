@@ -5,8 +5,10 @@
 
 ### General information
 
-- Library version(s):
+- `IGListKit` version:
 - iOS version(s):
+- CocoaPods/Carthage version:
+- Xcode version:
 - Devices/Simulators affected:
 - Reproducible in the demo project? (Yes/No):
 - Related issues:

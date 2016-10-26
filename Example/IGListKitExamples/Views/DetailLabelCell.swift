@@ -20,20 +20,20 @@ class DetailLabelCell: UICollectionViewCell {
 
     lazy var titleLabel: UILabel = {
         let view = UILabel()
-        view.backgroundColor = UIColor.clear
+        view.backgroundColor = .clear
         view.textAlignment = .left
-        view.font = UIFont.systemFont(ofSize: 17)
-        view.textColor = UIColor.darkText
+        view.font = .systemFont(ofSize: 17)
+        view.textColor = .darkText
         self.contentView.addSubview(view)
         return view
     }()
 
     lazy var detailLabel: UILabel = {
         let view = UILabel()
-        view.backgroundColor = UIColor.clear
+        view.backgroundColor = .clear
         view.textAlignment = .right
-        view.font = UIFont.systemFont(ofSize: 17)
-        view.textColor = UIColor.lightGray
+        view.font = .systemFont(ofSize: 17)
+        view.textColor = .lightGray
         self.contentView.addSubview(view)
         return view
     }()

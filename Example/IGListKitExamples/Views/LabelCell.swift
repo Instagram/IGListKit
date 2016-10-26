@@ -33,7 +33,7 @@ class LabelCell: UICollectionViewCell {
 
     lazy var label: UILabel = {
         let label = UILabel()
-        label.backgroundColor = UIColor.clear
+        label.backgroundColor = .clear
         label.numberOfLines = 1
         label.font = LabelCell.font
         self.contentView.addSubview(label)
