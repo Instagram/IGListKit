@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong, readonly) NSString *nibName;
 @property (nonatomic, strong, readonly) NSBundle *bundle;
+@property (nonatomic, strong, readonly) NSString *identifier;
 @property (nonatomic, strong, readonly) Class cellClass;
 @property (nonatomic, strong, readonly) IGListSingleSectionCellConfigureBlock configureBlock;
 @property (nonatomic, strong, readonly) IGListSingleSectionCellSizeBlock sizeBlock;
@@ -30,6 +31,7 @@
                         sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock {
     IGParameterAssert(cellClass != nil);
     IGParameterAssert(configureBlock != nil);
+    IGParameterAssert(sizeBlock != nil);
     if (self = [super init]) {
         _cellClass = cellClass;
         _configureBlock = [configureBlock copy];
@@ -44,6 +46,7 @@
                       sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock {
     IGParameterAssert(nibName != nil);
     IGParameterAssert(configureBlock != nil);
+    IGParameterAssert(sizeBlock != nil);
     if (self = [super init]) {
         _nibName = nibName;
         _bundle = bundle;
@@ -51,6 +54,21 @@
         _sizeBlock = [sizeBlock copy];
     }
     return self;
+}
+
+- (instancetype)initWithStoryboardCellIdentifier:(NSString *)identifier
+                                  configureBlock:(IGListSingleSectionCellConfigureBlock)configureBlock
+                                       sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock {
+    IGParameterAssert(identifier.length > 0);
+    IGParameterAssert(configureBlock != nil);
+    IGParameterAssert(sizeBlock != nil);
+    if (self = [super init]) {
+        _identifier = [identifier copy];
+        _configureBlock = [configureBlock copy];
+        _sizeBlock = [sizeBlock copy];
+    }
+    return self;
+
 }
 
 #pragma mark - IGListSectionType
@@ -72,6 +90,10 @@
                                                           bundle:self.bundle
                                             forSectionController:self
                                                          atIndex:index];
+    } else if ([self.identifier length] > 0) {
+        cell = [collectionContext dequeueReusableCellFromStoryboardWithIdentifier:self.identifier
+                                                             forSectionController:self
+                                                                          atIndex:index];
     } else {
         cell = [collectionContext dequeueReusableCellOfClass:self.cellClass forSectionController:self atIndex:index];
     }
