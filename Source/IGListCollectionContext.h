@@ -116,8 +116,6 @@ NS_ASSUME_NONNULL_BEGIN
  @param index             The index of the cell.
  
  @return A cell dequeued from the reuse pool or newly created.
- 
- @note This method uses a string representation of the cell class as the identifier.
  */
 - (__kindof UICollectionViewCell *)dequeueReusableCellFromStoryboardWithIdentifier:(NSString *)identifier
                                                               forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
@@ -139,6 +137,21 @@ NS_ASSUME_NONNULL_BEGIN
                                                          forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
                                                                         class:(Class)viewClass
                                                                       atIndex:(NSInteger)index;
+
+/**
+ Dequeues a supplementary view from the UICollectionView reuse pool.
+ 
+ @param elementKind       The kind of supplementary veiw.
+ @param identifier        The identifier of the supplementary view in storyboard.
+ @param sectionController The section controller requesting this information.
+ @param index             The index of the supplementary vew.
+ 
+ @return A supplementary view dequeued from the reuse pool or newly created.
+ */
+- (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewFromStoryboardOfKind:(NSString *)elementKind
+                                                                             withIdentifier:(NSString *)identifier
+                                                                       forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                                                                    atIndex:(NSInteger)index;
 
 /**
  Reloads cells in the section controller.
