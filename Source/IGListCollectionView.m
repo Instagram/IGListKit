@@ -12,7 +12,7 @@
 @interface IGListCollectionView ()
 
 @property (nonatomic, assign, readonly) BOOL requiresManualWillDisplay;
-@property (nonatomic, strong) NSSet *ig_visibleIndexPaths;
+@property (nonatomic, copy) NSSet *ig_visibleIndexPaths;
 
 @end
 

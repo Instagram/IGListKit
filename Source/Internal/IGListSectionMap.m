@@ -17,7 +17,7 @@
 @property (nonatomic, strong, readonly) NSMapTable<IGListSectionController<IGListSectionType> *, id> *sectionControllerToObjectMap;
 @property (nonatomic, strong, readonly) NSMapTable<IGListSectionController<IGListSectionType> *, NSNumber *> *sectionControllerToSectionMap;
 
-@property (nonatomic, strong, readwrite) NSArray *objects;
+@property (nonatomic, copy, readwrite) NSArray *objects;
 
 @end
 
@@ -55,7 +55,7 @@
 - (void)updateWithObjects:(NSArray *)objects sectionControllers:(NSArray *)sectionControllers {
     IGParameterAssert(objects.count == sectionControllers.count);
 
-    self.objects = [objects copy];
+    self.objects = objects;
 
     [self reset];
 
