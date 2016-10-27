@@ -18,6 +18,7 @@ This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit
 - Fixed `-[IGListAdapter reloadDataWithCompletion:]` not returning early when `collectionView` or `dataSource` is nil and `completion` is nil. [Ben Asher](https://github.com/benasher44) [(#51)](https://github.com/Instagram/IGListKit/pull/51)
 - Added `-isFirstSection` and `-isLastSection` APIs to `IGListSectionController`
 - Added support for cells created from storyboard. [Bofei Zhu](https://github.com/zhubofei) [(#92)](https://github.com/Instagram/IGListKit/pull/92)
+- Added examples for Today & iMessage extensions. [Sherlouk](https://github.com/Sherlouk) [(#112)](https://github.com/Instagram/IGListKit/pull/112)
 
 1.0.0
 -----
