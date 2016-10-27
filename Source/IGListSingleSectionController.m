@@ -15,7 +15,7 @@
 
 @property (nonatomic, copy, readonly) NSString *nibName;
 @property (nonatomic, strong, readonly) NSBundle *bundle;
-@property (nonatomic, strong, readonly) NSString *identifier;
+@property (nonatomic, copy, readonly) NSString *identifier;
 @property (nonatomic, strong, readonly) Class cellClass;
 @property (nonatomic, copy, readonly) IGListSingleSectionCellConfigureBlock configureBlock;
 @property (nonatomic, copy, readonly) IGListSingleSectionCellSizeBlock sizeBlock;
