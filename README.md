@@ -2,9 +2,26 @@
   <img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/logo-animation.gif" width=400 />
 </p>
 
-[![Build Status](https://travis-ci.org/Instagram/IGListKit.svg?branch=master)](https://travis-ci.org/Instagram/IGListKit) [![Version Status](https://img.shields.io/cocoapods/v/IGListKit.svg)](https://cocoapods.org/pods/IGListKit) [![license BSD](https://img.shields.io/cocoapods/l/IGListKit.svg)](https://opensource.org/licenses/BSD-3-Clause) [![Platform](https://img.shields.io/cocoapods/p/IGListKit.svg)](https://instagram.github.io/IGListKit) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Coverage Status](https://coveralls.io/repos/github/Instagram/IGListKit/badge.svg?branch=master)](https://coveralls.io/github/Instagram/IGListKit?branch=master)
+<p align="center">
+    <a href="https://travis-ci.org/Instagram/IGListKit">
+        <img src="https://travis-ci.org/Instagram/IGListKit.svg?branch=master&style=flat"
+             alt="Build Status">
+    </a>
+    <a href="https://coveralls.io/github/Instagram/IGListKit">
+        <img src="https://coveralls.io/repos/github/Instagram/IGListKit/badge.svg?branch=master&style=flat"
+             alt="Code Coverage">
+    </a>
+    <a href="https://cocoapods.org/pods/IGListKit">
+        <img src="https://img.shields.io/cocoapods/v/IGListKit.svg?style=flat"
+             alt="Pods Version">
+    </a>
+    <a href="https://github.com/Carthage/Carthage">
+        <img src="https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?style=flat"
+             alt="Carthage Compatible">
+    </a>
+</p>
 
-------------------------
+----------------
 
 A data-driven `UICollectionView` framework for building fast and flexible lists.
 
@@ -20,7 +37,7 @@ A data-driven `UICollectionView` framework for building fast and flexible lists.
 &#128640; | Extendable API
 &#128038; | Written in Objective-C with full Swift interop support
 
-`IGListKit` is built and maintained by [Instagram engineering](https://engineering.instagram.com/), using the open source version for the Instagram app.
+`IGListKit` is built and maintained with &#10084;&#65039; by [Instagram engineering](https://engineering.instagram.com/), using the open source version for the Instagram app.
 
 ## Requirements
 
@@ -87,13 +104,12 @@ adapter.collectionView = collectionView
 The last step is the `IGListAdapter`'s data source and returning some data.
 
 ```swift
-func objectsForListAdapter(listAdapter: IGListAdapter) -> [IGListDiffable] {
+func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
   // this can be anything!
   return [ "Foo", "Bar", 42, "Biz" ]
 }
 
-func listAdapter(listAdapter: IGListAdapter,
-    sectionControllerFor object: Any) -> IGListSectionController {
+func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
   if object is String {
     return LabelSectionController()
   } else {
@@ -101,7 +117,7 @@ func listAdapter(listAdapter: IGListAdapter,
   }
 }
 
-func emptyViewForListAdapter(listAdapter: IGListAdapter) -> UIView? {
+func emptyView(for listAdapter: IGListAdapter) -> UIView? {
   return nil
 }
 ```

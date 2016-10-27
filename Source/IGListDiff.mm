@@ -224,7 +224,7 @@ static id IGListDiffing(BOOL returnIndexPaths,
         } else {
             // note that an entry can be updated /and/ moved
             if (record.entry->updated) {
-                addIndexToCollection(mUpdates, toSection, oldIndex);
+                addIndexToCollection(mUpdates, fromSection, oldIndex);
             }
 
             // calculate the offset and determine if there was a move

@@ -64,11 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSIndexPath *)newIndexPathForIdentifier:(id<NSObject>)identifier;
 
 /**
- Create a new result object transforming index paths that are both moved and updated into delete and inserts.
-
- @discussion This is a convenience method for using a result object to perform UICollectionView and UITableView updates.
+ Create a new result object with operations safe for use in UITableView and UICollectionView batch updates.
  */
-- (IGListIndexPathResult *)resultWithUpdatedMovesAsDeleteInserts;
+- (IGListIndexPathResult *)resultForBatchUpdates;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
