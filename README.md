@@ -87,13 +87,12 @@ adapter.collectionView = collectionView
 The last step is the `IGListAdapter`'s data source and returning some data.
 
 ```swift
-func objectsForListAdapter(listAdapter: IGListAdapter) -> [IGListDiffable] {
+func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
   // this can be anything!
   return [ "Foo", "Bar", 42, "Biz" ]
 }
 
-func listAdapter(listAdapter: IGListAdapter,
-    sectionControllerFor object: Any) -> IGListSectionController {
+func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
   if object is String {
     return LabelSectionController()
   } else {
@@ -101,7 +100,7 @@ func listAdapter(listAdapter: IGListAdapter,
   }
 }
 
-func emptyViewForListAdapter(listAdapter: IGListAdapter) -> UIView? {
+func emptyView(for listAdapter: IGListAdapter) -> UIView? {
   return nil
 }
 ```
