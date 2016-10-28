@@ -11,7 +11,7 @@
 
 #import "IGTestStoryboardCell.h"
 #import "IGTestSingleStoryboardItemDataSource.h"
-#import "IGTestSingleStoryboardViewController.h"
+#import "IGTestStoryboardViewController.h"
 
 #define genTestObject(k, v) [[IGTestObject alloc] initWithKey:k value:v]
 
@@ -23,7 +23,7 @@
 @property (nonatomic, strong) IGListAdapter *adapter;
 @property (nonatomic, strong) IGListAdapterUpdater *updater;
 @property (nonatomic, strong) IGTestSingleStoryboardItemDataSource *dataSource;
-@property (nonatomic, strong) IGTestSingleStoryboardViewController *viewController;
+@property (nonatomic, strong) IGTestStoryboardViewController *viewController;
 @property (nonatomic, strong) UIWindow *window;
 
 @end
