@@ -48,7 +48,7 @@
     IGParameterAssert(configureBlock != nil);
     IGParameterAssert(sizeBlock != nil);
     if (self = [super init]) {
-        _nibName = nibName;
+        _nibName = [nibName copy];
         _bundle = bundle;
         _configureBlock = [configureBlock copy];
         _sizeBlock = [sizeBlock copy];
