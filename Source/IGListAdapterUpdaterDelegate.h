@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
  Notifies the delegate that the updater succesfully finished -[UICollectionView performBatchUpdates:completion:].
 
  @param listAdapterUpdater The adapter updater owning the transition.
+ @param updates            The batch updates that were applied to the collection view.
  @param collectionView     The collection view that performed the batch updates.
 
  @discussion This event is called in the completion block of the batch update.

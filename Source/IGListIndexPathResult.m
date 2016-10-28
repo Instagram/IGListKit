@@ -36,7 +36,7 @@
     return self.inserts.count || self.deletes.count || self.updates.count || self.moves.count;
 }
 
-- (IGListIndexPathResult *)resultWithUpdatedMovesAsDeleteInserts {
+- (IGListIndexPathResult *)resultForBatchUpdates {
     NSMutableSet<NSIndexPath *> *deletes = [self.deletes mutableCopy];
     NSMutableSet<NSIndexPath *> *inserts = [self.inserts mutableCopy];
     NSMutableSet<NSIndexPath *> *filteredUpdates = [self.updates mutableCopy];
@@ -44,6 +44,7 @@
     NSArray<IGListMoveIndexPath *> *moves = self.moves;
     NSMutableArray<IGListMoveIndexPath *> *filteredMoves = [moves mutableCopy];
 
+    // convert move+update to delete+insert, respecting the from/to of the move
     const NSUInteger moveCount = moves.count;
     for (NSInteger i = moveCount - 1; i >= 0; i--) {
         IGListMoveIndexPath *move = moves[i];
@@ -55,9 +56,18 @@
         }
     }
 
+    // iterate all new identifiers. if its index is updated, delete from the old index and insert the new index
+    for (id<NSObject> key in [_oldIndexPathMap keyEnumerator]) {
+        NSIndexPath *indexPath = [_oldIndexPathMap objectForKey:key];
+        if ([filteredUpdates containsObject:indexPath]) {
+            [deletes addObject:indexPath];
+            [inserts addObject:(id)[_newIndexPathMap objectForKey:key]];
+        }
+    }
+
     return [[IGListIndexPathResult alloc] initWithInserts:[inserts allObjects]
                                                   deletes:[deletes allObjects]
-                                                  updates:[filteredUpdates allObjects]
+                                                  updates:[NSArray new]
                                                     moves:filteredMoves
                                           oldIndexPathMap:_oldIndexPathMap
                                           newIndexPathMap:_newIndexPathMap];
