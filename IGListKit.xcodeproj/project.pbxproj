@@ -36,8 +36,8 @@
 		88144F0C1D870EDC007C7F66 /* IGListDiffTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE81D870EDC007C7F66 /* IGListDiffTests.m */; };
 		88144F0D1D870EDC007C7F66 /* IGListDisplayHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE91D870EDC007C7F66 /* IGListDisplayHandlerTests.m */; };
 		88144F0F1D870EDC007C7F66 /* IGListObjectMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EEC1D870EDC007C7F66 /* IGListObjectMapTests.m */; };
-		88144F101D870EDC007C7F66 /* IGListSingleItemControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EED1D870EDC007C7F66 /* IGListSingleItemControllerTests.m */; };
-		88144F111D870EDC007C7F66 /* IGListStackItemControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EEE1D870EDC007C7F66 /* IGListStackItemControllerTests.m */; };
+		88144F101D870EDC007C7F66 /* IGListSingleSectionControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EED1D870EDC007C7F66 /* IGListSingleSectionControllerTests.m */; };
+		88144F111D870EDC007C7F66 /* IGListStackSectionControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EEE1D870EDC007C7F66 /* IGListStackSectionControllerTests.m */; };
 		88144F121D870EDC007C7F66 /* IGListWorkingRangeHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EEF1D870EDC007C7F66 /* IGListWorkingRangeHandlerTests.m */; };
 		88144F131D870EDC007C7F66 /* IGListTestAdapterDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EF21D870EDC007C7F66 /* IGListTestAdapterDataSource.m */; };
 		88144F141D870EDC007C7F66 /* IGListTestOffsettingLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EF41D870EDC007C7F66 /* IGListTestOffsettingLayout.m */; };
@@ -149,8 +149,8 @@
 		88144EE91D870EDC007C7F66 /* IGListDisplayHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListDisplayHandlerTests.m; sourceTree = "<group>"; };
 		88144EEB1D870EDC007C7F66 /* IGListKitTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IGListKitTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		88144EEC1D870EDC007C7F66 /* IGListObjectMapTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListObjectMapTests.m; sourceTree = "<group>"; };
-		88144EED1D870EDC007C7F66 /* IGListSingleItemControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListSingleItemControllerTests.m; sourceTree = "<group>"; };
-		88144EEE1D870EDC007C7F66 /* IGListStackItemControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListStackItemControllerTests.m; sourceTree = "<group>"; };
+		88144EED1D870EDC007C7F66 /* IGListSingleSectionControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListSingleSectionControllerTests.m; sourceTree = "<group>"; };
+		88144EEE1D870EDC007C7F66 /* IGListStackSectionControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListStackSectionControllerTests.m; sourceTree = "<group>"; };
 		88144EEF1D870EDC007C7F66 /* IGListWorkingRangeHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListWorkingRangeHandlerTests.m; sourceTree = "<group>"; };
 		88144EF11D870EDC007C7F66 /* IGListTestAdapterDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListTestAdapterDataSource.h; sourceTree = "<group>"; };
 		88144EF21D870EDC007C7F66 /* IGListTestAdapterDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListTestAdapterDataSource.m; sourceTree = "<group>"; };
@@ -420,10 +420,10 @@
 				88144EE91D870EDC007C7F66 /* IGListDisplayHandlerTests.m */,
 				88144EEB1D870EDC007C7F66 /* IGListKitTests-Bridging-Header.h */,
 				88144EEC1D870EDC007C7F66 /* IGListObjectMapTests.m */,
-				88144EED1D870EDC007C7F66 /* IGListSingleItemControllerTests.m */,
+				88144EED1D870EDC007C7F66 /* IGListSingleSectionControllerTests.m */,
 				26271C8B1DAE96740073E116 /* IGListSingleNibItemControllerTests.m */,
 				821BC4BE1DB8C95300172ED0 /* IGListSingleStoryboardItemControllerTests.m */,
-				88144EEE1D870EDC007C7F66 /* IGListStackItemControllerTests.m */,
+				88144EEE1D870EDC007C7F66 /* IGListStackSectionControllerTests.m */,
 				88144EEF1D870EDC007C7F66 /* IGListWorkingRangeHandlerTests.m */,
 				887D0B571D870E1E009E01F7 /* Info.plist */,
 				88144EF01D870EDC007C7F66 /* Objects */,
@@ -682,14 +682,14 @@
 				88144F141D870EDC007C7F66 /* IGListTestOffsettingLayout.m in Sources */,
 				88144F131D870EDC007C7F66 /* IGListTestAdapterDataSource.m in Sources */,
 				88144F071D870EDC007C7F66 /* IGListAdapterE2ETests.m in Sources */,
-				88144F111D870EDC007C7F66 /* IGListStackItemControllerTests.m in Sources */,
+				88144F111D870EDC007C7F66 /* IGListStackSectionControllerTests.m in Sources */,
 				88144F1A1D870EDC007C7F66 /* IGTestObject.m in Sources */,
 				88144F0B1D870EDC007C7F66 /* IGListDiffSwiftTests.swift in Sources */,
 				88144F191D870EDC007C7F66 /* IGTestDelegateDataSource.m in Sources */,
 				88144F0C1D870EDC007C7F66 /* IGListDiffTests.m in Sources */,
 				88144F0A1D870EDC007C7F66 /* IGListBatchUpdateDataTests.m in Sources */,
 				26271C8C1DAE96740073E116 /* IGListSingleNibItemControllerTests.m in Sources */,
-				88144F101D870EDC007C7F66 /* IGListSingleItemControllerTests.m in Sources */,
+				88144F101D870EDC007C7F66 /* IGListSingleSectionControllerTests.m in Sources */,
 				88144F121D870EDC007C7F66 /* IGListWorkingRangeHandlerTests.m in Sources */,
 				821BC4D31DB981AB00172ED0 /* IGTestSingleStoryboardItemDataSource.m in Sources */,
 				88144F151D870EDC007C7F66 /* IGListTestSection.m in Sources */,
