@@ -22,7 +22,7 @@ class MixedDataViewController: UIViewController, IGListAdapterDataSource {
     }()
     let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-    let data = [
+    var data = [
         "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.",
         GridItem(color: UIColor(red: 237/255.0, green: 73/255.0, blue: 86/255.0, alpha: 1), itemCount: 6),
         User(pk: 2, name: "Ryan Olson", handle: "ryanolsonk"),
@@ -82,7 +82,8 @@ class MixedDataViewController: UIViewController, IGListAdapterDataSource {
         switch object {
         case is String:   return ExpandableSectionController()
         case is GridItem: return GridSectionController()
-        default:          return UserSectionController()
+        case is User:     return UserSectionController()
+        default:          return spinnerSectionController()
         }
     }
 
