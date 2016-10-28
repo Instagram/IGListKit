@@ -788,7 +788,7 @@
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(index >= 0);
     UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
+    IGAssert(collectionView != nil, @"Dequeueing Supplementary View from storyboard of kind %@ with identifier %@ for section controller %@ without a collection view at index %zi", elementKind, identifier, sectionController, index);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index];
     return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
 }
