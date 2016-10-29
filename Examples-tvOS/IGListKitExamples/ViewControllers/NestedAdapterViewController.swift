@@ -15,20 +15,25 @@
 import UIKit
 import IGListKit
 
-class DemosViewController: UIViewController, IGListAdapterDataSource {
+class NestedAdapterViewController: UIViewController, IGListAdapterDataSource {
     
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
     let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    let demos: [DemoItem] = [
-        DemoItem(name: "Nested Adapter", controllerClass: NestedAdapterViewController.self)
-    ]
+    let data = [
+        "Most Recent",
+        10,
+        "Recently Watched",
+        16,
+        "New Arrivals",
+        20
+    ] as [Any]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Demo Chooser"
+        
         collectionView.backgroundColor = .clear
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
@@ -43,14 +48,18 @@ class DemosViewController: UIViewController, IGListAdapterDataSource {
     // MARK: IGListAdapterDataSource
     
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return demos
+        return data as! [IGListDiffable]
     }
     
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
-        return DemoSectionController()
+        if object is Int {
+            return HorizontalSectionController()
+        }
+        
+        return LabelSectionController()
     }
     
     func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
-
+    
 }
 
