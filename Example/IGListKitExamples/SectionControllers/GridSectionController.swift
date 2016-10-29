@@ -24,6 +24,22 @@ class GridItem: NSObject {
         self.color = color
         self.itemCount = itemCount
     }
+    
+    // MARK: Create from JSON
+    
+    class func from(json: [String: Any]) -> GridItem? {
+        guard let colorDictionary = json["color"] as? [String: CGFloat],
+                          let red = colorDictionary["red"],
+                        let green = colorDictionary["green"],
+                         let blue = colorDictionary["blue"],
+                        let alpha = colorDictionary["alpha"],
+                    let itemCount = json["count"] as? Int else {
+                return nil
+        }
+        
+        let color = UIColor(red: red, green: green, blue: blue, alpha: alpha)
+        return GridItem(color: color, itemCount: itemCount)
+    }
 
 }
 

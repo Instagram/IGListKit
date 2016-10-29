@@ -26,7 +26,7 @@ class User: IGListDiffable {
         self.handle = handle
     }
 
-    //MARK: IGListDiffable
+    // MARK: IGListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return pk as NSObjectProtocol
@@ -40,6 +40,18 @@ class User: IGListDiffable {
             return name == object.name && handle == object.handle
         }
         return false
+    }
+    
+    // MARK: Create from JSON
+    
+    class func from(json: [String: Any]) -> User? {
+        guard let primaryKey = json["id"] as? Int,
+                    let name = json["name"] as? String,
+                  let handle = json["handle"] as? String else {
+            return nil
+        }
+        
+        return User(pk: primaryKey, name: name, handle: handle)
     }
 
 }

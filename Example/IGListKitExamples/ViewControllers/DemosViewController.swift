@@ -26,6 +26,7 @@ class DemosViewController: UIViewController, IGListAdapterDataSource {
         DemoItem(name: "Tail Loading", controllerClass: LoadMoreViewController.self),
         DemoItem(name: "Search Autocomplete", controllerClass: SearchViewController.self),
         DemoItem(name: "Mixed Data", controllerClass: MixedDataViewController.self),
+        DemoItem(name: "Mixed Data (Loaded from JSON)", controllerClass: JSONMixedDataViewController.self),
         DemoItem(name: "Nested Adapter", controllerClass: NestedAdapterViewController.self),
         DemoItem(name: "Empty View", controllerClass: EmptyViewController.self),
         DemoItem(name: "Single Section Controller", controllerClass: SingleSectionViewController.self),
