@@ -43,6 +43,7 @@ A data-driven `UICollectionView` framework for building fast and flexible lists.
 
 - Xcode 8.0+
 - iOS 8.0+
+- tvOS 9.0+
 - Interoperability with Swift 3.0+
 
 ## Installation
