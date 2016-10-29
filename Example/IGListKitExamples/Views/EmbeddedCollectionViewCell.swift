@@ -32,5 +32,10 @@ class EmbeddedCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         collectionView.frame = contentView.frame
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        collectionView.contentOffset = .zero
+    }
 
 }
