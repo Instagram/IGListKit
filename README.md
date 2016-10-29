@@ -43,6 +43,7 @@ A data-driven `UICollectionView` framework for building fast and flexible lists.
 
 - Xcode 8.0+
 - iOS 8.0+
+- tvOS 9.0+
 - Interoperability with Swift 3.0+
 
 ## Installation
@@ -225,7 +226,7 @@ You can find [the docs here](https://instagram.github.io/IGListKit). Documentati
 
 ## Contributing
 
-Please see the [CONTRIBUTING](CONTRIBUTING.md) file for how to help out. At Instagram we sync the open source version of `IGListKit` almost daily, so we're always testing the latest changes. But that requires all changes be thoroughly tested follow our style guide.
+Please see the [CONTRIBUTING](.github/CONTRIBUTING.md) file for how to help out. At Instagram we sync the open source version of `IGListKit` almost daily, so we're always testing the latest changes. But that requires all changes be thoroughly tested follow our style guide.
 
 ## License
 

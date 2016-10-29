@@ -19,7 +19,9 @@ Pod::Spec.new do |s|
   s.private_header_files = 'Source/Internal/*.h'
 
   s.requires_arc = true
-  s.platform = :ios, '8.0'
+
+  s.ios.deployment_target = '8.0'
+  s.tvos.deployment_target = '9.0'
 
   s.frameworks = 'UIKit'
   s.library = 'c++'
