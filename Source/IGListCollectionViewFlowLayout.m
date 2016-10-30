@@ -7,8 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGListCollectionViewFlowLayout.h"
 #import <IGListKit/IGListAssert.h>
+#import "IGListCollectionViewFlowLayout.h"
 
 @interface _IGFlowLayoutLine : NSObject
 
