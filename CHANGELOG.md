@@ -19,6 +19,7 @@ This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit
 - Added `-isFirstSection` and `-isLastSection` APIs to `IGListSectionController`
 - Added support for cells created from storyboard. [Bofei Zhu](https://github.com/zhubofei) [(#92)](https://github.com/Instagram/IGListKit/pull/92)
 - Added `tvOS` support. [Jesse Squires](https://github.com/jessesquires) [(#137)](https://github.com/Instagram/IGListKit/pull/137)
+- Added `tvOS` example pack. [Sherlouk](https://github.com/Sherlouk) [(#141)](https://github.com/Instagram/IGListKit/pull/141)
 
 1.0.0
 -----
