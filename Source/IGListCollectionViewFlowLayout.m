@@ -208,6 +208,17 @@
     return CGRectGetWidth(self.collectionView.bounds) - (insets.left + insets.right);
 }
 
+- (CGFloat)contentHeight
+{
+    UIEdgeInsets insets = self.collectionView.contentInset;
+    CGFloat height = 0;
+    for (_IGFlowLayoutLine *line in self.lineCache) {
+        height += line.frame.size.height;
+    }
+    height += [self.lineCache count] * self.minimumLineSpacing - (insets.top + insets.bottom);
+    return height;
+}
+
 @end
 
 #pragma mark _IGFlowLayoutLine
