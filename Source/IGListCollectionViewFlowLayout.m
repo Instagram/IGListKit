@@ -81,6 +81,10 @@
 
 @end
 
+@interface _IGFlowLayoutInvalidationContext : UICollectionViewLayoutInvalidationContext
+
+@end
+
 @interface IGListCollectionViewFlowLayout ()
 
 /**
@@ -139,26 +143,7 @@
 - (void)prepareLayout
 {
     if ([self.lineCache count] == 0) {
-        // Init first line and add to lineCache
-        CGRect frame = CGRectMake(0, 0, self.contentWidth, 0);
-        _IGFlowLayoutLine *firstLine = [[_IGFlowLayoutLine alloc] initWithFrame:frame scrollDirection:self.scrollDirection minimumInteritemSpacing:self.minimumInteritemSpacing];
-        [self.lineCache addObject:firstLine];
-        
-        for (NSInteger i = 0; i < self.collectionView.numberOfSections; i++) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:i];
-            id<UICollectionViewDelegateFlowLayout> delegate = (id<UICollectionViewDelegateFlowLayout>) self.collectionView.delegate;
-            CGSize itemSize = [delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];
-            _IGFlowLayoutLine *lastLine = [self.lineCache lastObject];
-            if (![lastLine addItemToTailWithSize:itemSize atIndexPath:indexPath]) {
-                // Not enough space for the last line
-                CGFloat y = lastLine.frame.origin.y + lastLine.frame.size.height + self.minimumLineSpacing;
-                frame = CGRectMake(0, y, self.contentWidth, 0);
-                _IGFlowLayoutLine *newLine = [[_IGFlowLayoutLine alloc] initWithFrame:frame scrollDirection:self.scrollDirection minimumInteritemSpacing:self.minimumInteritemSpacing];
-                [self.lineCache addObject:newLine];
-                [newLine addItemToTailWithSize:itemSize atIndexPath:indexPath];
-            }
-            [self.lineForItem addObject:[NSNumber numberWithInteger:(self.lineCache.count - 1)]];
-        }
+        [self reloadLayout];
     }
 }
 
@@ -190,6 +175,11 @@
     return [line attributesForItemAtIndexPath:indexPath];
 }
 
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
+{
+    return NO;
+}
+
 #pragma mark - Getter Setter
 
 - (CGFloat)contentWidth
@@ -200,13 +190,40 @@
 
 - (CGFloat)contentHeight
 {
-    UIEdgeInsets insets = self.collectionView.contentInset;
     CGFloat height = 0;
     for (_IGFlowLayoutLine *line in self.lineCache) {
         height += line.frame.size.height;
     }
-    height += [self.lineCache count] * self.minimumLineSpacing - (insets.top + insets.bottom);
+    height += ([self.lineCache count] - 1) * self.minimumLineSpacing;
     return height;
+}
+
+#pragma mark - Private API
+
+- (void)reloadLayout
+{
+    [self.lineCache removeAllObjects];
+    
+    // Init first line and add to lineCache
+    CGRect frame = CGRectMake(0, 0, self.contentWidth, 0);
+    _IGFlowLayoutLine *firstLine = [[_IGFlowLayoutLine alloc] initWithFrame:frame scrollDirection:self.scrollDirection minimumInteritemSpacing:self.minimumInteritemSpacing];
+    [self.lineCache addObject:firstLine];
+    
+    for (NSInteger i = 0; i < self.collectionView.numberOfSections; i++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:i];
+        id<UICollectionViewDelegateFlowLayout> delegate = (id<UICollectionViewDelegateFlowLayout>) self.collectionView.delegate;
+        CGSize itemSize = [delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];
+        _IGFlowLayoutLine *lastLine = [self.lineCache lastObject];
+        if (![lastLine addItemToTailWithSize:itemSize atIndexPath:indexPath]) {
+            // Not enough space for the last line
+            CGFloat y = lastLine.frame.origin.y + lastLine.frame.size.height + self.minimumLineSpacing;
+            frame = CGRectMake(0, y, self.contentWidth, 0);
+            _IGFlowLayoutLine *newLine = [[_IGFlowLayoutLine alloc] initWithFrame:frame scrollDirection:self.scrollDirection minimumInteritemSpacing:self.minimumInteritemSpacing];
+            [self.lineCache addObject:newLine];
+            [newLine addItemToTailWithSize:itemSize atIndexPath:indexPath];
+        }
+        [self.lineForItem addObject:[NSNumber numberWithInteger:(self.lineCache.count - 1)]];
+    }
 }
 
 @end
@@ -259,14 +276,7 @@
             *stop = YES;
         }
     }];
-    CGSize itemSize = [self.itemSizes[index] CGSizeValue];
-    
-    // Center vertically
-    CGFloat y = (self.frame.size.height - itemSize.height) / 2;
-    
-    CGRect frame = CGRectMake(self.frame.origin.x + x, self.frame.origin.y + y, itemSize.width, itemSize.height);
-    UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
-    attributes.frame = frame;
+    UICollectionViewLayoutAttributes *attributes = [self attributesForItemAtIndexPath:indexPath withXOffset:x];
     return attributes;
 }
 
@@ -274,10 +284,25 @@
 {
     NSMutableArray *array = [NSMutableArray array];
     for (NSIndexPath *indexPath in [self.indexForIndexPath allKeys]) {
-        // Can improve performance here
-        [array addObject:[self attributesForItemAtIndexPath:indexPath]];
+        UICollectionViewLayoutAttributes *attributes = [self attributesForItemAtIndexPath:indexPath];
+        [array addObject:attributes];
     }
     return array;
+}
+
+#pragma mark - Private API
+
+- (UICollectionViewLayoutAttributes *)attributesForItemAtIndexPath:(NSIndexPath *)indexPath withXOffset:(CGFloat)x
+{
+    NSInteger index = [self.indexForIndexPath[indexPath] integerValue];
+    CGSize itemSize = [self.itemSizes[index] CGSizeValue];
+    
+    // Center vertically
+    CGFloat y = (self.frame.size.height - itemSize.height) / 2;
+    CGRect frame = CGRectMake(self.frame.origin.x + x, self.frame.origin.y + y, itemSize.width, itemSize.height);
+    UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+    attributes.frame = frame;
+    return attributes;
 }
 
 @end

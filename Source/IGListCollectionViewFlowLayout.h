@@ -14,7 +14,7 @@
 /**
  The scroll direction of the grid.
  */
-@property (nonatomic, assign) IBInspectable UICollectionViewScrollDirection scrollDirection;
+@property (nonatomic, assign) UICollectionViewScrollDirection scrollDirection;
 
 /**
  The minimum spacing to use between lines of items in the grid.
