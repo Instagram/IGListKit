@@ -44,7 +44,7 @@ final class SingleSectionStoryboardViewController: UIViewController, IGListAdapt
             guard let cell = cell as? StoryboardCell, let number = data as? Int else { return }
             cell.textLabel.text = "Cell: \(number + 1)"
         }
-        let sizeBlock = { (context: IGListCollectionContext?) -> CGSize in
+        let sizeBlock = { (data: Any, context: IGListCollectionContext?) -> CGSize in
             guard let context = context else { return .zero }
             return CGSize(width: context.containerSize.width, height: 44)
         }

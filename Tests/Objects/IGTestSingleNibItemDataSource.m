@@ -24,7 +24,7 @@
     void (^configureBlock)(id, __kindof UICollectionViewCell *) = ^(IGTestObject *item, IGTestCell *cell) {
         cell.label.text = [item.value description];
     };
-    CGSize (^sizeBlock)(id<IGListCollectionContext>) = ^CGSize(id<IGListCollectionContext> collectionContext) {
+    CGSize (^sizeBlock)(id, id<IGListCollectionContext>) = ^CGSize(IGTestObject *item, id<IGListCollectionContext> collectionContext) {
         return CGSizeMake([collectionContext containerSize].width, 44);
     };
     return [[IGListSingleSectionController alloc] initWithNibName:@"IGTestNibCell"

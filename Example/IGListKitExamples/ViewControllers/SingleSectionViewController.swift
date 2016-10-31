@@ -52,7 +52,7 @@ final class SingleSectionViewController: UIViewController, IGListAdapterDataSour
             cell.textLabel.text = "Cell: \(number + 1)"
         }
         
-        let sizeBlock = { (context: IGListCollectionContext?) -> CGSize in
+        let sizeBlock = { (data:Any, context: IGListCollectionContext?) -> CGSize in
             guard let context = context else { return CGSize() }
             return CGSize(width: context.containerSize.width, height: 44)
         }

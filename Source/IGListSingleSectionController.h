@@ -16,7 +16,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^IGListSingleSectionCellConfigureBlock)(id item, __kindof UICollectionViewCell *cell);
-typedef CGSize (^IGListSingleSectionCellSizeBlock)(id<IGListCollectionContext> _Nullable collectionContext);
+typedef CGSize (^IGListSingleSectionCellSizeBlock)(id item, id<IGListCollectionContext> _Nullable collectionContext);
 
 @class IGListSingleSectionController;
 
