@@ -259,25 +259,38 @@
             *stop = YES;
         }
     }];
-    CGSize itemSize = [self.itemSizes[index] CGSizeValue];
-    
-    // Center vertically
-    CGFloat y = (self.frame.size.height - itemSize.height) / 2;
-    
-    CGRect frame = CGRectMake(self.frame.origin.x + x, self.frame.origin.y + y, itemSize.width, itemSize.height);
-    UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
-    attributes.frame = frame;
+    UICollectionViewLayoutAttributes *attributes = [self attributesForItemAtIndexPath:indexPath withXOffset:x];
     return attributes;
 }
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)attributesForItems
 {
     NSMutableArray *array = [NSMutableArray array];
+    CGFloat x = 0;
     for (NSIndexPath *indexPath in [self.indexForIndexPath allKeys]) {
-        // Can improve performance here
-        [array addObject:[self attributesForItemAtIndexPath:indexPath]];
+        UICollectionViewLayoutAttributes *attributes = [self attributesForItemAtIndexPath:indexPath withXOffset:x];
+        [array addObject:attributes];
+        
+        NSInteger index = [self.indexForIndexPath[indexPath] integerValue];
+        CGSize itemSize = [self.itemSizes[index] CGSizeValue];
+        x += itemSize.width + self.minimumInteritemSpacing;
     }
     return array;
+}
+
+#pragma mark - Private API
+
+- (UICollectionViewLayoutAttributes *)attributesForItemAtIndexPath:(NSIndexPath *)indexPath withXOffset:(CGFloat)x
+{
+    NSInteger index = [self.indexForIndexPath[indexPath] integerValue];
+    CGSize itemSize = [self.itemSizes[index] CGSizeValue];
+    
+    // Center vertically
+    CGFloat y = (self.frame.size.height - itemSize.height) / 2;
+    CGRect frame = CGRectMake(self.frame.origin.x + x, self.frame.origin.y + y, itemSize.width, itemSize.height);
+    UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+    attributes.frame = frame;
+    return attributes;
 }
 
 @end
