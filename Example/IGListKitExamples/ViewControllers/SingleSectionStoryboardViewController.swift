@@ -40,11 +40,11 @@ final class SingleSectionStoryboardViewController: UIViewController, IGListAdapt
     }
     
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
-        let configureBlock = { (data: Any, cell: UICollectionViewCell) in
-            guard let cell = cell as? StoryboardCell, let number = data as? Int else { return }
+        let configureBlock = { (item: Any, cell: UICollectionViewCell) in
+            guard let cell = cell as? StoryboardCell, let number = item as? Int else { return }
             cell.textLabel.text = "Cell: \(number + 1)"
         }
-        let sizeBlock = { (data: Any, context: IGListCollectionContext?) -> CGSize in
+        let sizeBlock = { (item: Any, context: IGListCollectionContext?) -> CGSize in
             guard let context = context else { return .zero }
             return CGSize(width: context.containerSize.width, height: 44)
         }
