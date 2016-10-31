@@ -9,15 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol IGListCollectionViewDelegateFlowLayout <NSObject>
-@optional
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section;
-@end
-
 @interface IGListCollectionViewFlowLayout : UICollectionViewLayout
 
 /**
@@ -49,10 +40,5 @@
  The margins used to lay out content in a section
  */
 @property (nonatomic, assign) UIEdgeInsets sectionInset;
-
-/**
- The delegate used to lay out content.
- */
-@property (nonatomic, weak) id <IGListCollectionViewDelegateFlowLayout> delegate;
 
 @end

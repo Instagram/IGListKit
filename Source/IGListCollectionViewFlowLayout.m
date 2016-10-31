@@ -47,6 +47,9 @@
  */
 @property (nonatomic, copy) NSMutableDictionary<NSIndexPath*, NSNumber*> *indexForIndexPath;
 
+/**
+ Initialization
+ */
 - (id)initWithFrame:(CGRect)frame scrollDirection:(UICollectionViewScrollDirection)direction minimumInteritemSpacing:(CGFloat)spacing;
 
 /**
@@ -100,11 +103,6 @@
  */
 @property (nonatomic, assign) CGFloat contentHeight;
 
-/**
- Delegate has implemented or not.
- */
-@property (nonatomic, assign) BOOL hasDelegate;
-
 @end
 
 @implementation IGListCollectionViewFlowLayout
@@ -132,7 +130,6 @@
     _scrollDirection = UICollectionViewScrollDirectionVertical;
     _minimumLineSpacing = 0.0;
     _minimumInteritemSpacing = 0.0;
-    _hasDelegate = NO;
     _lineCache = [NSMutableArray<_IGFlowLayoutLine *> array];
     _lineForItem = [NSMutableArray array];
 }
@@ -141,11 +138,6 @@
 
 - (void)prepareLayout
 {
-    if (!self.hasDelegate && [self.delegate respondsToSelector:@selector(collectionView:layout:sizeForItemAtIndexPath:)]) {
-        // Collection view has implemented flow layout protocol
-        self.hasDelegate = YES;
-    }
-    
     if ([self.lineCache count] == 0) {
         // Init first line and add to lineCache
         CGRect frame = CGRectMake(0, 0, self.contentWidth, 0);
@@ -154,10 +146,8 @@
         
         for (NSInteger i = 0; i < self.collectionView.numberOfSections; i++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:i];
-            CGSize itemSize = self.itemSize;
-            if (self.hasDelegate) {
-                itemSize = [self.delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];
-            }
+            id<UICollectionViewDelegateFlowLayout> delegate = (id<UICollectionViewDelegateFlowLayout>) self.collectionView.delegate;
+            CGSize itemSize = [delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];
             _IGFlowLayoutLine *lastLine = [self.lineCache lastObject];
             if (![lastLine addItemToTailWithSize:itemSize atIndexPath:indexPath]) {
                 // Not enough space for the last line
