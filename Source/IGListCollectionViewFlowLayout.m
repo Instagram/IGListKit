@@ -10,6 +10,8 @@
 #import <IGListKit/IGListAssert.h>
 #import "IGListCollectionViewFlowLayout.h"
 
+#pragma mark - IGFlowLayoutLine
+
 @interface _IGFlowLayoutLine : NSObject
 
 /**
@@ -38,19 +40,22 @@
 @property (nonatomic, assign) CGFloat interitemSpacing;
 
 /**
+ The section index of the first item in line.
+ */
+@property (nonatomic, assign) NSInteger headIndex;
+
+/**
  The sizes to of the items in line.
  */
 @property (nonatomic, copy) NSMutableArray<NSValue *> *itemSizes;
 
 /**
- The index in itemSize array of the index path.
- */
-@property (nonatomic, copy) NSMutableDictionary<NSIndexPath*, NSNumber*> *indexForIndexPath;
-
-/**
  Initialization
  */
-- (id)initWithFrame:(CGRect)frame scrollDirection:(UICollectionViewScrollDirection)direction minimumInteritemSpacing:(CGFloat)spacing;
+- (id)initWithMinimumInteritemSpacing:(CGFloat)spacing
+                            headIndex:(NSInteger)headIndex
+                                frame:(CGRect)frame
+                      scrollDirection:(UICollectionViewScrollDirection)direction;
 
 /**
  Adds item to the tail of the line with index path.
@@ -59,7 +64,7 @@
  
  @return A bool indicates if the item can be added to the line.
  */
-- (BOOL)addItemToTailWithSize:(CGSize)size atIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)addItemToTailWithSize:(CGSize)size;
 
 /**
  Get attributes of the item at index path.
@@ -77,13 +82,17 @@
  @return An array of attributes for all the items in line.
  */
 
-- (NSArray<UICollectionViewLayoutAttributes *> *)attributesForItems;
+- (NSArray<UICollectionViewLayoutAttributes *> *)attributesForAllItems;
 
 @end
+
+#pragma mark - IGFlowLayoutInvalidationContext
 
 @interface _IGFlowLayoutInvalidationContext : UICollectionViewLayoutInvalidationContext
 
 @end
+
+#pragma mark - IGListCollectionViewFlowLayout
 
 @interface IGListCollectionViewFlowLayout ()
 
@@ -108,6 +117,8 @@
 @property (nonatomic, assign) CGFloat contentHeight;
 
 @end
+
+#pragma mark - IGListCollectionViewFlowLayout Implementation
 
 @implementation IGListCollectionViewFlowLayout
 
@@ -142,9 +153,7 @@
 
 - (void)prepareLayout
 {
-    if ([self.lineCache count] == 0) {
-        [self reloadLayout];
-    }
+    [self reloadLayout];
 }
 
 - (CGSize)collectionViewContentSize
@@ -157,7 +166,7 @@
     NSMutableArray *array = [NSMutableArray array];
     for (_IGFlowLayoutLine *line in self.lineCache) {
         if (CGRectIntersectsRect(line.frame, rect)) {
-            NSArray<UICollectionViewLayoutAttributes *> *lineAttributes = [line attributesForItems];
+            NSArray<UICollectionViewLayoutAttributes *> *lineAttributes = [line attributesForAllItems];
             for (UICollectionViewLayoutAttributes *attributes in lineAttributes) {
                 if (CGRectIntersectsRect(attributes.frame, rect)) {
                     [array addObject:attributes];
@@ -178,6 +187,13 @@
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
 {
     return NO;
+}
+
+#pragma mark - Update Layout
+
+- (void)prepareForCollectionViewUpdates:(NSArray<UICollectionViewUpdateItem *> *)updateItems
+{
+    
 }
 
 #pragma mark - Getter Setter
@@ -206,7 +222,10 @@
     
     // Init first line and add to lineCache
     CGRect frame = CGRectMake(0, 0, self.contentWidth, 0);
-    _IGFlowLayoutLine *firstLine = [[_IGFlowLayoutLine alloc] initWithFrame:frame scrollDirection:self.scrollDirection minimumInteritemSpacing:self.minimumInteritemSpacing];
+    _IGFlowLayoutLine *firstLine = [[_IGFlowLayoutLine alloc] initWithMinimumInteritemSpacing:self.minimumInteritemSpacing
+                                                                                    headIndex:0
+                                                                                        frame:frame
+                                                                              scrollDirection:self.scrollDirection];
     [self.lineCache addObject:firstLine];
     
     for (NSInteger i = 0; i < self.collectionView.numberOfSections; i++) {
@@ -214,13 +233,16 @@
         id<UICollectionViewDelegateFlowLayout> delegate = (id<UICollectionViewDelegateFlowLayout>) self.collectionView.delegate;
         CGSize itemSize = [delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];
         _IGFlowLayoutLine *lastLine = [self.lineCache lastObject];
-        if (![lastLine addItemToTailWithSize:itemSize atIndexPath:indexPath]) {
+        if (![lastLine addItemToTailWithSize:itemSize]) {
             // Not enough space for the last line
             CGFloat y = lastLine.frame.origin.y + lastLine.frame.size.height + self.minimumLineSpacing;
             frame = CGRectMake(0, y, self.contentWidth, 0);
-            _IGFlowLayoutLine *newLine = [[_IGFlowLayoutLine alloc] initWithFrame:frame scrollDirection:self.scrollDirection minimumInteritemSpacing:self.minimumInteritemSpacing];
+            _IGFlowLayoutLine *newLine = [[_IGFlowLayoutLine alloc] initWithMinimumInteritemSpacing:self.minimumInteritemSpacing
+                                                                                            headIndex:i
+                                                                                                frame:frame
+                                                                                      scrollDirection:self.scrollDirection];
             [self.lineCache addObject:newLine];
-            [newLine addItemToTailWithSize:itemSize atIndexPath:indexPath];
+            [newLine addItemToTailWithSize:itemSize];
         }
         [self.lineForItem addObject:[NSNumber numberWithInteger:(self.lineCache.count - 1)]];
     }
@@ -228,11 +250,15 @@
 
 @end
 
-#pragma mark _IGFlowLayoutLine
+#pragma mark - IGFlowLayoutLine Implementation
 
 @implementation _IGFlowLayoutLine
 
-- (id)initWithFrame:(CGRect)frame scrollDirection:(UICollectionViewScrollDirection)direction minimumInteritemSpacing:(CGFloat)spacing
+- (id)initWithMinimumInteritemSpacing:(CGFloat)spacing
+                            headIndex:(NSInteger)headIndex
+                                frame:(CGRect)frame
+                      scrollDirection:(UICollectionViewScrollDirection)direction
+
 {
     self = [super init];
     if (self) {
@@ -240,13 +266,13 @@
         _scrollDirection = direction;
         _minimumInteritemSpacing = spacing;
         _itemSizes = [NSMutableArray array];
-        _indexForIndexPath = [NSMutableDictionary dictionary];
+        _headIndex = headIndex;
         _tailSpace = frame.size.width - self.minimumInteritemSpacing;
     }
     return self;
 }
 
-- (BOOL)addItemToTailWithSize:(CGSize)size atIndexPath:(NSIndexPath *)indexPath
+- (BOOL)addItemToTailWithSize:(CGSize)size
 {
     if (size.width > self.tailSpace) {
         return NO;
@@ -260,13 +286,12 @@
     }
     NSValue *sizeValue = [NSValue valueWithCGSize:size];
     [self.itemSizes addObject:sizeValue];
-    self.indexForIndexPath[indexPath] = [NSNumber numberWithInteger:(self.itemSizes.count - 1)];
     return YES;
 }
 
 - (UICollectionViewLayoutAttributes *)attributesForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger index = [self.indexForIndexPath[indexPath] integerValue];
+    NSInteger index = indexPath.section - self.headIndex;
     __block CGFloat x = 0;
     [self.itemSizes enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx < index) {
@@ -280,13 +305,17 @@
     return attributes;
 }
 
-- (NSArray<UICollectionViewLayoutAttributes *> *)attributesForItems
+- (NSArray<UICollectionViewLayoutAttributes *> *)attributesForAllItems
 {
-    NSMutableArray *array = [NSMutableArray array];
-    for (NSIndexPath *indexPath in [self.indexForIndexPath allKeys]) {
-        UICollectionViewLayoutAttributes *attributes = [self attributesForItemAtIndexPath:indexPath];
+    __block NSMutableArray *array = [NSMutableArray array];
+    __block CGFloat x = 0;
+    [self.itemSizes enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:(self.headIndex + idx)];
+        UICollectionViewLayoutAttributes *attributes = [self attributesForItemAtIndexPath:indexPath withXOffset:x];
         [array addObject:attributes];
-    }
+        CGSize size = [obj CGSizeValue];
+        x += size.width + self.minimumInteritemSpacing;
+    }];
     return array;
 }
 
@@ -294,11 +323,12 @@
 
 - (UICollectionViewLayoutAttributes *)attributesForItemAtIndexPath:(NSIndexPath *)indexPath withXOffset:(CGFloat)x
 {
-    NSInteger index = [self.indexForIndexPath[indexPath] integerValue];
+    NSInteger index = indexPath.section - self.headIndex;
     CGSize itemSize = [self.itemSizes[index] CGSizeValue];
     
     // Center vertically
     CGFloat y = (self.frame.size.height - itemSize.height) / 2;
+    
     CGRect frame = CGRectMake(self.frame.origin.x + x, self.frame.origin.y + y, itemSize.width, itemSize.height);
     UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
     attributes.frame = frame;

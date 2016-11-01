@@ -24,12 +24,14 @@ class StoryboardLabelSectionController: IGListSectionController, IGListSectionTy
     }
     
     func sizeForItem(at index: Int) -> CGSize {
-        return CGSize(width: collectionContext!.containerSize.width, height: 55)
+        return CGSize(width: (self.object?.characters.count)! * 10, height: (self.object?.characters.count)! * 10)
     }
     
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCellFromStoryboard(withIdentifier: "cell", for: self, at: index) as! StoryboardCell
         cell.textLabel.text = object
+        cell.textLabel.textColor = .white
+        cell.backgroundColor = UIColor.magenta
         return cell
     }
     
