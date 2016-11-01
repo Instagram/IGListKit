@@ -11,6 +11,7 @@
 #import "IGListBatchUpdateData.h"
 #import "IGListCollectionContext.h"
 #import "IGListCollectionView.h"
+#import "IGListCollectionViewFlowLayout.h"
 #import "IGListDiff.h"
 #import "IGListDiffable.h"
 #import "IGListDisplayDelegate.h"

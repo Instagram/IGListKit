@@ -23,7 +23,7 @@ class StoryboardViewController: UIViewController, IGListAdapterDataSource {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
     
-    lazy var words = "Maecenas faucibus mollis interdum Praesent commodo cursus magna, vel scelerisque nisl consectetur et".components(separatedBy: " ")
+    lazy var words = "1Maecenas 2faucibus 3mollis 4interdum 5Praesent 6commodo 7cursus 8magna 9vel 10scelerisque 11nisl 12consectetur 13et 14Maecenas 15faucibus 16mollis 1Maecenas 2faucibus 3mollis 4interdum 5Praesent 6commodo 7cursus 8magna 9vel 10scelerisque 11nisl 12consectetur 13et 14Maecenas 15faucibus 16mollis 1Maecenas 2faucibus 3mollis 4interdum 5Praesent 6commodo 7cursus 8magna 9vel 10scelerisque 11nisl 12consectetur 13et 14Maecenas 15faucibus 16mollis 1Maecenas 2faucibus 3mollis 4interdum 5Praesent 6commodo 7cursus 8magna 9vel 10scelerisque 11nisl 12consectetur 13et 14Maecenas 15faucibus 16mollis".components(separatedBy: " ")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,4 +43,11 @@ class StoryboardViewController: UIViewController, IGListAdapterDataSource {
     }
     
     func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
+    
+    func didSelect(_ sectionController: IGListSingleSectionController) {
+        let section = adapter.section(for: sectionController) + 1
+        let alert = UIAlertController(title: "Section \(section) was selected \u{1F389}", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
 }
