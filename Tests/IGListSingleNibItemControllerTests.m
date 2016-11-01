@@ -16,7 +16,7 @@
 
 #define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
 
-@interface IGListSingleNibItemControllerTests : XCTestCase
+@interface IGListSingleNibSectionControllerTests : XCTestCase
 
 @property (nonatomic, strong) IGListCollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
@@ -26,7 +26,7 @@
 
 @end
 
-@implementation IGListSingleNibItemControllerTests
+@implementation IGListSingleNibSectionControllerTests
 
 - (void)setUp {
     [super setUp];
