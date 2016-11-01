@@ -21,7 +21,7 @@ func spinnerSectionController() -> IGListSingleSectionController {
         cell.activityIndicator.startAnimating()
     }
     
-    let sizeBlock = { (context: IGListCollectionContext?) -> CGSize in
+    let sizeBlock = { (item: Any, context: IGListCollectionContext?) -> CGSize in
         guard let context = context else { return .zero }
         return CGSize(width: context.containerSize.width, height: 100)
     }

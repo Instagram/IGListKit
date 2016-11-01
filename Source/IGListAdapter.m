@@ -778,6 +778,21 @@
     return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
 }
 
+- (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewFromStoryboardOfKind:(NSString *)elementKind
+                                                                             withIdentifier:(NSString *)identifier
+                                                                       forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+                                                                                    atIndex:(NSInteger)index {
+    IGAssertMainThread();
+    IGParameterAssert(elementKind.length > 0);
+    IGParameterAssert(identifier.length > 0);
+    IGParameterAssert(sectionController != nil);
+    IGParameterAssert(index >= 0);
+    UICollectionView *collectionView = self.collectionView;
+    IGAssert(collectionView != nil, @"Dequeueing Supplementary View from storyboard of kind %@ with identifier %@ for section controller %@ without a collection view at index %zi", elementKind, identifier, sectionController, index);
+    NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index];
+    return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
+}
+
 - (void)reloadInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {
     IGAssertMainThread();
     IGParameterAssert(indexes != nil);
