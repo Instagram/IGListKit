@@ -7,16 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestSingleStoryboardViewController.h"
+#import "IGTestStoryboardSupplementaryView.h"
 
-#import <IGListKit/IGListSingleSectionController.h>
-
-#import "IGTestStoryboardCell.h"
-
-@interface IGTestSingleStoryboardViewController ()
-
-@end
-
-@implementation IGTestSingleStoryboardViewController
+@implementation IGTestStoryboardSupplementaryView
 
 @end
