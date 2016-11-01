@@ -38,14 +38,14 @@
 @property (nonatomic, assign) CGFloat interitemSpacing;
 
 /**
+ The section index of the first item in line.
+ */
+@property (nonatomic, assign) NSInteger headIndex;
+
+/**
  The sizes to of the items in line.
  */
 @property (nonatomic, copy) NSMutableArray<NSValue *> *itemSizes;
-
-/**
- The index in itemSize array of the index path.
- */
-@property (nonatomic, copy) NSMutableDictionary<NSIndexPath*, NSNumber*> *indexForIndexPath;
 
 /**
  Initialization
@@ -77,7 +77,7 @@
  @return An array of attributes for all the items in line.
  */
 
-- (NSArray<UICollectionViewLayoutAttributes *> *)attributesForItems;
+- (NSArray<UICollectionViewLayoutAttributes *> *)attributesForAllItems;
 
 @end
 
@@ -142,9 +142,7 @@
 
 - (void)prepareLayout
 {
-    if ([self.lineCache count] == 0) {
-        [self reloadLayout];
-    }
+    [self reloadLayout];
 }
 
 - (CGSize)collectionViewContentSize
@@ -157,7 +155,7 @@
     NSMutableArray *array = [NSMutableArray array];
     for (_IGFlowLayoutLine *line in self.lineCache) {
         if (CGRectIntersectsRect(line.frame, rect)) {
-            NSArray<UICollectionViewLayoutAttributes *> *lineAttributes = [line attributesForItems];
+            NSArray<UICollectionViewLayoutAttributes *> *lineAttributes = [line attributesForAllItems];
             for (UICollectionViewLayoutAttributes *attributes in lineAttributes) {
                 if (CGRectIntersectsRect(attributes.frame, rect)) {
                     [array addObject:attributes];
@@ -240,7 +238,6 @@
         _scrollDirection = direction;
         _minimumInteritemSpacing = spacing;
         _itemSizes = [NSMutableArray array];
-        _indexForIndexPath = [NSMutableDictionary dictionary];
         _tailSpace = frame.size.width - self.minimumInteritemSpacing;
     }
     return self;
@@ -252,6 +249,11 @@
         return NO;
     }
     
+    if ([self.itemSizes count] == 0) {
+        // First item to add
+        self.headIndex = indexPath.section;
+    }
+    
     self.tailSpace -= size.width + self.minimumInteritemSpacing;
     if (size.height > self.frame.size.height) {
         CGRect frame = self.frame;
@@ -260,13 +262,12 @@
     }
     NSValue *sizeValue = [NSValue valueWithCGSize:size];
     [self.itemSizes addObject:sizeValue];
-    self.indexForIndexPath[indexPath] = [NSNumber numberWithInteger:(self.itemSizes.count - 1)];
     return YES;
 }
 
 - (UICollectionViewLayoutAttributes *)attributesForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger index = [self.indexForIndexPath[indexPath] integerValue];
+    NSInteger index = indexPath.section - self.headIndex;
     __block CGFloat x = 0;
     [self.itemSizes enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx < index) {
@@ -280,21 +281,31 @@
     return attributes;
 }
 
-- (NSArray<UICollectionViewLayoutAttributes *> *)attributesForItems
+- (NSArray<UICollectionViewLayoutAttributes *> *)attributesForAllItems
 {
-    NSMutableArray *array = [NSMutableArray array];
-    for (NSIndexPath *indexPath in [self.indexForIndexPath allKeys]) {
-        UICollectionViewLayoutAttributes *attributes = [self attributesForItemAtIndexPath:indexPath];
+    __block NSMutableArray *array = [NSMutableArray array];
+    __block CGFloat x = 0;
+    [self.itemSizes enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:(self.headIndex + idx)];
+        UICollectionViewLayoutAttributes *attributes = [self attributesForItemAtIndexPath:indexPath withXOffset:x];
         [array addObject:attributes];
-    }
+        CGSize size = [obj CGSizeValue];
+        x += size.width + self.minimumInteritemSpacing;
+    }];
     return array;
 }
 
 #pragma mark - Private API
 
+- (NSArray *)addItemToHeadWithSize:(CGSize)size
+{
+    NSMutableArray *array = [NSMutableArray array];
+    return array;
+}
+
 - (UICollectionViewLayoutAttributes *)attributesForItemAtIndexPath:(NSIndexPath *)indexPath withXOffset:(CGFloat)x
 {
-    NSInteger index = [self.indexForIndexPath[indexPath] integerValue];
+    NSInteger index = indexPath.section - self.headIndex;
     CGSize itemSize = [self.itemSizes[index] CGSizeValue];
     
     // Center vertically
