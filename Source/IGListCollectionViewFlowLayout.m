@@ -50,7 +50,10 @@
 /**
  Initialization
  */
-- (id)initWithFrame:(CGRect)frame scrollDirection:(UICollectionViewScrollDirection)direction minimumInteritemSpacing:(CGFloat)spacing;
+- (id)initWithMinimumInteritemSpacing:(CGFloat)spacing
+                            headIndex:(NSInteger)headIndex
+                                frame:(CGRect)frame
+                      scrollDirection:(UICollectionViewScrollDirection)direction;
 
 /**
  Adds item to the tail of the line with index path.
@@ -78,6 +81,8 @@
  */
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)attributesForAllItems;
+
+- (NSArray *)addItemsToHeadWithSizes:(NSArray *)sizes;
 
 @end
 
@@ -204,7 +209,10 @@
     
     // Init first line and add to lineCache
     CGRect frame = CGRectMake(0, 0, self.contentWidth, 0);
-    _IGFlowLayoutLine *firstLine = [[_IGFlowLayoutLine alloc] initWithFrame:frame scrollDirection:self.scrollDirection minimumInteritemSpacing:self.minimumInteritemSpacing];
+    _IGFlowLayoutLine *firstLine = [[_IGFlowLayoutLine alloc] initWithMinimumInteritemSpacing:self.scrollDirection
+                                                                                    headIndex:0
+                                                                                        frame:frame
+                                                                              scrollDirection:self.scrollDirection];
     [self.lineCache addObject:firstLine];
     
     for (NSInteger i = 0; i < self.collectionView.numberOfSections; i++) {
@@ -216,7 +224,10 @@
             // Not enough space for the last line
             CGFloat y = lastLine.frame.origin.y + lastLine.frame.size.height + self.minimumLineSpacing;
             frame = CGRectMake(0, y, self.contentWidth, 0);
-            _IGFlowLayoutLine *newLine = [[_IGFlowLayoutLine alloc] initWithFrame:frame scrollDirection:self.scrollDirection minimumInteritemSpacing:self.minimumInteritemSpacing];
+            _IGFlowLayoutLine *newLine = [[_IGFlowLayoutLine alloc] initWithMinimumInteritemSpacing:self.scrollDirection
+                                                                                            headIndex:i
+                                                                                                frame:frame
+                                                                                      scrollDirection:self.scrollDirection];
             [self.lineCache addObject:newLine];
             [newLine addItemToTailWithSize:itemSize atIndexPath:indexPath];
         }
@@ -230,7 +241,11 @@
 
 @implementation _IGFlowLayoutLine
 
-- (id)initWithFrame:(CGRect)frame scrollDirection:(UICollectionViewScrollDirection)direction minimumInteritemSpacing:(CGFloat)spacing
+- (id)initWithMinimumInteritemSpacing:(CGFloat)spacing
+                            headIndex:(NSInteger)headIndex
+                                frame:(CGRect)frame
+                      scrollDirection:(UICollectionViewScrollDirection)direction
+
 {
     self = [super init];
     if (self) {
@@ -238,6 +253,7 @@
         _scrollDirection = direction;
         _minimumInteritemSpacing = spacing;
         _itemSizes = [NSMutableArray array];
+        _headIndex = headIndex;
         _tailSpace = frame.size.width - self.minimumInteritemSpacing;
     }
     return self;
@@ -263,6 +279,13 @@
     NSValue *sizeValue = [NSValue valueWithCGSize:size];
     [self.itemSizes addObject:sizeValue];
     return YES;
+}
+
+- (NSArray *)addItemsToHeadWithSizes:(NSArray *)sizes
+{
+    NSMutableArray *removedSizes = [NSMutableArray array];
+    
+    return removedSizes;
 }
 
 - (UICollectionViewLayoutAttributes *)attributesForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -297,10 +320,25 @@
 
 #pragma mark - Private API
 
-- (NSArray *)addItemToHeadWithSize:(CGSize)size
+- (BOOL)addItemToHeadWithSize:(CGSize)size
 {
-    NSMutableArray *array = [NSMutableArray array];
-    return array;
+    NSValue *sizeValue = [NSValue valueWithCGSize:size];
+    if (size.width > self.tailSpace - self.minimumInteritemSpacing) {
+        [self.itemSizes insertObject:sizeValue atIndex:0];
+        self.headIndex -= 1;
+    }
+    return NO;
+}
+
+/**
+ This method only remove item from the line and update tail space. Not adjusting frame.
+ */
+- (CGSize)removeItemFromTail
+{
+    CGSize size = [[self.itemSizes lastObject] CGSizeValue];
+    [self.itemSizes removeLastObject];
+    self.tailSpace += size.width + self.minimumInteritemSpacing;
+    return size;
 }
 
 - (UICollectionViewLayoutAttributes *)attributesForItemAtIndexPath:(NSIndexPath *)indexPath withXOffset:(CGFloat)x
@@ -310,6 +348,7 @@
     
     // Center vertically
     CGFloat y = (self.frame.size.height - itemSize.height) / 2;
+    
     CGRect frame = CGRectMake(self.frame.origin.x + x, self.frame.origin.y + y, itemSize.width, itemSize.height);
     UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
     attributes.frame = frame;
