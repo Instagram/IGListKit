@@ -15,9 +15,14 @@
 import UIKit
 import IGListKit
 
+protocol RemoveLabelSectionControllerDelegate: class {
+    func removeSectionControllerWantsRemoved(_ sectionController: StoryboardLabelSectionController)
+}
+
 class StoryboardLabelSectionController: IGListSectionController, IGListSectionType {
     
     var object: String?
+    weak var delegate: RemoveLabelSectionControllerDelegate?
     
     func numberOfItems() -> Int {
         return 1
@@ -39,6 +44,9 @@ class StoryboardLabelSectionController: IGListSectionController, IGListSectionTy
         self.object = object as? String
     }
     
-    func didSelectItem(at index: Int) {}
+    func didSelectItem(at index: Int) {
+        self.collectionContext?.reload(in: self, at: [index])
+        delegate?.removeSectionControllerWantsRemoved(self)
+    }
     
 }

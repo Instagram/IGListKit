@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class StoryboardViewController: UIViewController, IGListAdapterDataSource {
+class StoryboardViewController: UIViewController, IGListAdapterDataSource, RemoveLabelSectionControllerDelegate {
 
     @IBOutlet weak var collectionView: IGListCollectionView!
     
@@ -23,7 +23,7 @@ class StoryboardViewController: UIViewController, IGListAdapterDataSource {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
     
-    lazy var words = "1Maecenas 2faucibus 3mollis 4interdum 5Praesent 6commodo 7cursus 8magna 9vel 10scelerisque 11nisl 12consectetur 13et 14Maecenas 15faucibus 16mollis 1Maecenas 2faucibus 3mollis 4interdum 5Praesent 6commodo 7cursus 8magna 9vel 10scelerisque 11nisl 12consectetur 13et 14Maecenas 15faucibus 16mollis 1Maecenas 2faucibus 3mollis 4interdum 5Praesent 6commodo 7cursus 8magna 9vel 10scelerisque 11nisl 12consectetur 13et 14Maecenas 15faucibus 16mollis 1Maecenas 2faucibus 3mollis 4interdum 5Praesent 6commodo 7cursus 8magna 9vel 10scelerisque 11nisl 12consectetur 13et 14Maecenas 15faucibus 16mollis".components(separatedBy: " ")
+    lazy var words = "1Maecenas 2faucibus 3mollis 4interdum 5Praesent 6commodo 7cursus 8magna 9vel 10scelerisque 11nisl 12consectetur 13et 14Maecenas 15faucibus 16mollis 17magna 18magna 19vel 20scelerisque 21Maecenas 22faucibus 23mollis 24interdum 25Praesent 26commodo 27cursus 28magna 29vel 30scelerisque 31nisl 32consectetur 33et 34Maecenas 35faucibus 36mollis 37magna 38magna 39vel 40scelerisque".components(separatedBy: " ")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +39,9 @@ class StoryboardViewController: UIViewController, IGListAdapterDataSource {
     }
     
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
-        return StoryboardLabelSectionController()
+        let sectionController = StoryboardLabelSectionController()
+        sectionController.delegate = self
+        return sectionController
     }
     
     func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
@@ -49,5 +51,12 @@ class StoryboardViewController: UIViewController, IGListAdapterDataSource {
         let alert = UIAlertController(title: "Section \(section) was selected \u{1F389}", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+    
+    func removeSectionControllerWantsRemoved(_ sectionController: StoryboardLabelSectionController) {
+        let section = adapter.section(for: sectionController)
+        print(section)
+        words.remove(at: Int(section))
+        adapter.performUpdates(animated: true, completion: nil)
     }
 }

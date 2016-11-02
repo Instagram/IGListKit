@@ -219,6 +219,7 @@
 - (void)reloadLayout
 {
     [self.lineCache removeAllObjects];
+    [self.lineForItem removeAllObjects];
     
     // Init first line and add to lineCache
     CGRect frame = CGRectMake(0, 0, self.contentWidth, 0);
