@@ -36,10 +36,8 @@ class User: IGListDiffable {
         if self === object {
             return true
         }
-        if let object = object as? User {
-            return name == object.name && handle == object.handle
-        }
-        return false
+        guard let object = object as? User else { return false }
+        return name == object.name && handle == object.handle
     }
 
 }
