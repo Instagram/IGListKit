@@ -116,6 +116,16 @@
  */
 @property (nonatomic, assign) CGFloat contentHeight;
 
+/**
+ The item count per line when item has fixed size.
+ */
+@property (nonatomic, assign) NSInteger itemPerLine;
+
+/**
+ The line count when item has fixed size.
+ */
+@property (nonatomic, assign) NSInteger lineNumber;
+
 @end
 
 #pragma mark - IGListCollectionViewFlowLayout Implementation
@@ -147,13 +157,18 @@
     _minimumInteritemSpacing = 0.0;
     _lineCache = [NSMutableArray<_IGFlowLayoutLine *> array];
     _lineForItem = [NSMutableArray array];
+    _itemSize = CGSizeZero;
 }
 
 #pragma mark - Layout Infomation
 
 - (void)prepareLayout
 {
-    [self reloadLayout];
+    if (CGSizeEqualToSize(self.itemSize, CGSizeZero)) {
+        [self reloadLayout];
+    } else {
+        [self reloadLayoutWithConstantItemSize:self.itemSize];
+    }
 }
 
 - (CGSize)collectionViewContentSize
@@ -164,13 +179,44 @@
 - (NSArray<__kindof UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect
 {
     NSMutableArray *array = [NSMutableArray array];
-    for (_IGFlowLayoutLine *line in self.lineCache) {
-        if (CGRectIntersectsRect(line.frame, rect)) {
-            NSArray<UICollectionViewLayoutAttributes *> *lineAttributes = [line attributesForAllItems];
-            for (UICollectionViewLayoutAttributes *attributes in lineAttributes) {
-                if (CGRectIntersectsRect(attributes.frame, rect)) {
-                    [array addObject:attributes];
+    if (CGSizeEqualToSize(self.itemSize, CGSizeZero)) {
+        BOOL findFirstLine = NO;
+        for (_IGFlowLayoutLine *line in self.lineCache) {
+            if (CGRectIntersectsRect(line.frame, rect)) {
+                findFirstLine = YES;
+                NSArray<UICollectionViewLayoutAttributes *> *lineAttributes = [line attributesForAllItems];
+                for (UICollectionViewLayoutAttributes *attributes in lineAttributes) {
+                    if (CGRectIntersectsRect(attributes.frame, rect)) {
+                        [array addObject:attributes];
+                    }
                 }
+            } else if (findFirstLine) {
+                break;
+            }
+        }
+    } else {
+        NSInteger firstLine = (int)(rect.origin.y / (self.itemSize.height + self.minimumLineSpacing));
+        NSInteger lastLine = (int)((rect.origin.y + rect.size.height + self.itemSize.height + self.minimumLineSpacing)
+                                             / (self.itemSize.height + self.minimumLineSpacing));
+        NSInteger firstColumn = (int)(rect.origin.x / (self.itemSize.width + self.minimumInteritemSpacing));
+        NSInteger LastColumn = (int)((rect.origin.x + rect.size.width + self.itemSize.width + self.minimumInteritemSpacing)
+                                               / (self.itemSize.width + self.minimumInteritemSpacing));
+        firstLine = firstLine >= 0 ? firstLine : 0;
+        lastLine = lastLine >= 0 ? lastLine : 0;
+        firstColumn = firstColumn >= 0 ? firstColumn : 0;
+        LastColumn = LastColumn >= 0 ? LastColumn : 0;
+        for (NSInteger l = firstLine; l <= lastLine; l++) {
+            NSInteger section = 0;
+            for (NSInteger c = firstColumn; c <= LastColumn; c++) {
+                section = l * self.itemPerLine + c;
+                if (section >= self.collectionView.numberOfSections) {
+                    break;
+                }
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
+                [array addObject:[self layoutAttributesForItemAtIndexPath:indexPath]];
+            }
+            if (section >= self.collectionView.numberOfSections) {
+                break;
             }
         }
     }
@@ -179,21 +225,26 @@
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger lineNumber = [self.lineForItem[indexPath.section] integerValue];
-    _IGFlowLayoutLine *line = self.lineCache[lineNumber];
-    return [line attributesForItemAtIndexPath:indexPath];
+    if (CGSizeEqualToSize(self.itemSize, CGSizeZero)) {
+        NSInteger lineNumber = [self.lineForItem[indexPath.section] integerValue];
+        _IGFlowLayoutLine *line = self.lineCache[lineNumber];
+        return [line attributesForItemAtIndexPath:indexPath];
+    } else {
+        NSInteger section = indexPath.section;
+        NSInteger lineNumber = section / self.itemPerLine;
+        NSInteger column = section - lineNumber * self.itemPerLine;
+        CGFloat x = column * (self.itemSize.width + self.minimumInteritemSpacing);
+        CGFloat y = lineNumber * (self.itemSize.height + self.minimumLineSpacing);
+        CGRect frame = CGRectMake(x, y, self.itemSize.width, self.itemSize.height);
+        UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+        attributes.frame = frame;
+        return attributes;
+    }
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
 {
     return NO;
-}
-
-#pragma mark - Update Layout
-
-- (void)prepareForCollectionViewUpdates:(NSArray<UICollectionViewUpdateItem *> *)updateItems
-{
-    
 }
 
 #pragma mark - Getter Setter
@@ -207,10 +258,16 @@
 - (CGFloat)contentHeight
 {
     CGFloat height = 0;
-    for (_IGFlowLayoutLine *line in self.lineCache) {
-        height += line.frame.size.height;
+    
+    if (CGSizeEqualToSize(self.itemSize, CGSizeZero)) {
+        for (_IGFlowLayoutLine *line in self.lineCache) {
+            height += line.frame.size.height;
+        }
+        height += ([self.lineCache count] - 1) * self.minimumLineSpacing;
+    } else {
+        height = self.lineNumber * (self.itemSize.height + self.minimumLineSpacing) - self.minimumLineSpacing;
     }
-    height += ([self.lineCache count] - 1) * self.minimumLineSpacing;
+    
     return height;
 }
 
@@ -247,6 +304,13 @@
         }
         [self.lineForItem addObject:[NSNumber numberWithInteger:(self.lineCache.count - 1)]];
     }
+}
+
+- (void)reloadLayoutWithConstantItemSize:(CGSize)itemSize
+{
+    self.itemPerLine = (int) ((self.contentWidth + self.minimumInteritemSpacing)
+                               / (itemSize.width + self.minimumInteritemSpacing));
+    self.lineNumber = (self.collectionView.numberOfSections + self.itemPerLine - 1) / self.itemPerLine;
 }
 
 @end
@@ -293,30 +357,34 @@
 - (UICollectionViewLayoutAttributes *)attributesForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger index = indexPath.section - self.headIndex;
-    __block CGFloat x = 0;
-    [self.itemSizes enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    CGFloat x = 0;
+    NSInteger idx = 0;
+    for (NSValue *sizeValue in self.itemSizes) {
         if (idx < index) {
-            CGSize size = [obj CGSizeValue];
+            CGSize size = [sizeValue CGSizeValue];
             x += size.width + self.minimumInteritemSpacing;
         } else {
-            *stop = YES;
+            break;
         }
-    }];
+        idx++;
+    }
     UICollectionViewLayoutAttributes *attributes = [self attributesForItemAtIndexPath:indexPath withXOffset:x];
     return attributes;
 }
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)attributesForAllItems
 {
-    __block NSMutableArray *array = [NSMutableArray array];
-    __block CGFloat x = 0;
-    [self.itemSizes enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSMutableArray *array = [NSMutableArray array];
+    CGFloat x = 0;
+    NSInteger idx = 0;
+    for (NSValue *sizeValue in self.itemSizes) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:(self.headIndex + idx)];
         UICollectionViewLayoutAttributes *attributes = [self attributesForItemAtIndexPath:indexPath withXOffset:x];
         [array addObject:attributes];
-        CGSize size = [obj CGSizeValue];
+        CGSize size = [sizeValue CGSizeValue];
         x += size.width + self.minimumInteritemSpacing;
-    }];
+        idx++;
+    }
     return array;
 }
 
