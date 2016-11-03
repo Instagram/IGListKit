@@ -7,16 +7,15 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <UIKit/UIKit.h>
-
-#import "IGListCollectionView.h"
+#import <Foundation/Foundation.h>
 
 #import <IGListKit/IGListAdapterDataSource.h>
 
-#import "IGTestObject.h"
+@interface IGListTestAdapterStoryboardDataSource : NSObject <IGListAdapterDataSource>
 
-@interface IGTestSingleStoryboardViewController : UIViewController
+// array of numbers which is then passed to -[IGListTestSection setItems:]
+@property (nonatomic, strong) NSArray <NSNumber *> *objects;
 
-@property (weak, nonatomic) IBOutlet IGListCollectionView *collectionView;
+@property (nonatomic, strong) UIView *backgroundView;
 
 @end

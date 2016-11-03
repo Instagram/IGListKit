@@ -212,8 +212,8 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
                                                                   atIndex:(NSInteger)index {
     const NSUInteger offset = [self offsetForSectionController:sectionController];
     return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeueReusableCellFromStoryboardWithIdentifier:identifier
-                                                                             forSectionController:self
-                                                                                          atIndex:(index + offset)];
+                                                                                              forSectionController:self
+                                                                                                           atIndex:(index + offset)];
 }
 
 - (UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
@@ -225,6 +225,17 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
                                                                                      forSectionController:self
                                                                                                     class:viewClass
                                                                                                   atIndex:(index + offset)];
+}
+
+- (UICollectionReusableView *)dequeueReusableSupplementaryViewFromStoryboardOfKind:(NSString *)elementKind
+                                                                    withIdentifier:(NSString *)identifier
+                                                              forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                                                           atIndex:(NSInteger)index {
+    const NSUInteger offset = [self offsetForSectionController:sectionController];
+    return (UICollectionViewCell *_Nonnull)[self.collectionContext dequeueReusableSupplementaryViewFromStoryboardOfKind:elementKind
+                                                                                                         withIdentifier:identifier
+                                                                                                   forSectionController:self
+                                                                                                                atIndex:(index + offset)];
 }
 
 - (void)reloadInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {

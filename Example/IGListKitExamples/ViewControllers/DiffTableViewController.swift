@@ -30,10 +30,8 @@ class Person: IGListDiffable {
     }
 
     func isEqual(_ object: IGListDiffable?) -> Bool {
-        if let object = object as? Person {
-            return self.name == object.name
-        }
-        return false
+        guard let object = object as? Person else { return false }
+        return self.name == object.name
     }
 
 }
