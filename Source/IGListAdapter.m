@@ -114,10 +114,6 @@
 - (void)updateAfterPublicSettingsChange {
     if (_collectionView != nil && _dataSource != nil) {
         [self updateObjects:[[_dataSource objectsForListAdapter:self] copy]];
-
-        if (IGListExperimentEnabled(self.experiments, IGListExperimentUICVReloadedInSetter)) {
-            [_collectionView reloadData];
-        }
     }
 }
 
