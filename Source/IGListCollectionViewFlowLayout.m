@@ -126,6 +126,11 @@
  */
 @property (nonatomic, assign) NSInteger lineNumber;
 
+/**
+ The real interitem spacing when item has fixed size.
+ */
+@property (nonatomic, assign) CGFloat interitemSpacing;
+
 @end
 
 #pragma mark - IGListCollectionViewFlowLayout Implementation
@@ -233,7 +238,7 @@
         NSInteger section = indexPath.section;
         NSInteger lineNumber = section / self.itemPerLine;
         NSInteger column = section - lineNumber * self.itemPerLine;
-        CGFloat x = column * (self.itemSize.width + self.minimumInteritemSpacing);
+        CGFloat x = column * (self.itemSize.width + self.interitemSpacing);
         CGFloat y = lineNumber * (self.itemSize.height + self.minimumLineSpacing);
         CGRect frame = CGRectMake(x, y, self.itemSize.width, self.itemSize.height);
         UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
@@ -311,6 +316,7 @@
     self.itemPerLine = (int) ((self.contentWidth + self.minimumInteritemSpacing)
                                / (itemSize.width + self.minimumInteritemSpacing));
     self.lineNumber = (self.collectionView.numberOfSections + self.itemPerLine - 1) / self.itemPerLine;
+    self.interitemSpacing = (self.contentWidth - (self.itemSize.width * self.itemPerLine)) / (self.itemPerLine - 1);
 }
 
 @end
