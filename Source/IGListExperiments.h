@@ -15,7 +15,6 @@
  Bitmask-able options used for prerelease feature testing.
  */
 typedef NS_OPTIONS (NSUInteger, IGListExperiment) {
-    IGListExperimentLayoutBeforeUpdate = 1 << 0,
     IGListExperimentUICVReloadedInSetter = 1 << 1,
 };
 
