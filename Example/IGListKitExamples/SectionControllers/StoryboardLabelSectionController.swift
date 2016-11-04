@@ -45,7 +45,6 @@ class StoryboardLabelSectionController: IGListSectionController, IGListSectionTy
     }
     
     func didSelectItem(at index: Int) {
-        self.collectionContext?.reload(in: self, at: [index])
         delegate?.removeSectionControllerWantsRemoved(self)
     }
     

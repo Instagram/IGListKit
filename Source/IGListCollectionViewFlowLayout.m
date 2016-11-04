@@ -35,11 +35,6 @@
 @property (nonatomic, assign) CGFloat minimumInteritemSpacing;
 
 /**
- The spacing to use between items.
- */
-@property (nonatomic, assign) CGFloat interitemSpacing;
-
-/**
  The section index of the first item in line.
  */
 @property (nonatomic, assign) NSInteger headIndex;
@@ -239,6 +234,10 @@
         NSInteger lineNumber = section / self.itemPerLine;
         NSInteger column = section - lineNumber * self.itemPerLine;
         CGFloat x = column * (self.itemSize.width + self.interitemSpacing);
+        if (self.itemPerLine == 1) {
+            // Center the item when there is only one item per line.
+            x = (self.contentWidth - self.itemSize.width) / 2.0f;
+        }
         CGFloat y = lineNumber * (self.itemSize.height + self.minimumLineSpacing);
         CGRect frame = CGRectMake(x, y, self.itemSize.width, self.itemSize.height);
         UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
@@ -250,6 +249,11 @@
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
 {
     return NO;
+}
+
+- (void)prepareForCollectionViewUpdates:(NSArray<UICollectionViewUpdateItem *> *)updateItems
+{
+    // Need to provide insert item positions
 }
 
 #pragma mark - Getter Setter
