@@ -152,6 +152,24 @@ NS_ASSUME_NONNULL_BEGIN
                                                                              withIdentifier:(NSString *)identifier
                                                                        forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
                                                                                     atIndex:(NSInteger)index;
+/**
+ Dequeues a supplementary view from the UICollectionView reuse pool.
+ 
+ @param elementKind       The kind of supplementary veiw.
+ @param sectionController The section controller requesting this information.
+ @param nibName           The name of the nib file.
+ @param bundle            The bundle in which to search for the nib file. If nil, this method looks for the nib file in the main bundle.
+ @param index             The index of the supplementary vew.
+ 
+ @return A supplementary view dequeued from the reuse pool or newly created.
+ 
+ @note This method uses a string representation of the view class as the identifier.
+ */
+- (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
+                                                         forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                                                      nibName:(NSString *)nibName
+                                                                       bundle:(nullable NSBundle *)bundle
+                                                                      atIndex:(NSInteger)index;
 
 /**
  Reloads cells in the section controller.
