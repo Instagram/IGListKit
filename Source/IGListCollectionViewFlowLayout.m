@@ -81,12 +81,6 @@
 
 @end
 
-#pragma mark - IGFlowLayoutInvalidationContext
-
-@interface _IGFlowLayoutInvalidationContext : UICollectionViewLayoutInvalidationContext
-
-@end
-
 #pragma mark - IGListCollectionViewFlowLayout
 
 @interface IGListCollectionViewFlowLayout ()
@@ -233,11 +227,16 @@
         NSInteger section = indexPath.section;
         NSInteger lineNumber = section / self.itemPerLine;
         NSInteger column = section - lineNumber * self.itemPerLine;
-        CGFloat x = column * (self.itemSize.width + self.interitemSpacing);
-        if (self.itemPerLine == 1) {
+        
+        /** Stay with left alignment for now.
+         CGFloat x = column * (self.itemSize.width + self.interitemSpacing);
+         if (self.itemPerLine == 1) {
             // Center the item when there is only one item per line.
             x = (self.contentWidth - self.itemSize.width) / 2.0f;
-        }
+         }
+         */
+        
+        CGFloat x = column * (self.itemSize.width + self.minimumInteritemSpacing);
         CGFloat y = lineNumber * (self.itemSize.height + self.minimumLineSpacing);
         CGRect frame = CGRectMake(x, y, self.itemSize.width, self.itemSize.height);
         UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
