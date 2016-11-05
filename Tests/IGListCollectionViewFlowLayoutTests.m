@@ -82,4 +82,24 @@
     XCTAssertEqual(CGRectGetHeight(attributes.frame), 44.0f);
 }
 
+- (void)test_whenDisplayingCollectionView_thatSectionsHaveMultipleItems {
+    self.layout.itemSize = CGSizeMake(44.0f, 44.0f);
+    self.layout.minimumInteritemSpacing = 12.0f;
+    self.layout.minimumLineSpacing = 6.0f;
+    [self setupWithObjects:@[
+                             genTestObject(@1, @"Foo"),
+                             genTestObject(@2, @"Bar"),
+                             genTestObject(@3, @"Baz"),
+                             ]];
+    CGSize contentSize = self.layout.collectionViewContentSize;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:2];
+    UICollectionViewLayoutAttributes *attributes = [self.layout layoutAttributesForItemAtIndexPath:indexPath];
+    XCTAssertEqual(contentSize.width, 100.0f);
+    XCTAssertEqual(contentSize.height, 94.0f);
+    XCTAssertEqual(CGRectGetMinX(attributes.frame), 0.0f);
+    XCTAssertEqual(CGRectGetMinY(attributes.frame), 50.0f);
+    XCTAssertEqual(CGRectGetWidth(attributes.frame), 44.0f);
+    XCTAssertEqual(CGRectGetHeight(attributes.frame), 44.0f);
+}
+
 @end
