@@ -56,6 +56,7 @@ IGListCollectionContext
 @property (nonatomic, strong) NSMutableSet<Class> *registeredCellClasses;
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredNibNames;
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewIdentifiers;
+@property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewNibNames;
 
 - (NSArray *)indexPathsFromSectionController:(IGListSectionController <IGListSectionType> *)sectionController
                                      indexes:(NSIndexSet *)indexes

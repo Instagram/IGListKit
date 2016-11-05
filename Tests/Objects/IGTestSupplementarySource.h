@@ -13,6 +13,8 @@
 
 @interface IGTestSupplementarySource : NSObject <IGListSupplementaryViewSource>
 
+@property (nonatomic, assign) BOOL dequeueFromNib;
+
 @property (nonatomic, strong, readwrite) NSArray<NSString *> *supportedElementKinds;
 
 @property (nonatomic, weak) id<IGListCollectionContext> collectionContext;
