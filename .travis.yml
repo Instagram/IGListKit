@@ -39,12 +39,12 @@ script:
   fi
 
 
-- if [ $BUILD_EXAMPLE == "YES" && $SDK == $IOS_SDK ]; then
+- if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $IOS_SDK ]; then
       xcodebuild build -workspace Example/IGListKitExamples.xcworkspace -scheme IGListKitExamples -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
   fi
 
 
-- if [ $BUILD_EXAMPLE == "YES" && $SDK == $TVOS_SDK ]; then
+- if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $TVOS_SDK ]; then
       xcodebuild build -workspace Examples-tvOS/IGListKitExamples.xcworkspace -scheme IGListKitExamples -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
   fi
 
