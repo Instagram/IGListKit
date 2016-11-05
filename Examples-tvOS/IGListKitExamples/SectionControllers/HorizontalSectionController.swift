@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class HorizontalSectionController: IGListSectionController, IGListSectionType, IGListAdapterDataSource {
+final class HorizontalSectionController: IGListSectionController, IGListSectionType, IGListAdapterDataSource {
     
     var number: Int?
     

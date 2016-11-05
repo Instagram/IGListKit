@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class CarouselSectionController: IGListSectionController, IGListSectionType {
+final class CarouselSectionController: IGListSectionController, IGListSectionType {
 
     var number: Int?
     

@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class EmbeddedCollectionViewCell: UICollectionViewCell {
+final class EmbeddedCollectionViewCell: UICollectionViewCell {
     
     lazy var collectionView: IGListCollectionView = {
         let layout = UICollectionViewFlowLayout()

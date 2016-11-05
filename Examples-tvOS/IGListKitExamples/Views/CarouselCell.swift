@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CarouselCell: UICollectionViewCell {
+final class CarouselCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {

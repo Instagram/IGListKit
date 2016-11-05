@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class DemoItem: NSObject {
+final class DemoItem: NSObject {
     
     let name: String
     let controllerClass: UIViewController.Type
@@ -31,7 +31,7 @@ class DemoItem: NSObject {
     
 }
 
-class DemoSectionController: IGListSectionController, IGListSectionType {
+final class DemoSectionController: IGListSectionController, IGListSectionType {
 
     var object: DemoItem?
     

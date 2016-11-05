@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class NestedAdapterViewController: UIViewController, IGListAdapterDataSource {
+final class NestedAdapterViewController: UIViewController, IGListAdapterDataSource {
     
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
