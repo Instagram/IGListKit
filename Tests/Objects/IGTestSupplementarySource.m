@@ -9,16 +9,28 @@
 
 #import "IGTestSupplementarySource.h"
 
+#import "IGTestNibSupplementaryView.h"
+
 @implementation IGTestSupplementarySource
 
 #pragma mark - IGListSupplementaryViewSource
 
 - (UICollectionReusableView *)viewForSupplementaryElementOfKind:(NSString *)elementKind
                                                         atIndex:(NSInteger)index {
-    return [self.collectionContext dequeueReusableSupplementaryViewOfKind:elementKind
-                                                  forSectionController:self.sectionController
-                                                                  class:[UICollectionReusableView class]
-                                                                atIndex:index];
+    if (self.dequeueFromNib) {
+        IGTestNibSupplementaryView *view = [self.collectionContext dequeueReusableSupplementaryViewOfKind:elementKind
+                                                                                     forSectionController:self.sectionController
+                                                                                                  nibName:@"IGTestNibSupplementaryView"
+                                                                                                   bundle:[NSBundle bundleForClass:self.class]
+                                                                                                  atIndex:index];
+        view.label.text = @"Foo bar baz";
+        return view;
+    } else {
+        return [self.collectionContext dequeueReusableSupplementaryViewOfKind:elementKind
+                                                         forSectionController:self.sectionController
+                                                                        class:[UICollectionReusableView class]
+                                                                      atIndex:index];
+    }
 }
 
 - (CGSize)sizeForSupplementaryViewOfKind:(NSString *)elementKind atIndex:(NSInteger)index {

@@ -19,6 +19,7 @@
 #import "IGListTestAdapterDataSource.h"
 #import "IGListTestSection.h"
 #import "IGTestSupplementarySource.h"
+#import "IGTestNibSupplementaryView.h"
 
 @interface IGListAdapterTests : XCTestCase
 
@@ -375,6 +376,30 @@
     [self.adapter performUpdatesAnimated:NO completion:nil];
 
     XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+    XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+    XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
+    XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
+}
+
+- (void)test_whenSupplementarySourceSupportsFooter_withNibs_thatHeaderViewsAreNil {
+    self.dataSource.objects = @[@1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.dequeueFromNib = YES;
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
+
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@1];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+
+    id view = [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    XCTAssertTrue([view isKindOfClass:IGTestNibSupplementaryView.class]);
+    XCTAssertEqualObjects([[(IGTestNibSupplementaryView *)view label] text], @"Foo bar baz");
+
     XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
     XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
     XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);

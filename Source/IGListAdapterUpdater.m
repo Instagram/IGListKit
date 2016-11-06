@@ -208,17 +208,6 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
 
     @try {
         [delegate listAdapterUpdater:self willPerformBatchUpdatesWithCollectionView:collectionView];
-
-        if (IGListExperimentEnabled(self.experiments, IGListExperimentLayoutBeforeUpdate)) {
-            /**
-             There are traces where UICollectionView throws "Invalid update: invalid number of items in section i..." where
-             logs show that the problem section has a different "before" item count than the assert claims. Our hunch is
-             that there is some state corruption from too many unanimated updates happening rapidly and layout state
-             becoming out of sync.
-             */
-            [collectionView layoutIfNeeded];
-        }
-
         if (animated) {
             [collectionView performBatchUpdates:updateBlock completion:completionBlock];
         } else {
