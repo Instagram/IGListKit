@@ -40,6 +40,11 @@
 		2991F92C1D7BBE5400B0C58F /* RemoveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2991F92B1D7BBE5400B0C58F /* RemoveCell.swift */; };
 		2991F9301D7BC0E400B0C58F /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2991F92F1D7BC0E400B0C58F /* EmptyViewController.swift */; };
 		299B54001D6BD6630074A202 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299B53FF1D6BD6630074A202 /* SearchViewController.swift */; };
+		29C6297B1DCFD857004A5BB1 /* SupplementaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C6297A1DCFD857004A5BB1 /* SupplementaryViewController.swift */; };
+		29C6297D1DCFD8E5004A5BB1 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C6297C1DCFD8E5004A5BB1 /* FeedItem.swift */; };
+		29C6297F1DCFD9E9004A5BB1 /* FeedItemSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C6297E1DCFD9E9004A5BB1 /* FeedItemSectionController.swift */; };
+		29C629811DCFDAF3004A5BB1 /* UserHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29C629801DCFDAF3004A5BB1 /* UserHeaderView.xib */; };
+		29C629831DCFDB57004A5BB1 /* UserHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C629821DCFDB57004A5BB1 /* UserHeaderView.swift */; };
 		696C69AF297B6455C862314F /* Pods_IGListKitTodayExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D64E902433068998DDE711FB /* Pods_IGListKitTodayExample.framework */; };
 		75B39B8327726E4F6AA04B13 /* Pods_IGListKitMessageExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60AF908234A48B4187E68DAB /* Pods_IGListKitMessageExample.framework */; };
 		814F1E00410200822610BB49 /* Pods_IGListKitExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A8DC2D07A93D7AA55BC993 /* Pods_IGListKitExamples.framework */; };
@@ -130,6 +135,11 @@
 		2991F92B1D7BBE5400B0C58F /* RemoveCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveCell.swift; sourceTree = "<group>"; };
 		2991F92F1D7BC0E400B0C58F /* EmptyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
 		299B53FF1D6BD6630074A202 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		29C6297A1DCFD857004A5BB1 /* SupplementaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplementaryViewController.swift; sourceTree = "<group>"; };
+		29C6297C1DCFD8E5004A5BB1 /* FeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
+		29C6297E1DCFD9E9004A5BB1 /* FeedItemSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItemSectionController.swift; sourceTree = "<group>"; };
+		29C629801DCFDAF3004A5BB1 /* UserHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserHeaderView.xib; sourceTree = "<group>"; };
+		29C629821DCFDB57004A5BB1 /* UserHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHeaderView.swift; sourceTree = "<group>"; };
 		4125DCD99578FDEF3C373BA0 /* Pods-IGListKitExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.release.xcconfig"; sourceTree = "<group>"; };
 		45D6CC137030027019AE64D8 /* Pods-IGListKitTodayExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTodayExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTodayExample/Pods-IGListKitTodayExample.debug.xcconfig"; sourceTree = "<group>"; };
 		52A8DC2D07A93D7AA55BC993 /* Pods_IGListKitExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,13 +214,14 @@
 				2942FF831D9F39E00015D24B /* DemoSectionController.swift */,
 				2942FF841D9F39E00015D24B /* EmbeddedSectionController.swift */,
 				2942FF851D9F39E00015D24B /* ExpandableSectionController.swift */,
+				29C6297E1DCFD9E9004A5BB1 /* FeedItemSectionController.swift */,
 				2942FF861D9F39E00015D24B /* GridSectionController.swift */,
 				2942FF871D9F39E00015D24B /* HorizontalSectionController.swift */,
 				2942FF881D9F39E00015D24B /* LabelSectionController.swift */,
 				2942FF891D9F39E00015D24B /* RemoveSectionController.swift */,
 				2942FF8A1D9F39E00015D24B /* SearchSectionController.swift */,
-				2942FF8B1D9F39E00015D24B /* UserSectionController.swift */,
 				821BC4B91DB8B61200172ED0 /* StoryboardLabelSectionController.swift */,
+				2942FF8B1D9F39E00015D24B /* UserSectionController.swift */,
 				2981BA361DB869FF00A987F9 /* WorkingRangeSectionController.swift */,
 			);
 			path = SectionControllers;
@@ -258,16 +269,17 @@
 			isa = PBXGroup;
 			children = (
 				2961B3A41D68B0B5001C9451 /* DemosViewController.swift */,
+				29459BFF1DBE48E200F05375 /* DiffTableViewController.swift */,
 				2991F92F1D7BC0E400B0C58F /* EmptyViewController.swift */,
 				2961B3A51D68B0B5001C9451 /* LoadMoreViewController.swift */,
 				299068271D75BFEC00A62888 /* MixedDataViewController.swift */,
 				2991F9231D7BB89F00B0C58F /* NestedAdapterViewController.swift */,
 				299B53FF1D6BD6630074A202 /* SearchViewController.swift */,
+				82D91B681DBA0EF300E62758 /* SingleSectionStoryboardViewController.swift */,
 				26271C8D1DAE9D3F0073E116 /* SingleSectionViewController.swift */,
 				821BC4B51DB8B3DC00172ED0 /* StoryboardViewController.swift */,
+				29C6297A1DCFD857004A5BB1 /* SupplementaryViewController.swift */,
 				2981BA381DB874BB00A987F9 /* WorkingRangeViewController.swift */,
-				82D91B681DBA0EF300E62758 /* SingleSectionStoryboardViewController.swift */,
-				29459BFF1DBE48E200F05375 /* DiffTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -286,6 +298,8 @@
 				26271C911DAE9EFC0073E116 /* NibCell.xib */,
 				821BC4B71DB8B48300172ED0 /* StoryboardCell.swift */,
 				2981BA341DB868A500A987F9 /* ImageCell.swift */,
+				29C629801DCFDAF3004A5BB1 /* UserHeaderView.xib */,
+				29C629821DCFDB57004A5BB1 /* UserHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -294,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				2991F91D1D7BB30C00B0C58F /* User.swift */,
+				29C6297C1DCFD8E5004A5BB1 /* FeedItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -471,6 +486,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29C629811DCFDAF3004A5BB1 /* UserHeaderView.xib in Resources */,
 				2961B3981D68B031001C9451 /* LaunchScreen.storyboard in Resources */,
 				26271C921DAE9EFC0073E116 /* NibCell.xib in Resources */,
 				2961B3951D68B031001C9451 /* Assets.xcassets in Resources */,
@@ -616,6 +632,7 @@
 				82D91B691DBA0EF300E62758 /* SingleSectionStoryboardViewController.swift in Sources */,
 				2942FF911D9F39E00015D24B /* LabelSectionController.swift in Sources */,
 				2981BA391DB874BB00A987F9 /* WorkingRangeViewController.swift in Sources */,
+				29C629831DCFDB57004A5BB1 /* UserHeaderView.swift in Sources */,
 				2961B3AC1D68B0B5001C9451 /* LoadMoreViewController.swift in Sources */,
 				26271C941DAE9F050073E116 /* NibCell.swift in Sources */,
 				2991F9191D7BADC900B0C58F /* CenterLabelCell.swift in Sources */,
@@ -628,6 +645,7 @@
 				29459C001DBE48E200F05375 /* DiffTableViewController.swift in Sources */,
 				2991F92C1D7BBE5400B0C58F /* RemoveCell.swift in Sources */,
 				2942FF8D1D9F39E00015D24B /* EmbeddedSectionController.swift in Sources */,
+				29C6297B1DCFD857004A5BB1 /* SupplementaryViewController.swift in Sources */,
 				2991F9281D7BB9EC00B0C58F /* EmbeddedCollectionViewCell.swift in Sources */,
 				2942FF8F1D9F39E00015D24B /* GridSectionController.swift in Sources */,
 				821BC4B81DB8B48300172ED0 /* StoryboardCell.swift in Sources */,
@@ -637,7 +655,9 @@
 				2942FF901D9F39E00015D24B /* HorizontalSectionController.swift in Sources */,
 				2981BA371DB869FF00A987F9 /* WorkingRangeSectionController.swift in Sources */,
 				2961B3AB1D68B0B5001C9451 /* DemosViewController.swift in Sources */,
+				29C6297D1DCFD8E5004A5BB1 /* FeedItem.swift in Sources */,
 				821BC4B61DB8B3DC00172ED0 /* StoryboardViewController.swift in Sources */,
+				29C6297F1DCFD9E9004A5BB1 /* FeedItemSectionController.swift in Sources */,
 				2942FF8E1D9F39E00015D24B /* ExpandableSectionController.swift in Sources */,
 				821BC4BA1DB8B61200172ED0 /* StoryboardLabelSectionController.swift in Sources */,
 			);
