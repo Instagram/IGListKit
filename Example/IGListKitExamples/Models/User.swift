@@ -14,7 +14,7 @@
 
 import IGListKit
 
-class User: IGListDiffable {
+final class User: IGListDiffable {
 
     let pk: Int
     let name: String
