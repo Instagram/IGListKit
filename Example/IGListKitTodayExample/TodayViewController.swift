@@ -17,7 +17,7 @@ import NotificationCenter
 import IGListKit
 
 @available(iOSApplicationExtension 10.0, *)
-class TodayViewController: UIViewController, NCWidgetProviding, IGListAdapterDataSource {
+final class TodayViewController: UIViewController, NCWidgetProviding, IGListAdapterDataSource {
         
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)

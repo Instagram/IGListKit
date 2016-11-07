@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class MixedDataViewController: UIViewController, IGListAdapterDataSource {
+final class MixedDataViewController: UIViewController, IGListAdapterDataSource {
 
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)

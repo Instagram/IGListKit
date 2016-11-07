@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class WorkingRangeViewController: UIViewController, IGListAdapterDataSource {
+final class WorkingRangeViewController: UIViewController, IGListAdapterDataSource {
 
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 2)

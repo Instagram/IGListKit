@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class SearchViewController: UIViewController, IGListAdapterDataSource, SearchSectionControllerDelegate {
+final class SearchViewController: UIViewController, IGListAdapterDataSource, SearchSectionControllerDelegate {
 
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)

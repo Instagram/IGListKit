@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class LoadMoreViewController: UIViewController, IGListAdapterDataSource, UIScrollViewDelegate {
+final class LoadMoreViewController: UIViewController, IGListAdapterDataSource, UIScrollViewDelegate {
 
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
