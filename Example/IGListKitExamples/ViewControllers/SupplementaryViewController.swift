@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class SupplementaryViewController: UIViewController, IGListAdapterDataSource {
+final class SupplementaryViewController: UIViewController, IGListAdapterDataSource {
 
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)

@@ -14,7 +14,7 @@
 
 import IGListKit
 
-class FeedItem: IGListDiffable {
+final class FeedItem: IGListDiffable {
 
     let pk: Int
     let user: User
