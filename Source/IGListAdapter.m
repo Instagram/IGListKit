@@ -15,7 +15,6 @@
 #import <IGListKit/IGListSupplementaryViewSource.h>
 
 #import "IGListSectionControllerInternal.h"
-#import "NSIndexSet+PrettyDescription.h"
 
 @implementation IGListAdapter {
     NSMapTable<UICollectionViewCell *, IGListSectionController<IGListSectionType> *> *_cellSectionControllerMap;
@@ -341,6 +340,25 @@
         }
     }
     return [visibleSectionControllers allObjects];
+}
+
+- (NSArray *)visibleObjects {
+    IGAssertMainThread();
+    NSArray<UICollectionViewCell *> *visibleCells = [self.collectionView visibleCells];
+    NSMutableSet *visibleObjects = [NSMutableSet new];
+    for (UICollectionViewCell *cell in visibleCells) {
+        IGListSectionController<IGListSectionType> *sectionController = [self sectionControllerForCell:cell];
+        IGAssert(sectionController != nil, @"Section controller nil for cell %@", cell);
+        if (sectionController != nil) {
+            const NSUInteger section = [self sectionForSectionController:sectionController];
+            id object = [self objectAtSection:section];
+            IGAssert(object != nil, @"Object not found for section controller %@ at section %zi", sectionController, section);
+            if (object != nil) {
+                [visibleObjects addObject:object];
+            }
+        }
+    }
+    return [visibleObjects allObjects];
 }
 
 

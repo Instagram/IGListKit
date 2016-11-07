@@ -169,6 +169,13 @@ IGLK_SUBCLASSING_RESTRICTED
 - (NSArray<IGListSectionController<IGListSectionType> *> *)visibleSectionControllers;
 
 /**
+ An unordered array of the currently visible objects.
+
+ @return An array of objects
+ */
+- (NSArray *)visibleObjects;
+
+/**
  Scroll to an object in the list adapter.
 
  @param object             The object to scroll to.

@@ -508,4 +508,16 @@
     XCTAssertFalse([[self.adapter sectionControllerForObject:@2] isLastSection]);
 }
 
+- (void)test_whenAdapterUpdated_withObjectsOverflow_thatVisibleObjectsIsSubsetOfAllObjects {
+    // each section controller returns n items sized 100x10
+    self.dataSource.objects = @[@1, @2, @3, @4, @5, @6];
+    [self.adapter reloadDataWithCompletion:nil];
+    self.collectionView.contentOffset = CGPointMake(0, 30);
+    [self.collectionView layoutIfNeeded];
+
+    NSArray *visibleObjects = [[self.adapter visibleObjects] sortedArrayUsingSelector:@selector(compare:)];
+    NSArray *expectedObjects = @[@3, @4, @5];
+    XCTAssertEqualObjects(visibleObjects, expectedObjects);
+}
+
 @end
