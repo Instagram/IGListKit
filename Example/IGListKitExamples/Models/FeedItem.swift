@@ -33,9 +33,7 @@ final class FeedItem: IGListDiffable {
     }
 
     func isEqual(_ object: IGListDiffable?) -> Bool {
-        if self === object {
-            return true
-        }
+        guard self !== object else { return true }
         guard let object = object as? FeedItem else { return false }
         return user.isEqual(object.user) && comments == object.comments
     }
