@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="xyu-q1-iBq" customClass="NibSelfSizingCell" customModule="IGListKitExamples" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="311" height="147"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="311" height="147"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Gr-77-cuA">
+                        <rect key="frame" x="0.0" y="0.0" width="311" height="147"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGM-u9-cA9">
+                                <rect key="frame" x="15" y="8" width="281" height="131"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.028497273489932886" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="aGM-u9-cA9" firstAttribute="leading" secondItem="0Gr-77-cuA" secondAttribute="leading" constant="15" id="2h9-jD-Y3s"/>
+                            <constraint firstAttribute="bottom" secondItem="aGM-u9-cA9" secondAttribute="bottom" constant="8" id="5XL-e0-IUQ"/>
+                            <constraint firstAttribute="trailing" secondItem="aGM-u9-cA9" secondAttribute="trailing" constant="15" id="ENw-zS-RtU"/>
+                            <constraint firstItem="aGM-u9-cA9" firstAttribute="top" secondItem="0Gr-77-cuA" secondAttribute="top" constant="8" id="d6V-jT-Sob"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="0Gr-77-cuA" secondAttribute="trailing" id="Lrw-ER-D4o"/>
+                <constraint firstAttribute="bottom" secondItem="0Gr-77-cuA" secondAttribute="bottom" id="ecO-g0-2aC"/>
+                <constraint firstItem="0Gr-77-cuA" firstAttribute="leading" secondItem="xyu-q1-iBq" secondAttribute="leading" id="fKU-Nu-Dqm"/>
+                <constraint firstItem="0Gr-77-cuA" firstAttribute="top" secondItem="xyu-q1-iBq" secondAttribute="top" id="hlV-41-vMj"/>
+            </constraints>
+            <size key="customSize" width="311" height="147"/>
+            <connections>
+                <outlet property="contentLabel" destination="aGM-u9-cA9" id="SaI-8t-JSo"/>
+            </connections>
+            <point key="canvasLocation" x="-108.5" y="-65.5"/>
+        </collectionViewCell>
+    </objects>
+</document>
