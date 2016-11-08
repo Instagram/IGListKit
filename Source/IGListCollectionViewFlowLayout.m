@@ -158,6 +158,12 @@
 
 - (void)prepareLayout
 {
+#if DEBUG
+    IGAssertMainThread();
+    for (NSInteger section = 0; section < [self.collectionView numberOfSections]; section++) {
+        IGAssert([self.collectionView numberOfItemsInSection:section] == 1, @"Each section should have exactly one item for this layout to work.");
+    }
+#endif
     if (CGSizeEqualToSize(self.itemSize, CGSizeZero)) {
         [self reloadLayout];
     } else {
@@ -227,15 +233,6 @@
         NSInteger section = indexPath.section;
         NSInteger lineNumber = section / self.itemPerLine;
         NSInteger column = section - lineNumber * self.itemPerLine;
-        
-        /** Stay with left alignment for now.
-         CGFloat x = column * (self.itemSize.width + self.interitemSpacing);
-         if (self.itemPerLine == 1) {
-            // Center the item when there is only one item per line.
-            x = (self.contentWidth - self.itemSize.width) / 2.0f;
-         }
-         */
-        
         CGFloat x = column * (self.itemSize.width + self.minimumInteritemSpacing);
         CGFloat y = lineNumber * (self.itemSize.height + self.minimumLineSpacing);
         CGRect frame = CGRectMake(x, y, self.itemSize.width, self.itemSize.height);
@@ -248,11 +245,6 @@
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
 {
     return NO;
-}
-
-- (void)prepareForCollectionViewUpdates:(NSArray<UICollectionViewUpdateItem *> *)updateItems
-{
-    // Need to provide insert item positions
 }
 
 #pragma mark - Getter Setter
