@@ -16,7 +16,7 @@ import UIKit
 import Messages
 import IGListKit
 
-class MessagesViewController: MSMessagesAppViewController, IGListAdapterDataSource {
+final class MessagesViewController: MSMessagesAppViewController, IGListAdapterDataSource {
     
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)

@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class StoryboardViewController: UIViewController, IGListAdapterDataSource, RemoveLabelSectionControllerDelegate {
+final class StoryboardViewController: UIViewController, IGListAdapterDataSource {
 
     @IBOutlet weak var collectionView: IGListCollectionView!
     

@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class Person: IGListDiffable {
+final class Person: IGListDiffable {
 
     let pk: Int
     let name: String
@@ -36,7 +36,7 @@ class Person: IGListDiffable {
 
 }
 
-class DiffTableViewController: UITableViewController {
+final class DiffTableViewController: UITableViewController {
 
     let oldPeople = [
         Person(pk: 1, name: "Kevin"),
