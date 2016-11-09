@@ -84,9 +84,7 @@ final class DiffTableViewController: UITableViewController {
         tableView.beginUpdates()
         tableView.deleteRows(at: result.deletes, with: .fade)
         tableView.insertRows(at: result.inserts, with: .fade)
-        for move in result.moves {
-            tableView.moveRow(at: move.from, to: move.to)
-        }
+        result.moves.forEach { tableView.moveRow(at: $0.from, to: $0.to) }
         tableView.endUpdates()
     }
 
