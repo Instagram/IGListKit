@@ -27,7 +27,7 @@ XCTAssertEqual(CGRectGetWidth(expected), CGRectGetWidth(frame)); \
 XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
 } while(0)
 
-@interface IGListCollectionViewFlowLayoutTests : XCTestCase
+@interface IGListGridCollectionViewLayoutTests : XCTestCase
 
 @property (nonatomic, strong) IGListCollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
@@ -38,7 +38,7 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
 
 @end
 
-@implementation IGListCollectionViewFlowLayoutTests
+@implementation IGListGridCollectionViewLayoutTests
 
 - (void)setUp {
     [super setUp];
