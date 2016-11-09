@@ -31,14 +31,4 @@
  */
 @property (nonatomic, assign) IBInspectable CGSize itemSize;
 
-/**
- The estimated size of cells in the collection view.
- */
-@property (nonatomic, assign) IBInspectable CGSize estimatedItemSize;
-
-/**
- The margins used to lay out content in a section
- */
-@property (nonatomic, assign) UIEdgeInsets sectionInset;
-
 @end

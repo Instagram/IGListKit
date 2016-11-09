@@ -271,6 +271,20 @@
     return height;
 }
 
+- (void)setMinimumLineSpacing:(CGFloat)minimumLineSpacing {
+    if (_minimumLineSpacing != minimumLineSpacing) {
+        _minimumLineSpacing = minimumLineSpacing;
+        [self invalidateLayout];
+    }
+}
+
+- (void)setMinimumInteritemSpacing:(CGFloat)minimumInteritemSpacing {
+    if (_minimumInteritemSpacing != minimumInteritemSpacing) {
+        _minimumInteritemSpacing = minimumInteritemSpacing;
+        [self invalidateLayout];
+    }
+}
+
 #pragma mark - Private API
 
 - (void)reloadLayout
