@@ -9,7 +9,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IGListCollectionViewFlowLayout : UICollectionViewLayout
+/**
+ This layout only works with section controllers that return 1 item.
+ */
+@interface IGListGridCollectionViewLayout : UICollectionViewLayout
 
 /**
  The scroll direction of the grid.

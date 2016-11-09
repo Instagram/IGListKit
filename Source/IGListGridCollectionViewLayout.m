@@ -8,11 +8,11 @@
  */
 
 #import <IGListKit/IGListAssert.h>
-#import "IGListCollectionViewFlowLayout.h"
+#import "IGListGridCollectionViewLayout.h"
 
-#pragma mark - IGFlowLayoutLine
+#pragma mark - IGListGridLayoutLine
 
-@interface _IGFlowLayoutLine : NSObject
+@interface _IGListGridLayoutLine : NSObject
 
 /**
  The scroll direction of the grid.
@@ -81,14 +81,14 @@
 
 @end
 
-#pragma mark - IGListCollectionViewFlowLayout
+#pragma mark - IGListGridCollectionViewLayout
 
-@interface IGListCollectionViewFlowLayout ()
+@interface IGListGridCollectionViewLayout ()
 
 /**
  The array for line objects in order of line number.
  */
-@property (nonatomic, copy, nullable) NSMutableArray<_IGFlowLayoutLine *> *lineCache;
+@property (nonatomic, copy, nullable) NSMutableArray<_IGListGridLayoutLine *> *lineCache;
 
 /**
  The line number for each item in order of index path.
@@ -122,9 +122,9 @@
 
 @end
 
-#pragma mark - IGListCollectionViewFlowLayout Implementation
+#pragma mark - IGListGridCollectionViewLayout Implementation
 
-@implementation IGListCollectionViewFlowLayout
+@implementation IGListGridCollectionViewLayout
 
 - (instancetype)init
 {
@@ -149,7 +149,7 @@
     _scrollDirection = UICollectionViewScrollDirectionVertical;
     _minimumLineSpacing = 0.0;
     _minimumInteritemSpacing = 0.0;
-    _lineCache = [NSMutableArray<_IGFlowLayoutLine *> array];
+    _lineCache = [NSMutableArray<_IGListGridLayoutLine *> array];
     _lineForItem = [NSMutableArray array];
     _itemSize = CGSizeZero;
 }
@@ -181,7 +181,7 @@
     NSMutableArray *array = [NSMutableArray array];
     if (CGSizeEqualToSize(self.itemSize, CGSizeZero)) {
         BOOL findFirstLine = NO;
-        for (_IGFlowLayoutLine *line in self.lineCache) {
+        for (_IGListGridLayoutLine *line in self.lineCache) {
             if (CGRectIntersectsRect(line.frame, rect)) {
                 findFirstLine = YES;
                 NSArray<UICollectionViewLayoutAttributes *> *lineAttributes = [line attributesForAllItems];
@@ -227,7 +227,7 @@
 {
     if (CGSizeEqualToSize(self.itemSize, CGSizeZero)) {
         NSInteger lineNumber = [self.lineForItem[indexPath.section] integerValue];
-        _IGFlowLayoutLine *line = self.lineCache[lineNumber];
+        _IGListGridLayoutLine *line = self.lineCache[lineNumber];
         return [line attributesForItemAtIndexPath:indexPath];
     } else {
         NSInteger section = indexPath.section;
@@ -260,7 +260,7 @@
     CGFloat height = 0;
     
     if (CGSizeEqualToSize(self.itemSize, CGSizeZero)) {
-        for (_IGFlowLayoutLine *line in self.lineCache) {
+        for (_IGListGridLayoutLine *line in self.lineCache) {
             height += line.frame.size.height;
         }
         height += ([self.lineCache count] - 1) * self.minimumLineSpacing;
@@ -294,7 +294,7 @@
     
     // Init first line and add to lineCache
     CGRect frame = CGRectMake(0, 0, self.contentWidth, 0);
-    _IGFlowLayoutLine *firstLine = [[_IGFlowLayoutLine alloc] initWithMinimumInteritemSpacing:self.minimumInteritemSpacing
+    _IGListGridLayoutLine *firstLine = [[_IGListGridLayoutLine alloc] initWithMinimumInteritemSpacing:self.minimumInteritemSpacing
                                                                                     headIndex:0
                                                                                         frame:frame
                                                                               scrollDirection:self.scrollDirection];
@@ -304,12 +304,12 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:i];
         id<UICollectionViewDelegateFlowLayout> delegate = (id<UICollectionViewDelegateFlowLayout>) self.collectionView.delegate;
         CGSize itemSize = [delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];
-        _IGFlowLayoutLine *lastLine = [self.lineCache lastObject];
+        _IGListGridLayoutLine *lastLine = [self.lineCache lastObject];
         if (![lastLine addItemToTailWithSize:itemSize]) {
             // Not enough space for the last line
             CGFloat y = lastLine.frame.origin.y + lastLine.frame.size.height + self.minimumLineSpacing;
             frame = CGRectMake(0, y, self.contentWidth, 0);
-            _IGFlowLayoutLine *newLine = [[_IGFlowLayoutLine alloc] initWithMinimumInteritemSpacing:self.minimumInteritemSpacing
+            _IGListGridLayoutLine *newLine = [[_IGListGridLayoutLine alloc] initWithMinimumInteritemSpacing:self.minimumInteritemSpacing
                                                                                             headIndex:i
                                                                                                 frame:frame
                                                                                       scrollDirection:self.scrollDirection];
@@ -330,9 +330,9 @@
 
 @end
 
-#pragma mark - IGFlowLayoutLine Implementation
+#pragma mark - _IGListGridLayoutLine Implementation
 
-@implementation _IGFlowLayoutLine
+@implementation _IGListGridLayoutLine
 
 - (id)initWithMinimumInteritemSpacing:(CGFloat)spacing
                             headIndex:(NSInteger)headIndex

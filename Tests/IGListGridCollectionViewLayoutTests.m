@@ -9,7 +9,7 @@
 
 #import <XCTest/XCTest.h>
 
-#import "IGListCollectionViewFlowLayout.h"
+#import "IGListGridCollectionViewLayout.h"
 #import "IGTestCell.h"
 #import "IGTestSingleItemDataSource.h"
 
@@ -34,7 +34,7 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
 @property (nonatomic, strong) IGListAdapterUpdater *updater;
 @property (nonatomic, strong) IGTestSingleItemDataSource *dataSource;
 @property (nonatomic, strong) UIWindow *window;
-@property (nonatomic, strong) IGListCollectionViewFlowLayout *layout;
+@property (nonatomic, strong) IGListGridCollectionViewLayout *layout;
 
 @end
 
@@ -43,7 +43,7 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
 - (void)setUp {
     [super setUp];
     self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    self.layout = [[IGListCollectionViewFlowLayout alloc] init];
+    self.layout = [[IGListGridCollectionViewLayout alloc] init];
     self.collectionView = [[IGListCollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:self.layout];
     [self.window addSubview:self.collectionView];
     self.dataSource = [[IGTestSingleItemDataSource alloc] init];
