@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param elementKind The kind of supplementary view being requested
  @param index       The index for the row being requested.
 
- @discussion This is your opportunity to do any supplementary view setup and configuration.
+ @note This is your opportunity to do any supplementary view setup and configuration.
 
  @warning You should never allocate new views in this method. Instead deque a view from the `IGListCollectionContext`.
  */

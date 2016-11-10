@@ -212,7 +212,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param updates    A block containing all of the cell updates.
  @param completion An optional completion block to execute when the updates are finished.
 
- @discussion Use this method to batch cell updates (inserts, deletes, reloads) into a single transaction. This lets you
+ @note Use this method to batch cell updates (inserts, deletes, reloads) into a single transaction. This lets you
  make many changes to your data store and perform all the transitions at once.
 
  For example, inside your section controllers, you may want to delete /and/ insert into the data source that backs your
