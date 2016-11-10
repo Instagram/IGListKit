@@ -609,6 +609,15 @@
     XCTAssertEqual([self.collectionView contentOffset].y, 30);
 }
 
+- (void)test_whenScrollVerticallyToItem_thatFeedIsEmpty {
+    self.dataSource.objects = @[];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertEqual([self.collectionView numberOfSections], 0);
+    [self.adapter scrollToObject:@1 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical animated:NO];
+    XCTAssertEqual([self.collectionView contentOffset].x, 0);
+    XCTAssertEqual([self.collectionView contentOffset].y, 0);
+}
+
 - (void)test_whenScrollVerticallyToItem_thatItemNotInFeed {
     // # of items for each object == [item integerValue], so @2 has 2 items (cells)
     self.dataSource.objects = @[@1, @2, @3, @4];
