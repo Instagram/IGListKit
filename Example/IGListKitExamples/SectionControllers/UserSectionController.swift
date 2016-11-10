@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class UserSectionController: IGListSectionController, IGListSectionType {
+final class UserSectionController: IGListSectionController, IGListSectionType {
 
     var user: User?
 

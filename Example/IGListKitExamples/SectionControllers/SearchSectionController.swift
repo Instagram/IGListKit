@@ -18,7 +18,7 @@ protocol SearchSectionControllerDelegate: class {
     func searchSectionController(_ sectionController: SearchSectionController, didChangeText text: String)
 }
 
-class SearchSectionController: IGListSectionController, IGListSectionType, UISearchBarDelegate, IGListScrollDelegate {
+final class SearchSectionController: IGListSectionController, IGListSectionType, UISearchBarDelegate, IGListScrollDelegate {
 
     weak var delegate: SearchSectionControllerDelegate?
 

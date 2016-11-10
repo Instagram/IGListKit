@@ -12,30 +12,10 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import IGListKit
+import UIKit
 
-final class User: IGListDiffable {
-
-    let pk: Int
-    let name: String
-    let handle: String
-
-    init(pk: Int, name: String, handle: String) {
-        self.pk = pk
-        self.name = name
-        self.handle = handle
-    }
-
-    //MARK: IGListDiffable
-
-    func diffIdentifier() -> NSObjectProtocol {
-        return pk as NSObjectProtocol
-    }
-
-    func isEqual(_ object: IGListDiffable?) -> Bool {
-        guard self !== object else { return true }
-        guard let object = object as? User else { return false }
-        return name == object.name && handle == object.handle
-    }
+class NibSelfSizingCell: UICollectionViewCell {
+    
+    @IBOutlet weak var contentLabel: UILabel!
 
 }

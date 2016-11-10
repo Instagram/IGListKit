@@ -82,4 +82,12 @@
     XCTAssertEqual(counter, 2);
 }
 
+- (void)test_whenAccessingOOBSection_thatNilIsReturned {
+    NSArray *objects = @[@0, @1, @2];
+    NSArray *sectionControllers = @[@"a", @"b", @"c"];
+    IGListSectionMap *map = [[IGListSectionMap alloc] initWithMapTable:[NSMapTable strongToStrongObjectsMapTable]];
+    [map updateWithObjects:objects sectionControllers:sectionControllers];
+    XCTAssertNil([map objectForSection:4]);
+}
+
 @end

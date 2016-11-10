@@ -7,10 +7,12 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface NSIndexSet (PrettyDescription)
+@interface IGTestNibSupplementaryView : UICollectionViewCell
 
-- (NSString *)prettyDescription;
+@property (nonatomic, weak) id delegate;
+
+@property (nonatomic, strong) IBOutlet UILabel *label;
 
 @end

@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class EmptyViewController: UIViewController, IGListAdapterDataSource, RemoveSectionControllerDelegate {
+final class EmptyViewController: UIViewController, IGListAdapterDataSource, RemoveSectionControllerDelegate {
 
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)

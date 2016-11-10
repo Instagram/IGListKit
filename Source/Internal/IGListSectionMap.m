@@ -75,7 +75,12 @@
 }
 
 - (id)objectForSection:(NSUInteger)section {
-    return self.objects[section];
+    NSArray *objects = self.objects;
+    if (section < objects.count) {
+        return objects[section];
+    } else {
+        return nil;
+    }
 }
 
 - (NSUInteger)sectionForObject:(id)object {

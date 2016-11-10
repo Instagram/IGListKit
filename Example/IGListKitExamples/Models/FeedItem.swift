@@ -12,31 +12,30 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
 
-final class LabelSectionController: IGListSectionController, IGListSectionType {
+final class FeedItem: IGListDiffable {
 
-    var object: String?
+    let pk: Int
+    let user: User
+    let comments: [String]
 
-    func numberOfItems() -> Int {
-        return 1
+    init(pk: Int, user: User, comments: [String]) {
+        self.pk = pk
+        self.user = user
+        self.comments = comments
     }
 
-    func sizeForItem(at index: Int) -> CGSize {
-        return CGSize(width: collectionContext!.containerSize.width, height: 55)
+    //MARK: IGListDiffable
+
+    func diffIdentifier() -> NSObjectProtocol {
+        return pk as NSObjectProtocol
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
-        cell.label.text = object
-        return cell
+    func isEqual(_ object: IGListDiffable?) -> Bool {
+        guard self !== object else { return true }
+        guard let object = object as? FeedItem else { return false }
+        return user.isEqual(object.user) && comments == object.comments
     }
-
-    func didUpdate(to object: Any) {
-        self.object = String(describing: object)
-    }
-
-    func didSelectItem(at index: Int) {}
 
 }

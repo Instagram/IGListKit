@@ -12,31 +12,20 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
 
-final class LabelSectionController: IGListSectionController, IGListSectionType {
+enum SelectionModelType: Int {
+    case none, fullWidth, nib
+}
 
-    var object: String?
+final class SelectionModel: NSObject {
 
-    func numberOfItems() -> Int {
-        return 1
+    let options: [String]
+    let type: SelectionModelType
+
+    init(options: [String], type: SelectionModelType = .none) {
+        self.options = options
+        self.type = type
     }
-
-    func sizeForItem(at index: Int) -> CGSize {
-        return CGSize(width: collectionContext!.containerSize.width, height: 55)
-    }
-
-    func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
-        cell.label.text = object
-        return cell
-    }
-
-    func didUpdate(to object: Any) {
-        self.object = String(describing: object)
-    }
-
-    func didSelectItem(at index: Int) {}
 
 }

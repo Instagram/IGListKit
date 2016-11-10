@@ -19,6 +19,7 @@
 #import "IGListTestAdapterDataSource.h"
 #import "IGListTestSection.h"
 #import "IGTestSupplementarySource.h"
+#import "IGTestNibSupplementaryView.h"
 
 @interface IGListAdapterTests : XCTestCase
 
@@ -380,6 +381,30 @@
     XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
 }
 
+- (void)test_whenSupplementarySourceSupportsFooter_withNibs_thatHeaderViewsAreNil {
+    self.dataSource.objects = @[@1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.dequeueFromNib = YES;
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
+
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@1];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+
+    id view = [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    XCTAssertTrue([view isKindOfClass:IGTestNibSupplementaryView.class]);
+    XCTAssertEqualObjects([[(IGTestNibSupplementaryView *)view label] text], @"Foo bar baz");
+
+    XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+    XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
+    XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
+}
+
 - (void)test_whenAdapterReleased_withSectionControllerStrongRefToCell_thatSectionControllersRelease {
     __weak id weakCollectionView = nil, weakAdapter = nil, weakSectionController = nil;
 
@@ -481,6 +506,18 @@
     XCTAssertFalse([[self.adapter sectionControllerForObject:@0] isLastSection]);
     XCTAssertTrue([[self.adapter sectionControllerForObject:@1] isLastSection]);
     XCTAssertFalse([[self.adapter sectionControllerForObject:@2] isLastSection]);
+}
+
+- (void)test_whenAdapterUpdated_withObjectsOverflow_thatVisibleObjectsIsSubsetOfAllObjects {
+    // each section controller returns n items sized 100x10
+    self.dataSource.objects = @[@1, @2, @3, @4, @5, @6];
+    [self.adapter reloadDataWithCompletion:nil];
+    self.collectionView.contentOffset = CGPointMake(0, 30);
+    [self.collectionView layoutIfNeeded];
+
+    NSArray *visibleObjects = [[self.adapter visibleObjects] sortedArrayUsingSelector:@selector(compare:)];
+    NSArray *expectedObjects = @[@3, @4, @5];
+    XCTAssertEqualObjects(visibleObjects, expectedObjects);
 }
 
 @end
