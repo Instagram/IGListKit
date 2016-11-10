@@ -59,7 +59,7 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  The object that receives UICollectionViewDelegate events.
 
- @discussion This object /will not/ receive UIScrollViewDelegate events. Instead use scrollViewDelegate.
+ @note This object /will not/ receive UIScrollViewDelegate events. Instead use scrollViewDelegate.
  */
 @property (nonatomic, nullable, weak) id <UICollectionViewDelegate> collectionViewDelegate;
 
@@ -82,7 +82,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return A new IGListAdapter object.
 
- @discussion The working range is the number of objects beyond the visible objects (plus and minus) that should be
+ @note The working range is the number of objects beyond the visible objects (plus and minus) that should be
  notified when they are close to being visible. For instance, if you have 3 objects on screen and a working range of 2,
  the previous and succeeding 2 objects will be notified that they are within the working range. As you scroll the list
  the range is updated as objects enter and exit the working range.

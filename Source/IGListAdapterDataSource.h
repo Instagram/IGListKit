@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return An IGListSectionType conforming object that can be displayed in the feed.
 
- @discussion New section controllers should be initialized here for objects when asked. You may pass any other data to
+ @note New section controllers should be initialized here for objects when asked. You may pass any other data to
  the section controller at this time.
 
  Section controllers are initialized for all objects whenever the IGListAdapter is created, updated, or reloaded.
@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return A view to use as the collection view background, or nil if you don't want a background view.
 
- @discussion This method is called every time the list adapter is updated. You are free to return new views every time,
+ @note This method is called every time the list adapter is updated. You are free to return new views every time,
  but for performance reasons you may want to retain your own view and return it here. The infra is only responsible for
  adding the background view and maintaining its visibility.
  */

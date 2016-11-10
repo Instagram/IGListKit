@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return A count of items in the list.
 
- @discussion The count returned is used to drive the number of cells displayed for this list. You are free to change
+ @note The count returned is used to drive the number of cells displayed for this list. You are free to change
  this value between data loading passes.
  */
 - (NSInteger)numberOfItems;
@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return The size for the item at index.
 
- @discussion The returned size is not garaunteed to be used. The feed implementation may query list items for their
+ @note The returned size is not garaunteed to be used. The feed implementation may query list items for their
  layout information at will, or use its own layout metrics. For example, consider a dynamic-text sized feed vs. a fixed
  height-and-width grid feed. The former will ask each IGListSectionType for a size, and the latter will likely not.
  */
@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return A configured UICollectionViewCell subclass.
 
- @discussion This is your opportunity to do any cell setup and configuration. The infrastructure requests a cell when it
+ @note This is your opportunity to do any cell setup and configuration. The infrastructure requests a cell when it
  will be used on screen. You should never allocate new cells in this method, instead on the provided adapter call
  -dequeCellClass:forIndexPath: which either deques a cell from the UICollectionView or creates a new one for you.
  */
@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param object The object mapped to this section controller.
 
- @discussion When this method is called, all available contexts and configurations have been set for the section
+ @note When this method is called, all available contexts and configurations have been set for the section
  controller. Also, depending on the updating strategy used, your item models may have changed objects in memory, so you
  can use this event to update the object stored on your section controller.
 
@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param index The index of the selected cell.
 
- @discussion Implementation of this method is required for compile-time safety, but you are free to do nothing.
+ @note Implementation of this method is required for compile-time safety, but you are free to do nothing.
  */
 - (void)didSelectItemAtIndex:(NSInteger)index;
 

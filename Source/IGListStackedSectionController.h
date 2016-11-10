@@ -28,7 +28,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @param sectionControllers An array of section controllers that make up the stack.
 
- @discussion The order of the section controllers dictates the order in which they appear. The first section controller
+ @note The order of the section controllers dictates the order in which they appear. The first section controller
  that is the supplementary source decides which supplementary views get displayed.
  */
 - (instancetype)initWithSectionControllers:(NSArray <IGListSectionController<IGListSectionType> *> *)sectionControllers NS_DESIGNATED_INITIALIZER;
