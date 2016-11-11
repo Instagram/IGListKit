@@ -14,109 +14,31 @@
 
 @interface _IGListGridLayoutLine : NSObject
 
-/**
- The scroll direction of the grid.
- */
 @property (nonatomic, assign, readonly) UICollectionViewScrollDirection scrollDirection;
-
-/**
- The width of the line (in the sense of scroll direction).
- */
 @property (nonatomic, assign) CGRect frame;
-
-/**
- The space remains of the line (in the sense of scroll direction).
- */
 @property (nonatomic, assign) CGFloat tailSpace;
-
-/**
- The minimum spacing to use between items.
- */
 @property (nonatomic, assign, readonly) CGFloat minimumInteritemSpacing;
-
-/**
- The section index of the first item in line.
- */
 @property (nonatomic, assign) NSInteger headIndex;
-
-/**
- The sizes to of the items in line.
- */
 @property (nonatomic, copy) NSMutableArray<NSValue *> *itemSizes;
 
-/**
- Initialization
- */
 - (id)initWithMinimumInteritemSpacing:(CGFloat)spacing
                             headIndex:(NSInteger)headIndex
                                 frame:(CGRect)frame
                       scrollDirection:(UICollectionViewScrollDirection)direction;
-
-/**
- Adds item to the tail of the line with index path.
- 
- @param size The size of the item to be added.
- 
- @return A bool indicates if the item can be added to the line.
- */
 - (BOOL)addItemToTailWithSize:(CGSize)size;
-
-/**
- Get attributes of the item at index path.
- 
- @param indexPath The index path of the item.
- 
- @return The attributes for the item in collection view.
- */
-
 - (UICollectionViewLayoutAttributes *)attributesForItemAtIndexPath:(NSIndexPath *)indexPath;
-
-/**
- Get attributes of all the item in line.
- 
- @return An array of attributes for all the items in line.
- */
-
 - (NSArray<UICollectionViewLayoutAttributes *> *)attributesForAllItems;
 
 @end
 
 @interface IGListGridCollectionViewLayout ()
 
-/**
- The array for line objects in order of line number.
- */
 @property (nonatomic, copy, nullable) NSMutableArray<_IGListGridLayoutLine *> *lineCache;
-
-/**
- The line number for each item in order of index path.
- */
 @property (nonatomic, copy, nullable) NSMutableArray *lineForItem;
-
-/**
- The width of in collection view content.
- */
 @property (nonatomic, assign, readonly) CGFloat contentWidth;
-
-/**
- The height of in collection view content.
- */
 @property (nonatomic, assign, readonly) CGFloat contentHeight;
-
-/**
- The item count per line when item has fixed size.
- */
 @property (nonatomic, assign) NSInteger itemPerLine;
-
-/**
- The line count when item has fixed size.
- */
 @property (nonatomic, assign) NSInteger lineNumber;
-
-/**
- The real interitem spacing when item has fixed size.
- */
-@property (nonatomic, assign) CGFloat interitemSpacing;
 
 @end
 
@@ -311,7 +233,6 @@
     self.itemPerLine = (int) ((self.contentWidth + self.minimumInteritemSpacing)
                                / (itemSize.width + self.minimumInteritemSpacing));
     self.lineNumber = (self.collectionView.numberOfSections + self.itemPerLine - 1) / self.itemPerLine;
-    self.interitemSpacing = (self.contentWidth - (self.itemSize.width * self.itemPerLine)) / (self.itemPerLine - 1);
 }
 
 @end
