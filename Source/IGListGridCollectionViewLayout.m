@@ -81,8 +81,6 @@
 
 @end
 
-#pragma mark - IGListGridCollectionViewLayout
-
 @interface IGListGridCollectionViewLayout ()
 
 /**
@@ -121,8 +119,6 @@
 @property (nonatomic, assign) CGFloat interitemSpacing;
 
 @end
-
-#pragma mark - IGListGridCollectionViewLayout Implementation
 
 @implementation IGListGridCollectionViewLayout
 

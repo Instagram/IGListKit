@@ -10,7 +10,10 @@
 #import <UIKit/UIKit.h>
 
 /**
- This layout only works with section controllers that return 1 item.
+ IGListGridCollectionViewLayout provide a grid layout for UICollectionView with section controllers that return 1 item.
+ The size of the item for each section can be varying.
+ 
+ @note This layout dose not have support for section insets and scroll direction yet. 
  */
 @interface IGListGridCollectionViewLayout : UICollectionViewLayout
 
