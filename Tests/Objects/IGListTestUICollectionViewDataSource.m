@@ -25,7 +25,7 @@
     return [NSString stringWithFormat:@"%zi", self.hash];
 }
 
-- (BOOL)isEqual:(id)object {
+- (BOOL)isEqualToDiffableObject:(id)object {
     if (object == self) {
         return YES;
     } else if ([object isKindOfClass:IGSectionObject.class]) {

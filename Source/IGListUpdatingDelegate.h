@@ -29,7 +29,7 @@ typedef void (^IGListReloadUpdateBlock)();
 
  @return Pointer functions for looking up an object in a collection.
 
- @discussion Since the updating delegate is responsible for transitioning between object sets, it becomes the "source of
+ @note Since the updating delegate is responsible for transitioning between object sets, it becomes the "source of
  truth" for how objects and their corresponding section controllers are mapped. This allows the updater to control if
  objects are looked up by pointer, or more traditionally, with hash/isEqual.
 
@@ -48,7 +48,7 @@ typedef void (^IGListReloadUpdateBlock)();
  @param objectTransitionBlock A block that must be called when the adapter applies changes to the collection view.
  @param completion            A completion block to execute when the update is finished.
 
- @discussion Implementations determine how to transition between objects. You can perform a diff on the objects, reload
+ @note Implementations determine how to transition between objects. You can perform a diff on the objects, reload
  each section, or simply call -reloadData on the collection view. In the end, the collection view must be setup with a
  section for each object in the toObjects array.
 
