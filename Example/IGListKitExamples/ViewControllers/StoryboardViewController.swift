@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class StoryboardViewController: UIViewController, IGListAdapterDataSource, RemoveLabelSectionControllerDelegate {
+final class StoryboardViewController: UIViewController, IGListAdapterDataSource, StoryboardLabelSectionControllerDelegate {
 
     @IBOutlet weak var collectionView: IGListCollectionView!
     
@@ -49,6 +49,6 @@ final class StoryboardViewController: UIViewController, IGListAdapterDataSource,
     func removeSectionControllerWantsRemoved(_ sectionController: StoryboardLabelSectionController) {
         let section = adapter.section(for: sectionController)
         words.remove(at: Int(section))
-        adapter.performUpdates(animated: true, completion: nil)
+        adapter.performUpdates(animated: true)
     }
 }

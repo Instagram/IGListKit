@@ -15,14 +15,14 @@
 import UIKit
 import IGListKit
 
-protocol RemoveLabelSectionControllerDelegate: class {
+protocol StoryboardLabelSectionControllerDelegate: class {
     func removeSectionControllerWantsRemoved(_ sectionController: StoryboardLabelSectionController)
 }
 
 final class StoryboardLabelSectionController: IGListSectionController, IGListSectionType {
     
     var object: String?
-    weak var delegate: RemoveLabelSectionControllerDelegate?
+    weak var delegate: StoryboardLabelSectionControllerDelegate?
     
     func numberOfItems() -> Int {
         return 1
@@ -35,8 +35,6 @@ final class StoryboardLabelSectionController: IGListSectionController, IGListSec
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCellFromStoryboard(withIdentifier: "cell", for: self, at: index) as! StoryboardCell
         cell.textLabel.text = object
-        cell.textLabel.textColor = .white
-        cell.backgroundColor = UIColor.magenta
         return cell
     }
     
