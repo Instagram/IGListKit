@@ -32,7 +32,8 @@ IGListCollectionContext
     __weak UICollectionView *_collectionView;
 }
 
-@property (nonatomic, strong, readonly) id <IGListUpdatingDelegate> updatingDelegate;
+@property (nonatomic, strong) id <IGListUpdatingDelegate> updatingDelegate;
+
 @property (nonatomic, strong, readonly) IGListSectionMap *sectionMap;
 @property (nonatomic, strong, readonly) IGListDisplayHandler *displayHandler;
 @property (nonatomic, strong, readonly) IGListWorkingRangeHandler *workingRangeHandler;
@@ -61,6 +62,7 @@ IGListCollectionContext
 - (NSArray *)indexPathsFromSectionController:(IGListSectionController <IGListSectionType> *)sectionController
                                      indexes:(NSIndexSet *)indexes
                         adjustForUpdateBlock:(BOOL)adjustForUpdateBlock;
+- (NSIndexPath *)indexPathForSectionController:(IGListSectionController *)controller index:(NSInteger)index;
 
 @end
 

@@ -13,7 +13,6 @@
 #import <OCMock/OCMock.h>
 
 #import <IGListKit/IGListKit.h>
-#import <IGListKit/IGListReloadDataUpdater.h>
 
 #import "IGListAdapterInternal.h"
 #import "IGListTestAdapterDataSource.h"
@@ -624,6 +623,109 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 10);
     [self.adapter scrollToObject:@5 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 10);
+}
+
+- (void)test_whenQueryingIndexPath_withOOBSectionController_thatNilReturned {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id randomSectionController = [IGListSectionController new];
+    XCTAssertNil([self.adapter indexPathForSectionController:randomSectionController index:0]);
+}
+
+- (void)test_whenQueryingSectionForObject_thatSectionReturned {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertEqual([self.adapter sectionForObject:@0], 0);
+    XCTAssertEqual([self.adapter sectionForObject:@1], 1);
+    XCTAssertEqual([self.adapter sectionForObject:@2], 2);
+    XCTAssertEqual([self.adapter sectionForObject:@3], NSNotFound);
+}
+
+- (void)test_whenReloadingData_withNoDataSource_thatCompletionCalledWithNO {
+    self.dataSource.objects = @[@1];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
+                                                     viewController:nil
+                                                   workingRangeSize:0];
+    adapter.collectionView = self.collectionView;
+
+    __block BOOL executed = NO;
+    [adapter reloadDataWithCompletion:^(BOOL finished) {
+        executed = YES;
+        XCTAssertFalse(finished);
+    }];
+    XCTAssertTrue(executed);
+}
+
+- (void)test_whenReloadingData_withNoCollectionView_thatCompletionCalledWithNO {
+    self.dataSource.objects = @[@1];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
+                                                     viewController:nil
+                                                   workingRangeSize:0];
+    adapter.dataSource = self.dataSource;
+
+    __block BOOL executed = NO;
+    [adapter reloadDataWithCompletion:^(BOOL finished) {
+        executed = YES;
+        XCTAssertFalse(finished);
+    }];
+    XCTAssertTrue(executed);
+}
+
+- (void)test_whenSectionControllerReloading_withEmptyIndexes_thatNoUpdatesHappen {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
+    [[mockDelegate reject] reloadItemsInCollectionView:[OCMArg any] indexPaths:[OCMArg any]];
+    self.adapter.updatingDelegate = mockDelegate;
+
+    id sectionController = [self.adapter sectionControllerForObject:@1];
+    [self.adapter reloadInSectionController:sectionController atIndexes:[NSIndexSet new]];
+
+    [mockDelegate verify];
+}
+
+- (void)test_whenSectionControllerDeleting_withEmptyIndexes_thatNoUpdatesHappen {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
+    [[mockDelegate reject] deleteItemsFromCollectionView:[OCMArg any] indexPaths:[OCMArg any]];
+    self.adapter.updatingDelegate = mockDelegate;
+
+    id sectionController = [self.adapter sectionControllerForObject:@1];
+    [self.adapter deleteInSectionController:sectionController atIndexes:[NSIndexSet new]];
+
+    [mockDelegate verify];
+}
+
+- (void)test_whenSectionControllerInserting_withEmptyIndexes_thatNoUpdatesHappen {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
+    [[mockDelegate reject] insertItemsIntoCollectionView:[OCMArg any] indexPaths:[OCMArg any]];
+    self.adapter.updatingDelegate = mockDelegate;
+
+    id sectionController = [self.adapter sectionControllerForObject:@1];
+    [self.adapter insertInSectionController:sectionController atIndexes:[NSIndexSet new]];
+
+    [mockDelegate verify];
+}
+
+- (void)test_whenReloading_withSectionControllerNotFound_thatNoUpdatesHappen {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
+    [[mockDelegate reject] reloadCollectionView:[OCMArg any] sections:[OCMArg any]];
+    self.adapter.updatingDelegate = mockDelegate;
+
+    id sectionController = [IGListSectionController new];
+    [self.adapter reloadSectionController:sectionController];
+
+    [mockDelegate verify];
 }
 
 @end
