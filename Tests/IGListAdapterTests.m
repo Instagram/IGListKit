@@ -24,7 +24,7 @@
 #define IGAssertEqualPoint(point, x, y, ...) \
 do { \
 CGPoint p = CGPointMake(x, y); \
-XCTAssertEqual(CGPointEqualToPoint(point,p), YES); \
+XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 } while(0)
 
 @interface IGListAdapterTests : XCTestCase
