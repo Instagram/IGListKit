@@ -15,4 +15,12 @@
     return self;
 }
 
+- (BOOL)isEqualToDiffableObject:(id<IGListDiffable>)object {
+    if (self == object) {
+        return YES;
+    } else {
+        return [self isEqual:object];
+    }
+}
+
 @end

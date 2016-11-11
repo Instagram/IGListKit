@@ -29,7 +29,7 @@ final class Person: IGListDiffable {
         return pk as NSNumber
     }
 
-    func isEqual(_ object: IGListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
         guard let object = object as? Person else { return false }
         return self.name == object.name
     }

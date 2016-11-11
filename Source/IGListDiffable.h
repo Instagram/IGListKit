@@ -34,14 +34,7 @@
  @param object The object to be compared to the receiver.
 
  @return YES if the receiver and object are equal, otherwise NO.
-
- @warning If you implement a custom isEqual: you must also implement -hash. You can just use the -diffIdentifier value
- for your hash function:
-
- - (NSUInteger)hash {
- return [[self diffIdentifier] hash];
- }
  */
-- (BOOL)isEqual:(nullable id<IGListDiffable>)object;
+- (BOOL)isEqualToDiffableObject:(nullable id<IGListDiffable>)object;
 
 @end
