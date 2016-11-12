@@ -21,7 +21,7 @@ protocol StoryboardLabelSectionControllerDelegate: class {
 
 final class StoryboardLabelSectionController: IGListSectionController, IGListSectionType {
     
-    var object: String?
+    var object: Person?
     weak var delegate: StoryboardLabelSectionControllerDelegate?
     
     func numberOfItems() -> Int {
@@ -29,17 +29,17 @@ final class StoryboardLabelSectionController: IGListSectionController, IGListSec
     }
     
     func sizeForItem(at index: Int) -> CGSize {
-        return CGSize(width: (self.object?.characters.count)! * 10, height: (self.object?.characters.count)! * 10)
+        return CGSize(width: (self.object?.name.characters.count)! * 7, height: (self.object?.name.characters.count)! * 7)
     }
     
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCellFromStoryboard(withIdentifier: "cell", for: self, at: index) as! StoryboardCell
-        cell.textLabel.text = object
+        cell.textLabel.text = object?.name
         return cell
     }
     
     func didUpdate(to object: Any) {
-        self.object = object as? String
+        self.object = object as? Person
     }
     
     func didSelectItem(at index: Int) {

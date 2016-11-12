@@ -23,7 +23,40 @@ final class StoryboardViewController: UIViewController, IGListAdapterDataSource,
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
     
-    lazy var words = "1Maecenas 2faucibus 3mollis 4interdum 5Praesent 6commodo 7cursus 8magna 9vel 10scelerisque 11nisl 12consectetur 13et 14Maecenas 15faucibus 16mollis 17magna 18magna 19vel 20scelerisque 21Maecenas 22faucibus 23mollis 24interdum 25Praesent 26commodo 27cursus 28magna 29vel 30scelerisque 31nisl 32consectetur 33et 34Maecenas 35faucibus 36mollis 37magna 38magna 39vel 40scelerisque".components(separatedBy: " ")
+    lazy var people = [
+        Person(pk: 1, name: "Littlefinger"),
+        Person(pk: 2, name: "Tommen Baratheon"),
+        Person(pk: 3, name: "Roose Bolton"),
+        Person(pk: 4, name: "Brienne of Tarth"),
+        Person(pk: 5, name: "Bronn"),
+        Person(pk: 6, name: "Gilly"),
+        Person(pk: 7, name: "Theon Greyjoy"),
+        Person(pk: 8, name: "Jaqen H'ghar"),
+        Person(pk: 9, name: "Cersei Lannister"),
+        Person(pk: 10, name: "Jaime Lannister"),
+        Person(pk: 11, name: "Tyrion Lannister"),
+        Person(pk: 12, name: "Melisandre"),
+        Person(pk: 13, name: "Missandei"),
+        Person(pk: 14, name: "Jorah Mormont"),
+        Person(pk: 15, name: "Khal Moro"),
+        Person(pk: 16, name: "Daario Naharis"),
+        Person(pk: 17, name: "Jon Snow"),
+        Person(pk: 18, name: "Arya Stark"),
+        Person(pk: 19, name: "Bran Stark"),
+        Person(pk: 20, name: "Sansa Stark"),
+        Person(pk: 21, name: "Daenerys Targaryen"),
+        Person(pk: 22, name: "Samwell Tarly"),
+        Person(pk: 23, name: "Tormund"),
+        Person(pk: 24, name: "Margaery Tyrell"),
+        Person(pk: 25, name: "Varys"),
+        Person(pk: 26, name: "Renly Baratheon"),
+        Person(pk: 27, name: "Joffrey Baratheon"),
+        Person(pk: 28, name: "Stannis Baratheon"),
+        Person(pk: 29, name: "Hodor"),
+        Person(pk: 30, name: "Tywin Lannister"),
+        Person(pk: 31, name: "The Hound"),
+        Person(pk: 32, name: "Ramsay Bolton")
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +67,7 @@ final class StoryboardViewController: UIViewController, IGListAdapterDataSource,
     //MARK: IGListAdapterDataSource
     
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        let items: [IGListDiffable] = words as [IGListDiffable]
-        return items
+        return people
     }
     
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
@@ -48,7 +80,7 @@ final class StoryboardViewController: UIViewController, IGListAdapterDataSource,
     
     func removeSectionControllerWantsRemoved(_ sectionController: StoryboardLabelSectionController) {
         let section = adapter.section(for: sectionController)
-        words.remove(at: Int(section))
+        people.remove(at: Int(section))
         adapter.performUpdates(animated: true)
     }
 }
