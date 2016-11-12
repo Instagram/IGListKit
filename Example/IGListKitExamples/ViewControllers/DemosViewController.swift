@@ -35,6 +35,7 @@ final class DemosViewController: UIViewController, IGListAdapterDataSource {
         DemoItem(name: "Diff Algorithm", controllerClass: DiffTableViewController.self),
         DemoItem(name: "Supplementary Views", controllerClass: SupplementaryViewController.self),
         DemoItem(name: "Self-sizing cells", controllerClass: SelfSizingCellsViewController.self),
+        DemoItem(name: "Display delegate", controllerClass: DisplayViewController.self),
     ]
 
     override func viewDidLoad() {
