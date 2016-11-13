@@ -166,33 +166,64 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
     NSArray *attributes = [self layoutAttributesForIndexPath:indexPath supplementaryKinds:supplementaryKinds];
 
-    CGFloat offset = 0.0;
+    CGFloat offsetMin = 0.0;
+    CGFloat offsetMax = 0.0;
     for (UICollectionViewLayoutAttributes *attribute in attributes) {
         const CGRect frame = attribute.frame;
-        CGFloat origin;
+        CGFloat originMin;
+        CGFloat originMax;
         switch (scrollDirection) {
             case UICollectionViewScrollDirectionHorizontal:
-                origin = CGRectGetMinX(frame);
+                originMin = CGRectGetMinX(frame);
+                originMax = CGRectGetMaxX(frame);
                 break;
             case UICollectionViewScrollDirectionVertical:
-                origin = CGRectGetMinY(frame);
+                originMin = CGRectGetMinY(frame);
+                originMax = CGRectGetMaxY(frame);
                 break;
         }
 
         // find the minimum origin value of all the layout attributes
-        if (attribute == attributes.firstObject || origin < offset) {
-            offset = origin;
+        if (attribute == attributes.firstObject || originMin < offsetMin) {
+            offsetMin = originMin;
+        }
+        
+        if (attribute == attributes.firstObject || originMax > offsetMax) {
+            offsetMax = originMax;
         }
     }
-
+    
+    const CGFloat offsetMid = (offsetMin + offsetMax) / 2.0;
+    const CGFloat collectionViewWidth = collectionView.bounds.size.width;
+    const CGFloat collectionViewHeight = collectionView.bounds.size.height;
     const UIEdgeInsets contentInset = collectionView.contentInset;
     CGPoint contentOffset = collectionView.contentOffset;
     switch (scrollDirection) {
         case UICollectionViewScrollDirectionHorizontal:
-            contentOffset.x = offset - contentInset.left;
+            switch (scrollPosition) {
+                case UICollectionViewScrollPositionRight:
+                    contentOffset.x = offsetMax - collectionViewWidth - contentInset.left;
+                    break;
+                case UICollectionViewScrollPositionCenteredHorizontally:
+                    contentOffset.x = offsetMid - collectionViewWidth / 2.0 - contentInset.left;
+                    break;
+                default:
+                    contentOffset.x = offsetMin - contentInset.left;
+                    break;
+            }
             break;
         case UICollectionViewScrollDirectionVertical:
-            contentOffset.y = offset - contentInset.top;
+            switch (scrollPosition) {
+                case UICollectionViewScrollPositionBottom:
+                    contentOffset.y = offsetMax - collectionViewHeight - contentInset.top;
+                    break;
+                case UICollectionViewScrollPositionCenteredVertically:
+                    contentOffset.y = offsetMid - collectionViewHeight / 2.0 - contentInset.top;
+                    break;
+                default:
+                    contentOffset.y = offsetMin - contentInset.top;
+                    break;
+            }
             break;
     }
 
