@@ -186,6 +186,7 @@ IGLK_SUBCLASSING_RESTRICTED
 - (void)scrollToObject:(id)object
     supplementaryKinds:(nullable NSArray<NSString *> *)supplementaryKinds
        scrollDirection:(UICollectionViewScrollDirection)scrollDirection
+      atScrollPosition:(UICollectionViewScrollPosition)scrollPosition
               animated:(BOOL)animated;
 
 /**

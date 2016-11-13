@@ -140,6 +140,7 @@
 - (void)scrollToObject:(id)object
     supplementaryKinds:(NSArray<NSString *> *)supplementaryKinds
        scrollDirection:(UICollectionViewScrollDirection)scrollDirection
+      atScrollPosition:(UICollectionViewScrollPosition)scrollPosition
               animated:(BOOL)animated {
     IGAssertMainThread();
     IGParameterAssert(object != nil);
