@@ -17,22 +17,23 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- This is an out-of-box upater for IGListAdapters. It conforms to IGListUpdatingDelegate and does re-entrant, coalesced
- updating on a UICollectionView.
+ An `IGListAdapterUpdater` is a concrete type that conforms to `IGListUpdatingDelegate`.
+ It is an out-of-box upater for `IGListAdapter` objects to use.
 
- It also uses IGDiffKit (a least-minimal diff) for calculating UI updates when IGListAdapter calls
- -performUpdateWithCollectionView:fromObjects:toObjects:completion:.
+ @note This updater performs re-entrant, coalesced updating for a list. It also uses a least-minimal diff 
+ for calculating UI updates when `IGListAdapter` calls 
+ `-performUpdateWithCollectionView:fromObjects:toObjects:completion:`.
  */
 IGLK_SUBCLASSING_RESTRICTED
 @interface IGListAdapterUpdater : NSObject <IGListUpdatingDelegate>
 
 /**
- A delegate that receives events with data on the performance of a transition.
+ The delegate that receives events with data on the performance of a transition.
  */
 @property (nonatomic, weak) id<IGListAdapterUpdaterDelegate> delegate;
 
 /**
- A flag indicating if a move should be treated as a delete+insert.
+ A flag indicating if a move should be treated as a "delete, then insert" operation.
  */
 @property (nonatomic, assign) BOOL movesAsDeletesInserts;
 
