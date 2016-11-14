@@ -171,15 +171,15 @@
     for (UICollectionViewLayoutAttributes *attribute in attributes) {
         const CGRect frame = attribute.frame;
         CGFloat originMin;
-        CGFloat originMax;
+        CGFloat endMax;
         switch (scrollDirection) {
             case UICollectionViewScrollDirectionHorizontal:
                 originMin = CGRectGetMinX(frame);
-                originMax = CGRectGetMaxX(frame);
+                endMax = CGRectGetMaxX(frame);
                 break;
             case UICollectionViewScrollDirectionVertical:
                 originMin = CGRectGetMinY(frame);
-                originMax = CGRectGetMaxY(frame);
+                endMax = CGRectGetMaxY(frame);
                 break;
         }
 
@@ -187,9 +187,9 @@
         if (attribute == attributes.firstObject || originMin < offsetMin) {
             offsetMin = originMin;
         }
-        
-        if (attribute == attributes.firstObject || originMax > offsetMax) {
-            offsetMax = originMax;
+        // find the maximum end value of all the layout attributes
+        if (attribute == attributes.firstObject || endMax > offsetMax) {
+            offsetMax = endMax;
         }
     }
     
