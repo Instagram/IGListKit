@@ -5,12 +5,12 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 2.0.0
 -----
 
-This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/1?closed=1).
+This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/1?closed=1). Thanks to the [19 contributors](https://github.com/Instagram/IGListKit/graphs/contributors) who helped with this release!
 
 ### Breaking Changes
 
 - Diff result method `-resultWithUpdatedMovesAsDeleteInserts` removed and replaced with `-resultForBatchUpdates` [(b5aa5e3)](https://github.com/Instagram/IGListKit/commit/b5aa5e39002854c947e777c11ae241f67f24d19c)
-- `IGListDiffable` equality method changed from `isEqual:` to `isEqualToDiffableObject:`
+- `IGListDiffable` equality method changed from `isEqual:` to `isEqualToDiffableObject:` [(ab890fc)](https://github.com/Instagram/IGListKit/commit/ab890fc6070f170a2db5a383a6296e62dcf75678)
 
 ### Enhancements
 
