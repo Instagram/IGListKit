@@ -68,7 +68,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (IGListIndexSetResult *)resultForBatchUpdates;
 
+/**
+ :nodoc:
+ */
 - (instancetype)init NS_UNAVAILABLE;
+
+/**
+ :nodoc:
+ */
 + (instancetype)new NS_UNAVAILABLE;
 
 @end

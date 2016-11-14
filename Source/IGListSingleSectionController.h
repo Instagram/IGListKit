@@ -97,7 +97,14 @@ IGLK_SUBCLASSING_RESTRICTED
  */
 @property (nonatomic, weak, nullable) id<IGListSingleSectionControllerDelegate> selectionDelegate;
 
+/**
+ :nodoc:
+ */
 - (instancetype)init NS_UNAVAILABLE;
+
+/**
+ :nodoc:
+ */
 + (instancetype)new NS_UNAVAILABLE;
 
 @end
