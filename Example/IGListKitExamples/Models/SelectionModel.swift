@@ -18,7 +18,7 @@ enum SelectionModelType: Int {
     case none, fullWidth, nib
 }
 
-final class SelectionModel: NSObject {
+struct SelectionModel {
 
     let options: [String]
     let type: SelectionModelType
