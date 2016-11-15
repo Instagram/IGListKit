@@ -23,6 +23,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ A block to execute when list updates completes.
+
+ @param finished Specifies whether or not the updates finished.
+ */
 typedef void (^IGListUpdaterCompletion)(BOOL finished);
 
 /**
