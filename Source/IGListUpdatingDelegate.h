@@ -31,10 +31,10 @@ typedef void (^IGListReloadUpdateBlock)();
 
  @note Since the updating delegate is responsible for transitioning between object sets, it becomes the "source of
  truth" for how objects and their corresponding section controllers are mapped. This allows the updater to control if
- objects are looked up by pointer, or more traditionally, with hash/isEqual.
+ objects are looked up by pointer, or more traditionally, with `-hash`/`-isEqual`.
 
- For behavior similar to NSDictionary, simply return
- +[NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsObjectPersonality].
+ For behavior similar to `NSDictionary`, simply return
+ `+[NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsObjectPersonality]`.
  */
 - (NSPointerFunctions *)objectLookupPointerFunctions;
 
@@ -42,17 +42,17 @@ typedef void (^IGListReloadUpdateBlock)();
  Tells the delegate to perform a section transition from an old array of objects to a new one.
 
  @param collectionView        The collection view to perform the transition on.
- @param fromObjects           The previous objects in the collection view. Objects must conform to IGListDiffable.
- @param toObjects             The new objects in collection view. Objects must conform to IGListDiffable.
+ @param fromObjects           The previous objects in the collection view. Objects must conform to `IGListDiffable`.
+ @param toObjects             The new objects in collection view. Objects must conform to `IGListDiffable`.
  @param animated              A flag indicating if the transition should be animated.
  @param objectTransitionBlock A block that must be called when the adapter applies changes to the collection view.
  @param completion            A completion block to execute when the update is finished.
 
  @note Implementations determine how to transition between objects. You can perform a diff on the objects, reload
- each section, or simply call -reloadData on the collection view. In the end, the collection view must be setup with a
- section for each object in the toObjects array.
+ each section, or simply call `-reloadData` on the collection view. In the end, the collection view must be setup with a
+ section for each object in the `toObjects` array.
 
- The `objectUpdateBlock` block should be called prior to making any UICollectionView updates, passing in the `toObjects`
+ The `objectTransitionBlock` block should be called prior to making any `UICollectionView` updates, passing in the `toObjects`
  that the updater is applying.
  */
 - (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
@@ -65,7 +65,7 @@ typedef void (^IGListReloadUpdateBlock)();
 /**
  Tells the delegate to perform item inserts at the given index paths.
 
- @param collectionView The collection view to perform the transition on.
+ @param collectionView The collection view on which to perform the transition.
  @param indexPaths     The index paths to insert items into.
  */
 - (void)insertItemsIntoCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray <NSIndexPath *> *)indexPaths;
@@ -73,7 +73,7 @@ typedef void (^IGListReloadUpdateBlock)();
 /**
  Tells the delegate to perform item deletes at the given index paths.
 
- @param collectionView The collection view to perform the transition on.
+ @param collectionView The collection view on which to perform the transition.
  @param indexPaths     The index paths to delete items from.
  */
 - (void)deleteItemsFromCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray <NSIndexPath *> *)indexPaths;
@@ -81,7 +81,7 @@ typedef void (^IGListReloadUpdateBlock)();
 /**
  Tells the delegate to perform item reloads at the given index paths.
 
- @param collectionView The collection view to perform the transition on.
+ @param collectionView The collection view on which to perform the transition.
  @param indexPaths     The index paths of items to reload.
  */
 - (void)reloadItemsInCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray <NSIndexPath *> *)indexPaths;
