@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class Person: IGListDiffable {
+final class Person: IGListDiffable {
 
     let pk: Int
     let name: String
@@ -29,16 +29,14 @@ class Person: IGListDiffable {
         return pk as NSNumber
     }
 
-    func isEqual(_ object: IGListDiffable?) -> Bool {
-        if let object = object as? Person {
-            return self.name == object.name
-        }
-        return false
+    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+        guard let object = object as? Person else { return false }
+        return self.name == object.name
     }
 
 }
 
-class DiffTableViewController: UITableViewController {
+final class DiffTableViewController: UITableViewController {
 
     let oldPeople = [
         Person(pk: 1, name: "Kevin"),
@@ -86,9 +84,7 @@ class DiffTableViewController: UITableViewController {
         tableView.beginUpdates()
         tableView.deleteRows(at: result.deletes, with: .fade)
         tableView.insertRows(at: result.inserts, with: .fade)
-        for move in result.moves {
-            tableView.moveRow(at: move.from, to: move.to)
-        }
+        result.moves.forEach { tableView.moveRow(at: $0.from, to: $0.to) }
         tableView.endUpdates()
     }
 

@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class LoadMoreViewController: UIViewController, IGListAdapterDataSource, UIScrollViewDelegate {
+final class LoadMoreViewController: UIViewController, IGListAdapterDataSource, UIScrollViewDelegate {
 
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
@@ -68,7 +68,7 @@ class LoadMoreViewController: UIViewController, IGListAdapterDataSource, UIScrol
         if !loading && distance < 200 {
             loading = true
             adapter.performUpdates(animated: true, completion: nil)
-            DispatchQueue.global(qos: .default).async(execute: {
+            DispatchQueue.global(qos: .default).async {
                 // fake background loading task
                 sleep(2)
                 DispatchQueue.main.async {
@@ -77,7 +77,7 @@ class LoadMoreViewController: UIViewController, IGListAdapterDataSource, UIScrol
                     self.items.append(contentsOf: Array(itemCount..<itemCount + 5))
                     self.adapter.performUpdates(animated: true, completion: nil)
                 }
-            })
+            }
         }
     }
 

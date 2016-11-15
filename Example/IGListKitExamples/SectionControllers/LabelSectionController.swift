@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class LabelSectionController: IGListSectionController, IGListSectionType {
+final class LabelSectionController: IGListSectionController, IGListSectionType {
 
     var object: String?
 

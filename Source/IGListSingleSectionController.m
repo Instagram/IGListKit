@@ -78,7 +78,7 @@
 }
 
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
-    return self.sizeBlock(self.collectionContext);
+    return self.sizeBlock(self.item, self.collectionContext);
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {

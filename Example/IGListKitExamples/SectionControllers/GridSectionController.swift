@@ -27,7 +27,7 @@ class GridItem: NSObject {
 
 }
 
-class GridSectionController: IGListSectionController, IGListSectionType {
+final class GridSectionController: IGListSectionController, IGListSectionType {
 
     var object: GridItem?
 

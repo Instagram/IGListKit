@@ -7,16 +7,13 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <UIKit/UIKit.h>
+#import "IGTestStoryboardViewController.h"
+#import "IGTestStoryboardCell.h"
 
-#import "IGListCollectionView.h"
+@interface IGTestStoryboardViewController ()
 
-#import <IGListKit/IGListAdapterDataSource.h>
+@end
 
-#import "IGTestObject.h"
-
-@interface IGTestSingleStoryboardViewController : UIViewController
-
-@property (weak, nonatomic) IBOutlet IGListCollectionView *collectionView;
+@implementation IGTestStoryboardViewController
 
 @end

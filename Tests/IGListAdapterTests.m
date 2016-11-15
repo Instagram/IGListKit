@@ -13,12 +13,18 @@
 #import <OCMock/OCMock.h>
 
 #import <IGListKit/IGListKit.h>
-#import <IGListKit/IGListReloadDataUpdater.h>
 
 #import "IGListAdapterInternal.h"
 #import "IGListTestAdapterDataSource.h"
 #import "IGListTestSection.h"
 #import "IGTestSupplementarySource.h"
+#import "IGTestNibSupplementaryView.h"
+
+#define IGAssertEqualPoint(point, x, y, ...) \
+do { \
+CGPoint p = CGPointMake(x, y); \
+XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
+} while(0)
 
 @interface IGListAdapterTests : XCTestCase
 
@@ -26,6 +32,7 @@
 @property (nonatomic, strong) IGListCollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
 @property (nonatomic, strong) IGListTestAdapterDataSource *dataSource;
+@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 @property (nonatomic, strong) UIWindow *window;
 
 @end
@@ -38,8 +45,8 @@
     // minimum line spacing, item size, and minimum interim spacing are all set in IGListTestSection
     self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
 
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.collectionView = [[IGListCollectionView alloc] initWithFrame:self.window.bounds collectionViewLayout:layout];
+    self.layout = [[UICollectionViewFlowLayout alloc] init];
+    self.collectionView = [[IGListCollectionView alloc] initWithFrame:self.window.bounds collectionViewLayout:self.layout];
 
     [self.window addSubview:self.collectionView];
 
@@ -60,6 +67,7 @@
     self.collectionView = nil;
     self.adapter = nil;
     self.dataSource = nil;
+    self.layout = nil;
 }
 
 - (void)test_whenAdapterNotUpdated_withDataSourceUpdated_thatAdapterHasNoSectionControllers {
@@ -380,6 +388,30 @@
     XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
 }
 
+- (void)test_whenSupplementarySourceSupportsFooter_withNibs_thatHeaderViewsAreNil {
+    self.dataSource.objects = @[@1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.dequeueFromNib = YES;
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
+
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@1];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+
+    id view = [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    XCTAssertTrue([view isKindOfClass:IGTestNibSupplementaryView.class]);
+    XCTAssertEqualObjects([[(IGTestNibSupplementaryView *)view label] text], @"Foo bar baz");
+
+    XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+    XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
+    XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
+}
+
 - (void)test_whenAdapterReleased_withSectionControllerStrongRefToCell_thatSectionControllersRelease {
     __weak id weakCollectionView = nil, weakAdapter = nil, weakSectionController = nil;
 
@@ -481,6 +513,219 @@
     XCTAssertFalse([[self.adapter sectionControllerForObject:@0] isLastSection]);
     XCTAssertTrue([[self.adapter sectionControllerForObject:@1] isLastSection]);
     XCTAssertFalse([[self.adapter sectionControllerForObject:@2] isLastSection]);
+}
+
+- (void)test_whenAdapterUpdated_withObjectsOverflow_thatVisibleObjectsIsSubsetOfAllObjects {
+    // each section controller returns n items sized 100x10
+    self.dataSource.objects = @[@1, @2, @3, @4, @5, @6];
+    [self.adapter reloadDataWithCompletion:nil];
+    self.collectionView.contentOffset = CGPointMake(0, 30);
+    [self.collectionView layoutIfNeeded];
+
+    NSArray *visibleObjects = [[self.adapter visibleObjects] sortedArrayUsingSelector:@selector(compare:)];
+    NSArray *expectedObjects = @[@3, @4, @5];
+    XCTAssertEqualObjects(visibleObjects, expectedObjects);
+}
+
+- (void)test_whenScrollVerticallyToItem {
+    // # of items for each object == [item integerValue], so @2 has 2 items (cells)
+    self.dataSource.objects = @[@1, @2, @3, @4, @5, @6];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertEqual([self.collectionView numberOfSections], 6);
+    [self.adapter scrollToObject:@1 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
+    [self.adapter scrollToObject:@2 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 10);
+    [self.adapter scrollToObject:@3 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 30);
+    [self.adapter scrollToObject:@6 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 150);
+}
+
+- (void)test_whenScrollHorizontallyToItem {
+    // # of items for each object == [item integerValue], so @2 has 2 items (cells)
+    self.dataSource.objects = @[@1, @2, @3, @4, @5, @6];
+    self.layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertEqual([self.collectionView numberOfSections], 6);
+    [self.adapter scrollToObject:@1 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionHorizontal animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
+    [self.adapter scrollToObject:@2 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionHorizontal animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 100, 0);
+    [self.adapter scrollToObject:@3 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionHorizontal animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 200, 0);
+    [self.adapter scrollToObject:@6 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionHorizontal animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 500, 0);
+    self.layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+}
+
+- (void)test_whenScrollToItem_thatSupplementarySourceSupportsSingleHeader {
+    self.dataSource.objects = @[@1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+    
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
+    
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@1];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+    
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    
+    XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+    [self.adapter scrollToObject:@1 supplementaryKinds:@[UICollectionElementKindSectionHeader] scrollDirection:UICollectionViewScrollDirectionVertical animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
+    [self.adapter scrollToObject:@2 supplementaryKinds:@[UICollectionElementKindSectionHeader] scrollDirection:UICollectionViewScrollDirectionVertical animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 20);
+}
+
+- (void)test_whenScrollToItem_thatSupplementarySourceSupportsHeaderAndFooter {
+    self.dataSource.objects = @[@1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+    
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader, UICollectionElementKindSectionFooter];
+    
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@1];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+    
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    
+    XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+    XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+    [self.adapter scrollToObject:@1 supplementaryKinds:@[UICollectionElementKindSectionHeader, UICollectionElementKindSectionFooter] scrollDirection:UICollectionViewScrollDirectionVertical animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
+    [self.adapter scrollToObject:@2 supplementaryKinds:@[UICollectionElementKindSectionHeader, UICollectionElementKindSectionFooter] scrollDirection:UICollectionViewScrollDirectionVertical animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 30);
+}
+
+- (void)test_whenScrollVerticallyToItem_thatFeedIsEmpty {
+    self.dataSource.objects = @[];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertEqual([self.collectionView numberOfSections], 0);
+    [self.adapter scrollToObject:@1 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
+}
+
+- (void)test_whenScrollVerticallyToItem_thatItemNotInFeed {
+    // # of items for each object == [item integerValue], so @2 has 2 items (cells)
+    self.dataSource.objects = @[@1, @2, @3, @4];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertEqual([self.collectionView numberOfSections], 4);
+    [self.adapter scrollToObject:@1 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
+    [self.adapter scrollToObject:@5 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
+    [self.adapter scrollToObject:@2 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 10);
+    [self.adapter scrollToObject:@5 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 10);
+}
+
+- (void)test_whenQueryingIndexPath_withOOBSectionController_thatNilReturned {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id randomSectionController = [IGListSectionController new];
+    XCTAssertNil([self.adapter indexPathForSectionController:randomSectionController index:0]);
+}
+
+- (void)test_whenQueryingSectionForObject_thatSectionReturned {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertEqual([self.adapter sectionForObject:@0], 0);
+    XCTAssertEqual([self.adapter sectionForObject:@1], 1);
+    XCTAssertEqual([self.adapter sectionForObject:@2], 2);
+    XCTAssertEqual([self.adapter sectionForObject:@3], NSNotFound);
+}
+
+- (void)test_whenReloadingData_withNoDataSource_thatCompletionCalledWithNO {
+    self.dataSource.objects = @[@1];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
+                                                     viewController:nil
+                                                   workingRangeSize:0];
+    adapter.collectionView = self.collectionView;
+
+    __block BOOL executed = NO;
+    [adapter reloadDataWithCompletion:^(BOOL finished) {
+        executed = YES;
+        XCTAssertFalse(finished);
+    }];
+    XCTAssertTrue(executed);
+}
+
+- (void)test_whenReloadingData_withNoCollectionView_thatCompletionCalledWithNO {
+    self.dataSource.objects = @[@1];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
+                                                     viewController:nil
+                                                   workingRangeSize:0];
+    adapter.dataSource = self.dataSource;
+
+    __block BOOL executed = NO;
+    [adapter reloadDataWithCompletion:^(BOOL finished) {
+        executed = YES;
+        XCTAssertFalse(finished);
+    }];
+    XCTAssertTrue(executed);
+}
+
+- (void)test_whenSectionControllerReloading_withEmptyIndexes_thatNoUpdatesHappen {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
+    [[mockDelegate reject] reloadItemsInCollectionView:[OCMArg any] indexPaths:[OCMArg any]];
+    self.adapter.updatingDelegate = mockDelegate;
+
+    id sectionController = [self.adapter sectionControllerForObject:@1];
+    [self.adapter reloadInSectionController:sectionController atIndexes:[NSIndexSet new]];
+
+    [mockDelegate verify];
+}
+
+- (void)test_whenSectionControllerDeleting_withEmptyIndexes_thatNoUpdatesHappen {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
+    [[mockDelegate reject] deleteItemsFromCollectionView:[OCMArg any] indexPaths:[OCMArg any]];
+    self.adapter.updatingDelegate = mockDelegate;
+
+    id sectionController = [self.adapter sectionControllerForObject:@1];
+    [self.adapter deleteInSectionController:sectionController atIndexes:[NSIndexSet new]];
+
+    [mockDelegate verify];
+}
+
+- (void)test_whenSectionControllerInserting_withEmptyIndexes_thatNoUpdatesHappen {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
+    [[mockDelegate reject] insertItemsIntoCollectionView:[OCMArg any] indexPaths:[OCMArg any]];
+    self.adapter.updatingDelegate = mockDelegate;
+
+    id sectionController = [self.adapter sectionControllerForObject:@1];
+    [self.adapter insertInSectionController:sectionController atIndexes:[NSIndexSet new]];
+
+    [mockDelegate verify];
+}
+
+- (void)test_whenReloading_withSectionControllerNotFound_thatNoUpdatesHappen {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
+    [[mockDelegate reject] reloadCollectionView:[OCMArg any] sections:[OCMArg any]];
+    self.adapter.updatingDelegate = mockDelegate;
+
+    id sectionController = [IGListSectionController new];
+    [self.adapter reloadSectionController:sectionController];
+
+    [mockDelegate verify];
 }
 
 @end

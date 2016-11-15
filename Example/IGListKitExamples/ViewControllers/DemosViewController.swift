@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class DemosViewController: UIViewController, IGListAdapterDataSource {
+final class DemosViewController: UIViewController, IGListAdapterDataSource {
 
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
@@ -33,6 +33,9 @@ class DemosViewController: UIViewController, IGListAdapterDataSource {
         DemoItem(name: "Single Section Storyboard", controllerClass: SingleSectionViewController.self, controllerIdentifier: "singleSectionDemo"),
         DemoItem(name: "Working Range", controllerClass: WorkingRangeViewController.self),
         DemoItem(name: "Diff Algorithm", controllerClass: DiffTableViewController.self),
+        DemoItem(name: "Supplementary Views", controllerClass: SupplementaryViewController.self),
+        DemoItem(name: "Self-sizing cells", controllerClass: SelfSizingCellsViewController.self),
+        DemoItem(name: "Display delegate", controllerClass: DisplayViewController.self),
     ]
 
     override func viewDidLoad() {

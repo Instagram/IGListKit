@@ -18,7 +18,7 @@ protocol RemoveSectionControllerDelegate: class {
     func removeSectionControllerWantsRemoved(_ sectionController: RemoveSectionController)
 }
 
-class RemoveSectionController: IGListSectionController, IGListSectionType, RemoveCellDelegate {
+final class RemoveSectionController: IGListSectionController, IGListSectionType, RemoveCellDelegate {
 
     weak var delegate: RemoveSectionControllerDelegate?
     var number: Int?

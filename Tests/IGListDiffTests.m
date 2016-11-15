@@ -428,4 +428,9 @@ static NSArray *sorted(NSArray *arr) {
     XCTAssertEqualObjects(sorted(result.inserts), expectedInserts);
 }
 
+- (void)test_whenComparingDiffableObjects_withDefaultCategory_thatPointersAreAlwaysEqual {
+    NSObject *object = [NSObject new];
+    XCTAssertTrue([object isEqualToDiffableObject:object]);
+}
+
 @end

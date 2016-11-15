@@ -26,7 +26,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign, readonly) NSUInteger to;
 
+/**
+ :nodoc:
+ */
 - (instancetype)init NS_UNAVAILABLE;
+
+/**
+ :nodoc:
+ */
 + (instancetype)new NS_UNAVAILABLE;
 
 @end

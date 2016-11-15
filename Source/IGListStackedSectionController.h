@@ -12,7 +12,8 @@
 #import <IGListKit/IGListMacros.h>
 
 /**
- This is a clustered section controller, composed of many child section controllers. It constructs and routes item-level
+ An instace of `IGListStackedSectionController` is a clustered section controller, 
+ composed of many child section controllers. It constructs and routes item-level
  indexes to the appropriate child section controller with a local index. This lets you build section controllers made up
  of individual units that can be shared and reused with other section controllers.
 
@@ -24,16 +25,24 @@ IGLK_SUBCLASSING_RESTRICTED
 @interface IGListStackedSectionController : IGListSectionController <IGListSectionType>
 
 /**
- Create a new stacked section controller.
+ Creates a new stacked section controller.
 
  @param sectionControllers An array of section controllers that make up the stack.
 
- @discussion The order of the section controllers dictates the order in which they appear. The first section controller
- that is the supplementary source decides which supplementary views get displayed.
+ @note The order of the section controllers dictates the order in which they appear. 
+ 
+ @warning The first section controller that is the supplementary source decides which supplementary views get displayed.
  */
 - (instancetype)initWithSectionControllers:(NSArray <IGListSectionController<IGListSectionType> *> *)sectionControllers NS_DESIGNATED_INITIALIZER;
 
+/**
+ :nodoc:
+ */
 - (instancetype)init NS_UNAVAILABLE;
+
+/**
+ :nodoc:
+ */
 + (instancetype)new NS_UNAVAILABLE;
 
 @end

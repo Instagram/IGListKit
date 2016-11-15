@@ -29,11 +29,9 @@ class SwiftClass: IGListDiffable {
         return NSNumber(value: id)
     }
 
-    func isEqual(_ object: IGListDiffable?) -> Bool {
-        if let object = object as? SwiftClass {
-            return id == object.id && value == object.value
-        }
-        return false
+    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+        guard let object = object as? SwiftClass else { return false }
+        return id == object.id && value == object.value
     }
 
 }
@@ -47,7 +45,7 @@ class IGDiffingSwiftTests: XCTestCase {
     func testDiffingStrings() {
         let o: [NSString] = ["a", "b", "c"]
         let n: [NSString] = ["a", "c", "d"]
-        let result = IGListDiff(o as [IGListDiffable]?, n, .equality)
+        let result = IGListDiff(o, n, .equality)
         XCTAssertEqual(result.deletes, IndexSet(integer: 1))
         XCTAssertEqual(result.inserts, IndexSet(integer: 2))
         XCTAssertEqual(result.moves.count, 0)
@@ -57,7 +55,7 @@ class IGDiffingSwiftTests: XCTestCase {
     func testDiffingNumbers() {
         let o: [NSNumber] = [0, 1, 2]
         let n: [NSNumber] = [0, 2, 4]
-        let result = IGListDiff(o as [IGListDiffable]?, n, .equality)
+        let result = IGListDiff(o, n, .equality)
         XCTAssertEqual(result.deletes, IndexSet(integer: 1))
         XCTAssertEqual(result.inserts, IndexSet(integer: 2))
         XCTAssertEqual(result.moves.count, 0)
