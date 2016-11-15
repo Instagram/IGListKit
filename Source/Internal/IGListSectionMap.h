@@ -102,7 +102,10 @@ IGLK_SUBCLASSING_RESTRICTED
  */
 - (void)enumerateUsingBlock:(void (^)(id object, IGListSectionController<IGListSectionType> *sectionController, NSUInteger section, BOOL *stop))block;
 
-- (id)init NS_UNAVAILABLE;
+/**
+ :nodoc:
+ */
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
 

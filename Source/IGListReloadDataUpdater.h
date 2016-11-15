@@ -12,6 +12,12 @@
 #import <IGListKit/IGListMacros.h>
 #import <IGListKit/IGListUpdatingDelegate.h>
 
+/**
+ An `IGListReloadDataUpdater` is a concrete type that conforms to `IGListUpdatingDelegate`.
+ It is an out-of-box upater for `IGListAdapter` objects to use.
+
+ @note This updater performs simple, synchronous updates using `-[UICollectionView reloadData]`.
+ */
 IGLK_SUBCLASSING_RESTRICTED
 @interface IGListReloadDataUpdater : NSObject <IGListUpdatingDelegate>
 

@@ -14,61 +14,72 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- Result object returned when diffing with indexes.
+ A result object returned when diffing with indexes.
  */
 @interface IGListIndexSetResult : NSObject
 
 /**
- Indexes inserted into the new collection.
+ The indexes inserted into the new collection.
  */
 @property (nonatomic, strong, readonly) NSIndexSet *inserts;
 
 /**
- Indexes deleted from the old collection.
+ The indexes deleted from the old collection.
  */
 @property (nonatomic, strong, readonly) NSIndexSet *deletes;
 
 /**
- Indexes in the new collection that need updated.
+ The indexes in the new collection that need updated.
  */
 @property (nonatomic, strong, readonly) NSIndexSet *updates;
 
 /**
- Moves from an index in the old collection to an index in the new collection.
+ The moves from an index in the old collection to an index in the new collection.
  */
 @property (nonatomic, copy, readonly) NSArray<IGListMoveIndex *> *moves;
 
 /**
- Convenience to query if the result has any changes.
+ Returns whether the result has any changes or not.
 
- @return YES if the result has changes, NO otherwise.
+ @return `YES` if the result has changes, `NO` otherwise.
  */
 - (BOOL)hasChanges;
 
 /**
- Fetch the index of the object with identifier before the diff.
+ Returns the index of the object with the specified identifier *before* the diff.
 
- @param identifier The diff identifier of the object. See -[IGListDiffable diffIdentifier].
+ @param identifier The diff identifier of the object.
 
- @return The index of the object before the diff, or NSNotFound.
+ @return The index of the object before the diff, or `NSNotFound`.
+
+ @see `-[IGListDiffable diffIdentifier]`.
  */
 - (NSUInteger)oldIndexForIdentifier:(id<NSObject>)identifier;
 
 /**
- Fetch the index of the object with identifier after the diff.
+ Returns the index of the object with the specified identifier *after* the diff.
 
- @param identifier The diff identifier of the object. See -[IGListDiffable diffIdentifier].
+ @param identifier The diff identifier of the object.
 
- @return The index of the object after the diff, or NSNotFound.
+ @return The index path of the object after the diff, or `NSNotFound`.
+
+ @see `-[IGListDiffable diffIdentifier]`.
  */
 - (NSUInteger)newIndexForIdentifier:(id<NSObject>)identifier;
 
 /**
- Create a new result object with operations safe for use in UITableView and UICollectionView batch updates.
+ Creates a new result object with operations safe for use in `UITableView` and `UICollectionView` batch updates.
  */
 - (IGListIndexSetResult *)resultForBatchUpdates;
 
+/**
+ :nodoc:
+ */
 - (instancetype)init NS_UNAVAILABLE;
+
+/**
+ :nodoc:
+ */
 + (instancetype)new NS_UNAVAILABLE;
 
 @end
