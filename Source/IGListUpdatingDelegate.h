@@ -13,9 +13,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ A completion block to execute when updates are finished.
+
+ @param finished Specifies whether or not the update finished.
+ */
 typedef void (^IGListUpdatingCompletion)(BOOL finished);
+
+/**
+ A block to be called when the adapter applies changes to the collection view.
+
+ @param toObjects The new objects in the collection.
+ */
 typedef void (^IGListObjectTransitionBlock)(NSArray *toObjects);
+
+/// A block that contains all of the updates.
 typedef void (^IGListItemUpdateBlock)();
+
+/// A block to be called when an adapter reloads the collection view.
 typedef void (^IGListReloadUpdateBlock)();
 
 /**
