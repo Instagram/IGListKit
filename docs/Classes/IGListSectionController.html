@@ -14,7 +14,7 @@
     <a title="IGListSectionController Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (79% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (97% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -49,7 +49,7 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -153,6 +153,12 @@
                 <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -192,7 +198,7 @@
 
                 </div>
               </div>
-            <p>The base class for section controllers used in the list infra. This class is meant to be subclassed.</p>
+            <p>The base class for section controllers used in a list. This class is intended to be subclassed.</p>
 
           </section>
           <section class="section task-group-section">
@@ -213,8 +219,18 @@
                       <div class="abstract">
                         <p>The view controller housing the adapter that created this section controller.</p>
 
-<p>@discussion Use this view controller to push, pop, present, or do other custom transitions. It is considered very bad
-practice to cast this to a known view controller and call methods on it other than for navigations and transitions.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Use this view controller to push, pop, present, or do other custom transitions. </p>
+
+</div>
+
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>It is considered very bad practice to cast this to a known view controller 
+and call methods on it other than for navigations and transitions.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -241,8 +257,9 @@ practice to cast this to a known view controller and call methods on it other th
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A context object for interacting with the collection i.e. accessing the collection size, dequeing cells,
-reloading/inserting/deleting, etc.</p>
+                        <p>A context object for interacting with the collection. </p>
+
+<p>Use this property for accessing the collection size, dequeing cells, reloading, inserting, deleting, etc.</p>
 
                       </div>
                       <div class="declaration">
@@ -256,6 +273,70 @@ reloading/inserting/deleting, etc.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">collectionContext</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListSectionController(py)isFirstSection"></a>
+                    <a name="//apple_ref/objc/Property/isFirstSection" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(py)isFirstSection">isFirstSection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns <code>YES</code> if the section controller is the first section in the list, <code>NO</code> otherwise.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">assign</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">isFirstSection</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">isFirstSection</span><span class="p">:</span> <span class="kt">Int32</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListSectionController(py)isLastSection"></a>
+                    <a name="//apple_ref/objc/Property/isLastSection" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(py)isLastSection">isLastSection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns <code>YES</code> if the section controller is the last section in the list, <code>NO</code> otherwise.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">assign</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">isLastSection</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">isLastSection</span><span class="p">:</span> <span class="kt">Int32</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -279,7 +360,7 @@ reloading/inserting/deleting, etc.</p>
 
 <div class="aside aside-see">
     <p class="aside-title">See</p>
-    -[UICollectionViewFlowLayout sectionInset]
+    <code>-[UICollectionViewFlowLayout sectionInset]</code>.
 
 </div>
 
@@ -317,7 +398,7 @@ reloading/inserting/deleting, etc.</p>
 
 <div class="aside aside-see">
     <p class="aside-title">See</p>
-    -[UICollectionViewFlowLayout minimumLineSpacing]
+    <code>-[UICollectionViewFlowLayout minimumLineSpacing]</code>.
 
 </div>
 
@@ -355,7 +436,7 @@ reloading/inserting/deleting, etc.</p>
 
 <div class="aside aside-see">
     <p class="aside-title">See</p>
-    -[UICollectionViewFlowLayout minimumInteritemSpacing]
+    <code>-[UICollectionViewFlowLayout minimumInteritemSpacing]</code>.
 
 </div>
 
@@ -389,9 +470,13 @@ reloading/inserting/deleting, etc.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The supplementary view source for the section controller. Can be nil.</p>
+                        <p>The supplementary view source for the section controller. Can be <code>nil</code>.</p>
 
-<p>@discussion You may wish to return self if your section controller implements this protocol.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>You may wish to return <code>self</code> if your section controller implements this protocol.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -410,7 +495,7 @@ reloading/inserting/deleting, etc.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>An object that conforms to IGListSupplementaryViewSource or nil.</p>
+                        <p>An object that conforms to <code><a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a></code> or <code>nil</code>.</p>
 
                       </div>
                     </section>
@@ -429,9 +514,13 @@ reloading/inserting/deleting, etc.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An object that handles display events for the section controller. Can be nil.</p>
+                        <p>An object that handles display events for the section controller. Can be <code>nil</code>.</p>
 
-<p>@discussion You may wish to return self if your section controller implements this protocol.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>You may wish to return <code>self</code> if your section controller implements this protocol.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -450,7 +539,7 @@ reloading/inserting/deleting, etc.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>An object that conforms to IGListDisplayDelegate or nil.</p>
+                        <p>An object that conforms to <code><a href="../Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a></code> or <code>nil</code>.</p>
 
                       </div>
                     </section>
@@ -469,9 +558,13 @@ reloading/inserting/deleting, etc.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An object that handles working range events for the section controller. Can be nil.</p>
+                        <p>An object that handles working range events for the section controller. Can be <code>nil</code>.</p>
 
-<p>@discussion You may wish to return self if your section controller implements this protocol.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>You may wish to return <code>self</code> if your section controller implements this protocol.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -490,7 +583,7 @@ reloading/inserting/deleting, etc.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>An object that conforms to IGListWorkingRangeDelegate or nil.</p>
+                        <p>An object that conforms to <code><a href="../Protocols/IGListWorkingRangeDelegate.html">IGListWorkingRangeDelegate</a></code> or <code>nil</code>.</p>
 
                       </div>
                     </section>
@@ -509,9 +602,13 @@ reloading/inserting/deleting, etc.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An object that handles display events for the section controller. Can be nil.</p>
+                        <p>An object that handles display events for the section controller. Can be <code>nil</code>.</p>
 
-<p>@discussion You may wish to return self if your section controller implements this protocol.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>You may wish to return <code>self</code> if your section controller implements this protocol.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -530,7 +627,7 @@ reloading/inserting/deleting, etc.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>An object that conforms to IGListDisplayDelegate or nil.</p>
+                        <p>An object that conforms to <code><a href="../Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a></code> or <code>nil</code>.</p>
 
                       </div>
                     </section>
@@ -541,7 +638,7 @@ reloading/inserting/deleting, etc.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-11-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

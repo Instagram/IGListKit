@@ -13,7 +13,7 @@
     <a title="Protocols  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (79% documented)</p>
+        <p><a href="index.html">IGListKit Docs</a> (97% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -48,7 +48,7 @@
                 <a href="Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/IGListCollectionView.html">IGListCollectionView</a>
+                <a href="Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -152,6 +152,12 @@
                 <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -204,7 +210,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Implement this protocol to provide data to power an IGListAdapter feed.</p>
+                        <p>Implement this protocol to provide data to an <code><a href="Classes/IGListAdapter.html">IGListAdapter</a></code>.</p>
 
                         <a href="Protocols/IGListAdapterDataSource.html" class="slightly-smaller">See more</a>
                       </div>
@@ -265,7 +271,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A protocol that receives events about IGListAdapterUpdater operations.</p>
+                        <p>A protocol that receives events about <code><a href="Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></code> operations.</p>
 
                         <a href="Protocols/IGListAdapterUpdaterDelegate.html" class="slightly-smaller">See more</a>
                       </div>
@@ -302,8 +308,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The collection context provides limited access to the collection related information that
-section controllers need for things like sizing, dequeing cells, insterting/deleting/reloading, etc.</p>
+                        <p>The collection context provides limited access to the collection-related information that
+section controllers need for operations like sizing, dequeing cells, insterting, deleting, reloading, etc.</p>
 
                         <a href="Protocols/IGListCollectionContext.html" class="slightly-smaller">See more</a>
                       </div>
@@ -340,8 +346,7 @@ section controllers need for things like sizing, dequeing cells, insterting/dele
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The IGListDiffable protocol provides the base methods needed to compare the identity and equality of two objects using
-one of the IGKAlgorithm functions.</p>
+                        <p>The <code>IGListDiffable</code> protocol provides methods needed to compare the identity and equality of two objects.</p>
 
                         <a href="Protocols/IGListDiffable.html" class="slightly-smaller">See more</a>
                       </div>
@@ -452,17 +457,17 @@ one of the IGKAlgorithm functions.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Implement this protocol in order to be used within the IGListKit data infrastructure and be registered for use in an
-IGListAdapter. An IGListSectionType conforming object represents a single instance of an object in a collection of
+                        <p>Implement this protocol in order to be used within the <code>IGListKit</code> data infrastructure and be registered for use in an
+<code><a href="Classes/IGListAdapter.html">IGListAdapter</a></code>. An <code>IGListSectionType</code> conforming object represents a single instance of an object in a collection of
 objects.</p>
 
-<p>The infrastructure uses each IGListSectionType conforming object as a <q>view model</q> to populate and control cells as
-part of a section in a UICollectionView feed. IGListSectionType objects should be architected without knowledge of
-<q>global</q> state of the feed they are contained in.</p>
+<p>The infrastructure uses each <code>IGListSectionType</code> conforming object as a <q>view model</q> to populate and control cells as
+part of a section in a <code>UICollectionView</code>. <code>IGListSectionType</code> objects should be architected without knowledge of
+<q>global</q> state of the list in which they are contained.</p>
 
 <p>Index paths are used as a convenience for communicating the section index to each section object without allowing each
-section to mutate its own position within a feed. The row of an index path can be directly mapped to a cell within
-an IGListSectionType conforming object.</p>
+section to mutate its own position within a list. The row of an index path can be directly mapped to a cell within
+an <code>IGListSectionType</code> conforming object.</p>
 
                         <a href="Protocols/IGListSectionType.html" class="slightly-smaller">See more</a>
                       </div>
@@ -499,7 +504,7 @@ an IGListSectionType conforming object.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A delegate that can receive selection events on an IGListSingleSectionController.</p>
+                        <p>A delegate that can receive selection events on an <code><a href="Classes/IGListSingleSectionController.html">IGListSingleSectionController</a></code>.</p>
 
                         <a href="Protocols/IGListSingleSectionControllerDelegate.html" class="slightly-smaller">See more</a>
                       </div>
@@ -536,9 +541,9 @@ an IGListSectionType conforming object.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Implement the methods of this protocol to provide information about a list&rsquo;s supplementary views. This data is used in
-IGListAdapter which then configures and maintains a UICollectionView. The supplementary API reflects that in
-UICollectionView, UICollectionViewLayout, and UICollectionViewDataSource.</p>
+                        <p>Conform to this protocol to provide information about a list&rsquo;s supplementary views. This data is used in
+<code><a href="Classes/IGListAdapter.html">IGListAdapter</a></code> which then configures and maintains a <code>UICollectionView</code>. The supplementary API reflects that in
+<code>UICollectionView</code>, <code>UICollectionViewLayout</code>, and <code>UICollectionViewDataSource</code>.</p>
 
                         <a href="Protocols/IGListSupplementaryViewSource.html" class="slightly-smaller">See more</a>
                       </div>
@@ -641,7 +646,7 @@ you could begin decoding images, or warming text caches.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-11-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

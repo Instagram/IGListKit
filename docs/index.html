@@ -13,7 +13,7 @@
     <a title="IGListKit  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (79% documented)</p>
+        <p><a href="index.html">IGListKit Docs</a> (97% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -48,7 +48,7 @@
                 <a href="Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/IGListCollectionView.html">IGListCollectionView</a>
+                <a href="Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -152,6 +152,12 @@
                 <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -189,7 +195,24 @@
   <img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/logo-animation.gif" width=400 />
 </p>
 
-<p><a href="https://travis-ci.org/Instagram/IGListKit"><img src="https://secure.travis-ci.org/Instagram/IGListKit.svg" alt="Build Status" /></a> <a href="https://cocoapods.org/pods/IGListKit"><img src="https://img.shields.io/cocoapods/v/IGListKit.svg" alt="Version Status" /></a> <a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://img.shields.io/cocoapods/l/IGListKit.svg" alt="license BSD" /></a> <a href="https://instagram.github.io/IGListKit"><img src="https://img.shields.io/cocoapods/p/IGListKit.svg" alt="Platform" /></a> <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible" /></a></p>
+<p align="center">
+    <a href="https://travis-ci.org/Instagram/IGListKit">
+        <img src="https://travis-ci.org/Instagram/IGListKit.svg?branch=master&style=flat"
+             alt="Build Status">
+    </a>
+    <a href="https://coveralls.io/github/Instagram/IGListKit">
+        <img src="https://coveralls.io/repos/github/Instagram/IGListKit/badge.svg?branch=master&style=flat"
+             alt="Code Coverage">
+    </a>
+    <a href="https://cocoapods.org/pods/IGListKit">
+        <img src="https://img.shields.io/cocoapods/v/IGListKit.svg?style=flat"
+             alt="Pods Version">
+    </a>
+    <a href="https://github.com/Carthage/Carthage">
+        <img src="https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?style=flat"
+             alt="Carthage Compatible">
+    </a>
+</p>
 
 <hr>
 
@@ -231,7 +254,7 @@
 </tr>
 <tr>
 <td>&#128640;</td>
-<td>Extendable updating API</td>
+<td>Extendable API</td>
 </tr>
 <tr>
 <td>&#128038;</td>
@@ -239,17 +262,30 @@
 </tr>
 </tbody></table>
 
-<p><code>IGListKit</code> powers every major product in Instagram for hundreds of millions of users. It was built to be fast, efficient, and stable.</p>
-<a href='#installation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='installation'>Installation</h2>
+<p><code>IGListKit</code> is built and maintained with &#10084;&#65039; by <a href="https://engineering.instagram.com/">Instagram engineering</a>, using the open source version for the Instagram app.</p>
+<a href='#requirements' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='requirements'>Requirements</h2>
 
-<p>The preferred installation method for <code>IGListKit</code> is with <a href="http://cocoapods.org">Cocoapods</a>. Simply add the following to your Podfile:</p>
+<ul>
+<li>Xcode 8.0+</li>
+<li>iOS 8.0+</li>
+<li>tvOS 9.0+</li>
+<li>Interoperability with Swift 3.0+</li>
+</ul>
+<a href='#installation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='installation'>Installation</h2>
+<a href='#cocoapods' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='cocoapods'>CocoaPods</h3>
+
+<p>The preferred installation method for <code>IGListKit</code> is with <a href="http://cocoapods.org">CocoaPods</a>. Simply add the following to your <code>Podfile</code>:</p>
 <pre class="highlight ruby"><code><span class="c1"># Latest release of IGListKit</span>
 <span class="n">pod</span> <span class="s1">'IGListKit'</span>
 </code></pre>
+<a href='#carthage' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='carthage'>Carthage</h3>
 
-<p>You can also manually install the framework by dragging and dropping the <code>IGListKit.xcodeproj</code> into your workspace.</p>
+<p>To integrate <code>IGListKit</code> into your Xcode project using <a href="https://github.com/Carthage/Carthage">Carthage</a>, specify it in your <code>Cartfile</code>:</p>
+<pre class="highlight plaintext"><code>github "Instagram/IGListKit" ~&gt; 1.0.0
+</code></pre>
+<a href='#manually' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='manually'>Manually</h3>
 
-<p><code>IGListKit</code> supports a minimum iOS version of 8.0.</p>
+<p>You can also manually install the framework by dragging and dropping the <code>IGListKit.xcodeproj</code> into your project or workspace.</p>
 <a href='#creating-your-first-list' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='creating-your-first-list'>Creating your first list</h2>
 
 <p>After installing <code>IGListKit</code>, creating a new list is really simple.</p>
@@ -257,7 +293,7 @@
 
 <p>Creating a new section controller is very simple. You just subclass <code>IGListSectionController</code> and conform to the <code>IGListSectionType</code> protocol. Once you conform to <code>IGListSectionType</code>, the compiler will make sure you implement all of the required methods.</p>
 
-<p>Take a look at <a href="TODO%20URL">LabelSectionController</a> for an example section controller that handles a <code>String</code> and configures a single cell with a <code>UILabel</code>.</p>
+<p>Take a look at <a href="https://github.com/Instagram/IGListKit/blob/master/Example/IGListKitExamples/SectionControllers/LabelSectionController.swift">LabelSectionController</a> for an example section controller that handles a <code>String</code> and configures a single cell with a <code>UILabel</code>.</p>
 <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">LabelSectionController</span><span class="p">:</span> <span class="kt">IGListSectionController</span><span class="p">,</span> <span class="kt">IGListSectionType</span> <span class="p">{</span>
   <span class="c1">// ...</span>
 <span class="p">}</span>
@@ -266,10 +302,10 @@
 
 <p>After creating at least one section controller, you must create an <code>IGListCollectionView</code> and <code>IGListAdapter</code>.</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">layout</span> <span class="o">=</span> <span class="kt">UICollectionViewFlowLayout</span><span class="p">()</span>
-<span class="k">let</span> <span class="nv">collectionView</span> <span class="o">=</span> <span class="kt">IGListCollectionView</span><span class="p">(</span><span class="nv">frame</span><span class="p">:</span> <span class="kt">CGRect</span><span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="nv">collectionViewLayout</span><span class="p">:</span> <span class="n">layout</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">collectionView</span> <span class="o">=</span> <span class="kt">IGListCollectionView</span><span class="p">(</span><span class="nv">frame</span><span class="p">:</span> <span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="nv">collectionViewLayout</span><span class="p">:</span> <span class="n">layout</span><span class="p">)</span>
 
 <span class="k">let</span> <span class="nv">updater</span> <span class="o">=</span> <span class="kt">IGListAdapterUpdater</span><span class="p">()</span>
-<span class="k">let</span> <span class="nv">adapter</span> <span class="o">=</span> <span class="kt">IGListAdapter</span><span class="p">(</span><span class="nv">updatingDelegate</span><span class="p">:</span> <span class="n">updater</span><span class="p">,</span> <span class="nv">viewController</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">workingRangeSize</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">adapter</span> <span class="o">=</span> <span class="kt">IGListAdapter</span><span class="p">(</span><span class="nv">updater</span><span class="p">:</span> <span class="n">updater</span><span class="p">,</span> <span class="nv">viewController</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">workingRangeSize</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">adapter</span><span class="o">.</span><span class="n">collectionView</span> <span class="o">=</span> <span class="n">collectionView</span>
 </code></pre>
 
@@ -279,26 +315,25 @@
 <a href='#connecting-a-data-source' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='connecting-a-data-source'>Connecting a data source</h3>
 
 <p>The last step is the <code>IGListAdapter</code>&rsquo;s data source and returning some data.</p>
-<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">objectssForListAdapter</span><span class="p">(</span><span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">IGListAdapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">IGListDiffable</span><span class="p">]</span> <span class="p">{</span>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">objects</span><span class="p">(</span><span class="k">for</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">IGListAdapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">IGListDiffable</span><span class="p">]</span> <span class="p">{</span>
   <span class="c1">// this can be anything!</span>
   <span class="k">return</span> <span class="p">[</span> <span class="s">"Foo"</span><span class="p">,</span> <span class="s">"Bar"</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="s">"Biz"</span> <span class="p">]</span>
 <span class="p">}</span>
 
-<span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">IGListAdapter</span><span class="p">,</span>
-    <span class="nf">sectionControllerForObject</span><span class="p">(</span><span class="nv">object</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">IGListSectionController</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="k">let</span> <span class="nv">_</span> <span class="o">=</span> <span class="n">object</span> <span class="k">as?</span> <span class="kt">String</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">IGListAdapter</span><span class="p">,</span> <span class="n">sectionControllerFor</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">IGListSectionController</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="n">object</span> <span class="k">is</span> <span class="kt">String</span> <span class="p">{</span>
     <span class="k">return</span> <span class="kt">LabelSectionController</span><span class="p">()</span>
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
     <span class="k">return</span> <span class="kt">NumberSectionController</span><span class="p">()</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kd">func</span> <span class="nf">emptyViewForListAdapter</span><span class="p">(</span><span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">IGListAdapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIView</span><span class="p">?</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="nf">emptyView</span><span class="p">(</span><span class="k">for</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">IGListAdapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIView</span><span class="p">?</span> <span class="p">{</span>
   <span class="k">return</span> <span class="kc">nil</span>
 <span class="p">}</span>
 </code></pre>
 
-<p>You can return an array of <em>any</em> type of data, as long as it conforms to <code>IGListDiffable</code>. We&rsquo;ve included a <a href="TODO%20URL">default implementation</a> for all objects, but adding your own implementation can unlock even better diffing.</p>
+<p>You can return an array of <em>any</em> type of data, as long as it conforms to <code>IGListDiffable</code>. We&rsquo;ve included a <a href="https://github.com/Instagram/IGListKit/blob/master/Source/NSObject%2BIGListDiffable.m">default implementation</a> for all objects, but adding your own implementation can unlock even better diffing.</p>
 <a href='#diffing' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='diffing'>Diffing</h2>
 
 <p><code>IGListKit</code> uses an algorithm adapted from a paper titled <a href="http://dl.acm.org/citation.cfm?id=359467&amp;dl=ACM&amp;coll=DL">A technique for isolating differences between files</a> by Paul Heckel. This algorithm uses a technique known as the <em>longest common subsequence</em> to find a minimal diff between collections in linear time <code>O(n)</code>. It finds all <strong>inserts</strong>, <strong>deletes</strong>, <strong>updates</strong>, and <strong>moves</strong> between arrays of data.</p>
@@ -315,23 +350,23 @@
 
 <p>The user&rsquo;s <code>primaryKey</code> uniquely identifies user data, and the <code>name</code> is just the value for that user.</p>
 
-<p>Consider the following two users:</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">jack</span> <span class="o">=</span> <span class="kt">User</span><span class="p">(</span><span class="nv">primaryKey</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="s">"Jack"</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">jill</span> <span class="o">=</span> <span class="kt">User</span><span class="p">(</span><span class="nv">primaryKey</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="s">"Jill"</span><span class="p">)</span>
+<p>Let&rsquo;s say a server returns a <code>User</code> object that looks like this:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">shayne</span> <span class="o">=</span> <span class="kt">User</span><span class="p">(</span><span class="nv">primaryKey</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="s">"Shayne"</span><span class="p">)</span>
 </code></pre>
 
-<p>Both <code>jack</code> and <code>jill</code> represent the same <em>unique</em> data because they share the same <code>primaryKey</code>, but they are not <em>equal</em> because their names are different.</p>
+<p>But sometime after the client receives <code>shayne</code>, someone changes their name:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">ann</span> <span class="o">=</span> <span class="kt">User</span><span class="p">(</span><span class="nv">primaryKey</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="s">"Ann"</span><span class="p">)</span>
+</code></pre>
+
+<p>Both <code>shayne</code> and <code>ann</code> represent the same <em>unique</em> data because they share the same <code>primaryKey</code>, but they are not <em>equal</em> because their names are different.</p>
 
 <p>To represent this in <code>IGListKit</code>&rsquo;s diffing, add and implement the <code>IGListDiffable</code> protocol:</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">User</span><span class="p">:</span> <span class="kt">IGListDiffable</span> <span class="p">{</span>
   <span class="kd">func</span> <span class="nf">diffIdentifier</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSObjectProtocol</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">pk</span>
+    <span class="k">return</span> <span class="n">primaryKey</span>
   <span class="p">}</span>
 
-  <span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="nv">object</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="n">object</span> <span class="o">===</span> <span class="k">self</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="kc">true</span>
-    <span class="p">}</span>
+  <span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
     <span class="k">if</span> <span class="k">let</span> <span class="nv">object</span> <span class="o">=</span> <span class="n">object</span> <span class="k">as?</span> <span class="kt">User</span> <span class="p">{</span>
       <span class="k">return</span> <span class="n">name</span> <span class="o">==</span> <span class="n">object</span><span class="o">.</span><span class="n">name</span>
     <span class="p">}</span>
@@ -345,58 +380,54 @@
 <blockquote>
 <p><strong>Note:</strong> Remember that <code>isEqual(_:)</code> should return <code>false</code> when you want to reload the cells in the corresponding section controller.</p>
 </blockquote>
+<a href='#diffing-outside-of-iglistkit' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='diffing-outside-of-iglistkit'>Diffing outside of IGListKit</h3>
+
+<p>If you want to use the diffing algorithm outside of <code>IGListAdapter</code> and <code>UICollectionView</code>, you can! The diffing algorithm was built with the flexibility to be used with any models that conform to <code>IGListDiffable</code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="kt">IGListDiff</span><span class="p">(</span><span class="n">oldUsers</span><span class="p">,</span> <span class="n">newUsers</span><span class="p">,</span> <span class="o">.</span><span class="n">equality</span><span class="p">)</span>
+</code></pre>
+
+<p>With this you have all of the deletes, reloads, moves, and inserts! There&rsquo;s even a function to generate <code>NSIndexPath</code> results.</p>
 <a href='#advanced-features' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='advanced-features'>Advanced Features</h2>
-<a href='#delegates' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='delegates'>Delegates</h3>
+<a href='#working-range' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='working-range'>Working Range</h3>
 
-<p><strong>Supplementary Views</strong></p>
-
-<p>Adding supplementary views to section controllers is as simple as setting the weak <code>supplementaryViewSource</code> and implementing the <code>IGListSupplementaryViewSource</code> protocol. This protocol works nearly the same as returning and configuring cells.</p>
-
-<p><strong>Display Delegate</strong></p>
-
-<p>Section controllers can set the weak <code>displayDelegate</code> delegate to an object, including <code>self</code>, to receive display events about an section controller and individual cells.</p>
-
-<p><strong>Working Range</strong></p>
-
-<p>A <em>working range</em> is a distance before and after the visible bounds of the <code>UICollectionView</code> where section controllers within this bounds are notified of their entrance and exit. This concept lets your section controllers <strong>prepare content</strong> before they come on screen (e.g. download images).</p>
+<p>A <em>working range</em> is a range of section controllers who aren&rsquo;t yet visible, but are near the screen. Section controllers are notified of their entrance and exit to this range. This concept lets your section controllers <strong>prepare content</strong> before they come on screen (e.g. download images).</p>
 
 <p>The <code>IGListAdapter</code> must be initialized with a range value in order to work. This value is a multiple of the visible height or width, depending on the scroll-direction.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">adapter</span> <span class="o">=</span> <span class="kt">IGListAdapter</span><span class="p">(</span><span class="nv">updatingDelegate</span><span class="p">:</span> <span class="kt">IGListAdapterUpdater</span><span class="p">(),</span>
-                              <span class="nv">viewController</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span>
-                            <span class="nv">workingRangeSize</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">)</span> <span class="c1">// 0.5x the visible size</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">adapter</span> <span class="o">=</span> <span class="kt">IGListAdapter</span><span class="p">(</span><span class="nv">updater</span><span class="p">:</span> <span class="kt">IGListAdapterUpdater</span><span class="p">(),</span>
+                     <span class="nv">viewController</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span>
+                   <span class="nv">workingRangeSize</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">// 1 before/after visible objects</span>
 </code></pre>
 
 <p><img src="Resources/workingrange.png" alt="working-range"></p>
 
-<p>You can set the weak <code>workingRangeDelegate</code> on an section controller to receive events.</p>
+<p>You can set the weak <code>workingRangeDelegate</code> on a section controller to receive events.</p>
+<a href='#supplementary-views' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='supplementary-views'>Supplementary Views</h3>
+
+<p>Adding supplementary views to section controllers is as simple as setting the weak <code>supplementaryViewSource</code> and implementing the <code>IGListSupplementaryViewSource</code> protocol. This protocol works nearly the same as returning and configuring cells.</p>
+<a href='#display-delegate' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='display-delegate'>Display Delegate</h3>
+
+<p>Section controllers can set the weak <code>displayDelegate</code> delegate to an object, including <code>self</code>, to receive display events about a section controller and individual cells.</p>
 <a href='#custom-updaters' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='custom-updaters'>Custom Updaters</h3>
 
 <p>The default <code>IGListAdapterUpdater</code> should handle any <code>UICollectionView</code> update that you need. However, if you find the functionality lacking, or want to perform updates in a very specific way, you can create an object that conforms to the <code>IGListUpdatingDelegate</code> protocol and initialize a new <code>IGListAdapter</code> with it.</p>
 
-<p>Check out the updater <code>IGListReloadDataUpdater</code> used in unit tests for an example.</p>
-<a href='#experiments' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='experiments'>Experiments</h3>
-
-<p><code>IGListKit</code> comes with the ability to add experimental (or prerelease) features. If an enhancement or fix cannot be proven with a unit test, we encourage you to wrap changes in an experiment so that it can be properly tested in production.</p>
+<p>Check out the updater <code>IGListReloadDataUpdater</code> (used in unit tests) for an example.</p>
 <a href='#documentation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='documentation'>Documentation</h2>
 
-<p>Read <a href="https://instagram.github.io/IGListKit">the docs here</a>. Documentation is generated with <a href="https://github.com/realm/jazzy">jazzy</a> and hosted on <a href="https://pages.github.com">GitHub-Pages</a>.</p>
-<a href='#generating-docs' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='generating-docs'>Generating docs</h4>
-<pre class="highlight shell"><code><span class="gp">$ </span>./build_docs.sh
-<span class="gp">$ </span>open -a safari docs/index.html  <span class="c"># preview in Safari</span>
-</code></pre>
+<p>You can find <a href="https://instagram.github.io/IGListKit">the docs here</a>. Documentation is generated with <a href="https://github.com/realm/jazzy">jazzy</a> and hosted on <a href="https://pages.github.com">GitHub-Pages</a>.</p>
 <a href='#contributing' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='contributing'>Contributing</h2>
 
-<p>See the <a href="CONTRIBUTING.md">CONTRIBUTING</a> file for how to help out.</p>
+<p>Please see the <a href=".github/CONTRIBUTING.md">CONTRIBUTING</a> file for how to help out. At Instagram we sync the open source version of <code>IGListKit</code> almost daily, so we&rsquo;re always testing the latest changes. But that requires all changes be thoroughly tested follow our style guide.</p>
 <a href='#license' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='license'>License</h2>
 
 <p><code>IGListKit</code> is BSD-licensed. We also provide an additional patent grant.</p>
 
-<p>The files in the /Example directory are licensed under a separate license as specified in each file; documentation is licensed CC-BY-4.0.</p>
+<p>The files in the /Example directory are licensed under a separate license as specified in each file; documentation is licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a>.</p>
 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-11-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

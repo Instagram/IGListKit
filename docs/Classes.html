@@ -13,7 +13,7 @@
     <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (79% documented)</p>
+        <p><a href="index.html">IGListKit Docs</a> (97% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -48,7 +48,7 @@
                 <a href="Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/IGListCollectionView.html">IGListCollectionView</a>
+                <a href="Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -152,6 +152,12 @@
                 <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -204,11 +210,11 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>IGListAdapter objects provide an abstraction for feeds of objects in a UICollectionView by breaking each object into
-individual sections, called <q>section controllers</q>. These controllers (objects conforming to IGListSectionType) act as a
+                        <p><code>IGListAdapter</code> objects provide an abstraction for feeds of objects in a <code>UICollectionView</code> by breaking each object into
+individual sections, called <q>section controllers</q>. These controllers (objects conforming to <code><a href="Protocols/IGListSectionType.html">IGListSectionType</a></code>) act as a
 data source and delegate for each section.</p>
 
-<p>Feed implementations must act as the data source for an IGListAdapter in order to drive the objects and section
+<p>Feed implementations must act as the data source for an <code>IGListAdapter</code> in order to drive the objects and section
 controllers in a collection view.</p>
 
                         <a href="Classes/IGListAdapter.html" class="slightly-smaller">See more</a>
@@ -246,11 +252,16 @@ controllers in a collection view.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is an out-of-box upater for IGListAdapters. It conforms to IGListUpdatingDelegate and does re-entrant, coalesced
-updating on a UICollectionView.</p>
+                        <p>An <code>IGListAdapterUpdater</code> is a concrete type that conforms to <code><a href="Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a></code>.
+It is an out-of-box upater for <code><a href="Classes/IGListAdapter.html">IGListAdapter</a></code> objects to use.</p>
 
-<p>It also uses IGDiffKit (a least-minimal diff) for calculating UI updates when IGListAdapter calls
--performUpdateWithCollectionView:fromObjects:toObjects:completion:.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This updater performs re-entrant, coalesced updating for a list. It also uses a least-minimal diff 
+for calculating UI updates when <code><a href="Classes/IGListAdapter.html">IGListAdapter</a></code> calls 
+<code>-performUpdateWithCollectionView:fromObjects:toObjects:completion:</code>.
+
+</div>
 
                         <a href="Classes/IGListAdapterUpdater.html" class="slightly-smaller">See more</a>
                       </div>
@@ -282,8 +293,9 @@ updating on a UICollectionView.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This object takes section indexes and item index paths and performs cleanup on init in order to perform a crash-free
-update via -[UICollectionView performBatchUpdates:completion:].</p>
+                        <p>An instance of <code>IGListBatchUpdateData</code> takes section indexes and item index paths 
+and performs cleanup on init in order to perform a crash-free
+update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
 
                         <a href="Classes/IGListBatchUpdateData.html" class="slightly-smaller">See more</a>
                       </div>
@@ -315,10 +327,10 @@ update via -[UICollectionView performBatchUpdates:completion:].</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This class is never actually used by the IGListKit infrastructure. It exists only to give compiler errors when editing
-methods are called on the collection view returned by -[IGListAdapter collectionView].</p>
+                        <p>This class is never actually used by the <code>IGListKit</code> infrastructure. 
+It exists only to give compiler errors when editing
+methods are called on the collection view returned by <code>-[IGListAdapter collectionView]</code>.</p>
 
-                        <a href="Classes/IGListCollectionView.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -353,7 +365,7 @@ methods are called on the collection view returned by -[IGListAdapter collection
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Result object returned when diffing with sections.</p>
+                        <p>A result object returned when diffing with sections.</p>
 
                         <a href="Classes/IGListIndexPathResult.html" class="slightly-smaller">See more</a>
                       </div>
@@ -390,7 +402,7 @@ methods are called on the collection view returned by -[IGListAdapter collection
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Result object returned when diffing with indexes.</p>
+                        <p>A result object returned when diffing with indexes.</p>
 
                         <a href="Classes/IGListIndexSetResult.html" class="slightly-smaller">See more</a>
                       </div>
@@ -501,8 +513,28 @@ methods are called on the collection view returned by -[IGListAdapter collection
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>An <code>IGListReloadDataUpdater</code> is a concrete type that conforms to <code><a href="Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a></code>.
+It is an out-of-box upater for <code><a href="Classes/IGListAdapter.html">IGListAdapter</a></code> objects to use.</p>
 
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This updater performs simple, synchronous updates using <code>-[UICollectionView reloadData]</code>.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListReloadDataUpdater</span> <span class="p">:</span> <span class="nc">NSObject</span> <span class="o">&lt;</span><span class="n"><a href="Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">IGListReloadDataUpdater</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -524,7 +556,7 @@ methods are called on the collection view returned by -[IGListAdapter collection
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The base class for section controllers used in the list infra. This class is meant to be subclassed.</p>
+                        <p>The base class for section controllers used in a list. This class is intended to be subclassed.</p>
 
                         <a href="Classes/IGListSectionController.html" class="slightly-smaller">See more</a>
                       </div>
@@ -561,9 +593,8 @@ methods are called on the collection view returned by -[IGListAdapter collection
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This section controller is meant to make building simple, single-cell feeds easier. By providing the type of cell, a block
-to configure the cell, and a block to return the size of a cell, you can use an IGListAdapter-powered feed without
-overcomplicating your architecture.</p>
+                        <p>This section controller is meant to make building simple, single-cell lists easier. By providing the type of cell, a block
+to configure the cell, and a block to return the size of a cell, you can use an IGListAdapter-powered list simpler architecture.</p>
 
                         <a href="Classes/IGListSingleSectionController.html" class="slightly-smaller">See more</a>
                       </div>
@@ -601,7 +632,8 @@ overcomplicating your architecture.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is a clustered section controller, composed of many child section controllers. It constructs and routes item-level
+                        <p>An instace of <code>IGListStackedSectionController</code> is a clustered section controller, 
+composed of many child section controllers. It constructs and routes item-level
 indexes to the appropriate child section controller with a local index. This lets you build section controllers made up
 of individual units that can be shared and reused with other section controllers.</p>
 
@@ -633,7 +665,7 @@ huge class.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-11-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

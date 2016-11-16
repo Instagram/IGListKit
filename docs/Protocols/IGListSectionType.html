@@ -14,7 +14,7 @@
     <a title="IGListSectionType Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (79% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (97% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -49,7 +49,7 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -153,6 +153,12 @@
                 <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -192,17 +198,17 @@
 
                 </div>
               </div>
-            <p>Implement this protocol in order to be used within the IGListKit data infrastructure and be registered for use in an
-IGListAdapter. An IGListSectionType conforming object represents a single instance of an object in a collection of
+            <p>Implement this protocol in order to be used within the <code>IGListKit</code> data infrastructure and be registered for use in an
+<code><a href="../Classes/IGListAdapter.html">IGListAdapter</a></code>. An <code>IGListSectionType</code> conforming object represents a single instance of an object in a collection of
 objects.</p>
 
-<p>The infrastructure uses each IGListSectionType conforming object as a <q>view model</q> to populate and control cells as
-part of a section in a UICollectionView feed. IGListSectionType objects should be architected without knowledge of
-<q>global</q> state of the feed they are contained in.</p>
+<p>The infrastructure uses each <code>IGListSectionType</code> conforming object as a <q>view model</q> to populate and control cells as
+part of a section in a <code>UICollectionView</code>. <code>IGListSectionType</code> objects should be architected without knowledge of
+<q>global</q> state of the list in which they are contained.</p>
 
 <p>Index paths are used as a convenience for communicating the section index to each section object without allowing each
-section to mutate its own position within a feed. The row of an index path can be directly mapped to a cell within
-an IGListSectionType conforming object.</p>
+section to mutate its own position within a list. The row of an index path can be directly mapped to a cell within
+an <code>IGListSectionType</code> conforming object.</p>
 
           </section>
           <section class="section task-group-section">
@@ -221,17 +227,21 @@ an IGListSectionType conforming object.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The number of items in the IGListSectionType.</p>
+                        <p>Returns the number of items in the section.</p>
 
-<p>@discussion The count returned is used to drive the number of cells displayed for this list. You are free to change
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>The count returned is used to drive the number of cells displayed for this list. You are free to change
 this value between data loading passes.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="n">numberOfItems</span><span class="p">;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="n">numberOfItems</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -263,9 +273,13 @@ this value between data loading passes.</p>
                       <div class="abstract">
                         <p>The specific size for the item at the specified index.</p>
 
-<p>@discussion The returned size is not garaunteed to be used. The feed implementation may query list items for their
-layout information at will, or use its own layout metrics. For example, consider a dynamic-text sized feed vs. a fixed
-height-and-width grid feed. The former will ask each IGListSectionType for a size, and the latter will likely not.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>The returned size is not garaunteed to be used. The implementation may query sections for their
+layout information at will, or use its own layout metrics. For example, consider a dynamic-text sized list versus a fixed
+height-and-width grid. The former will ask each section for a size, and the latter will likely not.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -322,11 +336,15 @@ height-and-width grid feed. The former will ask each IGListSectionType for a siz
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Asks the section controller for a fully configured cell at an index path.</p>
+                        <p>Asks the section controller for a fully configured cell at the specified index.</p>
 
-<p>@discussion This is your opportunity to do any cell setup and configuration. The infrastructure requests a cell when it
-will be used on screen. You should never allocate new cells in this method, instead on the provided adapter call
--dequeCellClass:forIndexPath: which either deques a cell from the UICollectionView or creates a new one for you.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This is your opportunity to do any cell setup and configuration. The infrastructure requests a cell when it
+will be used on screen. You should never allocate new cells in this method, instead use the provided adapter to call
+<code>-dequeCellClass:forIndexPath:</code> which either deques a cell from the collection view or creates a new one for you.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -364,7 +382,7 @@ will be used on screen. You should never allocate new cells in this method, inst
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A configured UICollectionViewCell subclass.</p>
+                        <p>A configured <code>UICollectionViewCell</code> subclass.</p>
 
                       </div>
                     </section>
@@ -383,13 +401,17 @@ will be used on screen. You should never allocate new cells in this method, inst
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Tells the IGListSectionType that the section controller was updated to a new item.</p>
+                        <p>Tells the section that the controller was updated to a new object.</p>
 
-<p>@discussion When this method is called, all available contexts and configurations have been set for the section
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>When this method is called, all available contexts and configurations have been set for the section
 controller. Also, depending on the updating strategy used, your item models may have changed objects in memory, so you
 can use this event to update the object stored on your section controller.</p>
 
-<p>This method will only be called when the object instance has changed, either from nil or a previous object.</p>
+</div>
+
+<p>This method will only be called when the object instance has changed, including from <code>nil</code> or a previous object.</p>
 
                       </div>
                       <div class="declaration">
@@ -441,9 +463,7 @@ can use this event to update the object stored on your section controller.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Tells the IGListSectionType that the cell at the specified index path was selected.</p>
-
-<p>@discussion Implementation of this method is required for compile-time safety, but you are free to do nothing.</p>
+                        <p>Tells the section that the cell at the specified index path was selected.</p>
 
                       </div>
                       <div class="declaration">
@@ -487,7 +507,7 @@ can use this event to update the object stored on your section controller.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-11-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

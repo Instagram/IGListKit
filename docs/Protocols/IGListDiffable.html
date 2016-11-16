@@ -14,7 +14,7 @@
     <a title="IGListDiffable Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (79% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (97% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -49,7 +49,7 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -153,6 +153,12 @@
                 <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -192,8 +198,7 @@
 
                 </div>
               </div>
-            <p>The IGListDiffable protocol provides the base methods needed to compare the identity and equality of two objects using
-one of the IGKAlgorithm functions.</p>
+            <p>The <code>IGListDiffable</code> protocol provides methods needed to compare the identity and equality of two objects.</p>
 
           </section>
           <section class="section task-group-section">
@@ -214,13 +219,17 @@ one of the IGKAlgorithm functions.</p>
                       <div class="abstract">
                         <p>Returns a key that uniquely identifies the object.</p>
 
-<p>@discussion Two objects may share the same identifier, but are not equal. A common pattern is to import IGListCommon.h
-and use the NSObject category for automatic conformance. However this means that objects will be identified on their
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Two objects may share the same identifier, but are not equal. A common pattern is to use the <code>NSObject</code> 
+category for automatic conformance. However this means that objects will be identified on their
 pointer value so finding updates becomes impossible.</p>
+
+</div>
 
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
-    This value should never be mutated.
+    <p>This value should never be mutated.</p>
 
 </div>
 
@@ -249,9 +258,9 @@ pointer value so finding updates becomes impossible.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListDiffable(im)isEqual:"></a>
-                    <a name="//apple_ref/objc/Method/-isEqual:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListDiffable(im)isEqual:">-isEqual:</a>
+                    <a name="/c:objc(pl)IGListDiffable(im)isEqualToDiffableObject:"></a>
+                    <a name="//apple_ref/objc/Method/-isEqualToDiffableObject:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListDiffable(im)isEqualToDiffableObject:">-isEqualToDiffableObject:</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -259,30 +268,19 @@ pointer value so finding updates becomes impossible.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a Boolean value that indicates whether the receiver and a given object are equal.</p>
-
-<div class="aside aside-warning">
-    <p class="aside-title">Warning</p>
-    <p>If you implement a custom isEqual: you must also implement -hash. You can just use the -diffIdentifier value
-for your hash function:</p>
-
-</div>
-
-<p><li><p>(NSUInteger)hash {
-return [[self diffIdentifier] hash];
-}</p></li></p>
+                        <p>Returns whether the receiver and a given object are equal.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">isEqual</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">isEqualToDiffableObject</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="n">_</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">IGListDiffable</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="n">toDiffableObject</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">IGListDiffable</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -308,7 +306,7 @@ return [[self diffIdentifier] hash];
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>YES if the receiver and object are equal, otherwise NO.</p>
+                        <p><code>YES</code> if the receiver and object are equal, otherwise <code>NO</code>.</p>
 
                       </div>
                     </section>
@@ -319,7 +317,7 @@ return [[self diffIdentifier] hash];
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-11-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

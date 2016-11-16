@@ -14,7 +14,7 @@
     <a title="IGListAdapterDataSource Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (79% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (97% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -49,7 +49,7 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -153,6 +153,12 @@
                 <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -192,7 +198,7 @@
 
                 </div>
               </div>
-            <p>Implement this protocol to provide data to power an IGListAdapter feed.</p>
+            <p>Implement this protocol to provide data to an <code><a href="../Classes/IGListAdapter.html">IGListAdapter</a></code>.</p>
 
           </section>
           <section class="section task-group-section">
@@ -211,7 +217,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Asks the data source for an array of objects for each list in your feed.</p>
+                        <p>Asks the data source for the objects to display in the list.</p>
 
                       </div>
                       <div class="declaration">
@@ -250,7 +256,7 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>An array of objects for the feed.</p>
+                        <p>An array of objects for the list.</p>
 
                       </div>
                     </section>
@@ -269,14 +275,18 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Asks the data source for a section controller for the specified data object.</p>
+                        <p>Asks the data source for a section controller for the specified object in the list.</p>
 
-<p>@discussion New section controllers should be initialized here for objects when asked. You may pass any other data to
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>New section controllers should be initialized here for objects when asked. You may pass any other data to
 the section controller at this time.</p>
 
-<p>Section controllers are initialized for all objects whenever the IGListAdapter is created, updated, or reloaded.
-Section controllers are reused when objects are moved or updated. Maintaining the -[IGListDiffable diffIdentifier]
-gauruntees this.</p>
+</div>
+
+<p>Section controllers are initialized for all objects whenever the <code><a href="../Classes/IGListAdapter.html">IGListAdapter</a></code> is created, updated, or reloaded.
+Section controllers are reused when objects are moved or updated. Maintaining the <code>-[IGListDiffable diffIdentifier]</code>
+guarentees this.</p>
 
                       </div>
                       <div class="declaration">
@@ -314,7 +324,7 @@ gauruntees this.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>An object in the feed, provided in -objectsForListAdapter:.</p>
+                                  <p>An object in the list.</p>
 
                                 </div>
                               </td>
@@ -324,7 +334,7 @@ gauruntees this.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>An IGListSectionType conforming object that can be displayed in the feed.</p>
+                        <p>A new section controller instance that can be displayed in the list.</p>
 
                       </div>
                     </section>
@@ -343,11 +353,15 @@ gauruntees this.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Asks the data source for a view to use as the collection view background when there are no objects.</p>
+                        <p>Asks the data source for a view to use as the collection view background when the list is empty.</p>
 
-<p>@discussion This method is called every time the list adapter is updated. You are free to return new views every time,
-but for performance reasons you may want to retain your own view and return it here. The infra is only responsible for
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This method is called every time the list adapter is updated. You are free to return new views every time,
+but for performance reasons you may want to retain the view and return it here. The infra is only responsible for
 adding the background view and maintaining its visibility.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -386,7 +400,7 @@ adding the background view and maintaining its visibility.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A view to use as the collection view background, or nil if you don&rsquo;t want a background view.</p>
+                        <p>A view to use as the collection view background, or <code>nil</code> if you don&rsquo;t want a background view.</p>
 
                       </div>
                     </section>
@@ -397,7 +411,7 @@ adding the background view and maintaining its visibility.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-11-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

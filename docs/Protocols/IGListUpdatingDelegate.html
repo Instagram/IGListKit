@@ -14,7 +14,7 @@
     <a title="IGListUpdatingDelegate Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (79% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (97% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -49,7 +49,7 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -153,6 +153,12 @@
                 <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -214,12 +220,16 @@ coalesce these events to a backing store or collection.</p>
                       <div class="abstract">
                         <p>Asks the delegate for the pointer functions for looking up an object in a collection.</p>
 
-<p>@discussion Since the updating delegate is responsible for transitioning between object sets, it becomes the <q>source of
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Since the updating delegate is responsible for transitioning between object sets, it becomes the <q>source of
 truth</q> for how objects and their corresponding section controllers are mapped. This allows the updater to control if
-objects are looked up by pointer, or more traditionally, with hash/isEqual.</p>
+objects are looked up by pointer, or more traditionally, with <code>-hash</code>/<code>-isEqual</code>.</p>
 
-<p>For behavior similar to NSDictionary, simply return
-+[NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsObjectPersonality].</p>
+</div>
+
+<p>For behavior similar to <code>NSDictionary</code>, simply return
+<code>+[NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsObjectPersonality]</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -258,11 +268,15 @@ objects are looked up by pointer, or more traditionally, with hash/isEqual.</p>
                       <div class="abstract">
                         <p>Tells the delegate to perform a section transition from an old array of objects to a new one.</p>
 
-<p>@discussion Implementations determine how to transition between objects. You can perform a diff on the objects, reload
-each section, or simply call -reloadData on the collection view. In the end, the collection view must be setup with a
-section for each object in the toObjects array.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Implementations determine how to transition between objects. You can perform a diff on the objects, reload
+each section, or simply call <code>-reloadData</code> on the collection view. In the end, the collection view must be setup with a
+section for each object in the <code>toObjects</code> array.</p>
 
-<p>The <code>objectUpdateBlock</code> block should be called prior to making any UICollectionView updates, passing in the <code>toObjects</code>
+</div>
+
+<p>The <code>objectTransitionBlock</code> block should be called prior to making any <code>UICollectionView</code> updates, passing in the <code>toObjects</code>
 that the updater is applying.</p>
 
                       </div>
@@ -313,7 +327,7 @@ that the updater is applying.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The previous objects in the collection view. Objects must conform to IGListDiffable.</p>
+                                  <p>The previous objects in the collection view. Objects must conform to <code>IGListDiffable</code>.</p>
 
                                 </div>
                               </td>
@@ -326,7 +340,7 @@ that the updater is applying.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The new objects in collection view. Objects must conform to IGListDiffable.</p>
+                                  <p>The new objects in collection view. Objects must conform to <code>IGListDiffable</code>.</p>
 
                                 </div>
                               </td>
@@ -419,7 +433,7 @@ that the updater is applying.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The collection view to perform the transition on.</p>
+                                  <p>The collection view on which to perform the transition.</p>
 
                                 </div>
                               </td>
@@ -486,7 +500,7 @@ that the updater is applying.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The collection view to perform the transition on.</p>
+                                  <p>The collection view on which to perform the transition.</p>
 
                                 </div>
                               </td>
@@ -553,7 +567,7 @@ that the updater is applying.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The collection view to perform the transition on.</p>
+                                  <p>The collection view on which to perform the transition.</p>
 
                                 </div>
                               </td>
@@ -824,7 +838,7 @@ that the updater is applying.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-11-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -14,7 +14,7 @@
     <a title="IGListAdapterUpdaterDelegate Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (79% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (97% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -49,7 +49,7 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -153,6 +153,12 @@
                 <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -192,7 +198,7 @@
 
                 </div>
               </div>
-            <p>A protocol that receives events about IGListAdapterUpdater operations.</p>
+            <p>A protocol that receives events about <code><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></code> operations.</p>
 
           </section>
           <section class="section task-group-section">
@@ -211,7 +217,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that the updater will call -[UICollectionView performBatchUpdates:completion:].</p>
+                        <p>Notifies the delegate that the updater will call <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -278,9 +284,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that the updater succesfully finished -[UICollectionView performBatchUpdates:completion:].</p>
+                        <p>Notifies the delegate that the updater succesfully finished <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
 
-<p>@discussion This event is called in the completion block of the batch update.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This event is called in the completion block of the batch update.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -318,6 +328,19 @@
                             <tr>
                               <td>
                                 <code>
+                                <em>updates</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The batch updates that were applied to the collection view.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
                                 <em>collectionView</em>
                                 </code>
                               </td>
@@ -347,9 +370,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that the updater will call -[UICollectionView insertItemsAtIndexPaths:].</p>
+                        <p>Notifies the delegate that the updater will call <code>-[UICollectionView insertItemsAtIndexPaths:]</code>.</p>
 
-<p>@discussion This event is only sent when outside of -[UICollectionView performBatchUpdates:completion:].</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This event is only sent when outside of <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -429,9 +456,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that the updater will call -[UICollectionView deleteItemsAtIndexPaths:].</p>
+                        <p>Notifies the delegate that the updater will call <code>-[UICollectionView deleteItemsAtIndexPaths:]</code>.</p>
 
-<p>@discussion This event is only sent when outside of -[UICollectionView performBatchUpdates:completion:].</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This event is only sent when outside of <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -511,9 +542,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that the updater will call -[UICollectionView reloadItemsAtIndexPaths:].</p>
+                        <p>Notifies the delegate that the updater will call <code>-[UICollectionView reloadItemsAtIndexPaths:]</code>.</p>
 
-<p>@discussion This event is only sent when outside of -[UICollectionView performBatchUpdates:completion:].</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This event is only sent when outside of <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -593,9 +628,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that the updater will call -[UICollectionView reloadSections:].</p>
+                        <p>Notifies the delegate that the updater will call <code>-[UICollectionView reloadSections:]</code>.</p>
 
-<p>@discussion This event is only sent when outside of -[UICollectionView performBatchUpdates:completion:].</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This event is only sent when outside of <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -675,7 +714,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that the updater will call -[UICollectionView reloadData].</p>
+                        <p>Notifies the delegate that the updater will call <code>-[UICollectionView reloadData]</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -741,7 +780,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that the updater successfully called -[UICollectionView reloadData].</p>
+                        <p>Notifies the delegate that the updater successfully called <code>-[UICollectionView reloadData]</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -807,7 +846,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that the collection view threw an exception in -[UICollectionView performBatchUpdates:completion:].</p>
+                        <p>Notifies the delegate that the collection view threw an exception in <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -907,7 +946,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-11-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -14,7 +14,7 @@
     <a title="IGListSingleSectionController Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (79% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (97% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -49,7 +49,7 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -153,6 +153,12 @@
                 <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -193,9 +199,8 @@
 
                 </div>
               </div>
-            <p>This section controller is meant to make building simple, single-cell feeds easier. By providing the type of cell, a block
-to configure the cell, and a block to return the size of a cell, you can use an IGListAdapter-powered feed without
-overcomplicating your architecture.</p>
+            <p>This section controller is meant to make building simple, single-cell lists easier. By providing the type of cell, a block
+to configure the cell, and a block to return the size of a cell, you can use an IGListAdapter-powered list simpler architecture.</p>
 
           </section>
           <section class="section task-group-section">
@@ -214,12 +219,12 @@ overcomplicating your architecture.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Create a new section controller for a given cell type that will always have only one cell when present in a feed.</p>
+                        <p>Creates a new section controller for a given cell type that will always have only one cell when present in a list.</p>
 
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     <p>Be VERY CAREFUL not to create retain cycles by holding strong references to: the object that owns the adapter
-(usually <q>self</q>) or the IGListAdapter. Pass in locally scoped objects or use weak references!</p>
+(usually <code>self</code>) or the <code><a href="../Classes/IGListAdapter.html">IGListAdapter</a></code>. Pass in locally scoped objects or use <code>weak</code> references!</p>
 
 </div>
 
@@ -230,16 +235,13 @@ overcomplicating your architecture.</p>
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
 <span class="nf">initWithCellClass</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">Class</span><span class="p">)</span><span class="nv">cellClass</span>
-   <span class="nf">configureBlock</span><span class="p">:</span>
-       <span class="p">(</span><span class="n">nonnull</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">id</span> <span class="n">_Nonnull</span><span class="p">,</span>
-                         <span class="n">__kindof</span> <span class="n">UICollectionViewCell</span> <span class="o">*</span><span class="n">_Nonnull</span><span class="p">))</span><span class="n">configureBlock</span>
-        <span class="n">sizeBlock</span><span class="o">:</span>
-            <span class="p">(</span><span class="n">nonnull</span> <span class="n">CGSize</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a></span><span class="o">&gt;</span> <span class="n">_Nonnull</span><span class="p">))</span><span class="n">sizeBlock</span><span class="p">;</span></code></pre>
+   <span class="nf">configureBlock</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a></span><span class="p">)</span><span class="nv">configureBlock</span>
+        <span class="nf">sizeBlock</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a></span><span class="p">)</span><span class="nv">sizeBlock</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="nf">init</span><span class="o">!</span><span class="p">(</span><span class="nv">cellClass</span><span class="p">:</span> <span class="kt">AnyClass</span><span class="o">!</span><span class="p">,</span> <span class="nv">configureBlock</span><span class="p">:</span> <span class="p">(</span><span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Any</span><span class="p">?,</span> <span class="kt">UnsafeMutablePointer</span></code></pre>
+                          <pre class="highlight"><code><span class="nf">init</span><span class="o">!</span><span class="p">(</span><span class="nv">cellClass</span><span class="p">:</span> <span class="kt">AnyClass</span><span class="o">!</span><span class="p">,</span> <span class="nv">configureBlock</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">sizeBlock</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -255,7 +257,209 @@ overcomplicating your architecture.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The UICollectionViewCell subclass for the single cell.</p>
+                                  <p>The <code>UICollectionViewCell</code> subclass for the single cell.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configureBlock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A block that configures the cell with the item given to the section controller.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sizeBlock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A block that returns the size for the cell given the collection context.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new section controller.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListSingleSectionController(im)initWithNibName:bundle:configureBlock:sizeBlock:"></a>
+                    <a name="//apple_ref/objc/Method/-initWithNibName:bundle:configureBlock:sizeBlock:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListSingleSectionController(im)initWithNibName:bundle:configureBlock:sizeBlock:">-initWithNibName:bundle:configureBlock:sizeBlock:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new section controller for a given nib name and bundle that will always have only one cell when present in a list.</p>
+
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>Be VERY CAREFUL not to create retain cycles by holding strong references to: the object that owns the adapter
+(usually <code>self</code>) or the <code><a href="../Classes/IGListAdapter.html">IGListAdapter</a></code>. Pass in locally scoped objects or use <code>weak</code> references!</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
+<span class="nf">initWithNibName</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">nibName</span>
+         <span class="nf">bundle</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSBundle</span> <span class="o">*</span><span class="p">)</span><span class="nv">bundle</span>
+ <span class="nf">configureBlock</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a></span><span class="p">)</span><span class="nv">configureBlock</span>
+      <span class="nf">sizeBlock</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a></span><span class="p">)</span><span class="nv">sizeBlock</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="nf">init</span><span class="o">!</span><span class="p">(</span><span class="nv">nibName</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">bundle</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">configureBlock</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">sizeBlock</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>nibName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the nib file for the single cell.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bundle</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The bundle in which to search for the nib file. If nil, this method looks for the file in the main bundle.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configureBlock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A block that configures the cell with the item given to the section controller.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sizeBlock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A block that returns the size for the cell given the collection context.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new section controller.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListSingleSectionController(im)initWithStoryboardCellIdentifier:configureBlock:sizeBlock:"></a>
+                    <a name="//apple_ref/objc/Method/-initWithStoryboardCellIdentifier:configureBlock:sizeBlock:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListSingleSectionController(im)initWithStoryboardCellIdentifier:configureBlock:sizeBlock:">-initWithStoryboardCellIdentifier:configureBlock:sizeBlock:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new section controller for a given storyboard cell identifier that will always have only one cell when present in a list.</p>
+
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>Be VERY CAREFUL not to create retain cycles by holding strong references to: the object that owns the adapter
+(usually <code>self</code>) or the <code><a href="../Classes/IGListAdapter.html">IGListAdapter</a></code>. Pass in locally scoped objects or use <code>weak</code> references!</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
+<span class="nf">initWithStoryboardCellIdentifier</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">identifier</span>
+                  <span class="nf">configureBlock</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a></span><span class="p">)</span>
+                                     <span class="n">configureBlock</span>
+                       <span class="n">sizeBlock</span><span class="o">:</span>
+                           <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a></span><span class="p">)</span><span class="n">sizeBlock</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="nf">init</span><span class="o">!</span><span class="p">(</span><span class="n">storyboardCellIdentifier</span> <span class="nv">identifier</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">configureBlock</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">sizeBlock</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>identifier</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The identifier of the cell prototype in storyboard.</p>
 
                                 </div>
                               </td>
@@ -331,68 +535,12 @@ overcomplicating your architecture.</p>
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(cs)IGListSingleSectionController(im)init"></a>
-                    <a name="//apple_ref/objc/Method/-init" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListSingleSectionController(im)init">-init</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListSingleSectionController</span>
-    <span class="p">:</span> <span class="nc">IGListSectionController</span> <span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(cs)IGListSingleSectionController(cm)new"></a>
-                    <a name="//apple_ref/objc/Method/+new" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListSingleSectionController(cm)new">+new</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListSingleSectionController</span>
-    <span class="p">:</span> <span class="nc">IGListSectionController</span> <span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-11-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

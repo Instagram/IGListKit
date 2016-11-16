@@ -14,7 +14,7 @@
     <a title="IGListBatchUpdateData Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (79% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (97% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -49,7 +49,7 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -153,6 +153,12 @@
                 <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -192,8 +198,9 @@
 
                 </div>
               </div>
-            <p>This object takes section indexes and item index paths and performs cleanup on init in order to perform a crash-free
-update via -[UICollectionView performBatchUpdates:completion:].</p>
+            <p>An instance of <code>IGListBatchUpdateData</code> takes section indexes and item index paths 
+and performs cleanup on init in order to perform a crash-free
+update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
 
           </section>
           <section class="section task-group-section">
@@ -212,7 +219,7 @@ update via -[UICollectionView performBatchUpdates:completion:].</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Clean section insert indexes.</p>
+                        <p>Section insert indexes.</p>
 
                       </div>
                       <div class="declaration">
@@ -239,7 +246,7 @@ update via -[UICollectionView performBatchUpdates:completion:].</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Clean section delete indexes.</p>
+                        <p>Section delete indexes.</p>
 
                       </div>
                       <div class="declaration">
@@ -266,7 +273,7 @@ update via -[UICollectionView performBatchUpdates:completion:].</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Clean section moves.</p>
+                        <p>section moves.</p>
 
                       </div>
                       <div class="declaration">
@@ -294,7 +301,7 @@ update via -[UICollectionView performBatchUpdates:completion:].</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Clean item insert index paths.</p>
+                        <p>Item insert index paths.</p>
 
                       </div>
                       <div class="declaration">
@@ -322,7 +329,7 @@ update via -[UICollectionView performBatchUpdates:completion:].</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Clean item delete index paths.</p>
+                        <p>Item delete index paths.</p>
 
                       </div>
                       <div class="declaration">
@@ -350,7 +357,7 @@ update via -[UICollectionView performBatchUpdates:completion:].</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Clean item reload index paths.</p>
+                        <p>Item reload index paths.</p>
 
                       </div>
                       <div class="declaration">
@@ -378,7 +385,7 @@ update via -[UICollectionView performBatchUpdates:completion:].</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Create a new batch update object with section and item operations.</p>
+                        <p>Creates a new batch update object with section and item operations.</p>
 
                       </div>
                       <div class="declaration">
@@ -482,62 +489,8 @@ update via -[UICollectionView performBatchUpdates:completion:].</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A new batch update object with cleaned update operations.</p>
+                        <p>A new batch update object.</p>
 
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(cs)IGListBatchUpdateData(im)init"></a>
-                    <a name="//apple_ref/objc/Method/-init" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListBatchUpdateData(im)init">-init</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListBatchUpdateData</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(cs)IGListBatchUpdateData(cm)new"></a>
-                    <a name="//apple_ref/objc/Method/+new" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListBatchUpdateData(cm)new">+new</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListBatchUpdateData</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -547,7 +500,7 @@ update via -[UICollectionView performBatchUpdates:completion:].</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-11-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

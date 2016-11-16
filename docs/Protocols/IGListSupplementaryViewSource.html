@@ -14,7 +14,7 @@
     <a title="IGListSupplementaryViewSource Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (79% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (97% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -49,7 +49,7 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -153,6 +153,12 @@
                 <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -192,9 +198,9 @@
 
                 </div>
               </div>
-            <p>Implement the methods of this protocol to provide information about a list&rsquo;s supplementary views. This data is used in
-IGListAdapter which then configures and maintains a UICollectionView. The supplementary API reflects that in
-UICollectionView, UICollectionViewLayout, and UICollectionViewDataSource.</p>
+            <p>Conform to this protocol to provide information about a list&rsquo;s supplementary views. This data is used in
+<code><a href="../Classes/IGListAdapter.html">IGListAdapter</a></code> which then configures and maintains a <code>UICollectionView</code>. The supplementary API reflects that in
+<code>UICollectionView</code>, <code>UICollectionViewLayout</code>, and <code>UICollectionViewDataSource</code>.</p>
 
           </section>
           <section class="section task-group-section">
@@ -252,11 +258,15 @@ UICollectionView, UICollectionViewLayout, and UICollectionViewDataSource.</p>
                       <div class="abstract">
                         <p>Asks the SupplementaryViewSource for a configured supplementary view for the specified kind and index.</p>
 
-<p>@discussion This is your opportunity to do any supplementary view setup and configuration.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This is your opportunity to do any supplementary view setup and configuration.</p>
+
+</div>
 
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
-    You should never allocate new views in this method. Instead deque a view from the <code><a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a></code>.
+    <p>You should never allocate new views in this method. Instead deque a view from the <code><a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a></code>.</p>
 
 </div>
 
@@ -301,7 +311,7 @@ UICollectionView, UICollectionViewLayout, and UICollectionViewDataSource.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The index for the row being requested.</p>
+                                  <p>The index for the supplementary veiw being requested.</p>
 
                                 </div>
                               </td>
@@ -367,7 +377,7 @@ UICollectionView, UICollectionViewLayout, and UICollectionViewDataSource.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The index of the requested row.</p>
+                                  <p>The index of the requested view.</p>
 
                                 </div>
                               </td>
@@ -388,7 +398,7 @@ UICollectionView, UICollectionViewLayout, and UICollectionViewDataSource.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-09-30)</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-11-15)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
