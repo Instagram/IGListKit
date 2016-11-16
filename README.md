@@ -77,7 +77,7 @@ After installing `IGListKit`, creating a new list is really simple.
 
 Creating a new section controller is very simple. You just subclass `IGListSectionController` and conform to the `IGListSectionType` protocol. Once you conform to `IGListSectionType`, the compiler will make sure you implement all of the required methods.
 
-Take a look at [LabelSectionController](https://github.com/Instagram/IGListKit/blob/master/Example/IGListKitExamples/SectionControllers/LabelSectionController.swift) for an example section controller that handles a `String` and configures a single cell with a `UILabel`.
+Take a look at [LabelSectionController](Examples/Examples-iOS/IGListKitExamples/SectionControllers/LabelSectionController.swift) for an example section controller that handles a `String` and configures a single cell with a `UILabel`.
 
 ```swift
 class LabelSectionController: IGListSectionController, IGListSectionType {
@@ -123,7 +123,7 @@ func emptyView(for listAdapter: IGListAdapter) -> UIView? {
 }
 ```
 
-You can return an array of _any_ type of data, as long as it conforms to `IGListDiffable`. We've included a [default implementation](https://github.com/Instagram/IGListKit/blob/master/Source/NSObject%2BIGListDiffable.m) for all objects, but adding your own implementation can unlock even better diffing.
+You can return an array of _any_ type of data, as long as it conforms to `IGListDiffable`. We've included a [default implementation](Source/NSObject+IGListDiffable.m) for all objects, but adding your own implementation can unlock even better diffing.
 
 ## Diffing
 

@@ -75,12 +75,12 @@
                                              newIndexMap:_newIndexMap];
 }
 
-- (NSUInteger)oldIndexForIdentifier:(id<NSObject>)identifier {
+- (NSInteger)oldIndexForIdentifier:(id<NSObject>)identifier {
     NSNumber *index = [_oldIndexMap objectForKey:identifier];
     return index == nil ? NSNotFound : [index integerValue];
 }
 
-- (NSUInteger)newIndexForIdentifier:(id<NSObject>)identifier {
+- (NSInteger)newIndexForIdentifier:(id<NSObject>)identifier {
     NSNumber *index = [_newIndexMap objectForKey:identifier];
     return index == nil ? NSNotFound : [index integerValue];
 }

@@ -14,7 +14,7 @@
 /**
  Bitmask-able options used for pre-release feature testing.
  */
-typedef NS_OPTIONS (NSUInteger, IGListExperiment) {
+typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentNone = 1 << 1,
 };
 

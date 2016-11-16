@@ -96,7 +96,7 @@ IGLK_SUBCLASSING_RESTRICTED
  */
 - (instancetype)initWithUpdater:(id <IGListUpdatingDelegate>)updatingDelegate
                  viewController:(nullable UIViewController *)viewController
-               workingRangeSize:(NSUInteger)workingRangeSize NS_DESIGNATED_INITIALIZER;
+               workingRangeSize:(NSInteger)workingRangeSize NS_DESIGNATED_INITIALIZER;
 
 /**
  Perform an update from the previous state of the data source. This is analagous to calling
@@ -128,7 +128,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return The section index of the list if it exists, otherwise `NSNotFound`.
  */
-- (NSUInteger)sectionForSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
+- (NSInteger)sectionForSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
 
 /**
  Returns the section controller for the specified object. Constant time lookup.
@@ -157,7 +157,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return The object for the specified section, or `nil` if the section does not exist.
  */
-- (nullable id)objectAtSection:(NSUInteger)section;
+- (nullable id)objectAtSection:(NSInteger)section;
 
 /**
  Returns the section corresponding to the specified object in the list. Constant time lookup.
@@ -166,7 +166,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return The section index of `object` if found, otherwise `NSNotFound`.
  */
-- (NSUInteger)sectionForObject:(id)object;
+- (NSInteger)sectionForObject:(id)object;
 
 /**
  Returns a copy of all the objects currently powering the adapter.

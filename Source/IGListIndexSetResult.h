@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @see `-[IGListDiffable diffIdentifier]`.
  */
-- (NSUInteger)oldIndexForIdentifier:(id<NSObject>)identifier;
+- (NSInteger)oldIndexForIdentifier:(id<NSObject>)identifier;
 
 /**
  Returns the index of the object with the specified identifier *after* the diff.
@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @see `-[IGListDiffable diffIdentifier]`.
  */
-- (NSUInteger)newIndexForIdentifier:(id<NSObject>)identifier;
+- (NSInteger)newIndexForIdentifier:(id<NSObject>)identifier;
 
 /**
  Creates a new result object with operations safe for use in `UITableView` and `UICollectionView` batch updates.
