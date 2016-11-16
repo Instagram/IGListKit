@@ -15,6 +15,7 @@
 #import "IGListDiffable.h"
 #import "IGListDisplayDelegate.h"
 #import "IGListExperiments.h"
+#import "IGListGridCollectionViewLayout.h"
 #import "IGListIndexPathResult.h"
 #import "IGListIndexSetResult.h"
 #import "IGListKit.h"

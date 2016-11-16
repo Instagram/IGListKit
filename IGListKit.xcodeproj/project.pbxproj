@@ -38,7 +38,10 @@
 		8240C7F51DC2D99300B3AAE7 /* IGTestStoryboardSupplementarySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8240C7F41DC2D99300B3AAE7 /* IGTestStoryboardSupplementarySource.m */; };
 		8240C7F81DC2F3FB00B3AAE7 /* IGListTestStoryboardSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8240C7F71DC2F3FB00B3AAE7 /* IGListTestStoryboardSection.m */; };
 		8240C7FB1DC2F6CF00B3AAE7 /* IGListTestAdapterStoryboardDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8240C7FA1DC2F6CF00B3AAE7 /* IGListTestAdapterStoryboardDataSource.m */; };
-		829D7BAA1DD1819000549816 /* IGListSectionMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 829D7BA81DD1816400549816 /* IGListSectionMapTests.m */; };
+		827642741DC5AC8D003EAD71 /* IGListGridCollectionViewLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 827642721DC5AC8D003EAD71 /* IGListGridCollectionViewLayout.h */; };
+		827642751DC5AC8D003EAD71 /* IGListGridCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 827642731DC5AC8D003EAD71 /* IGListGridCollectionViewLayout.m */; };
+		829D7BAD1DD188B400549816 /* IGListSectionMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 829D7BAB1DD188A900549816 /* IGListSectionMapTests.m */; };
+		82C3DA871DCCEB75007CE984 /* IGListGridCollectionViewLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C3DA861DCCEB75007CE984 /* IGListGridCollectionViewLayoutTests.m */; };
 		88144F071D870EDC007C7F66 /* IGListAdapterE2ETests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE21D870EDC007C7F66 /* IGListAdapterE2ETests.m */; };
 		88144F081D870EDC007C7F66 /* IGListAdapterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE31D870EDC007C7F66 /* IGListAdapterTests.m */; };
 		88144F091D870EDC007C7F66 /* IGListAdapterUpdaterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE41D870EDC007C7F66 /* IGListAdapterUpdaterTests.m */; };
@@ -260,7 +263,10 @@
 		8240C7F71DC2F3FB00B3AAE7 /* IGListTestStoryboardSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListTestStoryboardSection.m; sourceTree = "<group>"; };
 		8240C7F91DC2F6CF00B3AAE7 /* IGListTestAdapterStoryboardDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListTestAdapterStoryboardDataSource.h; sourceTree = "<group>"; };
 		8240C7FA1DC2F6CF00B3AAE7 /* IGListTestAdapterStoryboardDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListTestAdapterStoryboardDataSource.m; sourceTree = "<group>"; };
-		829D7BA81DD1816400549816 /* IGListSectionMapTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListSectionMapTests.m; sourceTree = "<group>"; };
+		827642721DC5AC8D003EAD71 /* IGListGridCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListGridCollectionViewLayout.h; sourceTree = "<group>"; };
+		827642731DC5AC8D003EAD71 /* IGListGridCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListGridCollectionViewLayout.m; sourceTree = "<group>"; };
+		829D7BAB1DD188A900549816 /* IGListSectionMapTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListSectionMapTests.m; sourceTree = "<group>"; };
+		82C3DA861DCCEB75007CE984 /* IGListGridCollectionViewLayoutTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListGridCollectionViewLayoutTests.m; sourceTree = "<group>"; };
 		841726B542A3E9A4BD48946F /* Pods-IGListKit-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKit-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKit-tvOSTests/Pods-IGListKit-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		88144EE21D870EDC007C7F66 /* IGListAdapterE2ETests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListAdapterE2ETests.m; sourceTree = "<group>"; };
 		88144EE31D870EDC007C7F66 /* IGListAdapterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListAdapterTests.m; sourceTree = "<group>"; };
@@ -521,6 +527,8 @@
 				88144F281D870F3E007C7F66 /* IGListCollectionContext.h */,
 				88144F291D870F3E007C7F66 /* IGListCollectionView.h */,
 				88144F2A1D870F3E007C7F66 /* IGListCollectionView.m */,
+				827642721DC5AC8D003EAD71 /* IGListGridCollectionViewLayout.h */,
+				827642731DC5AC8D003EAD71 /* IGListGridCollectionViewLayout.m */,
 				88144F2B1D870F3E007C7F66 /* IGListDiff.h */,
 				88144F2C1D870F3E007C7F66 /* IGListDiff.mm */,
 				88144F2D1D870F3E007C7F66 /* IGListDiffable.h */,
@@ -573,9 +581,10 @@
 				26271C8B1DAE96740073E116 /* IGListSingleNibItemControllerTests.m */,
 				88144EED1D870EDC007C7F66 /* IGListSingleSectionControllerTests.m */,
 				821BC4BE1DB8C95300172ED0 /* IGListSingleStoryboardItemControllerTests.m */,
-				829D7BA81DD1816400549816 /* IGListSectionMapTests.m */,
+				829D7BAB1DD188A900549816 /* IGListSectionMapTests.m */,
 				88144EEE1D870EDC007C7F66 /* IGListStackSectionControllerTests.m */,
 				88144EEF1D870EDC007C7F66 /* IGListWorkingRangeHandlerTests.m */,
+				82C3DA861DCCEB75007CE984 /* IGListGridCollectionViewLayoutTests.m */,
 				887D0B571D870E1E009E01F7 /* Info.plist */,
 				88144EF01D870EDC007C7F66 /* Objects */,
 			);
@@ -662,6 +671,7 @@
 				88144F5E1D870F3E007C7F66 /* IGListAdapterDataSource.h in Headers */,
 				88144F621D870F3E007C7F66 /* IGListAdapterUpdaterDelegate.h in Headers */,
 				88144F971D870F3E007C7F66 /* NSObject+IGListDiffable.h in Headers */,
+				827642741DC5AC8D003EAD71 /* IGListGridCollectionViewLayout.h in Headers */,
 				88144F8E1D870F3E007C7F66 /* IGListMoveIndexInternal.h in Headers */,
 				88144F831D870F3E007C7F66 /* IGListAdapterInternal.h in Headers */,
 				88144F601D870F3E007C7F66 /* IGListAdapterUpdater.h in Headers */,
@@ -1032,6 +1042,7 @@
 				88144F791D870F3E007C7F66 /* IGListMoveIndexPath.m in Sources */,
 				296176FC1D9D54C100F40F34 /* IGListSingleSectionController.m in Sources */,
 				296177051D9D54E300F40F34 /* IGListSectionMap.m in Sources */,
+				827642751DC5AC8D003EAD71 /* IGListGridCollectionViewLayout.m in Sources */,
 				88144F771D870F3E007C7F66 /* IGListMoveIndex.m in Sources */,
 				290486211DCD02750007F41D /* IGTestNibSupplementaryView.m in Sources */,
 				88144F921D870F3E007C7F66 /* IGListWorkingRangeHandler.mm in Sources */,
@@ -1049,6 +1060,7 @@
 			files = (
 				88144F1C1D870EDC007C7F66 /* IGTestStackedDataSource.m in Sources */,
 				88144F181D870EDC007C7F66 /* IGTestDelegateController.m in Sources */,
+				82C3DA871DCCEB75007CE984 /* IGListGridCollectionViewLayoutTests.m in Sources */,
 				88144F0D1D870EDC007C7F66 /* IGListDisplayHandlerTests.m in Sources */,
 				8240C7F51DC2D99300B3AAE7 /* IGTestStoryboardSupplementarySource.m in Sources */,
 				88144F1B1D870EDC007C7F66 /* IGTestSingleItemDataSource.m in Sources */,
@@ -1065,12 +1077,12 @@
 				88144F0C1D870EDC007C7F66 /* IGListDiffTests.m in Sources */,
 				88144F0A1D870EDC007C7F66 /* IGListBatchUpdateDataTests.m in Sources */,
 				26271C8C1DAE96740073E116 /* IGListSingleNibItemControllerTests.m in Sources */,
-				829D7BAA1DD1819000549816 /* IGListSectionMapTests.m in Sources */,
 				88144F101D870EDC007C7F66 /* IGListSingleSectionControllerTests.m in Sources */,
 				88144F121D870EDC007C7F66 /* IGListWorkingRangeHandlerTests.m in Sources */,
 				821BC4D31DB981AB00172ED0 /* IGTestSingleStoryboardItemDataSource.m in Sources */,
 				88144F151D870EDC007C7F66 /* IGListTestSection.m in Sources */,
 				88144F1D1D870EDC007C7F66 /* IGTestSupplementarySource.m in Sources */,
+				829D7BAD1DD188B400549816 /* IGListSectionMapTests.m in Sources */,
 				88144F081D870EDC007C7F66 /* IGListAdapterTests.m in Sources */,
 				8240C7F21DC284C300B3AAE7 /* IGListAdapterStoryboardTests.m in Sources */,
 				8240C7F01DC272CA00B3AAE7 /* IGTestStoryboardSupplementaryView.m in Sources */,
