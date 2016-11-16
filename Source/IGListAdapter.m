@@ -304,6 +304,14 @@
     return [self.sectionMap sectionControllerForObject:object];
 }
 
+- (id)objectForSectionController:(IGListSectionController <IGListSectionType> *)sectionController {
+    IGAssertMainThread();
+    IGParameterAssert(sectionController != nil);
+    
+    const NSUInteger section = [self.sectionMap sectionForSectionController:sectionController];
+    return [self.sectionMap objectForSection:section];
+}
+
 - (id)objectAtSection:(NSUInteger)section {
     IGAssertMainThread();
 
