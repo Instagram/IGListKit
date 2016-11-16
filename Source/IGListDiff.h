@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  An option for how to do comparisons between similar objects.
  */
-typedef NS_ENUM(NSUInteger, IGListDiffOption) {
+typedef NS_ENUM(NSInteger, IGListDiffOption) {
     /**
      Compare objects using pointer personality.
      */

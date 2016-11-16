@@ -35,7 +35,7 @@
 
 - (instancetype)initWithUpdater:(id <IGListUpdatingDelegate>)updatingDelegate
                  viewController:(UIViewController *)viewController
-               workingRangeSize:(NSUInteger)workingRangeSize {
+               workingRangeSize:(NSInteger)workingRangeSize {
     IGAssertMainThread();
     IGParameterAssert(updatingDelegate);
 
@@ -290,7 +290,7 @@
 
 #pragma mark - List Items & Sections
 
-- (NSUInteger)sectionForSectionController:(IGListSectionController <IGListSectionType> *)sectionController {
+- (NSInteger)sectionForSectionController:(IGListSectionController <IGListSectionType> *)sectionController {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
 
@@ -312,13 +312,13 @@
     return [self.sectionMap objectForSection:section];
 }
 
-- (id)objectAtSection:(NSUInteger)section {
+- (id)objectAtSection:(NSInteger)section {
     IGAssertMainThread();
 
     return [self.sectionMap objectForSection:section];
 }
 
-- (NSUInteger)sectionForObject:(id)item {
+- (NSInteger)sectionForObject:(id)item {
     IGAssertMainThread();
     IGParameterAssert(item != nil);
 
@@ -676,7 +676,7 @@
     return UIEdgeInsetsInsetRect(self.collectionView.bounds, self.collectionView.contentInset).size;
 }
 
-- (NSUInteger)indexForCell:(UICollectionViewCell *)cell sectionController:(nonnull IGListSectionController<IGListSectionType> *)sectionController {
+- (NSInteger)indexForCell:(UICollectionViewCell *)cell sectionController:(nonnull IGListSectionController<IGListSectionType> *)sectionController {
     IGAssertMainThread();
     IGParameterAssert(cell != nil);
     IGParameterAssert(sectionController != nil);
