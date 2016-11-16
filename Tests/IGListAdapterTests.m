@@ -55,8 +55,8 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 
     self.dataSource = [[IGListTestAdapterDataSource alloc] init];
     self.adapter = [[IGListAdapter alloc] initWithUpdater:updater
-                                                    viewController:nil
-                                                  workingRangeSize:0];
+                                           viewController:nil
+                                         workingRangeSize:0];
     self.adapter.collectionView = self.collectionView;
     self.adapter.dataSource = self.dataSource;
 }
@@ -113,13 +113,27 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     XCTAssertNil([self.adapter sectionControllerForObject:@3]);
 }
 
+- (void)test_whenAdapterUpdated_thatSectionControllerHasCorrectObject {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter performUpdatesAnimated:YES completion:nil];
+    IGListSectionController <IGListSectionType> * list = [self.adapter sectionControllerForObject:@1];
+    XCTAssertEqual([self.adapter objectForSectionController:list], @1);
+}
+
+- (void)test_whenQueryingAdapter_withUnknownItem_thatObjectForSectionControllerIsNil {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter performUpdatesAnimated:YES completion:nil];
+    IGListSectionController <IGListSectionType> * randomList = [[IGListTestSection alloc] init];
+    XCTAssertNil([self.adapter objectForSectionController:randomList]);
+}
+
 - (void)test_whenQueryingIndexPaths_withSectionController_thatPathsAreEqual {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
     IGListSectionController <IGListSectionType> * second = [self.adapter sectionControllerForObject:@1];
-  NSArray *paths0 = [self.adapter indexPathsFromSectionController:second
-                                                       indexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 4)]
-                                          adjustForUpdateBlock:NO];
+    NSArray *paths0 = [self.adapter indexPathsFromSectionController:second
+                                                            indexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 4)]
+                                               adjustForUpdateBlock:NO];
     NSArray *expected = @[
                           [NSIndexPath indexPathForItem:2 inSection:1],
                           [NSIndexPath indexPathForItem:3 inSection:1],
@@ -136,9 +150,9 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 
     __block BOOL executed = NO;
     [self.adapter performBatchAnimated:YES updates:^{
-      NSArray *paths = [self.adapter indexPathsFromSectionController:second
-                                                          indexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 2)]
-                                             adjustForUpdateBlock:YES];
+        NSArray *paths = [self.adapter indexPathsFromSectionController:second
+                                                               indexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 2)]
+                                                  adjustForUpdateBlock:YES];
         NSArray *expected = @[
                               [NSIndexPath indexPathForItem:2 inSection:1],
                               [NSIndexPath indexPathForItem:3 inSection:1],

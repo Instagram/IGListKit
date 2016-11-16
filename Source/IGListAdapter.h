@@ -142,6 +142,15 @@ IGLK_SUBCLASSING_RESTRICTED
 - (__kindof IGListSectionController <IGListSectionType> * _Nullable)sectionControllerForObject:(id)object;
 
 /**
+ Returns the object corresponding to the specified section controller in the list. Constant time lookup.
+ 
+ @param sectionController A section controller in the list.
+ 
+ @return The object for the specified section controller, or nil if not found.
+ */
+- (nullable id)objectForSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
+
+/**
  Returns the object corresponding to a section in the list. Constant time lookup.
 
  @param section A section in the list.
