@@ -11,7 +11,7 @@ This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Diff result method `-resultWithUpdatedMovesAsDeleteInserts` removed and replaced with `-resultForBatchUpdates` [(b5aa5e3)](https://github.com/Instagram/IGListKit/commit/b5aa5e39002854c947e777c11ae241f67f24d19c)
 - `IGListDiffable` equality method changed from `isEqual:` to `isEqualToDiffableObject:` [(ab890fc)](https://github.com/Instagram/IGListKit/commit/ab890fc6070f170a2db5a383a6296e62dcf75678)
-- Swapped `NSUIInteger` to `NSInteger` in public headers -- Swift APIs change from `UInt` to `Int` [(ab890fc)](https://github.com/Instagram/IGListKit/commit/a9fe9e56b3a4250c4e63ded720ecb033a78f43d0)
+- Change `NSUInteger` to `NSInteger` in public API [Suraya Shivji](https://github.com/surayashivji) [(#200)](https://github.com/Instagram/IGListKit/issues/200)
 
 
 ### Enhancements
