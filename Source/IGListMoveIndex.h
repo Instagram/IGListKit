@@ -19,12 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  An index in the old collection.
  */
-@property (nonatomic, assign, readonly) NSUInteger from;
+@property (nonatomic, assign, readonly) NSInteger from;
 
 /**
  An index in the new collection.
  */
-@property (nonatomic, assign, readonly) NSUInteger to;
+@property (nonatomic, assign, readonly) NSInteger to;
 
 /**
  :nodoc:

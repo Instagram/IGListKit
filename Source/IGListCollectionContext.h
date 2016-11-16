@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return The index of the cell or `NSNotFound` if it does not exist in the collection.
  */
-- (NSUInteger)indexForCell:(UICollectionViewCell *)cell
+- (NSInteger)indexForCell:(UICollectionViewCell *)cell
          sectionController:(IGListSectionController<IGListSectionType> *)sectionController;
 
 /**
@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return The section index of the controller if found, otherwise `NSNotFound`.
  */
-- (NSUInteger)sectionForSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
+- (NSInteger)sectionForSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
 
 /**
  Dequeues a cell from the collection view reuse pool.

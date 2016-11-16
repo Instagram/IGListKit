@@ -155,7 +155,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     return [self.collectionContext containerSize];
 }
 
-- (NSUInteger)indexForCell:(UICollectionViewCell *)cell sectionController:(IGListSectionController<IGListSectionType> *)sectionController {
+- (NSInteger)indexForCell:(UICollectionViewCell *)cell sectionController:(IGListSectionController<IGListSectionType> *)sectionController {
     const NSUInteger index = [self.collectionContext indexForCell:cell sectionController:self];
     return [self localIndexForSectionController:sectionController index:index];
 }
@@ -183,7 +183,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     [self.collectionContext deselectItemAtIndex:localIndex sectionController:self animated:animated];
 }
 
-- (NSUInteger)sectionForSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
+- (NSInteger)sectionForSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
     return [self.collectionContext sectionForSectionController:self];
 }
 
