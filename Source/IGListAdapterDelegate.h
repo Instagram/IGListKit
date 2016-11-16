@@ -11,6 +11,9 @@
 
 @class IGListAdapter;
 
+/**
+ Conform to `IGListAdapterDelegate` to receive display events for objects in a list.
+ */
 @protocol IGListAdapterDelegate <NSObject>
 
 /**

@@ -13,7 +13,7 @@
     <a title="Functions  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (97% documented)</p>
+        <p><a href="index.html">IGListKit Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -472,11 +472,11 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Performs a diff with an experiment bitmask. </p>
+                        <p>Performs an index diff with an experiment bitmask.</p>
 
 <div class="aside aside-see">
     <p class="aside-title">See</p>
-    <code>IGListDiff()</code>.
+    <p><code>IGListDiff()</code>.</p>
 
 </div>
 
@@ -491,6 +491,70 @@
     <span class="n"><a href="Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="n">experiments</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>oldArray</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The old array of objects.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>newArray</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The new array of objects.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>option</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Option to specify the type of diff.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>experiments</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional experiments.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An index set result object contained the changed indexes.</p>
+
                       </div>
                     </section>
                   </div>
@@ -508,11 +572,11 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Performs a diff with an experiment bitmask. </p>
+                        <p>Performs a index path diff with an experiment bitmask.</p>
 
 <div class="aside aside-see">
     <p class="aside-title">See</p>
-    <code>IGListDiffPaths()</code>.
+    <p><code>IGListDiffPaths()</code>.</p>
 
 </div>
 
@@ -528,6 +592,96 @@
     <span class="n"><a href="Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="n">experiments</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fromSection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The old section.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>toSection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The new section.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>oldArray</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The old array of objects.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>newArray</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The new array of objects.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>option</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Option to specify the type of diff.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>experiments</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional experiments.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An index path result object containing the changed indexPaths.</p>
+
                       </div>
                     </section>
                   </div>
