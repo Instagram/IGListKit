@@ -11,7 +11,7 @@ This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Diff result method `-resultWithUpdatedMovesAsDeleteInserts` removed and replaced with `-resultForBatchUpdates` [(b5aa5e3)](https://github.com/Instagram/IGListKit/commit/b5aa5e39002854c947e777c11ae241f67f24d19c)
 - `IGListDiffable` equality method changed from `isEqual:` to `isEqualToDiffableObject:` [(ab890fc)](https://github.com/Instagram/IGListKit/commit/ab890fc6070f170a2db5a383a6296e62dcf75678)
-- `ScrollToObject` method changed from `-scrollToObject:supplementaryKinds:scrollDirection:animated` to `-scrollToObject:supplementaryKinds:scrollDirection:atScrollPosition:animated`. Added support for specifying end position. [Bofei Zhu](https://github.com/zhubofei) [(#196)](https://github.com/Instagram/IGListKit/pull/196)
+- Scrolling method changed from `-scrollToObject:supplementaryKinds:scrollDirection:animated` to `-scrollToObject:supplementaryKinds:scrollDirection:atScrollPosition:animated`. Added support for specifying end position. [Bofei Zhu](https://github.com/zhubofei) [(#196)](https://github.com/Instagram/IGListKit/pull/196)
 
 ### Enhancements
 
