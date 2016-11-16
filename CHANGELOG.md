@@ -11,6 +11,7 @@ This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Diff result method `-resultWithUpdatedMovesAsDeleteInserts` removed and replaced with `-resultForBatchUpdates` [(b5aa5e3)](https://github.com/Instagram/IGListKit/commit/b5aa5e39002854c947e777c11ae241f67f24d19c)
 - `IGListDiffable` equality method changed from `isEqual:` to `isEqualToDiffableObject:`
+- `ScrollToObject` method changed from `-scrollToObject:supplementaryKinds:scrollDirection:animated` to `-scrollToObject:supplementaryKinds:scrollDirection:atScrollPosition:animated`. Added support for specify end position. [Bofei Zhu](https://github.com/zhubofei) [(#196)](https://github.com/Instagram/IGListKit/pull/196)
 
 ### Enhancements
 
@@ -19,7 +20,7 @@ This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit
 - Added an additional initializer for `IGListSingleSectionController` to be able to support single sections created from nibs. An example can be found [here](Example/IGListKitExamples/ViewControllers/SingleSectionViewController.swift).
 - Fixed `-[IGListAdapter reloadDataWithCompletion:]` not returning early when `collectionView` or `dataSource` is nil and `completion` is nil. [Ben Asher](https://github.com/benasher44) [(#51)](https://github.com/Instagram/IGListKit/pull/51)
 - Added `-isFirstSection` and `-isLastSection` APIs to `IGListSectionController`
-- Added support for cells created from storyboard. [Bofei Zhu](https://github.com/zhubofei) [(#92)](https://github.com/Instagram/IGListKit/pull/92)
+- Added support for cells and supplementaryViews created from storyboard. [Bofei Zhu](https://github.com/zhubofei) [(#92)](https://github.com/Instagram/IGListKit/pull/92)
 - Added examples for Today & iMessage extensions. [Sherlouk](https://github.com/Sherlouk) [(#112)](https://github.com/Instagram/IGListKit/pull/112)
 - Added `tvOS` support. [Jesse Squires](https://github.com/jessesquires) [(#137)](https://github.com/Instagram/IGListKit/pull/137)
 - Added new `-[IGListAdapter visibleObjects]` API. [Ryan Nystrom](https://github.com/rnystrom) [(386ae07)](https://github.com/Instagram/IGListKit/commit/386ae0786445c06e1eabf074a4181614332f155f)
