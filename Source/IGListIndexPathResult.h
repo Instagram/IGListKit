@@ -14,61 +14,72 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- Result object returned when diffing with sections.
+ A result object returned when diffing with sections.
  */
 @interface IGListIndexPathResult : NSObject
 
 /**
- Index paths inserted into the new collection.
+ The index paths inserted into the new collection.
  */
 @property (nonatomic, copy, readonly) NSArray<NSIndexPath *> *inserts;
 
 /**
- Index paths deleted from the old collection.
+ The index paths deleted from the old collection.
  */
 @property (nonatomic, copy, readonly) NSArray<NSIndexPath *> *deletes;
 
 /**
- Index paths in the new collection that need updated.
+ The index paths in the new collection that need updated.
  */
 @property (nonatomic, copy, readonly) NSArray<NSIndexPath *> *updates;
 
 /**
- Moves from an index path in the old collection to an index path in the new collection.
+ The moves from an index path in the old collection to an index path in the new collection.
  */
 @property (nonatomic, copy, readonly) NSArray<IGListMoveIndexPath *> *moves;
 
 /**
- Convenience to query if the result has any changes.
+ Returns whether the result has any changes or not.
 
- @return YES if the result has changes, NO otherwise.
+ @return `YES` if the result has changes, `NO` otherwise.
  */
 - (BOOL)hasChanges;
 
 /**
- Fetch the index path of the object with identifier before the diff.
+ Returns the index path of the object with the specified identifier *before* the diff.
 
- @param identifier The diff identifier of the object. See -[IGListDiffable diffIdentifier].
+ @param identifier The diff identifier of the object.
 
- @return The index path of the object before the diff, or nil.
+ @return The index path of the object before the diff, or `nil`.
+ 
+ @see `-[IGListDiffable diffIdentifier]`.
  */
 - (nullable NSIndexPath *)oldIndexPathForIdentifier:(id<NSObject>)identifier;
 
 /**
- Fetch the index path of the object with identifier after the diff.
+ Returns the index path of the object with the specified identifier *after* the diff.
 
- @param identifier The diff identifier of the object. See -[IGListDiffable diffIdentifier].
+ @param identifier The diff identifier of the object.
 
- @return The index path of the object after the diff, or nil.
+ @return The index path of the object after the diff, or `nil`.
+
+ @see `-[IGListDiffable diffIdentifier]`.
  */
 - (nullable NSIndexPath *)newIndexPathForIdentifier:(id<NSObject>)identifier;
 
 /**
- Create a new result object with operations safe for use in UITableView and UICollectionView batch updates.
+ Creates a new result object with operations safe for use in `UITableView` and `UICollectionView` batch updates.
  */
 - (IGListIndexPathResult *)resultForBatchUpdates;
 
+/**
+ :nodoc:
+ */
 - (instancetype)init NS_UNAVAILABLE;
+
+/**
+ :nodoc:
+ */
 + (instancetype)new NS_UNAVAILABLE;
 
 @end

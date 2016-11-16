@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode8
+osx_image: xcode8.1
 gemfile: Gemfile
 
 cache:
@@ -17,6 +17,9 @@ env:
    - IOS_SDK=iphonesimulator10.0
    - TVOS_SDK=appletvsimulator10.0
 
+   - EXAMPLE_WORKSPACE="IGListKitExamples.xcworkspace"
+   - EXAMPLE_SCHEME="IGListKitExamples"
+
    matrix:
    - DESTINATION="OS=8.1,name=iPhone 6" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="NO" BUILD_EXAMPLE="YES" POD_LINT="YES"
    - DESTINATION="OS=8.2,name=iPhone 6" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="NO" BUILD_EXAMPLE="NO"  POD_LINT="NO"
@@ -30,8 +33,8 @@ env:
 
    - DESTINATION="OS=10.0,name=iPhone 6s" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="YES" POD_LINT="NO"
 
-   - DESTINATION="OS=9.0,name=Apple TV 1080p"  SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="NO" POD_LINT="NO"
-   - DESTINATION="OS=10.0,name=Apple TV 1080p" SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="NO" POD_LINT="NO"
+   - DESTINATION="OS=9.0,name=Apple TV 1080p"  SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="YES" POD_LINT="YES"
+   - DESTINATION="OS=10.0,name=Apple TV 1080p" SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="YES" POD_LINT="NO"
 
 script:
 - if [ $POD_LINT == "YES" ]; then
@@ -39,8 +42,13 @@ script:
   fi
 
 
-- if [ $BUILD_EXAMPLE == "YES" ]; then
-      xcodebuild build -workspace Example/IGListKitExamples.xcworkspace -scheme IGListKitExamples -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
+- if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $IOS_SDK ]; then
+      xcodebuild build -workspace Examples/Examples-iOS/"$EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
+  fi
+
+
+- if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $TVOS_SDK ]; then
+      xcodebuild build -workspace Examples/Examples-tvOS/"$EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
   fi
 
 

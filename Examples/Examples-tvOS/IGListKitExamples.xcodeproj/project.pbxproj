@@ -1,0 +1,425 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		618C8CB8BC69CB9C3F7048BF /* Pods_IGListKitExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49637028A90619543A9D9763 /* Pods_IGListKitExamples.framework */; };
+		98ED5C1B1DC52AD400EA56B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C1A1DC52AD400EA56B2 /* AppDelegate.swift */; };
+		98ED5C1D1DC52AD400EA56B2 /* DemosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C1C1DC52AD400EA56B2 /* DemosViewController.swift */; };
+		98ED5C221DC52AD400EA56B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98ED5C211DC52AD400EA56B2 /* Assets.xcassets */; };
+		98ED5C2D1DC52E7F00EA56B2 /* DemoSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C2C1DC52E7F00EA56B2 /* DemoSectionController.swift */; };
+		98ED5C2F1DC52F3B00EA56B2 /* DemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C2E1DC52F3B00EA56B2 /* DemoCell.swift */; };
+		98ED5C321DC53B4E00EA56B2 /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C301DC53B4E00EA56B2 /* CarouselCell.swift */; };
+		98ED5C331DC53B4E00EA56B2 /* CarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98ED5C311DC53B4E00EA56B2 /* CarouselCell.xib */; };
+		98ED5C351DC53C4000EA56B2 /* NestedAdapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C341DC53C4000EA56B2 /* NestedAdapterViewController.swift */; };
+		98ED5C371DC53CEE00EA56B2 /* LabelSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C361DC53CEE00EA56B2 /* LabelSectionController.swift */; };
+		98ED5C391DC53D0B00EA56B2 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C381DC53D0B00EA56B2 /* LabelCell.swift */; };
+		98ED5C3B1DC53DD000EA56B2 /* HorizontalSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C3A1DC53DD000EA56B2 /* HorizontalSectionController.swift */; };
+		98ED5C3D1DC53E5600EA56B2 /* EmbeddedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C3C1DC53E5600EA56B2 /* EmbeddedCollectionViewCell.swift */; };
+		98ED5C3F1DC53EB200EA56B2 /* CarouselSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C3E1DC53EB200EA56B2 /* CarouselSectionController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4950DE37F34745C8EAB44EFC /* Pods-IGListKitExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.debug.xcconfig"; sourceTree = "<group>"; };
+		49637028A90619543A9D9763 /* Pods_IGListKitExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		72D71D21D706627594BBA17D /* Pods-IGListKitExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.release.xcconfig"; sourceTree = "<group>"; };
+		98ED5C171DC52AD400EA56B2 /* IGListKitExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IGListKitExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		98ED5C1A1DC52AD400EA56B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		98ED5C1C1DC52AD400EA56B2 /* DemosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DemosViewController.swift; path = ViewControllers/DemosViewController.swift; sourceTree = "<group>"; };
+		98ED5C211DC52AD400EA56B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		98ED5C231DC52AD400EA56B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98ED5C2C1DC52E7F00EA56B2 /* DemoSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DemoSectionController.swift; path = SectionControllers/DemoSectionController.swift; sourceTree = "<group>"; };
+		98ED5C2E1DC52F3B00EA56B2 /* DemoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DemoCell.swift; path = Views/DemoCell.swift; sourceTree = "<group>"; };
+		98ED5C301DC53B4E00EA56B2 /* CarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CarouselCell.swift; path = Views/CarouselCell.swift; sourceTree = "<group>"; };
+		98ED5C311DC53B4E00EA56B2 /* CarouselCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CarouselCell.xib; path = Views/CarouselCell.xib; sourceTree = "<group>"; };
+		98ED5C341DC53C4000EA56B2 /* NestedAdapterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NestedAdapterViewController.swift; path = ViewControllers/NestedAdapterViewController.swift; sourceTree = "<group>"; };
+		98ED5C361DC53CEE00EA56B2 /* LabelSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LabelSectionController.swift; path = SectionControllers/LabelSectionController.swift; sourceTree = "<group>"; };
+		98ED5C381DC53D0B00EA56B2 /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LabelCell.swift; path = Views/LabelCell.swift; sourceTree = "<group>"; };
+		98ED5C3A1DC53DD000EA56B2 /* HorizontalSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HorizontalSectionController.swift; path = SectionControllers/HorizontalSectionController.swift; sourceTree = "<group>"; };
+		98ED5C3C1DC53E5600EA56B2 /* EmbeddedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmbeddedCollectionViewCell.swift; path = Views/EmbeddedCollectionViewCell.swift; sourceTree = "<group>"; };
+		98ED5C3E1DC53EB200EA56B2 /* CarouselSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CarouselSectionController.swift; path = SectionControllers/CarouselSectionController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		98ED5C141DC52AD400EA56B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				618C8CB8BC69CB9C3F7048BF /* Pods_IGListKitExamples.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4183AACA1B0BA7A44D6D4D73 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				49637028A90619543A9D9763 /* Pods_IGListKitExamples.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		98ED5C0E1DC52AD300EA56B2 = {
+			isa = PBXGroup;
+			children = (
+				98ED5C191DC52AD400EA56B2 /* IGListKitExamples */,
+				98ED5C181DC52AD400EA56B2 /* Products */,
+				A9D83C52A5CD4F0EA0808470 /* Pods */,
+				4183AACA1B0BA7A44D6D4D73 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		98ED5C181DC52AD400EA56B2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				98ED5C171DC52AD400EA56B2 /* IGListKitExamples.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		98ED5C191DC52AD400EA56B2 /* IGListKitExamples */ = {
+			isa = PBXGroup;
+			children = (
+				98ED5C1A1DC52AD400EA56B2 /* AppDelegate.swift */,
+				98ED5C211DC52AD400EA56B2 /* Assets.xcassets */,
+				98ED5C231DC52AD400EA56B2 /* Info.plist */,
+				98ED5C2B1DC52E6200EA56B2 /* SectionControllers */,
+				98ED5C291DC52B2400EA56B2 /* ViewControllers */,
+				98ED5C2A1DC52B2900EA56B2 /* Views */,
+			);
+			path = IGListKitExamples;
+			sourceTree = "<group>";
+		};
+		98ED5C291DC52B2400EA56B2 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				98ED5C1C1DC52AD400EA56B2 /* DemosViewController.swift */,
+				98ED5C341DC53C4000EA56B2 /* NestedAdapterViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		98ED5C2A1DC52B2900EA56B2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				98ED5C301DC53B4E00EA56B2 /* CarouselCell.swift */,
+				98ED5C311DC53B4E00EA56B2 /* CarouselCell.xib */,
+				98ED5C2E1DC52F3B00EA56B2 /* DemoCell.swift */,
+				98ED5C381DC53D0B00EA56B2 /* LabelCell.swift */,
+				98ED5C3C1DC53E5600EA56B2 /* EmbeddedCollectionViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		98ED5C2B1DC52E6200EA56B2 /* SectionControllers */ = {
+			isa = PBXGroup;
+			children = (
+				98ED5C2C1DC52E7F00EA56B2 /* DemoSectionController.swift */,
+				98ED5C361DC53CEE00EA56B2 /* LabelSectionController.swift */,
+				98ED5C3A1DC53DD000EA56B2 /* HorizontalSectionController.swift */,
+				98ED5C3E1DC53EB200EA56B2 /* CarouselSectionController.swift */,
+			);
+			name = SectionControllers;
+			sourceTree = "<group>";
+		};
+		A9D83C52A5CD4F0EA0808470 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4950DE37F34745C8EAB44EFC /* Pods-IGListKitExamples.debug.xcconfig */,
+				72D71D21D706627594BBA17D /* Pods-IGListKitExamples.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		98ED5C161DC52AD400EA56B2 /* IGListKitExamples */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 98ED5C261DC52AD400EA56B2 /* Build configuration list for PBXNativeTarget "IGListKitExamples" */;
+			buildPhases = (
+				FAB2A39CE5E1DA934A22C966 /* [CP] Check Pods Manifest.lock */,
+				98ED5C131DC52AD400EA56B2 /* Sources */,
+				98ED5C141DC52AD400EA56B2 /* Frameworks */,
+				98ED5C151DC52AD400EA56B2 /* Resources */,
+				BADF017CDC470DE253EA4778 /* [CP] Embed Pods Frameworks */,
+				5BE912CD671FF6E4CC50620C /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IGListKitExamples;
+			productName = IGListKitExamples;
+			productReference = 98ED5C171DC52AD400EA56B2 /* IGListKitExamples.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		98ED5C0F1DC52AD300EA56B2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0810;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = Instagram;
+				TargetAttributes = {
+					98ED5C161DC52AD400EA56B2 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = 98ED5C121DC52AD300EA56B2 /* Build configuration list for PBXProject "IGListKitExamples" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 98ED5C0E1DC52AD300EA56B2;
+			productRefGroup = 98ED5C181DC52AD400EA56B2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				98ED5C161DC52AD400EA56B2 /* IGListKitExamples */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		98ED5C151DC52AD400EA56B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98ED5C221DC52AD400EA56B2 /* Assets.xcassets in Resources */,
+				98ED5C331DC53B4E00EA56B2 /* CarouselCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5BE912CD671FF6E4CC50620C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BADF017CDC470DE253EA4778 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FAB2A39CE5E1DA934A22C966 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		98ED5C131DC52AD400EA56B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98ED5C1D1DC52AD400EA56B2 /* DemosViewController.swift in Sources */,
+				98ED5C1B1DC52AD400EA56B2 /* AppDelegate.swift in Sources */,
+				98ED5C391DC53D0B00EA56B2 /* LabelCell.swift in Sources */,
+				98ED5C2F1DC52F3B00EA56B2 /* DemoCell.swift in Sources */,
+				98ED5C3F1DC53EB200EA56B2 /* CarouselSectionController.swift in Sources */,
+				98ED5C2D1DC52E7F00EA56B2 /* DemoSectionController.swift in Sources */,
+				98ED5C321DC53B4E00EA56B2 /* CarouselCell.swift in Sources */,
+				98ED5C3D1DC53E5600EA56B2 /* EmbeddedCollectionViewCell.swift in Sources */,
+				98ED5C371DC53CEE00EA56B2 /* LabelSectionController.swift in Sources */,
+				98ED5C351DC53C4000EA56B2 /* NestedAdapterViewController.swift in Sources */,
+				98ED5C3B1DC53DD000EA56B2 /* HorizontalSectionController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		98ED5C241DC52AD400EA56B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = appletvos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		98ED5C251DC52AD400EA56B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = appletvos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		98ED5C271DC52AD400EA56B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4950DE37F34745C8EAB44EFC /* Pods-IGListKitExamples.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = IGListKitExamples/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		98ED5C281DC52AD400EA56B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 72D71D21D706627594BBA17D /* Pods-IGListKitExamples.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = IGListKitExamples/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		98ED5C121DC52AD300EA56B2 /* Build configuration list for PBXProject "IGListKitExamples" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98ED5C241DC52AD400EA56B2 /* Debug */,
+				98ED5C251DC52AD400EA56B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		98ED5C261DC52AD400EA56B2 /* Build configuration list for PBXNativeTarget "IGListKitExamples" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98ED5C271DC52AD400EA56B2 /* Debug */,
+				98ED5C281DC52AD400EA56B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 98ED5C0F1DC52AD300EA56B2 /* Project object */;
+}

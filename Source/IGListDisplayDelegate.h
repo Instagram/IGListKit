@@ -22,40 +22,40 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol IGListDisplayDelegate <NSObject>
 
 /**
- Tells the delegate that the specified list is about to be displayed.
+ Tells the delegate that the specified section controller is about to be displayed.
 
- @param listAdapter       The list adapter that the list will display in.
- @param sectionController The list about to be displayed.
+ @param listAdapter       The list adapter for the section controller.
+ @param sectionController The section controller about to be displayed.
  */
 - (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController <IGListSectionType> *)sectionController;
 
 /**
- Tells the delegate that the specified list is no longer being displayed.
+ Tells the delegate that the specified section controller is no longer being displayed.
 
- @param listAdapter       The list adapter that the list was displayed in.
- @param sectionController The list that is no longer displayed.
+ @param listAdapter       The list adapter for the section controller.
+ @param sectionController The section controller that is no longer displayed.
  */
 - (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
 
 /**
- Tells the delegate that a row in the specified list is about to be displayed.
+ Tells the delegate that a cell in the specified list is about to be displayed.
 
- @param listAdapter       The list adapter that row will display in.
- @param sectionController The section controller that is displaying.
+ @param listAdapter       The list adapter in which the cell will display.
+ @param sectionController The section controller that is displaying the cell.
  @param cell              The cell about to be displayed.
- @param index             The index of the row.
+ @param index             The index of the cell in the section.
  */
 - (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController <IGListSectionType> *)sectionController
                cell:(UICollectionViewCell *)cell
             atIndex:(NSInteger)index;
 
 /**
- Tells the delegate that a row in the specified list is no longer being displayed.
+ Tells the delegate that a cell in the specified list is no longer being displayed.
 
- @param listAdapter       The list adapter that the list was displayed in.
+ @param listAdapter       The list adapter in which the cell was displayed.
  @param sectionController The section controller that is no longer displaying the cell.
  @param cell              The cell that is no longer displayed.
- @param index             The index of the row.
+ @param index             The index of the cell in the section.
  */
 - (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController <IGListSectionType> *)sectionController
                cell:(UICollectionViewCell *)cell
