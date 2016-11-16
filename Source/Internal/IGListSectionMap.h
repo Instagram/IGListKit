@@ -47,7 +47,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return A section controller.
  */
-- (nullable IGListSectionController <IGListSectionType> *)sectionControllerForSection:(NSUInteger)section;
+- (nullable IGListSectionController <IGListSectionType> *)sectionControllerForSection:(NSInteger)section;
 
 /**
  Fetch the object for a section
@@ -56,7 +56,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return The object corresponding to the section.
  */
-- (id)objectForSection:(NSUInteger)section;
+- (id)objectForSection:(NSInteger)section;
 
 /**
  Fetch a section controller given an object. Can return nil.
@@ -74,7 +74,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return The section index of the given section controller if it exists, NSNotFound otherwise.
  */
-- (NSUInteger)sectionForSectionController:(id)sectionController;
+- (NSInteger)sectionForSectionController:(id)sectionController;
 
 /**
  Look up the section index for an object.
@@ -83,7 +83,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return The section index of the given object if it exists, NSNotFound otherwise.
  */
-- (NSUInteger)sectionForObject:(id)object;
+- (NSInteger)sectionForObject:(id)object;
 
 /**
  Remove all saved objects and section controllers.
@@ -100,7 +100,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @param block A block object to operate on entries in the section controller map.
  */
-- (void)enumerateUsingBlock:(void (^)(id object, IGListSectionController<IGListSectionType> *sectionController, NSUInteger section, BOOL *stop))block;
+- (void)enumerateUsingBlock:(void (^)(id object, IGListSectionController<IGListSectionType> *sectionController, NSInteger section, BOOL *stop))block;
 
 /**
  :nodoc:
