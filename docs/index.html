@@ -13,7 +13,7 @@
     <a title="IGListKit  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (100% documented)</p>
+        <p><a href="index.html">IGListKit Docs</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -293,7 +293,7 @@
 
 <p>Creating a new section controller is very simple. You just subclass <code>IGListSectionController</code> and conform to the <code>IGListSectionType</code> protocol. Once you conform to <code>IGListSectionType</code>, the compiler will make sure you implement all of the required methods.</p>
 
-<p>Take a look at <a href="https://github.com/Instagram/IGListKit/blob/master/Example/IGListKitExamples/SectionControllers/LabelSectionController.swift">LabelSectionController</a> for an example section controller that handles a <code>String</code> and configures a single cell with a <code>UILabel</code>.</p>
+<p>Take a look at <a href="Examples/Examples-iOS/IGListKitExamples/SectionControllers/LabelSectionController.swift">LabelSectionController</a> for an example section controller that handles a <code>String</code> and configures a single cell with a <code>UILabel</code>.</p>
 <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">LabelSectionController</span><span class="p">:</span> <span class="kt">IGListSectionController</span><span class="p">,</span> <span class="kt">IGListSectionType</span> <span class="p">{</span>
   <span class="c1">// ...</span>
 <span class="p">}</span>
@@ -333,7 +333,7 @@
 <span class="p">}</span>
 </code></pre>
 
-<p>You can return an array of <em>any</em> type of data, as long as it conforms to <code>IGListDiffable</code>. We&rsquo;ve included a <a href="https://github.com/Instagram/IGListKit/blob/master/Source/NSObject%2BIGListDiffable.m">default implementation</a> for all objects, but adding your own implementation can unlock even better diffing.</p>
+<p>You can return an array of <em>any</em> type of data, as long as it conforms to <code>IGListDiffable</code>. We&rsquo;ve included a <a href="Source/NSObject+IGListDiffable.m">default implementation</a> for all objects, but adding your own implementation can unlock even better diffing.</p>
 <a href='#diffing' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='diffing'>Diffing</h2>
 
 <p><code>IGListKit</code> uses an algorithm adapted from a paper titled <a href="http://dl.acm.org/citation.cfm?id=359467&amp;dl=ACM&amp;coll=DL">A technique for isolating differences between files</a> by Paul Heckel. This algorithm uses a technique known as the <em>longest common subsequence</em> to find a minimal diff between collections in linear time <code>O(n)</code>. It finds all <strong>inserts</strong>, <strong>deletes</strong>, <strong>updates</strong>, and <strong>moves</strong> between arrays of data.</p>
