@@ -9,12 +9,12 @@
 
 #ifndef IGAssert
 #define IGAssert( condition, ... ) NSCAssert( (condition) , ##__VA_ARGS__)
-#endif // #ifndef IGAssert
+#endif // IGAssert
 
 #ifndef IGParameterAssert
 #define IGParameterAssert( condition ) IGAssert( (condition) , @"Invalid parameter not satisfying: %@", @#condition)
-#endif // #ifndef IGParameterAssert
+#endif // IGParameterAssert
 
 #ifndef IGAssertMainThread
 #define IGAssertMainThread() IGAssert( ([NSThread isMainThread] == YES), @"Must be on the main thread")
-#endif // #ifndef IGAssertMainThread
+#endif // IGAssertMainThread

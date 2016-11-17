@@ -16,42 +16,42 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- An option on how to do comparisons between similar objects.
+ An option for how to do comparisons between similar objects.
  */
-typedef NS_ENUM(NSUInteger, IGListDiffOption) {
+typedef NS_ENUM(NSInteger, IGListDiffOption) {
     /**
      Compare objects using pointer personality.
      */
     IGListDiffPointerPersonality,
     /**
-     Compare objects using -[NSObject isEqual:].
+     Compare objects using `-[NSObject isEqual:]`.
      */
     IGListDiffEquality
 };
 
 /**
- Create a diff using indexes between two collections.
+ Creates a diff using indexes between two collections.
 
  @param oldArray The old objects to diff against.
- @param newArray The new objects to diff with.
+ @param newArray The new objects.
  @param option   An option on how to compare objects.
 
- @return Result object with effected indexes.
+ @return A result object containing affected indexes.
  */
 FOUNDATION_EXTERN IGListIndexSetResult *IGListDiff(NSArray<id<IGListDiffable> > *_Nullable oldArray,
                                                    NSArray<id<IGListDiffable>> *_Nullable newArray,
                                                    IGListDiffOption option);
 
 /**
- Create a diff using index paths between two collections.
+ Creates a diff using index paths between two collections.
 
- @param fromSection The old section used to seed returned index paths.
- @param toSection   The new section used to seed returned index paths.
+ @param fromSection The old section.
+ @param toSection   The new section.
  @param oldArray    The old objects to diff against.
- @param newArray    The new objects to diff with.
+ @param newArray    The new objects.
  @param option      An option on how to compare objects.
 
- @return Result object with effected index paths.
+ @return A result object containing affected indexes.
  */
 FOUNDATION_EXTERN IGListIndexPathResult *IGListDiffPaths(NSInteger fromSection,
                                                          NSInteger toSection,

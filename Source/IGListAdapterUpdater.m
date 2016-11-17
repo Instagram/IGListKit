@@ -221,17 +221,6 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     }
 }
 
-- (NSSet *)filterIndexPaths:(NSSet<NSIndexPath *> *)indexPaths removingSections:(NSIndexSet *)sections {
-    NSMutableSet *filteredIndexPaths = [indexPaths mutableCopy];
-    for (NSIndexPath *indexPath in indexPaths) {
-        const NSUInteger section = indexPath.section;
-        if ([sections containsIndex:section]) {
-            [filteredIndexPaths removeObject:indexPath];
-        }
-    }
-    return filteredIndexPaths;
-}
-
 void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
                                  NSMutableIndexSet *deletes,
                                  NSMutableIndexSet *inserts,
@@ -298,16 +287,6 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 
 - (void)endPerformBatchUpdates {
     self.batchUpdateOrReloadInProgress = NO;
-}
-
-- (NSArray *)trimmedIndexPaths:(NSArray <NSIndexPath *> *)indexPaths inSections:(NSIndexSet *)sections {
-    NSMutableArray *paths = [indexPaths mutableCopy];
-    for (NSInteger i = 0; i < paths.count; i++) {
-        if ([sections containsIndex:[paths[i] section]]) {
-            [paths removeObjectAtIndex:i];
-        }
-    }
-    return paths;
 }
 
 - (void)cleanupState {

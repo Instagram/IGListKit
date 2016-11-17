@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IGListMoveIndex ()
 
-- (instancetype)initWithFrom:(NSUInteger)from to:(NSUInteger)to NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithFrom:(NSInteger)from to:(NSInteger)to NS_DESIGNATED_INITIALIZER;
 
 @end
 
