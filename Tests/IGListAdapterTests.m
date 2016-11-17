@@ -742,4 +742,93 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     [mockDelegate verify];
 }
 
+- (void)test_whenSelectingCell_thatCollectionViewDelegateReceivesMethod {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
+    self.adapter.collectionViewDelegate = mockDelegate;
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    [[mockDelegate expect] collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
+
+    // simulates the collectionview telling its delegate that it was tapped
+    [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
+
+    [mockDelegate verify];
+}
+
+- (void)test_whenSelectingCell_thatSectionControllerReceivesMethod {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+
+    // simulates the collectionview telling its delegate that it was tapped
+    [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
+
+    IGListTestSection *s0 = [self.adapter sectionControllerForObject:@0];
+    IGListTestSection *s1 = [self.adapter sectionControllerForObject:@1];
+    IGListTestSection *s2 = [self.adapter sectionControllerForObject:@2];
+
+    XCTAssertTrue(s0.wasSelected);
+    XCTAssertFalse(s1.wasSelected);
+    XCTAssertFalse(s2.wasSelected);
+}
+
+- (void)test_whenDisplayingCell_thatCollectionViewDelegateReceivesMethod {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
+    self.adapter.collectionViewDelegate = mockDelegate;
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    UICollectionViewCell *cell = [UICollectionViewCell new];
+    [[mockDelegate expect] collectionView:self.collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
+
+    // simulates the collectionview telling its delegate that a cell will be displayed
+    [self.adapter collectionView:self.collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
+
+    [mockDelegate verify];
+}
+
+- (void)test_whenWillBeginDragging_thatScrollViewDelegateReceivesMethod {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockCollectionDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
+    id mockScrollDelegate = [OCMockObject mockForProtocol:@protocol(UIScrollViewDelegate)];
+    self.adapter.collectionViewDelegate = mockCollectionDelegate;
+    self.adapter.scrollViewDelegate = mockScrollDelegate;
+
+    [[mockCollectionDelegate reject] scrollViewWillBeginDragging:self.collectionView];
+    [[mockScrollDelegate expect] scrollViewWillBeginDragging:self.collectionView];
+
+    // simulates the scrollview delegate telling the adapter that it will begin dragging
+    [self.adapter scrollViewWillBeginDragging:self.collectionView];
+
+    [mockCollectionDelegate verify];
+    [mockScrollDelegate verify];
+}
+
+- (void)test_whenDidEndDragging_thatScrollViewDelegateReceivesMethod {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockCollectionDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
+    id mockScrollDelegate = [OCMockObject mockForProtocol:@protocol(UIScrollViewDelegate)];
+    self.adapter.collectionViewDelegate = mockCollectionDelegate;
+    self.adapter.scrollViewDelegate = mockScrollDelegate;
+
+    [[mockCollectionDelegate reject] scrollViewDidEndDragging:self.collectionView willDecelerate:NO];
+    [[mockScrollDelegate expect] scrollViewDidEndDragging:self.collectionView willDecelerate:NO];
+
+    // simulates the scrollview delegate telling the adapter that it will end dragging
+    [self.adapter scrollViewDidEndDragging:self.collectionView willDecelerate:NO];
+
+    [mockCollectionDelegate verify];
+    [mockScrollDelegate verify];
+}
+
 @end
