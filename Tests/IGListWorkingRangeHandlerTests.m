@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
+ * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
@@ -48,7 +48,7 @@
 }
 
 - (IGListSectionController<IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter
-                            sectionControllerForObject:(id)object {
+                                 sectionControllerForObject:(id)object {
     return [_map objectForKey:object];
 }
 
@@ -211,7 +211,7 @@
     // Act: Hide the first item, and watch for the second item to leave the working range.
     [[mockWorkingRangeDelegate expect] listAdapter:adapter sectionControllerDidExitWorkingRange:controller2];
     [adapter.workingRangeHandler didEndDisplayingItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] forListAdapter:adapter];
-
+    
     [mockWorkingRangeDelegate verifyWithDelay:5];
 }
 

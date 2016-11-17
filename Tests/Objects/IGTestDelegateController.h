@@ -13,7 +13,7 @@
 
 @class IGTestObject;
 
-@interface IGTestDelegateController : IGListSectionController <IGListSectionType, IGListDisplayDelegate>
+@interface IGTestDelegateController : IGListSectionController <IGListSectionType, IGListDisplayDelegate, IGListWorkingRangeDelegate>
 
 @property (nonatomic, strong, readonly) IGTestObject *item;
 
