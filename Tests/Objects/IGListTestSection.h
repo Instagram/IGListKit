@@ -16,4 +16,6 @@
 
 @property (nonatomic, assign) NSInteger items;
 
+@property (nonatomic, assign) BOOL wasSelected;
+
 @end

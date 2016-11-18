@@ -15,44 +15,45 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- This object takes section indexes and item index paths and performs cleanup on init in order to perform a crash-free
- update via -[UICollectionView performBatchUpdates:completion:].
+ An instance of `IGListBatchUpdateData` takes section indexes and item index paths 
+ and performs cleanup on init in order to perform a crash-free
+ update via `-[UICollectionView performBatchUpdates:completion:]`.
  */
 IGLK_SUBCLASSING_RESTRICTED
 @interface IGListBatchUpdateData : NSObject
 
 /**
- Clean section insert indexes.
+ Section insert indexes.
  */
 @property (nonatomic, strong, readonly) NSIndexSet *insertSections;
 
 /**
- Clean section delete indexes.
+ Section delete indexes.
  */
 @property (nonatomic, strong, readonly) NSIndexSet *deleteSections;
 
 /**
- Clean section moves.
+ section moves.
  */
 @property (nonatomic, strong, readonly) NSSet<IGListMoveIndex *> *moveSections;
 
 /**
- Clean item insert index paths.
+ Item insert index paths.
  */
 @property (nonatomic, strong, readonly) NSSet<NSIndexPath *> *insertIndexPaths;
 
 /**
- Clean item delete index paths.
+ Item delete index paths.
  */
 @property (nonatomic, strong, readonly) NSSet<NSIndexPath *> *deleteIndexPaths;
 
 /**
- Clean item reload index paths.
+ Item reload index paths.
  */
 @property (nonatomic, strong, readonly) NSSet<NSIndexPath *> *reloadIndexPaths;
 
 /**
- Create a new batch update object with section and item operations.
+ Creates a new batch update object with section and item operations.
 
  @param insertSections   Section indexes to insert.
  @param deleteSections   Section indexes to delete.
@@ -61,7 +62,7 @@ IGLK_SUBCLASSING_RESTRICTED
  @param deleteIndexPaths Item index paths to delete.
  @param reloadIndexPaths Item index paths to reload.
 
- @return A new batch update object with cleaned update operations.
+ @return A new batch update object.
  */
 - (instancetype)initWithInsertSections:(NSIndexSet *)insertSections
                         deleteSections:(NSIndexSet *)deleteSections
@@ -70,7 +71,14 @@ IGLK_SUBCLASSING_RESTRICTED
                       deleteIndexPaths:(NSSet<NSIndexPath *> *)deleteIndexPaths
                       reloadIndexPaths:(NSSet<NSIndexPath *> *)reloadIndexPaths NS_DESIGNATED_INITIALIZER;
 
+/**
+ :nodoc:
+ */
 - (instancetype)init NS_UNAVAILABLE;
+
+/**
+ :nodoc:
+ */
 + (instancetype)new NS_UNAVAILABLE;
 
 @end

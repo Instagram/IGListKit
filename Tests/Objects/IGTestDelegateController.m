@@ -18,6 +18,7 @@
     if (self = [super init]) {
         _willDisplayCellIndexes = [NSCountedSet new];
         _didEndDisplayCellIndexes = [NSCountedSet new];
+        self.workingRangeDelegate = self;
     }
     return self;
 }
@@ -80,5 +81,13 @@
 }
 
 - (void)listAdapter:(IGListAdapter *)listAdapter didScrollSectionController:(IGListSectionController <IGListSectionType> *)sectionController {}
+
+#pragma mark - IGListWorkingRangeDelegate
+
+- (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerWillEnterWorkingRange:(IGListSectionController<IGListSectionType> *)sectionController {
+    __unused UICollectionViewCell *cell = [self.collectionContext cellForItemAtIndex:0 sectionController:self];
+}
+
+- (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerDidExitWorkingRange:(IGListSectionController<IGListSectionType> *)sectionController {}
 
 @end

@@ -35,6 +35,8 @@
     }
 }
 
-- (void)didSelectItemAtIndex:(NSInteger)index {}
+- (void)didSelectItemAtIndex:(NSInteger)index {
+    self.wasSelected = YES;
+}
 
 @end

@@ -16,12 +16,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- A protocol that receives events about IGListAdapterUpdater operations.
+ A protocol that receives events about `IGListAdapterUpdater` operations.
  */
 @protocol IGListAdapterUpdaterDelegate <NSObject>
 
 /**
- Notifies the delegate that the updater will call -[UICollectionView performBatchUpdates:completion:].
+ Notifies the delegate that the updater will call `-[UICollectionView performBatchUpdates:completion:]`.
 
  @param listAdapterUpdater The adapter updater owning the transition.
  @param collectionView     The collection view that will perform the batch updates.
@@ -29,62 +29,62 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView;
 
 /**
- Notifies the delegate that the updater succesfully finished -[UICollectionView performBatchUpdates:completion:].
+ Notifies the delegate that the updater succesfully finished `-[UICollectionView performBatchUpdates:completion:]`.
 
  @param listAdapterUpdater The adapter updater owning the transition.
  @param updates            The batch updates that were applied to the collection view.
  @param collectionView     The collection view that performed the batch updates.
 
- @discussion This event is called in the completion block of the batch update.
+ @note This event is called in the completion block of the batch update.
  */
 - (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater didPerformBatchUpdates:(IGListBatchUpdateData *)updates withCollectionView:(UICollectionView *)collectionView;
 
 /**
- Notifies the delegate that the updater will call -[UICollectionView insertItemsAtIndexPaths:].
+ Notifies the delegate that the updater will call `-[UICollectionView insertItemsAtIndexPaths:]`.
 
  @param listAdapterUpdater The adapter updater owning the transition.
  @param indexPaths         An array of index paths that will be inserted.
  @param collectionView     The collection view that will perform the insert.
 
- @discussion This event is only sent when outside of -[UICollectionView performBatchUpdates:completion:].
+ @note This event is only sent when outside of `-[UICollectionView performBatchUpdates:completion:]`.
  */
 - (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater willInsertIndexPaths:(NSArray<NSIndexPath *> *)indexPaths collectionView:(UICollectionView *)collectionView;
 
 /**
- Notifies the delegate that the updater will call -[UICollectionView deleteItemsAtIndexPaths:].
+ Notifies the delegate that the updater will call `-[UICollectionView deleteItemsAtIndexPaths:]`.
 
  @param listAdapterUpdater The adapter updater owning the transition.
  @param indexPaths         An array of index paths that will be deleted.
  @param collectionView     The collection view that will perform the delete.
 
- @discussion This event is only sent when outside of -[UICollectionView performBatchUpdates:completion:].
+ @note This event is only sent when outside of `-[UICollectionView performBatchUpdates:completion:]`.
  */
 - (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater willDeleteIndexPaths:(NSArray<NSIndexPath *> *)indexPaths collectionView:(UICollectionView *)collectionView;
 
 /**
- Notifies the delegate that the updater will call -[UICollectionView reloadItemsAtIndexPaths:].
+ Notifies the delegate that the updater will call `-[UICollectionView reloadItemsAtIndexPaths:]`.
 
  @param listAdapterUpdater The adapter updater owning the transition.
  @param indexPaths         An array of index paths that will be reloaded.
  @param collectionView     The collection view that will perform the reload.
 
- @discussion This event is only sent when outside of -[UICollectionView performBatchUpdates:completion:].
+ @note This event is only sent when outside of `-[UICollectionView performBatchUpdates:completion:]`.
  */
 - (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater willReloadIndexPaths:(NSArray<NSIndexPath *> *)indexPaths collectionView:(UICollectionView *)collectionView;
 
 /**
- Notifies the delegate that the updater will call -[UICollectionView reloadSections:].
+ Notifies the delegate that the updater will call `-[UICollectionView reloadSections:]`.
 
  @param listAdapterUpdater The adapter updater owning the transition.
  @param sections           The sections that will be reloaded
  @param collectionView     The collection view that will perform the reload.
 
- @discussion This event is only sent when outside of -[UICollectionView performBatchUpdates:completion:].
+ @note This event is only sent when outside of `-[UICollectionView performBatchUpdates:completion:]`.
  */
 - (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater willReloadSections:(NSIndexSet *)sections collectionView:(UICollectionView *)collectionView;
 
 /**
- Notifies the delegate that the updater will call -[UICollectionView reloadData].
+ Notifies the delegate that the updater will call `-[UICollectionView reloadData]`.
 
  @param listAdapterUpdater The adapter updater owning the transition.
  @param collectionView     The collection view that will be reloaded.
@@ -92,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater willReloadDataWithCollectionView:(UICollectionView *)collectionView;
 
 /**
- Notifies the delegate that the updater successfully called -[UICollectionView reloadData].
+ Notifies the delegate that the updater successfully called `-[UICollectionView reloadData]`.
 
  @param listAdapterUpdater The adapter updater owning the transition.
  @param collectionView     The collection view that reloaded.
@@ -100,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater didReloadDataWithCollectionView:(UICollectionView *)collectionView;
 
 /**
- Notifies the delegate that the collection view threw an exception in -[UICollectionView performBatchUpdates:completion:].
+ Notifies the delegate that the collection view threw an exception in `-[UICollectionView performBatchUpdates:completion:]`.
 
  @param listAdapterUpdater The adapter updater owning the transition.
  @param exception          The exception thrown by the collection view.

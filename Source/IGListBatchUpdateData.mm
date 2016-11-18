@@ -40,21 +40,6 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
 
 @implementation IGListBatchUpdateData
 
-// Converts all moves that have section operations into a section delete + insert.
-+ (void)cleanIndexSetWithMap:(const std::unordered_map<NSUInteger, IGListMoveIndex*> &)map
-                       moves:(NSMutableSet<IGListMoveIndex *> *)moves
-                    sections:(NSMutableIndexSet *)sections
-                     deletes:(NSMutableIndexSet *)deletes
-                     inserts:(NSMutableIndexSet *)inserts {
-    for(const auto &i : map) {
-        const NSUInteger index = i.first;
-        if ([sections containsIndex:index]) {
-            [sections removeIndex:index];
-            convertMoveToDeleteAndInsert(moves, i.second, deletes, inserts);
-        }
-    }
-}
-
 // Converts all section moves that have index path operations into a section delete + insert.
 + (void)cleanIndexPathsWithMap:(const std::unordered_map<NSUInteger, IGListMoveIndex*> &)map
                          moves:(NSMutableSet<IGListMoveIndex *> *)moves

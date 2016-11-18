@@ -13,16 +13,16 @@
 
 @class IGTestObject;
 
-@interface IGTestDelegateController : IGListSectionController <IGListSectionType, IGListDisplayDelegate>
+@interface IGTestDelegateController : IGListSectionController <IGListSectionType, IGListDisplayDelegate, IGListWorkingRangeDelegate>
 
 @property (nonatomic, strong, readonly) IGTestObject *item;
 
 @property (nonatomic, copy) void (^itemUpdateBlock)();
 @property (nonatomic, copy) void (^cellConfigureBlock)(IGTestDelegateController *);
-@property (nonatomic, assign, readonly) NSUInteger updateCount;
+@property (nonatomic, assign, readonly) NSInteger updateCount;
 
-@property (nonatomic, assign) NSUInteger willDisplayCount;
-@property (nonatomic, assign) NSUInteger didEndDisplayCount;
+@property (nonatomic, assign) NSInteger willDisplayCount;
+@property (nonatomic, assign) NSInteger didEndDisplayCount;
 @property (nonatomic, strong) NSCountedSet *willDisplayCellIndexes;
 @property (nonatomic, strong) NSCountedSet *didEndDisplayCellIndexes;
 

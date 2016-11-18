@@ -12,9 +12,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- Implement the methods of this protocol to provide information about a list's supplementary views. This data is used in
- IGListAdapter which then configures and maintains a UICollectionView. The supplementary API reflects that in
- UICollectionView, UICollectionViewLayout, and UICollectionViewDataSource.
+ Conform to this protocol to provide information about a list's supplementary views. This data is used in
+ `IGListAdapter` which then configures and maintains a `UICollectionView`. The supplementary API reflects that in
+ `UICollectionView`, `UICollectionViewLayout`, and `UICollectionViewDataSource`.
  */
 @protocol IGListSupplementaryViewSource <NSObject>
 
@@ -29,9 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
  Asks the SupplementaryViewSource for a configured supplementary view for the specified kind and index.
 
  @param elementKind The kind of supplementary view being requested
- @param index       The index for the row being requested.
+ @param index       The index for the supplementary veiw being requested.
 
- @discussion This is your opportunity to do any supplementary view setup and configuration.
+ @note This is your opportunity to do any supplementary view setup and configuration.
 
  @warning You should never allocate new views in this method. Instead deque a view from the `IGListCollectionContext`.
  */
@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
  Asks the SupplementaryViewSource for the size of a supplementary view for the given kind and index path.
 
  @param elementKind The kind of supplementary view.
- @param index       The index of the requested row.
+ @param index       The index of the requested view.
 
  @return The size for the supplementary view.
  */

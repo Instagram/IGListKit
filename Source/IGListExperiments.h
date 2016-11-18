@@ -12,9 +12,9 @@
 #import <IGListKit/IGListDiff.h>
 
 /**
- Bitmask-able options used for prerelease feature testing.
+ Bitmask-able options used for pre-release feature testing.
  */
-typedef NS_OPTIONS (NSUInteger, IGListExperiment) {
+typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentNone = 1 << 1,
 };
 
@@ -24,7 +24,7 @@ typedef NS_OPTIONS (NSUInteger, IGListExperiment) {
  @param mask   The bitmask of experiments.
  @param option The option to compare with.
 
- @return YES if the option is in the bitmask, otherwise NO.
+ @return `YES` if the option is in the bitmask, otherwise `NO`.
  */
 static inline BOOL IGListExperimentEnabled(IGListExperiment mask, IGListExperiment option) {
     return (mask & option) != 0;
@@ -33,7 +33,9 @@ static inline BOOL IGListExperimentEnabled(IGListExperiment mask, IGListExperime
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- Perform a diff with an experiment bitmask. See IGListDiff() in IGListDiff.h
+ Performs a diff with an experiment bitmask. 
+ 
+ @see `IGListDiff()`.
  */
 FOUNDATION_EXTERN IGListIndexSetResult *IGListDiffExperiment(NSArray<id<IGListDiffable>> *_Nullable oldArray,
                                                              NSArray<id<IGListDiffable>> *_Nullable newArray,
@@ -41,7 +43,9 @@ FOUNDATION_EXTERN IGListIndexSetResult *IGListDiffExperiment(NSArray<id<IGListDi
                                                              IGListExperiment experiments);
 
 /**
- Perform a diff with an experiment bitmask. See IGListDiffPaths() in IGListDiff.h
+ Performs a diff with an experiment bitmask. 
+ 
+ @see `IGListDiffPaths()`.
  */
 FOUNDATION_EXTERN IGListIndexPathResult *IGListDiffPathsExperiment(NSInteger fromSection,
                                                                    NSInteger toSection,

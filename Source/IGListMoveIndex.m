@@ -12,7 +12,7 @@
 
 @implementation IGListMoveIndex
 
-- (instancetype)initWithFrom:(NSUInteger)from to:(NSUInteger)to {
+- (instancetype)initWithFrom:(NSInteger)from to:(NSInteger)to {
     if (self = [super init]) {
         _from = from;
         _to = to;
@@ -29,16 +29,16 @@
         return YES;
     }
     if ([object isKindOfClass:[IGListMoveIndex class]]) {
-        NSUInteger f1 = self.from, f2 = [object from];
-        NSUInteger t1 = self.to, t2 = [object to];
+        const NSInteger f1 = self.from, f2 = [object from];
+        const NSInteger t1 = self.to, t2 = [object to];
         return f1 == f2 && t1 == t2;
     }
     return NO;
 }
 
 - (NSComparisonResult)compare:(id)object {
-    const NSUInteger right = [object from];
-    const NSUInteger left = [self from];
+    const NSInteger right = [object from];
+    const NSInteger left = [self from];
     if (left == right) {
         return NSOrderedSame;
     } else if (left < right) {

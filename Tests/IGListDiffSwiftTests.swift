@@ -29,7 +29,7 @@ class SwiftClass: IGListDiffable {
         return NSNumber(value: id)
     }
 
-    func isEqual(_ object: IGListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
         guard let object = object as? SwiftClass else { return false }
         return id == object.id && value == object.value
     }
