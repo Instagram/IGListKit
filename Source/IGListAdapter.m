@@ -141,6 +141,7 @@
 - (void)scrollToObject:(id)object
     supplementaryKinds:(NSArray<NSString *> *)supplementaryKinds
        scrollDirection:(UICollectionViewScrollDirection)scrollDirection
+        scrollPosition:(UICollectionViewScrollPosition)scrollPosition
               animated:(BOOL)animated {
     IGAssertMainThread();
     IGParameterAssert(object != nil);
@@ -166,33 +167,72 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
     NSArray *attributes = [self layoutAttributesForIndexPath:indexPath supplementaryKinds:supplementaryKinds];
 
-    CGFloat offset = 0.0;
+    CGFloat offsetMin = 0.0;
+    CGFloat offsetMax = 0.0;
     for (UICollectionViewLayoutAttributes *attribute in attributes) {
         const CGRect frame = attribute.frame;
-        CGFloat origin;
+        CGFloat originMin;
+        CGFloat endMax;
         switch (scrollDirection) {
             case UICollectionViewScrollDirectionHorizontal:
-                origin = CGRectGetMinX(frame);
+                originMin = CGRectGetMinX(frame);
+                endMax = CGRectGetMaxX(frame);
                 break;
             case UICollectionViewScrollDirectionVertical:
-                origin = CGRectGetMinY(frame);
+                originMin = CGRectGetMinY(frame);
+                endMax = CGRectGetMaxY(frame);
                 break;
         }
 
         // find the minimum origin value of all the layout attributes
-        if (attribute == attributes.firstObject || origin < offset) {
-            offset = origin;
+        if (attribute == attributes.firstObject || originMin < offsetMin) {
+            offsetMin = originMin;
+        }
+        // find the maximum end value of all the layout attributes
+        if (attribute == attributes.firstObject || endMax > offsetMax) {
+            offsetMax = endMax;
         }
     }
-
+    
+    const CGFloat offsetMid = (offsetMin + offsetMax) / 2.0;
+    const CGFloat collectionViewWidth = collectionView.bounds.size.width;
+    const CGFloat collectionViewHeight = collectionView.bounds.size.height;
     const UIEdgeInsets contentInset = collectionView.contentInset;
     CGPoint contentOffset = collectionView.contentOffset;
     switch (scrollDirection) {
         case UICollectionViewScrollDirectionHorizontal:
-            contentOffset.x = offset - contentInset.left;
+            switch (scrollPosition) {
+                case UICollectionViewScrollPositionRight:
+                    contentOffset.x = offsetMax - collectionViewWidth - contentInset.left;
+                    break;
+                case UICollectionViewScrollPositionCenteredHorizontally:
+                    contentOffset.x = offsetMid - collectionViewWidth / 2.0 - contentInset.left;
+                    break;
+                case UICollectionViewScrollPositionLeft:
+                case UICollectionViewScrollPositionNone:
+                case UICollectionViewScrollPositionTop:
+                case UICollectionViewScrollPositionBottom:
+                case UICollectionViewScrollPositionCenteredVertically:
+                    contentOffset.x = offsetMin - contentInset.left;
+                    break;
+            }
             break;
         case UICollectionViewScrollDirectionVertical:
-            contentOffset.y = offset - contentInset.top;
+            switch (scrollPosition) {
+                case UICollectionViewScrollPositionBottom:
+                    contentOffset.y = offsetMax - collectionViewHeight - contentInset.top;
+                    break;
+                case UICollectionViewScrollPositionCenteredVertically:
+                    contentOffset.y = offsetMid - collectionViewHeight / 2.0 - contentInset.top;
+                    break;
+                case UICollectionViewScrollPositionTop:
+                case UICollectionViewScrollPositionNone:
+                case UICollectionViewScrollPositionLeft:
+                case UICollectionViewScrollPositionRight:
+                case UICollectionViewScrollPositionCenteredHorizontally:
+                    contentOffset.y = offsetMin - contentInset.top;
+                    break;
+            }
             break;
     }
 
