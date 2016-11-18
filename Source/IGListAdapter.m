@@ -19,6 +19,7 @@
 @implementation IGListAdapter {
     NSMapTable<UICollectionViewCell *, IGListSectionController<IGListSectionType> *> *_cellSectionControllerMap;
     BOOL _isDequeuingCell;
+    BOOL _isSendingWorkingRangeDisplayUpdates;
 }
 
 - (void)dealloc {
@@ -613,7 +614,10 @@
 
     id object = [self.sectionMap objectForSection:indexPath.section];
     [self.displayHandler willDisplayCell:cell forListAdapter:self sectionController:sectionController object:object indexPath:indexPath];
+
+    _isSendingWorkingRangeDisplayUpdates = YES;
     [self.workingRangeHandler willDisplayItemAtIndexPath:indexPath forListAdapter:self];
+    _isSendingWorkingRangeDisplayUpdates = NO;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -691,8 +695,8 @@
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
 
-    // if this is accessed while a cell is being dequeued, just return nil
-    if (_isDequeuingCell) {
+    // if this is accessed while a cell is being dequeued or displaying working range elements, just return nil
+    if (_isDequeuingCell || _isSendingWorkingRangeDisplayUpdates) {
         return nil;
     }
 
