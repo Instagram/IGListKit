@@ -30,7 +30,7 @@ final class DemosViewController: UIViewController, IGListAdapterDataSource {
         DemoItem(name: "Empty View", controllerClass: EmptyViewController.self),
         DemoItem(name: "Single Section Controller", controllerClass: SingleSectionViewController.self),
         DemoItem(name: "Storyboard", controllerClass: SingleSectionViewController.self, controllerIdentifier: "demo"),
-        DemoItem(name: "Single Section Storyboard", controllerClass: SingleSectionViewController.self, controllerIdentifier: "singleSectionDemo"),
+        DemoItem(name: "Single Section Storyboard", controllerClass: SingleSectionStoryboardViewController.self, controllerIdentifier: "singleSectionDemo"),
         DemoItem(name: "Working Range", controllerClass: WorkingRangeViewController.self),
         DemoItem(name: "Diff Algorithm", controllerClass: DiffTableViewController.self),
         DemoItem(name: "Supplementary Views", controllerClass: SupplementaryViewController.self),
