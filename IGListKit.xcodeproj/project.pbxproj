@@ -27,6 +27,11 @@
 		296177041D9D54E300F40F34 /* IGListSectionMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 296177001D9D54E300F40F34 /* IGListSectionMap.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		296177051D9D54E300F40F34 /* IGListSectionMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 296177011D9D54E300F40F34 /* IGListSectionMap.m */; };
 		296177061D9D54E300F40F34 /* IGListStackedSectionControllerInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 296177021D9D54E300F40F34 /* IGListStackedSectionControllerInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		29C4748C1DDF45F400AE68CE /* IGListAdapterProxyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 29C4748A1DDF45E700AE68CE /* IGListAdapterProxyTests.m */; };
+		29C4748D1DDF45F900AE68CE /* IGListAdapterProxyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 29C4748A1DDF45E700AE68CE /* IGListAdapterProxyTests.m */; };
+		29C4748E1DDF460500AE68CE /* IGListAdapterStoryboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8240C7F11DC284C300B3AAE7 /* IGListAdapterStoryboardTests.m */; };
+		29C4748F1DDF460500AE68CE /* IGListDiffResultTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AC6311DDE4C19002FCE5D /* IGListDiffResultTests.m */; };
+		29C474901DDF460500AE68CE /* IGListSectionMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 829D7BA81DD1816400549816 /* IGListSectionMapTests.m */; };
 		29EA6C491DB43A8000957A88 /* IGTestNibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 294369B01DB1B7AE0025F6E7 /* IGTestNibCell.xib */; };
 		5C81083F8E7AEF4B3EBE8871 /* Pods_IGListKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD40284889DE182FFC7F471E /* Pods_IGListKitTests.framework */; };
 		821BC4C01DB8C9D500172ED0 /* IGListSingleStoryboardItemControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 821BC4BE1DB8C95300172ED0 /* IGListSingleStoryboardItemControllerTests.m */; };
@@ -243,6 +248,7 @@
 		296177001D9D54E300F40F34 /* IGListSectionMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListSectionMap.h; sourceTree = "<group>"; };
 		296177011D9D54E300F40F34 /* IGListSectionMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListSectionMap.m; sourceTree = "<group>"; };
 		296177021D9D54E300F40F34 /* IGListStackedSectionControllerInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListStackedSectionControllerInternal.h; sourceTree = "<group>"; };
+		29C4748A1DDF45E700AE68CE /* IGListAdapterProxyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListAdapterProxyTests.m; sourceTree = "<group>"; };
 		529C388FDB3DF79737F3496A /* Pods_IGListKit_tvOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKit_tvOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BCA3FF59943AD1DAC2077E3 /* Pods-IGListKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTests/Pods-IGListKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		821BC4BE1DB8C95300172ED0 /* IGListSingleStoryboardItemControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListSingleStoryboardItemControllerTests.m; sourceTree = "<group>"; };
@@ -564,6 +570,7 @@
 			children = (
 				294369AF1DB1B7AE0025F6E7 /* Assets */,
 				88144EE21D870EDC007C7F66 /* IGListAdapterE2ETests.m */,
+				29C4748A1DDF45E700AE68CE /* IGListAdapterProxyTests.m */,
 				8240C7F11DC284C300B3AAE7 /* IGListAdapterStoryboardTests.m */,
 				88144EE31D870EDC007C7F66 /* IGListAdapterTests.m */,
 				88144EE41D870EDC007C7F66 /* IGListAdapterUpdaterTests.m */,
@@ -991,6 +998,7 @@
 			files = (
 				885FE2361DC51B76009CE2B4 /* IGListStackSectionControllerTests.m in Sources */,
 				885FE2311DC51B76009CE2B4 /* IGListDisplayHandlerTests.m in Sources */,
+				29C474901DDF460500AE68CE /* IGListSectionMapTests.m in Sources */,
 				885FE23B1DC51B86009CE2B4 /* IGListTestUICollectionViewDataSource.m in Sources */,
 				885FE23D1DC51B86009CE2B4 /* IGTestDelegateController.m in Sources */,
 				885FE22B1DC51B76009CE2B4 /* IGListAdapterE2ETests.m in Sources */,
@@ -1004,12 +1012,15 @@
 				885FE2381DC51B86009CE2B4 /* IGListTestAdapterDataSource.m in Sources */,
 				885FE2341DC51B76009CE2B4 /* IGListSingleNibItemControllerTests.m in Sources */,
 				885FE2391DC51B86009CE2B4 /* IGListTestOffsettingLayout.m in Sources */,
+				29C4748F1DDF460500AE68CE /* IGListDiffResultTests.m in Sources */,
 				885FE2421DC51B86009CE2B4 /* IGTestSingleStoryboardItemDataSource.m in Sources */,
 				885FE2301DC51B76009CE2B4 /* IGListDiffTests.m in Sources */,
 				885FE22E1DC51B76009CE2B4 /* IGListBatchUpdateDataTests.m in Sources */,
+				29C4748D1DDF45F900AE68CE /* IGListAdapterProxyTests.m in Sources */,
 				885FE22C1DC51B76009CE2B4 /* IGListAdapterTests.m in Sources */,
 				885FE22D1DC51B76009CE2B4 /* IGListAdapterUpdaterTests.m in Sources */,
 				885FE2351DC51B76009CE2B4 /* IGListSingleStoryboardItemControllerTests.m in Sources */,
+				29C4748E1DDF460500AE68CE /* IGListAdapterStoryboardTests.m in Sources */,
 				885FE2411DC51B86009CE2B4 /* IGTestSingleNibItemDataSource.m in Sources */,
 				885FE2441DC51B86009CE2B4 /* IGTestStackedDataSource.m in Sources */,
 				885FE2461DC51B86009CE2B4 /* IGTestSupplementarySource.m in Sources */,
@@ -1082,6 +1093,7 @@
 				821BC4D01DB8D90900172ED0 /* IGTestStoryboardCell.m in Sources */,
 				88144F161D870EDC007C7F66 /* IGListTestUICollectionViewDataSource.m in Sources */,
 				88144F091D870EDC007C7F66 /* IGListAdapterUpdaterTests.m in Sources */,
+				29C4748C1DDF45F400AE68CE /* IGListAdapterProxyTests.m in Sources */,
 				8240C7F81DC2F3FB00B3AAE7 /* IGListTestStoryboardSection.m in Sources */,
 				26271C8A1DAE94E40073E116 /* IGTestSingleNibItemDataSource.m in Sources */,
 			);
