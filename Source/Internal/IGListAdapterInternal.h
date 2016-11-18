@@ -62,7 +62,7 @@ IGListCollectionContext
 - (NSArray *)indexPathsFromSectionController:(IGListSectionController <IGListSectionType> *)sectionController
                                      indexes:(NSIndexSet *)indexes
                         adjustForUpdateBlock:(BOOL)adjustForUpdateBlock;
-- (NSIndexPath *)indexPathForSectionController:(IGListSectionController *)controller index:(NSInteger)index;
+- (nullable NSIndexPath *)indexPathForSectionController:(IGListSectionController *)controller index:(NSInteger)index;
 
 @end
 
