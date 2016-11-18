@@ -195,11 +195,13 @@ IGLK_SUBCLASSING_RESTRICTED
  @param object             The object to which to scroll.
  @param supplementaryKinds The types of supplementary views in the section.
  @param scrollDirection    A flag indicating the direction to scroll.
+ @param scrollPosition     An option that specifies where the item should be positioned when scrolling finishes. 
  @param animated           A flag indicating if the transition should be animated.
  */
 - (void)scrollToObject:(id)object
     supplementaryKinds:(nullable NSArray<NSString *> *)supplementaryKinds
        scrollDirection:(UICollectionViewScrollDirection)scrollDirection
+      atScrollPosition:(UICollectionViewScrollPosition)scrollPosition
               animated:(BOOL)animated;
 
 /**
