@@ -1289,15 +1289,65 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_CFLAGS = (
+					"-Wambiguous-macro",
+					"-Wbool-conversion",
+					"-Wcomment",
+					"-Wconditional-uninitialized",
+					"-Wconstant-logical-operand",
+					"-Wcovered-switch-default",
+					"-Wdangling-else",
+					"-Wdeprecated-increment-bool",
+					"-Wdivision-by-zero",
+					"-Wduplicate-enum",
+					"-Wempty-body",
+					"-Wenum-compare",
+					"-Wenum-conversion",
+					"-Wformat",
+					"-Wformat-extra-args",
+					"-Wformat-security",
+					"-Wformat-zero-length",
+					"-Wignored-attributes",
+					"-Wignored-attributes",
+					"-Wimplicit-atomic-properties",
+					"-Wimplicit-fallthrough",
+					"-Wimplicit-retain-self",
+					"-Wincomplete-implementation",
+					"-Wloop-analysis",
+					"-Wmismatched-return-types",
+					"-Wnewline-eof",
+					"-Wnonnull",
+					"-Wnull-character",
+					"-Wobjc-method-access",
+					"-Wobjc-missing-super-calls",
+					"-Wreturn-type",
+					"-Wself-assign",
+					"-Wswitch",
+					"-Wswitch-bool",
+					"-Wswitch-enum",
+					"-Wunicode",
+					"-Wunknown-pragmas",
+					"-Wunused-const-variable",
+					"-Wunused-function",
+					"-Wunused-label",
+					"-Wunused-property-ivar",
+					"-Wunused-result",
+					"-Wunused-value",
+					'-Wnullable-to-nonnull-conversion',
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1311,15 +1361,65 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_CFLAGS = (
+					"-Wambiguous-macro",
+					"-Wbool-conversion",
+					"-Wcomment",
+					"-Wconditional-uninitialized",
+					"-Wconstant-logical-operand",
+					"-Wcovered-switch-default",
+					"-Wdangling-else",
+					"-Wdeprecated-increment-bool",
+					"-Wdivision-by-zero",
+					"-Wduplicate-enum",
+					"-Wempty-body",
+					"-Wenum-compare",
+					"-Wenum-conversion",
+					"-Wformat",
+					"-Wformat-extra-args",
+					"-Wformat-security",
+					"-Wformat-zero-length",
+					"-Wignored-attributes",
+					"-Wignored-attributes",
+					"-Wimplicit-atomic-properties",
+					"-Wimplicit-fallthrough",
+					"-Wimplicit-retain-self",
+					"-Wincomplete-implementation",
+					"-Wloop-analysis",
+					"-Wmismatched-return-types",
+					"-Wnewline-eof",
+					"-Wnonnull",
+					"-Wnull-character",
+					"-Wobjc-method-access",
+					"-Wobjc-missing-super-calls",
+					"-Wreturn-type",
+					"-Wself-assign",
+					"-Wswitch",
+					"-Wswitch-bool",
+					"-Wswitch-enum",
+					"-Wunicode",
+					"-Wunknown-pragmas",
+					"-Wunused-const-variable",
+					"-Wunused-function",
+					"-Wunused-label",
+					"-Wunused-property-ivar",
+					"-Wunused-result",
+					"-Wunused-value",
+					'-Wnullable-to-nonnull-conversion',
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

@@ -56,7 +56,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return The object corresponding to the section.
  */
-- (id)objectForSection:(NSInteger)section;
+- (nullable id)objectForSection:(NSInteger)section;
 
 /**
  Fetch a section controller given an object. Can return nil.
