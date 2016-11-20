@@ -37,9 +37,9 @@
 }
 
 - (IGListIndexPathResult *)resultForBatchUpdates {
-    NSMutableSet<NSIndexPath *> *deletes = [self.deletes mutableCopy];
-    NSMutableSet<NSIndexPath *> *inserts = [self.inserts mutableCopy];
-    NSMutableSet<NSIndexPath *> *filteredUpdates = [self.updates mutableCopy];
+    NSMutableArray<NSIndexPath *> *deletes = [self.deletes mutableCopy];
+    NSMutableArray<NSIndexPath *> *inserts = [self.inserts mutableCopy];
+    NSMutableArray<NSIndexPath *> *filteredUpdates = [self.updates mutableCopy];
 
     NSArray<IGListMoveIndexPath *> *moves = self.moves;
     NSMutableArray<IGListMoveIndexPath *> *filteredMoves = [moves mutableCopy];
@@ -65,8 +65,8 @@
         }
     }
 
-    return [[IGListIndexPathResult alloc] initWithInserts:[inserts allObjects]
-                                                  deletes:[deletes allObjects]
+    return [[IGListIndexPathResult alloc] initWithInserts:inserts
+                                                  deletes:deletes
                                                   updates:[NSArray new]
                                                     moves:filteredMoves
                                           oldIndexPathMap:_oldIndexPathMap
