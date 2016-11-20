@@ -13,7 +13,7 @@ env:
    - IOS_SCHEME="IGListKit"
    - TVOS_SCHEME="IGListKit-tvOS"
 
-   - IOS_SDK=iphonesimulator10.0
+   - IOS_SDK=iphonesimulator10.1
    - TVOS_SDK=appletvsimulator10.0
 
    - EXAMPLE_WORKSPACE="IGListKitExamples.xcworkspace"
@@ -61,4 +61,4 @@ script:
   fi
 
 after_success:
-  - cd $TRAVIS_BUILD_DIR && slather
+  - slather
