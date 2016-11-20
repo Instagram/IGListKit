@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, IGListDiffOption) {
      */
     IGListDiffPointerPersonality,
     /**
-     Compare objects using `-[NSObject isEqual:]`.
+     Compare objects using `-[NSObject isEqualToDiffableObject:]`.
      */
     IGListDiffEquality
 };
@@ -38,7 +38,7 @@ typedef NS_ENUM(NSInteger, IGListDiffOption) {
 
  @return A result object containing affected indexes.
  */
-FOUNDATION_EXTERN IGListIndexSetResult *IGListDiff(NSArray<id<IGListDiffable> > *_Nullable oldArray,
+FOUNDATION_EXTERN IGListIndexSetResult *IGListDiff(NSArray<id<IGListDiffable>> *_Nullable oldArray,
                                                    NSArray<id<IGListDiffable>> *_Nullable newArray,
                                                    IGListDiffOption option);
 

@@ -129,7 +129,7 @@ You can return an array of _any_ type of data, as long as it conforms to `IGList
 
 `IGListKit` uses an algorithm adapted from a paper titled [A technique for isolating differences between files](http://dl.acm.org/citation.cfm?id=359467&dl=ACM&coll=DL) by Paul Heckel. This algorithm uses a technique known as the *longest common subsequence* to find a minimal diff between collections in linear time `O(n)`. It finds all **inserts**, **deletes**, **updates**, and **moves** between arrays of data.
 
-To add custom, diffable models, you need to conform to the `IGListDiffable` protocol and implement `diffIdentifier()` and `isEqual(_:)`.
+To add custom, diffable models, you need to conform to the `IGListDiffable` protocol and implement `diffIdentifier()` and `isEqual(toDiffableObject:)`.
 
 For an example, consider the following model:
 
@@ -165,7 +165,7 @@ extension User: IGListDiffable {
     return primaryKey
   }
 
-  func isEqual(object: Any?) -> Bool {
+  func isEqual(toDiffableObject object: Any?) -> Bool {
     if let object = object as? User {
       return name == object.name
     }
@@ -176,7 +176,7 @@ extension User: IGListDiffable {
 
 The algorithm will skip updating two `User` objects that have the same `primaryKey` and `name`, even if they are different instances! You now avoid unecessary UI updates in the collection view even when providing new instances.
 
-> **Note:** Remember that `isEqual(_:)` should return `false` when you want to reload the cells in the corresponding section controller.
+> **Note:** Remember that `isEqual(toDiffableObject:)` should return `false` when you want to reload the cells in the corresponding section controller.
 
 ### Diffing outside of IGListKit
 

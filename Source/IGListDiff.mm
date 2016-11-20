@@ -135,7 +135,7 @@ static id IGListDiffing(BOOL returnIndexPaths,
                     }
                     break;
                 case IGListDiffEquality:
-                    // use -[IGListDiffable isEqual:] between both version of data to see if anything has changed
+                    // use -[IGListDiffable isEqualToDiffableObject:] between both version of data to see if anything has changed
                     // skip the equality check if both indexes point to the same object
                     if (n != o && ![n isEqualToDiffableObject:o]) {
                         entry->updated = YES;
