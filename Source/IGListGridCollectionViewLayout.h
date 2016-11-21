@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  If items are square, the appearance would be similar to the iOS Photos app.
  However, the size of the items for each section can vary.
  */
+IGLK_SUBCLASSING_RESTRICTED
 @interface IGListGridCollectionViewLayout : UICollectionViewLayout
 
 /**
