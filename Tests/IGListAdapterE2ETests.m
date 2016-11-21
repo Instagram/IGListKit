@@ -1022,4 +1022,37 @@
     [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
+- (void)test_whenPerformingUpdates_withWorkingRange_thatAccessingCellDoesntCrash {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @1),
+                             genTestObject(@2, @1),
+                             genTestObject(@3, @1),
+                             ]];
+
+    // section controller try to access a cell in -listAdapter:sectionControllerWillEnterWorkingRange:
+    // add items beyond the 100x100 frame so they access unavailable cells
+    self.dataSource.objects = @[
+                                genTestObject(@1, @1),
+                                genTestObject(@2, @1),
+                                genTestObject(@3, @1),
+                                genTestObject(@4, @1),
+                                genTestObject(@5, @1),
+                                genTestObject(@6, @1),
+                                genTestObject(@7, @1),
+                                genTestObject(@8, @1),
+                                genTestObject(@9, @1),
+                                genTestObject(@10, @1),
+                                genTestObject(@11, @1),
+                                ];
+    XCTestExpectation *expectation = genExpectation;
+
+    // this will call -collectionView:performBatchUpdates:, trigger collectionView:willDisplayCell:forItemAtIndexPath:,
+    // which kicks off the working range logic
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
 @end
