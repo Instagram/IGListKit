@@ -7,9 +7,9 @@
         <img src="https://travis-ci.org/Instagram/IGListKit.svg?branch=master&style=flat"
              alt="Build Status">
     </a>
-    <a href="https://coveralls.io/github/Instagram/IGListKit">
-        <img src="https://coveralls.io/repos/github/Instagram/IGListKit/badge.svg?branch=master&style=flat"
-             alt="Code Coverage">
+    <a href="https://coveralls.io/github/Instagram/IGListKit?branch=master">
+      <img src="https://coveralls.io/repos/github/Instagram/IGListKit/badge.svg?branch=master"
+           alt="Coverage Status" />
     </a>
     <a href="https://cocoapods.org/pods/IGListKit">
         <img src="https://img.shields.io/cocoapods/v/IGListKit.svg?style=flat"
