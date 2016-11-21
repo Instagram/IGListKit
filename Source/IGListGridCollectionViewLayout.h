@@ -9,18 +9,15 @@
 
 #import <UIKit/UIKit.h>
 
-/**
- IGListGridCollectionViewLayout provide a grid layout for UICollectionView with section controllers that return 1 item.
- The size of the item for each section can be varying.
- 
- @note This layout dose not have support for section insets and scroll direction yet. 
- */
-@interface IGListGridCollectionViewLayout : UICollectionViewLayout
+NS_ASSUME_NONNULL_BEGIN
 
 /**
- The scroll direction of the grid.
+ `IGListGridCollectionViewLayout` provides a vertically-scrolling, section-based grid layout for `UICollectionView`.
+ Items in the layout are displayed consecutively in a grid with exactly 1 item per section.
+ If items are square, the appearance would be similar to the iOS Photos app.
+ However, the size of the items for each section can vary.
  */
-@property (nonatomic, assign) UICollectionViewScrollDirection scrollDirection;
+@interface IGListGridCollectionViewLayout : UICollectionViewLayout
 
 /**
  The minimum spacing to use between lines of items in the grid.
@@ -38,3 +35,5 @@
 @property (nonatomic, assign) IBInspectable CGSize itemSize;
 
 @end
+
+NS_ASSUME_NONNULL_END
