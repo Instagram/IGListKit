@@ -55,6 +55,9 @@ The preferred installation method for `IGListKit` is with [CocoaPods](http://coc
 ```ruby
 # Latest release of IGListKit
 pod 'IGListKit'
+
+# Use the master branch (we use this at Instagram)
+pod 'IGListKit', :git => 'https://github.com/Instagram/IGListKit.git', :branch => 'master'
 ```
 
 ### Carthage
