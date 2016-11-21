@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, IGListDiffOption) {
      */
     IGListDiffPointerPersonality,
     /**
-     Compare objects using `-[NSObject isEqualToDiffableObject:]`.
+     Compare objects using `-[IGListDiffable isEqualToDiffableObject:]`.
      */
     IGListDiffEquality
 };
