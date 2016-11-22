@@ -8,33 +8,36 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <IGListKit/IGListMacros.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /**
- IGListGridCollectionViewLayout provide a grid layout for UICollectionView with section controllers that return 1 item.
- The size of the item for each section can be varying.
- 
- @note This layout dose not have support for section insets and scroll direction yet. 
+ `IGListGridCollectionViewLayout` provides a vertically-scrolling, section-based grid layout for `UICollectionView`.
+ Items in the layout are displayed consecutively in a grid with exactly 1 item per section.
+ If items are square, the appearance would be similar to the iOS Photos app.
+ However, the size of the items for each section can vary.
  */
+IGLK_SUBCLASSING_RESTRICTED
 @interface IGListGridCollectionViewLayout : UICollectionViewLayout
 
 /**
- The scroll direction of the grid.
- */
-@property (nonatomic, assign) UICollectionViewScrollDirection scrollDirection;
-
-/**
- The minimum spacing to use between lines of items in the grid.
+ The minimum spacing to use between lines of items in the grid. The default value is `0.0`.
  */
 @property (nonatomic, assign) IBInspectable CGFloat minimumLineSpacing;
 
 /**
- The minimum spacing to use between items in the same row.
+ The minimum spacing to use between items in the same row. The default value is `0.0`.
  */
 @property (nonatomic, assign) IBInspectable CGFloat minimumInteritemSpacing;
 
 /**
- The default size to use for cells.
+ The default size to use for cells. The default value is `(0.0, 0.0)`.
+ If this size is non-zero, the layout will use this item size for all items.
+ When the size is zero (the default), then the layout will query the collection view's delegate for the size.
  */
 @property (nonatomic, assign) IBInspectable CGSize itemSize;
 
 @end
+
+NS_ASSUME_NONNULL_END

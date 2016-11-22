@@ -31,7 +31,10 @@
             <a href="Categories.html">Categories</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Categories.html#/c:objc(cy)NSObject@IGListDiffable">NSObject(IGListDiffable)</a>
+                <a href="Categories.html#/c:objc(cy)NSNumber@IGListDiffable">NSNumber(IGListDiffable)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Categories.html#/c:objc(cy)NSString@IGListDiffable">NSString(IGListDiffable)</a>
               </li>
             </ul>
           </li>
@@ -49,6 +52,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListGridCollectionViewLayout.html">IGListGridCollectionViewLayout</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -200,9 +206,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cy)NSObject@IGListDiffable"></a>
-                    <a name="//apple_ref/objc/Extension/NSObject(IGListDiffable)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cy)NSObject@IGListDiffable">NSObject(IGListDiffable)</a>
+                    <a name="/c:objc(cy)NSNumber@IGListDiffable"></a>
+                    <a name="//apple_ref/objc/Extension/NSNumber(IGListDiffable)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cy)NSNumber@IGListDiffable">NSNumber(IGListDiffable)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -210,21 +216,45 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This category adds diffing comparisons similar to adding the object into an <code>NSSet</code>, 
-where the object&rsquo;s <code>-isEqual:</code> method drives the uniqueness of the object.</p>
-
-<p>For instance, an <code>NSString</code>&rsquo;s <code>-isEqual:</code> will compare the value of the strings. 
-So if you were to diff <code>@&quot;cat&quot;</code> and <code>@&quot;cat&quot;</code> each object would have the same diff identifier.</p>
-
-<p>However objects that don&rsquo;t implement a custom <code>-isEqual:</code> (e.g. the <code>NSObject</code> base class), the diff will default to simple
-pointer comparisons to establish uniqueness.</p>
+                        <p>This category provides default <code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code> conformance for <code>NSNumber</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">NSObject</span> <span class="p">(</span><span class="nl">IGListDiffable</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">NSNumber</span> <span class="p">(</span><span class="nl">IGListDiffable</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cy)NSString@IGListDiffable"></a>
+                    <a name="//apple_ref/objc/Extension/NSString(IGListDiffable)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cy)NSString@IGListDiffable">NSString(IGListDiffable)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This category provides default <code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code> conformance for <code>NSString</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">NSString</span> <span class="p">(</span><span class="nl">IGListDiffable</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
