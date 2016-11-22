@@ -10,11 +10,6 @@
 import XCTest
 import IGListKit
 
-// conforms to IGListDiffable via NSObject (IGDKCommon) in IGDKCommon.h
-class ObjCClass: NSObject {
-
-}
-
 class SwiftClass: IGListDiffable {
 
     let id: Int
@@ -37,10 +32,6 @@ class SwiftClass: IGListDiffable {
 }
 
 class IGDiffingSwiftTests: XCTestCase {
-
-    func testConformance() {
-        XCTAssertTrue(ObjCClass.conforms(to: IGListDiffable.self))
-    }
 
     func testDiffingStrings() {
         let o: [NSString] = ["a", "b", "c"]

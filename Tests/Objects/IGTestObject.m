@@ -26,15 +26,11 @@
 
 #pragma mark - IGListDiffable
 
-- (NSUInteger)hash {
-    return [self.key hash];
-}
-
 - (id<NSObject>)diffIdentifier {
     return self.key;
 }
 
-- (BOOL)isEqual:(id)object {
+- (BOOL)isEqualToDiffableObject:(id)object {
     if (object == self) {
         return YES;
     }

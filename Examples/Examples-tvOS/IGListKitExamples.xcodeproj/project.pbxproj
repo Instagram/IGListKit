@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		298D91C51DDF81DB00E70CAD /* NSObject+IGListDiffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298D91C41DDF81DB00E70CAD /* NSObject+IGListDiffable.swift */; };
 		618C8CB8BC69CB9C3F7048BF /* Pods_IGListKitExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49637028A90619543A9D9763 /* Pods_IGListKitExamples.framework */; };
 		98ED5C1B1DC52AD400EA56B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C1A1DC52AD400EA56B2 /* AppDelegate.swift */; };
 		98ED5C1D1DC52AD400EA56B2 /* DemosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C1C1DC52AD400EA56B2 /* DemosViewController.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		298D91C41DDF81DB00E70CAD /* NSObject+IGListDiffable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+IGListDiffable.swift"; sourceTree = "<group>"; };
 		4950DE37F34745C8EAB44EFC /* Pods-IGListKitExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.debug.xcconfig"; sourceTree = "<group>"; };
 		49637028A90619543A9D9763 /* Pods_IGListKitExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		72D71D21D706627594BBA17D /* Pods-IGListKitExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.release.xcconfig"; sourceTree = "<group>"; };
@@ -56,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		298D91C31DDF81DB00E70CAD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				298D91C41DDF81DB00E70CAD /* NSObject+IGListDiffable.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		4183AACA1B0BA7A44D6D4D73 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -67,10 +77,10 @@
 		98ED5C0E1DC52AD300EA56B2 = {
 			isa = PBXGroup;
 			children = (
-				98ED5C191DC52AD400EA56B2 /* IGListKitExamples */,
-				98ED5C181DC52AD400EA56B2 /* Products */,
-				A9D83C52A5CD4F0EA0808470 /* Pods */,
 				4183AACA1B0BA7A44D6D4D73 /* Frameworks */,
+				98ED5C191DC52AD400EA56B2 /* IGListKitExamples */,
+				A9D83C52A5CD4F0EA0808470 /* Pods */,
+				98ED5C181DC52AD400EA56B2 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,6 +95,7 @@
 		98ED5C191DC52AD400EA56B2 /* IGListKitExamples */ = {
 			isa = PBXGroup;
 			children = (
+				298D91C31DDF81DB00E70CAD /* Models */,
 				98ED5C1A1DC52AD400EA56B2 /* AppDelegate.swift */,
 				98ED5C211DC52AD400EA56B2 /* Assets.xcassets */,
 				98ED5C231DC52AD400EA56B2 /* Info.plist */,
@@ -171,7 +182,7 @@
 				TargetAttributes = {
 					98ED5C161DC52AD400EA56B2 = {
 						CreatedOnToolsVersion = 8.1;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -258,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				298D91C51DDF81DB00E70CAD /* NSObject+IGListDiffable.swift in Sources */,
 				98ED5C1D1DC52AD400EA56B2 /* DemosViewController.swift in Sources */,
 				98ED5C1B1DC52AD400EA56B2 /* AppDelegate.swift in Sources */,
 				98ED5C391DC53D0B00EA56B2 /* LabelCell.swift in Sources */,
@@ -372,6 +384,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = IGListKitExamples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -388,6 +401,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = IGListKitExamples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

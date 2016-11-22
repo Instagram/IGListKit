@@ -7,20 +7,10 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "NSObject+IGListDiffable.h"
+#import <Foundation/Foundation.h>
 
-@implementation NSObject (IGListDiffable)
+#import <IGListKit/IGListDiffable.h>
 
-- (id<NSObject>)diffIdentifier {
-    return self;
-}
-
-- (BOOL)isEqualToDiffableObject:(id<IGListDiffable>)object {
-    if (self == object) {
-        return YES;
-    } else {
-        return [self isEqual:object];
-    }
-}
+@interface NSNumber (IGListDiffable) <IGListDiffable>
 
 @end

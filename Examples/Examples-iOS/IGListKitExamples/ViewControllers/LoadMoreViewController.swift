@@ -24,7 +24,7 @@ final class LoadMoreViewController: UIViewController, IGListAdapterDataSource, U
 
     lazy var items = Array(0...20)
     var loading = false
-    let spinToken = NSObject()
+    let spinToken = "spinner"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,14 +45,14 @@ final class LoadMoreViewController: UIViewController, IGListAdapterDataSource, U
         var objects = items as [IGListDiffable]
         
         if loading {
-            objects.append(spinToken)
+            objects.append(spinToken as IGListDiffable)
         }
         
         return objects
     }
 
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
-        if let obj = object as? NSObject, obj === spinToken {
+        if let obj = object as? String, obj == spinToken {
             return spinnerSectionController()
         } else {
             return LabelSectionController()
