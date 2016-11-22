@@ -89,6 +89,10 @@ This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Added `tvOS` example pack. [Sherlouk](https://github.com/Sherlouk) [(#141)](https://github.com/Instagram/IGListKit/pull/141)
 
+### Fixes
+
+- Prevent `UICollectionView` bug when accessing a cell during working range updates. [Ryan Nystrom](https://github.com/rnystrom) [(#216)](https://github.com/Instagram/IGListKit/pull/216)
+
 1.0.0
 -----
 
