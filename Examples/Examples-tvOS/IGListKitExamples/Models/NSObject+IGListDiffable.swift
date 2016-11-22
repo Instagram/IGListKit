@@ -12,32 +12,17 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import Foundation
 import IGListKit
 
-enum SelectionModelType: Int {
-    case none, fullWidth, nib
-}
+extension NSObject: IGListDiffable {
 
-final class SelectionModel: NSObject {
-
-    let options: [String]
-    let type: SelectionModelType
-
-    init(options: [String], type: SelectionModelType = .none) {
-        self.options = options
-        self.type = type
-    }
-
-}
-
-extension SelectionModel: IGListDiffable {
-
-    func diffIdentifier() -> NSObjectProtocol {
+    public func diffIdentifier() -> NSObjectProtocol {
         return self
     }
 
-    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
-        return isEqual(object)
+    public func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+        return isEqual(object);
     }
 
 }

@@ -9,10 +9,14 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for IGListKit.
+/**
+ * Project version number for IGListKit.
+ */
 FOUNDATION_EXPORT double IGListKitVersionNumber;
 
-//! Project version string for IGListKit.
+/**
+ * Project version string for IGListKit.
+ */
 FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 
 #import <IGListKit/IGListAssert.h>
@@ -42,4 +46,5 @@ FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 #import <IGListKit/IGListSupplementaryViewSource.h>
 #import <IGListKit/IGListUpdatingDelegate.h>
 #import <IGListKit/IGListWorkingRangeDelegate.h>
-#import <IGListKit/NSObject+IGListDiffable.h>
+#import <IGListKit/NSNumber+IGListDiffable.h>
+#import <IGListKit/NSString+IGListDiffable.h>

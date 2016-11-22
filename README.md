@@ -7,9 +7,9 @@
         <img src="https://travis-ci.org/Instagram/IGListKit.svg?branch=master&style=flat"
              alt="Build Status">
     </a>
-    <a href="https://coveralls.io/github/Instagram/IGListKit">
-        <img src="https://coveralls.io/repos/github/Instagram/IGListKit/badge.svg?branch=master&style=flat"
-             alt="Code Coverage">
+    <a href="https://coveralls.io/github/Instagram/IGListKit?branch=master">
+      <img src="https://coveralls.io/repos/github/Instagram/IGListKit/badge.svg?branch=master"
+           alt="Coverage Status" />
     </a>
     <a href="https://cocoapods.org/pods/IGListKit">
         <img src="https://img.shields.io/cocoapods/v/IGListKit.svg?style=flat"
@@ -55,6 +55,9 @@ The preferred installation method for `IGListKit` is with [CocoaPods](http://coc
 ```ruby
 # Latest release of IGListKit
 pod 'IGListKit'
+
+# Use the master branch (we use this at Instagram)
+pod 'IGListKit', :git => 'https://github.com/Instagram/IGListKit.git', :branch => 'master'
 ```
 
 ### Carthage

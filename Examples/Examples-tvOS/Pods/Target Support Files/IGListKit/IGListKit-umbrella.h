@@ -30,7 +30,6 @@
 #import "IGListSupplementaryViewSource.h"
 #import "IGListUpdatingDelegate.h"
 #import "IGListWorkingRangeDelegate.h"
-#import "NSObject+IGListDiffable.h"
 
 FOUNDATION_EXPORT double IGListKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];

@@ -270,7 +270,7 @@ static NSArray *sorted(NSArray *arr) {
 }
 
 - (void)test_whenInsertingObject_withOldArrayHavingMultiples_thatChangeCountMatches {
-    NSArray *o = @[[NSObject new], [NSObject new], [NSObject new], @49, @33, @"cat", @"cat", @0, @14];
+    NSArray *o = @[@(NSNotFound), @(NSNotFound), @(NSNotFound), @49, @33, @"cat", @"cat", @0, @14];
     NSMutableArray *n = [o mutableCopy];
     [n insertObject:@"cat" atIndex:5]; // 3 cats in a row
     IGListIndexSetResult *result = IGListDiff(o, n, IGListDiffEquality);
@@ -278,7 +278,7 @@ static NSArray *sorted(NSArray *arr) {
 }
 
 - (void)test_whenMovingDuplicateObjects_thatChangeCountMatches {
-    NSArray *o = @[@1, @20, @14, [NSObject new], @"cat", [NSObject new], @4, @"dog", @"cat", @"cat", @"fish", [NSObject new], @"fish", [NSObject new]];
+    NSArray *o = @[@1, @20, @14, @(NSNotFound), @"cat", @(NSNotFound), @4, @"dog", @"cat", @"cat", @"fish", @(NSNotFound), @"fish", @(NSNotFound)];
     NSArray *n = @[@1, @28, @14, @"cat", @"cat", @4, @"dog", o[3], @"cat", @"fish", o[11], @"fish", o[13]];
     IGListIndexSetResult *result = IGListDiff(o, n, IGListDiffEquality);
     XCTAssertEqual(o.count + result.inserts.count - result.deletes.count, n.count);
@@ -292,7 +292,7 @@ static NSArray *sorted(NSArray *arr) {
 }
 
 - (void)test_whenDuplicateObjects_thatMovesAreUnique {
-    NSArray *o = @[@"cat", [NSObject new], @"dog", @"dog", [NSObject new], [NSObject new], @"cat", @65];
+    NSArray *o = @[@"cat", @(NSNotFound), @"dog", @"dog", @(NSNotFound), @(NSNotFound), @"cat", @65];
     NSArray *n = @[@"cat", o[1], @"dog", o[4], @"dog", o[5], @"cat", @"cat", @"fish", @65];
     IGListIndexSetResult *result = IGListDiff(o, n, IGListDiffEquality);
     XCTAssertEqual([[NSSet setWithArray:[[result moves] valueForKeyPath:@"from"]] count], [result.moves count]);
@@ -426,11 +426,6 @@ static NSArray *sorted(NSArray *arr) {
     XCTAssertEqualObjects(sorted(result.deletes), expectedDeletes);
     NSArray *expectedInserts = @[genIndexPath(0, 1), genIndexPath(3, 1), genIndexPath(4, 1), genIndexPath(5, 1)];
     XCTAssertEqualObjects(sorted(result.inserts), expectedInserts);
-}
-
-- (void)test_whenComparingDiffableObjects_withDefaultCategory_thatPointersAreAlwaysEqual {
-    NSObject *object = [NSObject new];
-    XCTAssertTrue([object isEqualToDiffableObject:object]);
 }
 
 @end

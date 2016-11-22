@@ -15,6 +15,7 @@
 #import "IGListDiffable.h"
 #import "IGListDisplayDelegate.h"
 #import "IGListExperiments.h"
+#import "IGListGridCollectionViewLayout.h"
 #import "IGListIndexPathResult.h"
 #import "IGListIndexSetResult.h"
 #import "IGListKit.h"
@@ -30,7 +31,8 @@
 #import "IGListSupplementaryViewSource.h"
 #import "IGListUpdatingDelegate.h"
 #import "IGListWorkingRangeDelegate.h"
-#import "NSObject+IGListDiffable.h"
+#import "NSNumber+IGListDiffable.h"
+#import "NSString+IGListDiffable.h"
 
 FOUNDATION_EXPORT double IGListKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];

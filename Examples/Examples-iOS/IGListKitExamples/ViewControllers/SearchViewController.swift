@@ -31,7 +31,7 @@ final class SearchViewController: UIViewController, IGListAdapterDataSource, Sea
         return words
     }()
     var filterString = ""
-    let searchToken = NSObject()
+    let searchToken: NSNumber = 42
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,7 @@ final class SearchViewController: UIViewController, IGListAdapterDataSource, Sea
     }
 
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
-        if let obj = object as? NSObject, obj === searchToken {
+        if let obj = object as? NSNumber, obj == searchToken {
             let sectionController = SearchSectionController()
             sectionController.delegate = self
             return sectionController
