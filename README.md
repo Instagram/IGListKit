@@ -205,7 +205,7 @@ let adapter = IGListAdapter(updater: IGListAdapterUpdater(),
                    workingRangeSize: 1) // 1 before/after visible objects
 ```
 
-![working-range](Resources/workingrange.png)
+![working-range](https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/workingrange.png)
 
 You can set the weak `workingRangeDelegate` on a section controller to receive events.
 
