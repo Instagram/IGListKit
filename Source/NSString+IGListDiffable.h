@@ -11,6 +11,9 @@
 
 #import <IGListKit/IGListDiffable.h>
 
+/**
+ This category provides default `IGListDiffable` conformance for `NSString`.
+ */
 @interface NSString (IGListDiffable) <IGListDiffable>
 
 @end
