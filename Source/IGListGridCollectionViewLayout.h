@@ -8,6 +8,7 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <IGListKit/IGListMacros.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,17 +22,17 @@ IGLK_SUBCLASSING_RESTRICTED
 @interface IGListGridCollectionViewLayout : UICollectionViewLayout
 
 /**
- The minimum spacing to use between lines of items in the grid.
+ The minimum spacing to use between lines of items in the grid. The default value is `1.0`.
  */
 @property (nonatomic, assign) IBInspectable CGFloat minimumLineSpacing;
 
 /**
- The minimum spacing to use between items in the same row.
+ The minimum spacing to use between items in the same row. The default value is `1.0`.
  */
 @property (nonatomic, assign) IBInspectable CGFloat minimumInteritemSpacing;
 
 /**
- The default size to use for cells.
+ The default size to use for cells. The default value is `(100.0, 100.0)`.
  */
 @property (nonatomic, assign) IBInspectable CGSize itemSize;
 

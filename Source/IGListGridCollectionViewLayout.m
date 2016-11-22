@@ -64,11 +64,11 @@
 }
 
 - (void)commonInit {
-    _minimumLineSpacing = 0.0;
-    _minimumInteritemSpacing = 0.0;
+    _minimumLineSpacing = 1.0f;
+    _minimumInteritemSpacing = 1.0f;
     _lineCache = [NSMutableArray new];
     _lineForItem = [NSMutableArray new];
-    _itemSize = CGSizeZero;
+    _itemSize = CGSizeMake(100.0f, 100.0f);
 }
 
 #pragma mark - Layout Infomation
