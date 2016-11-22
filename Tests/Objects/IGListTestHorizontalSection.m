@@ -7,9 +7,9 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGListTestVerticalSection.h"
+#import "IGListTestHorizontalSection.h"
 
-@implementation IGListTestVerticalSection
+@implementation IGListTestHorizontalSection
 
 - (NSArray <Class> *)cellClasses {
     return @[UICollectionViewCell.class];

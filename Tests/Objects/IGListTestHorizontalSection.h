@@ -12,7 +12,7 @@
 #import <IGListKit/IGListSectionController.h>
 #import <IGListKit/IGListSectionType.h>
 
-@interface IGListTestVerticalSection : IGListSectionController <IGListSectionType>
+@interface IGListTestHorizontalSection : IGListSectionController <IGListSectionType>
 
 @property (nonatomic, assign) NSInteger items;
 

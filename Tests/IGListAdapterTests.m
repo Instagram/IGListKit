@@ -16,7 +16,7 @@
 
 #import "IGListAdapterInternal.h"
 #import "IGListTestAdapterDataSource.h"
-#import "IGListTestAdapterVerticalDataSource.h"
+#import "IGListTestAdapterHorizontalDataSource.h"
 #import "IGListTestSection.h"
 #import "IGTestSupplementarySource.h"
 #import "IGTestNibSupplementaryView.h"
@@ -563,7 +563,7 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 
 - (void)test_whenScrollHorizontallyToItem {
     // # of items for each object == [item integerValue], so @2 has 2 items (cells)
-    IGListTestAdapterVerticalDataSource *dataSource = [[IGListTestAdapterVerticalDataSource alloc] init];
+    IGListTestAdapterHorizontalDataSource *dataSource = [[IGListTestAdapterHorizontalDataSource alloc] init];
     self.adapter.dataSource = dataSource;
     dataSource.objects = @[@1, @2, @3, @4, @5, @6];
     self.layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
