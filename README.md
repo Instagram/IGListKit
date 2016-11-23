@@ -74,7 +74,7 @@ You can also manually install the framework by dragging and dropping the `IGList
 
 ## Getting Started
 
-See the [Getting Started guide here](Guides/).
+See the [Getting Started guide here](Guides/Getting%20Started.md).
 
 ## Documentation
 
