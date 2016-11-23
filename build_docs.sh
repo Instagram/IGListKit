@@ -21,6 +21,7 @@ jazzy \
     --framework-root . \
     --umbrella-header $SOURCE_TMP/IGListKit.h \
     --readme README.md \
+    --documentation "Guides/*.md" \
     --output docs/
 
 # restore the dir per the jazzy issue
