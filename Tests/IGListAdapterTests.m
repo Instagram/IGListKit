@@ -843,4 +843,11 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     [mockScrollDelegate verify];
 }
 
+- (void)test_whenReloadingObjectsThatDontExist_thatAdapterContinues {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+    [self.adapter reloadObjects:@[@1, @3]];
+    XCTAssertEqual(self.collectionView.numberOfSections, 3);
+}
+
 @end

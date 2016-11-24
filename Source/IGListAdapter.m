@@ -311,8 +311,11 @@
 
     for (id object in objects) {
         // look up the item using the map's lookup function. might not be the same item
-        NSUInteger section = [map sectionForObject:object];
-        IGAssert(section != NSNotFound, @"Did not find a section for item %@", object);
+        const NSInteger section = [map sectionForObject:object];
+        const BOOL notFound = section == NSNotFound;
+        if (notFound) {
+            continue;
+        }
         [sections addIndex:section];
 
         // reverse lookup the item using the section. if the pointer has changed the trigger update events and swap items
@@ -465,7 +468,7 @@
 
         IGAssert(sectionController != nil, @"Data source <%@> cannot return a nil section controller.", self.dataSource);
         if (sectionController == nil) {
-            break;
+            continue;
         }
 
         // in case the section controller was created outside of -listAdapter:sectionControllerForObject:
