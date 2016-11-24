@@ -50,7 +50,7 @@ A data-driven `UICollectionView` framework for building fast and flexible lists.
 
 ### CocoaPods
 
-The preferred installation method for `IGListKit` is with [CocoaPods](http://cocoapods.org). Simply add the following to your `Podfile`:
+The preferred installation method for `IGListKit` is with [CocoaPods](https://cocoapods.org). Simply add the following to your `Podfile`:
 
 ```ruby
 # Latest release of IGListKit
@@ -74,7 +74,7 @@ You can also manually install the framework by dragging and dropping the `IGList
 
 ## Getting Started
 
-See the [Getting Started guide here](Guides/Getting%20Started.md).
+See the [Getting Started guide here](https://instagram.github.io/IGListKit/getting-started.html).
 
 ## Documentation
 
@@ -82,7 +82,7 @@ You can find [the docs here](https://instagram.github.io/IGListKit). Documentati
 
 ## Contributing
 
-Please see the [CONTRIBUTING](.github/CONTRIBUTING.md) file for how to help out. At Instagram we sync the open source version of `IGListKit` almost daily, so we're always testing the latest changes. But that requires all changes be thoroughly tested follow our style guide.
+Please see the [CONTRIBUTING](https://github.com/Instagram/IGListKit/blob/master/.github/CONTRIBUTING.md) file for how to help out. At Instagram we sync the open source version of `IGListKit` almost daily, so we're always testing the latest changes. But that requires all changes be thoroughly tested follow our style guide.
 
 ## License
 
