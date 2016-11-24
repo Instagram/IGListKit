@@ -5,7 +5,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 2.0.0
 -----
 
-This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/1?closed=1). We've increased test coverage to 95%. Thanks to the [21 contributors](https://github.com/Instagram/IGListKit/graphs/contributors) who helped with this release!
+This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/1?closed=1). We've increased test coverage to 95%. Thanks to the [23 contributors](https://github.com/Instagram/IGListKit/graphs/contributors) who helped with this release!
 
 ### Breaking Changes
 
@@ -87,6 +87,8 @@ This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit
 ### Documentation
 
 - We now have 100% documentation coverage. Docs been refined and clarified. [Jesse Squires](https://github.com/jessesquires) [(#207)](https://github.com/Instagram/IGListKit/pull/207)
+
+- Added new Guides: [Getting Started](https://instagram.github.io/IGListKit/getting-started.html), [Migration](https://instagram.github.io/IGListKit/migration.html)
 
 - Added examples for Today & iMessage extensions. [Sherlouk](https://github.com/Sherlouk) [(#112)](https://github.com/Instagram/IGListKit/pull/112)
 
