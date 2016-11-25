@@ -24,7 +24,8 @@ Pod::Spec.new do |s|
   s.osx.source_files = [
     'Source/IGListIndexSetResult.{h,m}',
     'Source/IGListDiff.{h,mm}',
-    'Source/NSObject+IGListDiffable.{h,m}',
+    'Source/NSNumber+IGListDiffable.{h,m}',
+    'Source/NSString+IGListDiffable.{h,m}',
     'Source/IGListMoveIndexPath.{h,m}',
     'Source/IGListMoveIndex.{h,m}',
     'Source/IGListIndexPathResult.{h,m}',
