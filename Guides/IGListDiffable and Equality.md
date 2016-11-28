@@ -1,10 +1,14 @@
 # IGListDiffable and Equality
 
-This guide details how to write a good `isEqual:` method. `IGListKit` requires that models implement the method `isEqualToDiffableObject:` which should perform the same type of check, but without impacting behavior in Objective-C containers like `NSDictionary` and `NSSet`.
+This guide details how to write good `isEqual:` methods. 
 
-## IGListDiffable bare minimum
+## Background
 
-The quickest way to get started with diffable models is use the _object itself_ as the identifier, and use the super `-[NSObject isEqual:]` implementation for equality:
+`IGListKit` requires that models implement the method `isEqualToDiffableObject:` which should perform the same type of check as `isEqual:`, but without impacting performance characteristics like in Objective-C containers such as `NSDictionary` and `NSSet`.
+
+## `IGListDiffable` bare minimum
+
+The quickest way to get started with diffable models is use the _object itself_ as the identifier, and use the superclass's `-[NSObject isEqual:]` implementation for equality:
 
 ```objc
 - (id<NSObject>)diffIdentifier {
@@ -18,27 +22,22 @@ The quickest way to get started with diffable models is use the _object itself_ 
 
 ## Writing better Equality methods
 
-Even though `IGListKit` uses the method `isEqualToDiffableObject:`, the concepts of writing a good equality check apply in general.
+Even though `IGListKit` uses the method `isEqualToDiffableObject:`, the concepts of writing a good equality check apply in general. Here are the basics to writing good `-isEqual:` and `-hash` functions. Note this is all Objective-C but applies to Swift also.
 
-Here are the basics to writing good `-isEqual:` and `-hash` functions. Note this is all ObjC but translates well to Swift.
-
-- If you override `-isEqual:` you **must** override `-hash`
-  - Check out this [article by Mike Ash](https://www.mikeash.com/pyblog/friday-qa-2010-06-18-implementing-equality-and-hashing.html) for details
-- Always compare the pointer first
-  - Saves a lot of wasteful `objc_msgSend(...)` and value comparisons if checking the same instance
-- When comparing object values, always check for `nil` before `-isEqual:`
-  - e.g. `[nil isEqual:nil]` returns `NO`
-  - Instead do `left == right || [left isEqual:right]`
-- Always compare the **cheapest values first**
-  - Doing `[self.array isEqual:other.array] && self.intVal == other.array` is hella wasteful if the `intVal`s are different. Use lazy eval!
+- If you override `-isEqual:` you **must** override `-hash`. Check out this [article by Mike Ash](https://www.mikeash.com/pyblog/friday-qa-2010-06-18-implementing-equality-and-hashing.html) for details.
+- Always compare the pointer first. This saves a lot of wasteful `objc_msgSend(...)` calls and value comparisons if checking the same instance.
+- When comparing object values, always check for `nil` before `-isEqual:`. For example, `[nil isEqual:nil]` unintuitively returns `NO`. Instead, do `left == right || [left isEqual:right]`.
+- Always compare the **cheapest values first**. For example, doing `[self.array isEqual:other.array] && self.intVal == other.array` is extremely wasteful if the `intVal` values are different. Use lazy evaluation!
 
 As an example, if I had a `User` model with the following interface:
 
 ```objc
 @interface User : NSObject
-@property NSInteger pk;
+
+@property NSInteger identifier;
 @property NSString *name;
 @property NSArray *posts;
+
 @end
 ```
 
@@ -48,38 +47,46 @@ You would implement its equality methods like so:
 @implementation User
 
 - (NSUInteger)hash {
-  return self.pk;
+  return self.identifier;
 }
 
 - (BOOL)isEqual:(id)object {
-  if (self == object) return YES;
-  if (![object isKindOfClass:[User class]]) return NO;
+  if (self == object) { 
+      return YES;
+  }
+  
+  if (![object isKindOfClass:[User class]]) {
+      return NO;
+  }
 
   User *right = object;
-  return self.pk == right.pk 
-  && (self.name == right.name || [self.name isEqual:right.name])
-  && (self.posts == right.posts || [self.posts isEqualToArray:right.posts]);
+  return self.identifier == right.identifier 
+      && (self.name == right.name || [self.name isEqual:right.name])
+      && (self.posts == right.posts || [self.posts isEqualToArray:right.posts]);
 }
 
 @end
 ```
 
-## Using both IGListDiffable and isEqual
+## Using both `IGListDiffable` and `-isEqual:`
 
-Making your objects work universally with Objective-C containers and `IGListKit` is really easy once you've implemented `isEqual:` and `hash`.
+Making your objects work universally with Objective-C containers and `IGListKit` is easy once you've implemented `isEqual:` and `-hash`.
 
 ```objc
-@interface User (IGListDiffable) <IGListDiffable>
+@interface User <IGListDiffable>
+
+// properties...
+
 @end
 
-@implementation User (IGListDiffable)
+@implementation User
 
 - (id<NSObject>)diffIdentifier {
-  return @(self.pk);
+    return @(self.identifier);
 }
 
 - (BOOL)isEqualToDiffableObject:(id<IGListDiffable>)object {
-  return [self isEqual:object];
+    return [self isEqual:object];
 }
 
 @end
