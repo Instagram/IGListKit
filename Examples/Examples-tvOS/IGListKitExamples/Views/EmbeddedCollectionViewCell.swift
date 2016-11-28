@@ -32,10 +32,10 @@ final class EmbeddedCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         collectionView.frame = contentView.frame
     }
-    
-    override var preferredFocusedView: UIView? {
+  
+    override var canBecomeFocused: Bool {
         get {
-            return collectionView
+            return false
         }
     }
     
