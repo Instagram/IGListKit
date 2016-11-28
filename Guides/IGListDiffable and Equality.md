@@ -4,7 +4,7 @@ This guide details how to write good `isEqual:` methods.
 
 ## Background
 
-`IGListKit` requires that models implement the method `isEqualToDiffableObject:` which should perform the same type of check at `isEqual:`, but without impacting performance characters like in Objective-C containers such as `NSDictionary` and `NSSet`.
+`IGListKit` requires that models implement the method `isEqualToDiffableObject:` which should perform the same type of check as `isEqual:`, but without impacting performance characteristics like in Objective-C containers such as `NSDictionary` and `NSSet`.
 
 ## `IGListDiffable` bare minimum
 
