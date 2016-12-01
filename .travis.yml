@@ -16,7 +16,8 @@ env:
    - IOS_SDK=iphonesimulator10.1
    - TVOS_SDK=appletvsimulator10.0
 
-   - EXAMPLE_WORKSPACE="IGListKitExamples.xcworkspace"
+   - IOS_EXAMPLE_WORKSPACE="Examples/Examples-iOS/IGListKitExamples.xcworkspace"
+   - TVOS_EXAMPLE_WORKSPACE="Examples/Examples-tvOS/IGListKitExamples.xcworkspace"
    - EXAMPLE_SCHEME="IGListKitExamples"
 
    matrix:
@@ -46,16 +47,16 @@ script:
 
 
 - if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $IOS_SDK ]; then
-      xcodebuild build -workspace Examples/Examples-iOS/"$EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
+      xcodebuild build -workspace "$IOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
   fi
 
 - if [ $RUN_UI_TESTS == "YES" ] && [ $SDK == $IOS_SDK ]; then
-      xcodebuild analyze test -workspace Examples/Examples-iOS/"$EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
+      xcodebuild analyze test -workspace "$IOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
   fi
 
 
 - if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $TVOS_SDK ]; then
-      xcodebuild build -workspace Examples/Examples-tvOS/"$EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
+      xcodebuild build -workspace "$TVOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
   fi
 
 
