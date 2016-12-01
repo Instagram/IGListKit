@@ -213,10 +213,13 @@
             
             <a href='#iglistdiffable-and-equality' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='iglistdiffable-and-equality'>IGListDiffable and Equality</h1>
 
-<p>This guide details how to write a good <code>isEqual:</code> method. <code>IGListKit</code> requires that models implement the method <code>isEqualToDiffableObject:</code> which should perform the same type of check, but without impacting behavior in Objective-C containers like <code>NSDictionary</code> and <code>NSSet</code>.</p>
-<a href='#iglistdiffable-bare-minimum' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='iglistdiffable-bare-minimum'>IGListDiffable bare minimum</h2>
+<p>This guide details how to write good <code>isEqual:</code> methods. </p>
+<a href='#background' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='background'>Background</h2>
 
-<p>The quickest way to get started with diffable models is use the <em>object itself</em> as the identifier, and use the super <code>-[NSObject isEqual:]</code> implementation for equality:</p>
+<p><code>IGListKit</code> requires that models implement the method <code>isEqualToDiffableObject:</code> which should perform the same type of check as <code>isEqual:</code>, but without impacting performance characteristics like in Objective-C containers such as <code>NSDictionary</code> and <code>NSSet</code>.</p>
+<a href='#code-iglistdiffable-code-bare-minimum' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='code-iglistdiffable-code-bare-minimum'><code>IGListDiffable</code> bare minimum</h2>
+
+<p>The quickest way to get started with diffable models is use the <em>object itself</em> as the identifier, and use the superclass&rsquo;s <code>-[NSObject isEqual:]</code> implementation for equality:</p>
 <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="n">diffIdentifier</span> <span class="p">{</span>
   <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
 <span class="p">}</span>
@@ -227,39 +230,22 @@
 </code></pre>
 <a href='#writing-better-equality-methods' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='writing-better-equality-methods'>Writing better Equality methods</h2>
 
-<p>Even though <code>IGListKit</code> uses the method <code>isEqualToDiffableObject:</code>, the concepts of writing a good equality check apply in general.</p>
-
-<p>Here are the basics to writing good <code>-isEqual:</code> and <code>-hash</code> functions. Note this is all ObjC but translates well to Swift.</p>
+<p>Even though <code>IGListKit</code> uses the method <code>isEqualToDiffableObject:</code>, the concepts of writing a good equality check apply in general. Here are the basics to writing good <code>-isEqual:</code> and <code>-hash</code> functions. Note this is all Objective-C but applies to Swift also.</p>
 
 <ul>
-<li>If you override <code>-isEqual:</code> you <strong>must</strong> override <code>-hash</code>
-
-<ul>
-<li>Check out this <a href="https://www.mikeash.com/pyblog/friday-qa-2010-06-18-implementing-equality-and-hashing.html">article by Mike Ash</a> for details</li>
-</ul></li>
-<li>Always compare the pointer first
-
-<ul>
-<li>Saves a lot of wasteful <code>objc_msgSend(...)</code> and value comparisons if checking the same instance</li>
-</ul></li>
-<li>When comparing object values, always check for <code>nil</code> before <code>-isEqual:</code>
-
-<ul>
-<li>e.g. <code>[nil isEqual:nil]</code> returns <code>NO</code></li>
-<li>Instead do <code>left == right || [left isEqual:right]</code></li>
-</ul></li>
-<li>Always compare the <strong>cheapest values first</strong>
-
-<ul>
-<li>Doing <code>[self.array isEqual:other.array] &amp;&amp; self.intVal == other.array</code> is hella wasteful if the <code>intVal</code>s are different. Use lazy eval!</li>
-</ul></li>
+<li>If you override <code>-isEqual:</code> you <strong>must</strong> override <code>-hash</code>. Check out this <a href="https://www.mikeash.com/pyblog/friday-qa-2010-06-18-implementing-equality-and-hashing.html">article by Mike Ash</a> for details.</li>
+<li>Always compare the pointer first. This saves a lot of wasteful <code>objc_msgSend(...)</code> calls and value comparisons if checking the same instance.</li>
+<li>When comparing object values, always check for <code>nil</code> before <code>-isEqual:</code>. For example, <code>[nil isEqual:nil]</code> unintuitively returns <code>NO</code>. Instead, do <code>left == right || [left isEqual:right]</code>.</li>
+<li>Always compare the <strong>cheapest values first</strong>. For example, doing <code>[self.array isEqual:other.array] &amp;&amp; self.intVal == other.array</code> is extremely wasteful if the <code>intVal</code> values are different. Use lazy evaluation!</li>
 </ul>
 
 <p>As an example, if I had a <code>User</code> model with the following interface:</p>
 <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">User</span> <span class="p">:</span> <span class="nc">NSObject</span>
-<span class="k">@property</span> <span class="n">NSInteger</span> <span class="n">pk</span><span class="p">;</span>
+
+<span class="k">@property</span> <span class="n">NSInteger</span> <span class="n">identifier</span><span class="p">;</span>
 <span class="k">@property</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
 <span class="k">@property</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">posts</span><span class="p">;</span>
+
 <span class="k">@end</span>
 </code></pre>
 
@@ -267,35 +253,43 @@
 <pre class="highlight objective_c"><code><span class="k">@implementation</span> <span class="nc">User</span>
 
 <span class="k">-</span> <span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="n">hash</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">pk</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">identifier</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="o">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">isEqual</span><span class="o">:</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="n">object</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">==</span> <span class="n">object</span><span class="p">)</span> <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">object</span> <span class="nf">isKindOfClass</span><span class="p">:[</span><span class="n">User</span> <span class="nf">class</span><span class="p">]])</span> <span class="k">return</span> <span class="nb">NO</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">==</span> <span class="n">object</span><span class="p">)</span> <span class="p">{</span> 
+      <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">object</span> <span class="nf">isKindOfClass</span><span class="p">:[</span><span class="n">User</span> <span class="nf">class</span><span class="p">]])</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nb">NO</span><span class="p">;</span>
+  <span class="p">}</span>
 
   <span class="n">User</span> <span class="o">*</span><span class="n">right</span> <span class="o">=</span> <span class="n">object</span><span class="p">;</span>
-  <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">pk</span> <span class="o">==</span> <span class="n">right</span><span class="p">.</span><span class="n">pk</span> 
-  <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">right</span><span class="p">.</span><span class="n">name</span> <span class="o">||</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="nf">isEqual</span><span class="p">:</span><span class="n">right</span><span class="p">.</span><span class="n">name</span><span class="p">])</span>
-  <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">posts</span> <span class="o">==</span> <span class="n">right</span><span class="p">.</span><span class="n">posts</span> <span class="o">||</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">posts</span> <span class="nf">isEqualToArray</span><span class="p">:</span><span class="n">right</span><span class="p">.</span><span class="n">posts</span><span class="p">]);</span>
+  <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">identifier</span> <span class="o">==</span> <span class="n">right</span><span class="p">.</span><span class="n">identifier</span> 
+      <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">right</span><span class="p">.</span><span class="n">name</span> <span class="o">||</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="nf">isEqual</span><span class="p">:</span><span class="n">right</span><span class="p">.</span><span class="n">name</span><span class="p">])</span>
+      <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">posts</span> <span class="o">==</span> <span class="n">right</span><span class="p">.</span><span class="n">posts</span> <span class="o">||</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">posts</span> <span class="nf">isEqualToArray</span><span class="p">:</span><span class="n">right</span><span class="p">.</span><span class="n">posts</span><span class="p">]);</span>
 <span class="p">}</span>
 
 <span class="k">@end</span>
 </code></pre>
-<a href='#using-both-iglistdiffable-and-isequal' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='using-both-iglistdiffable-and-isequal'>Using both IGListDiffable and isEqual</h2>
+<a href='#using-both-code-iglistdiffable-code-and-code-isequal-code' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='using-both-code-iglistdiffable-code-and-code-isequal-code'>Using both <code>IGListDiffable</code> and <code>-isEqual:</code></h2>
 
-<p>Making your objects work universally with Objective-C containers and <code>IGListKit</code> is really easy once you&rsquo;ve implemented <code>isEqual:</code> and <code>hash</code>.</p>
-<pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">User</span> <span class="p">(</span><span class="nl">IGListDiffable</span><span class="p">)</span> <span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span>
+<p>Making your objects work universally with Objective-C containers and <code>IGListKit</code> is easy once you&rsquo;ve implemented <code>isEqual:</code> and <code>-hash</code>.</p>
+<pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">User</span> <span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span>
+
+<span class="c1">// properties...
+</span>
 <span class="k">@end</span>
 
-<span class="k">@implementation</span> <span class="nc">User</span> <span class="p">(</span><span class="nl">IGListDiffable</span><span class="p">)</span>
+<span class="k">@implementation</span> <span class="nc">User</span>
 
 <span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="n">diffIdentifier</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="err">@</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">pk</span><span class="p">);</span>
+    <span class="k">return</span> <span class="err">@</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">identifier</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="o">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">isEqualToDiffableObject</span><span class="o">:</span><span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span><span class="p">)</span><span class="n">object</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">[</span><span class="n">self</span> <span class="nf">isEqual</span><span class="p">:</span><span class="n">object</span><span class="p">];</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">self</span> <span class="nf">isEqual</span><span class="p">:</span><span class="n">object</span><span class="p">];</span>
 <span class="p">}</span>
 
 <span class="k">@end</span>
@@ -304,7 +298,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-11-27)</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-11-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
