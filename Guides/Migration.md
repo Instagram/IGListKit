@@ -4,6 +4,8 @@ This guide provides details for how to migration between major versions of `IGLi
 
 ## From 1.x to 2.x
 
+For details on all changes in IGListKit 2.0.0, please see the [changelog](https://github.com/Instagram/IGListKit/blob/master/CHANGELOG.md#200).
+
 ### IGListDiffable Conformance
 
 If you relied on the default `NSObject<IGListDiffable>` category, you will need to add `IGListDiffable` conformance to each of your models. To get things working as they did in 1.0, simply add the following to each of your models:
