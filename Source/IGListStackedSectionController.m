@@ -284,6 +284,16 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     }];
 }
 
+- (void)scrollToSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                          atIndex:(NSInteger)index
+                   scrollPosition:(UICollectionViewScrollPosition)scrollPosition
+                         animated:(BOOL)animated {
+    const NSUInteger offset = [self offsetForSectionController:sectionController];
+    [self.collectionContext scrollToSectionController:self
+                                              atIndex:(offset + index)
+                                       scrollPosition:scrollPosition
+                                             animated:animated];
+}
 
 #pragma mark - IGListDisplayDelegate
 
