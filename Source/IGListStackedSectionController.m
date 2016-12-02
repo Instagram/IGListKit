@@ -292,9 +292,9 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
                           atIndex:(NSInteger)index
                    scrollPosition:(UICollectionViewScrollPosition)scrollPosition
                          animated:(BOOL)animated {
-    const NSUInteger offset = [self offsetForSectionController:sectionController];
+    const NSUInteger offsetIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:index];
     [self.collectionContext scrollToSectionController:self
-                                              atIndex:(offset + index)
+                                              atIndex:offsetIndex
                                        scrollPosition:scrollPosition
                                              animated:animated];
 }
