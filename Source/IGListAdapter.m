@@ -957,6 +957,16 @@
     } completion:completion];
 }
 
+- (void)scrollToSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                          atIndex:(NSInteger)index
+                   scrollPosition:(UICollectionViewScrollPosition)scrollPosition
+                         animated:(BOOL)animated {
+    IGAssertMainThread();
+    IGParameterAssert(sectionController != nil);
+
+    NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index];
+    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:scrollPosition animated:animated];
+}
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 

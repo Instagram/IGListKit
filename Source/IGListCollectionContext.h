@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return The index of the cell or `NSNotFound` if it does not exist in the collection.
  */
 - (NSInteger)indexForCell:(UICollectionViewCell *)cell
-         sectionController:(IGListSectionController<IGListSectionType> *)sectionController;
+        sectionController:(IGListSectionController<IGListSectionType> *)sectionController;
 
 /**
  Returns the cell in the collection at the specified index for the section controller.
@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param sectionController The section controller requesting this information.
 
  @return The collection view cell, or `nil` if not found.
- 
+
  @warning This method may return `nil` if the cell is offscreen.
  */
 - (nullable __kindof UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index
@@ -95,14 +95,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Dequeues a cell from the collection view reuse pool.
- 
+
  @param nibName           The name of the nib file.
  @param bundle            The bundle in which to search for the nib file. If `nil`, this method searches the main bundle.
  @param sectionController The section controller requesting this information.
  @param index             The index of the cell.
- 
+
  @return A cell dequeued from the reuse pool or a newly created one.
- 
+
  @note This method uses a string representation of the cell class as the identifier.
  */
 - (__kindof UICollectionViewCell *)dequeueReusableCellWithNibName:(NSString *)nibName
@@ -112,11 +112,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Dequeues a storyboard prototype cell from the collection view reuse pool.
- 
+
  @param identifier        The identifier of the cell prototype in storyboard.
  @param sectionController The section controller requesting this information.
  @param index             The index of the cell.
- 
+
  @return A cell dequeued from the reuse pool or a newly created one.
  */
 - (__kindof UICollectionViewCell *)dequeueReusableCellFromStoryboardWithIdentifier:(NSString *)identifier
@@ -142,12 +142,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Dequeues a supplementary view from the collection view reuse pool.
- 
+
  @param elementKind       The kind of supplementary veiw.
  @param identifier        The identifier of the supplementary view in storyboard.
  @param sectionController The section controller requesting this information.
  @param index             The index of the supplementary vew.
- 
+
  @return A supplementary view dequeued from the reuse pool or a newly created one.
  */
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewFromStoryboardOfKind:(NSString *)elementKind
@@ -156,15 +156,15 @@ NS_ASSUME_NONNULL_BEGIN
                                                                                     atIndex:(NSInteger)index;
 /**
  Dequeues a supplementary view from the collection view reuse pool.
- 
+
  @param elementKind       The kind of supplementary veiw.
  @param sectionController The section controller requesting this information.
  @param nibName           The name of the nib file.
  @param bundle            The bundle in which to search for the nib file. If `nil`, this method searches the main bundle.
  @param index             The index of the supplementary vew.
- 
+
  @return A supplementary view dequeued from the reuse pool or a newly created one.
- 
+
  @note This method uses a string representation of the view class as the identifier.
  */
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
@@ -238,6 +238,20 @@ NS_ASSUME_NONNULL_BEGIN
  synchronously, so you should make sure that your data source changes only when necessary.
  */
 - (void)performBatchAnimated:(BOOL)animated updates:(void (^)())updates completion:(nullable void (^)(BOOL finished))completion;
+
+
+/**
+ Scrolls to the specified section controller in the list.
+
+ @param sectionController The section controller.
+ @param index             The index of the item in the section controller to which to scroll.
+ @param scrollPosition    An option that specifies where the item should be positioned when scrolling finishes.
+ @param animated          A flag indicating if the scrolling should be animated.
+ */
+- (void)scrollToSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                          atIndex:(NSInteger)index
+                   scrollPosition:(UICollectionViewScrollPosition)scrollPosition
+                         animated:(BOOL)animated;
 
 @end
 

@@ -5,7 +5,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 2.0.0
 -----
 
-This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/1?closed=1). We've increased test coverage to 95%. Thanks to the [23 contributors](https://github.com/Instagram/IGListKit/graphs/contributors) who helped with this release!
+This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/1?closed=1). We've increased test coverage to 95%. Thanks to the [24 contributors](https://github.com/Instagram/IGListKit/graphs/contributors) who helped with this release!
 
 ### Breaking Changes
 
@@ -21,7 +21,7 @@ This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - `IGListDiffable` equality method changed from `isEqual:` to `isEqualToDiffableObject:` [(ab890fc)](https://github.com/Instagram/IGListKit/commit/ab890fc6070f170a2db5a383a6296e62dcf75678)
 
-- The default `NSObject<IGListDiffable>` category was removed and replaced with `NSString<IGListDiffable>` and `NSNumber<IGListDiffable>` categories. All other models will need to conform to `IGListDiffable`. 
+- The default `NSObject<IGListDiffable>` category was removed and replaced with `NSString<IGListDiffable>` and `NSNumber<IGListDiffable>` categories. All other models will need to conform to `IGListDiffable`.
 
 - Added support for specifying an end position when scrolling. [Bofei Zhu](https://github.com/zhubofei) [(#196)](https://github.com/Instagram/IGListKit/pull/196). The `IGListAdapter` scrolling method changed:
 ```objc
@@ -59,7 +59,7 @@ This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Added `-isFirstSection` and `-isLastSection` APIs to `IGListSectionController`
 
-- Added support for cells and supplementaryViews created from storyboard in `IGListCollectionContext`. [Bofei Zhu](https://github.com/zhubofei) [(#92)](https://github.com/Instagram/IGListKit/pull/92)
+- Added support for cells and supplementaryViews created from storyboard. There's a new required method on the `IGListCollectionContext` protocol to do this. [Bofei Zhu](https://github.com/zhubofei) [(#92)](https://github.com/Instagram/IGListKit/pull/92)
 
 ```objc
 // IGListCollectionContext
@@ -70,11 +70,21 @@ This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Added `tvOS` support. [Jesse Squires](https://github.com/jessesquires) [(#137)](https://github.com/Instagram/IGListKit/pull/137)
 
-- Added new `-[IGListAdapter visibleObjects]` API. [Ryan Nystrom](https://github.com/rnystrom) [(386ae07)](https://github.com/Instagram/IGListKit/commit/386ae0786445c06e1eabf074a4181614332f155f)
+- Added `-[IGListAdapter visibleObjects]` API. [Ryan Nystrom](https://github.com/rnystrom) [(386ae07)](https://github.com/Instagram/IGListKit/commit/386ae0786445c06e1eabf074a4181614332f155f)
 
-- Added new `-[IGListAdapter objectForSectionController:]` API. [Ayush Saraswat](https://github.com/saraswatayu) [(#204)](https://github.com/Instagram/IGListKit/pull/204)
+- Added `-[IGListAdapter objectForSectionController:]` API. [Ayush Saraswat](https://github.com/saraswatayu) [(#204)](https://github.com/Instagram/IGListKit/pull/204)
 
-- Added new `IGListGridCollectionViewLayout`, a section-based grid layout. [Bofei Zhu](https://github.com/zhubofei) [(#225)](https://github.com/Instagram/IGListKit/pull/225)
+- Added `IGListGridCollectionViewLayout`, a section-based grid layout. [Bofei Zhu](https://github.com/zhubofei) [(#225)](https://github.com/Instagram/IGListKit/pull/225)
+
+- Added support for scrolling to an index in a section controller from within that section controller. There's a new required method on the `IGListCollectionContext` protocol to do this. [Jesse Squires](https://github.com/jessesquires)
+
+```objc
+// IGListCollectionContext
+- (void)scrollToSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                          atIndex:(NSInteger)index
+                   scrollPosition:(UICollectionViewScrollPosition)scrollPosition
+                         animated:(BOOL)animated;
+```
 
 ### Fixes
 

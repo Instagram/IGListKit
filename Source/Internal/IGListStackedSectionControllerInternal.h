@@ -20,7 +20,7 @@ IGListScrollDelegate
 
 @property (nonatomic, strong, readonly) NSOrderedSet<__kindof IGListSectionController<IGListSectionType> *> *sectionControllers;
 
-/// An array the length of the total number of items in the stack, pointing to an section controller for the item index.
+/// An array the length of the total number of items in the stack, pointing to a section controller for the item index.
 @property (nonatomic, copy) NSArray<IGListSectionController<IGListSectionType> *> *sectionControllersForItems;
 
 /// An array of index offsets for each item in the flattened stack.
