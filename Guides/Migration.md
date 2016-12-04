@@ -11,6 +11,7 @@ For details on all changes in IGListKit 2.0.0, please see the [changelog](https:
 If you relied on the default `NSObject<IGListDiffable>` category, you will need to add `IGListDiffable` conformance to each of your models. To get things working as they did in 1.0, simply add the following to each of your models:
 
 **Objective-C**
+
 ```objc
 #import <IGListKit/IGListDiffable.h>
 
@@ -28,6 +29,7 @@ If you relied on the default `NSObject<IGListDiffable>` category, you will need 
 ```
 
 **Swift**
+
 ```swift
 import IGListKit
 
