@@ -20,7 +20,11 @@ final class DemosViewController: UIViewController, IGListAdapterDataSource {
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView: IGListCollectionView = {
+        let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.backgroundColor = .white
+        return collectionView
+    }()
 
     let demos: [DemoItem] = [
         DemoItem(name: "Tail Loading", controllerClass: LoadMoreViewController.self),

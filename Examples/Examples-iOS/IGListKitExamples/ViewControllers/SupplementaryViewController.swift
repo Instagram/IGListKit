@@ -20,7 +20,12 @@ final class SupplementaryViewController: UIViewController, IGListAdapterDataSour
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView: IGListCollectionView = {
+        let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.backgroundColor = .white
+        collectionView.alwaysBounceVertical = true
+        return collectionView
+    }()
 
     let feedItems = [
         FeedItem(pk: 1, user: User(pk: 100, name: "Jesse", handle: "jesse_squires"), comments: ["You rock!", "Hmm you sure about that?"]),
