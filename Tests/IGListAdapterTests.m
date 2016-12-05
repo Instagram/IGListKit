@@ -850,4 +850,27 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     XCTAssertEqual(self.collectionView.numberOfSections, 3);
 }
 
+- (void)test_whenDeselectingThroughContext_thatCellDeselected {
+    self.dataSource.objects = @[@1, @2, @3];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
+    [self.collectionView selectItemAtIndexPath:path animated:NO scrollPosition:UICollectionViewScrollPositionTop];
+    XCTAssertTrue([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
+
+    id section = [self.adapter sectionControllerForObject:@1];
+    [self.adapter deselectItemAtIndex:0 sectionController:section animated:NO];
+    XCTAssertFalse([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
+}
+
+- (void)test_whenScrollingToIndex_withSectionController_thatPositionCorrect {
+    self.dataSource.objects = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16, @17, @18, @19];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    IGListSectionController<IGListSectionType> *section = [self.adapter sectionControllerForObject:@8];
+    [section.collectionContext scrollToSectionController:section atIndex:0 scrollPosition:UICollectionViewScrollPositionTop animated:NO];
+    XCTAssertEqual(self.collectionView.contentOffset.x, 0);
+    XCTAssertEqual(self.collectionView.contentOffset.y, 280);
+}
+
 @end
