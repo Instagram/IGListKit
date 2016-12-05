@@ -17,7 +17,13 @@
 #import "IGListDisplayHandler.h"
 #import "IGListStackedSectionControllerInternal.h"
 #import "IGListTestSection.h"
+#import "IGTestCell.h"
 #import "IGTestStackedDataSource.h"
+#import "IGTestStoryboardCell.h"
+#import "IGTestStoryboardViewController.h"
+#import "IGTestSupplementarySource.h"
+#import "IGTestSupplementarySource.h"
+#import "IGTestStoryboardSupplementarySource.h"
 
 static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
@@ -37,9 +43,15 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
     self.window = [[UIWindow alloc] initWithFrame:kStackTestFrame];
 
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.collectionView = [[IGListCollectionView alloc] initWithFrame:kStackTestFrame collectionViewLayout:layout];
-    [self.window addSubview:self.collectionView];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"IGTestStoryboard" bundle:[NSBundle bundleForClass:self.class]];
+    IGTestStoryboardViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"testVC"];
+    self.window.rootViewController = vc;
+    [self.window addSubview:vc.view];
+    [vc performSelectorOnMainThread:@selector(loadView) withObject:nil waitUntilDone:YES];
+    self.collectionView = vc.collectionView;
+
+    vc.view.frame = kStackTestFrame;
+    self.collectionView.frame = kStackTestFrame;
 
     self.dataSource = [[IGTestStackedDataSource alloc] init];
     self.adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
@@ -429,6 +441,231 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     } completion:nil];
 
     [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
+- (void)test_whenSelectingItems_thatChildSectionControllersSelected {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@1 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@2 value:@[@1, @1]]
+                             ]];
+
+    [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:1]];
+    [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:2]];
+
+    IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGListStackedSectionController *stack2 = [self.adapter sectionControllerForObject:self.dataSource.objects[2]];
+
+    XCTAssertTrue([stack0.sectionControllers[0] wasSelected]);
+    XCTAssertFalse([stack0.sectionControllers[1] wasSelected]);
+    XCTAssertFalse([stack0.sectionControllers[2] wasSelected]);
+    XCTAssertFalse([stack1.sectionControllers[0] wasSelected]);
+    XCTAssertTrue([stack1.sectionControllers[1] wasSelected]);
+    XCTAssertFalse([stack1.sectionControllers[2] wasSelected]);
+    XCTAssertFalse([stack2.sectionControllers[0] wasSelected]);
+    XCTAssertTrue([stack2.sectionControllers[1] wasSelected]);
+}
+
+- (void)test_whenUsingNibs_withStoryboards_thatCellsAreConfigured {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@1, @"nib", @"storyboard"]],
+                             ]];
+
+    UICollectionViewCell *cell0 = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    IGTestCell *cell1 = (IGTestCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+    IGTestStoryboardCell *cell2 = (IGTestStoryboardCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+
+    XCTAssertEqualObjects(cell0.class, [UICollectionViewCell class]);
+    XCTAssertEqualObjects(cell1.class, [IGTestCell class]);
+    XCTAssertEqualObjects(cell2.class, [IGTestStoryboardCell class]);
+
+    XCTAssertEqualObjects(cell1.label.text, @"nib");
+    XCTAssertEqualObjects(cell2.label.text, @"storyboard");
+}
+
+- (void)test_whenForwardingDidScrollEvent_thatChildSectionControllersReceiveEvent {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@2 value:@[@1, @1]]
+                             ]];
+
+    id mockScrollDelegate = [OCMockObject mockForProtocol:@protocol(IGListScrollDelegate)];
+
+    IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+
+    stack0.scrollDelegate = mockScrollDelegate;
+    stack1.scrollDelegate = mockScrollDelegate;
+
+    [[mockScrollDelegate expect] listAdapter:self.adapter didScrollSectionController:stack0];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didScrollSectionController:stack1];
+
+    [self.adapter scrollViewDidScroll:self.collectionView];
+
+    [mockScrollDelegate verify];
+}
+
+- (void)test_whenForwardingWillBeginDraggingEvent_thatChildSectionControllersReceiveEvent {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@2 value:@[@1, @1]]
+                             ]];
+
+    id mockScrollDelegate = [OCMockObject mockForProtocol:@protocol(IGListScrollDelegate)];
+
+    IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+
+    stack0.scrollDelegate = mockScrollDelegate;
+    stack1.scrollDelegate = mockScrollDelegate;
+
+    [[mockScrollDelegate expect] listAdapter:self.adapter willBeginDraggingSectionController:stack0];
+    [[mockScrollDelegate expect] listAdapter:self.adapter willBeginDraggingSectionController:stack1];
+
+    [self.adapter scrollViewWillBeginDragging:self.collectionView];
+
+    [mockScrollDelegate verify];
+}
+
+- (void)test_whenForwardingDidEndDraggingEvent_thatChildSectionControllersReceiveEvent {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@2 value:@[@1, @1]]
+                             ]];
+
+    id mockScrollDelegate = [OCMockObject mockForProtocol:@protocol(IGListScrollDelegate)];
+
+    IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+
+    stack0.scrollDelegate = mockScrollDelegate;
+    stack1.scrollDelegate = mockScrollDelegate;
+
+    [[mockScrollDelegate expect] listAdapter:self.adapter didEndDraggingSectionController:stack0 willDecelerate:NO];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didEndDraggingSectionController:stack1 willDecelerate:NO];
+
+    [self.adapter scrollViewDidEndDragging:self.collectionView willDecelerate:NO];
+
+    [mockScrollDelegate verify];
+}
+
+- (void)test_whenUsingSupplementary_withCode_thatSupplementaryViewExists {
+    // updater that uses reloadData so we can rebuild all views/sizes
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new] viewController:nil workingRangeSize:0];
+
+    self.dataSource.objects = @[
+                                [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                                [[IGTestObject alloc] initWithKey:@2 value:@[@1, @1]]
+                                ];
+
+    adapter.collectionView = self.collectionView;
+    adapter.dataSource = self.dataSource;
+    [self.collectionView layoutIfNeeded];
+
+    IGListStackedSectionController *stack = [adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGListTestSection *section = stack.sectionControllers.lastObject;
+
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    // the stack acts as the collection context. manually assign it.
+    supplementarySource.collectionContext = stack;
+    // however the actual section controller the supplementary serves is a child of the stack
+    supplementarySource.sectionController = section;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
+
+    section.supplementaryViewSource = supplementarySource;
+
+    [adapter performUpdatesAnimated:NO completion:nil];
+
+    XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter
+                                                             atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
+    XCTAssertNotNil(supplementarySource);
+}
+
+- (void)test_whenUsingSupplementary_withNib_thatSupplementaryViewExists {
+    // updater that uses reloadData so we can rebuild all views/sizes
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new] viewController:nil workingRangeSize:0];
+
+    self.dataSource.objects = @[
+                                [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                                [[IGTestObject alloc] initWithKey:@2 value:@[@1, @1]]
+                                ];
+
+    adapter.collectionView = self.collectionView;
+    adapter.dataSource = self.dataSource;
+    [self.collectionView layoutIfNeeded];
+
+    IGListStackedSectionController *stack = [adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGListTestSection *section = stack.sectionControllers.lastObject;
+
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    // the stack acts as the collection context. manually assign it.
+    supplementarySource.collectionContext = stack;
+    // however the actual section controller the supplementary serves is a child of the stack
+    supplementarySource.sectionController = section;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
+    supplementarySource.dequeueFromNib = YES;
+
+    section.supplementaryViewSource = supplementarySource;
+
+    [adapter performUpdatesAnimated:NO completion:nil];
+
+    XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter
+                                                             atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
+    XCTAssertNotNil(supplementarySource);
+}
+
+- (void)test_whenUsingSupplementary_withStoryboard_thatSupplementaryViewExists {
+    // updater that uses reloadData so we can rebuild all views/sizes
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new] viewController:nil workingRangeSize:0];
+
+    self.dataSource.objects = @[
+                                [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                                [[IGTestObject alloc] initWithKey:@2 value:@[@1, @1]]
+                                ];
+
+    adapter.collectionView = self.collectionView;
+    adapter.dataSource = self.dataSource;
+    [self.collectionView layoutIfNeeded];
+
+    IGListStackedSectionController *stack = [adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGListTestSection *section = stack.sectionControllers.lastObject;
+
+    IGTestStoryboardSupplementarySource *supplementarySource = [IGTestStoryboardSupplementarySource new];
+    // the stack acts as the collection context. manually assign it.
+    supplementarySource.collectionContext = stack;
+    // however the actual section controller the supplementary serves is a child of the stack
+    supplementarySource.sectionController = section;
+
+    // the "section header" property of the parent collection view must be checked
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
+
+    section.supplementaryViewSource = supplementarySource;
+
+    [adapter performUpdatesAnimated:NO completion:nil];
+
+    XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader
+                                                             atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
+    XCTAssertNotNil(supplementarySource);
+}
+
+- (void)test_whenScrollingFromChildSectionController_thatScrollsToCorrectPosition {
+    // pad with enough items that we can freely scroll to the middle without accounting for content size
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@4, @5, @6]],
+                             [[IGTestObject alloc] initWithKey:@1 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@2 value:@[@4, @5, @6]]
+                             ]];
+
+    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGListTestSection *section = stack.sectionControllers[1];
+
+    [section.collectionContext scrollToSectionController:section atIndex:1 scrollPosition:UICollectionViewScrollPositionTop animated:NO];
+
+    // IGListTestSection cells are 100x10
+    XCTAssertEqual(self.collectionView.contentOffset.x, 0);
+    XCTAssertEqual(self.collectionView.contentOffset.y, 170);
 }
 
 @end

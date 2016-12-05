@@ -11,6 +11,7 @@
 
 #import <IGListKit/IGListStackedSectionController.h>
 
+#import "IGTestCell.h"
 #import "IGListTestSection.h"
 
 @implementation IGTestStackedDataSource
@@ -21,9 +22,35 @@
 
 - (IGListSectionController <IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
     NSMutableArray *controllers = [[NSMutableArray alloc] init];
-    for (NSNumber *num in [(IGTestObject *)object value]) {
-        IGListTestSection *controller = [[IGListTestSection alloc] init];
-        controller.items = [num integerValue];
+    for (id value in [(IGTestObject *)object value]) {
+        id controller;
+        // use a standard IGListTestSection
+        if ([value isKindOfClass:[NSNumber class]]) {
+            IGListTestSection *section = [[IGListTestSection alloc] init];
+            section.items = [value integerValue];
+            controller = section;
+        } else if ([value isKindOfClass:[NSString class]]) {
+            void (^configureBlock)(id, __kindof UICollectionViewCell *) = ^(id obj, IGTestCell *cell) {
+                // capturing the value in block scope so we use the CHILD OBJECT of the stack
+                // otherwise the block uses the IGTestObject in the block param
+                cell.label.text = value;
+            };
+            CGSize (^sizeBlock)(id, id<IGListCollectionContext>) = ^CGSize(IGTestObject *item, id<IGListCollectionContext> collectionContext) {
+                return CGSizeMake([collectionContext containerSize].width, 44);
+            };
+
+            // use either nibs or storyboards with NSString depending on the string value
+            if ([value isEqualToString:@"nib"]) {
+                controller = [[IGListSingleSectionController alloc] initWithNibName:@"IGTestNibCell"
+                                                                       bundle:[NSBundle bundleForClass:self.class]
+                                                               configureBlock:configureBlock
+                                                                    sizeBlock:sizeBlock];
+            } else {
+                controller = [[IGListSingleSectionController alloc] initWithStoryboardCellIdentifier:@"IGTestStoryboardCell"
+                                                                                configureBlock:configureBlock
+                                                                                     sizeBlock:sizeBlock];
+            }
+        }
         [controllers addObject:controller];
     }
     return [[IGListStackedSectionController alloc] initWithSectionControllers:controllers];

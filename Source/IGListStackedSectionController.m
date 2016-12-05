@@ -16,32 +16,6 @@
 
 #import "IGListSectionControllerInternal.h"
 
-@interface UICollectionViewCell (IGListStackedSectionController)
-@end
-@implementation UICollectionViewCell (IGListStackedSectionController)
-
-static void * kStackedSectionControllerKey = &kStackedSectionControllerKey;
-
-- (void)ig_setStackedSectionController:(id)stackedSectionController {
-    objc_setAssociatedObject(self, kStackedSectionControllerKey, stackedSectionController, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (id)ig_stackedSectionController {
-    return objc_getAssociatedObject(self, kStackedSectionControllerKey);
-}
-
-static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerIndexKey;
-
-- (void)ig_setStackedSectionControllerIndex:(NSInteger)stackedSectionControllerIndex {
-    objc_setAssociatedObject(self, kStackedSectionControllerIndexKey, @(stackedSectionControllerIndex), OBJC_ASSOCIATION_ASSIGN);
-}
-
-- (NSInteger)ig_stackedSectionControllerIndex {
-    return [objc_getAssociatedObject(self, kStackedSectionControllerIndexKey) integerValue];
-}
-
-@end
-
 @implementation IGListStackedSectionController
 
 - (instancetype)initWithSectionControllers:(NSArray <IGListSectionController<IGListSectionType> *> *)sectionControllers {
@@ -49,10 +23,6 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
         for (IGListSectionController<IGListSectionType> *sectionController in sectionControllers) {
             sectionController.collectionContext = self;
             sectionController.viewController = self.viewController;
-
-            if (self.supplementaryViewSource == nil) {
-                self.supplementaryViewSource = sectionController.supplementaryViewSource;
-            }
         }
 
         _visibleSectionControllers = [[NSCountedSet alloc] init];
@@ -123,6 +93,15 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     return itemIndexes;
 }
 
+- (id<IGListSupplementaryViewSource>)supplementaryViewSource {
+    for (IGListSectionController *sectionController in self.sectionControllers) {
+        id<IGListSupplementaryViewSource> supplementaryViewSource = sectionController.supplementaryViewSource;
+        if (supplementaryViewSource != nil) {
+            return supplementaryViewSource;
+        }
+    }
+    return nil;
+}
 
 #pragma mark - IGListSectionType
 
@@ -304,9 +283,6 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 - (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController<IGListSectionType> *)sectionController cell:(UICollectionViewCell *)cell atIndex:(NSInteger)index {
     IGListSectionController<IGListSectionType> *childSectionController = [self sectionControllerForObjectIndex:index];
     const NSUInteger localIndex = [self localIndexForSectionController:childSectionController index:index];
-
-    [cell ig_setStackedSectionController:childSectionController];
-    [cell ig_setStackedSectionControllerIndex:localIndex];
 
     NSCountedSet *visibleSectionControllers = self.visibleSectionControllers;
     id<IGListDisplayDelegate> displayDelegate = [childSectionController displayDelegate];
