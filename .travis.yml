@@ -41,9 +41,7 @@ before_install:
   - gem install slather --no-rdoc --no-ri --no-document --quiet
 
 script:
-- set -e
-- xcodebuild -version
-- xcodebuild -showsdks
+- set -o pipefail
 
 - if [ $POD_LINT == "YES" ]; then
       pod lib lint;
