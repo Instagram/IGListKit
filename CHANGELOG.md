@@ -94,6 +94,8 @@ This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Skip reloading for objects that are not found when calling `-[IGListAdapter reloadObjects:]`. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
 
+- Fixes a crash when a reload is queued for an object that is deleted in the same runloop turn. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+
 ### Documentation
 
 - We now have 100% documentation coverage. Docs been refined and clarified. [Jesse Squires](https://github.com/jessesquires) [(#207)](https://github.com/Instagram/IGListKit/pull/207)

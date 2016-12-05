@@ -384,4 +384,17 @@
     XCTAssertTrue([inserts containsIndex:0]);
 }
 
+- (void)test_whenReloadingSection_whenSectionRemoved_thatConvertMethodCorrects {
+    NSArray *from = @[@"a", @"b", @"c"];
+    NSArray *to = @[@"a", @"c"];
+    IGListIndexSetResult *result = IGListDiff(from, to, IGListDiffEquality);
+    NSMutableIndexSet *reloads = [NSMutableIndexSet indexSetWithIndex:1];
+    NSMutableIndexSet *deletes = [NSMutableIndexSet new];
+    NSMutableIndexSet *inserts = [NSMutableIndexSet new];
+    convertReloadToDeleteInsert(reloads, deletes, inserts, result, from);
+    XCTAssertEqual(reloads.count, 0);
+    XCTAssertEqual(deletes.count, 0);
+    XCTAssertEqual(inserts.count, 0);
+}
+
 @end
