@@ -322,7 +322,7 @@
 
 - (void)listAdapter:(IGListAdapter *)listAdapter willBeginDraggingSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
     for (IGListSectionController<IGListSectionType> *childSectionController in self.sectionControllers) {
-        [[childSectionController scrollDelegate] listAdapter:listAdapter willBeginDraggingSectionController:sectionController];
+        [[childSectionController scrollDelegate] listAdapter:listAdapter willBeginDraggingSectionController:childSectionController];
     }
 }
 

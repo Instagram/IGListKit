@@ -496,11 +496,17 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
 
-    stack0.scrollDelegate = mockScrollDelegate;
-    stack1.scrollDelegate = mockScrollDelegate;
+    [stack0.sectionControllers[0] setScrollDelegate:mockScrollDelegate];
+    [stack0.sectionControllers[1] setScrollDelegate:mockScrollDelegate];
+    [stack0.sectionControllers[2] setScrollDelegate:mockScrollDelegate];
+    [stack1.sectionControllers[0] setScrollDelegate:mockScrollDelegate];
+    [stack1.sectionControllers[1] setScrollDelegate:mockScrollDelegate];
 
-    [[mockScrollDelegate expect] listAdapter:self.adapter didScrollSectionController:stack0];
-    [[mockScrollDelegate expect] listAdapter:self.adapter didScrollSectionController:stack1];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didScrollSectionController:stack0.sectionControllers[0]];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didScrollSectionController:stack0.sectionControllers[1]];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didScrollSectionController:stack0.sectionControllers[2]];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didScrollSectionController:stack1.sectionControllers[0]];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didScrollSectionController:stack1.sectionControllers[1]];
 
     [self.adapter scrollViewDidScroll:self.collectionView];
 
@@ -518,11 +524,17 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
 
-    stack0.scrollDelegate = mockScrollDelegate;
-    stack1.scrollDelegate = mockScrollDelegate;
+    [stack0.sectionControllers[0] setScrollDelegate:mockScrollDelegate];
+    [stack0.sectionControllers[1] setScrollDelegate:mockScrollDelegate];
+    [stack0.sectionControllers[2] setScrollDelegate:mockScrollDelegate];
+    [stack1.sectionControllers[0] setScrollDelegate:mockScrollDelegate];
+    [stack1.sectionControllers[1] setScrollDelegate:mockScrollDelegate];
 
-    [[mockScrollDelegate expect] listAdapter:self.adapter willBeginDraggingSectionController:stack0];
-    [[mockScrollDelegate expect] listAdapter:self.adapter willBeginDraggingSectionController:stack1];
+    [[mockScrollDelegate expect] listAdapter:self.adapter willBeginDraggingSectionController:stack0.sectionControllers[0]];
+    [[mockScrollDelegate expect] listAdapter:self.adapter willBeginDraggingSectionController:stack0.sectionControllers[1]];
+    [[mockScrollDelegate expect] listAdapter:self.adapter willBeginDraggingSectionController:stack0.sectionControllers[2]];
+    [[mockScrollDelegate expect] listAdapter:self.adapter willBeginDraggingSectionController:stack1.sectionControllers[0]];
+    [[mockScrollDelegate expect] listAdapter:self.adapter willBeginDraggingSectionController:stack1.sectionControllers[1]];
 
     [self.adapter scrollViewWillBeginDragging:self.collectionView];
 
@@ -540,11 +552,17 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
 
-    stack0.scrollDelegate = mockScrollDelegate;
-    stack1.scrollDelegate = mockScrollDelegate;
+    [stack0.sectionControllers[0] setScrollDelegate:mockScrollDelegate];
+    [stack0.sectionControllers[1] setScrollDelegate:mockScrollDelegate];
+    [stack0.sectionControllers[2] setScrollDelegate:mockScrollDelegate];
+    [stack1.sectionControllers[0] setScrollDelegate:mockScrollDelegate];
+    [stack1.sectionControllers[1] setScrollDelegate:mockScrollDelegate];
 
-    [[mockScrollDelegate expect] listAdapter:self.adapter didEndDraggingSectionController:stack0 willDecelerate:NO];
-    [[mockScrollDelegate expect] listAdapter:self.adapter didEndDraggingSectionController:stack1 willDecelerate:NO];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didEndDraggingSectionController:stack0.sectionControllers[0] willDecelerate:NO];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didEndDraggingSectionController:stack0.sectionControllers[1] willDecelerate:NO];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didEndDraggingSectionController:stack0.sectionControllers[2] willDecelerate:NO];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didEndDraggingSectionController:stack1.sectionControllers[0] willDecelerate:NO];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didEndDraggingSectionController:stack1.sectionControllers[1] willDecelerate:NO];
 
     [self.adapter scrollViewDidEndDragging:self.collectionView willDecelerate:NO];
 
