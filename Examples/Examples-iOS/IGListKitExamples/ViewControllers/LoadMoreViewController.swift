@@ -20,11 +20,7 @@ final class LoadMoreViewController: UIViewController, IGListAdapterDataSource, U
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView: IGListCollectionView = {
-        let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.backgroundColor = .white
-        return collectionView
-    }()
+    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     lazy var items = Array(0...20)
     var loading = false

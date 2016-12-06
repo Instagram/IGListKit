@@ -11,6 +11,14 @@
 
 @implementation IGListCollectionView
 
+- (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout {
+    if (self = [super initWithFrame:frame collectionViewLayout:layout]) {
+        self.backgroundColor = [UIColor whiteColor];
+        self.alwaysBounceVertical = YES;
+    }
+    return self;
+}
+
 - (void)layoutSubviews {
     /**
      UICollectionView will sometimes lay its cells out with an animation. This is especially noticeable on older devices

@@ -20,12 +20,7 @@ final class NestedAdapterViewController: UIViewController, IGListAdapterDataSour
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView: IGListCollectionView = {
-        let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.backgroundColor = .white
-        collectionView.alwaysBounceVertical = true
-        return collectionView
-    }()
+    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let data = [
         "Ridiculus Elit Tellus Purus Aenean",

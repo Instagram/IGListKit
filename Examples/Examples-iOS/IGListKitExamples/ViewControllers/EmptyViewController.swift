@@ -20,12 +20,7 @@ final class EmptyViewController: UIViewController, IGListAdapterDataSource, Remo
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView: IGListCollectionView = {
-        let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.backgroundColor = .white
-        collectionView.alwaysBounceVertical = true
-        return collectionView
-    }()
+    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let emptyLabel: UILabel = {
         let label = UILabel()

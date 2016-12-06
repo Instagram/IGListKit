@@ -21,11 +21,7 @@ final class SingleSectionViewController: UIViewController, IGListAdapterDataSour
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
     
-    let collectionView: IGListCollectionView = {
-        let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.backgroundColor = .white
-        return collectionView
-    }()
+    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     let data = Array(0..<20)
     
