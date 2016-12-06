@@ -23,7 +23,7 @@ You can find a [migration guide here](https://instagram.github.io/IGListKit/migr
 
 - `IGListDiffable` equality method changed from `isEqual:` to `isEqualToDiffableObject:` [(ab890fc)](https://github.com/Instagram/IGListKit/commit/ab890fc6070f170a2db5a383a6296e62dcf75678)
 
-- The default `NSObject<IGListDiffable>` category was removed and replaced with `NSString<IGListDiffable>` and `NSNumber<IGListDiffable>` categories. All other models will need to conform to `IGListDiffable`.
+- The default `NSObject<IGListDiffable>` category was removed and replaced with `NSString<IGListDiffable>` and `NSNumber<IGListDiffable>` categories. All other models will need to conform to `IGListDiffable`. [(3947600)](https://github.com/Instagram/IGListKit/commit/394760081c7c2daa5ae6c18e00cdeaf2b67e22c1)
 
 - Added support for specifying an end position when scrolling. [Bofei Zhu](https://github.com/zhubofei) [(#196)](https://github.com/Instagram/IGListKit/pull/196). The `IGListAdapter` scrolling method changed:
 
@@ -51,7 +51,7 @@ You can find a [migration guide here](https://instagram.github.io/IGListKit/migr
 
 - Added support for cells created from nibs. [Sven Bacia](https://github.com/svenbacia) [(#56)](https://github.com/Instagram/IGListKit/pull/56)
 
-- Added an additional initializer for `IGListSingleSectionController` to be able to support single sections created from nibs. An example can be found [here](Examples/Examples-iOS/IGListKitExamples/ViewControllers/SingleSectionViewController.swift).
+- Added an additional initializer for `IGListSingleSectionController` to be able to support single sections created from nibs. An example can be found [here](Examples/Examples-iOS/IGListKitExamples/ViewControllers/SingleSectionViewController.swift). [(#56)](https://github.com/Instagram/IGListKit/pull/56)
 
 ```objc
 - (instancetype)initWithNibName:(NSString *)nibName
@@ -60,7 +60,7 @@ You can find a [migration guide here](https://instagram.github.io/IGListKit/migr
                       sizeBlock:(IGListSingleSectionCellSizeBlock)sizeBlock;
 ```
 
-- Added `-isFirstSection` and `-isLastSection` APIs to `IGListSectionController`
+- Added `-isFirstSection` and `-isLastSection` APIs to `IGListSectionController` [(316fbe2)](https://github.com/Instagram/IGListKit/commit/316fbe2b8b2508b58a0f38387c3a343b9c37e282)
 
 - Added support for cells and supplementaryViews created from storyboard. There's a new required method on the `IGListCollectionContext` protocol to do this. [Bofei Zhu](https://github.com/zhubofei) [(#92)](https://github.com/Instagram/IGListKit/pull/92)
 
