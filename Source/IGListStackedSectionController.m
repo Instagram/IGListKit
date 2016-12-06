@@ -162,8 +162,8 @@
 }
 
 - (void)deselectItemAtIndex:(NSInteger)index sectionController:(IGListSectionController<IGListSectionType> *)sectionController animated:(BOOL)animated {
-    const NSUInteger localIndex = [self localIndexForSectionController:sectionController index:index];
-    [self.collectionContext deselectItemAtIndex:localIndex sectionController:self animated:animated];
+    const NSUInteger offsetIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:index];
+    [self.collectionContext deselectItemAtIndex:offsetIndex sectionController:self animated:animated];
 }
 
 - (NSInteger)sectionForSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
