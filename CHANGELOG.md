@@ -5,7 +5,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 2.0.0
 -----
 
-This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/1?closed=1). We've increased test coverage to 95%. Thanks to the [24 contributors](https://github.com/Instagram/IGListKit/graphs/contributors) who helped with this release!
+This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/1?closed=1). We've increased test coverage to 97%. Thanks to the [25 contributors](https://github.com/Instagram/IGListKit/graphs/contributors) who helped with this release!
 
 ### Breaking Changes
 
@@ -24,6 +24,7 @@ This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit
 - The default `NSObject<IGListDiffable>` category was removed and replaced with `NSString<IGListDiffable>` and `NSNumber<IGListDiffable>` categories. All other models will need to conform to `IGListDiffable`.
 
 - Added support for specifying an end position when scrolling. [Bofei Zhu](https://github.com/zhubofei) [(#196)](https://github.com/Instagram/IGListKit/pull/196). The `IGListAdapter` scrolling method changed:
+
 ```objc
 // OLD
 - (void)scrollToObject:(id)object
