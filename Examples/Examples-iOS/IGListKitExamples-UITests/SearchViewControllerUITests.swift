@@ -21,7 +21,7 @@ final class SearchViewControllerUITests: UITestCase {
     override func setUp() {
         super.setUp()
         
-        collectionViews = app.collectionViews
+        collectionViews = XCUIApplication().collectionViews
         collectionViews.cells.staticTexts["Search Autocomplete"].tap()
     }
     

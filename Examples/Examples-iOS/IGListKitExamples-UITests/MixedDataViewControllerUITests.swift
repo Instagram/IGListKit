@@ -18,7 +18,6 @@ final class MixedDataViewControllerUITests: UITestCase {
     
     override func setUp() {
         super.setUp()
-        
         enterMixedDataDetailScreen()
     }
     
@@ -83,25 +82,24 @@ final class MixedDataViewControllerUITests: UITestCase {
         XCTAssertTrue(collapsedFrame.size.height < expandedFrame.size.height)
     }
     
-    
     private func expandableSectionElement() -> XCUIElement {
-        return app.collectionViews.cells.staticTexts["Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit."]
+        return XCUIApplication().collectionViews.cells.staticTexts["Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit."]
     }
     
     private func userSectionElement() -> XCUIElement {
-        return app.collectionViews.cells.staticTexts["@ryanolsonk"]
+        return XCUIApplication().collectionViews.cells.staticTexts["@ryanolsonk"]
     }
     
     private func gridSectionElement() -> XCUIElement {
-        return app.collectionViews.cells.staticTexts["1"]
+        return XCUIApplication().collectionViews.cells.staticTexts["1"]
     }
     
     private func mixedDataNavigationBarElement() -> XCUIElement {
-        return app.navigationBars["Mixed Data"]
+        return XCUIApplication().navigationBars["Mixed Data"]
     }
     
     private func enterMixedDataDetailScreen() {
-        app.collectionViews.cells.staticTexts["Mixed Data"].tap()
+        XCUIApplication().collectionViews.cells.staticTexts["Mixed Data"].tap()
     }
     
 }

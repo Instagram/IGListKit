@@ -15,22 +15,17 @@
 import XCTest
 
 class UITestCase: XCTestCase {
-    
-    let app = XCUIApplication()
-    
+
     override func setUp() {
         super.setUp()
         
         continueAfterFailure = false
-        app.launch()
+        XCUIApplication().launch()
     }
     
     override func tearDown() {
         super.tearDown()
-        
-        app.terminate()
     }
-    
     
     // Adapted from http://masilotti.com/xctest-helpers/
     internal func waitToAppear(element: XCUIElement,
@@ -81,5 +76,4 @@ class UITestCase: XCTestCase {
             }
         }
     }
-    
 }
