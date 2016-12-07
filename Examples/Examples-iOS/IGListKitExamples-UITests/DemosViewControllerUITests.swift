@@ -70,13 +70,13 @@ final class DemosViewControllerUITests: UITestCase {
     
     
     private func enterAndAssertScreen(withTitle title: String) {
-        let elem = app.collectionViews.cells.staticTexts[title]
+        let elem = XCUIApplication().collectionViews.cells.staticTexts[title]
         if !elem.exists {
-            app.collectionViews.element.swipeUp()
+            XCUIApplication().collectionViews.element.swipeUp()
         }
         
         XCTAssertTrue(elem.exists)
         elem.tap()        
-        XCTAssertTrue(app.navigationBars[title].exists)
+        XCTAssertTrue(XCUIApplication().navigationBars[title].exists)
     }
 }
