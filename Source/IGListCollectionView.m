@@ -13,7 +13,12 @@
 
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout {
     if (self = [super initWithFrame:frame collectionViewLayout:layout]) {
-        self.backgroundColor = [UIColor whiteColor];
+        
+        UIColor *backgroundAppearanceColor = (UIColor *) [[[self class] appearance] backgroundColor];
+        if (!backgroundAppearanceColor) {
+            self.backgroundColor = [UIColor whiteColor];
+        }
+        
         self.alwaysBounceVertical = YES;
     }
     return self;
