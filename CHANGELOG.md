@@ -5,7 +5,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 2.0.0
 -----
 
-This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/1?closed=1). We've increased test coverage to 97%. Thanks to the [25 contributors](https://github.com/Instagram/IGListKit/graphs/contributors) who helped with this release!
+This release closes the [2.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/1?closed=1). We've increased test coverage to 97%. Thanks to the [27 contributors](https://github.com/Instagram/IGListKit/graphs/contributors) who helped with this release!
 
 You can find a [migration guide here](https://instagram.github.io/IGListKit/migration.html) to assist with migrating between 1.0 and 2.0.
 
