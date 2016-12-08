@@ -230,7 +230,7 @@ NS_ASSUME_NONNULL_BEGIN
  [self.collectionContext insertInSectionController:self atIndexes:inserts];
 
  NSIndexSet *deletes = [NSIndexSet indexSetWithIndex:0];
- [self.collectionContext deleteInSectionController:self deletes];
+ [self.collectionContext deleteInSectionController:self atIndexes:deletes];
  } completion:nil];
  ```
 
