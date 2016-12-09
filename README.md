@@ -65,7 +65,7 @@ pod 'IGListKit', :git => 'https://github.com/Instagram/IGListKit.git', :branch =
 To integrate `IGListKit` into your Xcode project using [Carthage](https://github.com/Carthage/Carthage), specify it in your `Cartfile`:
 
 ```ogdl
-github "Instagram/IGListKit" ~> 1.0.0
+github "Instagram/IGListKit" ~> 2.0.0
 ```
 
 ### Manually
