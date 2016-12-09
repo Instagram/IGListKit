@@ -1,22 +1,20 @@
-//
-//  IGListCollectionViewTests.m
-//  IGListKit
-//
-//  Created by Jeff Bailey on 12/7/16.
-//  Copyright © 2016 Instagram. All rights reserved.
-//
+/**
+ * Copyright (c) 2016-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
 
 #import <XCTest/XCTest.h>
 
 #import <IGListKit/IGListKit.h>
+#import "IGTestStoryboardViewController.h"
 
 static const CGRect kIGListCollectionViewTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
 @interface IGListCollectionViewTests : XCTestCase
-
-@property (nonatomic, strong) UIWindow *window;
-@property (nonatomic, strong) IGListCollectionView *collectionView;
-@property (nonatomic, strong) UIViewController *viewController;
 
 @end
 
@@ -24,14 +22,10 @@ static const CGRect kIGListCollectionViewTestFrame = (CGRect){{0.0, 0.0}, {100.0
 
 - (void)setUp {
     [super setUp];
-    self.window = [[UIWindow alloc] initWithFrame:kIGListCollectionViewTestFrame];
-    self.collectionView = [[IGListCollectionView alloc] initWithFrame: kIGListCollectionViewTestFrame collectionViewLayout:[UICollectionViewFlowLayout new]];
-    self.viewController = [UIViewController new];
 }
 
 - (void)tearDown {
     [super tearDown];
-    [self.viewController.view removeFromSuperview];
     
     [[IGListCollectionView appearance] setBackgroundColor:nil];
 }
@@ -40,26 +34,48 @@ static const CGRect kIGListCollectionViewTestFrame = (CGRect){{0.0, 0.0}, {100.0
     UIColor *appearanceColor = [UIColor redColor];
     [[IGListCollectionView appearance] setBackgroundColor:appearanceColor];
     
-    [self.viewController.view addSubview:self.collectionView];
-    [self.window addSubview:self.viewController.view];
+    IGListCollectionView *collectionView = [self setupIGListCollectionView];
 
-    [self.viewController performSelectorOnMainThread:@selector(loadView) withObject:nil waitUntilDone:YES];
-
-    XCTAssertEqualObjects(self.collectionView.backgroundColor, appearanceColor);
+    XCTAssertEqualObjects(collectionView.backgroundColor, appearanceColor);
 }
 
 -(void)test_whenNotUsingUIAppearance_thatIGListCollectionViewUsesDefaultBackgroundColor {
-    [self.viewController.view addSubview:self.collectionView];
-    [self.window addSubview:self.viewController.view];
-    
-    [self.viewController performSelectorOnMainThread:@selector(loadView) withObject:nil waitUntilDone:YES];
-    
-    XCTAssertEqualObjects(self.collectionView.backgroundColor, [UIColor whiteColor]);
+
+    IGListCollectionView *collectionView = [self setupIGListCollectionView];
+
+    XCTAssertEqualObjects(collectionView.backgroundColor, [UIColor whiteColor]);
 }
 
--(void)test_thatCollectionViewHasCorrectDefaults {
-    XCTAssertTrue(self.collectionView.alwaysBounceVertical);
+-(void)test_thatIGListCollectionViewHasCorrectDefaults {
+    IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame: kIGListCollectionViewTestFrame collectionViewLayout:[UICollectionViewFlowLayout new]];
+
+    XCTAssertTrue(collectionView.alwaysBounceVertical);
 }
 
+-(void)test_whenUsingUIAppearance_thatStoryboardIGListCollectionViewUsesAppearanceBackgroundColor {
+    UIColor *appearanceColor = [UIColor redColor];
+    [[IGListCollectionView appearance] setBackgroundColor:appearanceColor];
+    
+    UIWindow *window = [[UIWindow alloc] initWithFrame:kIGListCollectionViewTestFrame];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"IGTestStoryboard" bundle:[NSBundle bundleForClass:self.class]];
+    IGTestStoryboardViewController  *viewController = [storyboard instantiateViewControllerWithIdentifier:@"testVC"];
+    [window addSubview:viewController.view];
+    [viewController performSelectorOnMainThread:@selector(loadView) withObject:nil waitUntilDone:YES];
+    
+    XCTAssertEqualObjects(viewController.collectionView.backgroundColor, appearanceColor);
+}
+
+#pragma mark - Helper Methods
+
+-(IGListCollectionView *)setupIGListCollectionView {
+    UIWindow *window = [[UIWindow alloc] initWithFrame:kIGListCollectionViewTestFrame];
+    IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame: kIGListCollectionViewTestFrame collectionViewLayout:[UICollectionViewFlowLayout new]];
+    UIViewController *viewController = [UIViewController new];
+    [viewController.view addSubview:collectionView];
+    [window addSubview:viewController.view];
+    [viewController performSelectorOnMainThread:@selector(loadView) withObject:nil waitUntilDone:YES];
+    
+    return collectionView;
+}
 
 @end
