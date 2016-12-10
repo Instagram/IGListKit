@@ -39,13 +39,13 @@ env:
 
 before_install:
   - gem install slather --no-rdoc --no-ri --no-document --quiet
-  - npm install -g markdown-link-check
 
 script:
 - set -o pipefail
 
 - if [ $CHECK_MARKDOWN == "YES" ]; then
       echo -en 'travis_fold:start:script.1\\r';
+      npm install -g markdown-link-check;
       find . -name "*.md" -exec cat {} \; | markdown-link-check;
       echo -en 'travis_fold:end:script.1\\r';
   fi
