@@ -45,7 +45,7 @@ script:
 - set -o pipefail
 
 - if [ $CHECK_MARKDOWN == "YES" ]; then
-      find . -name "*.md" | markdown-link-check;
+      find . -name "*.md" -exec cat {} \; | markdown-link-check;
   fi
 
 - if [ $POD_LINT == "YES" ]; then
