@@ -21,7 +21,7 @@ env:
    - EXAMPLE_SCHEME="IGListKitExamples"
 
    matrix:
-   - DESTINATION="OS=8.1,name=iPhone 6" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="NO" BUILD_EXAMPLE="YES" RUN_UI_TESTS="NO" POD_LINT="YES"
+   - DESTINATION="OS=8.1,name=iPhone 6" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="NO" BUILD_EXAMPLE="YES" RUN_UI_TESTS="NO" POD_LINT="YES" CHECK_MARKDOWN="YES"
    - DESTINATION="OS=8.2,name=iPhone 6" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="NO" BUILD_EXAMPLE="NO"  RUN_UI_TESTS="NO" POD_LINT="NO"
    - DESTINATION="OS=8.3,name=iPhone 6" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="NO" BUILD_EXAMPLE="NO"  RUN_UI_TESTS="NO" POD_LINT="NO"
    - DESTINATION="OS=8.4,name=iPhone 6" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="NO" BUILD_EXAMPLE="NO"  RUN_UI_TESTS="NO" POD_LINT="NO"
@@ -39,14 +39,18 @@ env:
 
 before_install:
   - gem install slather --no-rdoc --no-ri --no-document --quiet
+  - npm install -g markdown-link-check
 
 script:
 - set -o pipefail
 
+- if [ $CHECK_MARKDOWN == "YES" ]; then
+      find . -name "*.md" | markdown-link-check;
+  fi
+
 - if [ $POD_LINT == "YES" ]; then
       pod lib lint;
   fi
-
 
 - if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $IOS_SDK ]; then
       xcodebuild build -workspace "$IOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
@@ -60,7 +64,6 @@ script:
 - if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $TVOS_SDK ]; then
       xcodebuild build -workspace "$TVOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
   fi
-
 
 - if [ $RUN_TESTS == "YES" ]; then
       xcodebuild analyze test -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | xcpretty -c;
