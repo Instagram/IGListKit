@@ -45,7 +45,7 @@ script:
 
 - if [ $CHECK_MARKDOWN == "YES" ]; then
       npm install -g markdown-link-check;
-      find . -name "*.md" -exec cat {} \; | markdown-link-check | echo ${PIPESTATUS[1]};
+      find . -name "*.md" -exec cat {} \; | markdown-link-check | exit ${PIPESTATUS[1]};
   fi
 
 - if [ $POD_LINT == "YES" ]; then
