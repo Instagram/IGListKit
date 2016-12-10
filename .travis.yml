@@ -44,10 +44,8 @@ script:
 - set -o pipefail
 
 - if [ $CHECK_MARKDOWN == "YES" ]; then
-      echo -en 'travis_fold:start:script.1\\r';
       npm install -g markdown-link-check;
       find . -name "*.md" -exec cat {} \; | markdown-link-check;
-      echo -en 'travis_fold:end:script.1\\r';
   fi
 
 - if [ $POD_LINT == "YES" ]; then
