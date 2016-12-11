@@ -99,6 +99,12 @@ You can find a [migration guide here](https://instagram.github.io/IGListKit/migr
 
 - Fixes a crash when a reload is queued for an object that is deleted in the same runloop turn. [Ryan Nystrom](https://github.com/rnystrom) [(7c3d499)](https://github.com/Instagram/IGListKit/commit/7c3d4999ebde36ee4666e5aee99716d1ed1fb2d8)
 
+- Fixed a bug where `IGListStackSectionController` would only set its supplementary source once. [Ryan Nystrom](https://github.com/rnystrom) [(#286)](https://github.com/Instagram/IGListKit/pull/286)
+
+- Fixed a bug where `IGListStackSectionController` passed the wrong section controller for will-drag scroll events. [Ryan Nystrom](https://github.com/rnystrom) [(#286)](https://github.com/Instagram/IGListKit/pull/286)
+
+- Fixed a crash when deselecting a cell through a child section controller in an `IGListStackSectionController`. [Ryan Nystrom](https://github.com/rnystrom) [(#295)](https://github.com/Instagram/IGListKit/pull/295)
+
 ### Documentation
 
 - We now have 100% documentation coverage. Docs been refined and clarified. [Jesse Squires](https://github.com/jessesquires) [(#207)](https://github.com/Instagram/IGListKit/pull/207)
@@ -108,12 +114,6 @@ You can find a [migration guide here](https://instagram.github.io/IGListKit/migr
 - Added examples for Today & iMessage extensions. [Sherlouk](https://github.com/Sherlouk) [(#112)](https://github.com/Instagram/IGListKit/pull/112)
 
 - Added `tvOS` example pack. [Sherlouk](https://github.com/Sherlouk) [(#141)](https://github.com/Instagram/IGListKit/pull/141)
-
-- Fixed a bug where `IGListStackSectionController` would only set its supplementary source once. [Ryan Nystrom](https://github.com/rnystrom) [(#286)](https://github.com/Instagram/IGListKit/pull/286)
-
-- Fixed a bug where `IGListStackSectionController` passed the wrong section controller for will-drag scroll events. [Ryan Nystrom](https://github.com/rnystrom) [(#286)](https://github.com/Instagram/IGListKit/pull/286)
-
-- Fixed a crash when deselecting a cell through a child section controller in an `IGListStackSectionController`. [Ryan Nystrom](https://github.com/rnystrom) [(#295)](https://github.com/Instagram/IGListKit/pull/295)
 
 1.0.0
 -----

@@ -4,7 +4,7 @@ This guide provides details for how to migration between major versions of `IGLi
 
 ## From 1.x to 2.x
 
-For details on all changes in IGListKit 2.0.0, please see the [changelog](https://github.com/Instagram/IGListKit/blob/master/CHANGELOG.md#200).
+For details on all changes in IGListKit 2.0.0, please see the [release notes](https://github.com/Instagram/IGListKit/releases/tag/2.0.0).
 
 ### IGListDiffable Conformance
 
