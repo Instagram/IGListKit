@@ -2,6 +2,11 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
+2.1.0
+-----
+
+This release closes the [2.1.0 milestone](https://github.com/Instagram/IGListKit/milestone/2).
+
 2.0.0
 -----
 
