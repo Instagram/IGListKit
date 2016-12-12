@@ -72,7 +72,8 @@ github "Instagram/IGListKit" ~> 2.0.0
 
 ## Getting Started
 
-See the [Getting Started guide here](https://instagram.github.io/IGListKit/getting-started.html).
+- Our [Getting Started guide](https://instagram.github.io/IGListKit/getting-started.html)
+- Ray Wenderlich's [IGListKit Tutorial: Better UICollectionViews](https://www.raywenderlich.com/147162/iglistkit-tutorial-better-uicollectionviews)
 
 ## Documentation
 
