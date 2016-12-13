@@ -50,6 +50,24 @@ static const CGRect kIGListCollectionViewTestFrame = (CGRect){{0.0, 0.0}, {100.0
     IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame: kIGListCollectionViewTestFrame collectionViewLayout:[UICollectionViewFlowLayout new]];
 
     XCTAssertTrue(collectionView.alwaysBounceVertical);
+    
+    if ([collectionView respondsToSelector:@selector(isPrefetchingEnabled)]) {
+        XCTAssertFalse(collectionView.isPrefetchingEnabled);
+    }
+}
+
+-(void)test_thatStoryboardIGListCollectionViewHasCorrectDefaults {
+    UIWindow *window = [[UIWindow alloc] initWithFrame:kIGListCollectionViewTestFrame];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"IGTestStoryboard" bundle:[NSBundle bundleForClass:self.class]];
+    IGTestStoryboardViewController  *viewController = [storyboard instantiateViewControllerWithIdentifier:@"testVC"];
+    [window addSubview:viewController.view];
+    [viewController performSelectorOnMainThread:@selector(loadView) withObject:nil waitUntilDone:YES];
+    
+    XCTAssertFalse(viewController.collectionView.alwaysBounceVertical);
+    
+    if ([UICollectionView instancesRespondToSelector:@selector(isPrefetchingEnabled)]) {
+        XCTAssertFalse(viewController.collectionView.isPrefetchingEnabled);
+    }
 }
 
 -(void)test_whenUsingUIAppearance_thatStoryboardIGListCollectionViewUsesAppearanceBackgroundColor {

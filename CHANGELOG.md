@@ -7,6 +7,9 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 This release closes the [2.1.0 milestone](https://github.com/Instagram/IGListKit/milestone/2).
 
+### Enhancements
+- Disables `prefetchEnabled` by default on `IGListCollectionView`. [Sven Bacia (#323)](https://github.com/Instagram/IGListKit/pull/323)
+
 2.0.0
 -----
 
