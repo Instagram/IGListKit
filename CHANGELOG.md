@@ -8,7 +8,12 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 This release closes the [2.1.0 milestone](https://github.com/Instagram/IGListKit/milestone/2).
 
 ### Enhancements
+
 - Disables `prefetchEnabled` by default on `IGListCollectionView`. [Sven Bacia (#323)](https://github.com/Instagram/IGListKit/pull/323)
+
+### Fixes
+
+- Avoid `UICollectionView` crashes when queueing a reload and insert/delete on the same item as well as reloading an item in a section that is animating. [Ryan Nystrom](https://github.com/rnystrom) [(#325)](https://github.com/Instagram/IGListKit/pull/325)
 
 2.0.0
 -----
