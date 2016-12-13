@@ -1076,4 +1076,35 @@
     [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
+- (void)test_whenReloadingItems_withSectionInsertedInFront_thatUpdateCanBeApplied {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @1),
+                             genTestObject(@2, @5),
+                             genTestObject(@3, @1),
+                             ]];
+
+    IGListSectionController<IGListSectionType> *section = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+
+    XCTestExpectation *expectation1 = genExpectation;
+    [section.collectionContext performBatchAnimated:NO updates:^{
+        [section.collectionContext reloadInSectionController:section atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 4)]];
+    } completion:^(BOOL finished) {
+        [expectation1 fulfill];
+    }];
+
+    self.dataSource.objects = @[
+                                genTestObject(@1, @1),
+                                genTestObject(@4, @1), // insert to shift object @2
+                                genTestObject(@2, @5),
+                                genTestObject(@3, @1),
+                                ];
+
+    XCTestExpectation *expectation2 = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        [expectation2 fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
 @end
