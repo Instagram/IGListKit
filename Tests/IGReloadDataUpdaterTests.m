@@ -82,8 +82,17 @@
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
     IGListTestSection *section = [self.adapter sectionControllerForObject:@2];
-    [section.collectionContext insertInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:0]];
+    [section.collectionContext reloadInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:0]];
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+}
+
+- (void)test_whenPerformingUpdate_thatCompletionExecuted {
+    __block BOOL executed = NO;
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter performUpdatesAnimated:NO completion:^(BOOL finished) {
+        executed = YES;
+    }];
+    XCTAssertTrue(executed);
 }
 
 @end
