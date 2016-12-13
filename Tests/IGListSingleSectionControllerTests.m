@@ -8,6 +8,7 @@
  */
 
 #import <XCTest/XCTest.h>
+#import <OCMock/OCMock.h>
 
 #import "IGTestCell.h"
 #import "IGTestSingleItemDataSource.h"
@@ -115,6 +116,17 @@
         [expectation fulfill];
     }];
     [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
+- (void)test_whenSelected_thatDelegateReceivesEvent {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @"a")
+                             ]];
+    IGListSingleSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListSingleSectionControllerDelegate)];
+    [[mockDelegate expect] didSelectSingleSectionController:section];
+    [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionTop];
+    [mockDelegate verify];
 }
 
 @end
