@@ -893,8 +893,29 @@
         return;
     }
 
-    NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes adjustForUpdateBlock:YES];
-    [self.updatingDelegate reloadItemsInCollectionView:collectionView indexPaths:indexPaths];
+    if (self.isInUpdateBlock) {
+        /**
+         UICollectionView is not designed to support -reloadSections: or -reloadItemsAtIndexPaths: during batch updates.
+         Internally it appears to convert these operations to a delete+insert. However the transformation is too simple
+         in that it doesn't account for the item's section being moved (naturally or explicitly) and can queue animation
+         collisions.
+         
+         If you have an object at section 2 with 4 items and attempt to reload item at index 1, you would create an
+         NSIndexPath at section: 2, item: 1. Within -performBatchUpdates:, UICollectionView converts this to a delete
+         and insert at the same NSIndexPath.
+         
+         If a section were inserted at position 2, the original section 2 has naturally shifted to section 3. However,
+         the insert NSIndexPath is section: 2, item: 1. Now the UICollectionView has a section animation at section 2,
+         as well as an item insert animation at section: 2, item: 1, and it will throw an exception.
+         
+         IGListAdapter tracks the before/after mapping of section controllers to make precise NSIndexPath conversions.
+         */
+        [self deleteInSectionController:sectionController atIndexes:indexes];
+        [self insertInSectionController:sectionController atIndexes:indexes];
+    } else {
+        NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes adjustForUpdateBlock:YES];
+        [self.updatingDelegate reloadItemsInCollectionView:collectionView indexPaths:indexPaths];
+    }
 }
 
 - (void)insertInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {
