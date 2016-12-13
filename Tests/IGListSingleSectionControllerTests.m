@@ -10,6 +10,7 @@
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
+#import "IGListAdapterInternal.h"
 #import "IGTestCell.h"
 #import "IGTestSingleItemDataSource.h"
 
@@ -124,8 +125,9 @@
                              ]];
     IGListSingleSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
     id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListSingleSectionControllerDelegate)];
+    section.selectionDelegate = mockDelegate;
     [[mockDelegate expect] didSelectSingleSectionController:section];
-    [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionTop];
+    [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     [mockDelegate verify];
 }
 
