@@ -41,7 +41,7 @@ A data-driven `UICollectionView` framework for building fast and flexible lists.
 &#128640; | Extendable API
 &#128038; | Written in Objective-C with full Swift interop support
 
-`IGListKit` is built and maintained with &#10084;&#65039; by [Instagram engineering](https://engineering.instagram.com/). 
+`IGListKit` is built and maintained with &#10084;&#65039; by [Instagram engineering](https://engineering.instagram.com/).
 We use the open source version `master` branch in the Instagram app.
 
 ## Requirements
@@ -49,13 +49,14 @@ We use the open source version `master` branch in the Instagram app.
 - Xcode 8.0+
 - iOS 8.0+
 - tvOS 9.0+
+- macOS 10.8+ *(diffing algorithm components only)*
 - Interoperability with Swift 3.0+
 
 ## Installation
 
 ### CocoaPods
 
-The preferred installation method for `IGListKit` is with [CocoaPods](https://cocoapods.org). 
+The preferred installation method for `IGListKit` is with [CocoaPods](https://cocoapods.org).
 Add the following to your `Podfile`:
 
 ```ruby
