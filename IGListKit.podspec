@@ -29,6 +29,7 @@ Pod::Spec.new do |s|
     'Source/IGListMoveIndexPath.{h,m}',
     'Source/IGListMoveIndex.{h,m}',
     'Source/IGListIndexPathResult.{h,m}',
+    'Source/IGListBatchUpdateData.{h,m,mm}',
     'Source/IGListDiffable.h',
     'Source/IGListMacros.h',
     'Source/IGListExperiments.h',
@@ -49,7 +50,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '8.0'
   s.tvos.deployment_target = '9.0'
-  s.osx.deployment_target = '10.11'
+  s.osx.deployment_target = '10.8'
 
   s.ios.frameworks = 'UIKit'
   s.tvos.frameworks = 'UIKit'
