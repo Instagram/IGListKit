@@ -10,5 +10,10 @@ cd Examples-tvOS/
 pod install
 cd ..
 
+echo 'Setting up macOS examples...'
+cd Examples-macOS/
+pod install
+cd ..
+
 echo 'Done!'
 echo ''

@@ -11,19 +11,7 @@
 		8886090B1DEF38A00019A4A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8886090A1DEF38A00019A4A5 /* ViewController.swift */; };
 		8886090D1DEF38A00019A4A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8886090C1DEF38A00019A4A5 /* Assets.xcassets */; };
 		888609101DEF38A00019A4A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8886090E1DEF38A00019A4A5 /* Main.storyboard */; };
-		8886091B1DEF38A00019A4A5 /* IGListKitExamplesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8886091A1DEF38A00019A4A5 /* IGListKitExamplesTests.swift */; };
-		E6390ECEFBA01597D07F34B4 /* Pods_IGListKitExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B85AA4C2F3A1A006CB7778D7 /* Pods_IGListKitExamples.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		888609171DEF38A00019A4A5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 888608FD1DEF38A00019A4A5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 888609041DEF38A00019A4A5;
-			remoteInfo = IGListKitExamples;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		888609051DEF38A00019A4A5 /* IGListKitExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IGListKitExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,24 +20,10 @@
 		8886090C1DEF38A00019A4A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8886090F1DEF38A00019A4A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		888609111DEF38A00019A4A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		888609161DEF38A00019A4A5 /* IGListKitExamplesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IGListKitExamplesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8886091A1DEF38A00019A4A5 /* IGListKitExamplesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGListKitExamplesTests.swift; sourceTree = "<group>"; };
-		8886091C1DEF38A00019A4A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		ADDD869BA64D9575C3A85A64 /* Pods-IGListKitExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.debug.xcconfig"; sourceTree = "<group>"; };
-		B85AA4C2F3A1A006CB7778D7 /* Pods_IGListKitExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CBA0ED785D5257221E42538D /* Pods-IGListKitExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		888609021DEF38A00019A4A5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E6390ECEFBA01597D07F34B4 /* Pods_IGListKitExamples.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		888609131DEF38A00019A4A5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -63,10 +37,7 @@
 			isa = PBXGroup;
 			children = (
 				888609071DEF38A00019A4A5 /* IGListKitExamples */,
-				888609191DEF38A00019A4A5 /* IGListKitExamplesTests */,
 				888609061DEF38A00019A4A5 /* Products */,
-				EB226D7414DED1A3A6B4509D /* Pods */,
-				9506CF4D81D18F90B66736A3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,7 +45,6 @@
 			isa = PBXGroup;
 			children = (
 				888609051DEF38A00019A4A5 /* IGListKitExamples.app */,
-				888609161DEF38A00019A4A5 /* IGListKitExamplesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -91,32 +61,6 @@
 			path = IGListKitExamples;
 			sourceTree = "<group>";
 		};
-		888609191DEF38A00019A4A5 /* IGListKitExamplesTests */ = {
-			isa = PBXGroup;
-			children = (
-				8886091A1DEF38A00019A4A5 /* IGListKitExamplesTests.swift */,
-				8886091C1DEF38A00019A4A5 /* Info.plist */,
-			);
-			path = IGListKitExamplesTests;
-			sourceTree = "<group>";
-		};
-		9506CF4D81D18F90B66736A3 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B85AA4C2F3A1A006CB7778D7 /* Pods_IGListKitExamples.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		EB226D7414DED1A3A6B4509D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				ADDD869BA64D9575C3A85A64 /* Pods-IGListKitExamples.debug.xcconfig */,
-				CBA0ED785D5257221E42538D /* Pods-IGListKitExamples.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -124,12 +68,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8886091F1DEF38A00019A4A5 /* Build configuration list for PBXNativeTarget "IGListKitExamples" */;
 			buildPhases = (
-				A4DA151A344E0C0C8366FB64 /* [CP] Check Pods Manifest.lock */,
 				888609011DEF38A00019A4A5 /* Sources */,
 				888609021DEF38A00019A4A5 /* Frameworks */,
 				888609031DEF38A00019A4A5 /* Resources */,
-				F0D8BEED6D704BA8B49F9BCA /* [CP] Embed Pods Frameworks */,
-				A34EAB67CC1824642FE51832 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -140,24 +81,6 @@
 			productReference = 888609051DEF38A00019A4A5 /* IGListKitExamples.app */;
 			productType = "com.apple.product-type.application";
 		};
-		888609151DEF38A00019A4A5 /* IGListKitExamplesTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 888609221DEF38A00019A4A5 /* Build configuration list for PBXNativeTarget "IGListKitExamplesTests" */;
-			buildPhases = (
-				888609121DEF38A00019A4A5 /* Sources */,
-				888609131DEF38A00019A4A5 /* Frameworks */,
-				888609141DEF38A00019A4A5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				888609181DEF38A00019A4A5 /* PBXTargetDependency */,
-			);
-			name = IGListKitExamplesTests;
-			productName = IGListKitExamplesTests;
-			productReference = 888609161DEF38A00019A4A5 /* IGListKitExamplesTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -165,17 +88,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Instagram;
 				TargetAttributes = {
 					888609041DEF38A00019A4A5 = {
 						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Automatic;
-					};
-					888609151DEF38A00019A4A5 = {
-						CreatedOnToolsVersion = 8.1;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 888609041DEF38A00019A4A5;
 					};
 				};
 			};
@@ -193,7 +111,6 @@
 			projectRoot = "";
 			targets = (
 				888609041DEF38A00019A4A5 /* IGListKitExamples */,
-				888609151DEF38A00019A4A5 /* IGListKitExamplesTests */,
 			);
 		};
 /* End PBXProject section */
@@ -208,62 +125,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		888609141DEF38A00019A4A5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		A34EAB67CC1824642FE51832 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A4DA151A344E0C0C8366FB64 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		F0D8BEED6D704BA8B49F9BCA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		888609011DEF38A00019A4A5 /* Sources */ = {
@@ -275,23 +137,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		888609121DEF38A00019A4A5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8886091B1DEF38A00019A4A5 /* IGListKitExamplesTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		888609181DEF38A00019A4A5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 888609041DEF38A00019A4A5 /* IGListKitExamples */;
-			targetProxy = 888609171DEF38A00019A4A5 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8886090E1DEF38A00019A4A5 /* Main.storyboard */ = {
@@ -323,6 +169,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -372,6 +219,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -397,7 +245,6 @@
 		};
 		888609201DEF38A00019A4A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ADDD869BA64D9575C3A85A64 /* Pods-IGListKitExamples.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -411,7 +258,6 @@
 		};
 		888609211DEF38A00019A4A5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CBA0ED785D5257221E42538D /* Pods-IGListKitExamples.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -420,36 +266,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		888609231DEF38A00019A4A5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = IGListKitExamplesTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamplesTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IGListKitExamples.app/Contents/MacOS/IGListKitExamples";
-			};
-			name = Debug;
-		};
-		888609241DEF38A00019A4A5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = IGListKitExamplesTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamplesTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IGListKitExamples.app/Contents/MacOS/IGListKitExamples";
 			};
 			name = Release;
 		};
@@ -470,15 +286,6 @@
 			buildConfigurations = (
 				888609201DEF38A00019A4A5 /* Debug */,
 				888609211DEF38A00019A4A5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		888609221DEF38A00019A4A5 /* Build configuration list for PBXNativeTarget "IGListKitExamplesTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				888609231DEF38A00019A4A5 /* Debug */,
-				888609241DEF38A00019A4A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

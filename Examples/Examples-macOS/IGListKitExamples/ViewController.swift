@@ -1,19 +1,23 @@
-//
-//  ViewController.swift
-//  IGListKitExamples
-//
-//  Created by Jesse Squires on 11/30/16.
-//  Copyright © 2016 Instagram. All rights reserved.
-//
+/**
+ Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
+
+ The examples provided by Facebook are for non-commercial testing and evaluation
+ purposes only. Facebook reserves all rights not expressly granted.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 import Cocoa
 
-class ViewController: NSViewController {
+final class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override var representedObject: Any? {
@@ -21,7 +25,5 @@ class ViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
-
-
 }
 
