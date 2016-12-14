@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44FAD4D2D210E138C9A54257 /* Pods_IGListKitExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E265CD703FD83038B6839350 /* Pods_IGListKitExamples.framework */; };
 		888609091DEF38A00019A4A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888609081DEF38A00019A4A5 /* AppDelegate.swift */; };
 		8886090B1DEF38A00019A4A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8886090A1DEF38A00019A4A5 /* ViewController.swift */; };
 		8886090D1DEF38A00019A4A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8886090C1DEF38A00019A4A5 /* Assets.xcassets */; };
@@ -14,12 +15,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D6CF61C746A9B6DB33B154F /* Pods-IGListKitExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.debug.xcconfig"; sourceTree = "<group>"; };
+		2B6F24A09DF1218A79490355 /* Pods-IGListKitExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.release.xcconfig"; sourceTree = "<group>"; };
 		888609051DEF38A00019A4A5 /* IGListKitExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IGListKitExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		888609081DEF38A00019A4A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8886090A1DEF38A00019A4A5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8886090C1DEF38A00019A4A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8886090F1DEF38A00019A4A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		888609111DEF38A00019A4A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E265CD703FD83038B6839350 /* Pods_IGListKitExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,17 +31,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44FAD4D2D210E138C9A54257 /* Pods_IGListKitExamples.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D57D1804290A61C51676460 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1D6CF61C746A9B6DB33B154F /* Pods-IGListKitExamples.debug.xcconfig */,
+				2B6F24A09DF1218A79490355 /* Pods-IGListKitExamples.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		888608FC1DEF38A00019A4A5 = {
 			isa = PBXGroup;
 			children = (
 				888609071DEF38A00019A4A5 /* IGListKitExamples */,
 				888609061DEF38A00019A4A5 /* Products */,
+				1D57D1804290A61C51676460 /* Pods */,
+				D9FB3BEE812D55AD6CF1DBB2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,6 +77,14 @@
 			path = IGListKitExamples;
 			sourceTree = "<group>";
 		};
+		D9FB3BEE812D55AD6CF1DBB2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E265CD703FD83038B6839350 /* Pods_IGListKitExamples.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -68,9 +92,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8886091F1DEF38A00019A4A5 /* Build configuration list for PBXNativeTarget "IGListKitExamples" */;
 			buildPhases = (
+				6089539CC21DFB08C73C4F0C /* [CP] Check Pods Manifest.lock */,
 				888609011DEF38A00019A4A5 /* Sources */,
 				888609021DEF38A00019A4A5 /* Frameworks */,
 				888609031DEF38A00019A4A5 /* Resources */,
+				7614E8FE9FF351E50D3B5648 /* [CP] Embed Pods Frameworks */,
+				C85A1B313F837496DDB5EC20 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -126,6 +153,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6089539CC21DFB08C73C4F0C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7614E8FE9FF351E50D3B5648 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C85A1B313F837496DDB5EC20 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		888609011DEF38A00019A4A5 /* Sources */ = {
@@ -245,6 +320,7 @@
 		};
 		888609201DEF38A00019A4A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D6CF61C746A9B6DB33B154F /* Pods-IGListKitExamples.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -258,6 +334,7 @@
 		};
 		888609211DEF38A00019A4A5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B6F24A09DF1218A79490355 /* Pods-IGListKitExamples.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
