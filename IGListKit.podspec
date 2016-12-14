@@ -22,6 +22,7 @@ Pod::Spec.new do |s|
   s.tvos.private_header_files = 'Source/Internal/*.h'
 
   s.osx.source_files = [
+    'Source/IGListAssert.h',
     'Source/IGListIndexSetResult.{h,m}',
     'Source/IGListDiff.{h,mm}',
     'Source/NSNumber+IGListDiffable.{h,m}',

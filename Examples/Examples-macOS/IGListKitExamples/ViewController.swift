@@ -13,6 +13,7 @@
  */
 
 import Cocoa
+import IGListKit
 
 final class ViewController: NSViewController {
 

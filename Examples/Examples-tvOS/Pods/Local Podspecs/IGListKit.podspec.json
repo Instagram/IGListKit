@@ -1,6 +1,6 @@
 {
   "name": "IGListKit",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "summary": "A data-driven UICollectionView framework.",
   "homepage": "https://github.com/Instagram/IGListKit",
   "documentation_url": "https://instagram.github.io/IGListKit",
@@ -12,17 +12,53 @@
   "social_media_url": "https://twitter.com/fbOpenSource",
   "source": {
     "git": "https://github.com/Instagram/IGListKit.git",
-    "tag": "1.0.0",
+    "tag": "2.0.0",
     "branch": "stable"
   },
-  "source_files": "Source/**/*.{h,m,mm}",
-  "private_header_files": "Source/Internal/*.h",
+  "ios": {
+    "source_files": "Source/**/*.{h,m,mm}",
+    "private_header_files": "Source/Internal/*.h",
+    "frameworks": "UIKit"
+  },
+  "tvos": {
+    "source_files": "Source/**/*.{h,m,mm}",
+    "private_header_files": "Source/Internal/*.h",
+    "frameworks": "UIKit"
+  },
+  "osx": {
+    "source_files": [
+      "Source/IGListAssert.h",
+      "Source/IGListIndexSetResult.{h,m}",
+      "Source/IGListDiff.{h,mm}",
+      "Source/NSNumber+IGListDiffable.{h,m}",
+      "Source/NSString+IGListDiffable.{h,m}",
+      "Source/IGListMoveIndexPath.{h,m}",
+      "Source/IGListMoveIndex.{h,m}",
+      "Source/IGListIndexPathResult.{h,m}",
+      "Source/IGListBatchUpdateData.{h,m,mm}",
+      "Source/IGListDiffable.h",
+      "Source/IGListMacros.h",
+      "Source/IGListExperiments.h",
+      "Source/IGListKit.h",
+      "Source/Internal/IGListMoveIndexInternal.h",
+      "Source/Internal/IGListIndexPathResultInternal.h",
+      "Source/Internal/IGListIndexSetResultInternal.h",
+      "Source/Internal/IGListMoveIndexPathInternal.h"
+    ],
+    "private_header_files": [
+      "Source/Internal/IGListMoveIndexInternal.h",
+      "Source/Internal/IGListIndexPathResultInternal.h",
+      "Source/Internal/IGListIndexSetResultInternal.h",
+      "Source/Internal/IGListMoveIndexPathInternal.h"
+    ],
+    "frameworks": "Cocoa"
+  },
   "requires_arc": true,
   "platforms": {
     "ios": "8.0",
-    "tvos": "9.0"
+    "tvos": "9.0",
+    "osx": "10.8"
   },
-  "frameworks": "UIKit",
   "libraries": "c++",
   "pod_target_xcconfig": {
     "CLANG_CXX_LANGUAGE_STANDARD": "c++11",

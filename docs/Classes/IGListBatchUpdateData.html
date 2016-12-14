@@ -249,6 +249,11 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSIndexSet</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">insertSections</span><span class="p">;</span></code></pre>
 
                         </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">insertSections</span><span class="p">:</span> <span class="kt">IndexSet</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -274,6 +279,11 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSIndexSet</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">deleteSections</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">deleteSections</span><span class="p">:</span> <span class="kt">IndexSet</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -304,6 +314,11 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
     <span class="n">NSSet</span><span class="o">&lt;</span><span class="n"><a href="../Classes/IGListMoveIndex.html">IGListMoveIndex</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">moveSections</span><span class="p">;</span></code></pre>
 
                         </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">moveSections</span><span class="p">:</span> <span class="kt">Set</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -330,6 +345,11 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
     <span class="n">NSSet</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">insertIndexPaths</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">insertIndexPaths</span><span class="p">:</span> <span class="kt">Set</span></code></pre>
 
                         </div>
                       </div>
@@ -360,6 +380,11 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
     <span class="n">NSSet</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">deleteIndexPaths</span><span class="p">;</span></code></pre>
 
                         </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">deleteIndexPaths</span><span class="p">:</span> <span class="kt">Set</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -386,6 +411,11 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
     <span class="n">NSSet</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">reloadIndexPaths</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">reloadIndexPaths</span><span class="p">:</span> <span class="kt">Set</span></code></pre>
 
                         </div>
                       </div>
@@ -419,6 +449,11 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
       <span class="nf">insertIndexPaths</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSSet</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">insertIndexPaths</span>
       <span class="nf">deleteIndexPaths</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSSet</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">deleteIndexPaths</span>
       <span class="nf">reloadIndexPaths</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSSet</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">reloadIndexPaths</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="nv">insertSections</span><span class="p">:</span> <span class="kt">IndexSet</span><span class="p">,</span> <span class="nv">deleteSections</span><span class="p">:</span> <span class="kt">IndexSet</span><span class="p">,</span> <span class="nv">moveSections</span><span class="p">:</span> <span class="kt">Set</span></code></pre>
 
                         </div>
                       </div>
@@ -520,7 +555,7 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-12-09)</p>
+          <p>&copy; 2016 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2016-12-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

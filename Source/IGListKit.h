@@ -27,9 +27,8 @@ FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 
 #if TARGET_OS_EMBEDDED || TARGET_OS_SIMULATOR
 
-// iOS and tvOS headers:
+// iOS and tvOS only:
 
-#import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListAdapter.h>
 #import <IGListKit/IGListAdapterDataSource.h>
 #import <IGListKit/IGListAdapterDelegate.h>
@@ -52,8 +51,9 @@ FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 
 #endif
 
-// Shared headers (macOS compatible):
+// Shared (iOS, tvOS, macOS compatible):
 
+#import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListBatchUpdateData.h>
 #import <IGListKit/IGListDiff.h>
 #import <IGListKit/IGListDiffable.h>
