@@ -54,7 +54,7 @@ Pod::Spec.new do |s|
   s.ios.frameworks = 'UIKit'
   s.tvos.frameworks = 'UIKit'
   s.osx.frameworks = 'Cocoa'
-  
+
   s.library = 'c++'
   s.pod_target_xcconfig = {
        'CLANG_CXX_LANGUAGE_STANDARD' => 'c++11',

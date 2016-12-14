@@ -10,7 +10,7 @@
 #import "IGListDiffTests.h"
 
 #import <XCTest/XCTest.h>
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 #import <IGListKit/IGListDiff.h>
 #import <IGListKit/IGListExperiments.h>

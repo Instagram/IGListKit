@@ -12,12 +12,15 @@ env:
 
    - IOS_SCHEME="IGListKit"
    - TVOS_SCHEME="IGListKit-tvOS"
+   - MACOS_SCHEME="IGListKit-macOS"
 
    - IOS_SDK=iphonesimulator10.1
    - TVOS_SDK=appletvsimulator10.0
+   - MACOS_SDK=macosx10.12
 
    - IOS_EXAMPLE_WORKSPACE="Examples/Examples-iOS/IGListKitExamples.xcworkspace"
    - TVOS_EXAMPLE_WORKSPACE="Examples/Examples-tvOS/IGListKitExamples.xcworkspace"
+   - MACOS_EXAMPLE_WORKSPACE="Examples/Examples-macOS/IGListKitExamples.xcworkspace"
    - EXAMPLE_SCHEME="IGListKitExamples"
 
    matrix:
@@ -37,6 +40,8 @@ env:
    - DESTINATION="OS=9.0,name=Apple TV 1080p"  SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="YES" RUN_UI_TESTS="NO" POD_LINT="NO"
    - DESTINATION="OS=10.0,name=Apple TV 1080p" SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="YES" RUN_UI_TESTS="NO" POD_LINT="NO"
 
+   - DESTINATION="arch=x86_64" SDK="$MACOS_SDK" SCHEME="$MACOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="YES" POD_LINT="NO"
+
 before_install:
   - gem install slather --no-rdoc --no-ri --no-document --quiet
 
@@ -48,13 +53,16 @@ script:
       find . -name "*.md" -exec cat {} \; | markdown-link-check;
   fi
 
+
 - if [ $POD_LINT == "YES" ]; then
       pod lib lint;
   fi
 
+
 - if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $IOS_SDK ]; then
       xcodebuild build -workspace "$IOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
   fi
+
 
 - if [ $RUN_UI_TESTS == "YES" ] && [ $SDK == $IOS_SDK ]; then
       xcodebuild build test -workspace "$IOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
@@ -64,6 +72,12 @@ script:
 - if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $TVOS_SDK ]; then
       xcodebuild build -workspace "$TVOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
   fi
+
+
+- if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $MACOS_SDK ]; then
+      xcodebuild build -workspace "$MACOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
+  fi
+
 
 - if [ $RUN_TESTS == "YES" ]; then
       xcodebuild analyze test -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | xcpretty -c;

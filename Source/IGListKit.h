@@ -35,7 +35,6 @@ FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 #import <IGListKit/IGListAdapterDelegate.h>
 #import <IGListKit/IGListAdapterUpdater.h>
 #import <IGListKit/IGListAdapterUpdaterDelegate.h>
-#import <IGListKit/IGListBatchUpdateData.h>
 #import <IGListKit/IGListCollectionContext.h>
 #import <IGListKit/IGListCollectionView.h>
 #import <IGListKit/IGListDisplayDelegate.h>
@@ -55,13 +54,13 @@ FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 
 // Shared headers (macOS compatible):
 
-#import <IGListKit/IGListMacros.h>
-#import <IGListKit/IGListMoveIndex.h>
-#import <IGListKit/IGListMoveIndexPath.h>
+#import <IGListKit/IGListBatchUpdateData.h>
+#import <IGListKit/IGListDiff.h>
+#import <IGListKit/IGListDiffable.h>
 #import <IGListKit/IGListExperiments.h>
 #import <IGListKit/IGListIndexPathResult.h>
 #import <IGListKit/IGListIndexSetResult.h>
-#import <IGListKit/IGListDiff.h>
-#import <IGListKit/IGListDiffable.h>
+#import <IGListKit/IGListMoveIndex.h>
+#import <IGListKit/IGListMoveIndexPath.h>
 #import <IGListKit/NSNumber+IGListDiffable.h>
 #import <IGListKit/NSString+IGListDiffable.h>
