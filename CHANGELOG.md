@@ -9,6 +9,8 @@ This release closes the [2.1.0 milestone](https://github.com/Instagram/IGListKit
 
 ### Enhancements
 
+- macOS support [Guilherme Rambo](https://github.com/insidegui) [(#235)](https://github.com/Instagram/IGListKit/pull/235)
+
 - Disables `prefetchEnabled` by default on `IGListCollectionView`. [Sven Bacia](https://github.com/svenbacia) [(#323)](https://github.com/Instagram/IGListKit/pull/323)
 
 ### Fixes
