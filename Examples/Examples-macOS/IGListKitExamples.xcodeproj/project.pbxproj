@@ -12,6 +12,7 @@
 		8886090D1DEF38A00019A4A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8886090C1DEF38A00019A4A5 /* Assets.xcassets */; };
 		888609101DEF38A00019A4A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8886090E1DEF38A00019A4A5 /* Main.storyboard */; };
 		DDE3D8511E030AFA00F96BE4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE3D8501E030AFA00F96BE4 /* User.swift */; };
+		DDE3D8541E03117600F96BE4 /* users.json in Resources */ = {isa = PBXBuildFile; fileRef = DDE3D8531E03117600F96BE4 /* users.json */; };
 		E451550281456814F7F659DB /* Pods_IGListKitExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F1F74ED983018C5D607DDC /* Pods_IGListKitExamples.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +27,7 @@
 		888609111DEF38A00019A4A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C80289D4560E0726CF3F86E0 /* Pods-IGListKitExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.debug.xcconfig"; sourceTree = "<group>"; };
 		DDE3D8501E030AFA00F96BE4 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		DDE3D8531E03117600F96BE4 /* users.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = users.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,11 +107,20 @@
 		DDE3D84F1E030A9200F96BE4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DDE3D8521E03117600F96BE4 /* Data */,
 				8886090C1DEF38A00019A4A5 /* Assets.xcassets */,
 				8886090E1DEF38A00019A4A5 /* Main.storyboard */,
 				888609111DEF38A00019A4A5 /* Info.plist */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		DDE3D8521E03117600F96BE4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				DDE3D8531E03117600F96BE4 /* users.json */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +185,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDE3D8541E03117600F96BE4 /* users.json in Resources */,
 				8886090D1DEF38A00019A4A5 /* Assets.xcassets in Resources */,
 				888609101DEF38A00019A4A5 /* Main.storyboard in Resources */,
 			);
