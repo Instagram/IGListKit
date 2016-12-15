@@ -17,9 +17,20 @@ import IGListKit
 
 final class UsersViewController: NSViewController {
 
+    @IBOutlet weak var tableView: NSTableView!
+    
     var users = [User]() {
         didSet {
-            users.forEach({ print($0.name) })
+            let diff = IGListDiff(oldValue, users, .equality)
+            
+            tableView.beginUpdates()
+            tableView.insertRows(at: diff.inserts, withAnimation: .slideDown)
+            tableView.removeRows(at: diff.deletes, withAnimation: .slideUp)
+            tableView.reloadData(forRowIndexes: diff.updates, columnIndexes: .zero)
+            diff.moves.forEach { move in
+                self.tableView.moveRow(at: move.from, to: move.to)
+            }
+            tableView.endUpdates()
         }
     }
     
@@ -27,6 +38,12 @@ final class UsersViewController: NSViewController {
         super.viewDidLoad()
         
         loadSampleUsers()
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        
+        view.window?.titleVisibility = .hidden
     }
     
     private func loadSampleUsers() {
@@ -39,5 +56,34 @@ final class UsersViewController: NSViewController {
         }
     }
     
+    @IBAction func shuffle(_ sender: Any?) {
+        
+    }
+    
 }
 
+extension UsersViewController: NSTableViewDataSource {
+    
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return users.count
+    }
+    
+}
+
+extension UsersViewController: NSTableViewDelegate {
+    
+    private struct Storyboard {
+        static let cellIdentifier = "cell"
+    }
+    
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard let cell = tableView.make(withIdentifier: Storyboard.cellIdentifier, owner: tableView) as? NSTableCellView else {
+            return nil
+        }
+        
+        cell.textField?.stringValue = users[row].name
+        
+        return cell
+    }
+    
+}

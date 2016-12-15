@@ -685,6 +685,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="shuffle:" target="Oky-zY-oP4" id="oSh-Ax-eP3"/>
+                                        </connections>
                                     </button>
                                 </toolbarItem>
                             </allowedToolbarItems>
@@ -737,7 +740,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="RNW-L9-uKs">
+                                                        <tableCellView identifier="cell" id="RNW-L9-uKs">
                                                             <rect key="frame" x="4" y="1" width="392" height="48"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -762,6 +765,10 @@
                                                     </prototypeCellViews>
                                                 </tableColumn>
                                             </tableColumns>
+                                            <connections>
+                                                <outlet property="dataSource" destination="XfG-lQ-9wD" id="EAO-x6-iol"/>
+                                                <outlet property="delegate" destination="XfG-lQ-9wD" id="vDv-jQ-1x9"/>
+                                            </connections>
                                         </tableView>
                                     </subviews>
                                 </clipView>
@@ -782,6 +789,9 @@
                             <constraint firstItem="UBz-hI-v7L" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="lt2-xn-gAQ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="cZM-LD-xWe" id="fsK-gP-bU1"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
