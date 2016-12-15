@@ -418,4 +418,45 @@
     [mockDelegate verify];
 }
 
+- (void)test_whenCallingReloadData_withUICollectionViewFlowLayout_withEstimatedSize_thatSectionItemCountsCorrect {
+    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+    // setting the estimated size of a layout causes UICollectionView to requery layout attributes during reloadData
+    // this becomes out of sync with the data source if the section/item count changes
+    layout.estimatedItemSize = CGSizeMake(100, 10);
+
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:layout];
+    IGListTestUICollectionViewDataSource *dataSource = [[IGListTestUICollectionViewDataSource alloc] initWithCollectionView:collectionView];
+
+    // 2 sections, 1 item in 1st, 4 items in 2nd
+    dataSource.sections = @[
+                            [IGSectionObject sectionWithObjects:@[@1]],
+                            [IGSectionObject sectionWithObjects:@[@1, @2, @3, @4]]
+                            ];
+
+    // assert the initial state of the collection view WITHOUT any layoutSubviews or anything
+    XCTAssertEqual([collectionView numberOfSections], 2);
+    XCTAssertEqual([collectionView numberOfItemsInSection:0], 1);
+    XCTAssertEqual([collectionView numberOfItemsInSection:1], 4);
+
+    dataSource.sections = @[
+                            [IGSectionObject sectionWithObjects:@[@1]],
+                            ];
+
+    IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
+    [updater performReloadDataWithCollectionView:collectionView];
+
+    XCTAssertEqual([collectionView numberOfSections], 1);
+    XCTAssertEqual([collectionView numberOfItemsInSection:0], 1);
+
+    dataSource.sections = @[
+                            [IGSectionObject sectionWithObjects:@[@1]],
+                            [IGSectionObject sectionWithObjects:@[@1, @2, @3, @4]]
+                            ];
+    [updater performReloadDataWithCollectionView:collectionView];
+
+    XCTAssertEqual([collectionView numberOfSections], 2);
+    XCTAssertEqual([collectionView numberOfItemsInSection:0], 1);
+    XCTAssertEqual([collectionView numberOfItemsInSection:1], 4);
+}
+
 @end
