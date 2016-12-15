@@ -13,6 +13,7 @@
 		888609101DEF38A00019A4A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8886090E1DEF38A00019A4A5 /* Main.storyboard */; };
 		DDE3D8511E030AFA00F96BE4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE3D8501E030AFA00F96BE4 /* User.swift */; };
 		DDE3D8541E03117600F96BE4 /* users.json in Resources */ = {isa = PBXBuildFile; fileRef = DDE3D8531E03117600F96BE4 /* users.json */; };
+		DDE3D8571E0311D000F96BE4 /* UsersProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE3D8561E0311D000F96BE4 /* UsersProvider.swift */; };
 		E451550281456814F7F659DB /* Pods_IGListKitExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F1F74ED983018C5D607DDC /* Pods_IGListKitExamples.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		C80289D4560E0726CF3F86E0 /* Pods-IGListKitExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.debug.xcconfig"; sourceTree = "<group>"; };
 		DDE3D8501E030AFA00F96BE4 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DDE3D8531E03117600F96BE4 /* users.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = users.json; sourceTree = "<group>"; };
+		DDE3D8561E0311D000F96BE4 /* UsersProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				888609081DEF38A00019A4A5 /* AppDelegate.swift */,
+				DDE3D8551E0311AF00F96BE4 /* Helpers */,
 				DDE3D84F1E030A9200F96BE4 /* Resources */,
 				DDE3D84E1E030A8400F96BE4 /* ViewControllers */,
 				DDE3D84D1E030A8000F96BE4 /* Models */,
@@ -121,6 +124,14 @@
 				DDE3D8531E03117600F96BE4 /* users.json */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		DDE3D8551E0311AF00F96BE4 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DDE3D8561E0311D000F96BE4 /* UsersProvider.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,6 +260,7 @@
 				8886090B1DEF38A00019A4A5 /* ViewController.swift in Sources */,
 				888609091DEF38A00019A4A5 /* AppDelegate.swift in Sources */,
 				DDE3D8511E030AFA00F96BE4 /* User.swift in Sources */,
+				DDE3D8571E0311D000F96BE4 /* UsersProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
