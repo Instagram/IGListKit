@@ -57,7 +57,7 @@ final class UsersViewController: NSViewController {
     }
     
     @IBAction func shuffle(_ sender: Any?) {
-        
+        users = users.shuffled
     }
     
 }
