@@ -42,6 +42,12 @@ final class UsersViewController: NSViewController {
         filteredUsers = users.filter({ $0.name.localizedCaseInsensitiveContains(self.searchTerm) })
     }
     
+    fileprivate func delete(user: User) {
+        guard let index = self.users.index(where: { $0.pk == user.pk }) else { return }
+        
+        self.users.remove(at: index)
+    }
+    
     //MARK: -
     //MARK: Diffing 
     
@@ -98,6 +104,12 @@ final class UsersViewController: NSViewController {
         searchTerm = sender.stringValue
     }
     
+    @IBAction func delete(_ sender: Any?) {
+        guard tableView.selectedRowIndexes.count > 0 else { return }
+        
+        tableView.selectedRowIndexes.forEach({ self.delete(user: self.filteredUsers[$0]) })
+    }
+    
 }
 
 extension UsersViewController: NSTableViewDataSource {
@@ -122,6 +134,16 @@ extension UsersViewController: NSTableViewDelegate {
         cell.textField?.stringValue = filteredUsers[row].name
         
         return cell
+    }
+    
+    func tableView(_ tableView: NSTableView, rowActionsForRow row: Int, edge: NSTableRowActionEdge) -> [NSTableViewRowAction] {
+        let delete = NSTableViewRowAction(style: .destructive, title: "Delete") { action, row in
+            guard row < self.filteredUsers.count else { return }
+            
+            self.delete(user: self.filteredUsers[row])
+        }
+        
+        return [delete]
     }
     
 }
