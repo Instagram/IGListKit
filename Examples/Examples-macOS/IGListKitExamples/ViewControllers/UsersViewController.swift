@@ -42,10 +42,17 @@ final class UsersViewController: NSViewController {
         filteredUsers = users.filter({ $0.name.localizedCaseInsensitiveContains(self.searchTerm) })
     }
     
+    //MARK: -
+    //MARK: Diffing 
+    
     var filteredUsers = [User]() {
         didSet {
+            // get the difference between the old array of Users and the new array of Users
             let diff = IGListDiff(oldValue, filteredUsers, .equality)
             
+            // this difference is used here to update the table view, but it can be used
+            // to update collection views and other similar interface elements
+            // this code can also be added to an extension of NSTableView ;)
             tableView.beginUpdates()
             tableView.insertRows(at: diff.inserts, withAnimation: .slideDown)
             tableView.removeRows(at: diff.deletes, withAnimation: .slideUp)
@@ -56,6 +63,8 @@ final class UsersViewController: NSViewController {
             tableView.endUpdates()
         }
     }
+    
+    //MARK: -
     
     private func loadSampleUsers() {
         guard let file = Bundle.main.url(forResource: "users", withExtension: "json") else { return }
