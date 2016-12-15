@@ -690,8 +690,26 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="46F37D49-9E53-4757-B306-C940250B5F0B" label="Search" paletteLabel="Search" id="xRY-zQ-Z0U">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="96" height="22"/>
+                                    <size key="maxSize" width="9999" height="22"/>
+                                    <searchField key="view" wantsLayer="YES" verticalHuggingPriority="750" id="9XO-e1-iaw">
+                                        <rect key="frame" x="0.0" y="14" width="96" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="N3l-Fs-c7b">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </searchFieldCell>
+                                        <connections>
+                                            <action selector="search:" target="Oky-zY-oP4" id="bkb-YO-y0f"/>
+                                        </connections>
+                                    </searchField>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
+                                <toolbarItem reference="xRY-zQ-Z0U"/>
                                 <toolbarItem reference="xCW-4o-Rg4"/>
                                 <toolbarItem reference="PKy-2S-Bpd"/>
                             </defaultToolbarItems>

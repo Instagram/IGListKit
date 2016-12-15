@@ -19,9 +19,32 @@ final class UsersViewController: NSViewController {
 
     @IBOutlet weak var tableView: NSTableView!
     
+    //MARK: Data
+    
     var users = [User]() {
         didSet {
-            let diff = IGListDiff(oldValue, users, .equality)
+            computeFilteredUsers()
+        }
+    }
+    
+    var searchTerm = "" {
+        didSet {
+            computeFilteredUsers()
+        }
+    }
+    
+    private func computeFilteredUsers() {
+        guard searchTerm.characters.count > 1 else {
+            filteredUsers = users
+            return
+        }
+        
+        filteredUsers = users.filter({ $0.name.localizedCaseInsensitiveContains(self.searchTerm) })
+    }
+    
+    var filteredUsers = [User]() {
+        didSet {
+            let diff = IGListDiff(oldValue, filteredUsers, .equality)
             
             tableView.beginUpdates()
             tableView.insertRows(at: diff.inserts, withAnimation: .slideDown)
@@ -33,6 +56,18 @@ final class UsersViewController: NSViewController {
             tableView.endUpdates()
         }
     }
+    
+    private func loadSampleUsers() {
+        guard let file = Bundle.main.url(forResource: "users", withExtension: "json") else { return }
+        
+        do {
+            self.users = try UsersProvider(with: file).users
+        } catch {
+            NSAlert(error: error).runModal()
+        }
+    }
+    
+    // MARK: Interface
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,18 +81,12 @@ final class UsersViewController: NSViewController {
         view.window?.titleVisibility = .hidden
     }
     
-    private func loadSampleUsers() {
-        guard let file = Bundle.main.url(forResource: "users", withExtension: "json") else { return }
-        
-        do {
-            self.users = try UsersProvider(with: file).users
-        } catch {
-            NSAlert(error: error).runModal()
-        }
-    }
-    
     @IBAction func shuffle(_ sender: Any?) {
         users = users.shuffled
+    }
+    
+    @IBAction func search(_ sender: NSSearchField) {
+        searchTerm = sender.stringValue
     }
     
 }
@@ -65,7 +94,7 @@ final class UsersViewController: NSViewController {
 extension UsersViewController: NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return users.count
+        return filteredUsers.count
     }
     
 }
@@ -81,7 +110,7 @@ extension UsersViewController: NSTableViewDelegate {
             return nil
         }
         
-        cell.textField?.stringValue = users[row].name
+        cell.textField?.stringValue = filteredUsers[row].name
         
         return cell
     }
