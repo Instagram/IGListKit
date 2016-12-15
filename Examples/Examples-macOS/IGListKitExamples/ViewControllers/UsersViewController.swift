@@ -15,16 +15,29 @@
 import Cocoa
 import IGListKit
 
-final class ViewController: NSViewController {
+final class UsersViewController: NSViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
-    override var representedObject: Any? {
+    var users = [User]() {
         didSet {
-        // Update the view, if already loaded.
+            users.forEach({ print($0.name) })
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        loadSampleUsers()
+    }
+    
+    private func loadSampleUsers() {
+        guard let file = Bundle.main.url(forResource: "users", withExtension: "json") else { return }
+        
+        do {
+            self.users = try UsersProvider(with: file).users
+        } catch {
+            NSAlert(error: error).runModal()
+        }
+    }
+    
 }
 
