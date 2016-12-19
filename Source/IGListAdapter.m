@@ -113,8 +113,9 @@
 }
 
 - (void)updateAfterPublicSettingsChange {
-    if (_collectionView != nil && _dataSource != nil) {
-        [self updateObjects:[[_dataSource objectsForListAdapter:self] copy]];
+    id<IGListAdapterDataSource> dataSource = _dataSource;
+    if (_collectionView != nil && dataSource != nil) {
+        [self updateObjects:[[dataSource objectsForListAdapter:self] copy] dataSource:dataSource];
     }
 }
 
@@ -267,7 +268,7 @@
                                          // there are any item deletes at the same
                                          weakSelf.previoussectionMap = [weakSelf.sectionMap copy];
 
-                                         [weakSelf updateObjects:toObjects];
+                                         [weakSelf updateObjects:toObjects dataSource:dataSource];
                                      } completion:^(BOOL finished) {
                                          // release the previous items
                                          weakSelf.previoussectionMap = nil;
@@ -296,7 +297,7 @@
     [self.updatingDelegate reloadDataWithCollectionView:collectionView reloadUpdateBlock:^{
         // purge all section controllers from the item map so that they are regenerated
         [weakSelf.sectionMap reset];
-        [weakSelf updateObjects:newItems];
+        [weakSelf updateObjects:newItems dataSource:dataSource];
     } completion:completion];
 }
 
@@ -437,7 +438,9 @@
 
 // this method is what updates the "source of truth"
 // this should only be called just before the collection view is updated
-- (void)updateObjects:(NSArray *)objects {
+- (void)updateObjects:(NSArray *)objects dataSource:(id<IGListAdapterDataSource>)dataSource {
+    IGParameterAssert(dataSource != nil);
+
 #if DEBUG
     for (id object in objects) {
         IGAssert([object isEqual:object], @"Object instance %@ not equal to itself. This will break infra map tables.", object);
@@ -463,10 +466,10 @@
 
         // if not, query the data source for a new one
         if (sectionController == nil) {
-            sectionController = [self.dataSource listAdapter:self sectionControllerForObject:object];
+            sectionController = [dataSource listAdapter:self sectionControllerForObject:object];
         }
 
-        IGAssert(sectionController != nil, @"Data source <%@> cannot return a nil section controller.", self.dataSource);
+        IGAssert(sectionController != nil, @"Data source <%@> cannot return a nil section controller.", dataSource);
         if (sectionController == nil) {
             continue;
         }

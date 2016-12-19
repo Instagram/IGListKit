@@ -19,6 +19,8 @@ This release closes the [2.1.0 milestone](https://github.com/Instagram/IGListKit
 
 - Avoid `UICollectionView` crashes when queueing a reload and insert/delete on the same item as well as reloading an item in a section that is animating. [Ryan Nystrom](https://github.com/rnystrom) [(#325)](https://github.com/Instagram/IGListKit/pull/325)
 
+- Prevent adapter data source from deallocating after queueing an update. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+
 2.0.0
 -----
 

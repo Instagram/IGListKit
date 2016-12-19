@@ -1136,4 +1136,27 @@
     [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
+- (void)test_whenDataSourceDeallocatedAfterUpdateQueued_thatUpdateSuccesfullyCompletes {
+    IGTestDelegateDataSource *dataSource = [IGTestDelegateDataSource new];
+    dataSource.objects = @[genTestObject(@1, @1)];
+    self.adapter.collectionView = self.collectionView;
+    self.adapter.dataSource = dataSource;
+    [self.collectionView layoutIfNeeded];
+
+    dataSource.objects = @[
+                           genTestObject(@1, @1),
+                           genTestObject(@2, @2),
+                           ];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView numberOfSections], 2);
+        [expectation fulfill];
+    }];
+
+    dataSource = nil;
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
 @end
