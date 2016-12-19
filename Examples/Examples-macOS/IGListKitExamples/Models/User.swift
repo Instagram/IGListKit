@@ -1,9 +1,9 @@
 /**
  Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
-
+ 
  The examples provided by Facebook are for non-commercial testing and evaluation
  purposes only. Facebook reserves all rights not expressly granted.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -12,19 +12,29 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import Cocoa
+import Foundation
 import IGListKit
 
-final class ViewController: NSViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+final class User: IGListDiffable {
+    
+    let pk: Int
+    let name: String
+    
+    init(pk: Int, name: String) {
+        self.pk = pk
+        self.name = name
     }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
+    
+    //MARK: IGListDiffable
+    
+    func diffIdentifier() -> NSObjectProtocol {
+        return pk as NSObjectProtocol
     }
+    
+    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+        guard self !== object else { return true }
+        guard let object = object as? User else { return false }
+        return name == object.name
+    }
+    
 }
-
