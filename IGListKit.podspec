@@ -16,36 +16,19 @@ Pod::Spec.new do |s|
   }
 
   s.ios.source_files = 'Source/**/*.{h,m,mm}'
-  s.ios.private_header_files = 'Source/Internal/*.h'
+  s.ios.private_header_files = [
+    'Source/Internal/*.h',
+    'Source/Common/Internal/*.h'
+  ]
 
   s.tvos.source_files = 'Source/**/*.{h,m,mm}'
-  s.tvos.private_header_files = 'Source/Internal/*.h'
+  s.tvos.private_header_files = [
+    'Source/Internal/*.h',
+    'Source/Common/Internal/*.h'
+  ]
 
-  s.osx.source_files = [
-    'Source/IGListAssert.h',
-    'Source/IGListIndexSetResult.{h,m}',
-    'Source/IGListDiff.{h,mm}',
-    'Source/NSNumber+IGListDiffable.{h,m}',
-    'Source/NSString+IGListDiffable.{h,m}',
-    'Source/IGListMoveIndexPath.{h,m}',
-    'Source/IGListMoveIndex.{h,m}',
-    'Source/IGListIndexPathResult.{h,m}',
-    'Source/IGListBatchUpdateData.{h,m,mm}',
-    'Source/IGListDiffable.h',
-    'Source/IGListMacros.h',
-    'Source/IGListExperiments.h',
-    'Source/IGListKit.h',
-    'Source/Internal/IGListMoveIndexInternal.h',
-    'Source/Internal/IGListIndexPathResultInternal.h',
-    'Source/Internal/IGListIndexSetResultInternal.h',
-    'Source/Internal/IGListMoveIndexPathInternal.h'
-  ]
-  s.osx.private_header_files = [
-    'Source/Internal/IGListMoveIndexInternal.h',
-    'Source/Internal/IGListIndexPathResultInternal.h',
-    'Source/Internal/IGListIndexSetResultInternal.h',
-    'Source/Internal/IGListMoveIndexPathInternal.h'
-  ]
+  s.osx.source_files = 'Source/Common/**/*.{h,m,mm}'
+  s.osx.private_header_files = 'Source/Common/Internal/*.h'
 
   s.requires_arc = true
 
