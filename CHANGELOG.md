@@ -8,8 +8,9 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 This release closes the [2.1.0 milestone](https://github.com/Instagram/IGListKit/milestone/2).
 
 ### Enhancements
-
 - Added support for macOS. Note: this is *only* for the Diffing components. There is **no support** for `IGListAdapter`, `IGListSectionController`, and other components at this time. [Guilherme Rambo](https://github.com/insidegui) [(#235)](https://github.com/Instagram/IGListKit/pull/235)
+
+- Added algorithm for generating incremental moves, which can be used to reorder a collection, and are required for moving rows with NSTableView. Available via `IGListDiffBehaviorIncrementalMoves` for `IGListDiffWithBehavior` and `IGListDiffPathsWithBehavior`. [Anton Sotkov](https://github.com/antons) [(#342)](https://github.com/Instagram/IGListKit/pull/342)
 
 - Added a [macOS example](https://github.com/Instagram/IGListKit/tree/master/Examples/Examples-macOS) project. [Guilherme Rambo](https://github.com/insidegui) [(#337)](https://github.com/Instagram/IGListKit/pull/337)
 

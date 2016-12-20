@@ -80,6 +80,8 @@ static id IGListDiffing(BOOL returnIndexPaths,
                         IGListDiffOption option,
                         IGListDiffBehavior behavior,
                         IGListExperiment experiments) {
+    const BOOL incrementalMoves = (behavior & IGListDiffBehaviorIncrementalMoves) != 0;
+
     const NSInteger newCount = newArray.count;
     const NSInteger oldCount = oldArray.count;
 
@@ -136,17 +138,17 @@ static id IGListDiffing(BOOL returnIndexPaths,
             const id<IGListDiffable> o = oldArray[originalIndex];
             switch (option) {
                 case IGListDiffPointerPersonality:
-                    // flag the entry as updated if the pointers are not the same
-                    if (n != o) {
-                        entry->updated = YES;
-                    }
+                // flag the entry as updated if the pointers are not the same
+                if (n != o) {
+                    entry->updated = YES;
+                }
                     break;
                 case IGListDiffEquality:
-                    // use -[IGListDiffable isEqualToDiffableObject:] between both version of data to see if anything has changed
-                    // skip the equality check if both indexes point to the same object
-                    if (n != o && ![n isEqualToDiffableObject:o]) {
-                        entry->updated = YES;
-                    }
+                // use -[IGListDiffable isEqualToDiffableObject:] between both version of data to see if anything has changed
+                // skip the equality check if both indexes point to the same object
+                if (n != o && ![n isEqualToDiffableObject:o]) {
+                    entry->updated = YES;
+                }
                     break;
             }
         }
@@ -199,8 +201,20 @@ static id IGListDiffing(BOOL returnIndexPaths,
         [map setObject:value forKey:[array[index] diffIdentifier]];
     };
 
+    void (^addMoveFromIndexToIndex)(NSInteger, NSInteger) = ^(NSInteger fromIndex, NSInteger toIndex) {
+        id move;
+        if (returnIndexPaths) {
+            NSIndexPath *from = [NSIndexPath indexPathForItem:fromIndex inSection:fromSection];
+            NSIndexPath *to = [NSIndexPath indexPathForItem:toIndex inSection:toSection];
+            move = [[IGListMoveIndexPath alloc] initWithFrom:from to:to];
+        } else {
+            move = [[IGListMoveIndex alloc] initWithFrom:fromIndex to:toIndex];
+        }
+        [mMoves addObject:move];
+    };
+
     // track offsets from deleted items to calculate where items have moved
-    vector<NSInteger> deleteOffsets(oldCount), insertOffsets(newCount);
+    vector<NSInteger> deleteOffsets(oldCount), insertOffsets(newCount), oldInsertOffsets(oldCount), moveOffsets(newCount);
     NSInteger runningOffset = 0;
 
     // iterate old array records checking for deletes
@@ -225,7 +239,7 @@ static id IGListDiffing(BOOL returnIndexPaths,
         const IGListRecord record = newResultsArray[i];
         const NSInteger oldIndex = record.index;
         // add to inserts if the opposing index is NSNotFound
-        if (record.index == NSNotFound) {
+        if (oldIndex == NSNotFound) {
             addIndexToCollection(mInserts, toSection, i);
             runningOffset++;
         } else {
@@ -233,25 +247,61 @@ static id IGListDiffing(BOOL returnIndexPaths,
             if (record.entry->updated) {
                 addIndexToCollection(mUpdates, fromSection, oldIndex);
             }
-
             // calculate the offset and determine if there was a move
             // if the indexes match, ignore the index
             const NSInteger insertOffset = insertOffsets[i];
             const NSInteger deleteOffset = deleteOffsets[oldIndex];
-            if ((oldIndex - deleteOffset + insertOffset) != i) {
-                id move;
-                if (returnIndexPaths) {
-                    NSIndexPath *from = [NSIndexPath indexPathForItem:oldIndex inSection:fromSection];
-                    NSIndexPath *to = [NSIndexPath indexPathForItem:i inSection:toSection];
-                    move = [[IGListMoveIndexPath alloc] initWithFrom:from to:to];
-                } else {
-                    move = [[IGListMoveIndex alloc] initWithFrom:oldIndex to:i];
+            if (incrementalMoves) {
+                oldInsertOffsets[i + deleteOffset - insertOffset] = runningOffset;
+            } else {
+                if ((oldIndex - deleteOffset + insertOffset) != i) {
+                    addMoveFromIndexToIndex(oldIndex, i);
                 }
-                [mMoves addObject:move];
             }
         }
 
         addIndexToMap(toSection, i, newArray, newMap);
+    }
+
+    if (incrementalMoves) {
+        for (NSInteger i = 0; i < newCount; i++) {
+            const IGListRecord record = newResultsArray[i];
+            const NSInteger oldIndex = record.index;
+            // calculate the offset and determine if there was a move
+            // if the indexes match, ignore the index
+            const NSInteger insertOffset = oldIndex == NSNotFound ? 0 : oldInsertOffsets[oldIndex];
+            const NSInteger deleteOffset = oldIndex == NSNotFound ? 0 : deleteOffsets[oldIndex];
+            // initial index is array state after applying deletes and insertions
+            const NSInteger initialIndex = oldIndex == NSNotFound ? i : oldIndex - deleteOffset + insertOffset;
+            const NSInteger currentIndex = initialIndex + moveOffsets[initialIndex];
+            const NSInteger deltaToFinalIndex = i - currentIndex;
+            // process moves only if delta < 0
+            // this is simpler, but results in less optimal moves
+            //  0  1  2  3 old
+            // +3 -1 -1 -1 moveOffsets
+            //  1  2  3  0 new
+            // is currently reported as 3 moves
+            // ideally it would be reported as one move
+            if (deltaToFinalIndex < 0) {
+                addMoveFromIndexToIndex(currentIndex, i);
+                // array state at the current step, key is current index, value initial index
+                vector<NSInteger> currentIndexes(newCount);
+                for (NSInteger k = 0; k < newCount; k++) {
+                    currentIndexes[k + moveOffsets[k]] = k;
+                }
+                // update move offsets for moves
+                //  0  1  2 old
+                // +1 +1 -2 moveOffsets
+                //  2  0  1 new
+                // +2 ±0 -2 moveOffsets
+                //  2  1  0 final
+                for (NSInteger j = currentIndex + deltaToFinalIndex; j < currentIndex; j++) {
+                    const NSInteger initialIndexToShift = currentIndexes[j];
+                    moveOffsets[initialIndexToShift] += 1;
+                    moveOffsets[initialIndex] -= 1;
+                }
+            }
+        }
     }
 
     NSCAssert((oldCount + [mInserts count] - [mDeletes count]) == newCount,

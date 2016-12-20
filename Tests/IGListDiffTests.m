@@ -306,6 +306,80 @@ static NSArray *sorted(NSArray *arr) {
     IGAssertContains(result.moves, [[IGListMoveIndex alloc] initWithFrom:1 to:3]);
 }
 
+
+- (void)test_whenMovingObjectsIncrementally_thatMovesAreCorrect {
+    NSArray *original = @[@0, @1, @2, @3, @4];
+    NSArray *tests = @[
+        @[@0, @1, @2, @3, @4],
+        @[@4, @3, @2, @1, @0],
+        @[@4, @2, @0, @1, @3],
+        @[@3, @2, @0, @1, @4],
+        @[@4, @0, @2, @3, @1],
+        @[@2, @1, @0, @4, @3],
+	];
+    for (NSArray *expected in tests) {
+        NSArray *patched = [self arrayByMovingObjectsIncrementallyWithOldArray:original newArray:expected];
+        XCTAssertEqualObjects(patched, expected);
+    }
+}
+
+- (void)test_whenMovingObjectsIncrementally_andInsertingObjects_thatMovesAreCorrect {
+    NSArray *original = @[@0, @1, @2, @3, @4];
+    NSArray *tests = @[
+        @[@5, @6, @7, @8, @1, @10, @11, @2, @0, @9, @3, @4],
+        @[@4, @5, @0, @2, @1, @3],
+        @[@8, @1, @2, @3, @5, @6, @7, @0, @4],
+	];
+    for (NSArray *expected in tests) {
+        NSArray *patched = [self arrayByMovingObjectsIncrementallyWithOldArray:original newArray:expected];
+        XCTAssertEqualObjects(patched, expected);
+    }
+}
+
+- (void)test_whenMovingObjectsIncrementally_andDeletingObjects_thatMovesAreCorrect {
+    NSArray *original = @[@0, @1, @2, @3, @4];
+    NSArray *tests = @[
+        @[@3, @2, @0, @1],
+        @[@0, @2, @1],
+        @[@4, @0],
+        @[@5, @0, @4],
+    ];
+    for (NSArray *expected in tests) {
+        NSArray *patched = [self arrayByMovingObjectsIncrementallyWithOldArray:original newArray:expected];
+        XCTAssertEqualObjects(patched, expected);
+    }
+}
+
+- (void)test_whenMovingObjectsIncrementally_andInsertingObjects_andDeletingObjects_thatMovesAreCorrect {
+    NSArray *original = @[@0, @1, @2, @3, @4];
+    NSArray *tests = @[
+        @[@3, @5, @2, @0, @4],
+        @[@5, @2, @0],
+        @[@0, @4, @1, @3, @6, @7, @8, @2],
+	];
+    for (NSArray *expected in tests) {
+        NSArray *patched = [self arrayByMovingObjectsIncrementallyWithOldArray:original newArray:expected];
+        XCTAssertEqualObjects(patched, expected);
+    }
+}
+
+- (NSArray *)arrayByMovingObjectsIncrementallyWithOldArray:(NSArray *)original newArray:(NSArray *)expected {
+    IGListIndexSetResult *result = IGListDiffWithBehavior(original, expected, IGListDiffEquality, IGListDiffBehaviorIncrementalMoves);
+    NSMutableArray *patched = original.mutableCopy;
+    [result.deletes enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger idx, BOOL *stop) {
+        [patched removeObjectAtIndex:idx];
+    }];
+    [result.inserts enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+        [patched insertObject:expected[idx] atIndex:idx];
+    }];
+    for (IGListMoveIndex *move in result.moves) {
+        id object = [patched objectAtIndex:move.from];
+        [patched removeObjectAtIndex:move.from];
+        [patched insertObject:object atIndex:move.to];
+    }
+    return patched;
+}
+
 - (void)test_whenDiffing_thatOldIndexesMatch {
     NSArray *o = @[@1, @2, @3, @4, @5, @6, @7];
     NSArray *n = @[@2, @9, @3, @1, @5, @6, @8];
