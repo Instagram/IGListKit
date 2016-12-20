@@ -51,8 +51,8 @@ script:
 - if [ $CHECK_MARKDOWN == "YES" ]; then
       npm install -g markdown-link-check;
       find . -name "*.md" | while read filename; do
-        echo "Searching $filename"
-        cat "$filename" | markdown-link-check
+        echo "Searching $filename";
+        cat "$filename" | markdown-link-check;
       done
   fi
 
