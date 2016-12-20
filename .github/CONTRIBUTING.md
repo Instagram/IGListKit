@@ -15,7 +15,7 @@ please open an issue on GitHub.
 
 ## Experimental changes
 
-If your change can't be unit tested, we might ask that you add your change as an experiment so that we can verify your change works. To do this, first add a new option to [IGListExperiment](https://github.com/Instagram/IGListKit/blob/master/Source/IGListExperiments.h#L17).
+If your change can't be unit tested, we might ask that you add your change as an experiment so that we can verify your change works. To do this, first add a new option to [IGListExperiment](https://github.com/Instagram/IGListKit/blob/master/Source/Common/IGListExperiments.h#L17).
 
 Then, use an `experiments` bitmask wherever your change is and wrap it in a check to see if it is enabled:
 
