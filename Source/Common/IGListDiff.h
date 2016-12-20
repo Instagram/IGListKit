@@ -30,6 +30,47 @@ typedef NS_ENUM(NSInteger, IGListDiffOption) {
 };
 
 /**
+ Comparison behavior options.
+ */
+typedef NS_OPTIONS(NSInteger, IGListDiffBehavior) {
+    IGListDiffBehaviorDefault = 0,
+};
+
+/**
+ Creates a diff using indexes between two collections.
+
+ @param oldArray The old objects to diff against.
+ @param newArray The new objects.
+ @param option   An option on how to compare objects.
+ @param behavior Comparison behaviors.
+
+ @return A result object containing affected indexes.
+ */
+FOUNDATION_EXTERN IGListIndexSetResult *IGListDiffWithBehavior(NSArray<id<IGListDiffable>> *_Nullable oldArray,
+                                                               NSArray<id<IGListDiffable>> *_Nullable newArray,
+                                                               IGListDiffOption option,
+                                                               IGListDiffBehavior behavior);
+
+/**
+ Creates a diff using index paths between two collections.
+
+ @param fromSection The old section.
+ @param toSection   The new section.
+ @param oldArray    The old objects to diff against.
+ @param newArray    The new objects.
+ @param option      An option on how to compare objects.
+ @param behavior    Comparison behaviors.
+
+ @return A result object containing affected indexes.
+ */
+FOUNDATION_EXTERN IGListIndexPathResult *IGListDiffPathsWithBehavior(NSInteger fromSection,
+                                                                     NSInteger toSection,
+                                                                     NSArray<id<IGListDiffable>> *_Nullable oldArray,
+                                                                     NSArray<id<IGListDiffable>> *_Nullable newArray,
+                                                                     IGListDiffOption option,
+                                                                     IGListDiffBehavior behavior);
+
+/**
  Creates a diff using indexes between two collections.
 
  @param oldArray The old objects to diff against.
