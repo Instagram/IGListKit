@@ -36,7 +36,7 @@ env:
 
    - DESTINATION="OS=10.0,name=iPhone 6s" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="YES" RUN_UI_TESTS="NO" POD_LINT="NO"
    - DESTINATION="OS=10.1,name=iPhone 6s" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="NO"  RUN_UI_TESTS="YES" POD_LINT="NO"
-   - DESTINATION="OS=10.2,name=iPhone 6s" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="NO"  RUN_UI_TESTS="NO" POD_LINT="NO"
+   - DESTINATION="OS=10.2,name=iPad Air 2" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="NO"  RUN_UI_TESTS="NO" POD_LINT="NO"
 
    - DESTINATION="OS=9.0,name=Apple TV 1080p"  SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="YES" RUN_UI_TESTS="NO" POD_LINT="NO"
    - DESTINATION="OS=10.0,name=Apple TV 1080p" SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="YES" RUN_UI_TESTS="NO" POD_LINT="NO"
@@ -45,11 +45,6 @@ env:
 
 before_install:
   - gem install slather --no-rdoc --no-ri --no-document --quiet
-    # This command will fix Travis CI duplicated simulators issue
-    # happening in the Xcode 8.2 image w/ iOS Simulator 10.2.
-    # Check this issue (https://github.com/travis-ci/travis-ci/issues/7031)
-    # and remove this line as soon as possible
-  - xcrun simctl delete 31E6604A-19AA-4B68-B560-C33C584BC80D
 
 script:
 - set -o pipefail
