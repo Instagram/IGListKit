@@ -44,6 +44,7 @@ final class StackedViewController: UIViewController, IGListAdapterDataSource {
     }
 
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+        // note that each child section controller is designed to handle an Int (or no data)
         let sectionController = IGListStackedSectionController(sectionControllers: [
             WorkingRangeSectionController(),
             DisplaySectionController(),
