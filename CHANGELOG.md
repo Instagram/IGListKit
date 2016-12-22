@@ -21,6 +21,8 @@ This release closes the [2.1.0 milestone](https://github.com/Instagram/IGListKit
 
 - Prevent adapter data source from deallocating after queueing an update. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
 
+- Fix OOB bug when child section controllers in a stack remove cells. [Ryan Nystrom](https://github.com/rnystrom) [(#358)](https://github.com/Instagram/IGListKit/pull/358)
+
 2.0.0
 -----
 

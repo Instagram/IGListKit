@@ -702,4 +702,27 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     XCTAssertFalse([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
 }
 
+- (void)test_whenRemovingCellsFromChild_thatStackSendsDisplayEventsCorrectly {
+    IGTestObject *object = [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2]];
+    [self setupWithObjects:@[object]];
+
+    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:object];
+    IGListTestSection *section = stack.sectionControllers.lastObject;
+
+    XCTAssertEqual([self.collectionView numberOfSections], 1);
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
+
+    XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [section.collectionContext performBatchAnimated:YES updates:^{
+        section.items = 1;
+        [section.collectionContext deleteInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:1]];
+    } completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView numberOfSections], 1);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
 @end
