@@ -23,6 +23,8 @@ This release closes the [2.1.0 milestone](https://github.com/Instagram/IGListKit
 
 - Fix out-of-bounds bug when child section controllers in a stack remove cells. [Ryan Nystrom](https://github.com/rnystrom) [(#358)](https://github.com/Instagram/IGListKit/pull/358)
 
+- Fix a grid layout bug when item has full-width and iter-item spacing is not zero. [Bofei Zhu](https://github.com/zhubofei) [(#361)](https://github.com/Instagram/IGListKit/pull/361)
+
 2.0.0
 -----
 
