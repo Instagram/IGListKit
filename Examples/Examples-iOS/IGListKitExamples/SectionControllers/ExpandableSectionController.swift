@@ -43,7 +43,7 @@ final class ExpandableSectionController: IGListSectionController, IGListSectionT
 
     func didSelectItem(at index: Int) {
         expanded = !expanded
-        collectionContext?.reload(self)
+        collectionContext?.reload(in: self, at: IndexSet(integer: 0))
     }
 
 }
