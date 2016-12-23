@@ -260,7 +260,7 @@
         _minimumInteritemSpacing = spacing;
         _itemSizes = [NSMutableArray array];
         _headIndex = headIndex;
-        _tailSpace = frame.size.width - self.minimumInteritemSpacing;
+        _tailSpace = frame.size.width;
     }
     return self;
 }
