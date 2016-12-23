@@ -15,7 +15,8 @@
 <
 IGListCollectionContext,
 IGListDisplayDelegate,
-IGListScrollDelegate
+IGListScrollDelegate,
+IGListWorkingRangeDelegate
 >
 
 @property (nonatomic, strong, readonly) NSOrderedSet<__kindof IGListSectionController<IGListSectionType> *> *sectionControllers;
