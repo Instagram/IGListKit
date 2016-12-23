@@ -8,6 +8,7 @@
  */
 
 #import <XCTest/XCTest.h>
+#import <OCMock/OCMock.h>
 
 #import "IGListAdapterUpdaterInternal.h"
 #import "IGListTestUICollectionViewDataSource.h"
@@ -175,7 +176,7 @@
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
 
     XCTestExpectation *expectation = genExpectation;
-    [self.updater performUpdateWithCollectionView:self.collectionView fromObjects:from toObjects:to animated:YES objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+    [self.updater performUpdateWithCollectionView:self.collectionView fromObjects:from toObjects:to animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
         XCTAssertEqual([self.collectionView numberOfSections], 3);
         XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
         XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 1);
@@ -224,7 +225,7 @@
     [self.collectionView setNeedsLayout];
 
     XCTestExpectation *expectation = genExpectation;
-    [self.updater performUpdateWithCollectionView:self.collectionView fromObjects:from toObjects:to animated:YES objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+    [self.updater performUpdateWithCollectionView:self.collectionView fromObjects:from toObjects:to animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
         XCTAssertEqual([self.collectionView numberOfSections], 1);
         [expectation fulfill];
     }];
@@ -395,6 +396,67 @@
     XCTAssertEqual(reloads.count, 0);
     XCTAssertEqual(deletes.count, 0);
     XCTAssertEqual(inserts.count, 0);
+}
+
+- (void)test_whenReloadingData_withNilCollectionView_thatDelegateEventNotSent {
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+    id compilerFriendlyNil = nil;
+    [[mockDelegate reject] listAdapterUpdater:self.updater willReloadDataWithCollectionView:compilerFriendlyNil];
+    [[mockDelegate reject] listAdapterUpdater:self.updater didReloadDataWithCollectionView:compilerFriendlyNil];
+    [self.updater performReloadDataWithCollectionView:compilerFriendlyNil];
+    [mockDelegate verify];
+}
+
+- (void)test_whenPerformingUpdates_withNilCollectionView_thatDelegateEventNotSent {
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+    id compilerFriendlyNil = nil;
+    [[mockDelegate reject] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:compilerFriendlyNil];
+    [[mockDelegate reject] listAdapterUpdater:self.updater didPerformBatchUpdates:[OCMArg any] withCollectionView:compilerFriendlyNil];
+    [self.updater performBatchUpdatesWithCollectionView:compilerFriendlyNil];
+    [mockDelegate verify];
+}
+
+- (void)test_whenCallingReloadData_withUICollectionViewFlowLayout_withEstimatedSize_thatSectionItemCountsCorrect {
+    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+    // setting the estimated size of a layout causes UICollectionView to requery layout attributes during reloadData
+    // this becomes out of sync with the data source if the section/item count changes
+    layout.estimatedItemSize = CGSizeMake(100, 10);
+
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:layout];
+    IGListTestUICollectionViewDataSource *dataSource = [[IGListTestUICollectionViewDataSource alloc] initWithCollectionView:collectionView];
+
+    // 2 sections, 1 item in 1st, 4 items in 2nd
+    dataSource.sections = @[
+                            [IGSectionObject sectionWithObjects:@[@1]],
+                            [IGSectionObject sectionWithObjects:@[@1, @2, @3, @4]]
+                            ];
+
+    // assert the initial state of the collection view WITHOUT any layoutSubviews or anything
+    XCTAssertEqual([collectionView numberOfSections], 2);
+    XCTAssertEqual([collectionView numberOfItemsInSection:0], 1);
+    XCTAssertEqual([collectionView numberOfItemsInSection:1], 4);
+
+    dataSource.sections = @[
+                            [IGSectionObject sectionWithObjects:@[@1]],
+                            ];
+
+    IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
+    [updater performReloadDataWithCollectionView:collectionView];
+
+    XCTAssertEqual([collectionView numberOfSections], 1);
+    XCTAssertEqual([collectionView numberOfItemsInSection:0], 1);
+
+    dataSource.sections = @[
+                            [IGSectionObject sectionWithObjects:@[@1]],
+                            [IGSectionObject sectionWithObjects:@[@1, @2, @3, @4]]
+                            ];
+    [updater performReloadDataWithCollectionView:collectionView];
+
+    XCTAssertEqual([collectionView numberOfSections], 2);
+    XCTAssertEqual([collectionView numberOfItemsInSection:0], 1);
+    XCTAssertEqual([collectionView numberOfItemsInSection:1], 4);
 }
 
 @end

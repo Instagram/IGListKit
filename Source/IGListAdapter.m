@@ -113,8 +113,9 @@
 }
 
 - (void)updateAfterPublicSettingsChange {
-    if (_collectionView != nil && _dataSource != nil) {
-        [self updateObjects:[[_dataSource objectsForListAdapter:self] copy]];
+    id<IGListAdapterDataSource> dataSource = _dataSource;
+    if (_collectionView != nil && dataSource != nil) {
+        [self updateObjects:[[dataSource objectsForListAdapter:self] copy] dataSource:dataSource];
     }
 }
 
@@ -267,7 +268,7 @@
                                          // there are any item deletes at the same
                                          weakSelf.previoussectionMap = [weakSelf.sectionMap copy];
 
-                                         [weakSelf updateObjects:toObjects];
+                                         [weakSelf updateObjects:toObjects dataSource:dataSource];
                                      } completion:^(BOOL finished) {
                                          // release the previous items
                                          weakSelf.previoussectionMap = nil;
@@ -296,7 +297,7 @@
     [self.updatingDelegate reloadDataWithCollectionView:collectionView reloadUpdateBlock:^{
         // purge all section controllers from the item map so that they are regenerated
         [weakSelf.sectionMap reset];
-        [weakSelf updateObjects:newItems];
+        [weakSelf updateObjects:newItems dataSource:dataSource];
     } completion:completion];
 }
 
@@ -437,7 +438,9 @@
 
 // this method is what updates the "source of truth"
 // this should only be called just before the collection view is updated
-- (void)updateObjects:(NSArray *)objects {
+- (void)updateObjects:(NSArray *)objects dataSource:(id<IGListAdapterDataSource>)dataSource {
+    IGParameterAssert(dataSource != nil);
+
 #if DEBUG
     for (id object in objects) {
         IGAssert([object isEqual:object], @"Object instance %@ not equal to itself. This will break infra map tables.", object);
@@ -463,10 +466,10 @@
 
         // if not, query the data source for a new one
         if (sectionController == nil) {
-            sectionController = [self.dataSource listAdapter:self sectionControllerForObject:object];
+            sectionController = [dataSource listAdapter:self sectionControllerForObject:object];
         }
 
-        IGAssert(sectionController != nil, @"Data source <%@> cannot return a nil section controller.", self.dataSource);
+        IGAssert(sectionController != nil, @"Data source <%@> cannot return a nil section controller.", dataSource);
         if (sectionController == nil) {
             continue;
         }
@@ -893,8 +896,29 @@
         return;
     }
 
-    NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes adjustForUpdateBlock:YES];
-    [self.updatingDelegate reloadItemsInCollectionView:collectionView indexPaths:indexPaths];
+    if (self.isInUpdateBlock) {
+        /**
+         UICollectionView is not designed to support -reloadSections: or -reloadItemsAtIndexPaths: during batch updates.
+         Internally it appears to convert these operations to a delete+insert. However the transformation is too simple
+         in that it doesn't account for the item's section being moved (naturally or explicitly) and can queue animation
+         collisions.
+         
+         If you have an object at section 2 with 4 items and attempt to reload item at index 1, you would create an
+         NSIndexPath at section: 2, item: 1. Within -performBatchUpdates:, UICollectionView converts this to a delete
+         and insert at the same NSIndexPath.
+         
+         If a section were inserted at position 2, the original section 2 has naturally shifted to section 3. However,
+         the insert NSIndexPath is section: 2, item: 1. Now the UICollectionView has a section animation at section 2,
+         as well as an item insert animation at section: 2, item: 1, and it will throw an exception.
+         
+         IGListAdapter tracks the before/after mapping of section controllers to make precise NSIndexPath conversions.
+         */
+        [self deleteInSectionController:sectionController atIndexes:indexes];
+        [self insertInSectionController:sectionController atIndexes:indexes];
+    } else {
+        NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes adjustForUpdateBlock:YES];
+        [self.updatingDelegate reloadItemsInCollectionView:collectionView indexPaths:indexPaths];
+    }
 }
 
 - (void)insertInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {

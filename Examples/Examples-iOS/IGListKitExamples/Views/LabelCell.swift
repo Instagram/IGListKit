@@ -31,21 +31,30 @@ class LabelCell: UICollectionViewCell {
         return ceil(bounds.height) + insets.top + insets.bottom
     }
 
-    lazy var label: UILabel = {
+    let label: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
         label.numberOfLines = 1
         label.font = LabelCell.font
-        self.contentView.addSubview(label)
         return label
     }()
 
-    lazy var separator: CALayer = {
+    let separator: CALayer = {
         let layer = CALayer()
         layer.backgroundColor = UIColor(red: 200/255.0, green: 199/255.0, blue: 204/255.0, alpha: 1).cgColor
-        self.contentView.layer.addSublayer(layer)
         return layer
     }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        contentView.addSubview(label)
+        contentView.layer.addSublayer(separator)
+        contentView.backgroundColor = .white
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()

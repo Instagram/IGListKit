@@ -19,7 +19,20 @@
             self.backgroundColor = [UIColor whiteColor];
         }
         
+        if ([self respondsToSelector:@selector(setPrefetchingEnabled:)]) {
+            self.prefetchingEnabled = NO;
+        }
+        
         self.alwaysBounceVertical = YES;
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        if ([self respondsToSelector:@selector(setPrefetchingEnabled:)]) {
+            self.prefetchingEnabled = NO;
+        }
     }
     return self;
 }
