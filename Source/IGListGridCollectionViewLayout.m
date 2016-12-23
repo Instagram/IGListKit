@@ -219,6 +219,10 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:i];
         id<UICollectionViewDelegateFlowLayout> delegate = (id<UICollectionViewDelegateFlowLayout>) collectionView.delegate;
         const CGSize itemSize = [delegate collectionView:collectionView layout:self sizeForItemAtIndexPath:indexPath];
+        
+        IGAssertMainThread();
+        IGAssert(itemSize.width <= self.contentWidth, @"The width of a single item must not exceed the width of the collection view.");
+        
         _IGListGridLayoutLine *lastLine = [self.lineCache lastObject];
         if (![lastLine addItemToTailWithSize:itemSize]) {
             // Not enough space for the last line
