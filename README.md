@@ -70,7 +70,7 @@ For [Carthage](https://github.com/Carthage/Carthage), add the following to your 
 github "Instagram/IGListKit" ~> 2.0.0
 ```
 
-> **For advanced usage, see our [Installation Guide](https://instagram.github.io/IGListKit/installation.html)**.
+> For advanced usage, see our [Installation Guide](https://instagram.github.io/IGListKit/installation.html).
 
 ## Getting Started
 
