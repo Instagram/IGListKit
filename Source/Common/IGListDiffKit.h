@@ -19,8 +19,6 @@ FOUNDATION_EXPORT double IGListKitVersionNumber;
  */
 FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 
-// Common (iOS, tvOS, macOS compatible):
-
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListBatchUpdateData.h>
 #import <IGListKit/IGListDiff.h>
