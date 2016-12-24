@@ -67,6 +67,8 @@ pod 'IGListKit', '~> 2.0.0'
 pod 'IGListKit', :git => 'https://github.com/Instagram/IGListKit.git', :branch => 'master'
 ```
 
+For advanced usage, see our [Installation Guide](https://instagram.github.io/IGListKit/advanced-installation.html)
+
 ### Carthage
 
 If using [Carthage](https://github.com/Carthage/Carthage), add the following to your `Cartfile`:
