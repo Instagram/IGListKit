@@ -54,7 +54,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     self.collectionView.frame = kStackTestFrame;
 
     self.dataSource = [[IGTestStackedDataSource alloc] init];
-    self.adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
+    self.adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:1];
 }
 
 - (void)tearDown {
@@ -700,6 +700,80 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     IGListSectionController<IGListSectionType> *section = stack.sectionControllers.lastObject;
     [section.collectionContext deselectItemAtIndex:0 sectionController:section animated:NO];
     XCTAssertFalse([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
+}
+
+- (void)test_whenRemovingSection_withWorkingRange_thatChildSectionControllersReceiveEvents {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@1 value:@[@1, @1]]
+                             ]];
+
+    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+    IGListTestSection *section = stack.sectionControllers.firstObject;
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
+    [[mockDelegate expect] listAdapter:self.adapter sectionControllerDidExitWorkingRange:section];
+
+    section.workingRangeDelegate = mockDelegate;
+
+    self.dataSource.objects = @[
+                                [[IGTestObject alloc] initWithKey:@1 value:@[@1, @1]],
+                                ];
+
+    XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        [mockDelegate verify];
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
+- (void)test_whenScrolling_withWorkingRange_thatChildSectionControllersReceiveEvents {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@1 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@2 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@3 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@4 value:@[@1, @1]]
+                             ]];
+
+    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    IGListTestSection *section = stack.sectionControllers.firstObject;
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
+    [[mockDelegate expect] listAdapter:self.adapter sectionControllerWillEnterWorkingRange:section];
+
+    section.workingRangeDelegate = mockDelegate;
+
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:4] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
+    [self.collectionView layoutIfNeeded];
+
+    [mockDelegate verify];
+}
+
+- (void)test_whenRemovingCellsFromChild_thatStackSendsDisplayEventsCorrectly {
+    IGTestObject *object = [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2]];
+    [self setupWithObjects:@[object]];
+
+    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:object];
+    IGListTestSection *section = stack.sectionControllers.lastObject;
+
+    XCTAssertEqual([self.collectionView numberOfSections], 1);
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
+
+    XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [section.collectionContext performBatchAnimated:YES updates:^{
+        section.items = 1;
+        [section.collectionContext deleteInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:1]];
+    } completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView numberOfSections], 1);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 @end
