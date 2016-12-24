@@ -15,54 +15,36 @@
     "tag": "2.0.0",
     "branch": "stable"
   },
-  "default_subspecs": "Default",
+  "ios": {
+    "source_files": "Source/**/*.{h,m,mm}",
+    "private_header_files": [
+      "Source/Internal/*.h",
+      "Source/Common/Internal/*.h"
+    ],
+    "frameworks": "UIKit"
+  },
+  "tvos": {
+    "source_files": "Source/**/*.{h,m,mm}",
+    "private_header_files": [
+      "Source/Internal/*.h",
+      "Source/Common/Internal/*.h"
+    ],
+    "frameworks": "UIKit"
+  },
+  "osx": {
+    "source_files": "Source/Common/**/*.{h,m,mm}",
+    "private_header_files": "Source/Common/Internal/*.h",
+    "frameworks": "Cocoa"
+  },
   "requires_arc": true,
   "platforms": {
     "ios": "8.0",
     "tvos": "9.0",
     "osx": "10.8"
   },
-  "ios": {
-    "frameworks": "UIKit"
-  },
-  "tvos": {
-    "frameworks": "UIKit"
-  },
-  "osx": {
-    "frameworks": "Cocoa"
-  },
   "libraries": "c++",
   "pod_target_xcconfig": {
     "CLANG_CXX_LANGUAGE_STANDARD": "c++11",
     "CLANG_CXX_LIBRARY": "libc++"
-  },
-  "subspecs": [
-    {
-      "name": "Diffing",
-      "source_files": "Source/Common/**/*.{h,m,mm}",
-      "private_header_files": "Source/Common/Internal/*.h"
-    },
-    {
-      "name": "Default",
-      "dependencies": {
-        "IGListKit/Diffing": [
-
-        ]
-      },
-      "ios": {
-        "source_files": "Source/**/*.{h,m,mm}",
-        "private_header_files": [
-          "Source/Internal/*.h",
-          "Source/Common/Internal/*.h"
-        ]
-      },
-      "tvos": {
-        "source_files": "Source/**/*.{h,m,mm}",
-        "private_header_files": [
-          "Source/Internal/*.h",
-          "Source/Common/Internal/*.h"
-        ]
-      }
-    }
-  ]
+  }
 }
