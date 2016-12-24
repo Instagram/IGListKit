@@ -15,21 +15,22 @@ Pod::Spec.new do |s|
     :branch => 'stable'
   }
 
-  s.ios.source_files = 'Source/**/*.{h,m,mm}'
-  s.ios.private_header_files = [
-    'Source/Internal/*.h',
-    'Source/Common/Internal/*.h'
-  ]
+  s.subspec 'Diffing' do |ds|
+    ds.source_files = 'Source/Common/**/*.{h,m,mm}'
+    ds.private_header_files = 'Source/Common/Internal/*.h'
+  end
 
-  s.tvos.source_files = 'Source/**/*.{h,m,mm}'
-  s.tvos.private_header_files = [
-    'Source/Internal/*.h',
-    'Source/Common/Internal/*.h'
-  ]
+  s.subspec 'Default' do |cs|
+    cs.dependency 'IGListKit/Diffing'
 
-  s.osx.source_files = 'Source/Common/**/*.{h,m,mm}'
-  s.osx.private_header_files = 'Source/Common/Internal/*.h'
+    cs.ios.source_files = 'Source/**/*.{h,m,mm}'
+    cs.ios.private_header_files = ['Source/Internal/*.h', 'Source/Common/Internal/*.h']
 
+    cs.tvos.source_files = 'Source/**/*.{h,m,mm}'
+    cs.tvos.private_header_files = ['Source/Internal/*.h', 'Source/Common/Internal/*.h']
+  end
+
+  s.default_subspec = 'Default'
   s.requires_arc = true
 
   s.ios.deployment_target = '8.0'
