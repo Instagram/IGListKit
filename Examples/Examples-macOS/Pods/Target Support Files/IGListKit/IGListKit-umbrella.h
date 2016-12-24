@@ -4,6 +4,7 @@
 
 #import "IGListAssert.h"
 #import "IGListBatchUpdateData.h"
+#import "IGListCompatibility.h"
 #import "IGListDiff.h"
 #import "IGListDiffable.h"
 #import "IGListExperiments.h"
