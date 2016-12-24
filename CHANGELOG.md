@@ -17,7 +17,7 @@ This release closes the [2.1.0 milestone](https://github.com/Instagram/IGListKit
 
 - Working ranges now work with `IGListStackedSectionController`. [Ryan Nystrom](https://github.com/rnystrom) [(#356)](https://github.com/Instagram/IGListKit/pull/356)
 
-- Added CocoaPods Subspec for Diffing component, and [advanced installation guide](https://instagram.github.io/IGListKit/advanced-installation.html). [Sherlouk](https://github.com/Sherlouk) [(#368)](https://github.com/Instagram/IGListKit/pull/368)
+- Added CocoaPods subspec for diffing, `IGListKit/Diffing` and an [installation guide](https://instagram.github.io/IGListKit/installation.html). [Sherlouk](https://github.com/Sherlouk) [(#368)](https://github.com/Instagram/IGListKit/pull/368)
 
 ### Fixes
 
