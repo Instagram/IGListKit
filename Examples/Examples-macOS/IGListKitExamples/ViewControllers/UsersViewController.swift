@@ -34,7 +34,7 @@ final class UsersViewController: NSViewController {
     }
     
     private func computeFilteredUsers() {
-        guard searchTerm.characters.count > 1 else {
+        guard !searchTerm.characters.isEmpty else {
             filteredUsers = users
             return
         }
