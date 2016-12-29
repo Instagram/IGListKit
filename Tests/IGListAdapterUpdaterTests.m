@@ -459,8 +459,7 @@
     XCTAssertEqual([collectionView numberOfItemsInSection:1], 4);
 }
 
-- (void)test_whenCollectionViewNotInWindow_andDiffSkippingFlagSetNO_diffHappens
-{
+- (void)test_whenCollectionViewNotInWindow_andDiffSkippingFlagSetNO_diffHappens {
     self.updater.skipsDiffingWhenOffscreen = NO;
     [self.collectionView removeFromSuperview];
 
@@ -481,8 +480,7 @@
     [mockDelegate verify];
 }
 
-- (void)test_whenCollectionViewNotInWindow_andDiffSkippingFlagDefaultYES_diffDoesNotHappen
-{
+- (void)test_whenCollectionViewNotInWindow_andDiffSkippingFlagDefaultYES_diffDoesNotHappen {
     [self.collectionView removeFromSuperview];
 
     id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];

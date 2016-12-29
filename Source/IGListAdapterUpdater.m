@@ -154,7 +154,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     // if the collection view isn't in a visible window, skip diffing and batch updating. execute all transition blocks,
     // reload data, execute completion blocks, and get outta here
     BOOL iOS83OrLater = (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_3);
-    if (iOS83OrLater && _skipsDiffingWhenOffscreen && collectionView.window == nil) {
+    if (iOS83OrLater && self.skipsDiffingWhenOffscreen && collectionView.window == nil) {
         [self beginPerformBatchUpdatestoObjects:toObjects];
         executeUpdateBlocks();
         [self cleanupUpdateBlockState];
