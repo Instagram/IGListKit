@@ -136,6 +136,7 @@ extension UsersViewController: NSTableViewDelegate {
         return cell
     }
     
+    @available(OSX 10.11, *)
     func tableView(_ tableView: NSTableView, rowActionsForRow row: Int, edge: NSTableRowActionEdge) -> [NSTableViewRowAction] {
         let delete = NSTableViewRowAction(style: .destructive, title: "Delete") { action, row in
             guard row < self.filteredUsers.count else { return }
