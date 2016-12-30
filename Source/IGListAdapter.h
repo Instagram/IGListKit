@@ -74,6 +74,11 @@ IGLK_SUBCLASSING_RESTRICTED
 @property (nonatomic, nullable, weak) id <UIScrollViewDelegate> scrollViewDelegate;
 
 /**
+ The updater that this list adapter was created with.
+ */
+@property (nonatomic, strong, readonly) id <IGListUpdatingDelegate> updatingDelegate;
+
+/**
  A bitmask of experiments to conduct on the adapter.
  */
 @property (nonatomic, assign) IGListExperiment experiments;
