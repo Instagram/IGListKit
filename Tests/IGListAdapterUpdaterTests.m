@@ -460,7 +460,7 @@
 }
 
 - (void)test_whenCollectionViewNotInWindow_andDiffSkippingFlagSetNO_diffHappens {
-    self.updater.skipsDiffingWhenOffscreen = NO;
+    self.updater.allowsBackgroundReloading = NO;
     [self.collectionView removeFromSuperview];
 
     id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];

@@ -46,7 +46,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @warning On iOS < 8.3, this behavior is unsupported and will always be treated as `NO`.
  */
-@property (nonatomic, assign) BOOL skipsDiffingWhenOffscreen;
+@property (nonatomic, assign) BOOL allowsBackgroundReloading;
 
 /**
  A bitmask of experiments to conduct on the updater.
