@@ -39,10 +39,10 @@ IGLK_SUBCLASSING_RESTRICTED
 
 /**
  A flag indicating whether this updater should skip diffing and simply call
- `reloadData` for updates when the collection view is not in a window. Defaults to `YES`.
+ `reloadData` for updates when the collection view is not in a window. The default value is `YES`.
  
  @note This will result in better performance, but will not generate the same delegate
- callbacks and your layout will not receive `prepareForCollectionViewUpdates:`.
+ callbacks. If using a custom layout, it will not receive `prepareForCollectionViewUpdates:`.
 
  @warning On iOS < 8.3, this behavior is unsupported and will always be treated as `NO`.
  */
