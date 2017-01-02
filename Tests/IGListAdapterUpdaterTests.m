@@ -459,7 +459,7 @@
     XCTAssertEqual([collectionView numberOfItemsInSection:1], 4);
 }
 
-- (void)test_whenCollectionViewNotInWindow_andBGReloadFlagSetNO_diffHappens {
+- (void)test_whenCollectionViewNotInWindow_andBackgroundReloadFlag_isSetNO_diffHappens {
     self.updater.allowsBackgroundReloading = NO;
     [self.collectionView removeFromSuperview];
 
@@ -480,7 +480,7 @@
     [mockDelegate verify];
 }
 
-- (void)test_whenCollectionViewNotInWindow_andBGReloadFlagDefaultYES_diffDoesNotHappen {
+- (void)test_whenCollectionViewNotInWindow_andBackgroundReloadFlag_isDefaultYES_diffDoesNotHappen {
     [self.collectionView removeFromSuperview];
 
     id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
