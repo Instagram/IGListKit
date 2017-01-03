@@ -76,7 +76,7 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  The updater that this list adapter was created with.
  */
-@property (nonatomic, strong, readonly) id <IGListUpdatingDelegate> updatingDelegate;
+@property (nonatomic, strong, readonly) id <IGListUpdatingDelegate> updater;
 
 /**
  A bitmask of experiments to conduct on the adapter.
@@ -86,7 +86,7 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  Initializes a new `IGListAdapter` object.
 
- @param updatingDelegate An object that manages updates to the collection view.
+ @param updater An object that manages updates to the collection view.
  @param viewController   The view controller that will house the adapter.
  @param workingRangeSize The number of objects before and after the viewport to consider within the working range.
 
@@ -99,7 +99,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  To opt out of using the working range, you can provide a value of `0`.
  */
-- (instancetype)initWithUpdater:(id <IGListUpdatingDelegate>)updatingDelegate
+- (instancetype)initWithUpdater:(id <IGListUpdatingDelegate>)updater
                  viewController:(nullable UIViewController *)viewController
                workingRangeSize:(NSInteger)workingRangeSize NS_DESIGNATED_INITIALIZER;
 
