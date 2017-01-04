@@ -704,7 +704,7 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 
     id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
     [[mockDelegate reject] reloadItemsInCollectionView:[OCMArg any] indexPaths:[OCMArg any]];
-    self.adapter.updatingDelegate = mockDelegate;
+    self.adapter.updater = mockDelegate;
 
     id sectionController = [self.adapter sectionControllerForObject:@1];
     [self.adapter reloadInSectionController:sectionController atIndexes:[NSIndexSet new]];
@@ -718,7 +718,7 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 
     id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
     [[mockDelegate reject] deleteItemsFromCollectionView:[OCMArg any] indexPaths:[OCMArg any]];
-    self.adapter.updatingDelegate = mockDelegate;
+    self.adapter.updater = mockDelegate;
 
     id sectionController = [self.adapter sectionControllerForObject:@1];
     [self.adapter deleteInSectionController:sectionController atIndexes:[NSIndexSet new]];
@@ -732,7 +732,7 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 
     id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
     [[mockDelegate reject] insertItemsIntoCollectionView:[OCMArg any] indexPaths:[OCMArg any]];
-    self.adapter.updatingDelegate = mockDelegate;
+    self.adapter.updater = mockDelegate;
 
     id sectionController = [self.adapter sectionControllerForObject:@1];
     [self.adapter insertInSectionController:sectionController atIndexes:[NSIndexSet new]];
@@ -746,7 +746,7 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 
     id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
     [[mockDelegate reject] reloadCollectionView:[OCMArg any] sections:[OCMArg any]];
-    self.adapter.updatingDelegate = mockDelegate;
+    self.adapter.updater = mockDelegate;
 
     id sectionController = [IGListSectionController new];
     [self.adapter reloadSectionController:sectionController];
