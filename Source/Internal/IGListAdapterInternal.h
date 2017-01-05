@@ -52,7 +52,7 @@ IGListCollectionContext
  objects or section controllers.
  */
 @property (nonatomic, assign) BOOL isInUpdateBlock;
-@property (nonatomic, strong, nullable) IGListSectionMap *previoussectionMap;
+@property (nonatomic, strong, nullable) IGListSectionMap *previousSectionMap;
 
 @property (nonatomic, strong) NSMutableSet<Class> *registeredCellClasses;
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredNibNames;
