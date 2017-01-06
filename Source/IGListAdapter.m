@@ -34,14 +34,14 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithUpdater:(id <IGListUpdatingDelegate>)updatingDelegate
+- (instancetype)initWithUpdater:(id <IGListUpdatingDelegate>)updater
                  viewController:(UIViewController *)viewController
                workingRangeSize:(NSInteger)workingRangeSize {
     IGAssertMainThread();
-    IGParameterAssert(updatingDelegate);
+    IGParameterAssert(updater);
 
     if (self = [super init]) {
-        NSPointerFunctions *keyFunctions = [updatingDelegate objectLookupPointerFunctions];
+        NSPointerFunctions *keyFunctions = [updater objectLookupPointerFunctions];
         NSPointerFunctions *valueFunctions = [NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsStrongMemory];
         NSMapTable *table = [[NSMapTable alloc] initWithKeyPointerFunctions:keyFunctions valuePointerFunctions:valueFunctions capacity:0];
         _sectionMap = [[IGListSectionMap alloc] initWithMapTable:table];
@@ -52,7 +52,7 @@
         _cellSectionControllerMap = [NSMapTable mapTableWithKeyOptions:NSMapTableObjectPointerPersonality | NSMapTableStrongMemory
                                                           valueOptions:NSMapTableStrongMemory];
 
-        _updatingDelegate = updatingDelegate;
+        _updater = updater;
         _viewController = viewController;
     }
     return self;
@@ -259,7 +259,7 @@
     NSArray *newItems = [[dataSource objectsForListAdapter:self] copy];
 
     __weak __typeof__(self) weakSelf = self;
-    [self.updatingDelegate performUpdateWithCollectionView:collectionView
+    [self.updater performUpdateWithCollectionView:collectionView
                                                fromObjects:fromObjects
                                                  toObjects:newItems
                                                   animated:animated
@@ -294,7 +294,7 @@
     NSArray *newItems = [[dataSource objectsForListAdapter:self] copy];
 
     __weak __typeof__(self) weakSelf = self;
-    [self.updatingDelegate reloadDataWithCollectionView:collectionView reloadUpdateBlock:^{
+    [self.updater reloadDataWithCollectionView:collectionView reloadUpdateBlock:^{
         // purge all section controllers from the item map so that they are regenerated
         [weakSelf.sectionMap reset];
         [weakSelf updateObjects:newItems dataSource:dataSource];
@@ -329,7 +329,7 @@
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Tried to reload the adapter without a collection view");
 
-    [self.updatingDelegate reloadCollectionView:collectionView sections:sections];
+    [self.updater reloadCollectionView:collectionView sections:sections];
 }
 
 
@@ -917,7 +917,7 @@
         [self insertInSectionController:sectionController atIndexes:indexes];
     } else {
         NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes adjustForUpdateBlock:YES];
-        [self.updatingDelegate reloadItemsInCollectionView:collectionView indexPaths:indexPaths];
+        [self.updater reloadItemsInCollectionView:collectionView indexPaths:indexPaths];
     }
 }
 
@@ -933,7 +933,7 @@
     }
 
     NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes adjustForUpdateBlock:NO];
-    [self.updatingDelegate insertItemsIntoCollectionView:collectionView indexPaths:indexPaths];
+    [self.updater insertItemsIntoCollectionView:collectionView indexPaths:indexPaths];
 }
 
 - (void)deleteInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {
@@ -948,7 +948,7 @@
     }
 
     NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes adjustForUpdateBlock:YES];
-    [self.updatingDelegate deleteItemsFromCollectionView:collectionView indexPaths:indexPaths];
+    [self.updater deleteItemsFromCollectionView:collectionView indexPaths:indexPaths];
 }
 
 - (void)reloadSectionController:(IGListSectionController <IGListSectionType> *)sectionController {
@@ -964,7 +964,7 @@
     }
 
     NSIndexSet *sections = [NSIndexSet indexSetWithIndex:section];
-    [self.updatingDelegate reloadCollectionView:collectionView sections:sections];
+    [self.updater reloadCollectionView:collectionView sections:sections];
 }
 
 - (void)performBatchAnimated:(BOOL)animated updates:(void (^)())updates completion:(void (^)(BOOL))completion {
@@ -974,7 +974,7 @@
     IGAssert(collectionView != nil, @"Performing batch updates without a collection view.");
 
     __weak __typeof__(self) weakSelf = self;
-    [self.updatingDelegate performUpdateWithCollectionView:collectionView animated:animated itemUpdates:^{
+    [self.updater performUpdateWithCollectionView:collectionView animated:animated itemUpdates:^{
         weakSelf.isInUpdateBlock = YES;
         updates();
         weakSelf.isInUpdateBlock = NO;

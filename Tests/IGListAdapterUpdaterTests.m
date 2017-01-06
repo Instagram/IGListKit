@@ -459,4 +459,50 @@
     XCTAssertEqual([collectionView numberOfItemsInSection:1], 4);
 }
 
+- (void)test_whenCollectionViewNotInWindow_andBackgroundReloadFlag_isSetNO_diffHappens {
+    self.updater.allowsBackgroundReloading = NO;
+    [self.collectionView removeFromSuperview];
+
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+    [mockDelegate setExpectationOrderMatters:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didPerformBatchUpdates:OCMOCK_ANY withCollectionView:self.collectionView];
+
+    XCTestExpectation *expectation = genExpectation;
+    NSArray *to = @[
+                    [IGSectionObject sectionWithObjects:@[]]
+                    ];
+    [self.updater performUpdateWithCollectionView:self.collectionView fromObjects:self.dataSource.sections toObjects:to animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+    waitExpectation;
+    [mockDelegate verify];
+}
+
+- (void)test_whenCollectionViewNotInWindow_andBackgroundReloadFlag_isDefaultYES_diffDoesNotHappen {
+    [self.collectionView removeFromSuperview];
+
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+
+    // NOTE: The current behavior in this case is for the adapter updater
+    // simply not to call any delegate methods at all. This may change
+    // in the future, but we configure the mock delegate to allow any call
+    // except the batch updates calls.
+
+    [[mockDelegate reject] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView];
+    [[mockDelegate reject] listAdapterUpdater:self.updater didPerformBatchUpdates:OCMOCK_ANY withCollectionView:self.collectionView];
+
+    XCTestExpectation *expectation = genExpectation;
+    NSArray *to = @[
+                    [IGSectionObject sectionWithObjects:@[]]
+                    ];
+    [self.updater performUpdateWithCollectionView:self.collectionView fromObjects:self.dataSource.sections toObjects:to animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+    waitExpectation;
+    [mockDelegate verify];
+}
+
 @end
