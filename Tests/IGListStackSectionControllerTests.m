@@ -85,8 +85,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     section4.items = 1;
 
     IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section1, section2, section3, section4]];
-
-    XCTAssertEqual([stack numberOfItems], 6);
+    [stack performBatchAnimated:false updates:^{} completion:^(BOOL finished) {
+        XCTAssertEqual([stack numberOfItems], 6);
+    }];
 }
 
 - (void)test_whenInitializingStack_thatSectionControllerIndexesMatch {
@@ -101,12 +102,14 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
     IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section1, section2, section3, section4]];
 
-    XCTAssertEqualObjects([stack sectionControllerForObjectIndex:0], section1);
-    XCTAssertEqualObjects([stack sectionControllerForObjectIndex:1], section1);
-    XCTAssertEqualObjects([stack sectionControllerForObjectIndex:2], section2);
-    XCTAssertEqualObjects([stack sectionControllerForObjectIndex:3], section2);
-    XCTAssertEqualObjects([stack sectionControllerForObjectIndex:4], section2);
-    XCTAssertEqualObjects([stack sectionControllerForObjectIndex:5], section4);
+    [stack performBatchAnimated:false updates:^{} completion:^(BOOL finished) {
+        XCTAssertEqualObjects([stack sectionControllerForObjectIndex:0], section1);
+        XCTAssertEqualObjects([stack sectionControllerForObjectIndex:1], section1);
+        XCTAssertEqualObjects([stack sectionControllerForObjectIndex:2], section2);
+        XCTAssertEqualObjects([stack sectionControllerForObjectIndex:3], section2);
+        XCTAssertEqualObjects([stack sectionControllerForObjectIndex:4], section2);
+        XCTAssertEqualObjects([stack sectionControllerForObjectIndex:5], section4);
+    }];
 }
 
 - (void)test_whenInitializingStack_thatSectionControllerOffsetsMatch {
@@ -120,10 +123,12 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     section4.items = 1;
 
     IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section1, section2, section3, section4]];
-    XCTAssertEqual([stack offsetForSectionController:section1], 0);
-    XCTAssertEqual([stack offsetForSectionController:section2], 2);
-    XCTAssertEqual([stack offsetForSectionController:section3], 5);
-    XCTAssertEqual([stack offsetForSectionController:section4], 5);
+    [stack performBatchAnimated:false updates:^{} completion:^(BOOL finished) {
+        XCTAssertEqual([stack offsetForSectionController:section1], 0);
+        XCTAssertEqual([stack offsetForSectionController:section2], 2);
+        XCTAssertEqual([stack offsetForSectionController:section3], 5);
+        XCTAssertEqual([stack offsetForSectionController:section4], 5);
+    }];
 }
 
 
@@ -307,12 +312,13 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
     IGListDisplayHandler *display = [[IGListDisplayHandler alloc] init];
     IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section1, section2]];
-
-    [display willDisplayCell:cell1 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-    [display willDisplayCell:cell2 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
-
-    [mock1Delegate verify];
-    [mock2Delegate verify];
+    [stack performBatchAnimated:false updates:^{} completion:^(BOOL finished) {
+        [display willDisplayCell:cell1 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        [display willDisplayCell:cell2 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+        
+        [mock1Delegate verify];
+        [mock2Delegate verify];
+    }];
 }
 
 - (void)test_whenEndDisplayingCell_thatEventsForwardedToSectionControllers {
@@ -329,26 +335,31 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
     IGListDisplayHandler *display = [[IGListDisplayHandler alloc] init];
     IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section1, section2]];
+        [stack performBatchAnimated:false updates:^{} completion:^(BOOL finished) {
 
-    // display all 4 cells (2 per child section controller)
-    [display willDisplayCell:cell1 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-    [display willDisplayCell:cell2 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
-    [display willDisplayCell:cell3 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
-    [display willDisplayCell:cell4 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:3 inSection:0]];
 
-    section1.displayDelegate = mock1Delegate;
-    section2.displayDelegate = mock2Delegate;
+        // display all 4 cells (2 per child section controller)
+        [display willDisplayCell:cell1 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        [display willDisplayCell:cell2 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+        [display willDisplayCell:cell3 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+        [display willDisplayCell:cell4 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:3 inSection:0]];
 
-    [[mock1Delegate expect] listAdapter:self.adapter didEndDisplayingSectionController:section1];
-    [[mock1Delegate expect] listAdapter:self.adapter didEndDisplayingSectionController:section1 cell:cell1 atIndex:0];
-    [[mock1Delegate expect] listAdapter:self.adapter didEndDisplayingSectionController:section1 cell:cell2 atIndex:1];
-    [[mock2Delegate reject] listAdapter:self.adapter didEndDisplayingSectionController:section2];
+        section1.displayDelegate = mock1Delegate;
+        section2.displayDelegate = mock2Delegate;
 
-    [display didEndDisplayingCell:cell1 forListAdapter:self.adapter sectionController:stack indexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-    [display didEndDisplayingCell:cell2 forListAdapter:self.adapter sectionController:stack indexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+        [[mock1Delegate expect] listAdapter:self.adapter didEndDisplayingSectionController:section1];
+        [[mock1Delegate expect] listAdapter:self.adapter didEndDisplayingSectionController:section1 cell:cell1 atIndex:0];
+        [[mock1Delegate expect] listAdapter:self.adapter didEndDisplayingSectionController:section1 cell:cell2 atIndex:1];
+        [[mock2Delegate reject] listAdapter:self.adapter didEndDisplayingSectionController:section2];
 
-    [mock1Delegate verify];
-    [mock2Delegate verify];
+        [display didEndDisplayingCell:cell1 forListAdapter:self.adapter sectionController:stack indexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        [display didEndDisplayingCell:cell2 forListAdapter:self.adapter sectionController:stack indexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+
+        [mock1Delegate verify];
+        [mock2Delegate verify];
+    }];
+
+    
 }
 
 - (void)test_whenRemovingCell_thatEventsForwardedToSectionControllers {
