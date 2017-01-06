@@ -443,7 +443,7 @@
 
 #if DEBUG
     for (id object in objects) {
-        IGAssert([object isEqual:object], @"Object instance %@ not equal to itself. This will break infra map tables.", object);
+        IGAssert([object isEqualToDiffableObject:object], @"Object instance %@ not equal to itself. This will break infra map tables.", object);
     }
 #endif
 
