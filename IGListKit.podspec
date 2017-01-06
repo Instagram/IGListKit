@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'IGListKit'
-  s.version = '2.0.0'
+  s.version = '2.1.0'
   s.summary = 'A data-driven UICollectionView framework.'
   s.homepage = 'https://github.com/Instagram/IGListKit'
   s.documentation_url = 'https://instagram.github.io/IGListKit'
@@ -15,26 +15,27 @@ Pod::Spec.new do |s|
     :branch => 'stable'
   }
 
-  s.ios.source_files = 'Source/**/*.{h,m,mm}'
-  s.ios.private_header_files = [
-    'Source/Internal/*.h',
-    'Source/Common/Internal/*.h'
-  ]
+  s.subspec 'Diffing' do |ds|
+    ds.source_files = 'Source/Common/**/*.{h,m,mm}'
+    ds.private_header_files = 'Source/Common/Internal/*.h'
+  end
 
-  s.tvos.source_files = 'Source/**/*.{h,m,mm}'
-  s.tvos.private_header_files = [
-    'Source/Internal/*.h',
-    'Source/Common/Internal/*.h'
-  ]
+  s.subspec 'Default' do |cs|
+    cs.dependency 'IGListKit/Diffing'
 
-  s.osx.source_files = 'Source/Common/**/*.{h,m,mm}'
-  s.osx.private_header_files = 'Source/Common/Internal/*.h'
+    cs.ios.source_files = 'Source/**/*.{h,m,mm}'
+    cs.ios.private_header_files = ['Source/Internal/*.h', 'Source/Common/Internal/*.h']
 
+    cs.tvos.source_files = 'Source/**/*.{h,m,mm}'
+    cs.tvos.private_header_files = ['Source/Internal/*.h', 'Source/Common/Internal/*.h']
+  end
+
+  s.default_subspec = 'Default'
   s.requires_arc = true
 
   s.ios.deployment_target = '8.0'
   s.tvos.deployment_target = '9.0'
-  s.osx.deployment_target = '10.8'
+  s.osx.deployment_target = '10.10'
 
   s.ios.frameworks = 'UIKit'
   s.tvos.frameworks = 'UIKit'

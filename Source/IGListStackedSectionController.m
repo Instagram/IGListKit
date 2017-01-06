@@ -56,6 +56,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 
         self.displayDelegate = self;
         self.scrollDelegate = self;
+        self.workingRangeDelegate = self;
 
         [self reloadData];
     }
@@ -360,6 +361,20 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 - (void)listAdapter:(IGListAdapter *)listAdapter didEndDraggingSectionController:(IGListSectionController<IGListSectionType> *)sectionController willDecelerate:(BOOL)decelerate {
     for (IGListSectionController<IGListSectionType> *childSectionController in self.sectionControllers) {
         [[childSectionController scrollDelegate] listAdapter:listAdapter didEndDraggingSectionController:childSectionController willDecelerate:decelerate];
+    }
+}
+
+#pragma mark - IGListWorkingRangeDelegate
+
+- (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerWillEnterWorkingRange:(IGListSectionController<IGListSectionType> *)sectionController {
+    for (IGListSectionController<IGListSectionType> *childSectionController in self.sectionControllers) {
+        [[childSectionController workingRangeDelegate] listAdapter:listAdapter sectionControllerWillEnterWorkingRange:childSectionController];
+    }
+}
+
+- (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerDidExitWorkingRange:(IGListSectionController<IGListSectionType> *)sectionController {
+    for (IGListSectionController<IGListSectionType> *childSectionController in self.sectionControllers) {
+        [[childSectionController workingRangeDelegate] listAdapter:listAdapter sectionControllerDidExitWorkingRange:childSectionController];
     }
 }
 

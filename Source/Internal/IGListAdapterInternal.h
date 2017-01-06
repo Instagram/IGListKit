@@ -32,7 +32,7 @@ IGListCollectionContext
     __weak UICollectionView *_collectionView;
 }
 
-@property (nonatomic, strong) id <IGListUpdatingDelegate> updatingDelegate;
+@property (nonatomic, strong) id <IGListUpdatingDelegate> updater;
 
 @property (nonatomic, strong, readonly) IGListSectionMap *sectionMap;
 @property (nonatomic, strong, readonly) IGListDisplayHandler *displayHandler;

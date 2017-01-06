@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>IGListDiffable and Equality  Reference</title>
+    <title>Installation  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,7 +10,7 @@
     
   </head>
   <body>
-    <a title="IGListDiffable and Equality  Reference"></a>
+    <a title="Installation  Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="index.html">IGListKit Docs</a> (100% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="index.html">IGListKit Reference</a>
         <img id="carat" src="img/carat.png" />
-        IGListDiffable and Equality  Reference
+        Installation  Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -214,88 +214,36 @@
         <section>
           <section class="section">
             
-            <a href='#iglistdiffable-and-equality' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='iglistdiffable-and-equality'>IGListDiffable and Equality</h1>
+            <a href='#installation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='installation'>Installation</h1>
 
-<p>This guide details how to write good <code>isEqual:</code> methods. </p>
-<a href='#background' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='background'>Background</h2>
+<p>This guide provides details on how to install <code>IGListKit</code>.</p>
+<a href='#cocoapods' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='cocoapods'>CocoaPods</h2>
 
-<p><code>IGListKit</code> requires that models implement the method <code>isEqualToDiffableObject:</code> which should perform the same type of check as <code>isEqual:</code>, but without impacting performance characteristics like in Objective-C containers such as <code>NSDictionary</code> and <code>NSSet</code>.</p>
-<a href='#code-iglistdiffable-code-bare-minimum' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='code-iglistdiffable-code-bare-minimum'><code>IGListDiffable</code> bare minimum</h2>
+<p>The preferred method of installation for <code>IGListKit</code> is using <a href="https://cocoapods.org/">CocoaPods</a>.</p>
 
-<p>The quickest way to get started with diffable models is use the <em>object itself</em> as the identifier, and use the superclass&rsquo;s <code>-[NSObject isEqual:]</code> implementation for equality:</p>
-<pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="n">diffIdentifier</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="o">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">isEqualToDiffableObject</span><span class="o">:</span><span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span><span class="p">)</span><span class="n">object</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">[</span><span class="n">self</span> <span class="nf">isEqual</span><span class="p">:</span><span class="n">object</span><span class="p">];</span>
-<span class="p">}</span>
+<p>In order to use the latest release of the framework, add the following to your <code>Podfile</code>:</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'IGListKit'</span><span class="p">,</span> <span class="s1">'~&gt; 2.0.0'</span>
 </code></pre>
-<a href='#writing-better-equality-methods' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='writing-better-equality-methods'>Writing better Equality methods</h2>
+<a href='#using-code-master-code' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='using-code-master-code'>Using <code>master</code></h3>
 
-<p>Even though <code>IGListKit</code> uses the method <code>isEqualToDiffableObject:</code>, the concepts of writing a good equality check apply in general. Here are the basics to writing good <code>-isEqual:</code> and <code>-hash</code> functions. Note this is all Objective-C but applies to Swift also.</p>
+<p>Alternatively, you can use the latest version from the <a href="https://github.com/Instagram/IGListKit/tree/master"><code>master</code> branch</a>. This is what we use at Instagram, so you can be confident that <code>master</code> is always stable.</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'IGListKit'</span><span class="p">,</span> <span class="ss">:git</span> <span class="o">=&gt;</span> <span class="s1">'https://github.com/Instagram/IGListKit.git'</span><span class="p">,</span> <span class="ss">:branch</span> <span class="o">=&gt;</span> <span class="s1">'master'</span>
+</code></pre>
+<a href='#subspecs' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='subspecs'>Subspecs</h3>
 
-<ul>
-<li>If you override <code>-isEqual:</code> you <strong>must</strong> override <code>-hash</code>. Check out this <a href="https://www.mikeash.com/pyblog/friday-qa-2010-06-18-implementing-equality-and-hashing.html">article by Mike Ash</a> for details.</li>
-<li>Always compare the pointer first. This saves a lot of wasteful <code>objc_msgSend(...)</code> calls and value comparisons if checking the same instance.</li>
-<li>When comparing object values, always check for <code>nil</code> before <code>-isEqual:</code>. For example, <code>[nil isEqual:nil]</code> unintuitively returns <code>NO</code>. Instead, do <code>left == right || [left isEqual:right]</code>.</li>
-<li>Always compare the <strong>cheapest values first</strong>. For example, doing <code>[self.array isEqual:other.array] &amp;&amp; self.intVal == other.array</code> is extremely wasteful if the <code>intVal</code> values are different. Use lazy evaluation!</li>
-</ul>
+<p>With the exception of <code>macOS</code> (which currently only supports the diffing algorithm components), using <code>pod &#39;IGListKit&#39;</code> will get you the full library, including the flexible <code>UICollectionView</code> system. Learn more about how to get started in our <a href="https://instagram.github.io/IGListKit/getting-started.html">Getting Started guide</a>.</p>
 
-<p>As an example, if I had a <code>User</code> model with the following interface:</p>
-<pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">User</span> <span class="p">:</span> <span class="nc">NSObject</span>
-
-<span class="k">@property</span> <span class="n">NSInteger</span> <span class="n">identifier</span><span class="p">;</span>
-<span class="k">@property</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
-<span class="k">@property</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">posts</span><span class="p">;</span>
-
-<span class="k">@end</span>
+<p>However, if you only want to use the diffing components of this library, then you can use the diffing subspec in your <code>Podfile</code>:</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'IGListKit/Diffing'</span><span class="p">,</span> <span class="s1">'~&gt; 2.0.0'</span>
 </code></pre>
 
-<p>You would implement its equality methods like so:</p>
-<pre class="highlight objective_c"><code><span class="k">@implementation</span> <span class="nc">User</span>
-
-<span class="k">-</span> <span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="n">hash</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">identifier</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="o">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">isEqual</span><span class="o">:</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="n">object</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">==</span> <span class="n">object</span><span class="p">)</span> <span class="p">{</span> 
-      <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">object</span> <span class="nf">isKindOfClass</span><span class="p">:[</span><span class="n">User</span> <span class="nf">class</span><span class="p">]])</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nb">NO</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="n">User</span> <span class="o">*</span><span class="n">right</span> <span class="o">=</span> <span class="n">object</span><span class="p">;</span>
-  <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">identifier</span> <span class="o">==</span> <span class="n">right</span><span class="p">.</span><span class="n">identifier</span> 
-      <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">right</span><span class="p">.</span><span class="n">name</span> <span class="o">||</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="nf">isEqual</span><span class="p">:</span><span class="n">right</span><span class="p">.</span><span class="n">name</span><span class="p">])</span>
-      <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">posts</span> <span class="o">==</span> <span class="n">right</span><span class="p">.</span><span class="n">posts</span> <span class="o">||</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">posts</span> <span class="nf">isEqualToArray</span><span class="p">:</span><span class="n">right</span><span class="p">.</span><span class="n">posts</span><span class="p">]);</span>
-<span class="p">}</span>
-
-<span class="k">@end</span>
+<p>Regardless of whether you only use the diffing components, or the entire library, the imports are the same:</p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">IGListKit</span>
 </code></pre>
-<a href='#using-both-code-iglistdiffable-code-and-code-isequal-code' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='using-both-code-iglistdiffable-code-and-code-isequal-code'>Using both <code>IGListDiffable</code> and <code>-isEqual:</code></h2>
+<a href='#carthage' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='carthage'>Carthage</h2>
 
-<p>Making your objects work universally with Objective-C containers and <code>IGListKit</code> is easy once you&rsquo;ve implemented <code>isEqual:</code> and <code>-hash</code>.</p>
-<pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">User</span> <span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span>
-
-<span class="c1">// properties...
-</span>
-<span class="k">@end</span>
-
-<span class="k">@implementation</span> <span class="nc">User</span>
-
-<span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="n">diffIdentifier</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="err">@</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">identifier</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="o">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">isEqualToDiffableObject</span><span class="o">:</span><span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span><span class="p">)</span><span class="n">object</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">self</span> <span class="nf">isEqual</span><span class="p">:</span><span class="n">object</span><span class="p">];</span>
-<span class="p">}</span>
-
-<span class="k">@end</span>
+<p>If using <a href="https://github.com/Carthage/Carthage">Carthage</a>, add the following to your <code>Cartfile</code>:</p>
+<pre class="highlight plaintext"><code>github "Instagram/IGListKit" ~&gt; 2.0.0
 </code></pre>
 
           </section>

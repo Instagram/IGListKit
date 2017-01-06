@@ -16,9 +16,7 @@
 
 #import "UICollectionView+IGListBatchUpdateData.h"
 
-@implementation IGListAdapterUpdater {
-    BOOL _canBackgroundReload;
-}
+@implementation IGListAdapterUpdater
 
 - (instancetype)init {
     IGAssertMainThread();
@@ -36,7 +34,7 @@
         _insertIndexPaths = [[NSMutableSet alloc] init];
         _reloadIndexPaths = [[NSMutableSet alloc] init];
 
-        _canBackgroundReload = [[[UIDevice currentDevice] systemVersion] compare:@"8.3" options:NSNumericSearch] != NSOrderedAscending;
+        _allowsBackgroundReloading = YES;
     }
     return self;
 }
@@ -155,7 +153,8 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
 
     // if the collection view isn't in a visible window, skip diffing and batch updating. execute all transition blocks,
     // reload data, execute completion blocks, and get outta here
-    if (_canBackgroundReload && collectionView.window == nil) {
+    const BOOL iOS83OrLater = (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_3);
+    if (iOS83OrLater && self.allowsBackgroundReloading && collectionView.window == nil) {
         [self beginPerformBatchUpdatestoObjects:toObjects];
         executeUpdateBlocks();
         [self cleanupUpdateBlockState];
