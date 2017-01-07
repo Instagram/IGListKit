@@ -504,10 +504,13 @@
         itemCount += [sectionController numberOfItems];
     }
 
-    [self updateBackgroundViewWithItemCount:itemCount];
+    [self updateBackgroundViewShouldHide:itemCount > 0];
 }
 
-- (void)updateBackgroundViewWithItemCount:(NSUInteger)itemCount {
+- (void)updateBackgroundViewShouldHide:(BOOL)shouldHide {
+    if (self.isInUpdateBlock) {
+        return; // will be called again when update block completes
+    }
     UIView *backgroundView = [self.dataSource emptyViewForListAdapter:self];
     // don't do anything if the client is using the same view
     if (backgroundView != _collectionView.backgroundView) {
@@ -516,7 +519,18 @@
         [_collectionView.backgroundView removeFromSuperview];
         _collectionView.backgroundView = backgroundView;
     }
-    _collectionView.backgroundView.hidden = itemCount > 0;
+    _collectionView.backgroundView.hidden = shouldHide;
+}
+
+- (BOOL)itemCountIsZero {
+    __block BOOL isZero = YES;
+    [self.sectionMap enumerateUsingBlock:^(id  _Nonnull object, IGListSectionController<IGListSectionType> * _Nonnull sectionController, NSInteger section, BOOL * _Nonnull stop) {
+        if (sectionController.numberOfItems > 0) {
+            isZero = NO;
+            *stop = YES;
+        }
+    }];
+    return isZero;
 }
 
 - (IGListSectionMap *)sectionMapAdjustForUpdateBlock:(BOOL)adjustForUpdateBlock {
@@ -918,6 +932,7 @@
     } else {
         NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes adjustForUpdateBlock:YES];
         [self.updater reloadItemsInCollectionView:collectionView indexPaths:indexPaths];
+        [self updateBackgroundViewShouldHide:![self itemCountIsZero]];
     }
 }
 
@@ -934,6 +949,7 @@
 
     NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes adjustForUpdateBlock:NO];
     [self.updater insertItemsIntoCollectionView:collectionView indexPaths:indexPaths];
+    [self updateBackgroundViewShouldHide:![self itemCountIsZero]];
 }
 
 - (void)deleteInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {
@@ -949,6 +965,7 @@
 
     NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes adjustForUpdateBlock:YES];
     [self.updater deleteItemsFromCollectionView:collectionView indexPaths:indexPaths];
+    [self updateBackgroundViewShouldHide:![self itemCountIsZero]];
 }
 
 - (void)reloadSectionController:(IGListSectionController <IGListSectionType> *)sectionController {
@@ -965,6 +982,7 @@
 
     NSIndexSet *sections = [NSIndexSet indexSetWithIndex:section];
     [self.updater reloadCollectionView:collectionView sections:sections];
+    [self updateBackgroundViewShouldHide:![self itemCountIsZero]];
 }
 
 - (void)performBatchAnimated:(BOOL)animated updates:(void (^)())updates completion:(void (^)(BOOL))completion {
@@ -978,7 +996,12 @@
         weakSelf.isInUpdateBlock = YES;
         updates();
         weakSelf.isInUpdateBlock = NO;
-    } completion:completion];
+    } completion: ^(BOOL finished) {
+        [weakSelf updateBackgroundViewShouldHide:![weakSelf itemCountIsZero]];
+        if (completion) {
+            completion(finished);
+        }
+    }];
 }
 
 - (void)scrollToSectionController:(IGListSectionController<IGListSectionType> *)sectionController
