@@ -2,6 +2,12 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
+### Enhancements
+
+### Fixes
+
+- Fix bug where emptyView's hidden status is not updated after the number of items is changed with `insertInSectionController:atIndexes:` or related methods [Peter Edmonston](https://github.com/edmonston) 
+
 2.1.0
 -----
 
