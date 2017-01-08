@@ -5,7 +5,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 2.2.0
 -----
 
-This release closes the [2.2.0 milestone](https://github.com/Instagram/IGListKit/milestone/4)
+This release closes the [2.2.0 milestone](https://github.com/Instagram/IGListKit/milestone/4).
 
 ### Enhancements
 
