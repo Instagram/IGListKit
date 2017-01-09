@@ -69,9 +69,11 @@ final class SingleSectionViewController: UIViewController, IGListAdapterDataSour
     
     // MARK: - IGListSingleSectionControllerDelegate
     
-    func didSelect(_ sectionController: IGListSingleSectionController) {
+    func didSelect(_ sectionController: IGListSingleSectionController, with object: Any) {
         let section = adapter.section(for: sectionController) + 1
-        let alert = UIAlertController(title: "Section \(section) was selected \u{1F389}", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Section \(section) was selected \u{1F389}",
+                                      message: "Cell Object: " + String(describing: object),
+                                      preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
