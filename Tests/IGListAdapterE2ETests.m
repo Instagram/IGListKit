@@ -1159,4 +1159,34 @@
     [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
+- (void)test_whenQueuingUpdate_withSectionControllerBatchUpdate_thatSectionControllerNotRetained {
+    __weak id weakSectionController = nil;
+    @autoreleasepool {
+        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
+        IGTestDelegateDataSource *dataSource = [IGTestDelegateDataSource new];
+        IGTestObject *object = genTestObject(@1, @2);
+        dataSource.objects = @[object];
+        IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:[UICollectionViewFlowLayout new]];
+        adapter.collectionView = collectionView;
+        adapter.dataSource = dataSource;
+        [collectionView layoutIfNeeded];
+        XCTAssertEqual([collectionView numberOfSections], 1);
+        XCTAssertEqual([collectionView numberOfItemsInSection:0], 2);
+
+        IGListSectionController<IGListSectionType> *section = [adapter sectionControllerForObject:object];
+
+        [section.collectionContext performBatchAnimated:YES updates:^{
+            object.value = @3;
+            [section.collectionContext insertInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:0]];
+        } completion:^(BOOL finished) {}];
+
+        dataSource.objects = @[object, genTestObject(@2, @2)];
+        [adapter performUpdatesAnimated:YES completion:^(BOOL finished) {}];
+
+        weakSectionController = section;
+        XCTAssertNotNil(weakSectionController);
+    }
+    XCTAssertNil(weakSectionController);
+}
+
 @end
