@@ -2,7 +2,7 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
-3.0.0
+3.0.0 (**upcoming release**)
 -----
 
 This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/3).
@@ -19,6 +19,13 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 - (void)didSelectSectionController:(IGListSingleSectionController *)sectionController
                         withObject:(id)object;
 ```
+
+2.2.0
+-----
+
+This release closes the [2.2.0 milestone](https://github.com/Instagram/IGListKit/milestone/4).
+
+> TBD
 
 2.1.0
 -----
