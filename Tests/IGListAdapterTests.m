@@ -325,6 +325,60 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     XCTAssertTrue(self.collectionView.backgroundView.hidden);
 }
 
+- (void)test_whenInsertingIntoEmptySection_thatEmptyViewBecomesHidden {
+    self.dataSource.objects = @[@0];
+    self.dataSource.backgroundView = [UIView new];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertFalse(self.collectionView.backgroundView.hidden);
+    IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(0)];
+    sectionController.items = 1;
+    [self.adapter insertInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
+    XCTAssertTrue(self.collectionView.backgroundView.hidden);
+}
+
+- (void)test_whenDeletingAllItemsFromSection_thatEmptyViewBecomesVisible {
+    self.dataSource.objects = @[@1];
+    self.dataSource.backgroundView = [UIView new];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertTrue(self.collectionView.backgroundView.hidden);
+    IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(1)];
+    sectionController.items = 0;
+    [self.adapter deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
+    XCTAssertFalse(self.collectionView.backgroundView.hidden);
+}
+
+- (void)test_whenEmptySectionAddsItems_thatEmptyViewBecomesHidden {
+    self.dataSource.objects = @[@0];
+    self.dataSource.backgroundView = [UIView new];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertFalse(self.collectionView.backgroundView.hidden);
+    IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(0)];
+    sectionController.items = 2;
+    [self.adapter reloadSectionController:sectionController];
+    XCTAssertTrue(self.collectionView.backgroundView.hidden);
+}
+
+- (void)test_whenSectionItemsAreDeletedAsBatch_thatEmptyViewBecomesVisible {
+    self.dataSource.objects = @[@1, @2];
+    self.dataSource.backgroundView = [UIView new];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertTrue(self.collectionView.backgroundView.hidden);
+    IGListTestSection *firstSectionController = [self.adapter sectionControllerForObject:@(1)];
+    IGListTestSection *secondSectionController = [self.adapter sectionControllerForObject:@(2)];
+    XCTestExpectation *expectation =  [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self.adapter performBatchAnimated:YES updates:^{
+        firstSectionController.items = 0;
+        [self.adapter deleteInSectionController:firstSectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
+        secondSectionController.items = 0;
+        NSIndexSet *indexesToDelete = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)];
+        [self.adapter deleteInSectionController:secondSectionController atIndexes:indexesToDelete];
+    } completion:^(BOOL finished) {
+        XCTAssertFalse(self.collectionView.backgroundView.hidden);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
 - (void)test_whenScrollViewDelegateSet_thatDelegateReceivesEvents {
     id mockDelegate = [OCMockObject mockForProtocol:@protocol(UIScrollViewDelegate)];
 
