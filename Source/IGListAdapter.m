@@ -266,12 +266,12 @@
                                      objectTransitionBlock:^(NSArray *toObjects) {
                                          // temporarily capture the item map that we are transitioning from in case
                                          // there are any item deletes at the same
-                                         weakSelf.previoussectionMap = [weakSelf.sectionMap copy];
+                                         weakSelf.previousSectionMap = [weakSelf.sectionMap copy];
 
                                          [weakSelf updateObjects:toObjects dataSource:dataSource];
                                      } completion:^(BOOL finished) {
                                          // release the previous items
-                                         weakSelf.previoussectionMap = nil;
+                                         weakSelf.previousSectionMap = nil;
 
                                          if (completion) {
                                              completion(finished);
@@ -443,7 +443,7 @@
 
 #if DEBUG
     for (id object in objects) {
-        IGAssert([object isEqual:object], @"Object instance %@ not equal to itself. This will break infra map tables.", object);
+        IGAssert([object isEqualToDiffableObject:object], @"Object instance %@ not equal to itself. This will break infra map tables.", object);
     }
 #endif
 
@@ -521,8 +521,8 @@
 
 - (IGListSectionMap *)sectionMapAdjustForUpdateBlock:(BOOL)adjustForUpdateBlock {
     // if we are inside an update block, we may have to use the /previous/ item map for some operations
-    if (adjustForUpdateBlock && self.isInUpdateBlock && self.previoussectionMap != nil) {
-        return self.previoussectionMap;
+    if (adjustForUpdateBlock && self.isInUpdateBlock && self.previousSectionMap != nil) {
+        return self.previousSectionMap;
     } else {
         return self.sectionMap;
     }
