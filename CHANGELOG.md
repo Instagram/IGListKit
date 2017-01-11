@@ -2,12 +2,28 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
+3.0.0 (**upcoming release**)
+-----
+
+This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/3).
+
+### Breaking Changes
+
+- Updated `didSelect` delegate call in `IGListSingleSectionControllerDelegate` to include object. [Sherlouk](https://github.com/Sherlouk) [(#397)](https://github.com/Instagram/IGListKit/pull/397)
+
+```objc
+// OLD
+- (void)didSelectSingleSectionController:(IGListSingleSectionController *)sectionController;
+
+// NEW
+- (void)didSelectSectionController:(IGListSingleSectionController *)sectionController
+                        withObject:(id)object;
+```
+
 2.2.0
 -----
 
 This release closes the [2.2.0 milestone](https://github.com/Instagram/IGListKit/milestone/4).
-
-### Enhancements
 
 ### Fixes
 
