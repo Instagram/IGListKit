@@ -60,7 +60,7 @@ final class GridSectionController: IGListSectionController, IGListSectionType {
     }
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as! CenterLabelCell
+        let cell = collectionContext!.dequeueReusableCell(of: CenterLabelCell.self, forSectionController: self, at: index) as! CenterLabelCell
         cell.label.text = "\(index + 1)"
         cell.backgroundColor = object?.color
         return cell

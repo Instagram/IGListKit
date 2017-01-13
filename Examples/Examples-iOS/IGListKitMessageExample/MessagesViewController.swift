@@ -49,7 +49,7 @@ final class MessagesViewController: MSMessagesAppViewController, IGListAdapterDa
         return data as [IGListDiffable]
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionType {
         return LabelSectionController()
     }
     

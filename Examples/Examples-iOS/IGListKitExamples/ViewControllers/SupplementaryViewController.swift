@@ -47,7 +47,7 @@ final class SupplementaryViewController: UIViewController, IGListAdapterDataSour
         return feedItems
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionType {
         return FeedItemSectionController()
     }
 

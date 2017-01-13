@@ -33,7 +33,7 @@ final class StoryboardLabelSectionController: IGListSectionController, IGListSec
     }
     
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCellFromStoryboard(withIdentifier: "cell", for: self, at: index) as! StoryboardCell
+        let cell = collectionContext!.dequeueReusableCellFromStoryboard(withIdentifier: "cell", forSectionController: self, at: index) as! StoryboardCell
         cell.textLabel.text = object?.name
         return cell
     }

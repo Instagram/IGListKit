@@ -59,10 +59,10 @@ IGListCollectionContext
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewIdentifiers;
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewNibNames;
 
-- (NSArray *)indexPathsFromSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+- (NSArray *)indexPathsFromSectionController:(id<IGListSectionType>)sectionController
                                      indexes:(NSIndexSet *)indexes
                         adjustForUpdateBlock:(BOOL)adjustForUpdateBlock;
-- (nullable NSIndexPath *)indexPathForSectionController:(IGListSectionController *)controller index:(NSInteger)index;
+- (nullable NSIndexPath *)indexPathForSectionController:(id<IGListSectionControllerProtocol>)controller index:(NSInteger)index;
 
 @end
 

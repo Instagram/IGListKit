@@ -31,7 +31,7 @@ struct _IGListWorkingRangeHandlerIndexPath {
 };
 
 struct _IGListWorkingRangeHandlerSectionControllerWrapper {
-    IGListSectionController<IGListSectionType> *sectionController;
+    id<IGListSectionType> sectionController;
 
     bool operator==(const _IGListWorkingRangeHandlerSectionControllerWrapper &other) const {
         return (sectionController == other.sectionController);

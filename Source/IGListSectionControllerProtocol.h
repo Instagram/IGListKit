@@ -1,11 +1,10 @@
-/**
- * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
+//
+//  IGListSectionControllerProtocol.h
+//  Pods
+//
+//  Created by Jesse Squires on 1/12/17.
+//
+//
 
 #import <UIKit/UIKit.h>
 
@@ -14,12 +13,22 @@
 #import <IGListKit/IGListScrollDelegate.h>
 #import <IGListKit/IGListSupplementaryViewSource.h>
 #import <IGListKit/IGListWorkingRangeDelegate.h>
-#import <IGListKit/IGListSectionControllerProtocol.h>
 
-/**
- The base class for section controllers used in a list. This class is intended to be subclassed.
- */
-@interface IGListSectionController : NSObject <IGListSectionControllerProtocol>
+@protocol IGListSectionControllerProtocol <NSObject>
+
+/// TEMP HACK TO COMPILE
+
+@property (nonatomic, weak, readwrite, nullable) id<IGListCollectionContext> collectionContext;
+
+@property (nonatomic, weak, readwrite, nullable) UIViewController *viewController;
+
+@property (nonatomic, assign, readwrite) BOOL isFirstSection;
+
+@property (nonatomic, assign, readwrite) BOOL isLastSection;
+
+
+
+
 
 /**
  The view controller housing the adapter that created this section controller.
@@ -29,24 +38,24 @@
  @warning It is considered very bad practice to cast this to a known view controller
  and call methods on it other than for navigations and transitions.
  */
-@property (nonatomic, weak, nullable) UIViewController *viewController;
+//@property (nonatomic, weak, nullable, readonly) UIViewController *viewController;
 
 /**
  A context object for interacting with the collection.
 
  Use this property for accessing the collection size, dequeing cells, reloading, inserting, deleting, etc.
  */
-@property (nonatomic, weak, nullable) id <IGListCollectionContext> collectionContext;
+//@property (nonatomic, weak, nullable, readonly) id <IGListCollectionContext> collectionContext;
 
 /**
  Returns `YES` if the section controller is the first section in the list, `NO` otherwise.
  */
-@property (nonatomic, assign) BOOL isFirstSection;
+//@property (nonatomic, assign, readonly) BOOL isFirstSection;
 
 /**
  Returns `YES` if the section controller is the last section in the list, `NO` otherwise.
  */
-@property (nonatomic, assign) BOOL isLastSection;
+//@property (nonatomic, assign, readonly) BOOL isLastSection;
 
 /**
  The margins used to lay out content in the section controller.

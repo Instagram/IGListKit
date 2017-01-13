@@ -36,7 +36,7 @@ final class HorizontalSectionController: IGListSectionController, IGListSectionT
     }
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: EmbeddedCollectionViewCell.self, for: self, at: index) as! EmbeddedCollectionViewCell
+        let cell = collectionContext!.dequeueReusableCell(of: EmbeddedCollectionViewCell.self, forSectionController: self, at: index) as! EmbeddedCollectionViewCell
         adapter.collectionView = cell.collectionView
         return cell
     }
@@ -54,7 +54,7 @@ final class HorizontalSectionController: IGListSectionController, IGListSectionT
         return (0..<number).map { $0 as IGListDiffable }
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionType {
         return EmbeddedSectionController()
     }
 
