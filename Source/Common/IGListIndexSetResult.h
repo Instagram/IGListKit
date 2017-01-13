@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSIndexSet *deletes;
 
 /**
- The indexes in the new collection that need updated.
+ The indexes in the old collection that need updated.
  */
 @property (nonatomic, strong, readonly) NSIndexSet *updates;
 
