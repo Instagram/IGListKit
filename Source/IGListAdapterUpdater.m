@@ -15,6 +15,7 @@
 #import <IGListKit/IGListDiff.h>
 
 #import "UICollectionView+IGListBatchUpdateData.h"
+#import "IGListMoveIndexPathInternal.h"
 
 @implementation IGListAdapterUpdater
 
@@ -25,14 +26,15 @@
         // the default is to use animations unless NO is passed
         _queuedUpdateIsAnimated = YES;
 
-        _completionBlocks = [[NSMutableArray alloc] init];
-        _itemUpdateBlocks = [[NSMutableArray alloc] init];
+        _completionBlocks = [NSMutableArray new];
+        _itemUpdateBlocks = [NSMutableArray new];
 
-        _reloadSections = [[NSMutableIndexSet alloc] init];
+        _reloadSections = [NSMutableIndexSet new];
 
-        _deleteIndexPaths = [[NSMutableSet alloc] init];
-        _insertIndexPaths = [[NSMutableSet alloc] init];
-        _reloadIndexPaths = [[NSMutableSet alloc] init];
+        _deleteIndexPaths = [NSMutableSet new];
+        _insertIndexPaths = [NSMutableSet new];
+        _moveIndexPaths = [NSMutableSet new];
+        _reloadIndexPaths = [NSMutableSet new];
 
         _allowsBackgroundReloading = YES;
     }
@@ -184,6 +186,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
                                 reloadSections:[self.reloadSections copy]
                               deleteIndexPaths:[self.deleteIndexPaths copy]
                               insertIndexPaths:[self.insertIndexPaths copy]
+                                moveIndexPaths:[self.moveIndexPaths copy]
                               reloadIndexPaths:[self.reloadIndexPaths copy]
                                    fromObjects:fromObjects];
 
@@ -255,6 +258,7 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
                                 reloadSections:(NSIndexSet *)reloadSections
                               deleteIndexPaths:(NSSet<NSIndexPath *> *)deleteIndexPaths
                               insertIndexPaths:(NSSet<NSIndexPath *> *)insertIndexPaths
+                                moveIndexPaths:(NSSet<IGListMoveIndexPath *> *)moveFromIndexPaths
                               reloadIndexPaths:(NSSet<NSIndexPath *> *)reloadIndexPaths
                                    fromObjects:(NSArray <id<IGListDiffable>> *)fromObjects {
     NSSet *moves = [[NSSet alloc] initWithArray:diffResult.moves];
@@ -282,6 +286,7 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
                                                                                  moveSections:moves
                                                                              insertIndexPaths:insertIndexPaths
                                                                              deleteIndexPaths:deleteIndexPaths
+                                                                               moveIndexPaths:moveFromIndexPaths
                                                                              reloadIndexPaths:reloadIndexPaths];
     [collectionView ig_applyBatchUpdateData:updateData];
     return updateData;
@@ -323,6 +328,7 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     [self.reloadSections removeAllIndexes];
     [self.deleteIndexPaths removeAllObjects];
     [self.insertIndexPaths removeAllObjects];
+    [self.moveIndexPaths removeAllObjects];
     [self.reloadIndexPaths removeAllObjects];
 }
 
@@ -452,6 +458,18 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     } else {
         [self.delegate listAdapterUpdater:self willDeleteIndexPaths:indexPaths collectionView:collectionView];
         [collectionView deleteItemsAtIndexPaths:indexPaths];
+    }
+}
+
+- (void)moveItemInCollectionView:(UICollectionView *)collectionView
+                   fromIndexPath:(NSIndexPath *)fromIndexPath
+                     toIndexPath:(NSIndexPath *)toIndexPath {
+    if (self.batchUpdateOrReloadInProgress) {
+        IGListMoveIndexPath *move = [[IGListMoveIndexPath alloc] initWithFrom:fromIndexPath to:toIndexPath];
+        [self.moveIndexPaths addObject:move];
+    } else {
+        [self.delegate listAdapterUpdater:self willMoveFromIndexPath:fromIndexPath toIndexPath:toIndexPath collectionView:collectionView];
+        [collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
     }
 }
 

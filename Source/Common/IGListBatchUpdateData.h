@@ -11,6 +11,7 @@
 
 #import <IGListKit/IGListMacros.h>
 #import <IGListKit/IGListMoveIndex.h>
+#import <IGListKit/IGListMoveIndexPath.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -48,6 +49,11 @@ IGLK_SUBCLASSING_RESTRICTED
 @property (nonatomic, strong, readonly) NSSet<NSIndexPath *> *deleteIndexPaths;
 
 /**
+ Item delete index paths.
+ */
+@property (nonatomic, strong, readonly) NSSet<IGListMoveIndexPath *> *moveIndexPaths;
+
+/**
  Item reload index paths.
  */
 @property (nonatomic, strong, readonly) NSSet<NSIndexPath *> *reloadIndexPaths;
@@ -60,6 +66,7 @@ IGLK_SUBCLASSING_RESTRICTED
  @param moveSections     Section moves.
  @param insertIndexPaths Item index paths to insert.
  @param deleteIndexPaths Item index paths to delete.
+ @param moveIndexPaths   Item index paths to move.
  @param reloadIndexPaths Item index paths to reload.
 
  @return A new batch update object.
@@ -69,6 +76,7 @@ IGLK_SUBCLASSING_RESTRICTED
                           moveSections:(NSSet<IGListMoveIndex *> *)moveSections
                       insertIndexPaths:(NSSet<NSIndexPath *> *)insertIndexPaths
                       deleteIndexPaths:(NSSet<NSIndexPath *> *)deleteIndexPaths
+                        moveIndexPaths:(NSSet<IGListMoveIndexPath *> *)moveIndexPaths
                       reloadIndexPaths:(NSSet<NSIndexPath *> *)reloadIndexPaths NS_DESIGNATED_INITIALIZER;
 
 /**
