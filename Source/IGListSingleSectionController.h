@@ -45,8 +45,10 @@ typedef CGSize (^IGListSingleSectionCellSizeBlock)(id item, id<IGListCollectionC
  Tells the delegate that the section controller was selected.
 
  @param sectionController The section controller that was selected.
+ @param object            The model for the given section.
  */
-- (void)didSelectSingleSectionController:(IGListSingleSectionController *)sectionController;
+- (void)didSelectSectionController:(IGListSingleSectionController *)sectionController
+                        withObject:(id)object;
 
 @end
 
