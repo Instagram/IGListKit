@@ -115,7 +115,7 @@
 - (void)updateAfterPublicSettingsChange {
     id<IGListAdapterDataSource> dataSource = _dataSource;
     if (_collectionView != nil && dataSource != nil) {
-        [self updateObjects:[[dataSource objectsForListAdapter:self] copy] dataSource:dataSource];
+        [self updateObjects:[[dataSource objectsForListAdapter:self] copy]];
     }
 }
 
@@ -260,23 +260,31 @@
 
     __weak __typeof__(self) weakSelf = self;
     [self.updater performUpdateWithCollectionView:collectionView
-                                               fromObjects:fromObjects
-                                                 toObjects:newItems
-                                                  animated:animated
-                                     objectTransitionBlock:^(NSArray *toObjects) {
-                                         // temporarily capture the item map that we are transitioning from in case
-                                         // there are any item deletes at the same
-                                         weakSelf.previousSectionMap = [weakSelf.sectionMap copy];
+                                      fromObjects:fromObjects
+                                        toObjects:newItems
+                                         animated:animated
+                            objectTransitionBlock:^(NSArray *toObjects) {
+                                // if self or the data source have been deallocated, tell the udpater that object
+                                // changes cannot be applied
+                                if (weakSelf.dataSource == nil) {
+                                    return NO;
+                                }
 
-                                         [weakSelf updateObjects:toObjects dataSource:dataSource];
-                                     } completion:^(BOOL finished) {
-                                         // release the previous items
-                                         weakSelf.previousSectionMap = nil;
+                                // temporarily capture the item map that we are transitioning from in case
+                                // there are any item deletes at the same
+                                weakSelf.previousSectionMap = [weakSelf.sectionMap copy];
 
-                                         if (completion) {
-                                             completion(finished);
-                                         }
-                                     }];
+                                [weakSelf updateObjects:toObjects];
+
+                                return YES;
+                            } completion:^(BOOL finished) {
+                                // release the previous items
+                                weakSelf.previousSectionMap = nil;
+
+                                if (completion) {
+                                    completion(finished);
+                                }
+                            }];
 }
 
 - (void)reloadDataWithCompletion:(nullable IGListUpdaterCompletion)completion {
@@ -297,7 +305,7 @@
     [self.updater reloadDataWithCollectionView:collectionView reloadUpdateBlock:^{
         // purge all section controllers from the item map so that they are regenerated
         [weakSelf.sectionMap reset];
-        [weakSelf updateObjects:newItems dataSource:dataSource];
+        [weakSelf updateObjects:newItems];
     } completion:completion];
 }
 
@@ -438,9 +446,7 @@
 
 // this method is what updates the "source of truth"
 // this should only be called just before the collection view is updated
-- (void)updateObjects:(NSArray *)objects dataSource:(id<IGListAdapterDataSource>)dataSource {
-    IGParameterAssert(dataSource != nil);
-
+- (void)updateObjects:(NSArray *)objects {
 #if DEBUG
     for (id object in objects) {
         IGAssert([object isEqualToDiffableObject:object], @"Object instance %@ not equal to itself. This will break infra map tables.", object);
@@ -459,6 +465,8 @@
 
     id firstObject = objects.firstObject;
     id lastObject = objects.lastObject;
+
+    id<IGListAdapterDataSource> dataSource = self.dataSource;
 
     for (id object in objects) {
         // infra checks to see if a controller exists

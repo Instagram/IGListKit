@@ -19,6 +19,8 @@
 #import "IGTestDelegateDataSource.h"
 #import "IGTestObject.h"
 
+#import <objc/runtime.h>
+
 #define genIndexPath(s) [NSIndexPath indexPathForItem:0 inSection:s]
 #define genTestObject(k, v) [[IGTestObject alloc] initWithKey:k value:v]
 
@@ -1150,7 +1152,7 @@
 
     XCTestExpectation *expectation = genExpectation;
     [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
-        XCTAssertEqual([self.collectionView numberOfSections], 2);
+        XCTAssertEqual([self.collectionView numberOfSections], 1);
         [expectation fulfill];
     }];
 
@@ -1187,6 +1189,40 @@
         XCTAssertNotNil(weakSectionController);
     }
     XCTAssertNil(weakSectionController);
+}
+
+- (void)test_whenQueuingUpdate_withSectionControllerBatchUpdate_thatDataSourceNotRetained {
+    __weak id weakDataSource = nil;
+    @autoreleasepool {
+        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
+        IGTestDelegateDataSource *dataSource = [IGTestDelegateDataSource new];
+        dataSource.adapter = adapter;
+        IGTestObject *object = genTestObject(@1, @2);
+        dataSource.objects = @[object];
+        IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:[UICollectionViewFlowLayout new]];
+        adapter.collectionView = collectionView;
+        adapter.dataSource = dataSource;
+        [collectionView layoutIfNeeded];
+        XCTAssertEqual([collectionView numberOfSections], 1);
+        XCTAssertEqual([collectionView numberOfItemsInSection:0], 2);
+
+        // simulate the data source holding a strong ref to the IGListAdapter
+        // e.g. when a UIViewController owns the adapter and sets `self.adapter.dataSource = self`
+        objc_setAssociatedObject(dataSource, _cmd, adapter, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+        IGListSectionController<IGListSectionType> *section = [adapter sectionControllerForObject:object];
+        [section.collectionContext performBatchAnimated:YES updates:^{
+            object.value = @3;
+            [section.collectionContext insertInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:0]];
+        } completion:^(BOOL finished) {}];
+
+        dataSource.objects = @[object, genTestObject(@2, @2)];
+        [adapter performUpdatesAnimated:YES completion:^(BOOL finished) {}];
+
+        weakDataSource = dataSource;
+        XCTAssertNotNil(weakDataSource);
+    }
+    XCTAssertNil(weakDataSource);
 }
 
 @end
