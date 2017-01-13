@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSArray<NSIndexPath *> *deletes;
 
 /**
- The index paths in the new collection that need updated.
+ The index paths in the old collection that need updated.
  */
 @property (nonatomic, copy, readonly) NSArray<NSIndexPath *> *updates;
 
