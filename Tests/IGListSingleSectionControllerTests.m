@@ -126,7 +126,7 @@
     IGListSingleSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
     id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListSingleSectionControllerDelegate)];
     section.selectionDelegate = mockDelegate;
-    [[mockDelegate expect] didSelectSingleSectionController:section];
+    [[mockDelegate expect] didSelectSectionController:section withObject:self.dataSource.objects.firstObject];
     [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     [mockDelegate verify];
 }
