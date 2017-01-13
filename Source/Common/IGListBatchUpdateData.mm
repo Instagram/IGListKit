@@ -65,12 +65,14 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
                           moveSections:(NSSet<IGListMoveIndex *> *)moveSections
                       insertIndexPaths:(NSSet<NSIndexPath *> *)insertIndexPaths
                       deleteIndexPaths:(NSSet<NSIndexPath *> *)deleteIndexPaths
+                        moveIndexPaths:(NSSet<IGListMoveIndexPath *> *)moveIndexPaths
                       reloadIndexPaths:(NSSet<NSIndexPath *> *)reloadIndexPaths {
     IGParameterAssert(insertSections != nil);
     IGParameterAssert(deleteSections != nil);
     IGParameterAssert(moveSections != nil);
     IGParameterAssert(insertIndexPaths != nil);
     IGParameterAssert(deleteIndexPaths != nil);
+    IGParameterAssert(moveIndexPaths != nil);
     IGParameterAssert(reloadIndexPaths != nil);
     if (self = [super init]) {
         NSMutableSet<IGListMoveIndex *> *mMoveSections = [moveSections mutableCopy];

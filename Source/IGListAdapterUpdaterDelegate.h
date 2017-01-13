@@ -37,7 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 
  @note This event is called in the completion block of the batch update.
  */
-- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater didPerformBatchUpdates:(IGListBatchUpdateData *)updates withCollectionView:(UICollectionView *)collectionView;
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
+    didPerformBatchUpdates:(IGListBatchUpdateData *)updates
+        withCollectionView:(UICollectionView *)collectionView;
 
 /**
  Notifies the delegate that the updater will call `-[UICollectionView insertItemsAtIndexPaths:]`.
@@ -48,7 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
 
  @note This event is only sent when outside of `-[UICollectionView performBatchUpdates:completion:]`.
  */
-- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater willInsertIndexPaths:(NSArray<NSIndexPath *> *)indexPaths collectionView:(UICollectionView *)collectionView;
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
+      willInsertIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
+            collectionView:(UICollectionView *)collectionView;
 
 /**
  Notifies the delegate that the updater will call `-[UICollectionView deleteItemsAtIndexPaths:]`.
@@ -59,7 +63,24 @@ NS_ASSUME_NONNULL_BEGIN
 
  @note This event is only sent when outside of `-[UICollectionView performBatchUpdates:completion:]`.
  */
-- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater willDeleteIndexPaths:(NSArray<NSIndexPath *> *)indexPaths collectionView:(UICollectionView *)collectionView;
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
+      willDeleteIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
+            collectionView:(UICollectionView *)collectionView;
+
+/**
+ Notifies the delegate that the updater will call `-[UICollectionView moveItemAtIndexPath:toIndexPath:]`
+
+ @param listAdapterUpdater The adapter updater owning the transition.
+ @param fromIndexPath      The index path of the item that will be moved.
+ @param toIndexPath        The index path to move the item to.
+ @param collectionView     The collection view that will perform the move.
+
+ @note This event is only sent when outside of `-[UICollectionView performBatchUpdates:completion:]`.
+ */
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
+     willMoveFromIndexPath:(NSIndexPath *)fromIndexPath
+               toIndexPath:(NSIndexPath *)toIndexPath
+            collectionView:(UICollectionView *)collectionView;
 
 /**
  Notifies the delegate that the updater will call `-[UICollectionView reloadItemsAtIndexPaths:]`.
@@ -70,7 +91,9 @@ NS_ASSUME_NONNULL_BEGIN
 
  @note This event is only sent when outside of `-[UICollectionView performBatchUpdates:completion:]`.
  */
-- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater willReloadIndexPaths:(NSArray<NSIndexPath *> *)indexPaths collectionView:(UICollectionView *)collectionView;
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
+      willReloadIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
+            collectionView:(UICollectionView *)collectionView;
 
 /**
  Notifies the delegate that the updater will call `-[UICollectionView reloadSections:]`.
@@ -81,7 +104,9 @@ NS_ASSUME_NONNULL_BEGIN
 
  @note This event is only sent when outside of `-[UICollectionView performBatchUpdates:completion:]`.
  */
-- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater willReloadSections:(NSIndexSet *)sections collectionView:(UICollectionView *)collectionView;
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
+        willReloadSections:(NSIndexSet *)sections
+            collectionView:(UICollectionView *)collectionView;
 
 /**
  Notifies the delegate that the updater will call `-[UICollectionView reloadData]`.

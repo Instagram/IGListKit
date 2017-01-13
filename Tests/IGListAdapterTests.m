@@ -134,7 +134,7 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     IGListSectionController <IGListSectionType> * second = [self.adapter sectionControllerForObject:@1];
     NSArray *paths0 = [self.adapter indexPathsFromSectionController:second
                                                             indexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 4)]
-                                               adjustForUpdateBlock:NO];
+                                               usePreviousSection:NO];
     NSArray *expected = @[
                           [NSIndexPath indexPathForItem:2 inSection:1],
                           [NSIndexPath indexPathForItem:3 inSection:1],
@@ -153,7 +153,7 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     [self.adapter performBatchAnimated:YES updates:^{
         NSArray *paths = [self.adapter indexPathsFromSectionController:second
                                                                indexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 2)]
-                                                  adjustForUpdateBlock:YES];
+                                                  usePreviousSection:YES];
         NSArray *expected = @[
                               [NSIndexPath indexPathForItem:2 inSection:1],
                               [NSIndexPath indexPathForItem:3 inSection:1],
