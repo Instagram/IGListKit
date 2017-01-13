@@ -51,7 +51,9 @@ final class HorizontalSectionController: IGListSectionController, IGListSectionT
     }
     
     func didSelectItem(at index: Int) {}
-    
+  
+    func didDeselectItem(at index: Int) {}
+  
     // MARK: IGListAdapterDataSource
     
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {

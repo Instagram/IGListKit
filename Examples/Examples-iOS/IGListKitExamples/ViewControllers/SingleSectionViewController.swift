@@ -77,5 +77,7 @@ final class SingleSectionViewController: UIViewController, IGListAdapterDataSour
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
-    
+  
+    func didDeselect(_ sectionController: IGListSingleSectionController, with object: Any) { }
+
 }

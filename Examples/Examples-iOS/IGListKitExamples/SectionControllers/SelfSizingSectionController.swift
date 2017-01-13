@@ -59,5 +59,7 @@ final class SelfSizingSectionController: IGListSectionController, IGListSectionT
     }
 
     func didSelectItem(at index: Int) {}
+  
+    func didDeselectItem(at index: Int) {}
 
 }

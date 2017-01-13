@@ -34,4 +34,6 @@
 
 - (void)didSelectItemAtIndex:(NSInteger)index {}
 
+- (void)didDeselectItemAtIndex:(NSUInteger)index {}
+
 @end

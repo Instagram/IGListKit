@@ -59,6 +59,8 @@
 
 - (void)didSelectItemAtIndex:(NSInteger)index {}
 
+- (void)didDeselectItemAtIndex:(NSUInteger)index {}
+
 #pragma mark - IGListDisplayDelegate
 
 - (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController <IGListSectionType> *)sectionController {

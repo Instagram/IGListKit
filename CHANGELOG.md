@@ -20,6 +20,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
                         withObject:(id)object;
 ```
 
+- Added `didDeselectItemAtIndex` delegate call in `IGListSectionType` and `didDeselect` delegate call in `IGListSingleSectionControllerDelegate`. [Daniel Rhodes](https://github.com/danielrhodes) [(#411)](https://github.com/Instagram/IGListKit/pull/411)
+
 2.2.0
 -----
 
