@@ -49,7 +49,7 @@ final class WorkingRangeSectionController: IGListSectionController, IGListSectio
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cellClass: AnyClass = index == 0 ? LabelCell.self : ImageCell.self
-        let cell = collectionContext!.dequeueReusableCell(of: cellClass, for: self, at: index)
+        let cell = collectionContext!.dequeueReusableCell(of: cellClass, forSectionController: self, at: index)
         if let cell = cell as? LabelCell {
             cell.label.text = urlString
         } else if let cell = cell as? ImageCell {
@@ -66,14 +66,14 @@ final class WorkingRangeSectionController: IGListSectionController, IGListSectio
 
     //MARK: IGListWorkingRangeDelegate
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerWillEnterWorkingRange sectionController: IGListSectionController) {
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerWillEnterWorkingRange sectionController: IGListSectionType) {
         guard downloadedImage == nil,
             task == nil,
             let urlString = urlString,
             let url = URL(string: urlString)
             else { return }
 
-        let section = collectionContext?.section(for: self) ?? 0
+        let section = collectionContext?.section(forSectionController: self) ?? 0
         print("Downloading image \(urlString) for section \(section)")
 
         task = URLSession.shared.dataTask(with: url) { data, response, err in
@@ -90,6 +90,6 @@ final class WorkingRangeSectionController: IGListSectionController, IGListSectio
         task?.resume()
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerDidExitWorkingRange sectionController: IGListSectionController) {}
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerDidExitWorkingRange sectionController: IGListSectionType) {}
 
 }

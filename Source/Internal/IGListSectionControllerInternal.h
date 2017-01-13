@@ -15,12 +15,12 @@ FOUNDATION_EXTERN void IGListSectionControllerPopThread(void);
 
 @interface IGListSectionController()
 
-@property (nonatomic, weak, readwrite) id<IGListCollectionContext> collectionContext;
-
-@property (nonatomic, weak, readwrite) UIViewController *viewController;
-
-@property (nonatomic, assign, readwrite) BOOL isFirstSection;
-
-@property (nonatomic, assign, readwrite) BOOL isLastSection;
+//@property (nonatomic, weak, readwrite) id<IGListCollectionContext> collectionContext;
+//
+//@property (nonatomic, weak, readwrite) UIViewController *viewController;
+//
+//@property (nonatomic, assign, readwrite) BOOL isFirstSection;
+//
+//@property (nonatomic, assign, readwrite) BOOL isLastSection;
 
 @end

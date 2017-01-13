@@ -9,9 +9,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import <IGListKit/IGListSectionControllerProtocol.h>
+
 @protocol IGListSupplementaryViewSource;
-@protocol IGListDisplayDelegate;
-@protocol IGListWorkingRangeDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  section to mutate its own position within a list. The row of an index path can be directly mapped to a cell within
  an `IGListSectionType` conforming object.
  */
-@protocol IGListSectionType <NSObject>
+@protocol IGListSectionType <IGListSectionControllerProtocol>
 
 /**
  Returns the number of items in the section.

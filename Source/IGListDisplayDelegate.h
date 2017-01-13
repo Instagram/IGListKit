@@ -10,7 +10,6 @@
 #import <UIKit/UIKit.h>
 
 @class IGListAdapter;
-@class IGListSectionController;
 
 @protocol IGListSectionType;
 
@@ -27,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param listAdapter       The list adapter for the section controller.
  @param sectionController The section controller about to be displayed.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController <IGListSectionType> *)sectionController;
+- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(id<IGListSectionType>)sectionController;
 
 /**
  Tells the delegate that the specified section controller is no longer being displayed.
@@ -35,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param listAdapter       The list adapter for the section controller.
  @param sectionController The section controller that is no longer displayed.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(id<IGListSectionType>)sectionController;
 
 /**
  Tells the delegate that a cell in the specified list is about to be displayed.
@@ -45,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param cell              The cell about to be displayed.
  @param index             The index of the cell in the section.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController <IGListSectionType> *)sectionController
+- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(id<IGListSectionType>)sectionController
                cell:(UICollectionViewCell *)cell
             atIndex:(NSInteger)index;
 
@@ -57,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param cell              The cell that is no longer displayed.
  @param index             The index of the cell in the section.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(id<IGListSectionType>)sectionController
                cell:(UICollectionViewCell *)cell
             atIndex:(NSInteger)index;
 

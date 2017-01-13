@@ -60,7 +60,7 @@ final class DemoSectionController: IGListSectionController, IGListSectionType {
     }
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
+        let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, forSectionController: self, at: index) as! LabelCell
         cell.label.text = object?.name
         return cell
     }

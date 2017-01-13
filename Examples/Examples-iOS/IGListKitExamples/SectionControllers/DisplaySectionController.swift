@@ -32,8 +32,8 @@ class DisplaySectionController: IGListSectionController, IGListSectionType, IGLi
     }
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
-        let section = collectionContext!.section(for: self)
+        let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, forSectionController: self, at: index) as! LabelCell
+        let section = collectionContext!.section(forSectionController: self)
         cell.label.text = "Section \(section), cell \(index)"
         return cell
     }
@@ -44,23 +44,23 @@ class DisplaySectionController: IGListSectionController, IGListSectionType, IGLi
 
     // MARK: IGListDisplayDelegate
 
-    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController) {
-        let section = collectionContext!.section(for: self)
+    func listAdapter(_ listAdapter: IGListAdapter, willDisplaySectionController: IGListSectionType) {
+        let section = collectionContext!.section(forSectionController: self)
         print("Will display section \(section)")
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {
-        let section = collectionContext!.section(for: self)
+    func listAdapter(_ listAdapter: IGListAdapter, willDisplaySectionController: IGListSectionType, cell: UICollectionViewCell, at index: Int) {
+        let section = collectionContext!.section(forSectionController: self)
         print("Did will display cell \(index) in section \(section)")
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController) {
-        let section = collectionContext!.section(for: self)
+    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplayingSectionController: IGListSectionType) {
+        let section = collectionContext!.section(forSectionController: self)
         print("Did end displaying section \(section)")
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {
-        let section = collectionContext!.section(for: self)
+    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplayingSectionController: IGListSectionType, cell: UICollectionViewCell, at index: Int) {
+        let section = collectionContext!.section(forSectionController: self)
         print("Did end displaying cell \(index) in section \(section)")
     }
 

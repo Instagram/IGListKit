@@ -12,7 +12,7 @@
 #import <IGListKit/IGListDiffable.h>
 
 @class IGListAdapter;
-@class IGListSectionController;
+@protocol IGListSectionControllerProtocol;
 
 @protocol IGListSectionType;
 
@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
  Section controllers are reused when objects are moved or updated. Maintaining the `-[IGListDiffable diffIdentifier]`
  guarentees this.
  */
-- (IGListSectionController <IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object;
+- (id<IGListSectionType>)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object;
 
 /**
  Asks the data source for a view to use as the collection view background when the list is empty.

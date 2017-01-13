@@ -33,7 +33,7 @@
 
 - (void)willDisplayCell:(UICollectionViewCell *)cell
          forListAdapter:(IGListAdapter *)listAdapter
-      sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+      sectionController:(id<IGListSectionType>)sectionController
                  object:(id)object
               indexPath:(NSIndexPath *)indexPath {
     IGParameterAssert(cell != nil);
@@ -56,7 +56,7 @@
 
 - (void)didEndDisplayingCell:(UICollectionViewCell *)cell
               forListAdapter:(IGListAdapter *)listAdapter
-           sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+           sectionController:(id<IGListSectionType>)sectionController
                    indexPath:(NSIndexPath *)indexPath {
     IGParameterAssert(cell != nil);
     IGParameterAssert(listAdapter != nil);

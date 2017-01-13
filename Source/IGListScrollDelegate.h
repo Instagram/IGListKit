@@ -10,7 +10,6 @@
 #import <UIKit/UIKit.h>
 
 @class IGListAdapter;
-@class IGListSectionController;
 
 @protocol IGListSectionType;
 
@@ -25,7 +24,7 @@
  @param listAdapter       The list adapter whose collection view was scrolled.
  @param sectionController The visible section controller that was scrolled.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter didScrollSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
+- (void)listAdapter:(IGListAdapter *)listAdapter didScrollSectionController:(id<IGListSectionType>)sectionController;
 
 /**
  Tells the delegate that the section controller will be dragged on screen.
@@ -33,7 +32,7 @@
  @param listAdapter       The list adapter whose collection view will drag.
  @param sectionController The visible section controller that will drag.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter willBeginDraggingSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
+- (void)listAdapter:(IGListAdapter *)listAdapter willBeginDraggingSectionController:(id<IGListSectionType>)sectionController;
 
 /**
  Tells the delegate that the section controller did end dragging on screen.
@@ -41,6 +40,6 @@
  @param listAdapter       The list adapter whose collection view ended dragging.
  @param sectionController The visible section controller that ended dragging.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter didEndDraggingSectionController:(IGListSectionController <IGListSectionType> *)sectionController willDecelerate:(BOOL)decelerate;
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDraggingSectionController:(id<IGListSectionType>)sectionController willDecelerate:(BOOL)decelerate;
 
 @end

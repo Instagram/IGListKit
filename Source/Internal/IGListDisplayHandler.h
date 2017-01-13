@@ -12,7 +12,7 @@
 #import <IGListKit/IGListMacros.h>
 
 @class IGListAdapter;
-@class IGListSectionController;
+@protocol IGListSectionControllerProtocol;
 
 @protocol IGListSectionType;
 
@@ -32,7 +32,7 @@ IGLK_SUBCLASSING_RESTRICTED
  */
 - (void)willDisplayCell:(UICollectionViewCell *)cell
          forListAdapter:(IGListAdapter *)listAdapter
-      sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+      sectionController:(id<IGListSectionType>)sectionController
                  object:(id)object
               indexPath:(NSIndexPath *)indexPath;
 
@@ -46,7 +46,7 @@ IGLK_SUBCLASSING_RESTRICTED
  */
 - (void)didEndDisplayingCell:(UICollectionViewCell *)cell
               forListAdapter:(IGListAdapter *)listAdapter
-           sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+           sectionController:(id<IGListSectionType>)sectionController
                    indexPath:(NSIndexPath *)indexPath;
 
 @end

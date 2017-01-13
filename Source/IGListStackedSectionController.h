@@ -33,7 +33,7 @@ IGLK_SUBCLASSING_RESTRICTED
  
  @warning The first section controller that is the supplementary source decides which supplementary views get displayed.
  */
-- (instancetype)initWithSectionControllers:(NSArray <IGListSectionController<IGListSectionType> *> *)sectionControllers NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSectionControllers:(NSArray <id<IGListSectionType>> *)sectionControllers NS_DESIGNATED_INITIALIZER;
 
 /**
  :nodoc:

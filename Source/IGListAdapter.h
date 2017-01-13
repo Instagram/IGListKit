@@ -19,7 +19,7 @@
 
 @protocol IGListUpdatingDelegate;
 
-@class IGListSectionController;
+@protocol IGListSectionControllerProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -133,7 +133,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return The section index of the list if it exists, otherwise `NSNotFound`.
  */
-- (NSInteger)sectionForSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
+- (NSInteger)sectionForSectionController:(id<IGListSectionType>)sectionController;
 
 /**
  Returns the section controller for the specified object. Constant time lookup.
@@ -144,7 +144,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @see `-[IGListAdapterDataSource listAdapter:sectionControllerForObject:]`
  */
-- (__kindof IGListSectionController <IGListSectionType> * _Nullable)sectionControllerForObject:(id)object;
+- (id<IGListSectionType>)sectionControllerForObject:(id)object;
 
 /**
  Returns the object corresponding to the specified section controller in the list. Constant time lookup.
@@ -153,7 +153,7 @@ IGLK_SUBCLASSING_RESTRICTED
  
  @return The object for the specified section controller, or nil if not found.
  */
-- (nullable id)objectForSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
+- (nullable id)objectForSectionController:(id<IGListSectionType>)sectionController;
 
 /**
  Returns the object corresponding to a section in the list. Constant time lookup.
@@ -185,7 +185,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return An array of section controllers.
  */
-- (NSArray<IGListSectionController<IGListSectionType> *> *)visibleSectionControllers;
+- (NSArray<id<IGListSectionType>> *)visibleSectionControllers;
 
 /**
  An unordered array of the currently visible objects.
