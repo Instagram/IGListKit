@@ -57,8 +57,6 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
         self.displayDelegate = self;
         self.scrollDelegate = self;
         self.workingRangeDelegate = self;
-
-        [self reloadData];
     }
     return self;
 }
@@ -152,6 +150,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     for (IGListSectionController<IGListSectionType> *sectionController in self.sectionControllers) {
         [sectionController didUpdateToObject:object];
     }
+    [self reloadData];
 }
 
 - (void)didSelectItemAtIndex:(NSInteger)index {
