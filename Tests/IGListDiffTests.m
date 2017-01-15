@@ -89,6 +89,22 @@ static NSArray *sorted(NSArray *arr) {
     XCTAssertEqual([result changeCount], 1);
 }
 
+- (void)test_whenAddingItemsToNonEmptyArray_thatResultHasChanges {
+    NSArray *o = @[@1];
+    NSArray *n = @[@1, @2];
+    IGListIndexSetResult *result = IGListDiff(o, n, IGListDiffEquality);
+    XCTAssertEqualObjects(result.inserts, [NSIndexSet indexSetWithIndex:1]);
+    XCTAssertEqual([result changeCount], 1);
+}
+
+- (void)test_whenRemovingItemsToNonEmptyArray_thatResultHasChanges {
+    NSArray *o = @[@1, @2];
+    NSArray *n = @[@1];
+    IGListIndexSetResult *result = IGListDiff(o, n, IGListDiffEquality);
+    XCTAssertEqualObjects(result.deletes, [NSIndexSet indexSetWithIndex:1]);
+    XCTAssertEqual([result changeCount], 1);
+}
+
 - (void)test_whenSwappingObjects_thatResultHasMoves {
     NSArray *o = @[@1, @2];
     NSArray *n = @[@2, @1];
