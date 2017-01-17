@@ -260,6 +260,9 @@
 		88DF89881E010F5C00B1B9B4 /* IGListDiffResultTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AC6311DDE4C19002FCE5D /* IGListDiffResultTests.m */; };
 		88DF89891E010F6500B1B9B4 /* IGListDiffSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE61D870EDC007C7F66 /* IGListDiffSwiftTests.swift */; };
 		88DF898A1E010F7000B1B9B4 /* IGListDiffTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE81D870EDC007C7F66 /* IGListDiffTests.m */; };
+		9893175F1E0E844800DB93B3 /* IGListDiffKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9893175E1E0E844800DB93B3 /* IGListDiffKit.h */; };
+		989317601E0E8D0A00DB93B3 /* IGListDiffKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9893175E1E0E844800DB93B3 /* IGListDiffKit.h */; };
+		989317611E0E8D0B00DB93B3 /* IGListDiffKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9893175E1E0E844800DB93B3 /* IGListDiffKit.h */; };
 		989317631E0ED45900DB93B3 /* IGListCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 989317621E0ED45900DB93B3 /* IGListCompatibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		989317641E0ED45900DB93B3 /* IGListCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 989317621E0ED45900DB93B3 /* IGListCompatibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		989317651E0ED45900DB93B3 /* IGListCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 989317621E0ED45900DB93B3 /* IGListCompatibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -433,6 +436,7 @@
 		887D0B3F1D870D7F009E01F7 /* IGListKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IGListKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		887D0B571D870E1E009E01F7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88DF897C1E010E6A00B1B9B4 /* IGListKit-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IGListKit-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9893175E1E0E844800DB93B3 /* IGListDiffKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListDiffKit.h; sourceTree = "<group>"; };
 		989317621E0ED45900DB93B3 /* IGListCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListCompatibility.h; sourceTree = "<group>"; };
 		C4A16046BECFD57B7EB75259 /* Pods-IGListKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTests/Pods-IGListKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DD3152AC1DE227FA00AC9D2C /* IGListKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IGListKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -502,6 +506,7 @@
 				0B3B92A21E08D7F5008390ED /* IGListCollectionView.h */,
 				0B3B92A41E08D7F5008390ED /* IGListDisplayDelegate.h */,
 				0B3B92A51E08D7F5008390ED /* IGListGridCollectionViewLayout.h */,
+				0B3B928B1E08D7F5008390ED /* IGListKit.h */,
 				0B3B92A71E08D7F5008390ED /* IGListReloadDataUpdater.h */,
 				0B3B92A91E08D7F5008390ED /* IGListScrollDelegate.h */,
 				0B3B92AA1E08D7F5008390ED /* IGListSectionController.h */,
@@ -534,10 +539,10 @@
 				989317621E0ED45900DB93B3 /* IGListCompatibility.h */,
 				0B3B92831E08D7F5008390ED /* IGListDiff.h */,
 				0B3B92851E08D7F5008390ED /* IGListDiffable.h */,
+				9893175E1E0E844800DB93B3 /* IGListDiffKit.h */,
 				0B3B92861E08D7F5008390ED /* IGListExperiments.h */,
 				0B3B92871E08D7F5008390ED /* IGListIndexPathResult.h */,
 				0B3B92891E08D7F5008390ED /* IGListIndexSetResult.h */,
-				0B3B928B1E08D7F5008390ED /* IGListKit.h */,
 				0B3B928C1E08D7F5008390ED /* IGListMacros.h */,
 				0B3B928D1E08D7F5008390ED /* IGListMoveIndex.h */,
 				0B3B928F1E08D7F5008390ED /* IGListMoveIndexPath.h */,
@@ -761,6 +766,7 @@
 				0B3B92CF1E08D7F5008390ED /* IGListDiffable.h in Headers */,
 				0B3B92EB1E08D7F5008390ED /* IGListMoveIndexInternal.h in Headers */,
 				0B3B93211E08D7F5008390ED /* IGListStackedSectionController.h in Headers */,
+				989317601E0E8D0A00DB93B3 /* IGListDiffKit.h in Headers */,
 				0B3B92EF1E08D7F5008390ED /* NSNumber+IGListDiffable.h in Headers */,
 				0B3B93411E08D7F5008390ED /* IGListWorkingRangeHandler.h in Headers */,
 				0B3B92E71E08D7F5008390ED /* IGListIndexPathResultInternal.h in Headers */,
@@ -813,6 +819,7 @@
 				0B3B92CE1E08D7F5008390ED /* IGListDiffable.h in Headers */,
 				0B3B92EA1E08D7F5008390ED /* IGListMoveIndexInternal.h in Headers */,
 				0B3B93201E08D7F5008390ED /* IGListStackedSectionController.h in Headers */,
+				9893175F1E0E844800DB93B3 /* IGListDiffKit.h in Headers */,
 				0B3B92EE1E08D7F5008390ED /* NSNumber+IGListDiffable.h in Headers */,
 				0B3B93401E08D7F5008390ED /* IGListWorkingRangeHandler.h in Headers */,
 				0B3B92E61E08D7F5008390ED /* IGListIndexPathResultInternal.h in Headers */,
@@ -847,6 +854,7 @@
 				0B3B93501E08D839008390ED /* IGListExperiments.h in Headers */,
 				0B3B93551E08D839008390ED /* IGListMoveIndex.h in Headers */,
 				0B3B93541E08D839008390ED /* IGListMacros.h in Headers */,
+				989317611E0E8D0B00DB93B3 /* IGListDiffKit.h in Headers */,
 				0B3B93491E08D82E008390ED /* IGListIndexSetResultInternal.h in Headers */,
 				0B3B93481E08D82E008390ED /* IGListIndexPathResultInternal.h in Headers */,
 				0B3B93571E08D839008390ED /* NSNumber+IGListDiffable.h in Headers */,
@@ -1770,7 +1778,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = (
 					"-Wambiguous-macro",
 					"-Wbool-conversion",
@@ -1844,7 +1852,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = (
 					"-Wambiguous-macro",
 					"-Wbool-conversion",

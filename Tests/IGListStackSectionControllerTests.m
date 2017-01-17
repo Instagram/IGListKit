@@ -85,7 +85,8 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     section4.items = 1;
 
     IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section1, section2, section3, section4]];
-
+    [stack reloadData];
+    
     XCTAssertEqual([stack numberOfItems], 6);
 }
 
@@ -100,7 +101,8 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     section4.items = 1;
 
     IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section1, section2, section3, section4]];
-
+    [stack reloadData];
+    
     XCTAssertEqualObjects([stack sectionControllerForObjectIndex:0], section1);
     XCTAssertEqualObjects([stack sectionControllerForObjectIndex:1], section1);
     XCTAssertEqualObjects([stack sectionControllerForObjectIndex:2], section2);
@@ -120,6 +122,8 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     section4.items = 1;
 
     IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section1, section2, section3, section4]];
+    [stack reloadData];
+
     XCTAssertEqual([stack offsetForSectionController:section1], 0);
     XCTAssertEqual([stack offsetForSectionController:section2], 2);
     XCTAssertEqual([stack offsetForSectionController:section3], 5);
@@ -307,10 +311,11 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
     IGListDisplayHandler *display = [[IGListDisplayHandler alloc] init];
     IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section1, section2]];
+    [stack reloadData];
 
     [display willDisplayCell:cell1 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     [display willDisplayCell:cell2 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
-
+    
     [mock1Delegate verify];
     [mock2Delegate verify];
 }
@@ -329,6 +334,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
     IGListDisplayHandler *display = [[IGListDisplayHandler alloc] init];
     IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section1, section2]];
+    [stack reloadData];
 
     // display all 4 cells (2 per child section controller)
     [display willDisplayCell:cell1 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:0 inSection:0]];

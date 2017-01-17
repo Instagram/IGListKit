@@ -38,6 +38,17 @@ IGLK_SUBCLASSING_RESTRICTED
 @property (nonatomic, assign) BOOL movesAsDeletesInserts;
 
 /**
+ A flag indicating whether this updater should skip diffing and simply call
+ `reloadData` for updates when the collection view is not in a window. The default value is `YES`.
+ 
+ @note This will result in better performance, but will not generate the same delegate
+ callbacks. If using a custom layout, it will not receive `prepareForCollectionViewUpdates:`.
+
+ @warning On iOS < 8.3, this behavior is unsupported and will always be treated as `NO`.
+ */
+@property (nonatomic, assign) BOOL allowsBackgroundReloading;
+
+/**
  A bitmask of experiments to conduct on the updater.
  */
 @property (nonatomic, assign) IGListExperiment experiments;

@@ -2,6 +2,34 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
+3.0.0 (**upcoming release**)
+-----
+
+This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/3).
+
+### Breaking Changes
+
+- Updated `didSelect` delegate call in `IGListSingleSectionControllerDelegate` to include object. [Sherlouk](https://github.com/Sherlouk) [(#397)](https://github.com/Instagram/IGListKit/pull/397)
+
+```objc
+// OLD
+- (void)didSelectSingleSectionController:(IGListSingleSectionController *)sectionController;
+
+// NEW
+- (void)didSelectSectionController:(IGListSingleSectionController *)sectionController
+                        withObject:(id)object;
+```
+
+2.2.0
+-----
+
+This release closes the [2.2.0 milestone](https://github.com/Instagram/IGListKit/milestone/4).
+
+### Fixes
+
+- Fix bug where emptyView's hidden status is not updated after the number of items is changed with `insertInSectionController:atIndexes:` or related methods. [Peter Edmonston](https://github.com/edmonston) [(#395)](https://github.com/Instagram/IGListKit/pull/395)
+- Fix bug where `IGListStackedSectionController`'s children need to know `numberOrItems` before didUpdate is called. [(#348)](https://github.com/Instagram/IGListKit/pull/390)
+
 2.1.0
 -----
 
@@ -16,6 +44,12 @@ This release closes the [2.1.0 milestone](https://github.com/Instagram/IGListKit
 - Disables `prefetchEnabled` by default on `IGListCollectionView`. [Sven Bacia](https://github.com/svenbacia) [(#323)](https://github.com/Instagram/IGListKit/pull/323)
 
 - Working ranges now work with `IGListStackedSectionController`. [Ryan Nystrom](https://github.com/rnystrom) [(#356)](https://github.com/Instagram/IGListKit/pull/356)
+
+- Added CocoaPods subspec for diffing, `IGListKit/Diffing` and an [installation guide](https://instagram.github.io/IGListKit/installation.html). [Sherlouk](https://github.com/Sherlouk) [(#368)](https://github.com/Instagram/IGListKit/pull/368)
+
+- Added `allowsBackgroundReloading` flag (default `YES`) to `IGListAdapterUpdater` so users can configure this behavior as needed. [Adlai-Holler](https://github.com/Adlai-Holler) [(#375)](https://github.com/Instagram/IGListKit/pull/375)
+
+- `-[IGListAdapter updater]` is now public (read-only). [Adlai-Holler](https://github.com/Adlai-Holler) [(#379)](https://github.com/Instagram/IGListKit/pull/379)
 
 ### Fixes
 

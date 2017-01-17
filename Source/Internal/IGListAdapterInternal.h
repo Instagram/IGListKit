@@ -32,7 +32,7 @@ IGListCollectionContext
     __weak UICollectionView *_collectionView;
 }
 
-@property (nonatomic, strong) id <IGListUpdatingDelegate> updatingDelegate;
+@property (nonatomic, strong) id <IGListUpdatingDelegate> updater;
 
 @property (nonatomic, strong, readonly) IGListSectionMap *sectionMap;
 @property (nonatomic, strong, readonly) IGListDisplayHandler *displayHandler;
@@ -52,7 +52,7 @@ IGListCollectionContext
  objects or section controllers.
  */
 @property (nonatomic, assign) BOOL isInUpdateBlock;
-@property (nonatomic, strong, nullable) IGListSectionMap *previoussectionMap;
+@property (nonatomic, strong, nullable) IGListSectionMap *previousSectionMap;
 
 @property (nonatomic, strong) NSMutableSet<Class> *registeredCellClasses;
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredNibNames;
