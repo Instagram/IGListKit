@@ -19,10 +19,12 @@
 @property (nonatomic, assign, readonly) CGFloat minimumInteritemSpacing;
 @property (nonatomic, assign) NSInteger headIndex;
 @property (nonatomic, copy) NSMutableArray<NSValue *> *itemSizes;
+@property (nonatomic, assign) IGListGridCollectionViewLayoutAlignment alignment;
 
 - (instancetype)initWithMinimumInteritemSpacing:(CGFloat)spacing
                                       headIndex:(NSInteger)headIndex
-                                          frame:(CGRect)frame;
+                                          frame:(CGRect)frame
+                                      alignment:(IGListGridCollectionViewLayoutAlignment)alignment;
 - (BOOL)addItemToTailWithSize:(CGSize)size;
 - (UICollectionViewLayoutAttributes *)attributesForItemAtIndexPath:(NSIndexPath *)indexPath;
 - (NSArray<UICollectionViewLayoutAttributes *> *)attributesForAllItems;
@@ -69,6 +71,7 @@
     _lineCache = [NSMutableArray new];
     _lineForItem = [NSMutableArray new];
     _itemSize = CGSizeZero;
+    _alignment = IGListGridCollectionViewLayoutAlignDefault;
 }
 
 #pragma mark - Layout Infomation
@@ -210,7 +213,8 @@
     CGRect frame = CGRectMake(0, 0, self.contentWidth, 0);
     _IGListGridLayoutLine *firstLine = [[_IGListGridLayoutLine alloc] initWithMinimumInteritemSpacing:self.minimumInteritemSpacing
                                                                                             headIndex:0
-                                                                                                frame:frame];
+                                                                                                frame:frame
+                                                                                            alignment:self.alignment];
     [self.lineCache addObject:firstLine];
 
     UICollectionView *collectionView = self.collectionView;
@@ -230,7 +234,8 @@
             frame = CGRectMake(0, y, self.contentWidth, 0);
             _IGListGridLayoutLine *newLine = [[_IGListGridLayoutLine alloc] initWithMinimumInteritemSpacing:self.minimumInteritemSpacing
                                                                                                   headIndex:i
-                                                                                                      frame:frame];
+                                                                                                      frame:frame
+                                                                                                  alignment:self.alignment];
             [self.lineCache addObject:newLine];
             [newLine addItemToTailWithSize:itemSize];
         }
@@ -253,7 +258,8 @@
 
 - (instancetype)initWithMinimumInteritemSpacing:(CGFloat)spacing
                                       headIndex:(NSInteger)headIndex
-                                          frame:(CGRect)frame {
+                                          frame:(CGRect)frame
+                                      alignment:(IGListGridCollectionViewLayoutAlignment)alignment{
     IGAssertMainThread();
     IGParameterAssert(spacing >= 0);
     IGParameterAssert(headIndex >= 0);
@@ -265,6 +271,7 @@
         _itemSizes = [NSMutableArray array];
         _headIndex = headIndex;
         _tailSpace = frame.size.width;
+        _alignment = alignment;
     }
     return self;
 }
@@ -288,11 +295,23 @@
 - (UICollectionViewLayoutAttributes *)attributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     const NSInteger index = indexPath.section - self.headIndex;
     CGFloat x = 0;
+    CGFloat lineWidth = self.frame.size.width;
+    CGFloat interitemSpacing = self.minimumInteritemSpacing;
+    if (self.alignment == IGListGridCollectionViewLayoutAlignCenter) {
+        // Only one item is in this line.
+        if (self.itemSizes.count == 1) {
+            const CGSize size = [self.itemSizes[0] CGSizeValue];
+            x = (lineWidth - size.width) / 2.0;
+            return [self attributesForItemAtIndexPath:indexPath withXOffset:x];
+        } else {
+            interitemSpacing += self.tailSpace / (self.itemSizes.count - 1);
+        }
+    }
     NSInteger idx = 0;
     for (NSValue *sizeValue in self.itemSizes) {
         if (idx < index) {
             const CGSize size = [sizeValue CGSizeValue];
-            x += size.width + self.minimumInteritemSpacing;
+            x += size.width + interitemSpacing;
         } else {
             break;
         }
@@ -305,7 +324,21 @@
 - (NSArray<UICollectionViewLayoutAttributes *> *)attributesForAllItems {
     NSMutableArray *array = [NSMutableArray array];
     CGFloat x = 0;
+    CGFloat lineWidth = self.frame.size.width;
+    CGFloat interitemSpacing = self.minimumInteritemSpacing;
     NSInteger idx = 0;
+    if (self.alignment == IGListGridCollectionViewLayoutAlignCenter) {
+        if (self.itemSizes.count == 1) {
+            const CGSize size = [self.itemSizes[0] CGSizeValue];
+            x = (lineWidth - size.width) / 2.0;
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:(self.headIndex + idx)];
+            UICollectionViewLayoutAttributes *attributes = [self attributesForItemAtIndexPath:indexPath withXOffset:x];
+            [array addObject:attributes];
+            return [array copy];
+        } else {
+            interitemSpacing += self.tailSpace / (self.itemSizes.count - 1);
+        }
+    }
     for (NSValue *sizeValue in self.itemSizes) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:(self.headIndex + idx)];
         UICollectionViewLayoutAttributes *attributes = [self attributesForItemAtIndexPath:indexPath withXOffset:x];

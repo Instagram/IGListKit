@@ -10,6 +10,16 @@
 #import <UIKit/UIKit.h>
 #import <IGListKit/IGListMacros.h>
 
+/**
+ An option for how to align items in grid layout.
+ */
+typedef NS_ENUM(NSInteger, IGListGridCollectionViewLayoutAlignment) {
+    IGListGridCollectionViewLayoutAlignDefault,
+    IGListGridCollectionViewLayoutAlignLeft,
+    IGListGridCollectionViewLayoutAlignCenter
+};
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -37,6 +47,11 @@ IGLK_SUBCLASSING_RESTRICTED
  When the size is zero (the default), then the layout will query the collection view's delegate for the size.
  */
 @property (nonatomic, assign) IBInspectable CGSize itemSize;
+    
+/**
+ An option for how to align items in grid layout.
+ */
+@property (nonatomic, assign) IGListGridCollectionViewLayoutAlignment alignment;
 
 @end
 
