@@ -78,6 +78,7 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
         NSMutableSet<IGListMoveIndex *> *mMoveSections = [moveSections mutableCopy];
         NSMutableIndexSet *mDeleteSections = [deleteSections mutableCopy];
         NSMutableIndexSet *mInsertSections = [insertSections mutableCopy];
+        NSMutableSet<IGListMoveIndexPath *> *mMoveIndexPaths = [moveIndexPaths mutableCopy];
 
         // these collections should NEVER be mutated during cleanup passes, otherwise sections that have multiple item
         // changes (e.g. a moved section that has a delete + reload on different index paths w/in the section) will only
@@ -114,12 +115,37 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
         // prevents a bug where UICollectionView corrupts the heap memory when inserting into a section that is moved
         [IGListBatchUpdateData cleanIndexPathsWithMap:toMap moves:mMoveSections indexPaths:mInsertIndexPaths deletes:mDeleteSections inserts:mInsertSections];
 
+        for (IGListMoveIndexPath *move in moveIndexPaths) {
+            // if the section w/ an index path move is deleted, just drop the move
+            if ([deleteSections containsIndex:move.from.section]) {
+                [mMoveIndexPaths removeObject:move];
+            }
+
+            // if an index path is moved and reloaded, convert it into a delete+insert
+            if ([mReloadIndexPaths containsObject:move.from]) {
+                [mReloadIndexPaths removeObject:move.from];
+                [mMoveIndexPaths removeObject:move];
+                [mDeleteIndexPaths addObject:move.from];
+                [mInsertIndexPaths addObject:move.to];
+            }
+
+            // if a move is inside a section that is moved, convert the section move to a delete+insert
+            const auto it = fromMap.find(move.from.section);
+            if (it != fromMap.end() && it->second != nil) {
+                IGListMoveIndex *sectionMove = it->second;
+                [mMoveIndexPaths removeObject:move];
+                [mMoveSections removeObject:sectionMove];
+                [mDeleteSections addIndex:sectionMove.from];
+                [mInsertSections addIndex:sectionMove.to];
+            }
+        }
+
         _deleteSections = [mDeleteSections copy];
         _insertSections = [mInsertSections copy];
         _moveSections = [mMoveSections copy];
         _deleteIndexPaths = [mDeleteIndexPaths copy];
         _insertIndexPaths = [mInsertIndexPaths copy];
-        _moveIndexPaths = [moveIndexPaths copy];
+        _moveIndexPaths = [mMoveIndexPaths copy];
         _reloadIndexPaths = [mReloadIndexPaths copy];
     }
     return self;
