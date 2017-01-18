@@ -14,9 +14,9 @@
  An option for how to align items in grid layout.
  */
 typedef NS_ENUM(NSInteger, IGListGridCollectionViewLayoutAlignment) {
-    IGListGridCollectionViewLayoutAlignDefault,
-    IGListGridCollectionViewLayoutAlignLeft,
-    IGListGridCollectionViewLayoutAlignCenter
+    IGListGridCollectionViewLayoutAlignmentLeft,
+    IGListGridCollectionViewLayoutAlignmentCenter,
+    IGListGridCollectionViewLayoutAlignmentRight
 };
 
 

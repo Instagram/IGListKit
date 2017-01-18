@@ -71,7 +71,7 @@
     _lineCache = [NSMutableArray new];
     _lineForItem = [NSMutableArray new];
     _itemSize = CGSizeZero;
-    _alignment = IGListGridCollectionViewLayoutAlignDefault;
+    _alignment = IGListGridCollectionViewLayoutAlignmentLeft;
 }
 
 #pragma mark - Layout Infomation
@@ -297,7 +297,7 @@
     CGFloat x = 0;
     CGFloat lineWidth = self.frame.size.width;
     CGFloat interitemSpacing = self.minimumInteritemSpacing;
-    if (self.alignment == IGListGridCollectionViewLayoutAlignCenter) {
+    if (self.alignment == IGListGridCollectionViewLayoutAlignmentCenter) {
         // Only one item is in this line.
         if (self.itemSizes.count == 1) {
             const CGSize size = [self.itemSizes[0] CGSizeValue];
@@ -306,6 +306,8 @@
         } else {
             interitemSpacing += self.tailSpace / (self.itemSizes.count - 1);
         }
+    } else if (self.alignment == IGListGridCollectionViewLayoutAlignmentRight) {
+        x += self.tailSpace;
     }
     NSInteger idx = 0;
     for (NSValue *sizeValue in self.itemSizes) {
@@ -327,7 +329,7 @@
     CGFloat lineWidth = self.frame.size.width;
     CGFloat interitemSpacing = self.minimumInteritemSpacing;
     NSInteger idx = 0;
-    if (self.alignment == IGListGridCollectionViewLayoutAlignCenter) {
+    if (self.alignment == IGListGridCollectionViewLayoutAlignmentCenter) {
         if (self.itemSizes.count == 1) {
             const CGSize size = [self.itemSizes[0] CGSizeValue];
             x = (lineWidth - size.width) / 2.0;
@@ -338,6 +340,8 @@
         } else {
             interitemSpacing += self.tailSpace / (self.itemSizes.count - 1);
         }
+    } else if (self.alignment == IGListGridCollectionViewLayoutAlignmentRight) {
+        x += self.tailSpace;
     }
     for (NSValue *sizeValue in self.itemSizes) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:(self.headIndex + idx)];
