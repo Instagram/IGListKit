@@ -33,7 +33,7 @@ static void * kStackedSectionControllerKey = &kStackedSectionControllerKey;
 static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerIndexKey;
 
 - (void)ig_setStackedSectionControllerIndex:(NSInteger)stackedSectionControllerIndex {
-    objc_setAssociatedObject(self, kStackedSectionControllerIndexKey, @(stackedSectionControllerIndex), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, kStackedSectionControllerIndexKey, @(stackedSectionControllerIndex), OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (NSInteger)ig_stackedSectionControllerIndex {
