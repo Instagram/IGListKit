@@ -3,13 +3,14 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
+ * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 #import <XCTest/XCTest.h>
 
 #import "IGListBatchUpdateData.h"
+#import "IGListMoveIndexPathInternal.h"
 
 // IGListMoveIndexInternal.h
 @interface IGListMoveIndex (Private)
@@ -44,6 +45,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                              moveSections:[NSSet new]
                                                                          insertIndexPaths:[NSSet new]
                                                                          deleteIndexPaths:[NSSet new]
+                                                                           moveIndexPaths:[NSSet new]
                                                                          reloadIndexPaths:[NSSet new]];
     XCTAssertNotNil(result);
 }
@@ -54,12 +56,15 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                              moveSections:[NSSet setWithArray:@[newMove(3, 4)]]
                                                                          insertIndexPaths:[NSSet setWithArray:@[newPath(0, 0)]]
                                                                          deleteIndexPaths:[NSSet setWithArray:@[newPath(1, 0)]]
+                                                                           moveIndexPaths:[NSSet setWithArray:@[[[IGListMoveIndexPath alloc] initWithFrom:newPath(6, 0) to:newPath(6, 1)]]]
                                                                          reloadIndexPaths:[NSSet setWithArray:@[newPath(2, 0)]]];
     XCTAssertEqualObjects(result.insertSections, indexSet(@[@0, @1]));
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@5]));
     XCTAssertEqualObjects(result.moveSections, [NSSet setWithArray:@[newMove(3, 4)]]);
     XCTAssertEqualObjects(result.insertIndexPaths, [NSSet setWithArray:@[newPath(0, 0)]]);
     XCTAssertEqualObjects(result.deleteIndexPaths, [NSSet setWithArray:@[newPath(1, 0)]]);
+    XCTAssertEqual(result.moveIndexPaths.count, 1);
+    XCTAssertEqualObjects(result.moveIndexPaths.anyObject, [[IGListMoveIndexPath alloc] initWithFrom:newPath(6, 0) to:newPath(6, 1)]);
     XCTAssertEqualObjects(result.reloadIndexPaths, [NSSet setWithArray:@[newPath(2, 0)]]);
 }
 
@@ -74,6 +79,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                              moveSections:[NSSet setWithArray:@[newMove(2, 4)]]
                                                                          insertIndexPaths:[NSSet new]
                                                                          deleteIndexPaths:[NSSet new]
+                                                                           moveIndexPaths:[NSSet new]
                                                                          reloadIndexPaths:[NSSet setWithArray:reloads]];
     XCTAssertEqualObjects(result.insertSections, indexSet(@[@4]));
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@2]));
@@ -87,6 +93,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                              moveSections:[NSSet new]
                                                                          insertIndexPaths:[NSSet new]
                                                                          deleteIndexPaths:[NSSet new]
+                                                                           moveIndexPaths:[NSSet new]
                                                                          reloadIndexPaths:[NSSet setWithArray:@[newPath(2, 0)]]];
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@2]));
     XCTAssertEqual(result.reloadIndexPaths.count, 0);
@@ -98,6 +105,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                              moveSections:[NSSet setWithArray:@[newMove(2, 4)]]
                                                                          insertIndexPaths:[NSSet new]
                                                                          deleteIndexPaths:[NSSet setWithArray:@[newPath(2, 0), newPath(3, 4)]]
+                                                                           moveIndexPaths:[NSSet new]
                                                                          reloadIndexPaths:[NSSet new]];
     XCTAssertEqualObjects(result.insertSections, indexSet(@[@4]));
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@2]));
@@ -111,6 +119,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                              moveSections:[NSSet setWithArray:@[newMove(2, 4)]]
                                                                          insertIndexPaths:[NSSet setWithArray:@[newPath(4, 0), newPath(3, 4)]]
                                                                          deleteIndexPaths:[NSSet new]
+                                                                           moveIndexPaths:[NSSet new]
                                                                          reloadIndexPaths:[NSSet new]];
     XCTAssertEqualObjects(result.insertSections, indexSet(@[@4]));
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@2]));

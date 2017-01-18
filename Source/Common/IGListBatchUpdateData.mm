@@ -119,6 +119,7 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
         _moveSections = [mMoveSections copy];
         _deleteIndexPaths = [mDeleteIndexPaths copy];
         _insertIndexPaths = [mInsertIndexPaths copy];
+        _moveIndexPaths = [moveIndexPaths copy];
         _reloadIndexPaths = [mReloadIndexPaths copy];
     }
     return self;
