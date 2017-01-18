@@ -35,6 +35,10 @@ static NSIndexPath *newPath(NSInteger section, NSInteger item) {
     return [NSIndexPath indexPathForItem:item inSection:section];
 }
 
+static IGListMoveIndexPath *newMovePath(NSInteger fromSection, NSInteger fromItem, NSInteger toSection, NSInteger toItem) {
+    return [[IGListMoveIndexPath alloc] initWithFrom:newPath(fromSection, fromItem) to:newPath(toSection, toItem)];
+}
+
 static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
     return [[IGListMoveIndex alloc] initWithFrom:from to:to];
 }
@@ -56,7 +60,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                              moveSections:[NSSet setWithArray:@[newMove(3, 4)]]
                                                                          insertIndexPaths:[NSSet setWithArray:@[newPath(0, 0)]]
                                                                          deleteIndexPaths:[NSSet setWithArray:@[newPath(1, 0)]]
-                                                                           moveIndexPaths:[NSSet setWithArray:@[[[IGListMoveIndexPath alloc] initWithFrom:newPath(6, 0) to:newPath(6, 1)]]]
+                                                                           moveIndexPaths:[NSSet setWithArray:@[newMovePath(6, 0, 6, 1)]]
                                                                          reloadIndexPaths:[NSSet setWithArray:@[newPath(2, 0)]]];
     XCTAssertEqualObjects(result.insertSections, indexSet(@[@0, @1]));
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@5]));
@@ -126,5 +130,47 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
     XCTAssertEqualObjects(result.insertIndexPaths, [NSSet setWithArray:@[newPath(3, 4)]]);
     XCTAssertEqual(result.moveSections.count, 0);
 }
+
+- (void)test_whenMovingIndexPaths_withSamePathReloaded_thatResultConvertsToDeletesAndInserts {
+    IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
+                                                                           deleteSections:indexSet(@[])
+                                                                             moveSections:[NSSet new]
+                                                                         insertIndexPaths:[NSSet new]
+                                                                         deleteIndexPaths:[NSSet new]
+                                                                           moveIndexPaths:[NSSet setWithArray:@[newMovePath(0, 0, 0, 1)]]
+                                                                         reloadIndexPaths:[NSSet setWithArray:@[newPath(0, 0)]]];
+    XCTAssertEqual(result.moveIndexPaths.count, 0);
+    XCTAssertEqual(result.reloadIndexPaths.count, 0);
+    XCTAssertEqualObjects(result.deleteIndexPaths, [NSSet setWithArray:@[newPath(0, 0)]]);
+    XCTAssertEqualObjects(result.insertIndexPaths, [NSSet setWithArray:@[newPath(0, 1)]]);
+}
+
+- (void)test_whenMovingIndexPaths_withSectionDeleted_thatResultDropsTheMove {
+    IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
+                                                                           deleteSections:indexSet(@[@0])
+                                                                             moveSections:[NSSet new]
+                                                                         insertIndexPaths:[NSSet new]
+                                                                         deleteIndexPaths:[NSSet new]
+                                                                           moveIndexPaths:[NSSet setWithArray:@[newMovePath(0, 0, 0, 1)]]
+                                                                         reloadIndexPaths:[NSSet new]];
+    XCTAssertEqual(result.moveIndexPaths.count, 0);
+    XCTAssertEqualObjects(result.deleteSections, indexSet(@[@0]));
+}
+
+- (void)test_whenMovingIndexPaths_withSectionMoved_thatResultConvertsToDeletesAndInserts {
+    IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
+                                                                           deleteSections:indexSet(@[])
+                                                                             moveSections:[NSSet setWithArray:@[newMove(0, 1)]]
+                                                                         insertIndexPaths:[NSSet new]
+                                                                         deleteIndexPaths:[NSSet new]
+                                                                           moveIndexPaths:[NSSet setWithArray:@[newMovePath(0, 0, 0, 1)]]
+                                                                         reloadIndexPaths:[NSSet new]];
+    XCTAssertEqual(result.moveIndexPaths.count, 0);
+    XCTAssertEqual(result.moveSections.count, 0);
+    XCTAssertEqualObjects(result.deleteSections, indexSet(@[@0]));
+    XCTAssertEqualObjects(result.insertSections, indexSet(@[@1]));
+}
+
+// any section that is moved w/ an item-level op in it should: discard all item ops, convert to delete+insert
 
 @end
