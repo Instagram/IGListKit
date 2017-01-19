@@ -1189,4 +1189,123 @@
     XCTAssertNil(weakSectionController);
 }
 
+- (void)test_whenMovingItems_withObjectMoving_thatCollectionViewWorks {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @2),
+                             genTestObject(@2, @2),
+                             genTestObject(@3, @2),
+                             ]];
+
+    __block BOOL executed = NO;
+    IGListSectionController<IGListSectionType> *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    [section.collectionContext performBatchAnimated:YES updates:^{
+        [section.collectionContext moveInSectionController:section fromIndex:0 toIndex:1];
+        executed = YES;
+    } completion:nil];
+
+    self.dataSource.objects = @[
+                                genTestObject(@3, @2),
+                                genTestObject(@1, @2),
+                                genTestObject(@2, @2),
+                                ];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertTrue(executed);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
+- (void)test_whenMovingItems_withObjectReloaded_thatCollectionViewWorks {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @2),
+                             ]];
+
+    __block BOOL executed = NO;
+    IGListSectionController<IGListSectionType> *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    [section.collectionContext performBatchAnimated:YES updates:^{
+        [section.collectionContext moveInSectionController:section fromIndex:0 toIndex:1];
+        executed = YES;
+    } completion:nil];
+
+    self.dataSource.objects = @[
+                                genTestObject(@1, @3),
+                                ];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertTrue(executed);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
+- (void)test_whenMovingItems_withObjectDeleted_thatCollectionViewWorks {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @2),
+                             ]];
+
+    __block BOOL executed = NO;
+    IGListSectionController<IGListSectionType> *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    [section.collectionContext performBatchAnimated:YES updates:^{
+        [section.collectionContext moveInSectionController:section fromIndex:0 toIndex:1];
+        executed = YES;
+    } completion:nil];
+
+    self.dataSource.objects = @[];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertTrue(executed);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
+- (void)test_whenMovingItems_withObjectInsertedBefore_thatCollectionViewWorks {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @2),
+                             ]];
+
+    __block BOOL executed = NO;
+    IGListSectionController<IGListSectionType> *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    [section.collectionContext performBatchAnimated:YES updates:^{
+        [section.collectionContext moveInSectionController:section fromIndex:0 toIndex:1];
+        executed = YES;
+    } completion:nil];
+
+    [self setupWithObjects:@[
+                             genTestObject(@2, @2),
+                             genTestObject(@1, @2),
+                             ]];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertTrue(executed);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
+- (void)test_whenMovingItems_thatCollectionViewWorks {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @2),
+                             ]];
+
+    XCTestExpectation *expectation = genExpectation;
+    IGListSectionController<IGListSectionType> *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    [section.collectionContext performBatchAnimated:YES updates:^{
+        [section.collectionContext moveInSectionController:section fromIndex:0 toIndex:1];
+    } completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
 @end
