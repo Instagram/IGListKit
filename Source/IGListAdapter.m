@@ -1006,7 +1006,7 @@
              sectionController, fromIndex, toIndex);
 
     NSIndexPath *fromIndexPath = [self indexPathForSectionController:sectionController index:fromIndex usePreviousSection:YES];
-    NSIndexPath *toIndexPath = [self indexPathForSectionController:sectionController index:fromIndex usePreviousSection:NO];
+    NSIndexPath *toIndexPath = [self indexPathForSectionController:sectionController index:toIndex usePreviousSection:NO];
 
     if (fromIndexPath == nil || toIndexPath == nil) {
         return;

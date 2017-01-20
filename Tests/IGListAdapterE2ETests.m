@@ -1297,11 +1297,21 @@
                              genTestObject(@1, @2),
                              ]];
 
+    IGTestCell *cell1 = (IGTestCell*)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    IGTestCell *cell2 = (IGTestCell*)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+    cell1.label.text = @"foo";
+    cell2.label.text = @"bar";
+
     XCTestExpectation *expectation = genExpectation;
     IGListSectionController<IGListSectionType> *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
     [section.collectionContext performBatchAnimated:YES updates:^{
         [section.collectionContext moveInSectionController:section fromIndex:0 toIndex:1];
     } completion:^(BOOL finished) {
+        IGTestCell *movedCell1 = (IGTestCell*)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        IGTestCell *movedCell2 = (IGTestCell*)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+        XCTAssertEqualObjects(movedCell1.label.text, @"bar");
+        XCTAssertEqualObjects(movedCell2.label.text, @"foo");
+
         [expectation fulfill];
     }];
 
