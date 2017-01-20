@@ -22,6 +22,10 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - `IGListUpdatingDelegate` now conforms to `NSObject`, bringing it in line with other framework protocols. [Adlai Holler](https://github.com/Adlai-Holler) [(#435)](https://github.com/Instagram/IGListKit/pull/435)
 
+### Enhancements
+
+- You can now manually move items (cells) within a section controller, ex: `[self.collectionContext moveInSectionController:self fromIndex:0 toIndex:1]`. [Ryan Nystrom](https://github.com/rnystrom) [(#418)](https://github.com/Instagram/IGListKit/pull/418)
+
 2.2.0
 -----
 
