@@ -280,7 +280,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 - (void)moveInSectionController:(IGListSectionController<IGListSectionType> *)sectionController fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
     [self reloadData];
     const NSInteger fromRelativeIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:fromIndex];
-    const NSInteger toRelativeIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:fromIndex];
+    const NSInteger toRelativeIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:toIndex];
     [self.collectionContext moveInSectionController:self fromIndex:fromRelativeIndex toIndex:toRelativeIndex];
 }
 
