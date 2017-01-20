@@ -95,4 +95,13 @@
     XCTAssertTrue(executed);
 }
 
+- (void)test_whenMovingFromContext_thatCollectionViewUpdated {
+    self.dataSource.objects = @[@2];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+    IGListTestSection *section = [self.adapter sectionControllerForObject:@2];
+    [section.collectionContext moveInSectionController:section fromIndex:0 toIndex:1];
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+}
+
 @end
