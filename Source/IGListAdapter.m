@@ -414,6 +414,23 @@
     return [visibleObjects allObjects];
 }
 
+- (NSArray<UICollectionViewCell *> *)visibleCellsForObject:(id)item {
+    IGAssertMainThread();
+    IGParameterAssert(item != nil);
+    
+    NSArray<UICollectionViewCell *> *visibleCells = [self.collectionView visibleCells];
+    NSInteger section = [self.sectionMap sectionForObject:item];
+    IGAssert(section != NSNotFound, @"Section not found for object %@", item);
+    
+    NSPredicate *controllerPredicate = [NSPredicate predicateWithBlock:^BOOL(UICollectionViewCell* cell, NSDictionary* bindings) {
+        NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+        return indexPath.section == section;
+    }];
+    
+    NSArray<UICollectionViewCell *> *filteredCells = [visibleCells filteredArrayUsingPredicate:controllerPredicate];
+    return filteredCells;
+}
+
 
 #pragma mark - Layout
 
