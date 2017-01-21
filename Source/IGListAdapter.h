@@ -197,6 +197,8 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  An unordered array of the currently visible cells for a given object.
  
+ @param item An object in the list
+ 
  @return An array of collection view cells.
  */
 - (NSArray<UICollectionViewCell *> *)visibleCellsForObject:(id)item;
