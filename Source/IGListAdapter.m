@@ -1015,6 +1015,25 @@
     [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:scrollPosition animated:animated];
 }
 
+- (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
+    IGAssertMainThread()
+    IGParameterAssert(sectionController != nil);
+    
+    NSInteger *itemCount = [sectionController numberOfItems];
+    NSIndexSet *indexPathRange = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, itemCount)];
+    NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexPathRange adjustForUpdateBlock:NO];
+    [self invalidateLayoutForIndexPaths:indexPaths];
+}
+
+- (void)invalidateLayoutForIndexPaths:(NSArray<NSIndexPath *> *) indexPaths {
+    IGAssertMainThread()
+    IGParameterAssert(indexPaths != nil);
+    
+    UICollectionViewLayoutInvalidationContext *context = [UICollectionViewLayoutInvalidationContext new];
+    [context invalidateItemsAtIndexPaths:indexPaths];
+    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
+}
+
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
