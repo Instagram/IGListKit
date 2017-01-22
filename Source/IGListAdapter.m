@@ -147,13 +147,13 @@
     IGAssertMainThread();
     IGParameterAssert(object != nil);
 
-    const NSUInteger section = [self sectionForObject:object];
+    const NSInteger section = [self sectionForObject:object];
     if (section == NSNotFound) {
         return;
     }
 
     UICollectionView *collectionView = self.collectionView;
-    const NSUInteger numberOfItems = [collectionView numberOfItemsInSection:section];
+    const NSInteger numberOfItems = [collectionView numberOfItemsInSection:section];
     if (numberOfItems == 0) {
         return;
     }
@@ -353,7 +353,7 @@
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
     
-    const NSUInteger section = [self.sectionMap sectionForSectionController:sectionController];
+    const NSInteger section = [self.sectionMap sectionForSectionController:sectionController];
     return [self.sectionMap objectForSection:section];
 }
 
@@ -403,7 +403,7 @@
         IGListSectionController<IGListSectionType> *sectionController = [self sectionControllerForCell:cell];
         IGAssert(sectionController != nil, @"Section controller nil for cell %@", cell);
         if (sectionController != nil) {
-            const NSUInteger section = [self sectionForSectionController:sectionController];
+            const NSInteger section = [self sectionForSectionController:sectionController];
             id object = [self objectAtSection:section];
             IGAssert(object != nil, @"Object not found for section controller %@ at section %zi", sectionController, section);
             if (object != nil) {
@@ -481,7 +481,7 @@
         sectionController.isLastSection = (object == lastObject);
 
         // check if the item has changed instances or is new
-        const NSUInteger oldSection = [map sectionForObject:object];
+        const NSInteger oldSection = [map sectionForObject:object];
         if (oldSection == NSNotFound || [map objectForSection:oldSection] != object) {
             [updatedObjects addObject:object];
         }
@@ -499,7 +499,7 @@
         [[map sectionControllerForObject:object] didUpdateToObject:object];
     }
 
-    NSUInteger itemCount = 0;
+    NSInteger itemCount = 0;
     for (IGListSectionController<IGListSectionType> *sectionController in sectionControllers) {
         itemCount += [sectionController numberOfItems];
     }
@@ -549,7 +549,7 @@
 
     IGListSectionMap *map = [self sectionMapAdjustForUpdateBlock:adjustForUpdateBlock];
 
-    const NSUInteger section = [map sectionForSectionController:sectionController];
+    const NSInteger section = [map sectionForSectionController:sectionController];
     if (section != NSNotFound) {
         [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
             [indexPaths addObject:[NSIndexPath indexPathForItem:idx inSection:section]];
@@ -559,7 +559,7 @@
 }
 
 - (NSIndexPath *)indexPathForSectionController:(IGListSectionController *)controller index:(NSInteger)index {
-    const NSUInteger section = [self.sectionMap sectionForSectionController:controller];
+    const NSInteger section = [self.sectionMap sectionForSectionController:controller];
     if (section == NSNotFound) {
         return nil;
     } else {
@@ -778,7 +778,7 @@
     NSMutableArray *cells = [NSMutableArray new];
     UICollectionView *collectionView = self.collectionView;
     NSArray *visibleCells = [collectionView visibleCells];
-    const NSUInteger section = [self sectionForSectionController:sectionController];
+    const NSInteger section = [self sectionForSectionController:sectionController];
     for (UICollectionViewCell *cell in visibleCells) {
         if ([collectionView indexPathForCell:cell].section == section) {
             [cells addObject:cell];
