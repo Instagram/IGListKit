@@ -1015,19 +1015,12 @@
     [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:scrollPosition animated:animated];
 }
 
-- (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
+- (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                   atIndexes:(NSIndexSet *)indexes {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
     
-    NSInteger itemCount = [sectionController numberOfItems];
-    NSIndexSet *indexPathRange = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, itemCount)];
-    NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexPathRange adjustForUpdateBlock:NO];
-    [self invalidateLayoutForIndexPaths:indexPaths];
-}
-
-- (void)invalidateLayoutForIndexPaths:(NSArray<NSIndexPath *> *) indexPaths {
-    IGAssertMainThread();
-    IGParameterAssert(indexPaths != nil);
+    NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes adjustForUpdateBlock:NO];
     
     UICollectionViewLayoutInvalidationContext *context = [UICollectionViewLayoutInvalidationContext new];
     [context invalidateItemsAtIndexPaths:indexPaths];

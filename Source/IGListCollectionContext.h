@@ -257,15 +257,10 @@ NS_ASSUME_NONNULL_BEGIN
  Invalidates the collection view layout for all items in the given section.
  
  @param sectionController The section controller.
+ @param indexes           The indexes of the items that should be invalidated.
  */
-- (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
-
-/**
- Invalidates the collection view layout for the items at the given index paths.
- 
- @param indexPaths The index path array to invalidate.
- */
-- (void)invalidateLayoutForIndexPaths:(NSArray<NSIndexPath *> *) indexPaths;
+- (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                   atIndexes:(NSIndexSet *)indexes;
 
 @end
 

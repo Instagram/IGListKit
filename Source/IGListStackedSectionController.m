@@ -304,12 +304,9 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
                                              animated:animated];
 }
 
-- (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
-    [self.collectionContext invalidateLayoutForSectionController:self];
-}
-
-- (void)invalidateLayoutForIndexPaths:(NSArray<NSIndexPath *> *) indexPaths {
-    [self.collectionContext invalidateLayoutForIndexPaths:indexPaths];
+- (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                   atIndexes:(NSIndexSet *)indexes {
+    [self.collectionContext invalidateLayoutForSectionController:self atIndexes:indexes];
 }
 
 #pragma mark - IGListDisplayDelegate
