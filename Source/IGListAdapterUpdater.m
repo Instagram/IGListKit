@@ -274,8 +274,8 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     // reloadSections: is unsafe to use within performBatchUpdates:, so instead convert all reloads into deletes+inserts
     convertReloadToDeleteInsert(reloads, deletes, inserts, diffResult, fromObjects);
 
-    IGListBatchUpdateData *updateData = [[IGListBatchUpdateData alloc] initWithInsertSections:[inserts copy]
-                                                                               deleteSections:[deletes copy]
+    IGListBatchUpdateData *updateData = [[IGListBatchUpdateData alloc] initWithInsertSections:inserts
+                                                                               deleteSections:deletes
                                                                                  moveSections:moves
                                                                              insertIndexPaths:insertIndexPaths
                                                                              deleteIndexPaths:deleteIndexPaths
