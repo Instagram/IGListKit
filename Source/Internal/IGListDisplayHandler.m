@@ -62,7 +62,7 @@
     IGParameterAssert(listAdapter != nil);
     IGParameterAssert(indexPath != nil);
 
-    const NSUInteger section = indexPath.section;
+    const NSInteger section = indexPath.section;
 
     NSMapTable *cellObjectMap = self.visibleCellObjectMap;
     id object = [cellObjectMap objectForKey:cell];
