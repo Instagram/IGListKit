@@ -925,6 +925,8 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     [section.collectionContext scrollToSectionController:section atIndex:0 scrollPosition:UICollectionViewScrollPositionTop animated:NO];
     XCTAssertEqual(self.collectionView.contentOffset.x, 0);
     XCTAssertEqual(self.collectionView.contentOffset.y, 280);
+    
+    [section.collectionContext invalid]
 }
 
 @end

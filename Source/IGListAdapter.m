@@ -1016,17 +1016,17 @@
 }
 
 - (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
-    IGAssertMainThread()
+    IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
     
-    NSInteger *itemCount = [sectionController numberOfItems];
+    NSInteger itemCount = [sectionController numberOfItems];
     NSIndexSet *indexPathRange = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, itemCount)];
     NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexPathRange adjustForUpdateBlock:NO];
     [self invalidateLayoutForIndexPaths:indexPaths];
 }
 
 - (void)invalidateLayoutForIndexPaths:(NSArray<NSIndexPath *> *) indexPaths {
-    IGAssertMainThread()
+    IGAssertMainThread();
     IGParameterAssert(indexPaths != nil);
     
     UICollectionViewLayoutInvalidationContext *context = [UICollectionViewLayoutInvalidationContext new];
