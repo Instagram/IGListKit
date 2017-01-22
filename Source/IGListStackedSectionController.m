@@ -184,7 +184,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
             [cells addObject:cell];
         }
     }
-    return [cells copy];
+    return cells;
 }
 
 - (void)deselectItemAtIndex:(NSInteger)index sectionController:(IGListSectionController<IGListSectionType> *)sectionController animated:(BOOL)animated {

@@ -105,7 +105,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
             IGLKLog(@"WARNING: Object %@ already appeared in objects array", object);
         }
     }
-    return [uniqueObjects copy];
+    return uniqueObjects;
 }
 
 - (void)performBatchUpdatesWithCollectionView:(UICollectionView *)collectionView {

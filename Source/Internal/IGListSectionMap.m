@@ -108,7 +108,7 @@
 
     NSMutableArray *mobjects = [self.objects mutableCopy];
     mobjects[section] = object;
-    self.objects = [mobjects copy];
+    self.objects = mobjects;
 }
 
 - (void)enumerateUsingBlock:(void (^)(id object, IGListSectionController <IGListSectionType> *sectionController, NSInteger section, BOOL *stop))block {
