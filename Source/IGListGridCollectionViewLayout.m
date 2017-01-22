@@ -314,7 +314,7 @@
         x += size.width + self.minimumInteritemSpacing;
         idx++;
     }
-    return [array copy];
+    return array;
 }
 
 #pragma mark - Private API
