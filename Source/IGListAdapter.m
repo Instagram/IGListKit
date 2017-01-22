@@ -373,7 +373,7 @@
 - (NSArray *)objects {
     IGAssertMainThread();
 
-    return [self.sectionMap.objects copy];
+    return self.sectionMap.objects;
 }
 
 - (id<IGListSupplementaryViewSource>)supplementaryViewSourceAtIndexPath:(NSIndexPath *)indexPath {
@@ -492,7 +492,7 @@
     // clear the view controller and collection context
     IGListSectionControllerPopThread();
 
-    [map updateWithObjects:objects sectionControllers:[sectionControllers copy]];
+    [map updateWithObjects:objects sectionControllers:sectionControllers];
 
     // now that the maps have been created and contexts are assigned, we consider the section controller "fully loaded"
     for (id object in updatedObjects) {
@@ -555,7 +555,7 @@
             [indexPaths addObject:[NSIndexPath indexPathForItem:idx inSection:section]];
         }];
     }
-    return [indexPaths copy];
+    return indexPaths;
 }
 
 - (NSIndexPath *)indexPathForSectionController:(IGListSectionController *)controller index:(NSInteger)index {
@@ -584,7 +584,7 @@
         }
     }
 
-    return [attributes copy];
+    return attributes;
 }
 
 - (void)mapCell:(UICollectionViewCell *)cell toSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
@@ -784,7 +784,7 @@
             [cells addObject:cell];
         }
     }
-    return [cells copy];
+    return cells;
 }
 
 - (void)deselectItemAtIndex:(NSInteger)index
