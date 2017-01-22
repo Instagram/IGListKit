@@ -18,7 +18,7 @@
 static NSMutableSet *indexPathsMinusSections(NSSet<NSIndexPath *> *indexPaths, NSIndexSet *sections) {
     NSMutableSet *filteredIndexPaths = [indexPaths mutableCopy];
     for (NSIndexPath *indexPath in indexPaths) {
-        const NSUInteger section = indexPath.section;
+        const NSInteger section = indexPath.section;
         if ([sections containsIndex:section]) {
             [filteredIndexPaths removeObject:indexPath];
         }
@@ -42,7 +42,7 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
 @implementation IGListBatchUpdateData
 
 // Converts all section moves that have index path operations into a section delete + insert.
-+ (void)cleanIndexPathsWithMap:(const std::unordered_map<NSUInteger, IGListMoveIndex*> &)map
++ (void)cleanIndexPathsWithMap:(const std::unordered_map<NSInteger, IGListMoveIndex*> &)map
                          moves:(NSMutableSet<IGListMoveIndex *> *)moves
                     indexPaths:(NSMutableSet<NSIndexPath *> *)indexPaths
                        deletes:(NSMutableIndexSet *)deletes
@@ -81,12 +81,12 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
         // changes (e.g. a moved section that has a delete + reload on different index paths w/in the section) will only
         // convert one of the item changes into a section delete+insert. this will fail hard and be VERY difficult to
         // debug
-        const NSUInteger moveCount = [moveSections count];
-        std::unordered_map<NSUInteger, IGListMoveIndex*> fromMap(moveCount);
-        std::unordered_map<NSUInteger, IGListMoveIndex*> toMap(moveCount);
+        const NSInteger moveCount = [moveSections count];
+        std::unordered_map<NSInteger, IGListMoveIndex*> fromMap(moveCount);
+        std::unordered_map<NSInteger, IGListMoveIndex*> toMap(moveCount);
         for (IGListMoveIndex *move in moveSections) {
-            const NSUInteger from = move.from;
-            const NSUInteger to = move.to;
+            const NSInteger from = move.from;
+            const NSInteger to = move.to;
 
             // if the move is already deleted or inserted, discard it and use delete+insert instead
             if ([deleteSections containsIndex:from] || [insertSections containsIndex:to]) {

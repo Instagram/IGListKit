@@ -101,7 +101,7 @@
 
 - (void)updateObject:(id)object {
     IGParameterAssert(object != nil);
-    const NSUInteger section = [self sectionForObject:object];
+    const NSInteger section = [self sectionForObject:object];
     id sectionController = [self sectionControllerForObject:object];
     [self.sectionControllerToSectionMap setObject:@(section) forKey:sectionController];
     [self.sectionControllerToObjectMap setObject:sectionController forKey:object];
@@ -116,7 +116,7 @@
 
     BOOL stop = NO;
     NSArray *objects = self.objects;
-    for (NSUInteger section = 0; section < objects.count; section++) {
+    for (NSInteger section = 0; section < objects.count; section++) {
         id object = objects[section];
         IGListSectionController <IGListSectionType> *sectionController = [self sectionControllerForObject:object];
         block(object, sectionController, section, &stop);

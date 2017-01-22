@@ -231,8 +231,8 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     [[reloads copy] enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         // if a diff was not performed, there are no changes. instead use the same index that was originally queued
         id<NSObject> diffIdentifier = hasObjects ? [fromObjects[idx] diffIdentifier] : nil;
-        const NSUInteger from = hasObjects ? [result oldIndexForIdentifier:diffIdentifier] : idx;
-        const NSUInteger to = hasObjects ? [result newIndexForIdentifier:diffIdentifier] : idx;
+        const NSInteger from = hasObjects ? [result oldIndexForIdentifier:diffIdentifier] : idx;
+        const NSInteger to = hasObjects ? [result newIndexForIdentifier:diffIdentifier] : idx;
         [reloads removeIndex:from];
 
         // if a reload is queued outside the diff and the object was inserted or deleted it cannot be

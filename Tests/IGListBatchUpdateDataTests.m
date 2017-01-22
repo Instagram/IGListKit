@@ -13,7 +13,7 @@
 
 // IGListMoveIndexInternal.h
 @interface IGListMoveIndex (Private)
-- (instancetype)initWithFrom:(NSUInteger)from to:(NSUInteger)to;
+- (instancetype)initWithFrom:(NSInteger)from to:(NSInteger)to;
 @end
 
 @interface IGListBatchUpdateDataTests : XCTestCase
@@ -30,11 +30,11 @@ static NSIndexSet *indexSet(NSArray<NSNumber *> *arr) {
     return set;
 }
 
-static NSIndexPath *newPath(NSUInteger section, NSUInteger item) {
+static NSIndexPath *newPath(NSInteger section, NSInteger item) {
     return [NSIndexPath indexPathForItem:item inSection:section];
 }
 
-static IGListMoveIndex *newMove(NSUInteger from, NSUInteger to) {
+static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
     return [[IGListMoveIndex alloc] initWithFrom:from to:to];
 }
 
