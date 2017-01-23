@@ -596,16 +596,17 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     XCTAssertEqualObjects(visibleObjects, expectedObjects);
 }
 
-- (void)test_superLongBloodyName_toFollowConvention {
+- (void)test_whenAdapterUpdated_thatVisibleCellsForObjectAreFound {
     // each section controller returns n items sized 100x10
     self.dataSource.objects = @[@2, @10, @5];
     [self.adapter reloadDataWithCompletion:nil];
     self.collectionView.contentOffset = CGPointMake(0, 80);
     [self.collectionView layoutIfNeeded];
 
+    UICollectionView *collectionView = self.collectionView;
     NSArray *visibleCellsForObject = [[self.adapter visibleCellsForObject:@10] sortedArrayUsingComparator:^NSComparisonResult(UICollectionViewCell* lhs, UICollectionViewCell* rhs) {
-        NSIndexPath *lhsIndexPath = [self.collectionView indexPathForCell:lhs];
-        NSIndexPath *rhsIndexPath = [self.collectionView indexPathForCell:rhs];
+        NSIndexPath *lhsIndexPath = [collectionView indexPathForCell:lhs];
+        NSIndexPath *rhsIndexPath = [collectionView indexPathForCell:rhs];
         
         if (lhsIndexPath.section == rhsIndexPath.section) {
             return lhsIndexPath.item > rhsIndexPath.item;
@@ -622,6 +623,17 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     
     NSArray *visibleCellsForObjectTwo = [self.adapter visibleCellsForObject:@5];
     XCTAssertEqual(visibleCellsForObjectTwo.count, 5);
+}
+
+- (void)test_whenAdapterUpdated_thatVisibleCellsForNilObjectIsEmpty {
+    // each section controller returns n items sized 100x10
+    self.dataSource.objects = @[@2, @10, @5];
+    [self.adapter reloadDataWithCompletion:nil];
+    self.collectionView.contentOffset = CGPointMake(0, 80);
+    [self.collectionView layoutIfNeeded];
+    
+    NSArray *visibleCellsForObject = [self.adapter visibleCellsForObject:@3];
+    XCTAssertEqual(visibleCellsForObject.count, 0);
 }
 
 - (void)test_whenScrollVerticallyToItem {
