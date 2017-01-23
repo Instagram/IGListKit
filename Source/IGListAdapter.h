@@ -195,6 +195,15 @@ IGLK_SUBCLASSING_RESTRICTED
 - (NSArray *)visibleObjects;
 
 /**
+ An unordered array of the currently visible cells for a given object.
+ 
+ @param object An object in the list
+ 
+ @return An array of collection view cells.
+ */
+- (NSArray<UICollectionViewCell *> *)visibleCellsForObject:(id)object;
+
+/**
  Scrolls to the sepcified object in the list adapter.
 
  @param object             The object to which to scroll.
