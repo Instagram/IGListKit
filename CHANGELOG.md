@@ -35,6 +35,8 @@ This release closes the [2.2.0 milestone](https://github.com/Instagram/IGListKit
 - Fix bug where `IGListStackedSectionController`'s children need to know `numberOrItems` before didUpdate is called. [(#348)](https://github.com/Instagram/IGListKit/pull/390)
 - Fix bug where `-[UICollectionViewCell ig_setStackedSectionControllerIndex:]` should use `OBJC_ASSOCIATION_COPY_NONATOMIC` for NSNumber. [PhilCai](https://github.com/PhilCai1993) [(#424)](https://github.com/Instagram/IGListKit/pull/426)
 
+- Fixes a possible retain cycle when the data source is deallocated after queueing an update. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+
 2.1.0
 -----
 

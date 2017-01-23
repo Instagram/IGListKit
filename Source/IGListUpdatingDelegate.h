@@ -24,8 +24,10 @@ typedef void (^IGListUpdatingCompletion)(BOOL finished);
  A block to be called when the adapter applies changes to the collection view.
 
  @param toObjects The new objects in the collection.
+
+ @return A flag indicating if the transition was applied.
  */
-typedef void (^IGListObjectTransitionBlock)(NSArray *toObjects);
+typedef BOOL (^IGListObjectTransitionBlock)(NSArray *toObjects);
 
 /// A block that contains all of the updates.
 typedef void (^IGListItemUpdateBlock)();

@@ -45,6 +45,7 @@
     __weak __typeof__(self) weakSelf = self;
     self.updateBlock = ^(NSArray *obj) {
         weakSelf.dataSource.sections = obj;
+        return YES;
     };
 }
 
@@ -268,6 +269,8 @@
         preUpdateBlock();
 
         self.dataSource.sections = toObjects;
+
+        return YES;
     } completion:^(BOOL finished) {
         completionCounter++;
         XCTAssertEqual(completionCounter, 1);
@@ -299,6 +302,7 @@
                                          animated:YES objectTransitionBlock:^(NSArray * toObjects) {
                                              self.dataSource.sections = toObjects;
                                              sectionUpdateBlockExecuted = YES;
+                                             return YES;
                                          }
                                        completion:nil];
 

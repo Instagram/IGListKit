@@ -20,4 +20,6 @@
 
 @property (nonatomic, copy) void (^cellConfigureBlock)(IGTestDelegateController *);
 
+@property (nonatomic, strong) IGListAdapter *adapter;
+
 @end

@@ -121,7 +121,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     id<IGListAdapterUpdaterDelegate> delegate = self.delegate;
     NSArray *fromObjects = [self.fromObjects copy];
     NSArray *toObjects = objectsWithDuplicateIdentifiersRemoved(self.toObjects);
-    void (^objectTransitionBlock)(NSArray *) = [self.objectTransitionBlock copy];
+    IGListObjectTransitionBlock objectTransitionBlock = [self.objectTransitionBlock copy];
     NSArray *itemUpdateBlocks = [self.itemUpdateBlocks copy];
     NSArray *completionBlocks = [self.completionBlocks copy];
     const BOOL animated = self.queuedUpdateIsAnimated;
@@ -129,12 +129,14 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     // clean up all state so that new updates can be coalesced while the current update is in flight
     [self cleanupState];
 
-    void (^executeUpdateBlocks)() = ^{
+    // return YES if batch updates should be applied
+    BOOL (^executeUpdateBlocks)() = ^{
         // run the update block so that the adapter can set its items. this makes sure that just before the update is
         // committed that the data source is updated to the /latest/ "toObjects". this makes the data source in sync
         // with the items that the updater is transitioning to
+        BOOL appliedObjectTransition = YES;
         if (objectTransitionBlock != nil) {
-            objectTransitionBlock(toObjects);
+            appliedObjectTransition = objectTransitionBlock(toObjects);
         }
 
         // execute each item update block which should make calls like insert, delete, and reload for index paths
@@ -143,6 +145,8 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
         for (IGListItemUpdateBlock itemUpdateBlock in itemUpdateBlocks) {
             itemUpdateBlock();
         }
+
+        return appliedObjectTransition;
     };
 
     void (^executeCompletionBlocks)(BOOL) = ^(BOOL finished) {
@@ -177,15 +181,17 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     __block IGListBatchUpdateData *updateData = nil;
 
     void (^updateBlock)() = ^{
-        executeUpdateBlocks();
-
-        updateData = [self flushCollectionView:collectionView
-                                withDiffResult:result
-                                reloadSections:[self.reloadSections copy]
-                              deleteIndexPaths:[self.deleteIndexPaths copy]
-                              insertIndexPaths:[self.insertIndexPaths copy]
-                              reloadIndexPaths:[self.reloadIndexPaths copy]
-                                   fromObjects:fromObjects];
+        // only perform batch updates if the objectTransitionBlock was applied
+        // e.g. toObjects are going to be used to power the collection view after batch updates finishes
+        if (executeUpdateBlocks()) {
+            updateData = [self flushCollectionView:collectionView
+                                    withDiffResult:result
+                                    reloadSections:[self.reloadSections copy]
+                                  deleteIndexPaths:[self.deleteIndexPaths copy]
+                                  insertIndexPaths:[self.insertIndexPaths copy]
+                                  reloadIndexPaths:[self.reloadIndexPaths copy]
+                                       fromObjects:fromObjects];
+        }
 
         [self cleanupUpdateBlockState];
         [self performBatchUpdatesItemBlockApplied];
@@ -332,15 +338,17 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     }
 
     __weak __typeof__(self) weakSelf = self;
+    __weak __typeof__(collectionView) weakCollectionView = collectionView;
+
     dispatch_async(dispatch_get_main_queue(), ^{
         if (weakSelf.batchUpdateOrReloadInProgress || ![weakSelf hasChanges]) {
             return;
         }
 
         if (weakSelf.hasQueuedReloadData) {
-            [weakSelf performReloadDataWithCollectionView:collectionView];
+            [weakSelf performReloadDataWithCollectionView:weakCollectionView];
         } else {
-            [weakSelf performBatchUpdatesWithCollectionView:collectionView];
+            [weakSelf performBatchUpdatesWithCollectionView:weakCollectionView];
         }
     });
 }
@@ -371,7 +379,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
                             fromObjects:(nullable NSArray *)fromObjects
                               toObjects:(nullable NSArray *)toObjects
                                animated:(BOOL)animated
-                  objectTransitionBlock:(void (^)(NSArray *))objectTransitionBlock
+                  objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
                              completion:(nullable void (^)(BOOL))completion {
     IGAssertMainThread();
     IGParameterAssert(collectionView != nil);
