@@ -882,6 +882,41 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     XCTAssertFalse(s2.wasSelected);
 }
 
+- (void)test_whenDeselectingCell_thatCollectionViewDelegateReceivesMethod {
+  self.dataSource.objects = @[@0, @1, @2];
+  [self.adapter reloadDataWithCompletion:nil];
+  
+  id mockDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
+  self.adapter.collectionViewDelegate = mockDelegate;
+  
+  NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+  [[mockDelegate expect] collectionView:self.collectionView didDeselectItemAtIndexPath:indexPath];
+  
+  // simulates the collectionview telling its delegate that it was tapped
+  [self.adapter collectionView:self.collectionView didDeselectItemAtIndexPath:indexPath];
+  
+  [mockDelegate verify];
+}
+
+- (void)test_whenDeselectingCell_thatSectionControllerReceivesMethod {
+  self.dataSource.objects = @[@0, @1, @2];
+  [self.adapter reloadDataWithCompletion:nil];
+  
+  NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+  
+  // simulates the collectionview telling its delegate that it was tapped
+  [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
+  [self.adapter collectionView:self.collectionView didDeselectItemAtIndexPath:indexPath];
+  
+  IGListTestSection *s0 = [self.adapter sectionControllerForObject:@0];
+  IGListTestSection *s1 = [self.adapter sectionControllerForObject:@1];
+  IGListTestSection *s2 = [self.adapter sectionControllerForObject:@2];
+  
+  XCTAssertFalse(s0.wasSelected);
+  XCTAssertFalse(s1.wasSelected);
+  XCTAssertFalse(s2.wasSelected);
+}
+
 - (void)test_whenDisplayingCell_thatCollectionViewDelegateReceivesMethod {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];

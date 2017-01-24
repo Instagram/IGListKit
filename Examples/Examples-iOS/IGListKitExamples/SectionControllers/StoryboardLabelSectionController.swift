@@ -45,5 +45,7 @@ final class StoryboardLabelSectionController: IGListSectionController, IGListSec
     func didSelectItem(at index: Int) {
         delegate?.removeSectionControllerWantsRemoved(self)
     }
+  
+    func didDeselectItem(at index: Int) { }
     
 }

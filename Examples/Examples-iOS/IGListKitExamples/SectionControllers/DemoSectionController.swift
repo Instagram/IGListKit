@@ -80,5 +80,7 @@ final class DemoSectionController: IGListSectionController, IGListSectionType {
             viewController?.navigationController?.pushViewController(controller, animated: true)
         }
     }
+  
+    func didDeselectItem(at index: Int) { }
 
 }

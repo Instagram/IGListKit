@@ -86,6 +86,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)didSelectItemAtIndex:(NSInteger)index;
 
+/**
+ Tells the section that the cell at the specified index path was deselected.
+ @param index The index of the selected cell.
+ */
+- (void)didDeselectItemAtIndex:(NSInteger)index;
+
 @end
 
 NS_ASSUME_NONNULL_END

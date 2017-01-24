@@ -16,6 +16,11 @@ import UIKit
 import IGListKit
 
 final class LabelSectionController: IGListSectionController, IGListSectionType {
+  /**
+   Tells the section that the cell at the specified index path was deselected.
+   @param index The index of the selected cell.
+   */
+
 
     var object: String?
 
@@ -38,5 +43,7 @@ final class LabelSectionController: IGListSectionController, IGListSectionType {
     }
 
     func didSelectItem(at index: Int) {}
+  
+    func didDeselectItem(at index: Int) {}
 
 }

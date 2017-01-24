@@ -48,6 +48,8 @@ final class RemoveSectionController: IGListSectionController, IGListSectionType,
     }
 
     func didSelectItem(at index: Int) {}
+  
+    func didDeselectItem(at index: Int) {}
 
     //MARK: RemoveCellDelegate
 

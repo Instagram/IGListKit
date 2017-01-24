@@ -43,6 +43,7 @@ final class SearchSectionController: IGListSectionController, IGListSectionType,
 
     func didUpdate(to object: Any) {}
     func didSelectItem(at index: Int) {}
+    func didDeselectItem(at index: Int) {}
 
     //MARK: UISearchBarDelegate
 

@@ -46,5 +46,7 @@ final class EmbeddedSectionController: IGListSectionController, IGListSectionTyp
     }
 
     func didSelectItem(at index: Int) {}
+  
+    func didDeselectItem(at index: Int) {}
 
 }

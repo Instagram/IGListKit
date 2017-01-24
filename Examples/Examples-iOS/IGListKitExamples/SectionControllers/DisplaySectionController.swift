@@ -41,6 +41,8 @@ class DisplaySectionController: IGListSectionController, IGListSectionType, IGLi
     func didUpdate(to object: Any) {}
 
     func didSelectItem(at index: Int) {}
+  
+    func didDeselectItem(at index: Int) {}
 
     // MARK: IGListDisplayDelegate
 

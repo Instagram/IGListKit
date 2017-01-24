@@ -44,6 +44,8 @@ final class FeedItemSectionController: IGListSectionController, IGListSectionTyp
     }
 
     func didSelectItem(at index: Int) {}
+  
+    func didDeselectItem(at index: Int) {}
 
     // MARK: IGListSupplementaryViewSource
 

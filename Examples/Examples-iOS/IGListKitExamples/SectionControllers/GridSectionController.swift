@@ -71,5 +71,7 @@ final class GridSectionController: IGListSectionController, IGListSectionType {
     }
 
     func didSelectItem(at index: Int) {}
+  
+    func didDeselectItem(at index: Int) {}
 
 }

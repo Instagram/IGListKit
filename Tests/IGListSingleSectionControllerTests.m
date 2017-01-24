@@ -131,4 +131,16 @@
     [mockDelegate verify];
 }
 
+- (void)test_whenDeselected_thatDelegateReceivesEvent {
+  [self setupWithObjects:@[
+                           genTestObject(@1, @"a")
+                           ]];
+  IGListSingleSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+  id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListSingleSectionControllerDelegate)];
+  section.selectionDelegate = mockDelegate;
+  [[mockDelegate expect] didDeselectSectionController:section withObject:self.dataSource.objects.firstObject];
+  [self.adapter collectionView:self.collectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+  [mockDelegate verify];
+}
+
 @end
