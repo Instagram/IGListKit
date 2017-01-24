@@ -1,0 +1,1 @@
+../../../IGListKit/Source/Internal/IGListSectionMap.h
