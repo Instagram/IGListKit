@@ -191,7 +191,7 @@
         const NSInteger lineNumber = index / self.itemPerLine;
         const NSInteger column = index - lineNumber * self.itemPerLine;
         const CGFloat x = column * (self.itemSize.width + interitemSpacing) + offset;
-        const CGFloat y = lineNumber * (self.itemSize.height + interitemSpacing);
+        const CGFloat y = lineNumber * (self.itemSize.height + self.minimumLineSpacing);
         const CGRect frame = CGRectMake(x, y, self.itemSize.width, self.itemSize.height);
         UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
         attributes.frame = frame;
@@ -349,10 +349,10 @@
             x = (lineWidth - size.width) / 2.0;
             return [self frameForItemAtIndex:index withXOffset:x];
         } else {
-            interitemSpacing += self.tailSpace / (self.itemSizes.count - 1);
+            interitemSpacing += (self.tailSpace + self.minimumInteritemSpacing) / (self.itemSizes.count - 1.0);
         }
     } else if (self.alignment == IGListGridCollectionViewLayoutAlignmentRight) {
-        x += self.tailSpace;
+        x += self.tailSpace + self.minimumInteritemSpacing;
     }
     NSInteger idx = 0;
     for (NSValue *sizeValue in self.itemSizes) {
@@ -382,17 +382,17 @@
             [array addObject:[NSValue valueWithCGRect:frame]];
             return array;
         } else {
-            interitemSpacing += self.tailSpace / (self.itemSizes.count - 1);
+            interitemSpacing += (self.tailSpace + self.minimumInteritemSpacing) / (self.itemSizes.count - 1.0);
         }
     } else if (self.alignment == IGListGridCollectionViewLayoutAlignmentRight) {
-        x += self.tailSpace;
+        x += self.tailSpace + self.minimumInteritemSpacing;
     }
     for (NSValue *sizeValue in self.itemSizes) {
         NSInteger index = self.headIndex + idx;
         CGRect frame = [self frameForItemAtIndex:index withXOffset:x];
         [array addObject:[NSValue valueWithCGRect:frame]];
         const CGSize size = [sizeValue CGSizeValue];
-        x += size.width + self.minimumInteritemSpacing;
+        x += size.width + interitemSpacing;
         idx++;
     }
     return array;

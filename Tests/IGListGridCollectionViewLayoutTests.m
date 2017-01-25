@@ -121,6 +121,61 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
     IGAssertEqualFrame(attributes5.frame, 50, 100, 44, 44);
 }
 
+- (void)test_whenDisplayingCollectionView_thatHasMultipleItems_withCenterAlignment {
+    self.layout.itemSize = CGSizeMake(44.0f, 44.0f);
+    self.layout.alignment = IGListGridCollectionViewLayoutAlignmentCenter;
+    self.layout.minimumInteritemSpacing = 6.0f;
+    self.layout.minimumLineSpacing = 6.0f;
+    self.dataSource.objects = @[@1, @2, @3];
+    [self.adapter performUpdatesAnimated:YES completion:nil];
+    CGSize contentSize = self.layout.collectionViewContentSize;
+    NSIndexPath *indexPath0 = [NSIndexPath indexPathForItem:0 inSection:0];
+    NSIndexPath *indexPath1 = [NSIndexPath indexPathForItem:0 inSection:1];
+    NSIndexPath *indexPath2 = [NSIndexPath indexPathForItem:1 inSection:1];
+    NSIndexPath *indexPath3 = [NSIndexPath indexPathForItem:0 inSection:2];
+    NSIndexPath *indexPath5 = [NSIndexPath indexPathForItem:2 inSection:2];
+    UICollectionViewLayoutAttributes *attributes0 = [self.layout layoutAttributesForItemAtIndexPath:indexPath0];
+    UICollectionViewLayoutAttributes *attributes1 = [self.layout layoutAttributesForItemAtIndexPath:indexPath1];
+    UICollectionViewLayoutAttributes *attributes2 = [self.layout layoutAttributesForItemAtIndexPath:indexPath2];
+    UICollectionViewLayoutAttributes *attributes3 = [self.layout layoutAttributesForItemAtIndexPath:indexPath3];
+    UICollectionViewLayoutAttributes *attributes5 = [self.layout layoutAttributesForItemAtIndexPath:indexPath5];
+    XCTAssertEqual(contentSize.width, 100.0f);
+    XCTAssertEqual(contentSize.height, 144.0f);
+    IGAssertEqualFrame(attributes0.frame, 0, 0, 44, 44);
+    IGAssertEqualFrame(attributes1.frame, 56, 0, 44, 44);
+    IGAssertEqualFrame(attributes2.frame, 0, 50, 44, 44);
+    IGAssertEqualFrame(attributes3.frame, 56, 50, 44, 44);
+    IGAssertEqualFrame(attributes5.frame, 56, 100, 44, 44);
+}
+
+- (void)test_whenDisplayingCollectionView_thatHasMultipleItems_withRightAlignment {
+    self.layout.itemSize = CGSizeMake(44.0f, 44.0f);
+    self.layout.alignment = IGListGridCollectionViewLayoutAlignmentRight;
+    self.layout.minimumInteritemSpacing = 6.0f;
+    self.layout.minimumLineSpacing = 6.0f;
+    self.dataSource.objects = @[@1, @2, @3];
+    [self.adapter performUpdatesAnimated:YES completion:nil];
+    CGSize contentSize = self.layout.collectionViewContentSize;
+    NSIndexPath *indexPath0 = [NSIndexPath indexPathForItem:0 inSection:0];
+    NSIndexPath *indexPath1 = [NSIndexPath indexPathForItem:0 inSection:1];
+    NSIndexPath *indexPath2 = [NSIndexPath indexPathForItem:1 inSection:1];
+    NSIndexPath *indexPath3 = [NSIndexPath indexPathForItem:0 inSection:2];
+    NSIndexPath *indexPath5 = [NSIndexPath indexPathForItem:2 inSection:2];
+    UICollectionViewLayoutAttributes *attributes0 = [self.layout layoutAttributesForItemAtIndexPath:indexPath0];
+    UICollectionViewLayoutAttributes *attributes1 = [self.layout layoutAttributesForItemAtIndexPath:indexPath1];
+    UICollectionViewLayoutAttributes *attributes2 = [self.layout layoutAttributesForItemAtIndexPath:indexPath2];
+    UICollectionViewLayoutAttributes *attributes3 = [self.layout layoutAttributesForItemAtIndexPath:indexPath3];
+    UICollectionViewLayoutAttributes *attributes5 = [self.layout layoutAttributesForItemAtIndexPath:indexPath5];
+    XCTAssertEqual(contentSize.width, 100.0f);
+    XCTAssertEqual(contentSize.height, 144.0f);
+    IGAssertEqualFrame(attributes0.frame, 6, 0, 44, 44);
+    IGAssertEqualFrame(attributes1.frame, 56, 0, 44, 44);
+    IGAssertEqualFrame(attributes2.frame, 6, 50, 44, 44);
+    IGAssertEqualFrame(attributes3.frame, 56, 50, 44, 44);
+    IGAssertEqualFrame(attributes5.frame, 56, 100, 44, 44);
+}
+
+
 - (void)test_whenDisplayingCollectionView_thatUsesDelegateSize {
     self.layout.itemSize = CGSizeMake(0.0f, 0.0f);
     self.layout.minimumInteritemSpacing = 6.0f;
@@ -146,4 +201,59 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
     IGAssertEqualFrame(attributes3.frame, 50, 50, 44, 44);
     IGAssertEqualFrame(attributes5.frame, 50, 100, 44, 44);
 }
+
+- (void)test_whenDisplayingCollectionView_thatUsesDelegateSize_withCenterAlignment {
+    self.layout.itemSize = CGSizeMake(0.0f, 0.0f);
+    self.layout.alignment = IGListGridCollectionViewLayoutAlignmentCenter;
+    self.layout.minimumInteritemSpacing = 6.0f;
+    self.layout.minimumLineSpacing = 6.0f;
+    self.dataSource.objects = @[@1, @2, @3];
+    [self.adapter performUpdatesAnimated:YES completion:nil];
+    CGSize contentSize = self.layout.collectionViewContentSize;
+    NSIndexPath *indexPath0 = [NSIndexPath indexPathForItem:0 inSection:0];
+    NSIndexPath *indexPath1 = [NSIndexPath indexPathForItem:0 inSection:1];
+    NSIndexPath *indexPath2 = [NSIndexPath indexPathForItem:1 inSection:1];
+    NSIndexPath *indexPath3 = [NSIndexPath indexPathForItem:0 inSection:2];
+    NSIndexPath *indexPath5 = [NSIndexPath indexPathForItem:2 inSection:2];
+    UICollectionViewLayoutAttributes *attributes0 = [self.layout layoutAttributesForItemAtIndexPath:indexPath0];
+    UICollectionViewLayoutAttributes *attributes1 = [self.layout layoutAttributesForItemAtIndexPath:indexPath1];
+    UICollectionViewLayoutAttributes *attributes2 = [self.layout layoutAttributesForItemAtIndexPath:indexPath2];
+    UICollectionViewLayoutAttributes *attributes3 = [self.layout layoutAttributesForItemAtIndexPath:indexPath3];
+    UICollectionViewLayoutAttributes *attributes5 = [self.layout layoutAttributesForItemAtIndexPath:indexPath5];
+    XCTAssertEqual(contentSize.width, 100.0f);
+    XCTAssertEqual(contentSize.height, 144.0f);
+    IGAssertEqualFrame(attributes0.frame, 0, 0, 44, 44);
+    IGAssertEqualFrame(attributes1.frame, 56, 0, 44, 44);
+    IGAssertEqualFrame(attributes2.frame, 0, 50, 44, 44);
+    IGAssertEqualFrame(attributes3.frame, 56, 50, 44, 44);
+    IGAssertEqualFrame(attributes5.frame, 56, 100, 44, 44);
+}
+
+- (void)test_whenDisplayingCollectionView_thatUsesDelegateSize_withRightAlignment {
+    self.layout.itemSize = CGSizeMake(0.0f, 0.0f);
+    self.layout.alignment = IGListGridCollectionViewLayoutAlignmentRight;
+    self.layout.minimumInteritemSpacing = 6.0f;
+    self.layout.minimumLineSpacing = 6.0f;
+    self.dataSource.objects = @[@1, @2, @3];
+    [self.adapter performUpdatesAnimated:YES completion:nil];
+    CGSize contentSize = self.layout.collectionViewContentSize;
+    NSIndexPath *indexPath0 = [NSIndexPath indexPathForItem:0 inSection:0];
+    NSIndexPath *indexPath1 = [NSIndexPath indexPathForItem:0 inSection:1];
+    NSIndexPath *indexPath2 = [NSIndexPath indexPathForItem:1 inSection:1];
+    NSIndexPath *indexPath3 = [NSIndexPath indexPathForItem:0 inSection:2];
+    NSIndexPath *indexPath5 = [NSIndexPath indexPathForItem:2 inSection:2];
+    UICollectionViewLayoutAttributes *attributes0 = [self.layout layoutAttributesForItemAtIndexPath:indexPath0];
+    UICollectionViewLayoutAttributes *attributes1 = [self.layout layoutAttributesForItemAtIndexPath:indexPath1];
+    UICollectionViewLayoutAttributes *attributes2 = [self.layout layoutAttributesForItemAtIndexPath:indexPath2];
+    UICollectionViewLayoutAttributes *attributes3 = [self.layout layoutAttributesForItemAtIndexPath:indexPath3];
+    UICollectionViewLayoutAttributes *attributes5 = [self.layout layoutAttributesForItemAtIndexPath:indexPath5];
+    XCTAssertEqual(contentSize.width, 100.0f);
+    XCTAssertEqual(contentSize.height, 144.0f);
+    IGAssertEqualFrame(attributes0.frame, 6, 0, 44, 44);
+    IGAssertEqualFrame(attributes1.frame, 56, 0, 44, 44);
+    IGAssertEqualFrame(attributes2.frame, 6, 50, 44, 44);
+    IGAssertEqualFrame(attributes3.frame, 56, 50, 44, 44);
+    IGAssertEqualFrame(attributes5.frame, 56, 100, 44, 44);
+}
+
 @end
