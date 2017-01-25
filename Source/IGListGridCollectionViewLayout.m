@@ -46,6 +46,7 @@
 
 @property (nonatomic, assign) NSInteger itemPerLine;
 @property (nonatomic, assign) NSInteger lineNumber;
+@property (nonatomic, assign) CGFloat interitemSpacing;
 
 @end
 
@@ -81,13 +82,6 @@
 #pragma mark - Layout Infomation
 
 - (void)prepareLayout {
-#if DEBUG
-    IGAssertMainThread();
-    for (NSInteger section = 0; section < [self.collectionView numberOfSections]; section++) {
-        IGAssert([self.collectionView numberOfItemsInSection:section] == 1, @"Each section should have exactly one item for this layout to work.");
-    }
-#endif
-    
     // Clean cache
     [self.lineCache removeAllObjects];
     [self.lineForIndex removeAllObjects];
@@ -140,6 +134,7 @@
             }
         }
     } else {
+        //TODO: Alignment for fixed size cells.
         NSInteger firstLine = (NSInteger)(rect.origin.y / (self.itemSize.height + self.minimumLineSpacing));
         NSInteger lastLine = (NSInteger)((rect.origin.y + rect.size.height + self.itemSize.height + self.minimumLineSpacing)
                                          / (self.itemSize.height + self.minimumLineSpacing));
@@ -173,17 +168,17 @@
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (CGSizeEqualToSize(self.itemSize, CGSizeZero)) {
-        const NSInteger lineNumber = [self.lineForIndex[indexPath.section] integerValue];
-        _IGListGridLayoutLine *line = self.lineCache[lineNumber];
         const NSInteger index = [self.indexPathToIndexMap[indexPath] integerValue];
+        const NSInteger lineNumber = [self.lineForIndex[index] integerValue];
+        _IGListGridLayoutLine *line = self.lineCache[lineNumber];
         const CGRect frame = [line frameForItemAtIndex:index];
         UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
         attributes.frame = frame;
         return attributes;
     } else {
-        const NSInteger section = indexPath.section;
-        const NSInteger lineNumber = section / self.itemPerLine;
-        const NSInteger column = section - lineNumber * self.itemPerLine;
+        const NSInteger index = [self.indexPathToIndexMap[indexPath] integerValue];
+        const NSInteger lineNumber = index / self.itemPerLine;
+        const NSInteger column = index - lineNumber * self.itemPerLine;
         const CGFloat x = column * (self.itemSize.width + self.minimumInteritemSpacing);
         const CGFloat y = lineNumber * (self.itemSize.height + self.minimumLineSpacing);
         const CGRect frame = CGRectMake(x, y, self.itemSize.width, self.itemSize.height);
@@ -285,6 +280,7 @@
     self.itemPerLine = (NSInteger) ((self.contentWidth + self.minimumInteritemSpacing)
                                     / (itemSize.width + self.minimumInteritemSpacing));
     self.lineNumber = (self.indexToIndexPathMap.count + self.itemPerLine - 1) / self.itemPerLine;
+    self.interitemSpacing = (self.contentWidth - (self.itemPerLine * itemSize.width)) / ((CGFloat) (self.itemPerLine));
 }
 
 @end

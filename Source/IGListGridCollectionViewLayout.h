@@ -19,12 +19,11 @@ typedef NS_ENUM(NSInteger, IGListGridCollectionViewLayoutAlignment) {
     IGListGridCollectionViewLayoutAlignmentRight
 };
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  `IGListGridCollectionViewLayout` provides a vertically-scrolling, section-based grid layout for `UICollectionView`.
- Items in the layout are displayed consecutively in a grid with exactly 1 item per section.
+ Items in the layout are displayed consecutively in a grid. 
  If items are square, the appearance would be similar to the iOS Photos app.
  However, the size of the items for each section can vary.
  */
