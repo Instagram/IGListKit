@@ -105,7 +105,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
             IGLKLog(@"WARNING: Object %@ already appeared in objects array", object);
         }
     }
-    return [uniqueObjects copy];
+    return uniqueObjects;
 }
 
 - (void)performBatchUpdatesWithCollectionView:(UICollectionView *)collectionView {
@@ -211,8 +211,11 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
         if (animated) {
             [collectionView performBatchUpdates:updateBlock completion:completionBlock];
         } else {
-            [UIView performWithoutAnimation:^{
-                [collectionView performBatchUpdates:updateBlock completion:completionBlock];
+            [CATransaction begin];
+            [CATransaction setDisableActions:YES];
+            [collectionView performBatchUpdates:updateBlock completion:^(BOOL finished) {
+                completionBlock(finished);
+                [CATransaction commit];
             }];
         }
     } @catch (NSException *exception) {
@@ -231,8 +234,8 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     [[reloads copy] enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         // if a diff was not performed, there are no changes. instead use the same index that was originally queued
         id<NSObject> diffIdentifier = hasObjects ? [fromObjects[idx] diffIdentifier] : nil;
-        const NSUInteger from = hasObjects ? [result oldIndexForIdentifier:diffIdentifier] : idx;
-        const NSUInteger to = hasObjects ? [result newIndexForIdentifier:diffIdentifier] : idx;
+        const NSInteger from = hasObjects ? [result oldIndexForIdentifier:diffIdentifier] : idx;
+        const NSInteger to = hasObjects ? [result newIndexForIdentifier:diffIdentifier] : idx;
         [reloads removeIndex:from];
 
         // if a reload is queued outside the diff and the object was inserted or deleted it cannot be
@@ -274,8 +277,8 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     // reloadSections: is unsafe to use within performBatchUpdates:, so instead convert all reloads into deletes+inserts
     convertReloadToDeleteInsert(reloads, deletes, inserts, diffResult, fromObjects);
 
-    IGListBatchUpdateData *updateData = [[IGListBatchUpdateData alloc] initWithInsertSections:[inserts copy]
-                                                                               deleteSections:[deletes copy]
+    IGListBatchUpdateData *updateData = [[IGListBatchUpdateData alloc] initWithInsertSections:inserts
+                                                                               deleteSections:deletes
                                                                                  moveSections:moves
                                                                              insertIndexPaths:insertIndexPaths
                                                                              deleteIndexPaths:deleteIndexPaths

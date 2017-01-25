@@ -68,12 +68,12 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     NSMutableArray *sectionControllers = [[NSMutableArray alloc] init];
     NSMutableArray *offsets = [[NSMutableArray alloc] init];
 
-    NSUInteger numberOfItems = 0;
+    NSInteger numberOfItems = 0;
     for (IGListSectionController<IGListSectionType> *sectionController in self.sectionControllers) {
         [offsets addObject:@(numberOfItems)];
 
-        const NSUInteger items = [sectionController numberOfItems];
-        for (NSUInteger i = 0; i < items; i++) {
+        const NSInteger items = [sectionController numberOfItems];
+        for (NSInteger i = 0; i < items; i++) {
             [sectionControllers addObject:sectionController];
         }
 
@@ -93,24 +93,24 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 }
 
 - (NSInteger)offsetForSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
-    const NSUInteger index = [self.sectionControllers indexOfObject:sectionController];
+    const NSInteger index = [self.sectionControllers indexOfObject:sectionController];
     IGAssert(index != NSNotFound, @"Querying offset for an undocumented section controller");
     return [self.sectionControllerOffsets[index] integerValue];
 }
 
 - (NSInteger)localIndexForSectionController:(IGListSectionController<IGListSectionType> *)sectionController index:(NSInteger)index {
-    const NSUInteger offset = [self offsetForSectionController:sectionController];
+    const NSInteger offset = [self offsetForSectionController:sectionController];
     IGAssert(offset <= index, @"Section controller offset must be less than or equal to the item index");
     return index - offset;
 }
 
 - (NSInteger)relativeIndexForSectionController:(IGListSectionController<IGListSectionType> *)sectionController fromLocalIndex:(NSInteger)index {
-    const NSUInteger offset = [self offsetForSectionController:sectionController];
+    const NSInteger offset = [self offsetForSectionController:sectionController];
     return index + offset;
 }
 
 - (NSIndexSet *)itemIndexesForSectionController:(IGListSectionController<IGListSectionType> *)sectionController indexes:(NSIndexSet *)indexes {
-    const NSUInteger offset = [self offsetForSectionController:sectionController];
+    const NSInteger offset = [self offsetForSectionController:sectionController];
     NSMutableIndexSet *itemIndexes = [[NSMutableIndexSet alloc] init];
     [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         [itemIndexes addIndex:(idx + offset)];
@@ -136,13 +136,13 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
     IGListSectionController<IGListSectionType> *sectionController = [self sectionControllerForObjectIndex:index];
-    const NSUInteger localIndex = [self localIndexForSectionController:sectionController index:index];
+    const NSInteger localIndex = [self localIndexForSectionController:sectionController index:index];
     return [sectionController sizeForItemAtIndex:localIndex];
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
     IGListSectionController<IGListSectionType> *sectionController = [self sectionControllerForObjectIndex:index];
-    const NSUInteger localIndex = [self localIndexForSectionController:sectionController index:index];
+    const NSInteger localIndex = [self localIndexForSectionController:sectionController index:index];
     return [sectionController cellForItemAtIndex:localIndex];
 }
 
@@ -155,7 +155,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 
 - (void)didSelectItemAtIndex:(NSInteger)index {
     IGListSectionController<IGListSectionType> *sectionController = [self sectionControllerForObjectIndex:index];
-    const NSUInteger localIndex = [self localIndexForSectionController:sectionController index:index];
+    const NSInteger localIndex = [self localIndexForSectionController:sectionController index:index];
     [sectionController didSelectItemAtIndex:localIndex];
 }
 
@@ -166,7 +166,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 }
 
 - (NSInteger)indexForCell:(UICollectionViewCell *)cell sectionController:(IGListSectionController<IGListSectionType> *)sectionController {
-    const NSUInteger index = [self.collectionContext indexForCell:cell sectionController:self];
+    const NSInteger index = [self.collectionContext indexForCell:cell sectionController:self];
     return [self localIndexForSectionController:sectionController index:index];
 }
 
@@ -179,16 +179,16 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     id<IGListCollectionContext> collectionContext = self.collectionContext;
     NSArray *visibleCells = [collectionContext visibleCellsForSectionController:self];
     for (UICollectionViewCell *cell in visibleCells) {
-        const NSUInteger index = [collectionContext indexForCell:cell sectionController:self];
+        const NSInteger index = [collectionContext indexForCell:cell sectionController:self];
         if (self.sectionControllersForItems[index] == sectionController) {
             [cells addObject:cell];
         }
     }
-    return [cells copy];
+    return cells;
 }
 
 - (void)deselectItemAtIndex:(NSInteger)index sectionController:(IGListSectionController<IGListSectionType> *)sectionController animated:(BOOL)animated {
-    const NSUInteger offsetIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:index];
+    const NSInteger offsetIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:index];
     [self.collectionContext deselectItemAtIndex:offsetIndex sectionController:self animated:animated];
 }
 
@@ -297,7 +297,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
                           atIndex:(NSInteger)index
                    scrollPosition:(UICollectionViewScrollPosition)scrollPosition
                          animated:(BOOL)animated {
-    const NSUInteger offsetIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:index];
+    const NSInteger offsetIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:index];
     [self.collectionContext scrollToSectionController:self
                                               atIndex:offsetIndex
                                        scrollPosition:scrollPosition
@@ -308,7 +308,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 
 - (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController<IGListSectionType> *)sectionController cell:(UICollectionViewCell *)cell atIndex:(NSInteger)index {
     IGListSectionController<IGListSectionType> *childSectionController = [self sectionControllerForObjectIndex:index];
-    const NSUInteger localIndex = [self localIndexForSectionController:childSectionController index:index];
+    const NSInteger localIndex = [self localIndexForSectionController:childSectionController index:index];
 
     // update the assoc objects for use in didEndDisplay
     [cell ig_setStackedSectionController:childSectionController];
@@ -326,7 +326,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 }
 
 - (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController<IGListSectionType> *)sectionController cell:(UICollectionViewCell *)cell atIndex:(NSInteger)index {
-    const NSUInteger localIndex = [cell ig_stackedSectionControllerIndex];
+    const NSInteger localIndex = [cell ig_stackedSectionControllerIndex];
     IGListSectionController<IGListSectionType> *childSectionController = [cell ig_stackedSectionController];
 
     NSCountedSet *visibleSectionControllers = self.visibleSectionControllers;
