@@ -14,7 +14,7 @@ COMMONFILES=($(find Source/Common -maxdepth 1 -type f -exec basename {} \;))
 # move files in Common folder to Source folder
 for f in "${COMMONFILES[@]}"
 do
-	mv $COMMONDIR$f $SOURCE
+  mv $COMMONDIR$f $SOURCE
 done
 
 # temporary workaround when using SPM dir format
@@ -41,5 +41,5 @@ mv $SOURCE_TMP $SOURCE
 # move files back to Common folder
 for f in "${COMMONFILES[@]}"
 do
-	mv $SOURCEDIR$f $COMMONDIR
+  mv $SOURCEDIR$f $COMMONDIR
 done
