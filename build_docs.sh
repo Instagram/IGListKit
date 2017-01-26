@@ -38,7 +38,7 @@ jazzy \
 # restore the dir per the jazzy issue
 mv $SOURCE_TMP $SOURCE
 
-# move back files to Common folder
+# move files back to Common folder
 for f in "${COMMONFILES[@]}"
 do
 	mv $SOURCEDIR$f $COMMONDIR
