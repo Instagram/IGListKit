@@ -505,4 +505,75 @@
     [mockDelegate verify];
 }
 
+- (void)test_ {
+    IGSectionObject *object = [IGSectionObject sectionWithObjects:@[@0, @1, @2]];
+    self.dataSource.sections = @[object];
+
+    __block BOOL reloadDataCompletionExecuted = NO;
+    [self.updater reloadDataWithCollectionView:self.collectionView reloadUpdateBlock:^{} completion:^(BOOL finished) {
+        reloadDataCompletionExecuted = YES;
+    }];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.updater performUpdateWithCollectionView:self.collectionView animated:YES itemUpdates:^{
+        object.objects = @[@2, @1, @4, @5];
+        [self.updater insertItemsIntoCollectionView:self.collectionView indexPaths:@[
+                                                                                     [NSIndexPath indexPathForItem:2 inSection:0],
+                                                                                     [NSIndexPath indexPathForItem:3 inSection:0],
+                                                                                     ]];
+        [self.updater deleteItemsFromCollectionView:self.collectionView indexPaths:@[
+                                                                                     [NSIndexPath indexPathForItem:0 inSection:0],
+                                                                                     ]];
+        [self.updater moveItemInCollectionView:self.collectionView
+                                 fromIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]
+                                   toIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    } completion:^(BOOL finished) {
+        XCTAssertTrue(reloadDataCompletionExecuted);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
+- (void)test_2 {
+    [self.collectionView removeFromSuperview];
+
+    IGSectionObject *object = [IGSectionObject sectionWithObjects:@[@0, @1, @2]];
+    self.dataSource.sections = @[object];
+
+    __block BOOL objectTransitionBlockExecuted = NO;
+    __block BOOL completionBlockExecuted = NO;
+    [self.updater performUpdateWithCollectionView:self.collectionView
+                                      fromObjects:self.dataSource.sections
+                                        toObjects:self.dataSource.sections
+                                         animated:YES
+                            objectTransitionBlock:^(NSArray *toObjects) {
+                                objectTransitionBlockExecuted = YES;
+                            }
+                                       completion:^(BOOL finished) {
+                                           completionBlockExecuted = YES;
+                                       }];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.updater performUpdateWithCollectionView:self.collectionView animated:YES itemUpdates:^{
+        object.objects = @[@2, @1, @4, @5];
+        [self.updater insertItemsIntoCollectionView:self.collectionView indexPaths:@[
+                                                                                     [NSIndexPath indexPathForItem:2 inSection:0],
+                                                                                     [NSIndexPath indexPathForItem:3 inSection:0],
+                                                                                     ]];
+        [self.updater deleteItemsFromCollectionView:self.collectionView indexPaths:@[
+                                                                                     [NSIndexPath indexPathForItem:0 inSection:0],
+                                                                                     ]];
+        [self.updater moveItemInCollectionView:self.collectionView
+                                 fromIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]
+                                   toIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    } completion:^(BOOL finished) {
+        XCTAssertTrue(objectTransitionBlockExecuted);
+        XCTAssertTrue(completionBlockExecuted);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
 @end

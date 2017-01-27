@@ -75,6 +75,9 @@
     
     self.state = IGListBatchUpdateStateExecutedBatchUpdateBlock;
 
+//    self.batchUpdateOrReloadInProgress = NO;
+    self.state = IGListBatchUpdateStateExecutedBatchUpdateBlock;
+
     // cleanup state before reloading and calling completion blocks
     [self cleanupState];
     [self cleanupUpdateBlockState];
@@ -88,7 +91,7 @@
     for (IGListUpdatingCompletion block in completionBlocks) {
         block(YES);
     }
-    
+
     self.state = IGListBatchUpdateStateIdle;
 }
 
@@ -130,7 +133,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
 
     void (^executeUpdateBlocks)() = ^{
         self.state = IGListBatchUpdateStateExecutingBatchUpdateBlock;
-        
+
         // run the update block so that the adapter can set its items. this makes sure that just before the update is
         // committed that the data source is updated to the /latest/ "toObjects". this makes the data source in sync
         // with the items that the updater is transitioning to
@@ -144,13 +147,13 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
         for (IGListItemUpdateBlock itemUpdateBlock in itemUpdateBlocks) {
             itemUpdateBlock();
         }
-        
+
         self.state = IGListBatchUpdateStateExecutedBatchUpdateBlock;
     };
 
     void (^executeCompletionBlocks)(BOOL) = ^(BOOL finished) {
         self.state = IGListBatchUpdateStateIdle;
-        
+
         for (IGListUpdatingCompletion block in completionBlocks) {
             block(finished);
         }
@@ -172,11 +175,11 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     IGListIndexSetResult *result = IGListDiffExperiment(fromObjects, toObjects, IGListDiffEquality, self.experiments);
 
     // if the diff has no changes and there are no update blocks queued, dont batch update
-    if (!result.hasChanges && itemUpdateBlocks.count == 0) {
-        executeUpdateBlocks();
-        executeCompletionBlocks(YES);
-        return;
-    }
+//    if (!result.hasChanges && itemUpdateBlocks.count == 0) {
+//        executeUpdateBlocks();
+//        executeCompletionBlocks(YES);
+//        return;
+//    }
 
     __block IGListBatchUpdateData *updateData = nil;
 
@@ -187,6 +190,15 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
                                 withDiffResult:result
                          batchUpdatesCollector:self.batchUpdatesCollector
                                    fromObjects:fromObjects];
+
+//        updateData = [self flushCollectionView:collectionView
+//                                withDiffResult:result
+//                                reloadSections:[self.reloadSections copy]
+//                              deleteIndexPaths:[self.deleteIndexPaths copy]
+//                              insertIndexPaths:[self.insertIndexPaths copy]
+//                                moveIndexPaths:[self.moveIndexPaths copy]
+//                              reloadIndexPaths:[self.reloadIndexPaths copy]
+//                                   fromObjects:fromObjects];
 
         [self cleanupUpdateBlockState];
         [self performBatchUpdatesItemBlockApplied];
@@ -408,6 +420,17 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     IGAssertMainThread();
     IGParameterAssert(collectionView != nil);
     IGParameterAssert(itemUpdates != nil);
+
+    // TODO allow re-entrant updates. if already inside the execution of the update block, immediately unload the
+    // itemUpdates block. must append the completion blocks tho.
+    // completion blocks are plucked before we enter the update block, can we move plucking to inside that block?
+    if (self.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {
+        itemUpdates();
+        if (completion != nil) {
+            [self.updateCollection.completionBlocks addObject:completion];
+        }
+        return;
+    }
 
     // disabled animations will always take priority
     // reset to YES in -cleanupState
