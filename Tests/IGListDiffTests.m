@@ -43,22 +43,22 @@ static NSArray *sorted(NSArray *arr) {
 
 
 @interface IGListIndexSetResult (UnitTests)
-- (NSUInteger)changeCount;
+- (NSInteger)changeCount;
 @end
 
 @implementation IGListIndexSetResult (UnitTests)
-- (NSUInteger)changeCount {
+- (NSInteger)changeCount {
     return self.inserts.count + self.deletes.count + self.moves.count + self.updates.count;
 }
 @end
 
 
 @interface IGListIndexPathResult (UnitTests)
-- (NSUInteger)changeCount;
+- (NSInteger)changeCount;
 @end
 
 @implementation IGListIndexPathResult (UnitTests)
-- (NSUInteger)changeCount {
+- (NSInteger)changeCount {
     return self.inserts.count + self.deletes.count + self.moves.count + self.updates.count;
 }
 @end

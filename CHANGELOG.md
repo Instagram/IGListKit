@@ -25,14 +25,21 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 This release closes the [2.2.0 milestone](https://github.com/Instagram/IGListKit/milestone/4).
 
+### Enhancements
+
+- Added `-[IGListAdapter visibleCellsForObject:]` API. [Sherlouk](https://github.com/Sherlouk) [(#442)](https://github.com/Instagram/IGListKit/pull/442)
+
 ### Fixes
 
 - Fix bug where emptyView's hidden status is not updated after the number of items is changed with `insertInSectionController:atIndexes:` or related methods. [Peter Edmonston](https://github.com/edmonston) [(#395)](https://github.com/Instagram/IGListKit/pull/395)
+
 - Fix bug where `IGListStackedSectionController`'s children need to know `numberOrItems` before didUpdate is called. [(#348)](https://github.com/Instagram/IGListKit/pull/390)
 
-### Enhancements
+- Fix bug where `-[UICollectionViewCell ig_setStackedSectionControllerIndex:]` should use `OBJC_ASSOCIATION_COPY_NONATOMIC` for NSNumber. [PhilCai](https://github.com/PhilCai1993) [(#424)](https://github.com/Instagram/IGListKit/pull/426)
 
-- Short circuit diffing if old array or new array is empty.
+- Fix potential bug with suppressing animations (by passing `NO`) during `-[IGListAdapter performUpdatesAnimated: completion:]` where user would see UI glitches/flashing. [Jesse Squires](https://github.com/jessesquires) [(tbd)]()
+
+- Prevent diffing if old array or new array is empty. [Smiley Rob](https://github.com/rjchatfield) [(#419)](https://github.com/Instagram/IGListKit/pull/419)
 
 2.1.0
 -----
@@ -182,3 +189,5 @@ You can find a [migration guide here](https://instagram.github.io/IGListKit/migr
 -----
 
 Initial release. :tada:
+
+
