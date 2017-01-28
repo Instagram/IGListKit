@@ -571,8 +571,6 @@
                                          usePreviousSection:(BOOL)usePreviousSection {
     NSMutableArray<NSIndexPath *> *indexPaths = [[NSMutableArray alloc] init];
 
-    IGListSectionMap *map = [self sectionMapAdjustForUpdateBlock:adjustForUpdateBlock];
-
     IGListSectionMap *map = [self sectionMapAdjustForUpdateBlock:usePreviousSection];
     const NSInteger section = [map sectionForSectionController:sectionController];
     if (section != NSNotFound) {
