@@ -20,6 +20,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
                         withObject:(id)object;
 ```
 
+- Changed `hasChanges` methods in `IGListIndexPathResult` and `IGListIndexSetResult` to read-only properties. [Bofei Zhu](https://github.com/zhubofei) [(#453)](https://github.com/Instagram/IGListKit/pull/453)
+
 2.2.0
 -----
 
@@ -187,5 +189,3 @@ You can find a [migration guide here](https://instagram.github.io/IGListKit/migr
 -----
 
 Initial release. :tada:
-
-
