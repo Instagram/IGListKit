@@ -26,6 +26,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) CGSize containerSize;
 
 /**
+ Returns size of the collection view relative to the section controller.
+ 
+ @param sectionController The section controller requesting this information.
+ 
+ @return The size of the collection view minus the given section controller's insets.
+ */
+- (CGSize)containerInsetSizeForSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
+
+/**
  Returns the index of the specified cell in the collection relative to the section controller.
 
  @param cell              An existing cell in the collection.
