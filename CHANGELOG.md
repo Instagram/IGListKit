@@ -21,6 +21,8 @@ This release closes the [2.2.0 milestone](https://github.com/Instagram/IGListKit
 
 - Fix potential bug with suppressing animations (by passing `NO`) during `-[IGListAdapter performUpdatesAnimated: completion:]` where user would see UI glitches/flashing. [Jesse Squires](https://github.com/jessesquires) [(tbd)]()
 
+- Fix bug where scroll position would be incorrect in call to `-[IGListAdapter scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:animated:` with scrollDirection/scrollPosition of UICollectionViewScrollDirectionVertical/UICollectionViewScrollPositionCenteredVertically or UICollectionViewScrollDirectionHorizontal/UICollectionViewScrollPositionCenteredHorizontally and with a collection view with nonzero contentInset. [David Yamnitsky](https://github.com/nitsky)
+
 2.1.0
 -----
 
