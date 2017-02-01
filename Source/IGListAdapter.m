@@ -206,9 +206,11 @@
                 case UICollectionViewScrollPositionRight:
                     contentOffset.x = offsetMax - collectionViewWidth - contentInset.left;
                     break;
-                case UICollectionViewScrollPositionCenteredHorizontally:
-                    contentOffset.x = offsetMid - collectionViewWidth / 2.0 - contentInset.left;
+                case UICollectionViewScrollPositionCenteredHorizontally: {
+                    const CGFloat insets = (contentInset.left - contentInset.right) / 2.0;
+                    contentOffset.x = offsetMid - collectionViewWidth / 2.0 - insets;
                     break;
+                }
                 case UICollectionViewScrollPositionLeft:
                 case UICollectionViewScrollPositionNone:
                 case UICollectionViewScrollPositionTop:
@@ -223,9 +225,11 @@
                 case UICollectionViewScrollPositionBottom:
                     contentOffset.y = offsetMax - collectionViewHeight - contentInset.top;
                     break;
-                case UICollectionViewScrollPositionCenteredVertically:
-                    contentOffset.y = offsetMid - collectionViewHeight / 2.0 - contentInset.top;
+                case UICollectionViewScrollPositionCenteredVertically: {
+                    const CGFloat insets = (contentInset.top - contentInset.bottom) / 2.0;
+                    contentOffset.y = offsetMid - collectionViewHeight / 2.0 - insets;
                     break;
+                }
                 case UICollectionViewScrollPositionTop:
                 case UICollectionViewScrollPositionNone:
                 case UICollectionViewScrollPositionLeft:
