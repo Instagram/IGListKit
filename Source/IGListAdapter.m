@@ -538,20 +538,18 @@
     if (shouldHide) {
         _emptyListView.hidden = YES;
     } else {
-        UIView *const newBackgroundView = [self.dataSource emptyViewForListAdapter:self];
+        UIView *newBackgroundView = [self.dataSource emptyViewForListAdapter:self];
         if (_emptyListView != newBackgroundView) {
             [_emptyListView removeFromSuperview];
             _emptyListView = newBackgroundView;
         }
 
         if (_emptyListView != nil) {
-            // This makes the compiler gods happy.
-            UIView *_Nonnull const nonullEmptyView = _emptyListView;
-            nonullEmptyView.frame = _collectionView.bounds;
-            nonullEmptyView.hidden = NO;
-            
-            [_collectionView addSubview:nonullEmptyView];
-            [_collectionView bringSubviewToFront:nonullEmptyView];
+            UIView *nonnullListView = _emptyListView;
+
+            nonnullListView.frame = _collectionView.bounds;
+            nonnullListView.hidden = NO;
+            [_collectionView addSubview:nonnullListView];
         }
     }
 }
