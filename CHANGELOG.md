@@ -22,6 +22,11 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - `IGListUpdatingDelegate` now conforms to `NSObject`, bringing it in line with other framework protocols. [Adlai Holler](https://github.com/Adlai-Holler) [(#435)](https://github.com/Instagram/IGListKit/pull/435)
 
+### Enhancements
+
+- Empty Views now move with Refresh Controls, and no longer use the `_collectionView.backgroundView` property. [dshahidehpour](https://github.com/dshahidehpour) [(#462)](https://github.com/Instagram/IGListKit/pull/462)]
+
+
 2.2.0
 -----
 
