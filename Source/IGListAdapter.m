@@ -534,15 +534,24 @@
     if (self.isInUpdateBlock) {
         return; // will be called again when update block completes
     }
-    UIView *backgroundView = [self.dataSource emptyViewForListAdapter:self];
-    // don't do anything if the client is using the same view
-    if (backgroundView != _collectionView.backgroundView) {
-        // collection view will just stack the background views underneath each other if we do not remove the previous
-        // one first. also fine if it is nil
-        [_collectionView.backgroundView removeFromSuperview];
-        _collectionView.backgroundView = backgroundView;
+
+    if (shouldHide) {
+        _emptyListView.hidden = YES;
+    } else {
+        UIView *newBackgroundView = [self.dataSource emptyViewForListAdapter:self];
+        if (_emptyListView != newBackgroundView) {
+            [_emptyListView removeFromSuperview];
+            _emptyListView = newBackgroundView;
+        }
+
+        if (_emptyListView != nil) {
+            UIView *nonnullListView = _emptyListView;
+
+            nonnullListView.frame = _collectionView.bounds;
+            nonnullListView.hidden = NO;
+            [_collectionView addSubview:nonnullListView];
+        }
     }
-    _collectionView.backgroundView.hidden = shouldHide;
 }
 
 - (BOOL)itemCountIsZero {
