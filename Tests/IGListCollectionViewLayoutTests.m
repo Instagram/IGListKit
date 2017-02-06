@@ -71,7 +71,7 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
     [self.collectionView layoutIfNeeded];
 }
 
-- (void)test_thatContentSizeZero_withEmptyData {
+- (void)test_whenEmptyData_thatContentSizeZero {
     [self setUpWithStickyHeaders:YES topInset:0];
 
     [self prepareWithData:nil];
@@ -81,7 +81,7 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
     XCTAssertTrue(CGSizeEqualToSize(CGSizeZero, self.collectionView.contentSize));
 }
 
-- (void)test_contentSize_andCellFrame_withItemSizes_andHeaders_andLineSpacing_andSectionInsets {
+- (void)test_whenLayingOutCells_withHeaderHeight_withLineSpacing_withInsets_thatFramesCorrect {
     [self setUpWithStickyHeaders:NO topInset:0];
 
     const CGFloat headerHeight = 10;
@@ -113,7 +113,7 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
     IGAssertEqualFrame([self cellForSection:1 item:0].frame, 10, 85, 85, 30);
 }
 
-- (void)test_stickyHeaders_afterScrolling {
+- (void)test_whenUsingStickyHeaders_withSimulatedScrolling_thatYPositionsAdjusted {
     [self setUpWithStickyHeaders:YES topInset:10];
 
     [self prepareWithData:@[
@@ -146,6 +146,46 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
     self.collectionView.contentOffset = CGPointMake(0, 45);
     [self.collectionView layoutIfNeeded];
     IGAssertEqualFrame([self headerForSection:0].frame, 0, 40, 100, 10);
+    IGAssertEqualFrame([self headerForSection:1].frame, 0, 55, 100, 10);
+}
+
+- (void)test_whenAdjustingTopYInset_withVaryingHeaderHeights_thatYPositionsUpdated {
+    [self setUpWithStickyHeaders:YES topInset:10];
+
+    [self prepareWithData:@[
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:10
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){100,10} expensive:NO],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){100,20} expensive:NO],
+                                                                          ]],
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:10
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){100,30} expensive:NO],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){100,40} expensive:NO],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){100,50} expensive:NO],
+                                                                          ]],
+                            ]];
+
+    // scroll header 0 off and 1 up
+    self.collectionView.contentOffset = CGPointMake(0, 35);
+    [self.collectionView layoutIfNeeded];
+    IGAssertEqualFrame([self headerForSection:0].frame, 0, 30, 100, 10);
+    IGAssertEqualFrame([self headerForSection:1].frame, 0, 45, 100, 10);
+
+    self.layout.stickyHeaderOriginYAdjustment = -10;
+    [self.collectionView layoutIfNeeded];
+    IGAssertEqualFrame([self headerForSection:0].frame, 0, 30, 100, 10);
+    IGAssertEqualFrame([self headerForSection:1].frame, 0, 40, 100, 10);
+
+    self.layout.stickyHeaderOriginYAdjustment = 10;
+    [self.collectionView layoutIfNeeded];
+    IGAssertEqualFrame([self headerForSection:0].frame, 0, 30, 100, 10);
     IGAssertEqualFrame([self headerForSection:1].frame, 0, 55, 100, 10);
 }
 
@@ -349,7 +389,7 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
     IGAssertEqualFrame([self cellForSection:1 item:0].frame, 0, 43, 33, 33);
 }
 
-- (void)test_contentSize_andCellFrame_afterBatchUpdates {
+- (void)test_whenBatchItemUpdates_withHeaderHeight_withLineSpacing_withInsets_thatLayoutCorrectAfterUpdates {
     [self setUpWithStickyHeaders:NO topInset:0];
 
     const CGFloat headerHeight = 10;
