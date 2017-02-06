@@ -75,21 +75,10 @@ IGLK_SUBCLASSING_RESTRICTED
  Create and return a new collection view layout.
  @param stickyHeaders       Set to YES to stick section headers to the top of the bounds while scrolling.
  @param topContentInset     The top content inset used to offset the sticky headers. Ignored if stickyHeaders is NO.
- @param maximumContentWidth A maximum width that content can fill. If the container is larger, content is centered.
  @return A new collection view layout.
  */
 - (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
-                      topContentInset:(CGFloat)topContentInset
-                  maximumContentWidth:(CGFloat)maximumContentWidth NS_DESIGNATED_INITIALIZER;
-
-/**
- Convenience initializer creating a layout with an unbounded content width and no decoration view.
- @param stickyHeaders   Set to YES to stick section headers to the top of the bounds while scrolling.
- @param topContentInset The top content inset used to offset the sticky headers. Ignored if stickyHeaders is NO.
- @return A new collection view layout.
- */
-- (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
-                      topContentInset:(CGFloat)topContentInset;
+                      topContentInset:(CGFloat)topContentInset NS_DESIGNATED_INITIALIZER;
 
 /**
  :nodoc:
