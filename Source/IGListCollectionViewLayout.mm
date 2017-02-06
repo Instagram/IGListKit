@@ -129,8 +129,8 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    IGAssert(NO, @"Layout initialized from storybaords not yet supported");
-    return [self initWithStickyHeaders:0 topContentInset:0 maximumContentWidth:0 decorationBorderClass:nil];
+    IGAssert(NO, @"Layout initialized from storyboards not yet supported");
+    return [self initWithStickyHeaders:NO topContentInset:0 maximumContentWidth:CGFLOAT_MAX decorationBorderClass:nil];
 }
 
 #pragma mark - UICollectionViewLayout
