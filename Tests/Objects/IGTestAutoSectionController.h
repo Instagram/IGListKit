@@ -9,6 +9,8 @@
 
 #import <IGListKit/IGListKit.h>
 
-@interface IGTestAutoSectionController : IGListAutoSectionController <IGListAutoSectionControllerDataSource>
+@interface IGTestAutoSectionController : IGListAutoSectionController <IGListAutoSectionControllerDataSource, IGListAutoSectionControllerSelectionDelegate>
+
+@property (nonatomic, strong) id selectedViewModel;
 
 @end

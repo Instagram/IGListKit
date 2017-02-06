@@ -13,8 +13,10 @@
 
 #import "IGTestAutoDataSource.h"
 #import "IGTestAutoObject.h"
+#import "IGTestAutoSectionController.h"
 #import "IGTestStringBindableCell.h"
 #import "IGTestNumberBindableCell.h"
+#import "IGListAdapterInternal.h"
 
 @interface IGListAutoSectionControllerTests : XCTestCase
 
@@ -97,7 +99,7 @@
     XCTAssertEqualObjects(cell12.textField.text, @"42");
 }
 
-- (void)test_ {
+- (void)test_whenUpdating_withAddedModels_thatCellsCorrectAndConfigured {
     [self setupWithObjects:@[
                              [[IGTestAutoObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
                              ]];
@@ -125,6 +127,15 @@
     }];
 
     [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
+- (void)test_whenSelectingCell_thatCorrectViewModelSelected {
+    [self setupWithObjects:@[
+                             [[IGTestAutoObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
+                             ]];
+    [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+    IGTestAutoSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+    XCTAssertEqualObjects(section.selectedViewModel, @"seven");
 }
 
 @end

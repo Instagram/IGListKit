@@ -16,37 +16,38 @@
 @protocol IGListDiffable;
 @protocol IGListBindable;
 
-/**
- Other naming options
- 
- - IGListDiffingSectionController
- - IGListBindingSectionController
- - IGListAutoSectionController
- */
+@class IGListAutoSectionController;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol IGListAutoSectionControllerDataSource <NSObject>
 
-- (NSArray<id<IGListDiffable>> *)viewModelsForObject:(id)object;
-- (UICollectionViewCell<IGListBindable> *)cellForViewModel:(id)viewModel atIndex:(NSInteger)index;
-- (CGSize)sizeForViewModel:(id)viewModel;
+- (NSArray<id<IGListDiffable>> *)sectionController:(IGListAutoSectionController *)sectionController
+                               viewModelsForObject:(id)object;
+
+- (UICollectionViewCell<IGListBindable> *)sectionController:(IGListAutoSectionController *)sectionController
+                                           cellForViewModel:(id)viewModel atIndex:(NSInteger)index;
+
+- (CGSize)sectionController:(IGListAutoSectionController *)sectionController
+           sizeForViewModel:(id)viewModel;
+
+@end
+
+@protocol IGListAutoSectionControllerSelectionDelegate
+
+- (void)sectionController:(IGListAutoSectionController *)sectionController
+     didSelectItemAtIndex:(NSInteger)index
+                viewModel:(id)viewModel;
 
 @end
 
 @interface IGListAutoSectionController : IGListSectionController<IGListSectionType>
 
-/**
- func transform(object: IGListDiffable) -> [IGListDiffable]
- func cellClass(viewModel: IGListDiffable) -> Class (of type UICollectionView<IGListBindable>)
- 
- how to add "extra" stuff to the cell, e.g. delegates. options:
- - override superclass method (don't call super tho)
- - use IGListDisplayDelegate (adds lots of boilerplate)
- - new, optional delegate w/ bindable method
- */
-
 @property (nonatomic, weak, nullable) id<IGListAutoSectionControllerDataSource> dataSource;
+
+@property (nonatomic, weak, nullable) id<IGListAutoSectionControllerSelectionDelegate> selectionDelegate;
+
+@property (nonatomic, strong, readonly) NSArray<id<IGListDiffable>> *viewModels;
 
 - (void)updateAnimated:(BOOL)animated completion:(nullable void (^)())completion;
 

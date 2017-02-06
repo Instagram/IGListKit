@@ -22,8 +22,9 @@ typedef NS_ENUM(NSInteger, IGListAutoSectionState) {
 
 @interface IGListAutoSectionController()
 
+@property (nonatomic, strong, readwrite) NSArray<id<IGListDiffable>> *viewModels;
+
 @property (nonatomic, strong) id object;
-@property (nonatomic, strong) NSArray<id<IGListDiffable>> *viewModels;
 @property (nonatomic, assign) IGListAutoSectionState state;
 
 @end
@@ -51,7 +52,7 @@ typedef NS_ENUM(NSInteger, IGListAutoSectionState) {
         }
 
         oldViewModels = self.viewModels;
-        self.viewModels = [self.dataSource viewModelsForObject:self.object];
+        self.viewModels = [self.dataSource sectionController:self viewModelsForObject:self.object];
         result = IGListDiff(oldViewModels, self.viewModels, IGListDiffEquality);
 
         [collectionContext deleteInSectionController:self atIndexes:result.deletes];
@@ -86,12 +87,12 @@ typedef NS_ENUM(NSInteger, IGListAutoSectionState) {
 }
 
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
-    return [self.dataSource sizeForViewModel:self.viewModels[index]];
+    return [self.dataSource sectionController:self sizeForViewModel:self.viewModels[index]];
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
     id<IGListDiffable> viewModel = self.viewModels[index];
-    UICollectionViewCell<IGListBindable> *cell = [self.dataSource cellForViewModel:viewModel atIndex:index];
+    UICollectionViewCell<IGListBindable> *cell = [self.dataSource sectionController:self cellForViewModel:viewModel atIndex:index];
     [cell bindViewModel:viewModel];
     return cell;
 }
@@ -101,19 +102,14 @@ typedef NS_ENUM(NSInteger, IGListAutoSectionState) {
     self.object = object;
 
     if (oldObject == nil) {
-        self.viewModels = [self.dataSource viewModelsForObject:object];
+        self.viewModels = [self.dataSource sectionController:self viewModelsForObject:object];
     } else {
         [self updateAnimated:YES completion:nil];
     }
-//    self.viewModels = [self.dataSource viewModelsForObject:object];
-
-    // atm this will queue an update next turn which isn't ideal. really we want to unload this update right here and now
-    // maybe we can update performBatchAnimated:completion to fire if we're inside an update block?
-//    [self updateAnimated:YES completion:nil];
 }
 
 - (void)didSelectItemAtIndex:(NSInteger)index {
-    // would be nice to have a "selection delegate" here
+    [self.selectionDelegate sectionController:self didSelectItemAtIndex:index viewModel:self.viewModels[index]];
 }
 
 @end

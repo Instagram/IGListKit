@@ -135,7 +135,6 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     NSArray *paths0 = [self.adapter indexPathsFromSectionController:second
                                                             indexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 4)]
                                                  usePreviousSection:NO];
->>>>>>> Add item-level moves to IGListCollectionContext
     NSArray *expected = @[
                           [NSIndexPath indexPathForItem:2 inSection:1],
                           [NSIndexPath indexPathForItem:3 inSection:1],
