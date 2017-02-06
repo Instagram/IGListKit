@@ -24,6 +24,11 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Changed `hasChanges` methods in `IGListIndexPathResult` and `IGListIndexSetResult` to read-only properties. [Bofei Zhu](https://github.com/zhubofei) [(#453)](https://github.com/Instagram/IGListKit/pull/453)
 
+### Enhancements
+
+- Empty Views now move with Refresh Controls, and no longer use the `_collectionView.backgroundView` property. [dshahidehpour](https://github.com/dshahidehpour) [(#462)](https://github.com/Instagram/IGListKit/pull/462)]
+
+
 2.2.0
 -----
 
