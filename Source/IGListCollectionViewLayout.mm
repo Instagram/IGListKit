@@ -13,8 +13,6 @@
 
 #import <IGListKit/IGListAssert.h>
 
-static NSString *const kDecorationBorderViewIdentifier = @"kDecorationBorderViewIdentifier";
-
 static NSIndexPath *headerIndexPathForSection(NSInteger section) {
     return [NSIndexPath indexPathForItem:0 inSection:section];
 }
@@ -97,40 +95,32 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
      -layoutAttributesForSupplementaryViewOfKind:atIndexPath:.
      */
     NSMutableDictionary<NSIndexPath *, UICollectionViewLayoutAttributes *> *_headerAttributesCache;
-    NSMutableDictionary<NSIndexPath *, UICollectionViewLayoutAttributes *> *_borderAttributesCache;
 }
 
 - (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
                       topContentInset:(CGFloat)topContentInset {
     return [self initWithStickyHeaders:stickyHeaders
                        topContentInset:topContentInset
-                   maximumContentWidth:CGFLOAT_MAX
-                 decorationBorderClass:nil];
+                   maximumContentWidth:CGFLOAT_MAX];
 }
 
 - (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
                       topContentInset:(CGFloat)topContentInset
-                  maximumContentWidth:(CGFloat)maximumContentWidth
-                decorationBorderClass:(Class)decorationBorderClass  {
+                  maximumContentWidth:(CGFloat)maximumContentWidth {
     if (self = [super init]) {
         _stickyHeaders = stickyHeaders;
         _topContentInset = topContentInset;
         _maximumContentWidth = maximumContentWidth;
         _attributesCache = [NSMutableDictionary new];
         _headerAttributesCache = [NSMutableDictionary new];
-        _borderAttributesCache = [NSMutableDictionary new];
         _cachedLayoutInvalid = YES;
-
-        if (decorationBorderClass != nil) {
-            [self registerClass:decorationBorderClass forDecorationViewOfKind:kDecorationBorderViewIdentifier];
-        }
     }
     return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     IGAssert(NO, @"Layout initialized from storyboards not yet supported");
-    return [self initWithStickyHeaders:NO topContentInset:0 maximumContentWidth:CGFLOAT_MAX decorationBorderClass:nil];
+    return [self initWithStickyHeaders:NO topContentInset:0 maximumContentWidth:CGFLOAT_MAX];
 }
 
 #pragma mark - UICollectionViewLayout
@@ -163,11 +153,6 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             if (!CGRectIsEmpty(intersection) || CGRectGetHeight(frame) == 0.0) {
                 if (CGRectGetHeight(frame) > 0.0) {
                     [result addObject:attributes];
-                }
-
-                if (CGRectGetWidth(frame) >= self.maximumContentWidth) {
-                    UICollectionViewLayoutAttributes *borderAttributes = [self layoutAttributesForDecorationViewOfKind:kDecorationBorderViewIdentifier atIndexPath:headerIndexPath];
-                    [result addObject:borderAttributes];
                 }
             }
         }
@@ -241,53 +226,6 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     return attributes;
 }
 
-- (UICollectionViewLayoutAttributes *)decorationBorderViewOfKind:(NSString *)kind
-                                                     atIndexPath:(NSIndexPath *)indexPath
-                                     withSectionHeaderAttributes:(UICollectionViewLayoutAttributes *)headerAttributes {
-    NSInteger section = headerAttributes.indexPath.section;
-    NSInteger numberOfItemsInSection = [self.collectionView numberOfItemsInSection:section];
-    UICollectionViewLayoutAttributes *decorationViewAttributes = nil;
-
-    NSIndexPath *firstObjectIndexPath = [NSIndexPath indexPathForItem:0 inSection:section];
-    NSIndexPath *lastObjectIndexPath = [NSIndexPath indexPathForItem:MAX(0, (numberOfItemsInSection - 1)) inSection:section];
-
-    CGRect headerFrame = headerAttributes.frame;
-    CGRect firstObjectFrame;
-    CGRect lastObjectFrame;
-    if (numberOfItemsInSection > 0) {
-        firstObjectFrame = [self layoutAttributesForItemAtIndexPath:firstObjectIndexPath].frame;
-        lastObjectFrame = [self layoutAttributesForItemAtIndexPath:lastObjectIndexPath].frame;
-    } else {
-        firstObjectFrame = headerFrame;
-        lastObjectFrame = headerFrame;
-    }
-
-    decorationViewAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:kind withIndexPath:firstObjectIndexPath];
-    decorationViewAttributes.frame = CGRectMake(CGRectGetMinX(headerFrame) - 1,
-                                                MIN(CGRectGetMinY(headerFrame), CGRectGetMinY(firstObjectFrame)) - 1,
-                                                CGRectGetWidth(headerFrame) + 2,
-                                                MAX(CGRectGetMaxY(lastObjectFrame), CGRectGetMaxY(headerFrame)) - MIN(CGRectGetMinY(headerFrame), CGRectGetMinY(firstObjectFrame)) + 2);
-    return decorationViewAttributes;
-}
-
-- (UICollectionViewLayoutAttributes *)layoutAttributesForDecorationViewOfKind:(NSString *)decorationViewKind atIndexPath:(NSIndexPath *)indexPath {
-    IGAssertMainThread();
-    IGParameterAssert(indexPath != nil);
-
-    UICollectionViewLayoutAttributes *attributes = _borderAttributesCache[indexPath];
-    if (attributes != nil) {
-        return attributes;
-    }
-    if (CGRectGetWidth(self.collectionView.bounds) < self.maximumContentWidth) {
-        return nil;
-    }
-    UICollectionViewLayoutAttributes *headerAttributes = [self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:indexPath];
-    attributes = [self decorationBorderViewOfKind:decorationViewKind atIndexPath:indexPath withSectionHeaderAttributes:headerAttributes];
-    adjustZIndexForAttributes(attributes);
-    _borderAttributesCache[indexPath] = attributes;
-    return attributes;
-}
-
 - (CGSize)collectionViewContentSize {
     IGAssertMainThread();
 
@@ -317,7 +255,6 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
     if (context.ig_invalidateSupplementaryAttributes) {
         [_headerAttributesCache removeAllObjects];
-        [_borderAttributesCache removeAllObjects];
     }
 
     [super invalidateLayoutWithContext:context];
@@ -379,7 +316,6 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     // purge attribute caches so they are rebuilt
     [_attributesCache removeAllObjects];
     [_headerAttributesCache removeAllObjects];
-    [_borderAttributesCache removeAllObjects];
 
     UICollectionView *collectionView = self.collectionView;
     id<UICollectionViewDataSource> dataSource = collectionView.dataSource;

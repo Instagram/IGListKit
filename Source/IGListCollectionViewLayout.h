@@ -80,8 +80,7 @@ IGLK_SUBCLASSING_RESTRICTED
  */
 - (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
                       topContentInset:(CGFloat)topContentInset
-                  maximumContentWidth:(CGFloat)maximumContentWidth
-                decorationBorderClass:(nullable Class)decorationBorderClass NS_DESIGNATED_INITIALIZER;
+                  maximumContentWidth:(CGFloat)maximumContentWidth NS_DESIGNATED_INITIALIZER;
 
 /**
  Convenience initializer creating a layout with an unbounded content width and no decoration view.
