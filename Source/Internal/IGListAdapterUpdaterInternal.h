@@ -13,6 +13,14 @@
 #import <IGListKit/IGListMoveIndexPath.h>
 
 #import "IGListAdapterUpdater.h"
+#import "IGListBatchUpdatesCollection.h"
+
+typedef NS_ENUM (NSInteger, IGListBatchUpdateState) {
+    IGListBatchUpdateStateIdle,
+    IGListBatchUpdateStateQueuedBatchUpdate,
+    IGListBatchUpdateStateExecutingBatchUpdateBlock,
+    IGListBatchUpdateStateExecutedBatchUpdateBlock,
+};
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,11 +40,12 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 
 @property (nonatomic, assign) BOOL queuedUpdateIsAnimated;
 
-@property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *deleteIndexPaths;
-@property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *insertIndexPaths;
-@property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *reloadIndexPaths;
-@property (nonatomic, strong, readonly) NSMutableSet<IGListMoveIndexPath *> *moveIndexPaths;
-@property (nonatomic, strong, readonly) NSMutableIndexSet *reloadSections;
+//@property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *deleteIndexPaths;
+//@property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *insertIndexPaths;
+//@property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *reloadIndexPaths;
+//@property (nonatomic, strong, readonly) NSMutableSet<IGListMoveIndexPath *> *moveIndexPaths;
+//@property (nonatomic, strong, readonly) NSMutableIndexSet *reloadSections;
+@property (nonatomic, strong) IGListBatchUpdatesCollection *updateCollection;
 
 @property (nonatomic, copy, nullable) IGListObjectTransitionBlock objectTransitionBlock;
 @property (nonatomic, copy, nullable) NSMutableArray<IGListItemUpdateBlock> *itemUpdateBlocks;
@@ -44,7 +53,8 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 @property (nonatomic, copy, nullable) IGListReloadUpdateBlock reloadUpdates;
 @property (nonatomic, assign, getter=hasQueuedReloadData) BOOL queuedReloadData;
 
-@property (nonatomic, assign) BOOL batchUpdateOrReloadInProgress;
+//@property (nonatomic, assign) BOOL batchUpdateOrReloadInProgress;
+@property (nonatomic, assign) IGListBatchUpdateState state;
 
 - (void)performReloadDataWithCollectionView:(UICollectionView *)collectionView;
 - (void)performBatchUpdatesWithCollectionView:(UICollectionView *)collectionView;

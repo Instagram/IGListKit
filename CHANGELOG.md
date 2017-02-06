@@ -26,6 +26,12 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - You can now manually move items (cells) within a section controller, ex: `[self.collectionContext moveInSectionController:self fromIndex:0 toIndex:1]`. [Ryan Nystrom](https://github.com/rnystrom) [(#418)](https://github.com/Instagram/IGListKit/pull/418)
 
+- Changed `hasChanges` methods in `IGListIndexPathResult` and `IGListIndexSetResult` to read-only properties. [Bofei Zhu](https://github.com/zhubofei) [(#453)](https://github.com/Instagram/IGListKit/pull/453)
+
+### Enhancements
+
+- You can now manually move items (cells) within a section controller, ex: `[self.collectionContext moveInSectionController:self fromIndex:0 toIndex:1]`. [Ryan Nystrom](https://github.com/rnystrom) [(#418)](https://github.com/Instagram/IGListKit/pull/418)
+
 2.2.0
 -----
 
@@ -44,6 +50,8 @@ This release closes the [2.2.0 milestone](https://github.com/Instagram/IGListKit
 - Fix bug where `-[UICollectionViewCell ig_setStackedSectionControllerIndex:]` should use `OBJC_ASSOCIATION_COPY_NONATOMIC` for NSNumber. [PhilCai](https://github.com/PhilCai1993) [(#424)](https://github.com/Instagram/IGListKit/pull/426)
 
 - Fix potential bug with suppressing animations (by passing `NO`) during `-[IGListAdapter performUpdatesAnimated: completion:]` where user would see UI glitches/flashing. [Jesse Squires](https://github.com/jessesquires) [(tbd)]()
+
+- Fix bug where scroll position would be incorrect in call to `-[IGListAdapter scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:animated:` with scrollDirection/scrollPosition of UICollectionViewScrollDirectionVertical/UICollectionViewScrollPositionCenteredVertically or UICollectionViewScrollDirectionHorizontal/UICollectionViewScrollPositionCenteredHorizontally and with a collection view with nonzero contentInset. [David Yamnitsky](https://github.com/nitsky)
 
 2.1.0
 -----
@@ -193,5 +201,3 @@ You can find a [migration guide here](https://instagram.github.io/IGListKit/migr
 -----
 
 Initial release. :tada:
-
-
