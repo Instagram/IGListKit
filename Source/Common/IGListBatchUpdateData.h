@@ -34,7 +34,7 @@ IGLK_SUBCLASSING_RESTRICTED
 @property (nonatomic, strong, readonly) NSIndexSet *deleteSections;
 
 /**
- section moves.
+ Section moves.
  */
 @property (nonatomic, strong, readonly) NSSet<IGListMoveIndex *> *moveSections;
 
@@ -49,7 +49,7 @@ IGLK_SUBCLASSING_RESTRICTED
 @property (nonatomic, strong, readonly) NSSet<NSIndexPath *> *deleteIndexPaths;
 
 /**
- Item delete index paths.
+ Item moves.
  */
 @property (nonatomic, strong, readonly) NSSet<IGListMoveIndexPath *> *moveIndexPaths;
 
