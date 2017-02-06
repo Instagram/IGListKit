@@ -9,23 +9,13 @@
 
 #import "IGLayoutTestItem.h"
 
-@implementation IGLayoutTestItem {
-    CGSize _size;
-}
+@implementation IGLayoutTestItem
 
-- (instancetype)initWithSize:(CGSize)size expensive:(BOOL)expensive {
+- (instancetype)initWithSize:(CGSize)size {
     if (self = [super init]) {
         _size = size;
-        _expensive = expensive;
     }
     return self;
-}
-
-- (CGSize)size {
-    if (self.expensive) {
-        usleep(100); // 0.1 ms
-    }
-    return _size;
 }
 
 @end

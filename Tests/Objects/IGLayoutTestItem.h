@@ -12,8 +12,7 @@
 @interface IGLayoutTestItem : NSObject
 
 @property (nonatomic, assign, readonly) CGSize size;
-@property (nonatomic, assign, readonly) BOOL expensive;
 
-- (instancetype)initWithSize:(CGSize)size expensive:(BOOL)expensive;
+- (instancetype)initWithSize:(CGSize)size;
 
 @end
