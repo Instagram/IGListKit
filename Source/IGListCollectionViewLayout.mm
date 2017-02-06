@@ -75,7 +75,6 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 @property (nonatomic, assign, readonly) BOOL stickyHeaders;
 @property (nonatomic, assign, readonly) CGFloat topContentInset;
-@property (nonatomic, assign, readonly) CGFloat maximumContentWidth;
 
 @end
 
@@ -99,18 +98,9 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 - (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
                       topContentInset:(CGFloat)topContentInset {
-    return [self initWithStickyHeaders:stickyHeaders
-                       topContentInset:topContentInset
-                   maximumContentWidth:CGFLOAT_MAX];
-}
-
-- (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
-                      topContentInset:(CGFloat)topContentInset
-                  maximumContentWidth:(CGFloat)maximumContentWidth {
     if (self = [super init]) {
         _stickyHeaders = stickyHeaders;
         _topContentInset = topContentInset;
-        _maximumContentWidth = maximumContentWidth;
         _attributesCache = [NSMutableDictionary new];
         _headerAttributesCache = [NSMutableDictionary new];
         _cachedLayoutInvalid = YES;
@@ -120,7 +110,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     IGAssert(NO, @"Layout initialized from storyboards not yet supported");
-    return [self initWithStickyHeaders:NO topContentInset:0 maximumContentWidth:CGFLOAT_MAX];
+    return [self initWithStickyHeaders:NO topContentInset:0];
 }
 
 #pragma mark - UICollectionViewLayout
@@ -237,7 +227,10 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
     const IGSectionEntry section = _sectionData[sectionCount - 1];
     const CGFloat height = CGRectGetMaxY(section.bounds) + section.insets.bottom;
-    return CGSizeMake(MIN(CGRectGetWidth(self.collectionView.bounds), self.maximumContentWidth), height);
+
+    UICollectionView *collectionView = self.collectionView;
+    const UIEdgeInsets contentInset = collectionView.contentInset;
+    return CGSizeMake(CGRectGetWidth(collectionView.bounds) - contentInset.left - contentInset.right, height);
 }
 
 - (void)invalidateLayoutWithContext:(IGVerticalCollectionViewLayoutInvalidationContext *)context {
@@ -322,9 +315,8 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     id<UICollectionViewDelegateFlowLayout> delegate = (id<UICollectionViewDelegateFlowLayout>)collectionView.delegate;
 
     const NSInteger sectionCount = [dataSource numberOfSectionsInCollectionView:collectionView];
-    const CGFloat collectionViewWidth = CGRectGetWidth(collectionView.bounds);
-    const CGFloat width = MIN(collectionViewWidth, self.maximumContentWidth);
-    const CGFloat centeringInset = (collectionViewWidth - width) / 2.0f;
+    const UIEdgeInsets contentInset = collectionView.contentInset;
+    const CGFloat width = CGRectGetWidth(collectionView.bounds) - contentInset.left - contentInset.right;
 
     auto sectionData = std::vector<IGSectionEntry>(sectionCount);
 
@@ -379,7 +371,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                 }
             }
 
-            const CGRect frame = CGRectMake(centeringInset + itemX,
+            const CGRect frame = CGRectMake(contentInset.left + itemX,
                                             itemY + insets.top,
                                             itemWidth,
                                             size.height);
@@ -401,7 +393,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             }
         }
 
-        const CGRect headerBounds = CGRectMake(insets.left,
+        const CGRect headerBounds = CGRectMake(contentInset.left + insets.left,
                                                CGRectGetMinY(rollingSectionBounds) - headerSize.height,
                                                paddedWidth,
                                                headerSize.height);

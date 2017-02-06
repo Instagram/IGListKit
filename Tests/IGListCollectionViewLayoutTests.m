@@ -571,4 +571,24 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
     IGAssertEqualFrame([self cellForSection:2 item:0].frame, 0, 33, 33, 33);
 }
 
+- (void)test_whenCollectionViewContentInset_withFullWidthItems_thatItemsPinchedIn {
+    [self setUpWithStickyHeaders:NO topInset:0];
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 30, 0, 30);
+
+    [self prepareWithData:@[
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:10
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){40,10}],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){40,20}],
+                                                                          ]],
+                            ]];
+    XCTAssertEqual(self.collectionView.contentSize.height, 40);
+    IGAssertEqualFrame([self headerForSection:0].frame, 30, 0, 40, 10);
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 30, 10, 40, 10);
+    IGAssertEqualFrame([self cellForSection:0 item:1].frame, 30, 20, 40, 20);
+}
+
 @end
