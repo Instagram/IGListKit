@@ -1,1 +1,0 @@
-../../../IGListKit/Source/IGListSectionType.h

@@ -1,1 +1,0 @@
-../../../IGListKit/Source/IGListWorkingRangeDelegate.h

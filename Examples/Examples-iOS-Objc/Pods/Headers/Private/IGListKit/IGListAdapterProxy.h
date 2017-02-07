@@ -1,1 +1,0 @@
-../../../IGListKit/Source/Internal/IGListAdapterProxy.h
