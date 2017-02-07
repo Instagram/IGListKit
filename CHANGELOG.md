@@ -20,6 +20,15 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
                         withObject:(id)object;
 ```
 
+- `IGListUpdatingDelegate` now conforms to `NSObject`, bringing it in line with other framework protocols. [Adlai Holler](https://github.com/Adlai-Holler) [(#435)](https://github.com/Instagram/IGListKit/pull/435)
+
+- Changed `hasChanges` methods in `IGListIndexPathResult` and `IGListIndexSetResult` to read-only properties. [Bofei Zhu](https://github.com/zhubofei) [(#453)](https://github.com/Instagram/IGListKit/pull/453)
+
+### Enhancements
+
+- Empty Views now move with Refresh Controls, and no longer use the `_collectionView.backgroundView` property. [dshahidehpour](https://github.com/dshahidehpour) [(#462)](https://github.com/Instagram/IGListKit/pull/462)]
+
+
 2.2.0
 -----
 
@@ -32,8 +41,14 @@ This release closes the [2.2.0 milestone](https://github.com/Instagram/IGListKit
 ### Fixes
 
 - Fix bug where emptyView's hidden status is not updated after the number of items is changed with `insertInSectionController:atIndexes:` or related methods. [Peter Edmonston](https://github.com/edmonston) [(#395)](https://github.com/Instagram/IGListKit/pull/395)
+
 - Fix bug where `IGListStackedSectionController`'s children need to know `numberOrItems` before didUpdate is called. [(#348)](https://github.com/Instagram/IGListKit/pull/390)
+
 - Fix bug where `-[UICollectionViewCell ig_setStackedSectionControllerIndex:]` should use `OBJC_ASSOCIATION_COPY_NONATOMIC` for NSNumber. [PhilCai](https://github.com/PhilCai1993) [(#424)](https://github.com/Instagram/IGListKit/pull/426)
+
+- Fix potential bug with suppressing animations (by passing `NO`) during `-[IGListAdapter performUpdatesAnimated: completion:]` where user would see UI glitches/flashing. [Jesse Squires](https://github.com/jessesquires) [(tbd)]()
+
+- Fix bug where scroll position would be incorrect in call to `-[IGListAdapter scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:animated:` with scrollDirection/scrollPosition of UICollectionViewScrollDirectionVertical/UICollectionViewScrollPositionCenteredVertically or UICollectionViewScrollDirectionHorizontal/UICollectionViewScrollPositionCenteredHorizontally and with a collection view with nonzero contentInset. [David Yamnitsky](https://github.com/nitsky)
 
 2.1.0
 -----
@@ -183,5 +198,3 @@ You can find a [migration guide here](https://instagram.github.io/IGListKit/migr
 -----
 
 Initial release. :tada:
-
-

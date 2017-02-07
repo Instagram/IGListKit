@@ -206,9 +206,11 @@
                 case UICollectionViewScrollPositionRight:
                     contentOffset.x = offsetMax - collectionViewWidth - contentInset.left;
                     break;
-                case UICollectionViewScrollPositionCenteredHorizontally:
-                    contentOffset.x = offsetMid - collectionViewWidth / 2.0 - contentInset.left;
+                case UICollectionViewScrollPositionCenteredHorizontally: {
+                    const CGFloat insets = (contentInset.left - contentInset.right) / 2.0;
+                    contentOffset.x = offsetMid - collectionViewWidth / 2.0 - insets;
                     break;
+                }
                 case UICollectionViewScrollPositionLeft:
                 case UICollectionViewScrollPositionNone:
                 case UICollectionViewScrollPositionTop:
@@ -223,9 +225,11 @@
                 case UICollectionViewScrollPositionBottom:
                     contentOffset.y = offsetMax - collectionViewHeight - contentInset.top;
                     break;
-                case UICollectionViewScrollPositionCenteredVertically:
-                    contentOffset.y = offsetMid - collectionViewHeight / 2.0 - contentInset.top;
+                case UICollectionViewScrollPositionCenteredVertically: {
+                    const CGFloat insets = (contentInset.top - contentInset.bottom) / 2.0;
+                    contentOffset.y = offsetMid - collectionViewHeight / 2.0 - insets;
                     break;
+                }
                 case UICollectionViewScrollPositionTop:
                 case UICollectionViewScrollPositionNone:
                 case UICollectionViewScrollPositionLeft:
@@ -530,15 +534,22 @@
     if (self.isInUpdateBlock) {
         return; // will be called again when update block completes
     }
-    UIView *backgroundView = [self.dataSource emptyViewForListAdapter:self];
-    // don't do anything if the client is using the same view
-    if (backgroundView != _collectionView.backgroundView) {
-        // collection view will just stack the background views underneath each other if we do not remove the previous
-        // one first. also fine if it is nil
-        [_collectionView.backgroundView removeFromSuperview];
-        _collectionView.backgroundView = backgroundView;
+
+    if (shouldHide) {
+        _emptyListView.hidden = YES;
+    } else {
+        UIView *newBackgroundView = [self.dataSource emptyViewForListAdapter:self];
+        if (_emptyListView != newBackgroundView) {
+            [_emptyListView removeFromSuperview];
+            _emptyListView = newBackgroundView;
+        }
+
+        if (_emptyListView != nil) {
+            _emptyListView.frame = _collectionView.bounds;
+            _emptyListView.hidden = NO;
+            [_collectionView addSubview:(id)_emptyListView];
+        }
     }
-    _collectionView.backgroundView.hidden = shouldHide;
 }
 
 - (BOOL)itemCountIsZero {

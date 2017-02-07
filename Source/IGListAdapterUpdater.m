@@ -211,8 +211,11 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
         if (animated) {
             [collectionView performBatchUpdates:updateBlock completion:completionBlock];
         } else {
-            [UIView performWithoutAnimation:^{
-                [collectionView performBatchUpdates:updateBlock completion:completionBlock];
+            [CATransaction begin];
+            [CATransaction setDisableActions:YES];
+            [collectionView performBatchUpdates:updateBlock completion:^(BOOL finished) {
+                completionBlock(finished);
+                [CATransaction commit];
             }];
         }
     } @catch (NSException *exception) {
