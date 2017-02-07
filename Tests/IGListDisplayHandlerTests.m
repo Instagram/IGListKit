@@ -176,7 +176,6 @@
     [self.mockAdapterDelegate verify];
 }
 
-
 - (void)test_whenCellInserted_withDisplayedCellExistingAtPath_thatDisplayHandlerReceivesCorrectParams {
     // simulate first cell appearing in the collection view
     NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];

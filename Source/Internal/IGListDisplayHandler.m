@@ -31,56 +31,95 @@
     return self;
 }
 
+- (id)pluckObjectForView:(UICollectionReusableView *)view {
+    NSMapTable *cellObjectMap = self.visibleCellObjectMap;
+    id object = [cellObjectMap objectForKey:view];
+    [cellObjectMap removeObjectForKey:view];
+    return object;
+}
+
+- (void)willDisplayReusableView:(UICollectionReusableView *)view
+                 forListAdapter:(IGListAdapter *)listAdapter
+              sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                         object:(id)object
+                      indexPath:(NSIndexPath *)indexPath {
+    IGParameterAssert(view != nil);
+    IGParameterAssert(listAdapter != nil);
+    IGParameterAssert(object != nil);
+    IGParameterAssert(indexPath != nil);
+
+    [self.visibleCellObjectMap setObject:object forKey:view];
+    NSCountedSet *visibleListSections = self.visibleListSections;
+    if ([visibleListSections countForObject:sectionController] == 0) {
+        [sectionController.displayDelegate listAdapter:listAdapter willDisplaySectionController:sectionController];
+        [listAdapter.delegate listAdapter:listAdapter willDisplayObject:object atIndex:indexPath.section];
+    }
+    [visibleListSections addObject:sectionController];
+}
+
+- (void)didEndDisplayingReusableView:(UICollectionReusableView *)view
+                      forListAdapter:(IGListAdapter *)listAdapter
+                   sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                              object:(id)object
+                           indexPath:(NSIndexPath *)indexPath {
+    IGParameterAssert(view != nil);
+    IGParameterAssert(listAdapter != nil);
+    IGParameterAssert(indexPath != nil);
+
+    if (object == nil || sectionController == nil) {
+        return;
+    }
+
+    const NSInteger section = indexPath.section;
+
+    NSCountedSet *visibleSections = self.visibleListSections;
+    [visibleSections removeObject:sectionController];
+
+    if ([visibleSections countForObject:sectionController] == 0) {
+        [sectionController.displayDelegate listAdapter:listAdapter didEndDisplayingSectionController:sectionController];
+        [listAdapter.delegate listAdapter:listAdapter didEndDisplayingObject:object atIndex:section];
+    }
+}
+
+- (void)willDisplaySupplementaryView:(UICollectionReusableView *)view
+                      forListAdapter:(IGListAdapter *)listAdapter
+                   sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                              object:(id)object
+                           indexPath:(NSIndexPath *)indexPath {
+    [self willDisplayReusableView:view forListAdapter:listAdapter sectionController:sectionController object:object indexPath:indexPath];
+}
+
+- (void)didEndDisplayingSupplementaryView:(UICollectionReusableView *)view
+                           forListAdapter:(IGListAdapter *)listAdapter
+                        sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                indexPath:(NSIndexPath *)indexPath {
+    // if cell display events break, don't send display events when the object has disappeared
+    id object = [self pluckObjectForView:view];
+    [self didEndDisplayingReusableView:view forListAdapter:listAdapter sectionController:sectionController object:object indexPath:indexPath];
+}
+
 - (void)willDisplayCell:(UICollectionViewCell *)cell
          forListAdapter:(IGListAdapter *)listAdapter
       sectionController:(IGListSectionController<IGListSectionType> *)sectionController
                  object:(id)object
               indexPath:(NSIndexPath *)indexPath {
-    IGParameterAssert(cell != nil);
-    IGParameterAssert(listAdapter != nil);
-    IGParameterAssert(object != nil);
-    IGParameterAssert(indexPath != nil);
-
     id <IGListDisplayDelegate> displayDelegate = [sectionController displayDelegate];
-
     [displayDelegate listAdapter:listAdapter willDisplaySectionController:sectionController cell:cell atIndex:indexPath.item];
-
-    [self.visibleCellObjectMap setObject:object forKey:cell];
-
-    if ([self.visibleListSections countForObject:sectionController] == 0) {
-        [displayDelegate listAdapter:listAdapter willDisplaySectionController:sectionController];
-        [listAdapter.delegate listAdapter:listAdapter willDisplayObject:object atIndex:indexPath.section];
-    }
-    [self.visibleListSections addObject:sectionController];
+    [self willDisplayReusableView:cell forListAdapter:listAdapter sectionController:sectionController object:object indexPath:indexPath];
 }
 
 - (void)didEndDisplayingCell:(UICollectionViewCell *)cell
               forListAdapter:(IGListAdapter *)listAdapter
            sectionController:(IGListSectionController<IGListSectionType> *)sectionController
                    indexPath:(NSIndexPath *)indexPath {
-    IGParameterAssert(cell != nil);
-    IGParameterAssert(listAdapter != nil);
-    IGParameterAssert(indexPath != nil);
-
-    const NSInteger section = indexPath.section;
-
-    NSMapTable *cellObjectMap = self.visibleCellObjectMap;
-    id object = [cellObjectMap objectForKey:cell];
-    [cellObjectMap removeObjectForKey:cell];
-
-    if (object == nil || sectionController == nil) {
+    // if cell display events break, don't send cell events to the displayDelegate when the object has disappeared
+    id object = [self pluckObjectForView:cell];
+    if (object == nil) {
         return;
     }
 
-    id <IGListDisplayDelegate> displayDelegate = [sectionController displayDelegate];
-    [displayDelegate listAdapter:listAdapter didEndDisplayingSectionController:sectionController cell:cell atIndex:indexPath.item];
-
-    NSCountedSet *visibleSections = self.visibleListSections;
-    [visibleSections removeObject:sectionController];
-    if ([visibleSections countForObject:sectionController] == 0) {
-        [displayDelegate listAdapter:listAdapter didEndDisplayingSectionController:sectionController];
-        [listAdapter.delegate listAdapter:listAdapter didEndDisplayingObject:object atIndex:section];
-    }
+    [sectionController.displayDelegate listAdapter:listAdapter didEndDisplayingSectionController:sectionController cell:cell atIndex:indexPath.item];
+    [self didEndDisplayingReusableView:cell forListAdapter:listAdapter sectionController:sectionController object:object indexPath:indexPath];
 }
 
 @end

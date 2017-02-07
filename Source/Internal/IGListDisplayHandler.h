@@ -22,7 +22,7 @@ IGLK_SUBCLASSING_RESTRICTED
 @interface IGListDisplayHandler : NSObject
 
 /**
- Tells the handler that a cell will be displayed in the IGListKit infra.
+ Tells the handler that a cell will be displayed in the IGListAdapter.
 
  @param cell              A cell that will display.
  @param listAdapter       The adapter managing the infra.
@@ -37,7 +37,7 @@ IGLK_SUBCLASSING_RESTRICTED
               indexPath:(NSIndexPath *)indexPath;
 
 /**
- Tells the handler that a cell did end display in the IGListKit infra.
+ Tells the handler that a cell did end display in the IGListAdapter.
 
  @param cell              A cell that did end display.
  @param listAdapter       The adapter managing the infra.
@@ -48,6 +48,36 @@ IGLK_SUBCLASSING_RESTRICTED
               forListAdapter:(IGListAdapter *)listAdapter
            sectionController:(IGListSectionController<IGListSectionType> *)sectionController
                    indexPath:(NSIndexPath *)indexPath;
+
+
+/**
+ Tells the handler that a supplementary view will be displayed in the IGListAdapter.
+
+ @param view              A supplementary view that will display.
+ @param listAdapter       The adapter managing the infra.
+ @param sectionController The section controller the view is in.
+ @param object            The object associated with the section controller.
+ @param indexPath         The index path of the supplementary view.
+ */
+- (void)willDisplaySupplementaryView:(UICollectionReusableView *)view
+                      forListAdapter:(IGListAdapter *)listAdapter
+                   sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                              object:(id)object
+                           indexPath:(NSIndexPath *)indexPath;
+
+
+/**
+ Tells the handler that a supplementary view did end display in the IGListAdapter.
+
+ @param view              A supplementary view that did end display
+ @param listAdapter       The adapter managing the infra.
+ @param sectionController The section controller the view is in.
+ @param indexPath         The index path of the supplementary view.
+ */
+- (void)didEndDisplayingSupplementaryView:(UICollectionReusableView *)view
+                           forListAdapter:(IGListAdapter *)listAdapter
+                        sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                indexPath:(NSIndexPath *)indexPath;
 
 @end
 
