@@ -37,7 +37,7 @@ typedef void (^IGListReloadUpdateBlock)();
  Implement this protocol in order to handle both section and row based update events. Implementation should forward or
  coalesce these events to a backing store or collection.
  */
-@protocol IGListUpdatingDelegate
+@protocol IGListUpdatingDelegate <NSObject>
 
 /**
  Asks the delegate for the pointer functions for looking up an object in a collection.

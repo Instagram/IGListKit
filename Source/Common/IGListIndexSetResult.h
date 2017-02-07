@@ -39,11 +39,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSArray<IGListMoveIndex *> *moves;
 
 /**
- Returns whether the result has any changes or not.
-
- @return `YES` if the result has changes, `NO` otherwise.
+ A Read-only boolean that indicates whether the result has any changes or not.
+ `YES` if the result has changes, `NO` otherwise.
  */
-- (BOOL)hasChanges;
+@property (nonatomic, assign, readonly) BOOL hasChanges;
 
 /**
  Returns the index of the object with the specified identifier *before* the diff.
