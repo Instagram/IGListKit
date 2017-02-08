@@ -339,6 +339,12 @@
 
 #pragma mark - List Items & Sections
 
+- (nullable IGListSectionController <IGListSectionType> *)sectionControllerForSection:(NSInteger)section {
+    IGAssertMainThread();
+    
+    return [self.sectionMap sectionControllerForSection:section];
+}
+
 - (NSInteger)sectionForSectionController:(IGListSectionController <IGListSectionType> *)sectionController {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);

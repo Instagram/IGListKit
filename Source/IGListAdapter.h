@@ -127,6 +127,15 @@ IGLK_SUBCLASSING_RESTRICTED
 - (void)reloadObjects:(NSArray *)objects;
 
 /**
+ Query the section controller at a given section index. Constant time lookup.
+ 
+ @param section A section in the list.
+
+ @return An section controller or `nil` if the section does not exist.
+ */
+- (nullable IGListSectionController <IGListSectionType> *)sectionControllerForSection:(NSInteger)section;
+
+/**
  Query the section index of a list. Constant time lookup.
 
  @param sectionController A list object.
