@@ -1051,4 +1051,34 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     [mockDisplayDelegate verify];
 }
 
+- (void)test_whenWillDisplaySupplementaryView_thatCollectionViewDelegateReceivesEvents {
+    // silence display handler asserts
+    self.dataSource.objects = @[@1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+    
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
+    self.adapter.collectionViewDelegate = mockDelegate;
+    UICollectionReusableView *view = [UICollectionReusableView new];
+    NSString *kind = @"kind";
+    NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
+    [[mockDelegate expect] collectionView:self.collectionView willDisplaySupplementaryView:view forElementKind:kind atIndexPath:path];
+    [self.adapter collectionView:self.collectionView willDisplaySupplementaryView:view forElementKind:kind atIndexPath:path];
+    [mockDelegate verify];
+}
+
+- (void)test_whenEndDisplayingSupplementaryView_thatCollectionViewDelegateReceivesEvents {
+    // silence display handler asserts
+    self.dataSource.objects = @[@1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
+    self.adapter.collectionViewDelegate = mockDelegate;
+    UICollectionReusableView *view = [UICollectionReusableView new];
+    NSString *kind = @"kind";
+    NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
+    [[mockDelegate expect] collectionView:self.collectionView didEndDisplayingSupplementaryView:view forElementOfKind:kind atIndexPath:path];
+    [self.adapter collectionView:self.collectionView didEndDisplayingSupplementaryView:view forElementOfKind:kind atIndexPath:path];
+    [mockDelegate verify];
+}
+
 @end
