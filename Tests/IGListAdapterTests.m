@@ -783,6 +783,15 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     XCTAssertEqual([self.adapter sectionForObject:@3], NSNotFound);
 }
 
+- (void)test_whenQueryingSectionControllerForSection_thatControllerReturned {
+	self.dataSource.objects = @[@0, @1, @2];
+	[self.adapter reloadDataWithCompletion:nil];
+	
+	XCTAssertEqual([self.adapter sectionControllerForSection:0], [self.adapter sectionControllerForObject:@0]);
+	XCTAssertEqual([self.adapter sectionControllerForSection:1], [self.adapter sectionControllerForObject:@1]);
+	XCTAssertEqual([self.adapter sectionControllerForSection:2], [self.adapter sectionControllerForObject:@2]);
+}
+
 - (void)test_whenReloadingData_withNoDataSource_thatCompletionCalledWithNO {
     self.dataSource.objects = @[@1];
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
