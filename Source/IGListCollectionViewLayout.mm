@@ -109,7 +109,6 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    IGAssert(NO, @"Layout initialized from storyboards not yet supported");
     return [self initWithStickyHeaders:NO topContentInset:0];
 }
 
