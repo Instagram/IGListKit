@@ -9,6 +9,13 @@ This makes it easy to track down easily-overlooked mistakes in your [`IGListAdap
 If this assert is ever hit, that means `IGListKit` has sent your section controller the incorrect type of object. 
 This would only happen if your objects provide *non-unique* diff identifiers. 
 
+```objective-c
+- (void)didUpdateToObject:(id)object {
+    IGParameterAssert([object isKindOfClass:[MyModelClass class]]);
+    _myModel = object;
+}
+```
+
 - Make sure your [`-diffIdentifier`](https://instagram.github.io/IGListKit/Protocols/IGListDiffable.html#/c:objc(pl)IGListDiffable(im)diffIdentifier) implementation returns a **unique identifier** for each object.
 
 - We highly recommend using single-item sections when possible. That is, each section only has 1 cell. Each section controller manages a single model and a single cell. This gives you the greatest amount of flexibility, modularity, and re-use for your components.
