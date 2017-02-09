@@ -13,14 +13,28 @@ This would only happen if your objects provide *non-unique* diff identifiers.
 
 ## Frequently asked questions
 
-**Q: How do you implement separators between cells?**
+**How do you implement separators between cells?**
 
-**A:** See discussion in [#329](https://github.com/Instagram/IGListKit/issues/329)
+See discussion in [#329](https://github.com/Instagram/IGListKit/issues/329)
 
-**Q: How do I fix the error `Could not build Objective-C module 'IGListKit'`?**
+**How do I fix the error `Could not build Objective-C module 'IGListKit'`?**
 
-**A:** See discussion in [#316](https://github.com/Instagram/IGListKit/issues/316)
+See discussion in [#316](https://github.com/Instagram/IGListKit/issues/316)
 
-**Q: The documentation and examples have `<X>` feature or changes, but I don't have it in my version. Why?**
+**The documentation and examples have `<X>` feature or changes, but I don't have it in my version. Why?**
 
-**A:** This feature is on the `master` branch only and hasn't been officially tagged and [released](https://github.com/Instagram/IGListKit/releases). If you need to, you can [install from the `master` branch](https://instagram.github.io/IGListKit/installation.html).
+This feature is on the `master` branch only and hasn't been officially tagged and [released](https://github.com/Instagram/IGListKit/releases). If you need to, you can [install from the `master` branch](https://instagram.github.io/IGListKit/installation.html).
+
+**Does `IGListKit` work with...?**
+
+- Core Data ([#460](https://github.com/Instagram/IGListKit/issues/460), [#461](https://github.com/Instagram/IGListKit/issues/461))
+- AsyncDisplayKit ([AsyncDisplayKit/#2942](https://github.com/facebook/AsyncDisplayKit/pull/2942))
+- ComponentKit
+- React Native
+- Reactive Cocoa
+
+Yes.
+
+**Does `IGListKit` work with `UITableView`?**
+
+No, but you can install the [diffing subspec via CocoaPods]((https://instagram.github.io/IGListKit/installation.html)).
