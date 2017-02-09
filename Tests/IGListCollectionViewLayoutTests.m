@@ -503,10 +503,6 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
     }];
 }
 
-- (void)test_whenInitializingWithCoder_thatThrows {
-    XCTAssertThrows([[IGListCollectionViewLayout alloc] initWithCoder:[NSCoder new]]);
-}
-
 - (void)test_whenQueryingLayoutAttributes_withLotsOfCells_thatExactFramesFetched {
     [self setUpWithStickyHeaders:NO topInset:0];
 
