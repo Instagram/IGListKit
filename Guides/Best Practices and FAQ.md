@@ -11,7 +11,7 @@ This would only happen if your objects provide *non-unique* diff identifiers.
 
 ```objective-c
 - (void)didUpdateToObject:(id)object {
-    IGParameterAssert([object isKindOfClass:[MyModelClass class]]);
+    NSParameterAssert([object isKindOfClass:[MyModelClass class]]);
     _myModel = object;
 }
 ```
