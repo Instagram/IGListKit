@@ -11,6 +11,8 @@ This would only happen if your objects provide *non-unique* diff identifiers.
 
 - Make sure your [`-diffIdentifier`](https://instagram.github.io/IGListKit/Protocols/IGListDiffable.html#/c:objc(pl)IGListDiffable(im)diffIdentifier) implementation returns a **unique identifier** for each object.
 
+- We highly recommend using single-item sections when possible. That is, each section only has 1 cell. Each section controller manages a single model and a single cell. This gives you the greatest amount of flexibility, modularity, and re-use for your components.
+
 ## Frequently asked questions
 
 **How do you implement separators between cells?**
@@ -38,3 +40,11 @@ Yes.
 **Does `IGListKit` work with `UITableView`?**
 
 No, but you can install the [diffing subspec via CocoaPods]((https://instagram.github.io/IGListKit/installation.html)).
+
+**What's the purpose of `IGListCollectionView`?**
+
+We use this subclass to gain compile-time safety to prevent disallowed methods from being called on `UICollectionView`, because `IGListKit` handles model and view updates. See discussion at [#409](https://github.com/Instagram/IGListKit/issues/409).
+
+**How can I manage cell selection and deselection?**
+
+See discussion at [#184](https://github.com/Instagram/IGListKit/issues/184).
