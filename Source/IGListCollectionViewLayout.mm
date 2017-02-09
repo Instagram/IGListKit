@@ -63,12 +63,12 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     }
 }
 
-@interface IGVerticalCollectionViewLayoutInvalidationContext : UICollectionViewLayoutInvalidationContext
+@interface IGListCollectionViewLayoutInvalidationContext : UICollectionViewLayoutInvalidationContext
 @property (nonatomic, assign) BOOL ig_invalidateSupplementaryAttributes;
 @property (nonatomic, assign) BOOL ig_invalidateAllAttributes;
 @end
 
-@implementation IGVerticalCollectionViewLayoutInvalidationContext
+@implementation IGListCollectionViewLayoutInvalidationContext
 @end
 
 @interface IGListCollectionViewLayout ()
@@ -232,7 +232,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     return CGSizeMake(CGRectGetWidth(collectionView.bounds) - contentInset.left - contentInset.right, height);
 }
 
-- (void)invalidateLayoutWithContext:(IGVerticalCollectionViewLayoutInvalidationContext *)context {
+- (void)invalidateLayoutWithContext:(IGListCollectionViewLayoutInvalidationContext *)context {
     BOOL hasInvalidatedItemIndexPaths = NO;
     if ([context respondsToSelector:@selector(invalidatedItemIndexPaths)]) {
         hasInvalidatedItemIndexPaths = [context invalidatedItemIndexPaths].count > 0;
@@ -253,14 +253,14 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 }
 
 + (Class)invalidationContextClass {
-    return [IGVerticalCollectionViewLayoutInvalidationContext class];
+    return [IGListCollectionViewLayoutInvalidationContext class];
 }
 
 - (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
     const CGRect oldBounds = self.collectionView.bounds;
 
-    IGVerticalCollectionViewLayoutInvalidationContext *context =
-    (IGVerticalCollectionViewLayoutInvalidationContext *)[super invalidationContextForBoundsChange:newBounds];
+    IGListCollectionViewLayoutInvalidationContext *context =
+    (IGListCollectionViewLayoutInvalidationContext *)[super invalidationContextForBoundsChange:newBounds];
     context.ig_invalidateSupplementaryAttributes = YES;
     if (!CGSizeEqualToSize(oldBounds.size, newBounds.size)) {
         context.ig_invalidateAllAttributes = YES;
@@ -294,7 +294,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     if (_stickyHeaderOriginYAdjustment != stickyHeaderOriginYAdjustment) {
         _stickyHeaderOriginYAdjustment = stickyHeaderOriginYAdjustment;
 
-        IGVerticalCollectionViewLayoutInvalidationContext *invalidationContext = [[IGVerticalCollectionViewLayoutInvalidationContext alloc] init];
+        IGListCollectionViewLayoutInvalidationContext *invalidationContext = [[IGListCollectionViewLayoutInvalidationContext alloc] init];
         invalidationContext.ig_invalidateSupplementaryAttributes = YES;
         [self invalidateLayoutWithContext:invalidationContext];
     }
