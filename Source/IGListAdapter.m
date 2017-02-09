@@ -339,6 +339,12 @@
 
 #pragma mark - List Items & Sections
 
+- (nullable IGListSectionController <IGListSectionType> *)sectionControllerForSection:(NSInteger)section {
+    IGAssertMainThread();
+    
+    return [self.sectionMap sectionControllerForSection:section];
+}
+
 - (NSInteger)sectionForSectionController:(IGListSectionController <IGListSectionType> *)sectionController {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
@@ -381,7 +387,7 @@
 }
 
 - (id<IGListSupplementaryViewSource>)supplementaryViewSourceAtIndexPath:(NSIndexPath *)indexPath {
-    IGListSectionController<IGListSectionType> *sectionController = [self.sectionMap sectionControllerForSection:indexPath.section];
+    IGListSectionController<IGListSectionType> *sectionController = [self sectionControllerForSection:indexPath.section];
     return [sectionController supplementaryViewSource];
 }
 
@@ -443,7 +449,7 @@
 - (CGSize)sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     IGAssertMainThread();
 
-    IGListSectionController <IGListSectionType> *sectionController = [self.sectionMap sectionControllerForSection:indexPath.section];
+    IGListSectionController <IGListSectionType> *sectionController = [self sectionControllerForSection:indexPath.section];
     return [sectionController sizeForItemAtIndex:indexPath.item];
 }
 
@@ -641,7 +647,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    IGListSectionController <IGListSectionType> * sectionController = [self.sectionMap sectionControllerForSection:section];
+    IGListSectionController <IGListSectionType> * sectionController = [self sectionControllerForSection:section];
     IGAssert(sectionController != nil, @"Nil section controller for section %zi for item %@. Check your -diffIdentifier and -isEqual: implementations.",
              section, [self.sectionMap objectForSection:section]);
     const NSInteger numberOfItems = [sectionController numberOfItems];
@@ -650,7 +656,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    IGListSectionController<IGListSectionType> *sectionController = [self.sectionMap sectionControllerForSection:indexPath.section];
+    IGListSectionController<IGListSectionType> *sectionController = [self sectionControllerForSection:indexPath.section];
 
     // flag that a cell is being dequeued in case it tries to access a cell in the process
     _isDequeuingCell = YES;
@@ -666,7 +672,7 @@
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    IGListSectionController<IGListSectionType> *sectionController = [self.sectionMap sectionControllerForSection:indexPath.section];
+    IGListSectionController<IGListSectionType> *sectionController = [self sectionControllerForSection:indexPath.section];
     id <IGListSupplementaryViewSource> supplementarySource = [sectionController supplementaryViewSource];
     UICollectionReusableView *view = [supplementarySource viewForSupplementaryElementOfKind:kind atIndex:indexPath.item];
     IGAssert(view != nil, @"Returned a nil supplementary view at indexPath <%@> from section controller: <%@>, supplementary source: <%@>", indexPath, sectionController, supplementarySource);
@@ -683,7 +689,7 @@
         [collectionViewDelegate collectionView:collectionView didSelectItemAtIndexPath:indexPath];
     }
 
-    IGListSectionController <IGListSectionType> * sectionController = [self.sectionMap sectionControllerForSection:indexPath.section];
+    IGListSectionController <IGListSectionType> * sectionController = [self sectionControllerForSection:indexPath.section];
     [sectionController didSelectItemAtIndex:indexPath.item];
 }
 
@@ -698,7 +704,7 @@
     // if the section controller relationship was destroyed, reconnect it
     // this happens with iOS 10 UICollectionView display range changes
     if (sectionController == nil) {
-        sectionController = [self.sectionMap sectionControllerForSection:indexPath.section];
+        sectionController = [self sectionControllerForSection:indexPath.section];
         [self mapCell:cell toSectionController:sectionController];
     }
 
@@ -1054,17 +1060,17 @@
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     IGAssert(![self.collectionViewDelegate respondsToSelector:_cmd], @"IGListAdapter is consuming method also implemented by the collectionViewDelegate: %@", NSStringFromSelector(_cmd));
-    return [[self.sectionMap sectionControllerForSection:section] inset];
+    return [[self sectionControllerForSection:section] inset];
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     IGAssert(![self.collectionViewDelegate respondsToSelector:_cmd], @"IGListAdapter is consuming method also implemented by the collectionViewDelegate: %@", NSStringFromSelector(_cmd));
-    return [[self.sectionMap sectionControllerForSection:section] minimumLineSpacing];
+    return [[self sectionControllerForSection:section] minimumLineSpacing];
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     IGAssert(![self.collectionViewDelegate respondsToSelector:_cmd], @"IGListAdapter is consuming method also implemented by the collectionViewDelegate: %@", NSStringFromSelector(_cmd));
-    return [[self.sectionMap sectionControllerForSection:section] minimumInteritemSpacing];
+    return [[self sectionControllerForSection:section] minimumInteritemSpacing];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
