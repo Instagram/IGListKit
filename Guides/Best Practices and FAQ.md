@@ -18,7 +18,7 @@ This would only happen if your objects provide *non-unique* diff identifiers.
 
 - Make sure your [`-diffIdentifier`](https://instagram.github.io/IGListKit/Protocols/IGListDiffable.html#/c:objc(pl)IGListDiffable(im)diffIdentifier) implementation returns a **unique identifier** for each object.
 
-- We highly recommend using single-item sections when possible. That is, each section only has 1 cell. Each section controller manages a single model and a single cell. This gives you the greatest amount of flexibility, modularity, and re-use for your components.
+- We highly recommend using single-item sections when possible. That is, each section controller manages a single model (which may have one or multiple cells). This gives you the greatest amount of flexibility, modularity, and re-use for your components.
 
 ## Frequently asked questions
 
@@ -38,15 +38,16 @@ This feature is on the `master` branch only and hasn't been officially tagged an
 
 - Core Data ([#460](https://github.com/Instagram/IGListKit/issues/460), [#461](https://github.com/Instagram/IGListKit/issues/461))
 - AsyncDisplayKit ([AsyncDisplayKit/#2942](https://github.com/facebook/AsyncDisplayKit/pull/2942))
-- ComponentKit
+- ComponentKit ([ocrickard/IGListKit-ComponentKit](https://github.com/ocrickard/IGListKit-ComponentKit))
 - React Native
 - Reactive Cocoa
+- RxSwift
 
 Yes.
 
 **Does `IGListKit` work with `UITableView`?**
 
-No, but you can install the [diffing subspec via CocoaPods]((https://instagram.github.io/IGListKit/installation.html)).
+No, but you can install the [diffing subspec via CocoaPods](https://instagram.github.io/IGListKit/installation.html).
 
 **What's the purpose of `IGListCollectionView`?**
 
