@@ -45,7 +45,7 @@
     IGParameterAssert(sectionController != nil);
 
     NSNumber *index = [self.sectionControllerToSectionMap objectForKey:sectionController];
-    return index != nil ? [index unsignedIntegerValue] : NSNotFound;
+    return index != nil ? [index integerValue] : NSNotFound;
 }
 
 - (IGListSectionController <IGListSectionType> *)sectionControllerForSection:(NSInteger)section {
