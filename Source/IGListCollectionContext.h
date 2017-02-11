@@ -201,6 +201,17 @@ NS_ASSUME_NONNULL_BEGIN
                         atIndexes:(NSIndexSet *)indexes;
 
 /**
+ Moves a cell from one index to another within the section controller.
+
+ @param sectionController The section controller who's cell needs moved.
+ @param fromIndex         The index the cell is currently in.
+ @param toIndex           The index the cell should move to.
+ */
+- (void)moveInSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                      fromIndex:(NSInteger)fromIndex
+                        toIndex:(NSInteger)toIndex;
+
+/**
  Reloads the entire section controller.
 
  @param sectionController The section controller who's cells need reloading.

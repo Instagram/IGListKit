@@ -26,8 +26,9 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 ### Enhancements
 
-- Empty Views now move with Refresh Controls, and no longer use the `_collectionView.backgroundView` property. [dshahidehpour](https://github.com/dshahidehpour) [(#462)](https://github.com/Instagram/IGListKit/pull/462)]
+- You can now manually move items (cells) within a section controller, ex: `[self.collectionContext moveInSectionController:self fromIndex:0 toIndex:1]`. [Ryan Nystrom](https://github.com/rnystrom) [(#418)](https://github.com/Instagram/IGListKit/pull/418)
 
+- Empty Views now move with Refresh Controls, and no longer use the `_collectionView.backgroundView` property. [dshahidehpour](https://github.com/dshahidehpour) [(#462)](https://github.com/Instagram/IGListKit/pull/462)]
 
 2.2.0
 -----

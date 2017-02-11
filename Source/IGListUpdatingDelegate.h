@@ -94,6 +94,17 @@ typedef void (^IGListReloadUpdateBlock)();
 - (void)deleteItemsFromCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray <NSIndexPath *> *)indexPaths;
 
 /**
+ Tells the delegate to move an item from and to given index paths.
+
+ @param collectionView The collection view on which to perform the transition.
+ @param fromIndexPath  The source index path of the item to move.
+ @param toIndexPath    The destination index path of the item to move.
+ */
+- (void)moveItemInCollectionView:(UICollectionView *)collectionView
+                   fromIndexPath:(NSIndexPath *)fromIndexPath
+                     toIndexPath:(NSIndexPath *)toIndexPath;
+
+/**
  Tells the delegate to perform item reloads at the given index paths.
 
  @param collectionView The collection view on which to perform the transition.

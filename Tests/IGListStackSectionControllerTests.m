@@ -782,4 +782,31 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
+- (void)test_whenMovingItemsInChild_thatCorrectCellsAreMoved {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@1 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@2 value:@[@1, @2, @3]],
+                             ]];
+
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:1]];
+    cell.tag = 42;
+
+    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGListTestSection *section = stack.sectionControllers[1];
+
+    XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [section.collectionContext performBatchAnimated:YES updates:^{
+        [section.collectionContext moveInSectionController:section fromIndex:1 toIndex:0];
+    } completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]].tag, 0);
+        XCTAssertEqual([self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1]].tag, 42);
+        XCTAssertEqual([self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:1]].tag, 0);
+
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
 @end
