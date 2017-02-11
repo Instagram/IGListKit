@@ -10,6 +10,8 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
+#import <IGListKit/IGListMoveIndexPath.h>
+
 #import "IGListAdapterUpdater.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -33,6 +35,7 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 @property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *deleteIndexPaths;
 @property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *insertIndexPaths;
 @property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *reloadIndexPaths;
+@property (nonatomic, strong, readonly) NSMutableSet<IGListMoveIndexPath *> *moveIndexPaths;
 @property (nonatomic, strong, readonly) NSMutableIndexSet *reloadSections;
 
 @property (nonatomic, copy, nullable) IGListObjectTransitionBlock objectTransitionBlock;
