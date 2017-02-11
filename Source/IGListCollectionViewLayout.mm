@@ -17,7 +17,7 @@ static NSIndexPath *headerIndexPathForSection(NSInteger section) {
     return [NSIndexPath indexPathForItem:0 inSection:section];
 }
 
-struct IGSectionEntry {
+struct IGListSectionEntry {
     /**
      Represents the minimum-bounding box of every element in the section. This includes all item frames as well as the
      header bounds. It is made simply by unioning all item and header frames. Use this to find section intersections
@@ -79,7 +79,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 @end
 
 @implementation IGListCollectionViewLayout {
-    std::vector<IGSectionEntry> _sectionData;
+    std::vector<IGListSectionEntry> _sectionData;
     NSMutableDictionary<NSIndexPath *, UICollectionViewLayoutAttributes *> *_attributesCache;
     BOOL _cachedLayoutInvalid;
 
@@ -192,7 +192,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
     UICollectionView *collectionView = self.collectionView;
     const NSInteger section = indexPath.section;
-    const IGSectionEntry entry = _sectionData[section];
+    const IGListSectionEntry entry = _sectionData[section];
     const CGFloat minY = CGRectGetMinY(entry.bounds);
 
     CGRect frame = entry.headerBounds;
@@ -224,7 +224,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         return CGSizeZero;
     }
 
-    const IGSectionEntry section = _sectionData[sectionCount - 1];
+    const IGListSectionEntry section = _sectionData[sectionCount - 1];
     const CGFloat height = CGRectGetMaxY(section.bounds) + section.insets.bottom;
 
     UICollectionView *collectionView = self.collectionView;
@@ -317,7 +317,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     const UIEdgeInsets contentInset = collectionView.contentInset;
     const CGFloat width = CGRectGetWidth(collectionView.bounds) - contentInset.left - contentInset.right;
 
-    auto sectionData = std::vector<IGSectionEntry>(sectionCount);
+    auto sectionData = std::vector<IGListSectionEntry>(sectionCount);
 
     CGFloat itemY = 0.0;
     CGFloat maxRowHeight = 0.0;
@@ -422,7 +422,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
     const NSInteger sectionCount = _sectionData.size();
     for (NSInteger section = 0; section < sectionCount; section++) {
-        IGSectionEntry entry = _sectionData[section];
+        IGListSectionEntry entry = _sectionData[section];
         if (entry.isValid() && CGRectIntersectsRect(entry.bounds, rect)) {
             const NSRange sectionRange = NSMakeRange(section, 1);
             if (result.location == NSNotFound) {
