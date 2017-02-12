@@ -997,4 +997,88 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     XCTAssertEqual(self.collectionView.contentOffset.y, 280);
 }
 
+- (void)test_whenDisplayingSectionController_withOnlySupplementaryView_thatDisplayEventStillSent {
+    self.dataSource.objects = @[@0];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
+
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@0];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+
+    id mockDisplayDelegate = [OCMockObject mockForProtocol:@protocol(IGListDisplayDelegate)];
+    [[mockDisplayDelegate expect] listAdapter:self.adapter willDisplaySectionController:controller];
+    [[mockDisplayDelegate reject] listAdapter:self.adapter willDisplaySectionController:controller cell:[OCMArg any] atIndex:0];
+
+    controller.displayDelegate = mockDisplayDelegate;
+
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+
+    [mockDisplayDelegate verify];
+}
+
+- (void)test_whenEndingDisplayOfSectionController_withOnlySupplementaryView_thatDisplayEventStillSent {
+    self.dataSource.objects = @[@0];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
+
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@0];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+
+    id mockDisplayDelegate = [OCMockObject mockForProtocol:@protocol(IGListDisplayDelegate)];
+    [[mockDisplayDelegate expect] listAdapter:self.adapter didEndDisplayingSectionController:controller];
+    [[mockDisplayDelegate reject] listAdapter:self.adapter didEndDisplayingSectionController:controller cell:[OCMArg any] atIndex:0];
+
+    controller.displayDelegate = mockDisplayDelegate;
+
+    controller.supplementaryViewSource = nil;
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+
+    [mockDisplayDelegate verify];
+}
+
+- (void)test_whenWillDisplaySupplementaryView_thatCollectionViewDelegateReceivesEvents {
+    // silence display handler asserts
+    self.dataSource.objects = @[@1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+    
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
+    self.adapter.collectionViewDelegate = mockDelegate;
+    UICollectionReusableView *view = [UICollectionReusableView new];
+    NSString *kind = @"kind";
+    NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
+    [[mockDelegate expect] collectionView:self.collectionView willDisplaySupplementaryView:view forElementKind:kind atIndexPath:path];
+    [self.adapter collectionView:self.collectionView willDisplaySupplementaryView:view forElementKind:kind atIndexPath:path];
+    [mockDelegate verify];
+}
+
+- (void)test_whenEndDisplayingSupplementaryView_thatCollectionViewDelegateReceivesEvents {
+    // silence display handler asserts
+    self.dataSource.objects = @[@1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
+    self.adapter.collectionViewDelegate = mockDelegate;
+    UICollectionReusableView *view = [UICollectionReusableView new];
+    NSString *kind = @"kind";
+    NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
+    [[mockDelegate expect] collectionView:self.collectionView didEndDisplayingSupplementaryView:view forElementOfKind:kind atIndexPath:path];
+    [self.adapter collectionView:self.collectionView didEndDisplayingSupplementaryView:view forElementOfKind:kind atIndexPath:path];
+    [mockDelegate verify];
+}
+
 @end

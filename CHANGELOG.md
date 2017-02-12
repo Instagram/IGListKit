@@ -28,6 +28,10 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Empty Views now move with Refresh Controls, and no longer use the `_collectionView.backgroundView` property. [dshahidehpour](https://github.com/dshahidehpour) [(#462)](https://github.com/Instagram/IGListKit/pull/462)]
 
+### Fixes
+
+- Consider supplementary views with display and end-display events. [Ryan Nystrom](https://github.com/rnystrom) [(#470)](https://github.com/Instagram/IGListKit/pull/470)
+
 
 ### Enhancements
 
