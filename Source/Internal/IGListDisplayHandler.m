@@ -17,7 +17,7 @@
 @interface IGListDisplayHandler ()
 
 @property (nonatomic, strong) NSCountedSet *visibleListSections;
-@property (nonatomic, strong) NSMapTable *visibleCellObjectMap;
+@property (nonatomic, strong) NSMapTable *visibleViewObjectMap;
 
 @end
 
@@ -26,15 +26,15 @@
 - (instancetype)init {
     if (self = [super init]) {
         _visibleListSections = [[NSCountedSet alloc] init];
-        _visibleCellObjectMap = [[NSMapTable alloc] initWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableStrongMemory capacity:0];
+        _visibleViewObjectMap = [[NSMapTable alloc] initWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableStrongMemory capacity:0];
     }
     return self;
 }
 
 - (id)pluckObjectForView:(UICollectionReusableView *)view {
-    NSMapTable *cellObjectMap = self.visibleCellObjectMap;
-    id object = [cellObjectMap objectForKey:view];
-    [cellObjectMap removeObjectForKey:view];
+    NSMapTable *viewObjectMap = self.visibleViewObjectMap;
+    id object = [viewObjectMap objectForKey:view];
+    [viewObjectMap removeObjectForKey:view];
     return object;
 }
 
@@ -48,7 +48,7 @@
     IGParameterAssert(object != nil);
     IGParameterAssert(indexPath != nil);
 
-    [self.visibleCellObjectMap setObject:object forKey:view];
+    [self.visibleViewObjectMap setObject:object forKey:view];
     NSCountedSet *visibleListSections = self.visibleListSections;
     if ([visibleListSections countForObject:sectionController] == 0) {
         [sectionController.displayDelegate listAdapter:listAdapter willDisplaySectionController:sectionController];
