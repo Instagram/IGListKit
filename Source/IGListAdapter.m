@@ -17,7 +17,7 @@
 #import "IGListSectionControllerInternal.h"
 
 @implementation IGListAdapter {
-    NSMapTable<UICollectionReusableView *, IGListSectionController<IGListSectionType> *> *_cellSectionControllerMap;
+    NSMapTable<UICollectionReusableView *, IGListSectionController<IGListSectionType> *> *_viewSectionControllerMap;
     BOOL _isDequeuingCell;
     BOOL _isSendingWorkingRangeDisplayUpdates;
 }
@@ -49,7 +49,7 @@
         _displayHandler = [[IGListDisplayHandler alloc] init];
         _workingRangeHandler = [[IGListWorkingRangeHandler alloc] initWithWorkingRangeSize:workingRangeSize];
 
-        _cellSectionControllerMap = [NSMapTable mapTableWithKeyOptions:NSMapTableObjectPointerPersonality | NSMapTableStrongMemory
+        _viewSectionControllerMap = [NSMapTable mapTableWithKeyOptions:NSMapTableObjectPointerPersonality | NSMapTableStrongMemory
                                                           valueOptions:NSMapTableStrongMemory];
 
         _updater = updater;
@@ -630,17 +630,17 @@
     IGAssertMainThread();
     IGParameterAssert(view != nil);
     IGParameterAssert(sectionController != nil);
-    [_cellSectionControllerMap setObject:sectionController forKey:view];
+    [_viewSectionControllerMap setObject:sectionController forKey:view];
 }
 
 - (nullable IGListSectionController<IGListSectionType> *)sectionControllerForView:(UICollectionReusableView *)view {
     IGAssertMainThread();
-    return [_cellSectionControllerMap objectForKey:view];
+    return [_viewSectionControllerMap objectForKey:view];
 }
 
 - (void)removeMapForView:(UICollectionReusableView *)view {
     IGAssertMainThread();
-    [_cellSectionControllerMap removeObjectForKey:view];
+    [_viewSectionControllerMap removeObjectForKey:view];
 }
 
 #pragma mark - UICollectionViewDataSource
