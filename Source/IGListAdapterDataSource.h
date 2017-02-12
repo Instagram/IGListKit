@@ -56,8 +56,9 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return A view to use as the collection view background, or `nil` if you don't want a background view.
 
- @note This method is lazily evaluated, meaning, we won't ask for the empty view until it is necessary to display it.
- You are free to return new views every time, but for performance reasons you may want to retain the view and return it here.
+ @note This method is called every time the list adapter is updated. You are free to return new views every time,
+ but for performance reasons you may want to retain the view and return it here. The infra is only responsible for
+ adding the background view and maintaining its visibility.
  */
 - (nullable UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter;
 

@@ -25,7 +25,7 @@
 }
 
 - (nullable UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
-    return self.emptyView;
+    return self.backgroundView;
 }
 
 @end
