@@ -25,7 +25,6 @@
 #import "IGListCollectionView.h"
 #import "IGListCollectionViewLayout.h"
 #import "IGListDisplayDelegate.h"
-#import "IGListGridCollectionViewLayout.h"
 #import "IGListKit.h"
 #import "IGListReloadDataUpdater.h"
 #import "IGListScrollDelegate.h"
