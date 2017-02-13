@@ -476,7 +476,9 @@
     }
 #endif
 
-    NSMutableArray<IGListSectionController <IGListSectionType> *> *sectionControllers = [[NSMutableArray alloc] init];
+    NSMutableArray<IGListSectionController <IGListSectionType> *> *sectionControllers = [NSMutableArray new];
+    NSMutableArray *validObjects = [NSMutableArray new];
+
     IGListSectionMap *map = self.sectionMap;
 
     // collect items that have changed since the last update
@@ -498,7 +500,6 @@
             sectionController = [dataSource listAdapter:self sectionControllerForObject:object];
         }
 
-        IGAssert(sectionController != nil, @"Data source <%@> cannot return a nil section controller.", dataSource);
         if (sectionController == nil) {
             continue;
         }
@@ -516,12 +517,13 @@
         }
 
         [sectionControllers addObject:sectionController];
+        [validObjects addObject:object];
     }
 
     // clear the view controller and collection context
     IGListSectionControllerPopThread();
 
-    [map updateWithObjects:objects sectionControllers:sectionControllers];
+    [map updateWithObjects:validObjects sectionControllers:sectionControllers];
 
     // now that the maps have been created and contexts are assigned, we consider the section controller "fully loaded"
     for (id object in updatedObjects) {
