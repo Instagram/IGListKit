@@ -10,9 +10,18 @@ If this assert is ever hit, that means `IGListKit` has sent your section control
 This would only happen if your objects provide *non-unique* diff identifiers. 
 
 ```objective-c
+// Objective-C
 - (void)didUpdateToObject:(id)object {
     NSParameterAssert([object isKindOfClass:[MyModelClass class]]);
     _myModel = object;
+}
+```
+
+```swift
+// Swift
+func didUpdate(to object: Any) {
+    precondition(object is MyModelClass)
+    myModel = object as! MyModelClass
 }
 ```
 
