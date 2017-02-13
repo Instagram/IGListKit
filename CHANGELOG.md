@@ -122,6 +122,10 @@ You can find a [migration guide here](https://instagram.github.io/IGListKit/migr
               animated:(BOOL)animated;
 ```
 
+### Fixes
+
+- Consider supplementary views with display and end-display events. [Ryan Nystrom](https://github.com/rnystrom) [(#470)](https://github.com/Instagram/IGListKit/pull/470)
+
 
 - Changed `NSUInteger` to `NSInteger` in all public APIs. [Suraya Shivji](https://github.com/surayashivji) [(#200)](https://github.com/Instagram/IGListKit/issues/200)
 
