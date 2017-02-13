@@ -7,20 +7,16 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGListTestSection.h"
+#import "IGListTestGridLayoutSection.h"
 
-@implementation IGListTestSection
-
-- (NSArray <Class> *)cellClasses {
-    return @[UICollectionViewCell.class];
-}
+@implementation IGListTestGridLayoutSection
 
 - (NSInteger)numberOfItems {
     return self.items;
 }
 
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
-    return CGSizeMake(100, 10);
+    return CGSizeMake(44, 44);
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
@@ -35,8 +31,6 @@
     }
 }
 
-- (void)didSelectItemAtIndex:(NSInteger)index {
-    self.wasSelected = YES;
-}
+- (void)didSelectItemAtIndex:(NSInteger)index {}
 
 @end

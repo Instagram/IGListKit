@@ -10,11 +10,20 @@
 #import <UIKit/UIKit.h>
 #import <IGListKit/IGListMacros.h>
 
+/**
+ An option for how to align items in grid layout.
+ */
+typedef NS_ENUM(NSInteger, IGListGridCollectionViewLayoutAlignment) {
+    IGListGridCollectionViewLayoutAlignmentLeft,
+    IGListGridCollectionViewLayoutAlignmentCenter,
+    IGListGridCollectionViewLayoutAlignmentRight
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  `IGListGridCollectionViewLayout` provides a vertically-scrolling, section-based grid layout for `UICollectionView`.
- Items in the layout are displayed consecutively in a grid with exactly 1 item per section.
+ Items in the layout are displayed consecutively in a grid. 
  If items are square, the appearance would be similar to the iOS Photos app.
  However, the size of the items for each section can vary.
  */
@@ -37,6 +46,11 @@ IGLK_SUBCLASSING_RESTRICTED
  When the size is zero (the default), then the layout will query the collection view's delegate for the size.
  */
 @property (nonatomic, assign) IBInspectable CGSize itemSize;
+    
+/**
+ An option for how to align items in grid layout.
+ */
+@property (nonatomic, assign) IGListGridCollectionViewLayoutAlignment alignment;
 
 @end
 

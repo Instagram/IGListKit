@@ -36,7 +36,8 @@
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
     IGTestCell *cell = [self.collectionContext dequeueReusableCellOfClass:IGTestCell.class
-                                                          forSectionController:self atIndex:index];
+                                                     forSectionController:self
+                                                                  atIndex:index];
     [[cell label] setText:[NSString stringWithFormat:@"%@", self.item.value]];
     [cell setDelegate:self];
     if (self.cellConfigureBlock) {
