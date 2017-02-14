@@ -501,6 +501,8 @@
         }
 
         if (sectionController == nil) {
+            IGLKLog(@"WARNING: Ignoring nil section controller returned by data source %@ for object %@.",
+                    dataSource, object);
             continue;
         }
 
