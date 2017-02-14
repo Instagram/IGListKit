@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
     didPerformBatchUpdates:(IGListBatchUpdateData *)updates
-        withCollectionView:(UICollectionView *)collectionView;
+			collectionView:(UICollectionView *)collectionView;
 
 /**
  Notifies the delegate that the updater will call `-[UICollectionView insertItemsAtIndexPaths:]`.
