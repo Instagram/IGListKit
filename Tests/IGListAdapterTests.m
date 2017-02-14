@@ -1060,4 +1060,12 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     [mockDelegate verify];
 }
 
+- (void)test_whenDataSourceDoesntHandleObject_thatObjectIsDropped {
+    // IGListTestAdapterDataSource does not handle NSStrings
+    self.dataSource.objects = @[@1, @"dog", @2];
+    [self.adapter reloadDataWithCompletion:nil];
+    NSArray *expected = @[@1, @2];
+    XCTAssertEqualObjects(self.adapter.objects, expected);
+}
+
 @end
