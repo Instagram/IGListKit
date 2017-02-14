@@ -259,13 +259,13 @@
         return;
     }
 
-    NSArray *fromObjects = [self.sectionMap.objects copy];
-    NSArray *newItems = [[dataSource objectsForListAdapter:self] copy];
+    NSArray *fromObjects = self.sectionMap.objects;
+    NSArray *newObjects = [dataSource objectsForListAdapter:self];
 
     __weak __typeof__(self) weakSelf = self;
     [self.updater performUpdateWithCollectionView:collectionView
                                       fromObjects:fromObjects
-                                        toObjects:newItems
+                                        toObjects:newObjects
                                          animated:animated
                             objectTransitionBlock:^(NSArray *toObjects) {
                                 // temporarily capture the item map that we are transitioning from in case
