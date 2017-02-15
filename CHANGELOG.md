@@ -26,6 +26,20 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Replaced `IGListGridCollectionViewLayout` with `IGListCollectionViewLayout`. [[Ryan Nystrom](https://github.com/rnystrom) [(tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
 
+- Renamed `withCollectionView:` param to `collectionView:` in IGListAdapterUpdaterDelegate [Vincent Peng](https://github.com/vincent-peng) [(#491)](https://github.com/Instagram/IGListKit/pull/491)
+
+```objc
+// OLD
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater 
+    didPerformBatchUpdates:(IGListBatchUpdateData *)updates 
+        withCollectionView:(UICollectionView *)collectionView;
+
+// NEW
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater 
+    didPerformBatchUpdates:(IGListBatchUpdateData *)updates 
+            collectionView:(UICollectionView *)collectionView;
+```
+
 ### Enhancements
 
 - You can now manually move items (cells) within a section controller, ex: `[self.collectionContext moveInSectionController:self fromIndex:0 toIndex:1]`. [Ryan Nystrom](https://github.com/rnystrom) [(#418)](https://github.com/Instagram/IGListKit/pull/418)
@@ -205,3 +219,5 @@ You can find a [migration guide here](https://instagram.github.io/IGListKit/migr
 -----
 
 Initial release. :tada:
+
+
