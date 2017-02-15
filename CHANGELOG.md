@@ -26,7 +26,7 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Replaced `IGListGridCollectionViewLayout` with `IGListCollectionViewLayout`. [[Ryan Nystrom](https://github.com/rnystrom) [(tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
 
-- Renamed `IGListAdapterUpdaterDelegate` method to `listAdapterUpdater:didPerformBatchUpdates:collectionView:` [Vincent Peng](https://github.com/vincent-peng) [(#491)](https://github.com/Instagram/IGListKit/pull/491)
+- Renamed `IGListAdapterUpdaterDelegate` method to `listAdapterUpdater:didPerformBatchUpdates:collectionView:`. [Vincent Peng](https://github.com/vincent-peng) [(#491)](https://github.com/Instagram/IGListKit/pull/491)
 
 
 ### Enhancements
