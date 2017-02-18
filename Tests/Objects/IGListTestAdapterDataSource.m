@@ -20,8 +20,10 @@
 }
 
 - (IGListSectionController <IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
-    IGListTestSection *list = [[IGListTestSection alloc] init];
-    return list;
+    if ([object isKindOfClass:[NSNumber class]]) {
+        return [IGListTestSection new];
+    }
+    return nil;
 }
 
 - (nullable UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
