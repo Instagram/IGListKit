@@ -46,6 +46,9 @@ env:
 before_install:
   - gem install slather --no-rdoc --no-ri --no-document --quiet
 
+before_install:
+  - gem install slather --no-rdoc --no-ri --no-document --quiet
+
 script:
 - set -o pipefail
 
