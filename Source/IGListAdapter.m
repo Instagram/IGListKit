@@ -1105,7 +1105,7 @@
 }
 
 - (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController
-                                  completion:(void (^)(BOOL))completion{
+                                  completion:(void (^)(BOOL finished))completion{
     const NSInteger section = [self sectionForSectionController:sectionController];
     const NSInteger items = [_collectionView numberOfItemsInSection:section];
 

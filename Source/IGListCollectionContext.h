@@ -228,7 +228,7 @@ NS_ASSUME_NONNULL_BEGIN
  without animations, or use springs.
  */
 - (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController
-                                  completion:(nullable void (^)(BOOL))completion;
+                                  completion:(nullable void (^)(BOOL finished))completion;
 
 /**
  Batches and performs many cell-level updates in a single transaction.
