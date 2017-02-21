@@ -413,7 +413,7 @@
     self.updater.delegate = mockDelegate;
     id compilerFriendlyNil = nil;
     [[mockDelegate reject] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:compilerFriendlyNil];
-    [[mockDelegate reject] listAdapterUpdater:self.updater didPerformBatchUpdates:[OCMArg any] withCollectionView:compilerFriendlyNil];
+    [[mockDelegate reject] listAdapterUpdater:self.updater didPerformBatchUpdates:[OCMArg any] collectionView:compilerFriendlyNil];
     [self.updater performBatchUpdatesWithCollectionView:compilerFriendlyNil];
     [mockDelegate verify];
 }
@@ -467,7 +467,7 @@
     self.updater.delegate = mockDelegate;
     [mockDelegate setExpectationOrderMatters:YES];
     [[mockDelegate expect] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView];
-    [[mockDelegate expect] listAdapterUpdater:self.updater didPerformBatchUpdates:OCMOCK_ANY withCollectionView:self.collectionView];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didPerformBatchUpdates:OCMOCK_ANY collectionView:self.collectionView];
 
     XCTestExpectation *expectation = genExpectation;
     NSArray *to = @[
@@ -492,7 +492,7 @@
     // except the batch updates calls.
 
     [[mockDelegate reject] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView];
-    [[mockDelegate reject] listAdapterUpdater:self.updater didPerformBatchUpdates:OCMOCK_ANY withCollectionView:self.collectionView];
+    [[mockDelegate reject] listAdapterUpdater:self.updater didPerformBatchUpdates:OCMOCK_ANY collectionView:self.collectionView];
 
     XCTestExpectation *expectation = genExpectation;
     NSArray *to = @[
