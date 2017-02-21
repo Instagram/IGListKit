@@ -16,6 +16,7 @@
 
 #import "UICollectionView+IGListBatchUpdateData.h"
 #import "IGListMoveIndexPathInternal.h"
+#import "IGListPreprocessor.h"
 
 @implementation IGListAdapterUpdater
 
@@ -124,6 +125,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     NSArray *fromObjects = [self.fromObjects copy];
     NSArray *toObjects = objectsWithDuplicateIdentifiersRemoved(self.toObjects);
     void (^objectTransitionBlock)(NSArray *) = [self.objectTransitionBlock copy];
+    IGListUpdatePreprocessingBlock preUpdateBlock = self.preUpdateBlock;
     NSArray *itemUpdateBlocks = [self.itemUpdateBlocks copy];
     NSArray *completionBlocks = [self.completionBlocks copy];
     const BOOL animated = self.queuedUpdateIsAnimated;
@@ -131,100 +133,103 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     // clean up all state so that new updates can be coalesced while the current update is in flight
     [self cleanupState];
 
-    void (^executeUpdateBlocks)() = ^{
-        // run the update block so that the adapter can set its items. this makes sure that just before the update is
-        // committed that the data source is updated to the /latest/ "toObjects". this makes the data source in sync
-        // with the items that the updater is transitioning to
-        if (objectTransitionBlock != nil) {
-            objectTransitionBlock(toObjects);
+    // We are beginning to move into callback hell.
+    preUpdateBlock(^{
+        void (^executeUpdateBlocks)() = ^{
+            // run the update block so that the adapter can set its items. this makes sure that just before the update is
+            // committed that the data source is updated to the /latest/ "toObjects". this makes the data source in sync
+            // with the items that the updater is transitioning to
+            if (objectTransitionBlock != nil) {
+                objectTransitionBlock(toObjects);
+            }
+
+            // execute each item update block which should make calls like insert, delete, and reload for index paths
+            // we collect all mutations in corresponding sets on self, then filter based on UICollectionView shortcomings
+            // call after the objectTransitionBlock so section level mutations happen before any items
+            for (IGListItemUpdateBlock itemUpdateBlock in itemUpdateBlocks) {
+                itemUpdateBlock();
+            }
+        };
+
+        void (^executeCompletionBlocks)(BOOL) = ^(BOOL finished) {
+            for (IGListUpdatingCompletion block in completionBlocks) {
+                block(finished);
+            }
+        };
+
+        // if the collection view isn't in a visible window, skip diffing and batch updating. execute all transition blocks,
+        // reload data, execute completion blocks, and get outta here
+        const BOOL iOS83OrLater = (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_3);
+        if (iOS83OrLater && self.allowsBackgroundReloading && collectionView.window == nil) {
+            [self beginPerformBatchUpdatestoObjects:toObjects];
+            executeUpdateBlocks();
+            [self cleanupUpdateBlockState];
+            [self performBatchUpdatesItemBlockApplied];
+            [collectionView reloadData];
+            [self endPerformBatchUpdates];
+            executeCompletionBlocks(YES);
+            return;
         }
 
-        // execute each item update block which should make calls like insert, delete, and reload for index paths
-        // we collect all mutations in corresponding sets on self, then filter based on UICollectionView shortcomings
-        // call after the objectTransitionBlock so section level mutations happen before any items
-        for (IGListItemUpdateBlock itemUpdateBlock in itemUpdateBlocks) {
-            itemUpdateBlock();
-        }
-    };
+        IGListIndexSetResult *result = IGListDiffExperiment(fromObjects, toObjects, IGListDiffEquality, self.experiments);
 
-    void (^executeCompletionBlocks)(BOOL) = ^(BOOL finished) {
-        for (IGListUpdatingCompletion block in completionBlocks) {
-            block(finished);
+        // if the diff has no changes and there are no update blocks queued, dont batch update
+        if (!result.hasChanges && itemUpdateBlocks.count == 0) {
+            executeUpdateBlocks();
+            executeCompletionBlocks(YES);
+            return;
         }
-    };
 
-    // if the collection view isn't in a visible window, skip diffing and batch updating. execute all transition blocks,
-    // reload data, execute completion blocks, and get outta here
-    const BOOL iOS83OrLater = (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_3);
-    if (iOS83OrLater && self.allowsBackgroundReloading && collectionView.window == nil) {
+        __block IGListBatchUpdateData *updateData = nil;
+
+        void (^updateBlock)() = ^{
+            executeUpdateBlocks();
+
+            updateData = [self flushCollectionView:collectionView
+                                    withDiffResult:result
+                                    reloadSections:[self.reloadSections copy]
+                                  deleteIndexPaths:[self.deleteIndexPaths copy]
+                                  insertIndexPaths:[self.insertIndexPaths copy]
+                                    moveIndexPaths:[self.moveIndexPaths copy]
+                                  reloadIndexPaths:[self.reloadIndexPaths copy]
+                                       fromObjects:fromObjects];
+
+            [self cleanupUpdateBlockState];
+            [self performBatchUpdatesItemBlockApplied];
+        };
+
+        void (^completionBlock)(BOOL) = ^(BOOL finished) {
+            [self endPerformBatchUpdates];
+
+            executeCompletionBlocks(finished);
+
+            [delegate listAdapterUpdater:self didPerformBatchUpdates:updateData collectionView:collectionView];
+
+            // queue another update in case something changed during batch updates. this method will bail next runloop if
+            // there are no changes
+            [self queueUpdateWithCollectionView:collectionView];
+        };
+
+        // disables multiple performBatchUpdates: from happening at the same time
         [self beginPerformBatchUpdatestoObjects:toObjects];
-        executeUpdateBlocks();
-        [self cleanupUpdateBlockState];
-        [self performBatchUpdatesItemBlockApplied];
-        [collectionView reloadData];
-        [self endPerformBatchUpdates];
-        executeCompletionBlocks(YES);
-        return;
-    }
 
-    IGListIndexSetResult *result = IGListDiffExperiment(fromObjects, toObjects, IGListDiffEquality, self.experiments);
-
-    // if the diff has no changes and there are no update blocks queued, dont batch update
-    if (!result.hasChanges && itemUpdateBlocks.count == 0) {
-        executeUpdateBlocks();
-        executeCompletionBlocks(YES);
-        return;
-    }
-
-    __block IGListBatchUpdateData *updateData = nil;
-
-    void (^updateBlock)() = ^{
-        executeUpdateBlocks();
-
-        updateData = [self flushCollectionView:collectionView
-                                withDiffResult:result
-                                reloadSections:[self.reloadSections copy]
-                              deleteIndexPaths:[self.deleteIndexPaths copy]
-                              insertIndexPaths:[self.insertIndexPaths copy]
-                                moveIndexPaths:[self.moveIndexPaths copy]
-                              reloadIndexPaths:[self.reloadIndexPaths copy]
-                                   fromObjects:fromObjects];
-
-        [self cleanupUpdateBlockState];
-        [self performBatchUpdatesItemBlockApplied];
-    };
-
-    void (^completionBlock)(BOOL) = ^(BOOL finished) {
-        [self endPerformBatchUpdates];
-
-        executeCompletionBlocks(finished);
-
-        [delegate listAdapterUpdater:self didPerformBatchUpdates:updateData collectionView:collectionView];
-
-        // queue another update in case something changed during batch updates. this method will bail next runloop if
-        // there are no changes
-        [self queueUpdateWithCollectionView:collectionView];
-    };
-
-    // disables multiple performBatchUpdates: from happening at the same time
-    [self beginPerformBatchUpdatestoObjects:toObjects];
-
-    @try {
-        [delegate listAdapterUpdater:self willPerformBatchUpdatesWithCollectionView:collectionView];
-        if (animated) {
-            [collectionView performBatchUpdates:updateBlock completion:completionBlock];
-        } else {
-            [CATransaction begin];
-            [CATransaction setDisableActions:YES];
-            [collectionView performBatchUpdates:updateBlock completion:^(BOOL finished) {
-                completionBlock(finished);
-                [CATransaction commit];
-            }];
+        @try {
+            [delegate listAdapterUpdater:self willPerformBatchUpdatesWithCollectionView:collectionView];
+            if (animated) {
+                [collectionView performBatchUpdates:updateBlock completion:completionBlock];
+            } else {
+                [CATransaction begin];
+                [CATransaction setDisableActions:YES];
+                [collectionView performBatchUpdates:updateBlock completion:^(BOOL finished) {
+                    completionBlock(finished);
+                    [CATransaction commit];
+                }];
+            }
+        } @catch (NSException *exception) {
+            [delegate listAdapterUpdater:self willCrashWithException:exception fromObjects:fromObjects toObjects:toObjects updates:updateData];
+            @throw exception;
         }
-    } @catch (NSException *exception) {
-        [delegate listAdapterUpdater:self willCrashWithException:exception fromObjects:fromObjects toObjects:toObjects updates:updateData];
-        @throw exception;
-    }
+    });
 }
 
 void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
@@ -319,6 +324,7 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     // remove indexpath/item changes
     self.objectTransitionBlock = nil;
     [self.itemUpdateBlocks removeAllObjects];
+    self.preUpdateBlock = nil;
 
     // remove completion blocks from item transitions or index path updates
     [self.completionBlocks removeAllObjects];
@@ -380,6 +386,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
                             fromObjects:(nullable NSArray *)fromObjects
                               toObjects:(nullable NSArray *)toObjects
                                animated:(BOOL)animated
+                         preUpdateBlock:(nonnull IGListUpdatePreprocessingBlock)preUpdateBlock
                   objectTransitionBlock:(void (^)(NSArray *))objectTransitionBlock
                              completion:(nullable void (^)(BOOL))completion {
     IGAssertMainThread();
@@ -407,6 +414,9 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
 
     // always use the last update block, even though this should always do the exact same thing
     self.objectTransitionBlock = objectTransitionBlock;
+
+    // Same for preUpdateBlock
+    self.preUpdateBlock = preUpdateBlock;
 
     IGListUpdatingCompletion localCompletion = completion;
     if (localCompletion) {

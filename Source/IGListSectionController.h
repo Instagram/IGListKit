@@ -11,6 +11,7 @@
 
 #import <IGListKit/IGListCollectionContext.h>
 #import <IGListKit/IGListDisplayDelegate.h>
+#import <IGListKit/IGListPreprocessingDelegate.h>
 #import <IGListKit/IGListScrollDelegate.h>
 #import <IGListKit/IGListSupplementaryViewSource.h>
 #import <IGListKit/IGListWorkingRangeDelegate.h>
@@ -85,6 +86,15 @@
  @note You may wish to return `self` if your section controller implements this protocol.
  */
 @property (nonatomic, weak, nullable) id <IGListDisplayDelegate> displayDelegate;
+
+/**
+ An object that handles preprocessing updates to the collection view.
+
+ @return An object that conforms to `IGListPreprocessingDelegate` or `nil`.
+
+ @note You may wish to return `self` if your section controller implements this protocol.
+ */
+@property (nonatomic, weak, nullable) id <IGListPreprocessingDelegate> preprocessingDelegate;
 
 /**
  An object that handles working range events for the section controller. Can be `nil`.

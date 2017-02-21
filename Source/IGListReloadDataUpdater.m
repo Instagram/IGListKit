@@ -21,8 +21,11 @@
                             fromObjects:(NSArray *)fromObjects
                               toObjects:(NSArray *)toObjects
                                animated:(BOOL)animated
-                  objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
-                             completion:(IGListUpdatingCompletion)completion {
+                         preUpdateBlock:(nonnull IGListUpdatePreprocessingBlock)preUpdateBlock
+                  objectTransitionBlock:(nonnull IGListObjectTransitionBlock)objectTransitionBlock
+                             completion:(nullable IGListUpdatingCompletion)completion {
+    // TODO: preUpdateBlock
+    // We want that API to support waiting.
     objectTransitionBlock(toObjects);
     [self synchronousReloadDataWithCollectionView:collectionView];
     if (completion) {

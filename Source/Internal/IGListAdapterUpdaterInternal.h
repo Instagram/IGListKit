@@ -39,6 +39,7 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 @property (nonatomic, strong, readonly) NSMutableIndexSet *reloadSections;
 
 @property (nonatomic, copy, nullable) IGListObjectTransitionBlock objectTransitionBlock;
+@property (nonatomic, copy, nullable) IGListUpdatePreprocessingBlock preUpdateBlock;
 @property (nonatomic, copy, nullable) NSMutableArray<IGListItemUpdateBlock> *itemUpdateBlocks;
 
 @property (nonatomic, copy, nullable) IGListReloadUpdateBlock reloadUpdates;

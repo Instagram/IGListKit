@@ -27,6 +27,10 @@ typedef void (^IGListUpdatingCompletion)(BOOL finished);
  */
 typedef void (^IGListObjectTransitionBlock)(NSArray *toObjects);
 
+/**
+ */
+typedef void (^IGListUpdatePreprocessingBlock)(dispatch_block_t completion);
+
 /// A block that contains all of the updates.
 typedef void (^IGListItemUpdateBlock)();
 
@@ -74,6 +78,7 @@ typedef void (^IGListReloadUpdateBlock)();
                             fromObjects:(nullable NSArray<id <IGListDiffable>> *)fromObjects
                               toObjects:(nullable NSArray<id <IGListDiffable>> *)toObjects
                                animated:(BOOL)animated
+                         preUpdateBlock:(IGListUpdatePreprocessingBlock)preUpdateBlock
                   objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
                              completion:(nullable IGListUpdatingCompletion)completion;
 
