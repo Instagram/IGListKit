@@ -264,6 +264,15 @@ NS_ASSUME_NONNULL_BEGIN
                    scrollPosition:(UICollectionViewScrollPosition)scrollPosition
                          animated:(BOOL)animated;
 
+/**
+ Invalidates the collection view layout for all items in the given section.
+ 
+ @param sectionController The section controller.
+ @param indexes           The indexes of the items that should be invalidated.
+ */
+- (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                   atIndexes:(NSIndexSet *)indexes;
+
 @end
 
 NS_ASSUME_NONNULL_END

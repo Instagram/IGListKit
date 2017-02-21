@@ -1104,6 +1104,18 @@
     [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:scrollPosition animated:animated];
 }
 
+- (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                   atIndexes:(NSIndexSet *)indexes {
+    IGAssertMainThread();
+    IGParameterAssert(sectionController != nil);
+    
+    NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes adjustForUpdateBlock:NO];
+    
+    UICollectionViewLayoutInvalidationContext *context = [UICollectionViewLayoutInvalidationContext new];
+    [context invalidateItemsAtIndexPaths:indexPaths];
+    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
+}
+
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
