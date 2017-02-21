@@ -12,6 +12,7 @@
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListAdapterUpdater.h>
 #import <IGListKit/IGListDisplayDelegate.h>
+#import <IGListKit/IGListPreprocessor.h>
 #import <IGListKit/IGListSupplementaryViewSource.h>
 
 #import "IGListSectionControllerInternal.h"
@@ -261,26 +262,36 @@
 
     NSArray *fromObjects = self.sectionMap.objects;
     NSArray *newObjects = [dataSource objectsForListAdapter:self];
-
+    
     __weak __typeof__(self) weakSelf = self;
-    [self.updater performUpdateWithCollectionView:collectionView
-                                      fromObjects:fromObjects
-                                        toObjects:newObjects
-                                         animated:animated
-                            objectTransitionBlock:^(NSArray *toObjects) {
-                                // temporarily capture the item map that we are transitioning from in case
-                                // there are any item deletes at the same
-                                weakSelf.previousSectionMap = [weakSelf.sectionMap copy];
+    [self.updater
+     performUpdateWithCollectionView:collectionView
+     fromObjects:fromObjects
+     toObjects:newObjects
+     animated:animated
+     preUpdateBlock:^(dispatch_block_t  _Nonnull completion) {
+         CGSize boundsSize = collectionView.bounds.size;
+         // TODO: What we want is a section map that represents
+         // the future state, but we don't want to configure
+         // the section controllers FOR that future state yet.
+         // Maybe a variant of our -updateObjects:dataSource: method.
+         IGListSectionMap *sectionMap = weakSelf.sectionMap;
+         IGListPreprocessor *preprocessor = [[IGListPreprocessor alloc] initWithSectionMap:sectionMap containerSize:boundsSize completion:completion];
+         [preprocessor schedulePreprocessing];
+     } objectTransitionBlock:^(NSArray * _Nonnull toObjects) {
+         // temporarily capture the item map that we are transitioning from in case
+         // there are any item deletes at the same
+         weakSelf.previousSectionMap = [weakSelf.sectionMap copy];
 
-                                [weakSelf updateObjects:toObjects dataSource:dataSource];
-                            } completion:^(BOOL finished) {
-                                // release the previous items
-                                weakSelf.previousSectionMap = nil;
+         [weakSelf updateObjects:toObjects dataSource:dataSource];
+     } completion:^(BOOL finished) {
+         // release the previous items
+         weakSelf.previousSectionMap = nil;
 
-                                if (completion) {
-                                    completion(finished);
-                                }
-                            }];
+         if (completion) {
+             completion(finished);
+         }
+     }];
 }
 
 - (void)reloadDataWithCompletion:(nullable IGListUpdaterCompletion)completion {

@@ -21,25 +21,39 @@
     dispatch_group_t _group;
     dispatch_block_t _completion;
     BOOL _ranCompletion;
+    BOOL _scheduledPreprocessing;
+    CGSize _containerSize;
 }
 
-- (instancetype)initWithSectionMap:(IGListSectionMap *)sectionMap {
+- (instancetype)initWithSectionMap:(IGListSectionMap *)sectionMap
+                     containerSize:(CGSize)containerSize
+                        completion:(nonnull dispatch_block_t)completionBlock {
     if (self = [super init]) {
-        _contextToDelegateMap = [NSMapTable strongToStrongObjectsMapTable];
+        _containerSize = containerSize;
+        NSPointerFunctionsOptions mapTableOptions = (NSMapTableStrongMemory | NSMapTableObjectPointerPersonality);
+        _contextToDelegateMap = [NSMapTable mapTableWithKeyOptions:mapTableOptions valueOptions:mapTableOptions];
         _sectionMap = [sectionMap copy];
         _group = dispatch_group_create();
+        _completion = completionBlock;
     }
     return self;
 }
 
-- (void)schedulePreprocessingWithContainerSize:(CGSize)containerSize completion:(nonnull dispatch_block_t)completionBlock {
+- (void)schedulePreprocessing {
     IGAssertMainThread();
-    _completion = completionBlock;
 
-    dispatch_queue_t queue = dispatch_queue_create("IGListPreprocessor Queue", DISPATCH_QUEUE_CONCURRENT);
+    // Ensure this is only ever called once.
+    if (_scheduledPreprocessing) {
+        IGAssert(NO, @"Attempt to call %@ more than once on the same object. %@ is one-shot!", NSStringFromSelector(_cmd), NSStringFromClass(self.class));
+        return;
+    }
+    _scheduledPreprocessing = YES;
+
+    dispatch_queue_t queue = dispatch_queue_create("com.iglistkit.iglistpreprocessor", DISPATCH_QUEUE_CONCURRENT);
 
     dispatch_group_t group = _group;
     NSMapTable *contextToDelegateMap = _contextToDelegateMap;
+    CGSize containerSize = _containerSize;
     [_sectionMap enumerateUsingBlock:^(id  _Nonnull object, IGListSectionController<IGListSectionType> * _Nonnull sectionController, NSInteger section, BOOL * _Nonnull stop) {
         id<IGListPreprocessingDelegate> delegate = sectionController.preprocessingDelegate;
         if (delegate == nil) {
@@ -50,7 +64,8 @@
         IGListPreprocessingContext *context = [[IGListPreprocessingContext alloc] initWithObject:object containerSize:containerSize sectionIndex:section dispatchGroup:group];
         [contextToDelegateMap setObject:delegate forKey:context];
 
-        // Schedule the delegate's work – the context will call preprocessingDidCompleteWithContext:
+        // Schedule the delegate's work – the context will dispatch_group_leave when it
+        // the user calls -completePreprocessing.
         dispatch_group_enter(group);
         dispatch_async(queue, ^{
             [delegate preprocessWithContext:context];

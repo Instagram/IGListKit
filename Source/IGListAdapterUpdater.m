@@ -16,7 +16,6 @@
 
 #import "UICollectionView+IGListBatchUpdateData.h"
 #import "IGListMoveIndexPathInternal.h"
-#import "IGListPreprocessor.h"
 
 @implementation IGListAdapterUpdater
 
