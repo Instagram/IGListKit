@@ -9,6 +9,20 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 ### Breaking Changes
 
+- Renamed `withCollectionView:` param to `collectionView:` in `IGListAdapterUpdaterDelegate` [Malecks] (https://github.com/Malecks) [(#466)](https://github.com/Instagram/IGListKit/pull/466)
+
+```objc
+// OLD
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater 
+  didPerformBatchUpdates:(IGListBatchUpdateData *)updates 
+  withCollectionView:(UICollectionView *)collectionView;
+  
+// NEW
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater 
+  didPerformBatchUpdates:(IGListBatchUpdateData *)updates 
+  collectionView:(UICollectionView *)collectionView;
+```
+
 - Updated `didSelect` delegate call in `IGListSingleSectionControllerDelegate` to include object. [Sherlouk](https://github.com/Sherlouk) [(#397)](https://github.com/Instagram/IGListKit/pull/397)
 
 ```objc
