@@ -1337,4 +1337,32 @@
     XCTAssertEqualObjects(movedCell2.label.text, @"foo");
 }
 
+- (void)test_whenInvalidatingSectionController_withSizeChange_thatCellsAreSameInstance_thatCellsFrameChanged {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @2),
+                             ]];
+
+    NSIndexPath *path1 = [NSIndexPath indexPathForItem:0 inSection:0];
+    NSIndexPath *path2 = [NSIndexPath indexPathForItem:1 inSection:0];
+    IGTestCell *cell1 = (IGTestCell*)[self.collectionView cellForItemAtIndexPath:path1];
+    IGTestCell *cell2 = (IGTestCell*)[self.collectionView cellForItemAtIndexPath:path2];
+
+    XCTAssertEqual(cell1.frame.size.height, 10);
+    XCTAssertEqual(cell2.frame.size.height, 10);
+
+    IGTestDelegateController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    section.height = 20.0;
+
+    XCTestExpectation *expectation = genExpectation;
+    [section.collectionContext invalidateLayoutForSectionController:section completion:^(BOOL finished) {
+        XCTAssertEqual(cell1, [self.collectionView cellForItemAtIndexPath:path1]);
+        XCTAssertEqual(cell2, [self.collectionView cellForItemAtIndexPath:path2]);
+        XCTAssertEqual(cell1.frame.size.height, 20);
+        XCTAssertEqual(cell2.frame.size.height, 20);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
 @end
