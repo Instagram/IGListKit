@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol IGListDiffable;
+@protocol IGListAsyncTask, IGListDiffable;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -64,6 +64,7 @@ typedef void (^IGListReloadUpdateBlock)();
  @param fromObjects           The previous objects in the collection view. Objects must conform to `IGListDiffable`.
  @param toObjects             The new objects in collection view. Objects must conform to `IGListDiffable`.
  @param animated              A flag indicating if the transition should be animated.
+ @param preUpdateTask         A task to run before flushing the update to the collection view.
  @param objectTransitionBlock A block that must be called when the adapter applies changes to the collection view.
  @param completion            A completion block to execute when the update is finished.
 
@@ -78,7 +79,7 @@ typedef void (^IGListReloadUpdateBlock)();
                             fromObjects:(nullable NSArray<id <IGListDiffable>> *)fromObjects
                               toObjects:(nullable NSArray<id <IGListDiffable>> *)toObjects
                                animated:(BOOL)animated
-                         preUpdateBlock:(IGListUpdatePreprocessingBlock)preUpdateBlock
+                          preUpdateTask:(nullable id<IGListAsyncTask>)preUpdateTask
                   objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
                              completion:(nullable IGListUpdatingCompletion)completion;
 

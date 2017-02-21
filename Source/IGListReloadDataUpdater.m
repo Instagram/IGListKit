@@ -9,6 +9,8 @@
 
 #import <IGListKit/IGListReloadDataUpdater.h>
 
+#import "IGListAsyncTask.h"
+
 @implementation IGListReloadDataUpdater
 
 #pragma mark - IGListUpdatingDelegate
@@ -21,11 +23,13 @@
                             fromObjects:(NSArray *)fromObjects
                               toObjects:(NSArray *)toObjects
                                animated:(BOOL)animated
-                         preUpdateBlock:(nonnull IGListUpdatePreprocessingBlock)preUpdateBlock
+                          preUpdateTask:(id<IGListAsyncTask>)preUpdateTask
                   objectTransitionBlock:(nonnull IGListObjectTransitionBlock)objectTransitionBlock
                              completion:(nullable IGListUpdatingCompletion)completion {
-    // TODO: preUpdateBlock
-    // We want that API to support waiting.
+    if (preUpdateTask) {
+        [preUpdateTask startWithCompletion:nil];
+        [preUpdateTask waitUntilCompleted];
+    }
     objectTransitionBlock(toObjects);
     [self synchronousReloadDataWithCollectionView:collectionView];
     if (completion) {

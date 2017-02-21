@@ -9,27 +9,17 @@
 
 #import <UIKit/UIKit.h>
 #import <IGListKit/IGListMacros.h>
+#import "IGListAsyncTask.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class IGListSectionMap;
 
 IGLK_SUBCLASSING_RESTRICTED
-@interface IGListPreprocessor : NSObject
+@interface IGListPreprocessingTask : NSObject <IGListAsyncTask>
 
 - (instancetype)initWithSectionMap:(IGListSectionMap *)sectionMap
-                     containerSize:(CGSize)containerSize
-                        completion:(dispatch_block_t)completionBlock;
-
-/**
- * Must be called from the main thread, at most once per instance.
- */
-- (void)schedulePreprocessing;
-
-/**
- * Must be called from the main thread, at most once per instance.
- */
-- (void)waitForPreprocessingToFinish;
+                     containerSize:(CGSize)containerSize;
 
 @end
 

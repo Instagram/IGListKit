@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGListPreprocessor.h"
+#import "IGListPreprocessingTask.h"
 
 #import "IGListAssert.h"
 #import "IGListPreprocessingContext.h"
@@ -15,41 +15,40 @@
 #import "IGListSectionController.h"
 #import "IGListSectionMap.h"
 
-@implementation IGListPreprocessor {
+@implementation IGListPreprocessingTask {
     NSMapTable<IGListPreprocessingContext *, id<IGListPreprocessingDelegate>> *_contextToDelegateMap;
     IGListSectionMap *_sectionMap;
     dispatch_group_t _group;
     dispatch_block_t _completion;
-    BOOL _ranCompletion;
-    BOOL _scheduledPreprocessing;
+    BOOL _finished;
+    BOOL _started;
     CGSize _containerSize;
 }
 
 - (instancetype)initWithSectionMap:(IGListSectionMap *)sectionMap
-                     containerSize:(CGSize)containerSize
-                        completion:(nonnull dispatch_block_t)completionBlock {
+                     containerSize:(CGSize)containerSize {
     if (self = [super init]) {
         _containerSize = containerSize;
         NSPointerFunctionsOptions mapTableOptions = (NSMapTableStrongMemory | NSMapTableObjectPointerPersonality);
         _contextToDelegateMap = [NSMapTable mapTableWithKeyOptions:mapTableOptions valueOptions:mapTableOptions];
         _sectionMap = [sectionMap copy];
         _group = dispatch_group_create();
-        _completion = completionBlock;
     }
     return self;
 }
 
-- (void)schedulePreprocessing {
+- (void)startWithCompletion:(dispatch_block_t)completionBlock {
     IGAssertMainThread();
 
     // Ensure this is only ever called once.
-    if (_scheduledPreprocessing) {
+    if (_started) {
         IGAssert(NO, @"Attempt to call %@ more than once on the same object. %@ is one-shot!", NSStringFromSelector(_cmd), NSStringFromClass(self.class));
         return;
     }
-    _scheduledPreprocessing = YES;
+    _started = YES;
+    _completion = completionBlock;
 
-    dispatch_queue_t queue = dispatch_queue_create("com.iglistkit.iglistpreprocessor", DISPATCH_QUEUE_CONCURRENT);
+    dispatch_queue_t queue = dispatch_queue_create("com.iglistkit.IGListPreprocessingTask", DISPATCH_QUEUE_CONCURRENT);
 
     dispatch_group_t group = _group;
     NSMapTable *contextToDelegateMap = _contextToDelegateMap;
@@ -72,31 +71,35 @@
         });
     }];
 
-    // When the work is all done, call -runCompletionIfNeeded on main.
+    // When the work is all done, call -finishOnMainThread on main.
     dispatch_group_notify(_group, dispatch_get_main_queue(), ^{
-        [self runCompletionIfNeeded];
+        [self finishOnMainThread];
     });
 }
 
-- (void)waitForPreprocessingToFinish {
+- (void)waitUntilCompleted {
     IGAssertMainThread();
+    if (!_started) {
+        IGAssert(NO, @"Attempt to wait on preprocessing that never started: %@", self);
+        return;
+    }
 
     dispatch_group_wait(_group, DISPATCH_TIME_FOREVER);
-    [self runCompletionIfNeeded];
+    [self finishOnMainThread];
 }
 
 #pragma mark - Private
 
-- (void)runCompletionIfNeeded {
+- (void)finishOnMainThread {
     IGAssertMainThread();
 
     // Handle case where we ran completion before e.g.
     // -waitForPreprocessingToFinish was called before
     // completion was run naturally.
-    if (_ranCompletion) {
+    if (_finished) {
         return;
     }
-    _ranCompletion = YES;
+    _finished = YES;
 
     // Inform all the delegates about preprocessing being done.
     for (IGListPreprocessingContext *context in _contextToDelegateMap) {

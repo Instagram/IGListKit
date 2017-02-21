@@ -124,7 +124,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     NSArray *fromObjects = [self.fromObjects copy];
     NSArray *toObjects = objectsWithDuplicateIdentifiersRemoved(self.toObjects);
     void (^objectTransitionBlock)(NSArray *) = [self.objectTransitionBlock copy];
-    IGListUpdatePreprocessingBlock preUpdateBlock = self.preUpdateBlock;
+    id<IGListAsyncTask> preUpdateTask = self.preUpdateTask;
     NSArray *itemUpdateBlocks = [self.itemUpdateBlocks copy];
     NSArray *completionBlocks = [self.completionBlocks copy];
     const BOOL animated = self.queuedUpdateIsAnimated;
@@ -133,7 +133,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     [self cleanupState];
 
     // We are beginning to move into callback hell.
-    preUpdateBlock(^{
+    [preUpdateTask startWithCompletion:^{
         void (^executeUpdateBlocks)() = ^{
             // run the update block so that the adapter can set its items. this makes sure that just before the update is
             // committed that the data source is updated to the /latest/ "toObjects". this makes the data source in sync
@@ -228,7 +228,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
             [delegate listAdapterUpdater:self willCrashWithException:exception fromObjects:fromObjects toObjects:toObjects updates:updateData];
             @throw exception;
         }
-    });
+    }];
 }
 
 void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
@@ -323,7 +323,7 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     // remove indexpath/item changes
     self.objectTransitionBlock = nil;
     [self.itemUpdateBlocks removeAllObjects];
-    self.preUpdateBlock = nil;
+    self.preUpdateTask = nil;
 
     // remove completion blocks from item transitions or index path updates
     [self.completionBlocks removeAllObjects];
@@ -385,7 +385,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
                             fromObjects:(nullable NSArray *)fromObjects
                               toObjects:(nullable NSArray *)toObjects
                                animated:(BOOL)animated
-                         preUpdateBlock:(nonnull IGListUpdatePreprocessingBlock)preUpdateBlock
+                          preUpdateTask:(id<IGListAsyncTask>)preUpdateTask
                   objectTransitionBlock:(void (^)(NSArray *))objectTransitionBlock
                              completion:(nullable void (^)(BOOL))completion {
     IGAssertMainThread();
@@ -414,8 +414,8 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     // always use the last update block, even though this should always do the exact same thing
     self.objectTransitionBlock = objectTransitionBlock;
 
-    // Same for preUpdateBlock
-    self.preUpdateBlock = preUpdateBlock;
+    // Same for preUpdateTask
+    self.preUpdateTask = preUpdateTask;
 
     IGListUpdatingCompletion localCompletion = completion;
     if (localCompletion) {
@@ -428,7 +428,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
 - (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
                                animated:(BOOL)animated
                             itemUpdates:(void (^)())itemUpdates
-                             completion:(void (^)(BOOL))completion {
+                             completion:(IGListUpdatingCompletion)completion {
     IGAssertMainThread();
     IGParameterAssert(collectionView != nil);
     IGParameterAssert(itemUpdates != nil);
