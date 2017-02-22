@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return An array of visible index paths, or an empty array if none are found.
  
  */
-- (NSArray<NSIndexPath *> *)visiblePathsForSectionController:(IGListSectionController<IGListSectionType> *) sectionController;
+- (NSArray<NSIndexPath *> *)visibleIndexPathsForSectionController:(IGListSectionController<IGListSectionType> *) sectionController;
 
 /**
  Deselects a cell in the collection.

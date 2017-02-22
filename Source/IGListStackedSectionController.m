@@ -187,10 +187,10 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     return cells;
 }
 
-- (NSArray<NSIndexPath *> *)visiblePathsForSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
+- (NSArray<NSIndexPath *> *)visibleIndexPathsForSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
     NSMutableArray *paths = [NSMutableArray new];
     id<IGListCollectionContext> collectionContext = self.collectionContext;
-    NSArray *visiblePaths = [collectionContext visiblePathsForSectionController:self];
+    NSArray *visiblePaths = [collectionContext visibleIndexPathsForSectionController:self];
     for (NSIndexPath *path in visiblePaths) {
         if (self.sectionControllersForItems[path.section] == sectionController) {
             [paths addObject:path];

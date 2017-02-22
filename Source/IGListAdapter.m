@@ -857,7 +857,7 @@
     return cells;
 }
 
-- (NSArray<NSIndexPath *> *)visiblePathsForSectionController:(IGListSectionController<IGListSectionType> *) sectionController {
+- (NSArray<NSIndexPath *> *)visibleIndexPathsForSectionController:(IGListSectionController<IGListSectionType> *) sectionController {
     NSMutableArray *paths = [NSMutableArray new];
     UICollectionView *collectionView = self.collectionView;
     NSArray *visiblePaths = [collectionView indexPathsForVisibleItems];

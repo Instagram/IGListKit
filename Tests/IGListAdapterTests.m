@@ -313,6 +313,21 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     XCTAssertEqual([self.adapter visibleCellsForSectionController:sectionController6].count, 0);
 }
 
+- (void)test_whenCellsExtendBeyondBounds_thatVisibleIndexPathsExistForSectionControllers {
+    self.dataSource.objects = @[@2, @3, @4, @5, @6];
+    [self.adapter reloadDataWithCompletion:nil];
+    id sectionController2 = [self.adapter sectionControllerForObject:@2];
+    id sectionController3 = [self.adapter sectionControllerForObject:@3];
+    id sectionController4 = [self.adapter sectionControllerForObject:@4];
+    id sectionController5 = [self.adapter sectionControllerForObject:@5];
+    id sectionController6 = [self.adapter sectionControllerForObject:@6];
+    XCTAssertEqual([self.adapter visibleIndexPathsForSectionController:sectionController2].count, 2);
+    XCTAssertEqual([self.adapter visibleIndexPathsForSectionController:sectionController3].count, 3);
+    XCTAssertEqual([self.adapter visibleIndexPathsForSectionController:sectionController4].count, 4);
+    XCTAssertEqual([self.adapter visibleIndexPathsForSectionController:sectionController5].count, 1);
+    XCTAssertEqual([self.adapter visibleIndexPathsForSectionController:sectionController6].count, 0);
+}
+
 - (void)test_whenDataSourceAddsItems_thatEmptyViewBecomesVisible {
     self.dataSource.objects = @[];
     UIView *background = [UIView new];
