@@ -857,6 +857,19 @@
     return cells;
 }
 
+- (NSArray<NSIndexPath *> *)visiblePathsForSectionController:(IGListSectionController<IGListSectionType> *) sectionController {
+    NSMutableArray *paths = [NSMutableArray new];
+    UICollectionView *collectionView = self.collectionView;
+    NSArray *visiblePaths = [collectionView indexPathsForVisibleItems];
+    const NSInteger section = [self sectionForSectionController:sectionController];
+    for (NSIndexPath *path in visiblePaths) {
+        if (path.section == section) {
+            [paths addObject:path];
+        }
+    }
+    return paths;
+}
+
 - (void)deselectItemAtIndex:(NSInteger)index
           sectionController:(IGListSectionController<IGListSectionType> *)sectionController
                    animated:(BOOL)animated {

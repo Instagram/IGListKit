@@ -187,6 +187,18 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     return cells;
 }
 
+- (NSArray<NSIndexPath *> *)visiblePathsForSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
+    NSMutableArray *paths = [NSMutableArray new];
+    id<IGListCollectionContext> collectionContext = self.collectionContext;
+    NSArray *visiblePaths = [collectionContext visiblePathsForSectionController:self];
+    for (NSIndexPath *path in visiblePaths) {
+        if (self.sectionControllersForItems[path.section] == sectionController) {
+            [paths addObject:path];
+        }
+    }
+    return paths;
+}
+
 - (void)deselectItemAtIndex:(NSInteger)index sectionController:(IGListSectionController<IGListSectionType> *)sectionController animated:(BOOL)animated {
     const NSInteger offsetIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:index];
     [self.collectionContext deselectItemAtIndex:offsetIndex sectionController:self animated:animated];
