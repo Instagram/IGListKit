@@ -192,7 +192,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     id<IGListCollectionContext> collectionContext = self.collectionContext;
     NSArray *visiblePaths = [collectionContext visibleIndexPathsForSectionController:self];
     for (NSIndexPath *path in visiblePaths) {
-        if (self.sectionControllersForItems[path.section] == sectionController) {
+        if (self.sectionControllersForItems[path.item] == sectionController) {
             [paths addObject:path];
         }
     }

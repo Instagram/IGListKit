@@ -416,6 +416,26 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     XCTAssertEqual([stack visibleCellsForSectionController:section5].count, 0);
 }
 
+- (void)test_whenQueryingVisibleSectionControllers_withIndexPathsOffscreen_thatOnlyVisibleReturned {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@3, @4, @0, @5, @6]]
+                             ]];
+    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    
+    IGListTestSection *section1 = stack.sectionControllers[0];
+    IGListTestSection *section2 = stack.sectionControllers[1];
+    IGListTestSection *section3 = stack.sectionControllers[2];
+    IGListTestSection *section4 = stack.sectionControllers[3];
+    IGListTestSection *section5 = stack.sectionControllers[4];
+    
+    XCTAssertEqual([self.adapter visibleIndexPathsForSectionController:stack].count, 10);
+    XCTAssertEqual([stack visibleIndexPathsForSectionController:section1].count, 3);
+    XCTAssertEqual([stack visibleIndexPathsForSectionController:section2].count, 4);
+    XCTAssertEqual([stack visibleIndexPathsForSectionController:section3].count, 0);
+    XCTAssertEqual([stack visibleIndexPathsForSectionController:section4].count, 3);
+    XCTAssertEqual([stack visibleIndexPathsForSectionController:section5].count, 0);
+}
+
 - (void)test_whenPerformingItemUpdates_thatMutationsMapToSectionControllers {
     [self setupWithObjects:@[
                              [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],

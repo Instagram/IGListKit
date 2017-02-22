@@ -62,9 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
  Returns the visible paths for the given section controller.
  
  @param sectionController The section controller requesting this information.
- 
  @return An array of visible index paths, or an empty array if none are found.
- 
  */
 - (NSArray<NSIndexPath *> *)visibleIndexPathsForSectionController:(IGListSectionController<IGListSectionType> *) sectionController;
 
