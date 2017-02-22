@@ -32,7 +32,6 @@ final class ExpandableSectionController: IGListSectionController, IGListSectionT
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
-        cell.label.numberOfLines = expanded ? 0 : 1
         cell.label.text = object
         return cell
     }
@@ -43,7 +42,14 @@ final class ExpandableSectionController: IGListSectionController, IGListSectionT
 
     func didSelectItem(at index: Int) {
         expanded = !expanded
-        collectionContext?.reload(in: self, at: IndexSet(integer: 0))
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       usingSpringWithDamping: 0.4,
+                       initialSpringVelocity: 0.6,
+                       options: [],
+                       animations: {
+                        self.collectionContext?.invalidateLayout(for: self)
+        })
     }
 
 }

@@ -323,6 +323,10 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
                                              animated:animated];
 }
 
+- (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController completion:(void (^)(BOOL))completion {
+    [self.collectionContext invalidateLayoutForSectionController:self completion:completion];
+}
+
 #pragma mark - IGListDisplayDelegate
 
 - (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController<IGListSectionType> *)sectionController cell:(UICollectionViewCell *)cell atIndex:(NSInteger)index {
