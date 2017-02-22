@@ -18,6 +18,7 @@
     if (self = [super init]) {
         _willDisplayCellIndexes = [NSCountedSet new];
         _didEndDisplayCellIndexes = [NSCountedSet new];
+        _height = 10.0;
         self.workingRangeDelegate = self;
     }
     return self;
@@ -31,7 +32,7 @@
 }
 
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
-    return CGSizeMake(self.collectionContext.containerSize.width, 10);
+    return CGSizeMake(self.collectionContext.containerSize.width, self.height);
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {

@@ -229,6 +229,19 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)reloadSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
 
 /**
+ Invalidate the backing `UICollectionViewLayout` for all items in the section controller.
+
+ @param sectionController The section controller that needs invalidating.
+ @param completion        An optional completion block to execute when the updates are finished.
+
+ @note This method can be wrapped in `UIView` animation APIs to control the duration or perform without animations. This
+ will end up calling `-[UICollectionView performBatchUpdates:completion:] internally, so invalidated changes may not be
+ reflected in the cells immediately.
+ */
+- (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                  completion:(nullable void (^)(BOOL finished))completion;
+
+/**
  Batches and performs many cell-level updates in a single transaction.
 
  @param animated   A flag indicating if the transition should be animated.

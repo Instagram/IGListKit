@@ -34,7 +34,7 @@ class LabelCell: UICollectionViewCell {
     let label: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
-        label.numberOfLines = 1
+        label.numberOfLines = 0
         label.font = LabelCell.font
         return label
     }()
