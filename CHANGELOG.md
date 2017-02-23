@@ -31,6 +31,10 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 ### Enhancements
 
+- Added `-[IGListAdapter visibleCellsForObject:]` API. [Sherlouk](https://github.com/Sherlouk) [(#442)](https://github.com/Instagram/IGListKit/pull/442)
+
+- Added `-[IGListAdapter sectionControllerForSection:]` API. [Adlai-Holler](https://github.com/Adlai-Holler) [(#477)](https://github.com/Instagram/IGListKit/pull/477)
+
 - You can now manually move items (cells) within a section controller, ex: `[self.collectionContext moveInSectionController:self fromIndex:0 toIndex:1]`. [Ryan Nystrom](https://github.com/rnystrom) [(#418)](https://github.com/Instagram/IGListKit/pull/418)
 
 - Invalidate the layout of a section controller and control the transition with `UIView` animation APIs. [Ryan Nystrom](https://github.com/rnystrom) [(#499)](https://github.com/Instagram/IGListKit/pull/499)
@@ -38,19 +42,6 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 ### Fixes
 
 - Gracefully handle a `nil` section controller returned by an `IGListAdapterDataSource`. [Ryan Nystrom](https://github.com/rnystrom) [(tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
-
-2.2.0
------
-
-This release closes the [2.2.0 milestone](https://github.com/Instagram/IGListKit/milestone/4).
-
-### Enhancements
-
-- Added `-[IGListAdapter visibleCellsForObject:]` API. [Sherlouk](https://github.com/Sherlouk) [(#442)](https://github.com/Instagram/IGListKit/pull/442)
-
-- Added `-[IGListAdapter sectionControllerForSection:]` API. [Adlai-Holler](https://github.com/Adlai-Holler) [(#477)](https://github.com/Instagram/IGListKit/pull/477)
-
-### Fixes
 
 - Fix bug where emptyView's hidden status is not updated after the number of items is changed with `insertInSectionController:atIndexes:` or related methods. [Peter Edmonston](https://github.com/edmonston) [(#395)](https://github.com/Instagram/IGListKit/pull/395)
 
