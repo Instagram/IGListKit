@@ -39,6 +39,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Gracefully handle a `nil` section controller returned by an `IGListAdapterDataSource`. [Ryan Nystrom](https://github.com/rnystrom) [(tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
 
+- Fixes `-[IGListAdapter performUpdatesAnimated: completion:]`, not triggering the NSCopying copy() method for all objects inside the adapter array, this enables peformUpdates to correctly show in the collectionView edits to model objects that are implementing NSCopying. [Marco Pappalardo](https://github.com/racer1988) [(#510)](https://github.com/Instagram/IGListKit/pull/510)
+
 2.2.0
 -----
 
