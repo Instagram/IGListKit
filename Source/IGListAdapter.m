@@ -259,7 +259,7 @@
         return;
     }
 
-    NSArray *fromObjects = self.sectionMap.objects;
+    NSArray *fromObjects = [[NSArray alloc] initWithArray:self.sectionMap.objects copyItems:YES];
     NSArray *newObjects = [dataSource objectsForListAdapter:self];
 
     __weak __typeof__(self) weakSelf = self;
