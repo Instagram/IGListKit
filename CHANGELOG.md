@@ -35,7 +35,7 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Invalidate the layout of a section controller and control the transition with `UIView` animation APIs. [Ryan Nystrom](https://github.com/rnystrom) [(#499)](https://github.com/Instagram/IGListKit/pull/499)
 
-- Added `-[IGListAdapter visiblePathsForSectionController:]` API. [Malecks](https://github.com/Malecks) [(#465)](https://github.com/Instagram/IGListKit/pull/465)
+- Added `-[IGListAdapter visibleIndexPathsForSectionController:]` API. [Malecks](https://github.com/Malecks) [(#465)](https://github.com/Instagram/IGListKit/pull/465)
 
 
 ### Fixes
