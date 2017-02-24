@@ -35,5 +35,6 @@ IGListWorkingRangeDelegate
 
 - (IGListSectionController <IGListSectionType> *)sectionControllerForObjectIndex:(NSInteger)itemIndex;
 - (NSInteger)offsetForSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
+- (void)reloadData;
 
 @end

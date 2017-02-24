@@ -596,6 +596,46 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     XCTAssertEqualObjects(visibleObjects, expectedObjects);
 }
 
+- (void)test_whenAdapterUpdated_thatVisibleCellsForObjectAreFound {
+    // each section controller returns n items sized 100x10
+    self.dataSource.objects = @[@2, @10, @5];
+    [self.adapter reloadDataWithCompletion:nil];
+    self.collectionView.contentOffset = CGPointMake(0, 80);
+    [self.collectionView layoutIfNeeded];
+
+    UICollectionView *collectionView = self.collectionView;
+    NSArray *visibleCellsForObject = [[self.adapter visibleCellsForObject:@10] sortedArrayUsingComparator:^NSComparisonResult(UICollectionViewCell* lhs, UICollectionViewCell* rhs) {
+        NSIndexPath *lhsIndexPath = [collectionView indexPathForCell:lhs];
+        NSIndexPath *rhsIndexPath = [collectionView indexPathForCell:rhs];
+        
+        if (lhsIndexPath.section == rhsIndexPath.section) {
+            return lhsIndexPath.item > rhsIndexPath.item;
+        }
+        
+        return lhsIndexPath.section > rhsIndexPath.section;
+    }];
+    
+    XCTAssertEqual(visibleCellsForObject.count, 4);
+    XCTAssertEqual([self.collectionView indexPathForCell:visibleCellsForObject[0]].item, 6);
+    XCTAssertEqual([self.collectionView indexPathForCell:visibleCellsForObject[1]].item, 7);
+    XCTAssertEqual([self.collectionView indexPathForCell:visibleCellsForObject[2]].item, 8);
+    XCTAssertEqual([self.collectionView indexPathForCell:visibleCellsForObject[3]].item, 9);
+    
+    NSArray *visibleCellsForObjectTwo = [self.adapter visibleCellsForObject:@5];
+    XCTAssertEqual(visibleCellsForObjectTwo.count, 5);
+}
+
+- (void)test_whenAdapterUpdated_thatVisibleCellsForNilObjectIsEmpty {
+    // each section controller returns n items sized 100x10
+    self.dataSource.objects = @[@2, @10, @5];
+    [self.adapter reloadDataWithCompletion:nil];
+    self.collectionView.contentOffset = CGPointMake(0, 80);
+    [self.collectionView layoutIfNeeded];
+    
+    NSArray *visibleCellsForObject = [self.adapter visibleCellsForObject:@3];
+    XCTAssertEqual(visibleCellsForObject.count, 0);
+}
+
 - (void)test_whenScrollVerticallyToItem {
     // # of items for each object == [item integerValue], so @2 has 2 items (cells)
     self.dataSource.objects = @[@1, @2, @3, @4, @5, @6];
