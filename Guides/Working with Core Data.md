@@ -10,6 +10,10 @@ The main difference in the setup and architecture of a Core Data and `IGListKit`
 
 In order to satisfy these prerequisites, Core Data `NSManagedObject`s should not be used directly as `IGListDiffable` objects. Instead, a view model (or some sort of token object) should be used to mimic (or act as a placeholder for) the data that will be displayed in the collection view.
 
+## Further discussion
+
+There are further discussions on this topic at [#460](https://github.com/Instagram/IGListKit/issues/460), [#461](https://github.com/Instagram/IGListKit/issues/461), [#407](https://github.com/Instagram/IGListKit/issues/407).
+
 ## Basic Setup
 
 The basic setup for Core Data and `IGListKit` is the same as the normal setup that is found in the [Getting Started Guide][https://instagram.github.io/IGListKit/getting-started.html]. The main difference will be in the setup of the model in the datasource.
