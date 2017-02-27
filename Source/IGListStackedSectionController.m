@@ -165,7 +165,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     return [self.collectionContext containerSize];
 }
 
-- (CGSize)containerInsetSizeForSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
+- (CGSize)containerSizeForSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
     const UIEdgeInsets inset = sectionController.inset;
     return CGSizeMake(self.containerSize.width - inset.left - inset.right,
                       self.containerSize.height - inset.top - inset.bottom);

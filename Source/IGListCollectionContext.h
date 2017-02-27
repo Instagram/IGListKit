@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return The size of the collection view minus the given section controller's insets.
  */
-- (CGSize)containerInsetSizeForSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
+- (CGSize)containerSizeForSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
 
 /**
  Returns the index of the specified cell in the collection relative to the section controller.
