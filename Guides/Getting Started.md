@@ -57,8 +57,10 @@ func emptyView(for listAdapter: IGListAdapter) -> UIView? {
 ```
 
 You can return an array of _any_ type of data, as long as it conforms to `IGListDiffable`.
-The data should be immutable. If you return mutable objects that you will be editing later, IGListKit will not be able to run the diffing algorithm, because the objects instances will be already changed. The updates to the objects would be lost.
-Instead, always return a freshly instantiated immutable object and correctly implement the diffing of your model, in order to let IGListKit do the calculation for you.
+
+### Immutability
+
+The data should be immutable. If you return mutable objects that you will be editing later, `IGListKit` will not be able to diff the models accurately. This is because the instances have already been changed. Thus, the updates to the objects would be lost. Instead, always return a newly instantiated, immutable object and implement `IGListDiffable`.
 
 ## Diffing
 
