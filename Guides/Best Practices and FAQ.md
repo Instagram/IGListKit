@@ -45,7 +45,7 @@ This feature is on the `master` branch only and hasn't been officially tagged an
 
 **Does `IGListKit` work with...?**
 
-- Core Data ([#460](https://github.com/Instagram/IGListKit/issues/460), [#461](https://github.com/Instagram/IGListKit/issues/461))
+- Core Data ([Working with Core Data](https://instagram.github.io/IGListKit/working-with-core-data.html), [#460](https://github.com/Instagram/IGListKit/issues/460), [#461](https://github.com/Instagram/IGListKit/issues/461))
 - AsyncDisplayKit ([AsyncDisplayKit/#2942](https://github.com/facebook/AsyncDisplayKit/pull/2942))
 - ComponentKit ([ocrickard/IGListKit-ComponentKit](https://github.com/ocrickard/IGListKit-ComponentKit))
 - React Native
