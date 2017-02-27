@@ -20,16 +20,28 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
                         withObject:(id)object;
 ```
 
-2.2.0
------
+- `IGListUpdatingDelegate` now conforms to `NSObject`, bringing it in line with other framework protocols. [Adlai Holler](https://github.com/Adlai-Holler) [(#435)](https://github.com/Instagram/IGListKit/pull/435)
 
-This release closes the [2.2.0 milestone](https://github.com/Instagram/IGListKit/milestone/4).
+- Changed `hasChanges` methods in `IGListIndexPathResult` and `IGListIndexSetResult` to read-only properties. [Bofei Zhu](https://github.com/zhubofei) [(#453)](https://github.com/Instagram/IGListKit/pull/453)
+
+- Replaced `IGListGridCollectionViewLayout` with `IGListCollectionViewLayout`. [[Ryan Nystrom](https://github.com/rnystrom) [(tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
+
+- Renamed `IGListAdapterUpdaterDelegate` method to `listAdapterUpdater:didPerformBatchUpdates:collectionView:`. [Vincent Peng](https://github.com/vincent-peng) [(#491)](https://github.com/Instagram/IGListKit/pull/491)
+
 
 ### Enhancements
 
 - Added `-[IGListAdapter visibleCellsForObject:]` API. [Sherlouk](https://github.com/Sherlouk) [(#442)](https://github.com/Instagram/IGListKit/pull/442)
 
+- Added `-[IGListAdapter sectionControllerForSection:]` API. [Adlai-Holler](https://github.com/Adlai-Holler) [(#477)](https://github.com/Instagram/IGListKit/pull/477)
+
+- You can now manually move items (cells) within a section controller, ex: `[self.collectionContext moveInSectionController:self fromIndex:0 toIndex:1]`. [Ryan Nystrom](https://github.com/rnystrom) [(#418)](https://github.com/Instagram/IGListKit/pull/418)
+
+- Invalidate the layout of a section controller and control the transition with `UIView` animation APIs. [Ryan Nystrom](https://github.com/rnystrom) [(#499)](https://github.com/Instagram/IGListKit/pull/499)
+
 ### Fixes
+
+- Gracefully handle a `nil` section controller returned by an `IGListAdapterDataSource`. [Ryan Nystrom](https://github.com/rnystrom) [(tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
 
 - Fix bug where emptyView's hidden status is not updated after the number of items is changed with `insertInSectionController:atIndexes:` or related methods. [Peter Edmonston](https://github.com/edmonston) [(#395)](https://github.com/Instagram/IGListKit/pull/395)
 
@@ -37,7 +49,9 @@ This release closes the [2.2.0 milestone](https://github.com/Instagram/IGListKit
 
 - Fix bug where `-[UICollectionViewCell ig_setStackedSectionControllerIndex:]` should use `OBJC_ASSOCIATION_COPY_NONATOMIC` for NSNumber. [PhilCai](https://github.com/PhilCai1993) [(#424)](https://github.com/Instagram/IGListKit/pull/426)
 
-- Fix potential bug with suppressing animations (by passing `NO`) during `-[IGListAdapter performUpdatesAnimated: completion:]` where user would see UI glitches/flashing. [Jesse Squires](https://github.com/jessesquires) [(tbd)]()
+- Fix potential bug with suppressing animations (by passing `NO`) during `-[IGListAdapter performUpdatesAnimated: completion:]` where user would see UI glitches/flashing. [Jesse Squires](https://github.com/jessesquires) [(019c990)](https://github.com/Instagram/IGListKit/commit/019c990312eea4203c7388a83b50685d426aa372)
+
+- Fix bug where scroll position would be incorrect in call to `-[IGListAdapter scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:animated:` with scrollDirection/scrollPosition of UICollectionViewScrollDirectionVertical/UICollectionViewScrollPositionCenteredVertically or UICollectionViewScrollDirectionHorizontal/UICollectionViewScrollPositionCenteredHorizontally and with a collection view with nonzero contentInset. [David Yamnitsky](https://github.com/nitsky) [(5cc0fcd)](https://github.com/Instagram/IGListKit/commit/5cc0fcd1d77d6296f57ce1c298301b9881cb4d4a)
 
 2.1.0
 -----
@@ -109,6 +123,10 @@ You can find a [migration guide here](https://instagram.github.io/IGListKit/migr
         scrollPosition:(UICollectionViewScrollPosition)scrollPosition
               animated:(BOOL)animated;
 ```
+
+### Fixes
+
+- Consider supplementary views with display and end-display events. [Ryan Nystrom](https://github.com/rnystrom) [(#470)](https://github.com/Instagram/IGListKit/pull/470)
 
 
 - Changed `NSUInteger` to `NSInteger` in all public APIs. [Suraya Shivji](https://github.com/surayashivji) [(#200)](https://github.com/Instagram/IGListKit/issues/200)

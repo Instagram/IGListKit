@@ -283,6 +283,13 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     [self.collectionContext deleteInSectionController:self atIndexes:itemIndexes];
 }
 
+- (void)moveInSectionController:(IGListSectionController<IGListSectionType> *)sectionController fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
+    [self reloadData];
+    const NSInteger fromRelativeIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:fromIndex];
+    const NSInteger toRelativeIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:toIndex];
+    [self.collectionContext moveInSectionController:self fromIndex:fromRelativeIndex toIndex:toRelativeIndex];
+}
+
 - (void)reloadSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
     [self reloadData];
     [self.collectionContext reloadSectionController:self];
@@ -308,6 +315,10 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
                                               atIndex:offsetIndex
                                        scrollPosition:scrollPosition
                                              animated:animated];
+}
+
+- (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController completion:(void (^)(BOOL))completion {
+    [self.collectionContext invalidateLayoutForSectionController:self completion:completion];
 }
 
 #pragma mark - IGListDisplayDelegate

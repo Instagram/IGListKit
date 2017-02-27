@@ -23,7 +23,7 @@ IGLK_SUBCLASSING_RESTRICTED
  :nodoc:
  */
 - (void)performBatchUpdates:(void (^)(void))updates
-                 completion:(void (^)(BOOL))completion IGLK_UNAVAILABLE("Call -[IGListAdapter performUpdatesWithCompletion:] instead");
+                 completion:(void (^)(BOOL))completion IGLK_UNAVAILABLE("Call -[IGListAdapter performUpdatesAnimated:completion:] instead");
 
 /**
  :nodoc:
@@ -33,37 +33,37 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  :nodoc:
  */
-- (void)reloadSections:(NSIndexSet *)sections IGLK_UNAVAILABLE("Call -[IGListAdapter reloadItems:] instead");
+- (void)reloadSections:(NSIndexSet *)sections IGLK_UNAVAILABLE("Call -[IGListAdapter reloadObjects:] instead");
 
 /**
  :nodoc:
  */
-- (void)insertSections:(NSIndexSet *)sections IGLK_UNAVAILABLE("Call -[IGListAdapter performUpdatesWithCompletion:] instead");
+- (void)insertSections:(NSIndexSet *)sections IGLK_UNAVAILABLE("Call -[IGListAdapter performUpdatesAnimated:completion:] instead");
 
 /**
  :nodoc:
  */
-- (void)deleteSections:(NSIndexSet *)sections IGLK_UNAVAILABLE("Call -[IGListAdapter performUpdatesWithCompletion:] instead");
+- (void)deleteSections:(NSIndexSet *)sections IGLK_UNAVAILABLE("Call -[IGListAdapter performUpdatesAnimated:completion:] instead");
 
 /**
  :nodoc:
  */
-- (void)moveSection:(NSInteger)section toSection:(NSInteger)newSection IGLK_UNAVAILABLE("Call -[IGListAdapter performUpdatesWithCompletion:] instead");
+- (void)moveSection:(NSInteger)section toSection:(NSInteger)newSection IGLK_UNAVAILABLE("Call -[IGListAdapter performUpdatesAnimated:completion:] instead");
 
 /**
  :nodoc:
  */
-- (void)insertItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths IGLK_UNAVAILABLE("Call -[<IGListCollectionContext> insertSectionController:forItems:completion:] instead");
+- (void)insertItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths IGLK_UNAVAILABLE("Call -[<IGListCollectionContext> insertInSectionController:atIndexes:] instead");
 
 /**
  :nodoc:
  */
-- (void)reloadItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths IGLK_UNAVAILABLE("Call -[<IGListCollectionContext> reloadSectionController:forItems:completion:] instead");
+- (void)reloadItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths IGLK_UNAVAILABLE("Call -[<IGListCollectionContext> reloadInSectionController:atIndexes:] instead");
 
 /**
  :nodoc:
  */
-- (void)deleteItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths IGLK_UNAVAILABLE("Call -[<IGListCollectionContext> deleteSectionController:forItems:completion:] instead");
+- (void)deleteItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths IGLK_UNAVAILABLE("Call -[<IGListCollectionContext> deleteInSectionController:atIndexes:] instead");
 
 /**
  :nodoc:

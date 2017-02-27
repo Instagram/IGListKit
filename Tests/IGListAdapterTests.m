@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
+ * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
@@ -134,7 +134,7 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     IGListSectionController <IGListSectionType> * second = [self.adapter sectionControllerForObject:@1];
     NSArray *paths0 = [self.adapter indexPathsFromSectionController:second
                                                             indexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 4)]
-                                               adjustForUpdateBlock:NO];
+                                                 usePreviousIfInUpdateBlock:NO];
     NSArray *expected = @[
                           [NSIndexPath indexPathForItem:2 inSection:1],
                           [NSIndexPath indexPathForItem:3 inSection:1],
@@ -153,7 +153,7 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     [self.adapter performBatchAnimated:YES updates:^{
         NSArray *paths = [self.adapter indexPathsFromSectionController:second
                                                                indexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 2)]
-                                                  adjustForUpdateBlock:YES];
+                                                    usePreviousIfInUpdateBlock:YES];
         NSArray *expected = @[
                               [NSIndexPath indexPathForItem:2 inSection:1],
                               [NSIndexPath indexPathForItem:3 inSection:1],
@@ -213,8 +213,8 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     self.dataSource.objects = @[@0, @1, @2];
     UIViewController *controller = [UIViewController new];
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
-                                                              viewController:controller
-                                                            workingRangeSize:0];
+                                                     viewController:controller
+                                                   workingRangeSize:0];
     adapter.collectionView = self.collectionView;
     adapter.dataSource = self.dataSource;
     IGListSectionController <IGListSectionType> *sectionController = [adapter sectionControllerForObject:@1];
@@ -224,8 +224,8 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 - (void)test_whenSettingCollectionView_thenSettingDataSource_thatCellExists {
     self.dataSource.objects = @[@1];
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
-                                                              viewController:nil
-                                                            workingRangeSize:0];
+                                                     viewController:nil
+                                                   workingRangeSize:0];
     adapter.collectionView = self.collectionView;
     adapter.dataSource = self.dataSource;
     [self.collectionView layoutIfNeeded];
@@ -235,8 +235,8 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 - (void)test_whenSettingDataSource_thenSettingCollectionView_thatCellExists {
     self.dataSource.objects = @[@1];
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
-                                                              viewController:nil
-                                                            workingRangeSize:0];
+                                                     viewController:nil
+                                                   workingRangeSize:0];
     adapter.dataSource = self.dataSource;
     adapter.collectionView = self.collectionView;
     [self.collectionView layoutIfNeeded];
@@ -682,17 +682,17 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 - (void)test_whenScrollToItem_thatSupplementarySourceSupportsSingleHeader {
     self.dataSource.objects = @[@1, @2];
     [self.adapter reloadDataWithCompletion:nil];
-    
+
     IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
-    
+
     IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@1];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
-    
+
     [self.adapter performUpdatesAnimated:NO completion:nil];
-    
+
     XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
     [self.adapter scrollToObject:@1 supplementaryKinds:@[UICollectionElementKindSectionHeader] scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
@@ -703,17 +703,17 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 - (void)test_whenScrollToItem_thatSupplementarySourceSupportsHeaderAndFooter {
     self.dataSource.objects = @[@1, @2];
     [self.adapter reloadDataWithCompletion:nil];
-    
+
     IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader, UICollectionElementKindSectionFooter];
-    
+
     IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@1];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
-    
+
     [self.adapter performUpdatesAnimated:NO completion:nil];
-    
+
     XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
     XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
     [self.adapter scrollToObject:@1 supplementaryKinds:@[UICollectionElementKindSectionHeader, UICollectionElementKindSectionFooter] scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
@@ -750,7 +750,7 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     [self.adapter reloadDataWithCompletion:nil];
 
     id randomSectionController = [IGListSectionController new];
-    XCTAssertNil([self.adapter indexPathForSectionController:randomSectionController index:0]);
+    XCTAssertNil([self.adapter indexPathForSectionController:randomSectionController index:0 usePreviousIfInUpdateBlock:NO]);
 }
 
 - (void)test_whenQueryingSectionForObject_thatSectionReturned {
@@ -760,6 +760,15 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     XCTAssertEqual([self.adapter sectionForObject:@1], 1);
     XCTAssertEqual([self.adapter sectionForObject:@2], 2);
     XCTAssertEqual([self.adapter sectionForObject:@3], NSNotFound);
+}
+
+- (void)test_whenQueryingSectionControllerForSection_thatControllerReturned {
+	self.dataSource.objects = @[@0, @1, @2];
+	[self.adapter reloadDataWithCompletion:nil];
+	
+	XCTAssertEqual([self.adapter sectionControllerForSection:0], [self.adapter sectionControllerForObject:@0]);
+	XCTAssertEqual([self.adapter sectionControllerForSection:1], [self.adapter sectionControllerForObject:@1]);
+	XCTAssertEqual([self.adapter sectionControllerForSection:2], [self.adapter sectionControllerForObject:@2]);
 }
 
 - (void)test_whenReloadingData_withNoDataSource_thatCompletionCalledWithNO {
@@ -960,11 +969,103 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 - (void)test_whenScrollingToIndex_withSectionController_thatPositionCorrect {
     self.dataSource.objects = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16, @17, @18, @19];
     [self.adapter reloadDataWithCompletion:nil];
-
+    
     IGListSectionController<IGListSectionType> *section = [self.adapter sectionControllerForObject:@8];
     [section.collectionContext scrollToSectionController:section atIndex:0 scrollPosition:UICollectionViewScrollPositionTop animated:NO];
     XCTAssertEqual(self.collectionView.contentOffset.x, 0);
     XCTAssertEqual(self.collectionView.contentOffset.y, 280);
+}
+
+- (void)test_whenDisplayingSectionController_withOnlySupplementaryView_thatDisplayEventStillSent {
+    self.dataSource.objects = @[@0];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
+
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@0];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+
+    id mockDisplayDelegate = [OCMockObject mockForProtocol:@protocol(IGListDisplayDelegate)];
+    [[mockDisplayDelegate expect] listAdapter:self.adapter willDisplaySectionController:controller];
+    [[mockDisplayDelegate reject] listAdapter:self.adapter willDisplaySectionController:controller cell:[OCMArg any] atIndex:0];
+
+    controller.displayDelegate = mockDisplayDelegate;
+
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+
+    [mockDisplayDelegate verify];
+}
+
+- (void)test_whenEndingDisplayOfSectionController_withOnlySupplementaryView_thatDisplayEventStillSent {
+    self.dataSource.objects = @[@0];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
+
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@0];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+
+    id mockDisplayDelegate = [OCMockObject mockForProtocol:@protocol(IGListDisplayDelegate)];
+    [[mockDisplayDelegate expect] listAdapter:self.adapter didEndDisplayingSectionController:controller];
+    [[mockDisplayDelegate reject] listAdapter:self.adapter didEndDisplayingSectionController:controller cell:[OCMArg any] atIndex:0];
+
+    controller.displayDelegate = mockDisplayDelegate;
+
+    controller.supplementaryViewSource = nil;
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
+
+    [mockDisplayDelegate verify];
+}
+
+- (void)test_whenWillDisplaySupplementaryView_thatCollectionViewDelegateReceivesEvents {
+    // silence display handler asserts
+    self.dataSource.objects = @[@1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+    
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
+    self.adapter.collectionViewDelegate = mockDelegate;
+    UICollectionReusableView *view = [UICollectionReusableView new];
+    NSString *kind = @"kind";
+    NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
+    [[mockDelegate expect] collectionView:self.collectionView willDisplaySupplementaryView:view forElementKind:kind atIndexPath:path];
+    [self.adapter collectionView:self.collectionView willDisplaySupplementaryView:view forElementKind:kind atIndexPath:path];
+    [mockDelegate verify];
+}
+
+- (void)test_whenEndDisplayingSupplementaryView_thatCollectionViewDelegateReceivesEvents {
+    // silence display handler asserts
+    self.dataSource.objects = @[@1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
+    self.adapter.collectionViewDelegate = mockDelegate;
+    UICollectionReusableView *view = [UICollectionReusableView new];
+    NSString *kind = @"kind";
+    NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
+    [[mockDelegate expect] collectionView:self.collectionView didEndDisplayingSupplementaryView:view forElementOfKind:kind atIndexPath:path];
+    [self.adapter collectionView:self.collectionView didEndDisplayingSupplementaryView:view forElementOfKind:kind atIndexPath:path];
+    [mockDelegate verify];
+}
+
+- (void)test_whenDataSourceDoesntHandleObject_thatObjectIsDropped {
+    // IGListTestAdapterDataSource does not handle NSStrings
+    self.dataSource.objects = @[@1, @"dog", @2];
+    [self.adapter reloadDataWithCompletion:nil];
+    NSArray *expected = @[@1, @2];
+    XCTAssertEqualObjects(self.adapter.objects, expected);
 }
 
 @end

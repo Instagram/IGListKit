@@ -14,10 +14,10 @@
 @interface IGListSectionMap ()
 
 // both of these maps allow fast lookups of objects, list objects, and indexes
-@property (nonatomic, strong, readonly) NSMapTable<id, IGListSectionController<IGListSectionType> *> *objectToSectionControllerMap;
-@property (nonatomic, strong, readonly) NSMapTable<IGListSectionController<IGListSectionType> *, NSNumber *> *sectionControllerToSectionMap;
+@property (nonatomic, strong, readonly, nonnull) NSMapTable<id, IGListSectionController<IGListSectionType> *> *objectToSectionControllerMap;
+@property (nonatomic, strong, readonly, nonnull) NSMapTable<IGListSectionController<IGListSectionType> *, NSNumber *> *sectionControllerToSectionMap;
 
-@property (nonatomic, strong, readwrite) NSArray *objects;
+@property (nonatomic, strong, nonnull) NSMutableArray *mObjects;
 
 @end
 
@@ -33,7 +33,7 @@
         _sectionControllerToSectionMap = [[NSMapTable alloc] initWithKeyOptions:NSMapTableStrongMemory | NSMapTableObjectPointerPersonality
                                                                    valueOptions:NSMapTableStrongMemory
                                                                        capacity:0];
-        _objects = [NSArray new];
+        _mObjects = [NSMutableArray new];
     }
     return self;
 }
@@ -41,11 +41,15 @@
 
 #pragma mark - Public API
 
+- (NSArray *)objects {
+    return [self.mObjects copy];
+}
+
 - (NSInteger)sectionForSectionController:(IGListSectionController <IGListSectionType> *)sectionController {
     IGParameterAssert(sectionController != nil);
 
     NSNumber *index = [self.sectionControllerToSectionMap objectForKey:sectionController];
-    return index != nil ? [index unsignedIntegerValue] : NSNotFound;
+    return index != nil ? [index integerValue] : NSNotFound;
 }
 
 - (IGListSectionController <IGListSectionType> *)sectionControllerForSection:(NSInteger)section {
@@ -55,7 +59,7 @@
 - (void)updateWithObjects:(NSArray *)objects sectionControllers:(NSArray *)sectionControllers {
     IGParameterAssert(objects.count == sectionControllers.count);
 
-    self.objects = [objects copy];
+    self.mObjects = [objects mutableCopy];
 
     [self reset];
 
@@ -74,8 +78,8 @@
     return [self.objectToSectionControllerMap objectForKey:object];
 }
 
-- (id)objectForSection:(NSInteger)section {
-    NSArray *objects = self.objects;
+- (nullable id)objectForSection:(NSInteger)section {
+    NSArray *objects = self.mObjects;
     if (section < objects.count) {
         return objects[section];
     } else {
@@ -105,10 +109,7 @@
     id sectionController = [self sectionControllerForObject:object];
     [self.sectionControllerToSectionMap setObject:@(section) forKey:sectionController];
     [self.objectToSectionControllerMap setObject:sectionController forKey:object];
-
-    NSMutableArray *mobjects = [self.objects mutableCopy];
-    mobjects[section] = object;
-    self.objects = [mobjects copy];
+    self.mObjects[section] = object;
 }
 
 - (void)enumerateUsingBlock:(void (^)(id object, IGListSectionController <IGListSectionType> *sectionController, NSInteger section, BOOL *stop))block {
@@ -131,8 +132,10 @@
 
 - (id)copyWithZone:(NSZone *)zone {
     IGListSectionMap *copy = [[IGListSectionMap allocWithZone:zone] initWithMapTable:self.objectToSectionControllerMap];
-    copy->_sectionControllerToSectionMap = [self.sectionControllerToSectionMap copy];
-    copy->_objects = [self.objects copy];
+    if (copy != nil) {
+        copy->_sectionControllerToSectionMap = [self.sectionControllerToSectionMap copy];
+        copy->_mObjects = [self.mObjects mutableCopy];
+    }
     return copy;
 }
 
