@@ -53,6 +53,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Fix bug where scroll position would be incorrect in call to `-[IGListAdapter scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:animated:` with scrollDirection/scrollPosition of UICollectionViewScrollDirectionVertical/UICollectionViewScrollPositionCenteredVertically or UICollectionViewScrollDirectionHorizontal/UICollectionViewScrollPositionCenteredHorizontally and with a collection view with nonzero contentInset. [David Yamnitsky](https://github.com/nitsky) [(5cc0fcd)](https://github.com/Instagram/IGListKit/commit/5cc0fcd1d77d6296f57ce1c298301b9881cb4d4a)
 
+- Fix a crash when reusing collection views between embedded `IGListAdapter`s. [Ryan Nystrom](https://github.com/rnystrom) [(#517)](https://github.com/Instagram/IGListKit/pull/517)
+
 2.1.0
 -----
 

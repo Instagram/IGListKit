@@ -64,11 +64,19 @@
 
 - (void)setCollectionView:(IGListCollectionView *)collectionView {
     IGAssertMainThread();
-    IGParameterAssert([collectionView isKindOfClass:[IGListCollectionView class]]);
 
     // if collection view has been used by a different list adapter, treat it as if we were using a new collection view
     // this happens when embedding a IGListCollectionView inside a UICollectionViewCell that is reused
     if (_collectionView != collectionView || _collectionView.dataSource != self) {
+        // if the collection view was being used with another IGListAdapter (e.g. cell reuse)
+        // destroy the previous association so the old adapter doesn't update the wrong collection view
+        static NSMapTable<IGListCollectionView *, IGListAdapter *> *globalCollectionViewAdapterMap = nil;
+        if (globalCollectionViewAdapterMap == nil) {
+            globalCollectionViewAdapterMap = [NSMapTable weakToWeakObjectsMapTable];
+        }
+        [[globalCollectionViewAdapterMap objectForKey:collectionView] setCollectionView:nil];
+        [globalCollectionViewAdapterMap setObject:self forKey:collectionView];
+
         // dump old registered section controllers in the case that we are changing collection views or setting for
         // the first time
         _registeredCellClasses = [NSMutableSet new];
