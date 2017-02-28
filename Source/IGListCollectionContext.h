@@ -59,6 +59,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<UICollectionViewCell *> *)visibleCellsForSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
 
 /**
+ Returns the visible paths for the given section controller.
+ 
+ @param sectionController The section controller requesting this information.
+ @return An array of visible index paths, or an empty array if none are found.
+ */
+- (NSArray<NSIndexPath *> *)visibleIndexPathsForSectionController:(IGListSectionController<IGListSectionType> *) sectionController;
+
+/**
  Deselects a cell in the collection.
 
  @param index             The index of the item to deselect.

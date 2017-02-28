@@ -416,6 +416,52 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     XCTAssertEqual([stack visibleCellsForSectionController:section5].count, 0);
 }
 
+- (void)test_whenQueryingVisibleSectionControllers_withIndexPathsOffscreen_thatOnlyVisibleReturned {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@3, @4, @0, @5, @6]]
+                             ]];
+    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    
+    IGListTestSection *section1 = stack.sectionControllers[0];
+    IGListTestSection *section2 = stack.sectionControllers[1];
+    IGListTestSection *section3 = stack.sectionControllers[2];
+    IGListTestSection *section4 = stack.sectionControllers[3];
+    IGListTestSection *section5 = stack.sectionControllers[4];
+    
+    NSSet *visible1 = [NSSet setWithArray:[stack visibleIndexPathsForSectionController:section1]];
+    NSSet *expected1 = [NSSet setWithArray:@[
+                                             [NSIndexPath indexPathForItem:0 inSection:0],
+                                             [NSIndexPath indexPathForItem:1 inSection:0],
+                                             [NSIndexPath indexPathForItem:2 inSection:0],
+                                             ]];
+    XCTAssertEqualObjects(visible1, expected1);
+    
+    NSSet *visible2 = [NSSet setWithArray:[stack visibleIndexPathsForSectionController:section2]];
+    NSSet *expected2 = [NSSet setWithArray:@[
+                                             [NSIndexPath indexPathForItem:3 inSection:0],
+                                             [NSIndexPath indexPathForItem:4 inSection:0],
+                                             [NSIndexPath indexPathForItem:5 inSection:0],
+                                             [NSIndexPath indexPathForItem:6 inSection:0],
+                                             ]];
+    XCTAssertEqualObjects(visible2, expected2);
+    
+    NSSet *visible3 = [NSSet setWithArray:[stack visibleIndexPathsForSectionController:section3]];
+    NSSet *expected3 = [NSSet setWithArray:@[]];
+    XCTAssertEqualObjects(visible3, expected3);
+    
+    NSSet *visible4 = [NSSet setWithArray:[stack visibleIndexPathsForSectionController:section4]];
+    NSSet *expected4 = [NSSet setWithArray:@[
+                                             [NSIndexPath indexPathForItem:7 inSection:0],
+                                             [NSIndexPath indexPathForItem:8 inSection:0],
+                                             [NSIndexPath indexPathForItem:9 inSection:0],
+                                             ]];
+    XCTAssertEqualObjects(visible4, expected4);
+    
+    NSSet *visible5 = [NSSet setWithArray:[stack visibleIndexPathsForSectionController:section5]];
+    NSSet *expected5 = [NSSet setWithArray:@[]];
+    XCTAssertEqualObjects(visible5, expected5);
+}
+
 - (void)test_whenPerformingItemUpdates_thatMutationsMapToSectionControllers {
     [self setupWithObjects:@[
                              [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
