@@ -62,8 +62,6 @@
     return (IGListCollectionView *)_collectionView;
 }
 
-static void *kIGListCollectionViewAdapterKey = &kIGListCollectionViewAdapterKey;
-
 - (void)setCollectionView:(IGListCollectionView *)collectionView {
     IGAssertMainThread();
 
