@@ -1436,4 +1436,28 @@
     [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
+- (void)test_ {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @1)
+                             ]];
+    
+    IGTestDelegateController *section = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    
+    __weak __typeof__(section) weakSection = section;
+    section.itemUpdateBlock = ^{
+        weakSection.item = genTestObject(@1, @2);
+        [weakSection.collectionContext reloadSectionController:weakSection];
+    };
+    
+    self.dataSource.objects = @[genTestObject(@1, @1)];
+    
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
 @end
