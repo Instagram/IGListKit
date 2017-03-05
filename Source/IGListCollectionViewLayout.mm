@@ -320,8 +320,8 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     auto sectionData = std::vector<IGListSectionEntry>(sectionCount);
 
     CGFloat itemY = 0.0;
-    CGFloat maxRowHeight = 0.0;
     CGFloat itemX = 0.0;
+    CGFloat nextRowY = 0.0;
 
     // union item frames and optionally the header to find a bounding box of the entire section
     CGRect rollingSectionBounds;
@@ -342,10 +342,14 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         // header height is subtracted from the sectionBounds when calculating the header bounds after items are done
         // this bumps the first row of items down enough to make room for the header
         itemY += headerSize.height;
+        nextRowY += headerSize.height;
 
         // add the left inset in case the section falls on the same row as the previous
         // if the section is newlined then the x is reset
         itemX += insets.left;
+        
+        // the farthest right the frame of an item in this section can go
+        const CGFloat maxX = width - insets.right;
 
         for (NSInteger item = 0; item < itemCount; item++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
@@ -358,11 +362,10 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             // if the x + width of the item busts the width of the container
             // or if this is the first item and the header has a non-zero size
             // newline to the next row and reset
-            if ((itemX + itemWidth > paddedWidth) ||
-                (item == 0 && headerExists)) {
-                itemY += maxRowHeight;
+            if (itemX + itemWidth > maxX
+                || (item == 0 && headerExists)) {
+                itemY = nextRowY;
                 itemX = insets.left;
-                maxRowHeight = 0.0;
 
                 // if newlining, always append line spacing unless its the very first item of the section
                 if (item > 0) {
@@ -376,10 +379,8 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                                             size.height);
             sectionData[section].itemBounds[item] = frame;
 
-            // track the max size of the row to find the y of the next row
-            if (size.height > maxRowHeight) {
-                maxRowHeight = size.height;
-            }
+            // track the max size of the row to find the y of the next row, adjust for top inset while iterating items
+            nextRowY = MAX(CGRectGetMaxY(frame) - insets.top, nextRowY);
 
             // increase the rolling x by the item width and add item spacing for all items on the same row
             itemX += itemWidth + interitemSpacing;
@@ -410,8 +411,8 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         // bump the x for the next section with the right insets
         itemX += insets.right;
 
-        // account for the top/bottom insets of the section since maxRowHeight only uses the item size.height
-        maxRowHeight += insets.top + insets.bottom;
+        // find the lowest point in the section and add the bottom inset to find the next row's Y
+        nextRowY = MAX(nextRowY, CGRectGetMaxY(rollingSectionBounds) + insets.bottom);
     }
 
     _sectionData = sectionData;
