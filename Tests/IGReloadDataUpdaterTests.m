@@ -16,7 +16,7 @@
 
 @interface IGReloadDataUpdaterTests : XCTestCase
 
-@property (nonatomic, strong) IGListCollectionView *collectionView;
+@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
 @property (nonatomic, strong) IGListTestAdapterDataSource *dataSource;
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
@@ -33,7 +33,7 @@
     self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
 
     self.layout = [[UICollectionViewFlowLayout alloc] init];
-    self.collectionView = [[IGListCollectionView alloc] initWithFrame:self.window.bounds collectionViewLayout:self.layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:self.window.bounds collectionViewLayout:self.layout];
 
     [self.window addSubview:self.collectionView];
 

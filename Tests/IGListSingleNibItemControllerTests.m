@@ -18,7 +18,7 @@
 
 @interface IGListSingleNibSectionControllerTests : XCTestCase
 
-@property (nonatomic, strong) IGListCollectionView *collectionView;
+@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
 @property (nonatomic, strong) IGListAdapterUpdater *updater;
 @property (nonatomic, strong) IGTestSingleNibItemDataSource *dataSource;
@@ -32,7 +32,7 @@
     [super setUp];
     self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.collectionView = [[IGListCollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:layout];
     [self.window addSubview:self.collectionView];
     self.dataSource = [[IGTestSingleNibItemDataSource alloc] init];
     self.updater = [[IGListAdapterUpdater alloc] init];

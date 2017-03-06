@@ -28,6 +28,7 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Renamed `IGListAdapterUpdaterDelegate` method to `listAdapterUpdater:didPerformBatchUpdates:collectionView:`. [Vincent Peng](https://github.com/vincent-peng) [(#491)](https://github.com/Instagram/IGListKit/pull/491)
 
+- `IGListCollectionView` has been completely removed in favor of using plain old `UICollectionView`. See discussion at [#409](https://github.com/Instagram/IGListKit/issues/409) for details. [Jesse Squires](https://github.com/jessesquires) [(tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
 
 ### Enhancements
 
@@ -40,7 +41,6 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 - Invalidate the layout of a section controller and control the transition with `UIView` animation APIs. [Ryan Nystrom](https://github.com/rnystrom) [(#499)](https://github.com/Instagram/IGListKit/pull/499)
 
 - Added `-[IGListAdapter visibleIndexPathsForSectionController:]` API. [Malecks](https://github.com/Malecks) [(#465)](https://github.com/Instagram/IGListKit/pull/465)
-
 
 ### Fixes
 

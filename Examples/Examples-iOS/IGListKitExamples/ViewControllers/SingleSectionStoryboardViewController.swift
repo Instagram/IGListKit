@@ -21,7 +21,7 @@ final class SingleSectionStoryboardViewController: UIViewController, IGListAdapt
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
     
-    @IBOutlet weak var collectionView: IGListCollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     let data = Array(0..<20)
     
