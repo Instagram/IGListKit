@@ -28,6 +28,7 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Renamed `IGListAdapterUpdaterDelegate` method to `listAdapterUpdater:didPerformBatchUpdates:collectionView:`. [Vincent Peng](https://github.com/vincent-peng) [(#491)](https://github.com/Instagram/IGListKit/pull/491)
 
+- `IGListCollectionView` has been completely removed in favor of using plain old `UICollectionView`. See discussion at [#409](https://github.com/Instagram/IGListKit/issues/409) for details. [Jesse Squires](https://github.com/jessesquires) [(tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
 
 ### Enhancements
 
@@ -38,6 +39,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 - You can now manually move items (cells) within a section controller, ex: `[self.collectionContext moveInSectionController:self fromIndex:0 toIndex:1]`. [Ryan Nystrom](https://github.com/rnystrom) [(#418)](https://github.com/Instagram/IGListKit/pull/418)
 
 - Invalidate the layout of a section controller and control the transition with `UIView` animation APIs. [Ryan Nystrom](https://github.com/rnystrom) [(#499)](https://github.com/Instagram/IGListKit/pull/499)
+
+- Added `-[IGListAdapter visibleIndexPathsForSectionController:]` API. [Malecks](https://github.com/Malecks) [(#465)](https://github.com/Instagram/IGListKit/pull/465)
 
 ### Fixes
 
@@ -52,6 +55,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 - Fix potential bug with suppressing animations (by passing `NO`) during `-[IGListAdapter performUpdatesAnimated: completion:]` where user would see UI glitches/flashing. [Jesse Squires](https://github.com/jessesquires) [(019c990)](https://github.com/Instagram/IGListKit/commit/019c990312eea4203c7388a83b50685d426aa372)
 
 - Fix bug where scroll position would be incorrect in call to `-[IGListAdapter scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:animated:` with scrollDirection/scrollPosition of UICollectionViewScrollDirectionVertical/UICollectionViewScrollPositionCenteredVertically or UICollectionViewScrollDirectionHorizontal/UICollectionViewScrollPositionCenteredHorizontally and with a collection view with nonzero contentInset. [David Yamnitsky](https://github.com/nitsky) [(5cc0fcd)](https://github.com/Instagram/IGListKit/commit/5cc0fcd1d77d6296f57ce1c298301b9881cb4d4a)
+
+- Fix a crash when reusing collection views between embedded `IGListAdapter`s. [Ryan Nystrom](https://github.com/rnystrom) [(#517)](https://github.com/Instagram/IGListKit/pull/517)
 
 2.1.0
 -----

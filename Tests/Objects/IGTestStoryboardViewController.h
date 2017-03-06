@@ -9,14 +9,12 @@
 
 #import <UIKit/UIKit.h>
 
-#import "IGListCollectionView.h"
-
 #import <IGListKit/IGListAdapterDataSource.h>
 
 #import "IGTestObject.h"
 
 @interface IGTestStoryboardViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet IGListCollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end

@@ -30,7 +30,7 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 @interface IGListAdapterTests : XCTestCase
 
 // infra does not hold a strong ref to collection view
-@property (nonatomic, strong) IGListCollectionView *collectionView;
+@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
 @property (nonatomic, strong) IGListTestAdapterDataSource *dataSource;
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
@@ -47,7 +47,7 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
 
     self.layout = [[UICollectionViewFlowLayout alloc] init];
-    self.collectionView = [[IGListCollectionView alloc] initWithFrame:self.window.bounds collectionViewLayout:self.layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:self.window.bounds collectionViewLayout:self.layout];
 
     [self.window addSubview:self.collectionView];
 
@@ -252,7 +252,7 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     [self.collectionView layoutIfNeeded];
     XCTAssertNotNil([self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
 
-    IGListCollectionView *otherCollectionView = [[IGListCollectionView alloc] initWithFrame:self.collectionView.frame collectionViewLayout:self.collectionView.collectionViewLayout];
+    UICollectionView *otherCollectionView = [[UICollectionView alloc] initWithFrame:self.collectionView.frame collectionViewLayout:self.collectionView.collectionViewLayout];
     adapter.collectionView = otherCollectionView;
     [otherCollectionView layoutIfNeeded];
     XCTAssertNotNil([otherCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
@@ -311,6 +311,21 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     XCTAssertEqual([self.adapter visibleCellsForSectionController:sectionController4].count, 4);
     XCTAssertEqual([self.adapter visibleCellsForSectionController:sectionController5].count, 1);
     XCTAssertEqual([self.adapter visibleCellsForSectionController:sectionController6].count, 0);
+}
+
+- (void)test_whenCellsExtendBeyondBounds_thatVisibleIndexPathsExistForSectionControllers {
+    self.dataSource.objects = @[@2, @3, @4, @5, @6];
+    [self.adapter reloadDataWithCompletion:nil];
+    id sectionController2 = [self.adapter sectionControllerForObject:@2];
+    id sectionController3 = [self.adapter sectionControllerForObject:@3];
+    id sectionController4 = [self.adapter sectionControllerForObject:@4];
+    id sectionController5 = [self.adapter sectionControllerForObject:@5];
+    id sectionController6 = [self.adapter sectionControllerForObject:@6];
+    XCTAssertEqual([self.adapter visibleIndexPathsForSectionController:sectionController2].count, 2);
+    XCTAssertEqual([self.adapter visibleIndexPathsForSectionController:sectionController3].count, 3);
+    XCTAssertEqual([self.adapter visibleIndexPathsForSectionController:sectionController4].count, 4);
+    XCTAssertEqual([self.adapter visibleIndexPathsForSectionController:sectionController5].count, 1);
+    XCTAssertEqual([self.adapter visibleIndexPathsForSectionController:sectionController6].count, 0);
 }
 
 - (void)test_whenDataSourceAddsItems_thatEmptyViewBecomesVisible {
@@ -486,7 +501,7 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 
     @autoreleasepool {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)
+        UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)
                                                                       collectionViewLayout:layout];
         weakCollectionView = collectionView;
 
@@ -526,7 +541,7 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 
     @autoreleasepool {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)
+        UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)
                                                                       collectionViewLayout:layout];
         weakCollectionView = collectionView;
 

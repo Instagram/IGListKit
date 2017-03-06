@@ -12,7 +12,7 @@
 #import <IGListKit/IGListAdapterDataSource.h>
 #import <IGListKit/IGListAdapterDelegate.h>
 #import <IGListKit/IGListCollectionContext.h>
-#import <IGListKit/IGListCollectionView.h>
+
 #import <IGListKit/IGListExperiments.h>
 #import <IGListKit/IGListSectionType.h>
 #import <IGListKit/IGListMacros.h>
@@ -49,7 +49,7 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  The collection view used with the adapter.
  */
-@property (nonatomic, nullable, weak) IGListCollectionView *collectionView;
+@property (nonatomic, nullable, weak) UICollectionView *collectionView;
 
 /**
  The object that acts as the data source for the list adapter.

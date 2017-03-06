@@ -587,4 +587,29 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
     IGAssertEqualFrame([self cellForSection:0 item:1].frame, 30, 20, 40, 20);
 }
 
+- (void)test_ {
+    [self setUpWithStickyHeaders:NO topInset:0];
+    self.collectionView.frame = CGRectMake(0, 0, 414, 736);
+    
+    NSMutableArray *data = [NSMutableArray new];
+    for (NSInteger i = 0; i < 6; i++) {
+        [data addObject:[[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsMake(1, 1, 1, 1)
+                                                        lineSpacing:0
+                                                   interitemSpacing:0
+                                                       headerHeight:0
+                                                              items:@[
+                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize){136, 136}],
+                                                                      ]]];
+    }
+    [self prepareWithData:data];
+    
+    XCTAssertEqual(self.collectionView.contentSize.height, 276);
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 1, 1, 136, 136);
+    IGAssertEqualFrame([self cellForSection:1 item:0].frame, 139, 1, 136, 136);
+    IGAssertEqualFrame([self cellForSection:2 item:0].frame, 277, 1, 136, 136);
+    IGAssertEqualFrame([self cellForSection:3 item:0].frame, 1, 139, 136, 136);
+    IGAssertEqualFrame([self cellForSection:4 item:0].frame, 139, 139, 136, 136);
+    IGAssertEqualFrame([self cellForSection:5 item:0].frame, 277, 139, 136, 136);
+}
+
 @end

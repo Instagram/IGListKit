@@ -26,7 +26,7 @@
 
 @interface IGListAdapterE2ETests : XCTestCase
 
-@property (nonatomic, strong) IGListCollectionView *collectionView;
+@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
 @property (nonatomic, strong) IGListAdapterUpdater *updater;
 @property (nonatomic, strong) IGTestDelegateDataSource *dataSource;
@@ -42,7 +42,7 @@
     self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
 
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.collectionView = [[IGListCollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:layout];
 
     [self.window addSubview:self.collectionView];
 
@@ -704,7 +704,7 @@
 }
 
 - (void)test_whenPerformingUpdates_withoutSettingDataSource_thatCompletionBlockExecutes {
-    IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
     [self.window addSubview:collectionView];
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
     adapter.collectionView = collectionView;
@@ -754,7 +754,7 @@
                              genTestObject(@9, @8),
                              ]];
 
-    IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
     [self.window addSubview:collectionView];
     IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:0];
@@ -1166,7 +1166,7 @@
         IGTestDelegateDataSource *dataSource = [IGTestDelegateDataSource new];
         IGTestObject *object = genTestObject(@1, @2);
         dataSource.objects = @[object];
-        IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:[UICollectionViewFlowLayout new]];
+        UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:[UICollectionViewFlowLayout new]];
         adapter.collectionView = collectionView;
         adapter.dataSource = dataSource;
         [collectionView layoutIfNeeded];
@@ -1359,6 +1359,77 @@
         XCTAssertEqual(cell2, [self.collectionView cellForItemAtIndexPath:path2]);
         XCTAssertEqual(cell1.frame.size.height, 20);
         XCTAssertEqual(cell2.frame.size.height, 20);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
+- (void)test_whenAdaptersSwapCollectionViews_thatOldAdapterDoesntUpdateOldCollectionView {
+    IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
+    IGTestDelegateDataSource *dataSource1 = [IGTestDelegateDataSource new];
+    dataSource1.objects = @[genTestObject(@1, @2)];
+    adapter1.dataSource = dataSource1;
+    adapter1.collectionView = self.collectionView;
+
+    [self.collectionView layoutIfNeeded];
+    XCTAssertEqual([self.collectionView numberOfSections], 1);
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+
+    IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
+    IGTestDelegateDataSource *dataSource2 = [IGTestDelegateDataSource new];
+    dataSource2.objects = @[genTestObject(@1, @1), genTestObject(@2, @1)];
+    adapter2.dataSource = dataSource2;
+    adapter2.collectionView = self.collectionView;
+
+    XCTAssertEqual([self.collectionView numberOfSections], 2);
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 1);
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 1);
+
+    dataSource1.objects = @[genTestObject(@1, @2), genTestObject(@2, @2), genTestObject(@3, @2), genTestObject(@4, @2)];
+    XCTestExpectation *expectation = genExpectation;
+
+    [adapter1 performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView numberOfSections], 2);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 1);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 1);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
+- (void)test_whenAdaptersSwapCollectionViews_ {
+    IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
+    IGTestDelegateDataSource *dataSource1 = [IGTestDelegateDataSource new];
+    dataSource1.objects = @[genTestObject(@1, @2)];
+    adapter1.dataSource = dataSource1;
+    adapter1.collectionView = self.collectionView;
+
+    [self.collectionView layoutIfNeeded];
+    XCTAssertEqual([self.collectionView numberOfSections], 1);
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+
+    IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
+    IGTestDelegateDataSource *dataSource2 = [IGTestDelegateDataSource new];
+    dataSource2.objects = @[genTestObject(@1, @1), genTestObject(@2, @1)];
+    adapter2.dataSource = dataSource2;
+    adapter2.collectionView = self.collectionView;
+
+    [self.collectionView layoutIfNeeded];
+    XCTAssertEqual([self.collectionView numberOfSections], 2);
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 1);
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 1);
+
+    dataSource2.objects = @[genTestObject(@1, @2), genTestObject(@2, @1), genTestObject(@3, @1), genTestObject(@4, @1)];
+    XCTestExpectation *expectation = genExpectation;
+
+    [adapter2 performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView numberOfSections], 4);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 1);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 1);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 1);
         [expectation fulfill];
     }];
 
