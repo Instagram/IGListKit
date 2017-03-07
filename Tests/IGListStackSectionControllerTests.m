@@ -17,6 +17,7 @@
 #import "IGListDisplayHandler.h"
 #import "IGListStackedSectionControllerInternal.h"
 #import "IGListTestSection.h"
+#import "IGListTestContainerSizeSection.h"
 #import "IGTestCell.h"
 #import "IGTestStackedDataSource.h"
 #import "IGTestStoryboardCell.h"
@@ -24,6 +25,12 @@
 #import "IGTestSupplementarySource.h"
 #import "IGTestSupplementarySource.h"
 #import "IGTestStoryboardSupplementarySource.h"
+
+#define IGAssertEqualSize(size, w, h, ...) \
+do { \
+CGSize s = CGSizeMake(w, h); \
+XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
+} while(0)
 
 static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
@@ -140,6 +147,15 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     IGListTestSection *section1 = stack.sectionControllers[0];
     XCTAssertTrue(CGSizeEqualToSize([section1.collectionContext containerSize], kStackTestFrame.size));
+}
+
+- (void)test_whenSectionEdgeInsetIsNotZero {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@42]]
+                             ]];
+    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGListTestContainerSizeSection *section1 = stack.sectionControllers[0];
+    IGAssertEqualSize([stack containerSizeForSectionController:section1], 98, 98);
 }
 
 - (void)test_whenQueryingCellIndex_thatIndexIsRelativeToSectionController {
