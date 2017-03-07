@@ -14,7 +14,7 @@
 @class IGListMoveIndexPath;
 
 IGLK_SUBCLASSING_RESTRICTED
-@interface IGListBatchUpdatesCollector : NSObject
+@interface IGListBatchUpdates : NSObject
 
 @property (nonatomic, strong, readonly) NSMutableIndexSet *sectionReloads;
 @property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *itemInserts;

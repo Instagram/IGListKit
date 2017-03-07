@@ -7,9 +7,9 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGListBatchUpdatesCollector.h"
+#import "IGListBatchUpdates.h"
 
-@implementation IGListBatchUpdatesCollector
+@implementation IGListBatchUpdates
 
 - (instancetype)init {
     if (self = [super init]) {

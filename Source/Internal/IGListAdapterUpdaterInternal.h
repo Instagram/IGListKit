@@ -14,7 +14,7 @@
 
 #import "IGListAdapterUpdater.h"
 #import "IGListBatchUpdateState.h"
-#import "IGListBatchUpdatesCollector.h"
+#import "IGListBatchUpdates.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,7 +34,7 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 
 @property (nonatomic, assign) BOOL queuedUpdateIsAnimated;
 
-@property (nonatomic, strong) IGListBatchUpdatesCollector *batchUpdatesCollector;
+@property (nonatomic, strong) IGListBatchUpdates *batchUpdatesCollector;
 
 @property (nonatomic, copy, nullable) IGListObjectTransitionBlock objectTransitionBlock;
 @property (nonatomic, copy, nullable) NSMutableArray<IGListItemUpdateBlock> *itemUpdateBlocks;

@@ -29,7 +29,7 @@
         _completionBlocks = [NSMutableArray new];
         _itemUpdateBlocks = [NSMutableArray new];
 
-        _batchUpdatesCollector = [IGListBatchUpdatesCollector new];
+        _batchUpdatesCollector = [IGListBatchUpdates new];
 
         _allowsBackgroundReloading = YES;
     }
@@ -251,7 +251,7 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 
 - (IGListBatchUpdateData *)flushCollectionView:(UICollectionView *)collectionView
                                 withDiffResult:(IGListIndexSetResult *)diffResult
-                         batchUpdatesCollector:(IGListBatchUpdatesCollector *)batchUpdatesCollector
+                         batchUpdatesCollector:(IGListBatchUpdates *)batchUpdatesCollector
                                    fromObjects:(NSArray <id<IGListDiffable>> *)fromObjects {
     NSSet *moves = [[NSSet alloc] initWithArray:diffResult.moves];
 
@@ -313,7 +313,7 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 }
 
 - (void)cleanupUpdateBlockState {
-    self.batchUpdatesCollector = [IGListBatchUpdatesCollector new];
+    self.batchUpdatesCollector = [IGListBatchUpdates new];
 }
 
 - (void)queueUpdateWithCollectionView:(UICollectionView *)collectionView {
