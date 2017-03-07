@@ -1436,25 +1436,38 @@
     [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
-- (void)test_ {
+- (void)test_whenDidUpdateAsyncReloads_withBatchUpdatesInProgress_thatReloadIsExecuted {
     [self setupWithObjects:@[
                              genTestObject(@1, @1)
                              ]];
     
     IGTestDelegateController *section = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     
+    XCTestExpectation *expectation1 = genExpectation;
     __weak __typeof__(section) weakSection = section;
     section.itemUpdateBlock = ^{
-        weakSection.item = genTestObject(@1, @2);
-        [weakSection.collectionContext reloadSectionController:weakSection];
+        // currently inside -[IGListSectionType didUpdateToObject:], change the item (note: NEVER do this) manually
+        // so that the data powering numberOfItems changes (1 to 2). dispatch_async the update to skip outside of the
+        // -[UICollectionView performBatchUpdates:completion:] block execution
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSection.item = genTestObject(@1, @2);
+            [weakSection.collectionContext reloadSectionController:weakSection];
+            [expectation1 fulfill];
+            XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+        });
     };
     
-    self.dataSource.objects = @[genTestObject(@1, @1)];
+    // add an object so that a batch update is triggered (diff result has changes)
+    self.dataSource.objects = @[
+                                genTestObject(@1, @1),
+                                genTestObject(@2, @1)
+                                ];
     
-    XCTestExpectation *expectation = genExpectation;
+    XCTestExpectation *expectation2 = genExpectation;
     [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        // verify that the section still has 2 items since this completion executes AFTER the reload block above
         XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
-        [expectation fulfill];
+        [expectation2 fulfill];
     }];
     
     [self waitForExpectationsWithTimeout:15 handler:nil];

@@ -18,7 +18,6 @@
         _itemMoves = [NSMutableSet new];
         _itemReloads = [NSMutableSet new];
         _itemDeletes = [NSMutableSet new];
-        _completionBlocks = [NSMutableArray new];
     }
     return self;
 }
