@@ -13,6 +13,7 @@
 #import <IGListKit/IGListMoveIndexPath.h>
 
 #import "IGListAdapterUpdater.h"
+#import "IGListAsyncTask.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,6 +40,7 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 @property (nonatomic, strong, readonly) NSMutableIndexSet *reloadSections;
 
 @property (nonatomic, copy, nullable) IGListObjectTransitionBlock objectTransitionBlock;
+@property (nonatomic, copy, nullable) id<IGListAsyncTask> preUpdateTask;
 @property (nonatomic, copy, nullable) NSMutableArray<IGListItemUpdateBlock> *itemUpdateBlocks;
 
 @property (nonatomic, copy, nullable) IGListReloadUpdateBlock reloadUpdates;

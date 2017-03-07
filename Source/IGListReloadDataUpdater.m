@@ -9,6 +9,8 @@
 
 #import <IGListKit/IGListReloadDataUpdater.h>
 
+#import "IGListAsyncTask.h"
+
 @implementation IGListReloadDataUpdater
 
 #pragma mark - IGListUpdatingDelegate
@@ -21,8 +23,13 @@
                             fromObjects:(NSArray *)fromObjects
                               toObjects:(NSArray *)toObjects
                                animated:(BOOL)animated
-                  objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
-                             completion:(IGListUpdatingCompletion)completion {
+                          preUpdateTask:(id<IGListAsyncTask>)preUpdateTask
+                  objectTransitionBlock:(nonnull IGListObjectTransitionBlock)objectTransitionBlock
+                             completion:(nullable IGListUpdatingCompletion)completion {
+    if (preUpdateTask) {
+        [preUpdateTask startWithCompletion:nil];
+        [preUpdateTask waitUntilCompleted];
+    }
     objectTransitionBlock(toObjects);
     [self synchronousReloadDataWithCollectionView:collectionView];
     if (completion) {
