@@ -37,7 +37,7 @@
     self.list = [[IGListTestSection alloc] init];
     self.object = [[NSObject alloc] init];
     self.displayHandler = [[IGListDisplayHandler alloc] init];
-    UICollectionView *collectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
+    IGListCollectionView *collectionView = [OCMockObject niceMockForClass:[IGListCollectionView class]];
     self.mockAdapterDataSource = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterDataSource)];
     IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
     self.adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:0];

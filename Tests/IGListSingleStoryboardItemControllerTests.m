@@ -19,7 +19,7 @@
 
 @interface IGListSingleStoryboardSectionControllerTests : XCTestCase
 
-@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) IGListCollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
 @property (nonatomic, strong) IGListAdapterUpdater *updater;
 @property (nonatomic, strong) IGTestSingleStoryboardItemDataSource *dataSource;

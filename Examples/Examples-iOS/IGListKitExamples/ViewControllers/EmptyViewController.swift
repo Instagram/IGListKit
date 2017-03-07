@@ -20,8 +20,7 @@ final class EmptyViewController: UIViewController, IGListAdapterDataSource, Remo
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let emptyLabel: UILabel = {
         let label = UILabel()
@@ -33,8 +32,12 @@ final class EmptyViewController: UIViewController, IGListAdapterDataSource, Remo
     }()
 
     var tally = 4
-
-    var data = [1, 2, 3, 4]
+    var data = [
+        1,
+        2,
+        3,
+        4
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,5 +87,5 @@ final class EmptyViewController: UIViewController, IGListAdapterDataSource, Remo
         data.remove(at: index)
         adapter.performUpdates(animated: true, completion: nil)
     }
-    
+
 }

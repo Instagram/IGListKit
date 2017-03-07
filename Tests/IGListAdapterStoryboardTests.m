@@ -24,7 +24,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 @interface IGListAdapterStoryboardTests : XCTestCase
 
 @property (nonatomic, strong) UIWindow *window;
-@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) IGListCollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
 @property (nonatomic, strong) IGListTestAdapterStoryboardDataSource *dataSource;
 @property (nonatomic, strong) IGListAdapterUpdater *updater;

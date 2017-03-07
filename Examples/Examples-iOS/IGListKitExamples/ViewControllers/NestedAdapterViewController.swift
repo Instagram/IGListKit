@@ -20,9 +20,9 @@ final class NestedAdapterViewController: UIViewController, IGListAdapterDataSour
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-    let data: [Any] = [
+    let data = [
         "Ridiculus Elit Tellus Purus Aenean",
         "Condimentum Sollicitudin Adipiscing",
         14,
@@ -31,7 +31,7 @@ final class NestedAdapterViewController: UIViewController, IGListAdapterDataSour
         6,
         "Tellus Nibh Ipsum Inceptos",
         2
-    ]
+    ] as [Any]
 
     override func viewDidLoad() {
         super.viewDidLoad()

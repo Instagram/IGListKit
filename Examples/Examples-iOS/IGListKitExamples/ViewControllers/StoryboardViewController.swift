@@ -17,7 +17,7 @@ import IGListKit
 
 final class StoryboardViewController: UIViewController, IGListAdapterDataSource, StoryboardLabelSectionControllerDelegate {
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: IGListCollectionView!
     
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)

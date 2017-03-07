@@ -20,17 +20,16 @@ final class NestedAdapterViewController: UIViewController, IGListAdapterDataSour
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    let data: [Any] = [
+    let data = [
         "Most Recent",
         10,
         "Recently Watched",
         16,
         "New Arrivals",
         20
-    ]
+    ] as [Any]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,3 +62,4 @@ final class NestedAdapterViewController: UIViewController, IGListAdapterDataSour
     func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
     
 }
+
