@@ -24,7 +24,7 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Changed `hasChanges` methods in `IGListIndexPathResult` and `IGListIndexSetResult` to read-only properties. [Bofei Zhu](https://github.com/zhubofei) [(#453)](https://github.com/Instagram/IGListKit/pull/453)
 
-- Replaced `IGListGridCollectionViewLayout` with `IGListCollectionViewLayout`. [Ryan Nystrom](https://github.com/rnystrom) [(#482)](https://github.com/Instagram/IGListKit/pull/482)
+- Replaced `IGListGridCollectionViewLayout` with `IGListCollectionViewLayout`. [Ryan Nystrom](https://github.com/rnystrom) ([#482](https://github.com/Instagram/IGListKit/pull/482), [#450](https://github.com/Instagram/IGListKit/pull/450))
 
 - Renamed `IGListAdapterUpdaterDelegate` method to `listAdapterUpdater:didPerformBatchUpdates:collectionView:`. [Vincent Peng](https://github.com/vincent-peng) [(#491)](https://github.com/Instagram/IGListKit/pull/491)
 
