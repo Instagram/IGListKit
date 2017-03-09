@@ -24,7 +24,7 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Changed `hasChanges` methods in `IGListIndexPathResult` and `IGListIndexSetResult` to read-only properties. [Bofei Zhu](https://github.com/zhubofei) [(#453)](https://github.com/Instagram/IGListKit/pull/453)
 
-- Replaced `IGListGridCollectionViewLayout` with `IGListCollectionViewLayout`. [[Ryan Nystrom](https://github.com/rnystrom) [(tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
+- Replaced `IGListGridCollectionViewLayout` with `IGListCollectionViewLayout`. [Ryan Nystrom](https://github.com/rnystrom) [(#482)](https://github.com/Instagram/IGListKit/pull/482)
 
 - Renamed `IGListAdapterUpdaterDelegate` method to `listAdapterUpdater:didPerformBatchUpdates:collectionView:`. [Vincent Peng](https://github.com/vincent-peng) [(#491)](https://github.com/Instagram/IGListKit/pull/491)
 
@@ -44,7 +44,7 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 ### Fixes
 
-- Gracefully handle a `nil` section controller returned by an `IGListAdapterDataSource`. [Ryan Nystrom](https://github.com/rnystrom) [(tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
+- Gracefully handle a `nil` section controller returned by an `IGListAdapterDataSource`. [Ryan Nystrom](https://github.com/rnystrom) [(#488)](https://github.com/Instagram/IGListKit/pull/488)
 
 - Fix bug where emptyView's hidden status is not updated after the number of items is changed with `insertInSectionController:atIndexes:` or related methods. [Peter Edmonston](https://github.com/edmonston) [(#395)](https://github.com/Instagram/IGListKit/pull/395)
 
@@ -58,7 +58,7 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Fix a crash when reusing collection views between embedded `IGListAdapter`s. [Ryan Nystrom](https://github.com/rnystrom) [(#517)](https://github.com/Instagram/IGListKit/pull/517)
 
-- Only collect batch updates when explicitly inside the batch update block, execute them otherwise. Fixes dropped updates. Ryan Nystrom](https://github.com/rnystrom) [(#494)](https://github.com/Instagram/IGListKit/pull/494)
+- Only collect batch updates when explicitly inside the batch update block, execute them otherwise. Fixes dropped updates. [Ryan Nystrom](https://github.com/rnystrom) [(#494)](https://github.com/Instagram/IGListKit/pull/494)
 
 2.1.0
 -----
