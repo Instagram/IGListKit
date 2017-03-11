@@ -26,8 +26,6 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 
 @interface IGListAdapterUpdater ()
 
-@property (nonatomic, strong, readonly) NSMutableArray<IGListUpdatingCompletion> *completionBlocks;
-
 @property (nonatomic, copy, nullable) NSArray *fromObjects;
 @property (nonatomic, copy, nullable) NSArray *toObjects;
 @property (nonatomic, copy, nullable) NSArray *pendingTransitionToObjects;
@@ -37,7 +35,6 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 @property (nonatomic, strong) IGListBatchUpdates *batchUpdatesCollector;
 
 @property (nonatomic, copy, nullable) IGListObjectTransitionBlock objectTransitionBlock;
-@property (nonatomic, copy, nullable) NSMutableArray<IGListItemUpdateBlock> *itemUpdateBlocks;
 
 @property (nonatomic, copy, nullable) IGListReloadUpdateBlock reloadUpdates;
 @property (nonatomic, assign, getter=hasQueuedReloadData) BOOL queuedReloadData;
@@ -46,7 +43,7 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 
 - (void)performReloadDataWithCollectionView:(UICollectionView *)collectionView;
 - (void)performBatchUpdatesWithCollectionView:(UICollectionView *)collectionView;
-- (void)cleanupState;
+- (void)cleanStateBeforeUpdates;
 - (BOOL)hasChanges;
 
 @end

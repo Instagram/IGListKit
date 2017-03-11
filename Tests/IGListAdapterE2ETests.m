@@ -59,6 +59,7 @@
     self.collectionView = nil;
     self.adapter = nil;
     self.dataSource = nil;
+    self.updater = nil;
 }
 
 - (void)setupWithObjects:(NSArray *)objects {
