@@ -29,6 +29,7 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 @property (nonatomic, copy, nullable) NSArray *fromObjects;
 @property (nonatomic, copy, nullable) NSArray *toObjects;
 @property (nonatomic, copy, nullable) NSArray *pendingTransitionToObjects;
+@property (nonatomic, strong) NSMutableArray<IGListUpdatingCompletion> *completionBlocks;
 
 @property (nonatomic, assign) BOOL queuedUpdateIsAnimated;
 

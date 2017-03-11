@@ -19,7 +19,7 @@
         _itemReloads = [NSMutableSet new];
         _itemDeletes = [NSMutableSet new];
         _itemUpdateBlocks = [NSMutableArray new];
-        _completionBlocks = [NSMutableArray new];
+        _itemCompletionBlocks = [NSMutableArray new];
     }
     return self;
 }

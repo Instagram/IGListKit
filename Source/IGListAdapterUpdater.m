@@ -25,6 +25,7 @@
     if (self = [super init]) {
         // the default is to use animations unless NO is passed
         _queuedUpdateIsAnimated = YES;
+        _completionBlocks = [NSMutableArray new];
         _batchUpdatesCollector = [IGListBatchUpdates new];
         _allowsBackgroundReloading = YES;
     }
@@ -52,6 +53,7 @@
     id<IGListAdapterUpdaterDelegate> delegate = self.delegate;
     void (^reloadUpdates)() = self.reloadUpdates;
     IGListBatchUpdates *batchUpdatesCollector = self.batchUpdatesCollector;
+    NSMutableArray *completionBlocks = [self.completionBlocks mutableCopy];
     
     [self cleanStateBeforeUpdates];
 
@@ -69,6 +71,10 @@
         itemUpdateBlock();
     }
     
+    // add any completion blocks from item updates. added after item blocks are executed in order to capture any
+    // re-entrant updates
+    [completionBlocks addObjectsFromArray:batchUpdatesCollector.itemCompletionBlocks];
+    
     self.state = IGListBatchUpdateStateExecutedBatchUpdateBlock;
 
     [self cleanStateAfterUpdates];
@@ -79,7 +85,7 @@
     [collectionView layoutIfNeeded];
     [delegate listAdapterUpdater:self didReloadDataWithCollectionView:collectionView];
 
-    for (IGListUpdatingCompletion block in batchUpdatesCollector.completionBlocks) {
+    for (IGListUpdatingCompletion block in completionBlocks) {
         block(YES);
     }
 
@@ -114,14 +120,13 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     id<IGListAdapterUpdaterDelegate> delegate = self.delegate;
     NSArray *fromObjects = [self.fromObjects copy];
     NSArray *toObjects = objectsWithDuplicateIdentifiersRemoved(self.toObjects);
+    NSMutableArray *completionBlocks = [self.completionBlocks mutableCopy];
     void (^objectTransitionBlock)(NSArray *) = [self.objectTransitionBlock copy];
     const BOOL animated = self.queuedUpdateIsAnimated;
     IGListBatchUpdates *batchUpdatesCollector = self.batchUpdatesCollector;
 
     // clean up all state so that new updates can be coalesced while the current update is in flight
     [self cleanStateBeforeUpdates];
-    
-    __block NSArray *completionBlocks = nil;
 
     void (^executeUpdateBlocks)() = ^{
         self.state = IGListBatchUpdateStateExecutingBatchUpdateBlock;
@@ -140,7 +145,9 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
             itemUpdateBlock();
         }
         
-        completionBlocks = batchUpdatesCollector.completionBlocks;
+        // add any completion blocks from item updates. added after item blocks are executed in order to capture any
+        // re-entrant updates
+        [completionBlocks addObjectsFromArray:batchUpdatesCollector.itemCompletionBlocks];
 
         self.state = IGListBatchUpdateStateExecutedBatchUpdateBlock;
     };
@@ -167,14 +174,8 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     }
 
     IGListIndexSetResult *result = IGListDiffExperiment(fromObjects, toObjects, IGListDiffEquality, self.experiments);
-
-    // if the diff has no changes and there are no update blocks queued, dont batch update
-    if (!result.hasChanges && ![batchUpdatesCollector hasChanges]) {
-        executeUpdateBlocks();
-        executeCompletionBlocks(YES);
-        return;
-    }
-
+    
+    // set the update data inside the update block. capture outside its scope to reference if an exception is thrown
     __block IGListBatchUpdateData *updateData = nil;
 
     void (^updateBlock)() = ^{
@@ -303,6 +304,10 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 
     // remove indexpath/item changes
     self.objectTransitionBlock = nil;
+    
+    // removes all object completion blocks. done before updates to start collecting completion blocks for coaslesced
+    // or re-entrant object updates
+    [self.completionBlocks removeAllObjects];
 }
 
 - (void)cleanStateAfterUpdates {
@@ -388,7 +393,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
 
     IGListUpdatingCompletion localCompletion = completion;
     if (localCompletion) {
-        [self.batchUpdatesCollector.completionBlocks addObject:localCompletion];
+        [self.completionBlocks addObject:localCompletion];
     }
 
     [self queueUpdateWithCollectionView:collectionView];
@@ -404,7 +409,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     
     IGListBatchUpdates *batchUpdatesCollector = self.batchUpdatesCollector;
     if (completion != nil) {
-        [batchUpdatesCollector.completionBlocks addObject:completion];
+        [batchUpdatesCollector.itemCompletionBlocks addObject:completion];
     }
 
     // if already inside the execution of the update block, immediately unload the itemUpdates block.
@@ -479,7 +484,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
 
     IGListUpdatingCompletion localCompletion = completion;
     if (localCompletion) {
-        [self.batchUpdatesCollector.completionBlocks addObject:localCompletion];
+        [self.completionBlocks addObject:localCompletion];
     }
 
     self.reloadUpdates = reloadUpdateBlock;
