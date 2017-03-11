@@ -54,6 +54,17 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
         oldViewModels = self.viewModels;
         self.viewModels = [self.dataSource sectionController:self viewModelsForObject:self.object];
         result = IGListDiff(oldViewModels, self.viewModels, IGListDiffEquality);
+        
+        [result.updates enumerateIndexesUsingBlock:^(NSUInteger oldUpdatedIndex, BOOL *stop) {
+            id identifier = [oldViewModels[oldUpdatedIndex] diffIdentifier];
+            const NSInteger indexAfterUpdate = [result newIndexForIdentifier:identifier];
+            if (indexAfterUpdate != NSNotFound) {
+                UICollectionViewCell<IGListBindable> *cell = [collectionContext cellForItemAtIndex:oldUpdatedIndex
+                                                                                 sectionController:self];
+                [cell bindViewModel:self.viewModels[indexAfterUpdate]];
+            }
+        }];
+
 
         [collectionContext deleteInSectionController:self atIndexes:result.deletes];
         [collectionContext insertInSectionController:self atIndexes:result.inserts];
@@ -68,15 +79,15 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
 
         // "reload" cells after updating since the cells can't be moved and reloaded at the same time.
         // this lets the cell do an animated move and then update its contents
-        [result.updates enumerateIndexesUsingBlock:^(NSUInteger oldUpdatedIndex, BOOL *stop) {
-            id identifier = [oldViewModels[oldUpdatedIndex] diffIdentifier];
-            const NSInteger indexAfterUpdate = [result newIndexForIdentifier:identifier];
-            if (indexAfterUpdate != NSNotFound) {
-                UICollectionViewCell<IGListBindable> *cell = [collectionContext cellForItemAtIndex:indexAfterUpdate
-                                                                                 sectionController:self];
-                [cell bindViewModel:self.viewModels[indexAfterUpdate]];
-            }
-        }];
+//        [result.updates enumerateIndexesUsingBlock:^(NSUInteger oldUpdatedIndex, BOOL *stop) {
+//            id identifier = [oldViewModels[oldUpdatedIndex] diffIdentifier];
+//            const NSInteger indexAfterUpdate = [result newIndexForIdentifier:identifier];
+//            if (indexAfterUpdate != NSNotFound) {
+//                UICollectionViewCell<IGListBindable> *cell = [collectionContext cellForItemAtIndex:indexAfterUpdate
+//                                                                                 sectionController:self];
+//                [cell bindViewModel:self.viewModels[indexAfterUpdate]];
+//            }
+//        }];
     }];
 }
 

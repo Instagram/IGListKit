@@ -13,6 +13,7 @@
  */
 
 import UIKit
+import IGListKit
 
 class LabelCell: UICollectionViewCell {
 
@@ -69,6 +70,15 @@ class LabelCell: UICollectionViewCell {
         didSet {
             contentView.backgroundColor = UIColor(white: isHighlighted ? 0.9 : 1, alpha: 1)
         }
+    }
+    
+}
+
+extension LabelCell: IGListBindable {
+    
+    func bindViewModel(_ viewModel: Any!) {
+        guard let viewModel = viewModel as? String else { return }
+        label.text = viewModel
     }
     
 }
