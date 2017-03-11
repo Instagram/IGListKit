@@ -582,9 +582,9 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
                                                                           ]],
                             ]];
     XCTAssertEqual(self.collectionView.contentSize.height, 40);
-    IGAssertEqualFrame([self headerForSection:0].frame, 30, 0, 40, 10);
-    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 30, 10, 40, 10);
-    IGAssertEqualFrame([self cellForSection:0 item:1].frame, 30, 20, 40, 20);
+    IGAssertEqualFrame([self headerForSection:0].frame, 0, 0, 40, 10);
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 10, 40, 10);
+    IGAssertEqualFrame([self cellForSection:0 item:1].frame, 0, 20, 40, 20);
 }
 
 - (void)test_ {

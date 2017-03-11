@@ -373,7 +373,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                 }
             }
 
-            const CGRect frame = CGRectMake(contentInset.left + itemX,
+            const CGRect frame = CGRectMake(itemX,
                                             itemY + insets.top,
                                             itemWidth,
                                             size.height);
@@ -393,7 +393,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             }
         }
 
-        const CGRect headerBounds = CGRectMake(contentInset.left + insets.left,
+        const CGRect headerBounds = CGRectMake(insets.left,
                                                CGRectGetMinY(rollingSectionBounds) - headerSize.height,
                                                paddedWidth,
                                                headerSize.height);
