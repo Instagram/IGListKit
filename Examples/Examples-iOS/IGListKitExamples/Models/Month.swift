@@ -38,9 +38,7 @@ extension Month: IGListDiffable {
     }
     
     func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
-        if self === object { return true }
-        guard let object = object as? Month else { return false }
-        return diffIdentifier().isEqual(object.diffIdentifier())
+        return true
     }
     
 }

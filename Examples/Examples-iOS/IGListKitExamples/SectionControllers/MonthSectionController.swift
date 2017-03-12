@@ -66,7 +66,7 @@ final class MonthSectionController: IGListDiffingSectionController, IGListDiffin
         return collectionContext?.dequeueReusableCell(of: cellClass, for: self, at: index) ?? UICollectionViewCell()
     }
     
-    func sectionController(_ sectionController: IGListDiffingSectionController, sizeForViewModel viewModel: Any) -> CGSize {
+    func sectionController(_ sectionController: IGListDiffingSectionController, sizeForViewModel viewModel: Any, at index: Int) -> CGSize {
         guard let width = collectionContext?.containerSize.width else { return .zero }
         if viewModel is DayViewModel {
             let square = width / 7.0

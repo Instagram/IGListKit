@@ -34,6 +34,8 @@
 #import "IGListCollectionView.h"
 #import "IGListCollectionViewLayout.h"
 #import "IGListDiffingSectionController.h"
+#import "IGListDiffingSectionControllerDataSource.h"
+#import "IGListDiffingSectionControllerSelectionDelegate.h"
 #import "IGListDisplayDelegate.h"
 #import "IGListKit.h"
 #import "IGListReloadDataUpdater.h"

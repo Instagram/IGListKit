@@ -9,10 +9,23 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol IGListDiffable;
+NS_ASSUME_NONNULL_BEGIN
 
+/**
+ A protocol for cells that configure themselves given a view model.
+ */
 @protocol IGListBindable <NSObject>
 
+/**
+ Tells the cell to configure itself with the given view model.
+
+ @param viewModel The view model for the cel.
+
+ @note The view model can change many times throughout the lifetime of a cell as the model values change and the cell
+ is reused. Implementations should use only this method to do their configuration.
+ */
 - (void)bindViewModel:(id)viewModel;
 
 @end
+
+NS_ASSUME_NONNULL_END

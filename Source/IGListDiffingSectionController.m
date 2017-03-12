@@ -76,18 +76,6 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
         self.state = IGListDiffingSectionStateUpdateApplied;
     } completion:^(BOOL finished) {
         self.state = IGListDiffingSectionStateIdle;
-
-        // "reload" cells after updating since the cells can't be moved and reloaded at the same time.
-        // this lets the cell do an animated move and then update its contents
-//        [result.updates enumerateIndexesUsingBlock:^(NSUInteger oldUpdatedIndex, BOOL *stop) {
-//            id identifier = [oldViewModels[oldUpdatedIndex] diffIdentifier];
-//            const NSInteger indexAfterUpdate = [result newIndexForIdentifier:identifier];
-//            if (indexAfterUpdate != NSNotFound) {
-//                UICollectionViewCell<IGListBindable> *cell = [collectionContext cellForItemAtIndex:indexAfterUpdate
-//                                                                                 sectionController:self];
-//                [cell bindViewModel:self.viewModels[indexAfterUpdate]];
-//            }
-//        }];
     }];
 }
 
@@ -98,7 +86,7 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
 }
 
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
-    return [self.dataSource sectionController:self sizeForViewModel:self.viewModels[index]];
+    return [self.dataSource sectionController:self sizeForViewModel:self.viewModels[index] atIndex:index];
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
@@ -115,6 +103,9 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
     if (oldObject == nil) {
         self.viewModels = [self.dataSource sectionController:self viewModelsForObject:object];
     } else {
+        IGAssert([oldObject isEqualToDiffableObject:object],
+                 @"Unequal objects %@ and %@ will cause IGListDiffingSectionController to reload the entire section",
+                 oldObject, object);
         [self updateAnimated:YES completion:nil];
     }
 }

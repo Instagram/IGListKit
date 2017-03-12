@@ -7,11 +7,13 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 #import <IGListKit/IGListMacros.h>
 #import <IGListKit/IGListSectionType.h>
 #import <IGListKit/IGListSectionController.h>
+#import <IGListKit/IGListDiffingSectionControllerSelectionDelegate.h>
+#import <IGListKit/IGListDiffingSectionControllerDataSource.h>
 
 @protocol IGListDiffable;
 @protocol IGListBindable;
@@ -20,35 +22,55 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol IGListDiffingSectionControllerDataSource <NSObject>
-
-- (NSArray<id<IGListDiffable>> *)sectionController:(IGListDiffingSectionController *)sectionController
-                               viewModelsForObject:(id)object;
-
-- (UICollectionViewCell<IGListBindable> *)sectionController:(IGListDiffingSectionController *)sectionController
-                                           cellForViewModel:(id)viewModel atIndex:(NSInteger)index;
-
-- (CGSize)sectionController:(IGListDiffingSectionController *)sectionController
-           sizeForViewModel:(id)viewModel;
-
-@end
-
-@protocol IGListDiffingSectionControllerSelectionDelegate
-
-- (void)sectionController:(IGListDiffingSectionController *)sectionController
-     didSelectItemAtIndex:(NSInteger)index
-                viewModel:(id)viewModel;
-
-@end
-
+/**
+ This section controller uses a data source to transform its "top level" object into an array of diffable view models.
+ It then automatically binds each view model to cells via the `IGListBindable` protocol.
+ 
+ Models used with `IGListDiffingSectionController` should take special care to always return `YES` for identical
+ objects. That is, any objects with matching `-diffIdentifier`s should always be equal, that way the section controller
+ can create new view models via the data source, create a diff, and update the specific cells that have changed.
+ 
+ In Objective-C, your `-isEqualToDiffableObject:` can simply be:
+ ```
+ - (BOOL)isEqualToDiffableObject:(id)object {
+   return YES;
+ }
+ ```
+ 
+ In Swift:
+ ```
+ func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+   return true
+ }
+ ```
+ 
+ Only when `-diffIdentifier`s match is object equality compared, so you can assume the class is the same, and the
+ instance has already been checked.
+ */
 @interface IGListDiffingSectionController : IGListSectionController<IGListSectionType>
 
+/**
+ A data source that transforms a top-level object into view models, and returns cells and sizes for given view models.
+ */
 @property (nonatomic, weak, nullable) id<IGListDiffingSectionControllerDataSource> dataSource;
 
+/**
+ A delegate that receives selection events from cells in an `IGListDiffingSectionController` instance.
+ */
 @property (nonatomic, weak, nullable) id<IGListDiffingSectionControllerSelectionDelegate> selectionDelegate;
 
+/**
+ The array of view models created from the data source. Values are changed when the top-level object changes or by
+ calling `-updateAnimated:completion:` manually.
+ */
 @property (nonatomic, strong, readonly) NSArray<id<IGListDiffable>> *viewModels;
 
+/**
+ Tells the section controller to query for new view models, diff the changes, and update its cells.
+
+ @param animated A flag indicating if the transition should be animated or not.
+ @param completion An optional completion block that is executed after updates finish.
+ */
 - (void)updateAnimated:(BOOL)animated completion:(nullable void (^)())completion;
 
 @end
