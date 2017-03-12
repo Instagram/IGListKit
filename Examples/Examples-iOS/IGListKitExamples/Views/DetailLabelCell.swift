@@ -14,7 +14,7 @@
 
 import UIKit
 
-class DetailLabelCell: UICollectionViewCell {
+final class DetailLabelCell: UICollectionViewCell {
 
     fileprivate let padding: CGFloat = 15.0
 

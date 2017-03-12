@@ -14,7 +14,7 @@
 
 import UIKit
 
-class LabelCell: UICollectionViewCell {
+final class LabelCell: UICollectionViewCell {
 
     fileprivate static let insets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
     fileprivate static let font = UIFont.systemFont(ofSize: 17)

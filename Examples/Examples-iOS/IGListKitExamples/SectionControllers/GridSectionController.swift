@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class GridItem: NSObject {
+final class GridItem: NSObject {
 
     let color: UIColor
     let itemCount: Int
