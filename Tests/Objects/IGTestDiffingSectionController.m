@@ -12,6 +12,8 @@
 #import "IGTestDiffingObject.h"
 #import "IGTestStringBindableCell.h"
 #import "IGTestNumberBindableCell.h"
+#import "IGTestObject.h"
+#import "IGTestCell.h"
 
 @implementation IGTestDiffingSectionController
 
@@ -30,8 +32,14 @@
 }
 
 - (UICollectionViewCell<IGListBindable> *)sectionController:(IGListDiffingSectionController *)sectionController cellForViewModel:(id)viewModel atIndex:(NSInteger)index {
-    const BOOL isString = [viewModel isKindOfClass:[NSString class]];
-    Class cellClass = isString ? [IGTestStringBindableCell class] : [IGTestNumberBindableCell class];
+    Class cellClass;
+    if ([viewModel isKindOfClass:[NSString class]]) {
+        cellClass = [IGTestStringBindableCell class];
+    } else if ([viewModel isKindOfClass:[NSNumber class]]) {
+        cellClass = [IGTestNumberBindableCell class];
+    } else {
+        cellClass = [IGTestCell class];
+    }
     id cell = [self.collectionContext dequeueReusableCellOfClass:cellClass forSectionController:self atIndex:index];
     return cell;
 }

@@ -28,6 +28,7 @@ FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 #import <IGListKit/IGListAdapterDelegate.h>
 #import <IGListKit/IGListAdapterUpdater.h>
 #import <IGListKit/IGListAdapterUpdaterDelegate.h>
+#import <IGListKit/IGListBindable.h>
 #import <IGListKit/IGListDiffingSectionController.h>
 #import <IGListKit/IGListDiffingSectionControllerSelectionDelegate.h>
 #import <IGListKit/IGListDiffingSectionControllerDataSource.h>

@@ -19,6 +19,11 @@
     return self;
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@: %p; key: %@; objects: %@>",
+            NSStringFromClass(self.class), self, self.key, self.objects];
+}
+
 #pragma mark - IGListDiffable
 
 - (id<NSObject>)diffIdentifier {
@@ -26,11 +31,7 @@
 }
 
 - (BOOL)isEqualToDiffableObject:(id<IGListDiffable>)object {
-    if (self == object) {
-        return YES;
-    }
-    IGTestDiffingObject *rhs = (IGTestDiffingObject *)object;
-    return [self.key isEqual:rhs.key];
+    return YES;
 }
 
 @end

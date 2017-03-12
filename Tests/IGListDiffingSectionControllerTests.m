@@ -17,6 +17,8 @@
 #import "IGTestStringBindableCell.h"
 #import "IGTestNumberBindableCell.h"
 #import "IGListAdapterInternal.h"
+#import "IGTestObject.h"
+#import "IGTestCell.h"
 
 @interface IGListDiffingSectionControllerTests : XCTestCase
 
@@ -136,6 +138,88 @@
     [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
     IGTestDiffingSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
     XCTAssertEqualObjects(section.selectedViewModel, @"seven");
+}
+
+- (void)test_whenAdapterReloadsObjects_thatSectionUpdated {
+    [self setupWithObjects:@[
+                             [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
+                             ]];
+    [self.adapter reloadObjects:@[[[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@"four", @4, @"seven", @7]]]];
+    
+    IGTestNumberBindableCell *cell00 = [self cellAtSection:0 item:0];
+    IGTestStringBindableCell *cell01 = [self cellAtSection:0 item:1];
+    
+    XCTAssertEqualObjects(cell00.textField.text, @"7");
+    XCTAssertEqualObjects(cell01.label.text, @"seven");
+    XCTAssertNil([self cellAtSection:0 item:2]);
+    XCTAssertNil([self cellAtSection:0 item:3]);
+    
+    // "fake" batch updates to make sure that calling reload triggers a diffed batch update
+    XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self.adapter performBatchAnimated:YES updates:^{} completion:^(BOOL finished) {
+        IGTestStringBindableCell *cell00 = [self cellAtSection:0 item:0];
+        IGTestNumberBindableCell *cell01 = [self cellAtSection:0 item:1];
+        IGTestStringBindableCell *cell02 = [self cellAtSection:0 item:2];
+        IGTestNumberBindableCell *cell03 = [self cellAtSection:0 item:3];
+        
+        XCTAssertEqualObjects(cell00.label.text, @"four");
+        XCTAssertEqualObjects(cell01.textField.text, @"4");
+        XCTAssertEqualObjects(cell02.label.text, @"seven");
+        XCTAssertEqualObjects(cell03.textField.text, @"7");
+        
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:16 handler:nil];
+}
+
+- (void)test_whenUpdating_withViewModelMovesAndReloads_thatCellUpdatedAndInstanceSame {
+    NSArray *initObjects = @[
+                             @"foo",
+                             @"bar",
+                             [[IGTestObject alloc] initWithKey:@42 value:@"baz"]
+                             ];
+    [self setupWithObjects:@[
+                             [[IGTestDiffingObject alloc] initWithKey:@1 objects:initObjects]
+                             ]];
+    
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
+    
+    IGTestStringBindableCell *cell00 = [self cellAtSection:0 item:0];
+    IGTestStringBindableCell *cell01 = [self cellAtSection:0 item:1];
+    IGTestCell *cell02 = [self cellAtSection:0 item:2];
+    
+    XCTAssertEqualObjects(cell00.label.text, @"foo");
+    XCTAssertEqualObjects(cell01.label.text, @"bar");
+    XCTAssertEqualObjects(cell02.label.text, @"baz");
+
+    NSArray *newObjects = @[
+                            [[IGTestObject alloc] initWithKey:@42 value:@"bang"], // moved to section 0 and value changed
+                            @"foo",
+                            @"bar",
+                            ];
+    self.dataSource.objects = @[
+                                [[IGTestDiffingObject alloc] initWithKey:@1 objects:newObjects]
+                                ];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        IGTestCell *batchedCell00 = [self cellAtSection:0 item:0];
+        IGTestStringBindableCell *batchedCell01 = [self cellAtSection:0 item:1];
+        IGTestStringBindableCell *batchedCell02 = [self cellAtSection:0 item:2];
+        
+        XCTAssertEqualObjects(batchedCell00.label.text, @"bang");
+        XCTAssertEqualObjects(batchedCell01.label.text, @"foo");
+        XCTAssertEqualObjects(batchedCell02.label.text, @"bar");
+        
+        XCTAssertEqual(cell00, batchedCell01);
+        XCTAssertEqual(cell01, batchedCell02);
+        XCTAssertEqual(cell02, batchedCell00);
+        
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:16 handler:nil];
 }
 
 @end
