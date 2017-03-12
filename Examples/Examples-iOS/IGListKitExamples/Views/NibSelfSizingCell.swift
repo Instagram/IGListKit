@@ -14,7 +14,7 @@
 
 import UIKit
 
-class NibSelfSizingCell: UICollectionViewCell {
+final class NibSelfSizingCell: UICollectionViewCell {
     
     @IBOutlet weak var contentLabel: UILabel!
 

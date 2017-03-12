@@ -14,7 +14,7 @@
 
 import UIKit
 
-class CenterLabelCell: UICollectionViewCell {
+final class CenterLabelCell: UICollectionViewCell {
 
     lazy var label: UILabel = {
         let view = UILabel()

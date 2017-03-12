@@ -14,7 +14,7 @@
 
 import UIKit
 
-class ManuallySelfSizingCell: UICollectionViewCell {
+final class ManuallySelfSizingCell: UICollectionViewCell {
 
     let label: UILabel = {
         let label = UILabel()

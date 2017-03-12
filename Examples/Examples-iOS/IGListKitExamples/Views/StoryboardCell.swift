@@ -14,6 +14,6 @@
 
 import UIKit
 
-class StoryboardCell: UICollectionViewCell {
+final class StoryboardCell: UICollectionViewCell {
     @IBOutlet weak var textLabel: UILabel!
 }

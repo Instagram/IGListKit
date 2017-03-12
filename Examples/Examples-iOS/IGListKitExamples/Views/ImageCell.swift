@@ -14,7 +14,7 @@
 
 import UIKit
 
-class ImageCell: UICollectionViewCell {
+final class ImageCell: UICollectionViewCell {
 
     fileprivate let imageView: UIImageView = {
         let view = UIImageView()

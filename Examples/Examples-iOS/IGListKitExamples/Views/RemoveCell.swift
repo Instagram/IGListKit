@@ -18,7 +18,7 @@ protocol RemoveCellDelegate: class {
     func removeCellDidTapButton(_ cell: RemoveCell)
 }
 
-class RemoveCell: UICollectionViewCell {
+final class RemoveCell: UICollectionViewCell {
 
     weak var delegate: RemoveCellDelegate?
 

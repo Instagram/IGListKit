@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class DisplaySectionController: IGListSectionController, IGListSectionType, IGListDisplayDelegate {
+final class DisplaySectionController: IGListSectionController, IGListSectionType, IGListDisplayDelegate {
 
     override init() {
         super.init()
