@@ -36,7 +36,7 @@
     return cell;
 }
 
-- (CGSize)sectionController:(IGListDiffingSectionController *)sectionController sizeForViewModel:(id)viewModel {
+- (CGSize)sectionController:(IGListDiffingSectionController *)sectionController sizeForViewModel:(id)viewModel atIndex:(NSInteger)index {
     const BOOL isString = [viewModel isKindOfClass:[NSString class]];
     return CGSizeMake([self.collectionContext containerSize].width, isString ? 55 : 30);
 }
