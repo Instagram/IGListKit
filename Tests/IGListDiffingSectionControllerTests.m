@@ -157,15 +157,15 @@
     // "fake" batch updates to make sure that calling reload triggers a diffed batch update
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adapter performBatchAnimated:YES updates:^{} completion:^(BOOL finished) {
-        IGTestStringBindableCell *cell00 = [self cellAtSection:0 item:0];
-        IGTestNumberBindableCell *cell01 = [self cellAtSection:0 item:1];
-        IGTestStringBindableCell *cell02 = [self cellAtSection:0 item:2];
-        IGTestNumberBindableCell *cell03 = [self cellAtSection:0 item:3];
+        IGTestStringBindableCell *batchedCell00 = [self cellAtSection:0 item:0];
+        IGTestNumberBindableCell *batchedCell01 = [self cellAtSection:0 item:1];
+        IGTestStringBindableCell *batchedCell02 = [self cellAtSection:0 item:2];
+        IGTestNumberBindableCell *batchedCell03 = [self cellAtSection:0 item:3];
         
-        XCTAssertEqualObjects(cell00.label.text, @"four");
-        XCTAssertEqualObjects(cell01.textField.text, @"4");
-        XCTAssertEqualObjects(cell02.label.text, @"seven");
-        XCTAssertEqualObjects(cell03.textField.text, @"7");
+        XCTAssertEqualObjects(batchedCell00.label.text, @"four");
+        XCTAssertEqualObjects(batchedCell01.textField.text, @"4");
+        XCTAssertEqualObjects(batchedCell02.label.text, @"seven");
+        XCTAssertEqualObjects(batchedCell03.textField.text, @"7");
         
         [expectation fulfill];
     }];
