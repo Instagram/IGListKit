@@ -4,6 +4,7 @@ osx_image: xcode8.2
 cache:
   - cocoapods
   - slather
+  - danger
 
 env:
    global:
@@ -45,6 +46,7 @@ env:
 
 before_install:
   - gem install slather --no-rdoc --no-ri --no-document --quiet
+  - gem install --version '~> 4.3'
 
 script:
 - set -o pipefail
@@ -88,6 +90,8 @@ script:
   else
       xcodebuild build analyze -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c;
   fi
+
+- danger
 
 after_success:
   - slather
