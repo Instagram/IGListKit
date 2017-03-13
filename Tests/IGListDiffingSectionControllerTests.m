@@ -222,4 +222,26 @@
     [self waitForExpectationsWithTimeout:16 handler:nil];
 }
 
+- (void)test_whenUpdatingManually_with2Updates_thatBothCompletionBlocksCalled {
+    [self setupWithObjects:@[
+                             [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
+                             ]];
+    IGTestDiffingSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    
+    XCTestExpectation *expectation1 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [section updateAnimated:YES completion:^(BOOL updated) {
+        XCTAssertTrue(updated);
+        [expectation1 fulfill];
+    }];
+    
+    XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [section updateAnimated:YES completion:^(BOOL updated) {
+        // queued second, shouldn't execute update block
+        XCTAssertFalse(updated);
+        [expectation2 fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
 @end

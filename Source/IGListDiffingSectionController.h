@@ -69,9 +69,9 @@ NS_ASSUME_NONNULL_BEGIN
  Tells the section controller to query for new view models, diff the changes, and update its cells.
 
  @param animated A flag indicating if the transition should be animated or not.
- @param completion An optional completion block that is executed after updates finish.
+ @param completion An optional completion block executed after updates finish. Parameter is YES if updates were applied.
  */
-- (void)updateAnimated:(BOOL)animated completion:(nullable void (^)())completion;
+- (void)updateAnimated:(BOOL)animated completion:(nullable void (^)(BOOL updated))completion;
 
 @end
 

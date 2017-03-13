@@ -33,10 +33,13 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
 
 #pragma mark - Public API
 
-- (void)updateAnimated:(BOOL)animated completion:(void (^)())completion {
+- (void)updateAnimated:(BOOL)animated completion:(void (^)(BOOL))completion {
     IGAssertMainThread();
 
     if (self.state != IGListDiffingSectionStateIdle) {
+        if (completion != nil) {
+            completion(NO);
+        }
         return;
     }
     self.state = IGListDiffingSectionStateUpdateQueued;
@@ -46,7 +49,7 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
 
     id<IGListCollectionContext> collectionContext = self.collectionContext;
 
-    [collectionContext performBatchAnimated:YES updates:^{
+    [collectionContext performBatchAnimated:animated updates:^{
         if (self.state != IGListDiffingSectionStateUpdateQueued) {
             return;
         }
@@ -76,6 +79,10 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
         self.state = IGListDiffingSectionStateUpdateApplied;
     } completion:^(BOOL finished) {
         self.state = IGListDiffingSectionStateIdle;
+        
+        if (completion != nil) {
+            completion(YES);
+        }
     }];
 }
 
