@@ -12,13 +12,13 @@
 #import <IGListKit/IGListMacros.h>
 #import <IGListKit/IGListSectionType.h>
 #import <IGListKit/IGListSectionController.h>
-#import <IGListKit/IGListDiffingSectionControllerSelectionDelegate.h>
-#import <IGListKit/IGListDiffingSectionControllerDataSource.h>
+#import <IGListKit/IGListBindingSectionControllerSelectionDelegate.h>
+#import <IGListKit/IGListBindingSectionControllerDataSource.h>
 
 @protocol IGListDiffable;
 @protocol IGListBindable;
 
-@class IGListDiffingSectionController;
+@class IGListBindingSectionController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
  This section controller uses a data source to transform its "top level" object into an array of diffable view models.
  It then automatically binds each view model to cells via the `IGListBindable` protocol.
  
- Models used with `IGListDiffingSectionController` should take special care to always return `YES` for identical
+ Models used with `IGListBindingSectionController` should take special care to always return `YES` for identical
  objects. That is, any objects with matching `-diffIdentifier`s should always be equal, that way the section controller
  can create new view models via the data source, create a diff, and update the specific cells that have changed.
  
@@ -47,17 +47,17 @@ NS_ASSUME_NONNULL_BEGIN
  Only when `-diffIdentifier`s match is object equality compared, so you can assume the class is the same, and the
  instance has already been checked.
  */
-@interface IGListDiffingSectionController : IGListSectionController<IGListSectionType>
+@interface IGListBindingSectionController : IGListSectionController<IGListSectionType>
 
 /**
  A data source that transforms a top-level object into view models, and returns cells and sizes for given view models.
  */
-@property (nonatomic, weak, nullable) id<IGListDiffingSectionControllerDataSource> dataSource;
+@property (nonatomic, weak, nullable) id<IGListBindingSectionControllerDataSource> dataSource;
 
 /**
- A delegate that receives selection events from cells in an `IGListDiffingSectionController` instance.
+ A delegate that receives selection events from cells in an `IGListBindingSectionController` instance.
  */
-@property (nonatomic, weak, nullable) id<IGListDiffingSectionControllerSelectionDelegate> selectionDelegate;
+@property (nonatomic, weak, nullable) id<IGListBindingSectionControllerSelectionDelegate> selectionDelegate;
 
 /**
  The array of view models created from the data source. Values are changed when the top-level object changes or by

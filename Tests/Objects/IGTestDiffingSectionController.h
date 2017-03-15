@@ -9,7 +9,7 @@
 
 #import <IGListKit/IGListKit.h>
 
-@interface IGTestDiffingSectionController : IGListDiffingSectionController <IGListDiffingSectionControllerDataSource, IGListDiffingSectionControllerSelectionDelegate>
+@interface IGTestDiffingSectionController : IGListBindingSectionController <IGListBindingSectionControllerDataSource, IGListBindingSectionControllerSelectionDelegate>
 
 @property (nonatomic, strong) id selectedViewModel;
 

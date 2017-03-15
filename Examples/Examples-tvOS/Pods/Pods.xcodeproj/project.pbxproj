@@ -7,88 +7,88 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		094296CC53C54C57FFAB68055DCFB571 /* IGListCollectionViewLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 288D15A2D11A21A2298F8D1383ED2CCB /* IGListCollectionViewLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0D0C955B8288471537DE202D10F41D40 /* IGListBindable.h in Headers */ = {isa = PBXBuildFile; fileRef = CC2A59234645A546E2FE259E05370296 /* IGListBindable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0DA03EF516DBAA583AEFCE585297C43D /* IGListSingleSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB528FC845B9B4A0377FC563DEF1EBF /* IGListSingleSectionController.m */; };
-		102C05C5C8BB3B61B47E1661EA4357A3 /* IGListSectionMap.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3F5F91FDDACD3883D7222F3C4C9632 /* IGListSectionMap.m */; };
+		0B90FDC95D3C7E4FD0AFF80E4565E1F8 /* IGListDisplayHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CBABEB4F62BC65DBC02E31724606306F /* IGListDisplayHandler.m */; };
+		11F7B8FBECFF6A62AF3A84AED161CC8A /* IGListMoveIndexPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 39B9885E3ECAF4B1E195E5A1C84F787C /* IGListMoveIndexPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1264A1106BD0636E0ECA6364017CBF32 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB4C132D7BA00C1384E27FAFD43A44B6 /* UIKit.framework */; };
-		12DCDBA0E5D07C8E7DA041EC2DE71DE7 /* IGListIndexSetResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C0CDD4D3287D74F141A5A59D85AB282 /* IGListIndexSetResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		138B9BF781A835E63BA3316233A72B7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71D44B887663E8A7D2752C9ED2356648 /* Foundation.framework */; };
-		17F0B841D9EE3836DE3A0D14FED1E1C0 /* IGListDiffingSectionControllerSelectionDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = B57B8A716D535E6F55D7DB53AE96E68D /* IGListDiffingSectionControllerSelectionDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		169ED9BD178AF69C34938B20724C31EF /* IGListAdapterUpdaterInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 15D4AF1FA9FF384E67C64817F732EE0C /* IGListAdapterUpdaterInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		173D5AF965162ADFCE37F534E4AE4C65 /* IGListBindable.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C688FAFE9C96A9E7BA2C5F9868334B /* IGListBindable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1808124669CE0A964974881C142F9520 /* IGListBindingSectionControllerDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 64FB41B28C7E17DAB9F4E352BDC648E4 /* IGListBindingSectionControllerDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1A89AF7CCCD65D9D5B946363776D05AE /* Pods-IGListKitExamples-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 52054AE893A0AE7FBFC54333D8ABD345 /* Pods-IGListKitExamples-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1BB066C32440460D172B42463AD1891E /* IGListBatchUpdateData.h in Headers */ = {isa = PBXBuildFile; fileRef = 697D078CA372E340E51AA66039187C52 /* IGListBatchUpdateData.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C59D58BD9996BDAD05CD322BE149C15 /* IGListAdapterDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F9811CA5F5ED216E6AE3491A89F3552 /* IGListAdapterDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C5D0A89E2C4242B8EA9355D86FFB3A2 /* IGListMoveIndexInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B8F5DAA8FE2FEA0029A18C5847D6EBF /* IGListMoveIndexInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		23E49138E141B892C3C165D8646E5F41 /* IGListDiff.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46C6260B9402F24F7810932429908B73 /* IGListDiff.mm */; };
-		265D3C8FB20544BB7C4759A354DEC6C8 /* IGListAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6201B8C782E89088C44482D56094E86E /* IGListAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		279CC0663D7F7282341CAED75885D72C /* IGListIndexPathResultInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6692BCFA51463333CE24FEE77A4007B7 /* IGListIndexPathResultInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		27C05637482F7B6DF80B3B6B35C7445C /* IGListMoveIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D034A8EDA383ED29F55750C40185224 /* IGListMoveIndex.m */; };
-		28E4F6767210A6D01337DAAE8D159DA2 /* IGListIndexSetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 76636A93A6764D852115F1C40E621951 /* IGListIndexSetResult.m */; };
-		2C0A4617B99D0EBE247D5C6BF65729FE /* IGListAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A99D426FD0211CA0174585E780319EB /* IGListAdapter.m */; };
-		2C17DDC3F26F9721B0083BB9312311EB /* IGListKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C21A7CA00A0F4B5304CF04AF01BD52EF /* IGListKit-dummy.m */; };
-		2DF9175208027337157D93B31B8EDDB9 /* IGListBatchUpdateData.mm in Sources */ = {isa = PBXBuildFile; fileRef = C9C8E35CDC49D4F76902E53EC5CF36A5 /* IGListBatchUpdateData.mm */; };
-		2EE8E9E6CEB4ADE9CCF8D6D2421E6E0D /* IGListAdapterUpdater.h in Headers */ = {isa = PBXBuildFile; fileRef = 197EB500804D37CD486A718E89A69EC7 /* IGListAdapterUpdater.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		329D07A0427FCBA2E015AF2EBD5BCF35 /* IGListMoveIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = D58E49254945287400F6F38F5E31553E /* IGListMoveIndex.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		35343A745923EE8838670C8CA4A07666 /* IGListCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45785920AE6E55CC35D8F3A25C6AEDFF /* IGListCollectionView.m */; };
-		388AFC2D3CAB6E543F9220458FA5F1A4 /* IGListSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD7FBAE56F416AE7FA2C2C3121DF2245 /* IGListSectionController.m */; };
-		39283CA73661ADC1F5E2D55997846AF5 /* IGListBatchUpdateState.h in Headers */ = {isa = PBXBuildFile; fileRef = 419F58FFC1B537E4165F898A6ABF7C2D /* IGListBatchUpdateState.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		3D6588A5AA74A7962586866045B40A9D /* IGListSingleSectionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D90761C758D5E97D3DC131CD4F9CC90 /* IGListSingleSectionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43B8F9C90DDC82D8754C2D9CA463D575 /* IGListAssert.h in Headers */ = {isa = PBXBuildFile; fileRef = 81F66E7005ED6A4DFBD1942BCEA2E048 /* IGListAssert.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		47F13A908B9A5BA240D0FEB18AB09F69 /* IGListMoveIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = E5220482D2277B645826E3A22FFE55B1 /* IGListMoveIndexPath.m */; };
-		48BFD8C741292D86E1A6799048064AAB /* IGListWorkingRangeHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D33668730D1DFE1D4CF7DB636169623 /* IGListWorkingRangeHandler.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4AF2F2BF3CC5D3313232E1206203F238 /* IGListCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = E43DDB9583DF9C906B78C516A51BAE11 /* IGListCollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E668F19F9497638DEC74538B289D7E1 /* IGListUpdatingDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D3A785C87BFB34705180D91C0F7EC9 /* IGListUpdatingDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5AD2931ACFB330ED104D1C95E991CD36 /* IGListDiffable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C8120C78178691D001ADC52F45C4C13 /* IGListDiffable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5C39684A15D432763253B02909C3EBB3 /* IGListKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9699862731767A477E47D42C41975A56 /* IGListKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5C740D36A9B579BA8A9D788A275D0BEF /* IGListMoveIndexPathInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = E3580A54146FF6FC727CC624F0A46098 /* IGListMoveIndexPathInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		5F6BD4B70F3D31251A2041C1507FA7D1 /* IGListAdapterUpdaterInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = C39F4157C9C4FC125B2CB940A7B37921 /* IGListAdapterUpdaterInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		6047AC41B2A080415DC3E7261CDDD7FC /* IGListBatchUpdates.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA737C23CBF61AEA7F69EA8FC65B4 /* IGListBatchUpdates.m */; };
-		605064DE217886BDB5F54D2C4F1FFE10 /* IGListDiffingSectionController.h in Headers */ = {isa = PBXBuildFile; fileRef = B04DADDDD6A5F7893D0F2EF01D024724 /* IGListDiffingSectionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1A9452454E12EDDDA5A2CEB1C2A896A7 /* IGListIndexPathResultInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = E5E1BDC1DF5814E63440C8210CBAC02D /* IGListIndexPathResultInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2048A9F788B981CE3479CBF6E4664AD4 /* IGListDiff.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8CDD09425C02489D971658844FE5E541 /* IGListDiff.mm */; };
+		2BD1A890107BEADF4B030A1E35E851D7 /* IGListWorkingRangeHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D925A6DD051D8B361761712D96E9C /* IGListWorkingRangeHandler.mm */; };
+		320A3572DA9692AE7429E925C17B9951 /* NSString+IGListDiffable.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3CDDBB5DEA0751548EEBDE855125BA /* NSString+IGListDiffable.m */; };
+		390A178AB97AA6350B22486CF028304F /* IGListSingleSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 324EA5E2E12CAB8B5D6CF287D5554939 /* IGListSingleSectionController.m */; };
+		3E676CF81E678CCE7EB11096AAF2D2CB /* IGListExperiments.h in Headers */ = {isa = PBXBuildFile; fileRef = 7456B994D853751D91DEA422ADFCB08E /* IGListExperiments.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3FADD1C8254A38BCC52DB8BA989EDD10 /* IGListCollectionContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F3A898F7A0108DC39CB42701DD5B7A6F /* IGListCollectionContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43C006EB33DEC5BD3656F5653E9DAE91 /* IGListWorkingRangeDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 72CD8EB80054C3426530549BF4C15420 /* IGListWorkingRangeDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D7CF6BC7467CFCE87AB313992648BBD /* IGListUpdatingDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 460E6FA02E3D2BFD2CEFD4DDE9F39C5A /* IGListUpdatingDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5509E3BD60EF54D8EC8ADA7856762677 /* IGListCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C554C5EA28F66E13ECB1DBCE25B822 /* IGListCollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		556563648DA5CC4312B393C2FCD849A7 /* IGListMoveIndexInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 094EE2FA32C72934D21D44EBDCE26113 /* IGListMoveIndexInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		566CEB19AE09C53C812D07B9D1932AAB /* NSNumber+IGListDiffable.m in Sources */ = {isa = PBXBuildFile; fileRef = F422959A75D5D086B9D0ECAC0F686963 /* NSNumber+IGListDiffable.m */; };
+		58080F56F4E8DF8BF2F180356D016E40 /* IGListAdapterUpdater.h in Headers */ = {isa = PBXBuildFile; fileRef = A6C9784744DCA415303DFA673C399094 /* IGListAdapterUpdater.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		58F84CD9814CC29B7F2FC522D33D8F55 /* IGListDiffable.h in Headers */ = {isa = PBXBuildFile; fileRef = 68B4E37BE7EF5ADB0B44B9D0C61F66D7 /* IGListDiffable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		59E6066B1451FD3EA9C043E39A88BA6A /* IGListIndexPathResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BB3136EFF61B54745DD5F7A8CA755FC /* IGListIndexPathResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5B515062D046D80273591A9167E38BF5 /* IGListKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C21A7CA00A0F4B5304CF04AF01BD52EF /* IGListKit-dummy.m */; };
+		5CAD60035D12F141A0B280A55C6AE9F7 /* IGListAssert.h in Headers */ = {isa = PBXBuildFile; fileRef = B4C62BDD69383983C7F5ED8FC219A8E0 /* IGListAssert.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		60D885DA6630FF6A835F927349BFA61F /* IGListDisplayDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 051BD77520927C1F055B0F2844AF2E56 /* IGListDisplayDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		628C423CD876498A3E7A9F40036C0CE9 /* IGListAdapterDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = F7A8B747AC959218314BAAD2E75BC0ED /* IGListAdapterDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6585F8BC4AE0EA2DC16B62B159CAE397 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71D44B887663E8A7D2752C9ED2356648 /* Foundation.framework */; };
-		68EDC4DFCF7E560963C5C2EA11A094C8 /* IGListDiffKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3216B8555B8DF487452B87BE9AAB8868 /* IGListDiffKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6915573B0C51F6A4C4A578266531E0A7 /* IGListIndexSetResultInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 72D40101C8B2173CB3FD6BBBDAF82D96 /* IGListIndexSetResultInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		6A364AA0A21EF04B42F4252D34490430 /* NSString+IGListDiffable.m in Sources */ = {isa = PBXBuildFile; fileRef = E29BC3F823E0E76B3A44F7739C7AADE2 /* NSString+IGListDiffable.m */; };
-		6C2F5CCB58161E575E24F319315DF17E /* IGListAdapterProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = A40A9214AA996BB01FB5389E76CC51BC /* IGListAdapterProxy.m */; };
-		77BB17CC423AC67076CBE1EFC7FE604B /* IGListBatchUpdates.h in Headers */ = {isa = PBXBuildFile; fileRef = A4D41A274BFBA02862DB2A18DBDB5B6E /* IGListBatchUpdates.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		7999D4107DA7297060CA1F0F65C3B8C9 /* IGListStackedSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46924D7931ED9C55E76D74FA18FEAC00 /* IGListStackedSectionController.m */; };
-		7EC17B30BF38EA68C120D41893153F91 /* IGListReloadDataUpdater.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D6D78181F70B1A3B043039251E8477E /* IGListReloadDataUpdater.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		824309E031C431D409A2638D958A183A /* IGListWorkingRangeDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C160E29E5EC74FD94BF101CBC654B4FD /* IGListWorkingRangeDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		831CBC753FA9DCEA54C2D8BFDEE8BCFD /* IGListSectionController.h in Headers */ = {isa = PBXBuildFile; fileRef = CC938ED36C0A86555808BDB74BE150FD /* IGListSectionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		84F2E2A015B105C7642C03D33CD1A433 /* UICollectionView+IGListBatchUpdateData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5258793B917221F31D2856D80ACBA567 /* UICollectionView+IGListBatchUpdateData.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		85E8D228A20A3B1BAF66BA5E501E4130 /* IGListDiffingSectionControllerDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = A443CB8A28C20A4C404DB6979E1B4AF6 /* IGListDiffingSectionControllerDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8E82C0D3C6CC5A7BA6BE6D9B87F8C7D9 /* IGListCollectionContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E8A7B66AA9513019D92AAEDDCCC51F1 /* IGListCollectionContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		93BCC6AE07FEEA7D4CA9858D109F9465 /* IGListDisplayDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = BB95CD0F809C1DDDF2DA9AC629109C5E /* IGListDisplayDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		95E5618CA29FAE8884AA645BDCD2FD7C /* IGListReloadDataUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB437F7486D8AD712E3E9289DB590D4 /* IGListReloadDataUpdater.m */; };
-		98B4349D76EDC06061E75377DD78C445 /* IGListExperiments.h in Headers */ = {isa = PBXBuildFile; fileRef = 4606CB1B34CF697290FBED89412AB2A5 /* IGListExperiments.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A17362A420E4975E16A915FEA2D09B34 /* IGListMoveIndexPath.h in Headers */ = {isa = PBXBuildFile; fileRef = BD80D56F3CF598AA479CF4F67847DF62 /* IGListMoveIndexPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A644CFC8EB676C61C0D22168F8D31AFE /* IGListCollectionViewLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3903AFAF78F8F6586532BB7A704EF4CB /* IGListCollectionViewLayout.mm */; };
-		AA83AE6D3E0569457291E3427268DFE9 /* NSNumber+IGListDiffable.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B77E7C3782A071BD3D397FC12396846 /* NSNumber+IGListDiffable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AB0C34571411C0FC12E64867D57FF4D0 /* IGListDisplayHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BAF5AFCD2CD661355050276FBE9D1B2 /* IGListDisplayHandler.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		AC2DAF1614094722C3E859D3D4B27EC4 /* IGListAdapterInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = D1CFC3A5D24943E5C05147EF23270584 /* IGListAdapterInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		B2BB31F11BD602231FD2F7A0A7658CEC /* IGListMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = CF2A1A62A5CDF1689878D84A74DFA90C /* IGListMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C00C77FC180B0CEA9BE2085D7945CC56 /* IGListSectionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 244822A6E2AEF7D14241F3CAD5E938AE /* IGListSectionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C2846760E0A16C504A4132AF4E28C867 /* IGListCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = AAF37B39ACBA7ADD9BC9EB2B6BD705FF /* IGListCompatibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66184C6818854D5B8E86B35FED58A7BF /* UICollectionView+IGListBatchUpdateData.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D31D53174F23C06AB123A933E1CBB38 /* UICollectionView+IGListBatchUpdateData.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		667420020452017438E40E7E3732039D /* IGListKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9699862731767A477E47D42C41975A56 /* IGListKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66B4BEF11D4331B7649DA86812EE628A /* IGListMoveIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAB2D77B6C4011C21DF6CEAA52EC568 /* IGListMoveIndexPath.m */; };
+		6757FCEEB64EFF04A0BA84460384945C /* UICollectionView+IGListBatchUpdateData.m in Sources */ = {isa = PBXBuildFile; fileRef = A7202AFD1084039A0FF97DEB1BEA27C5 /* UICollectionView+IGListBatchUpdateData.m */; };
+		687C7310580A9753C3D0A948D9150743 /* IGListIndexSetResultInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D381B4BCB7D99EBF7BE7C69D0B7EED7 /* IGListIndexSetResultInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		6C3695ACB9C6DD0D2B5841D0A27B4A13 /* IGListBatchUpdates.h in Headers */ = {isa = PBXBuildFile; fileRef = 3536601E9D48C5EDAF04809AB5469A19 /* IGListBatchUpdates.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		6D83186E4EA40752763B2A5212C37628 /* NSString+IGListDiffable.h in Headers */ = {isa = PBXBuildFile; fileRef = 557CCA09A7AED3C9EA4C983411179262 /* NSString+IGListDiffable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6F66D093C5ACD4120D13C1B5CC889767 /* IGListBatchUpdateState.h in Headers */ = {isa = PBXBuildFile; fileRef = B46EBF07FF2266069E2945CA6A030A49 /* IGListBatchUpdateState.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		75D31EB733643BD01F205438D99039A2 /* IGListScrollDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = CA686870F05E96F8B02A787EC7BC1085 /* IGListScrollDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		765B6334CAFE8F88C4EBB9D1B5E69625 /* IGListBatchUpdateData.h in Headers */ = {isa = PBXBuildFile; fileRef = ED270AF6D9D034CC34E4B8632E8BEF9E /* IGListBatchUpdateData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		76D1F7C70052C0AB1C5D5EA5C87F1434 /* IGListDiff.h in Headers */ = {isa = PBXBuildFile; fileRef = B5CD72768391516CA41796EFE8404C67 /* IGListDiff.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		795B3C1842C4684D9C15866DACAC802A /* IGListMoveIndexPathInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = B285C7D38B0F662C2A782A5253C7BD37 /* IGListMoveIndexPathInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7DC295E37EDABEDC05DEE5A2C460CF03 /* IGListSectionMap.h in Headers */ = {isa = PBXBuildFile; fileRef = E9BA8DD62C2784599D5093B122CB5F0B /* IGListSectionMap.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		835EFB69DB3F695B3C82673DD7D6166B /* IGListIndexSetResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EA52832E56CFD339F3C565404AB1ACE /* IGListIndexSetResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		83D6C20C3A95AAD7493B1467B4D161C6 /* IGListAdapterUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8CEF156910BEA0971C9ED20EB8D920 /* IGListAdapterUpdater.m */; };
+		84476AB0AF5C4264290D125CFCB72280 /* IGListDiffKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 411ECD36E22A6967749CAEDF2E191A3C /* IGListDiffKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87FAF79F94A0F35E0A7F5E2BCF4D82C4 /* IGListBindingSectionControllerSelectionDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 15425D72CC5567C291B492C5C6DD7B05 /* IGListBindingSectionControllerSelectionDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8A067E2D1E1C74A065D301AF73D9A5C5 /* IGListSectionMap.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8E7DA1A616E340CE278E0CBF2511C2 /* IGListSectionMap.m */; };
+		8A700E9557B164554CDAA2531F945955 /* IGListCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7434C86EDE24CA0EFF019017A60BD9D4 /* IGListCollectionView.m */; };
+		8C16089B3EB0A6EEDD64979BE5F3822F /* IGListAdapterProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 74E764FA03C75A025FE6396A40E42760 /* IGListAdapterProxy.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		9187781B6F9FAB1AA5B83FC038B59D2E /* IGListAdapterDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2D206DEC8D6DF0E4C4E81243C4354E /* IGListAdapterDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		919C5FA721C75B94F6975BEC155A6C11 /* NSNumber+IGListDiffable.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B785F688F33601F63F42F592CD40F5A /* NSNumber+IGListDiffable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		97EF0A6D76AC654985C10D9760C49643 /* IGListStackedSectionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1130965B1EA1FF592AEA1197501FB282 /* IGListStackedSectionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9AD9A9FB4B2595E434BCE9B16C6C755E /* IGListReloadDataUpdater.h in Headers */ = {isa = PBXBuildFile; fileRef = B45207CEC6A00DCD14BD682D41887D6F /* IGListReloadDataUpdater.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9D80094ABBB168FF938D09ADA1DF953D /* IGListAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D56DB40C6B614C1D22E0D63023B0955A /* IGListAdapter.m */; };
+		9FAEE02910593547060BD149421E7A3A /* IGListCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE1BAC7E1F391BC81F8FCC6ADB63D03 /* IGListCompatibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9FDBF734DAF7C5E8381EEF807CD03D2B /* IGListIndexPathResult.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF35C422DF7134923D8F1558B3E44FC /* IGListIndexPathResult.m */; };
+		A2826C4CA5DDA43A41570F576E47466B /* IGListReloadDataUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = A399AF975A3FBC7C4DFCE6B4934615EF /* IGListReloadDataUpdater.m */; };
+		A5BABA4F7D1AF33B33FA73BBA929F345 /* IGListBindingSectionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 05D072D9FA321DF02451E014FA4E54C5 /* IGListBindingSectionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7E984545BDADAF95D49D385F80481A4 /* IGListBatchUpdates.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C58BCEB2489E9F95AF21FFEB56FD66C /* IGListBatchUpdates.m */; };
+		A90FCB1D290A93B97C4EDF3B556C203E /* IGListSectionControllerInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 9835405C599DE83D33F314A00DFD3142 /* IGListSectionControllerInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		AAF5A047D08EE639E1393D68CA3B1BD0 /* IGListMoveIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 28233226E62E3FAF4F720DA393DAE9FF /* IGListMoveIndex.m */; };
+		AB548EF751BD2B5308DC6D4096E01A44 /* IGListIndexSetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = C39FA8BB9D046582CC3D1B4865602277 /* IGListIndexSetResult.m */; };
+		B3A7005E2A67A6F93A8F3619E93137B8 /* IGListAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 98EDEDDA9960C02A40C9A7A6B79EB757 /* IGListAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B4EEED8C0FC92BF950EC7006F8D3A639 /* IGListSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6AC82154468869143414F1560AAA96C /* IGListSectionController.m */; };
+		B5F763538956B9D79EC4FCF059B5C514 /* IGListKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 37B2021A0CDE643B233A1E658654256A /* IGListKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC23421B89F5F630103089656A2A844C /* IGListDisplayHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = C9EFD8948CEF217CE5481F95419BE9B1 /* IGListDisplayHandler.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		BCD1F4C7CCD7936A8359AB88DE63AFBC /* IGListAdapterProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AAA9FF97313EC9C0E06DAF3D77E30B /* IGListAdapterProxy.m */; };
+		C2C92E35BFBB64B99F1A9DEBFA4B0D2F /* IGListBindingSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 745B534C638A5AE267B8EB790B963914 /* IGListBindingSectionController.m */; };
+		C3B936F482041B8847E9FB43FDA5C721 /* IGListCollectionViewLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C7AEBF78ADE776D85336522C3FE4B53 /* IGListCollectionViewLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C45BC50DCD0077F5729FCF5C954F66F7 /* IGListCollectionViewLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = A6D7D69386D57E964DD50300CAC047AD /* IGListCollectionViewLayout.mm */; };
 		C4C4C1B02AFD7277F00A40570658152C /* Pods-IGListKitExamples-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5AE0385534EC7E6CA75003A7280492 /* Pods-IGListKitExamples-dummy.m */; };
-		C696B14A0D2999B3D7B047EC49DE571E /* IGListWorkingRangeHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 385964A1D5E0683682D87137286A57C0 /* IGListWorkingRangeHandler.mm */; };
-		C6F500BD74E677E78DA28B8ADCD3DC3F /* IGListSectionMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AE530B0B2BF924A392E6E0A719A915F /* IGListSectionMap.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		C73B0F6EDA733686C75856DE0BECD5EB /* IGListSectionControllerInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DA3FB6B1657A66E976F582DBC2F1B66 /* IGListSectionControllerInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		C8D9ECDE817BBB42058792313754A50A /* IGListAdapterProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = FBC9FFE2E5D6BAD59964B5AD861F78BA /* IGListAdapterProxy.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		CB0122E5D712D817BB43B8CB9D58C495 /* NSString+IGListDiffable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A22193F16D92E9508FE85D556DA5F4B /* NSString+IGListDiffable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CFBF49F88F02EA5CB3B24E943FD7516C /* IGListIndexPathResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B02F88659D4085024D7CA208D27B15E5 /* IGListIndexPathResult.m */; };
-		D6636EEE87F68B66465901F721650CCD /* IGListDiffingSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB49A3DE6A13CEF0E7923D5DAE8EA282 /* IGListDiffingSectionController.m */; };
-		DAFBBD9B0542374EC064B167F5444102 /* UICollectionView+IGListBatchUpdateData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F751F2D886E9B089A5061D8ED461AA6 /* UICollectionView+IGListBatchUpdateData.m */; };
-		DC01FE02A76D0F4B135AD3F5BF5715AA /* IGListDiff.h in Headers */ = {isa = PBXBuildFile; fileRef = 618CD1BD22676BD28B3005E83E5D4542 /* IGListDiff.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DDFA81D9113B32CE5FC4ED54A9C5C923 /* IGListAdapterDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 62569FDBCB3E49663019B396346C8245 /* IGListAdapterDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DDFEE25629C33EB2F76F28CC86D233A6 /* IGListAdapterUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B2227179A7609DA82C2F7602A72FB5 /* IGListAdapterUpdater.m */; };
-		E2DF05F904DEF89E68F7F02A254976CE /* IGListIndexPathResult.h in Headers */ = {isa = PBXBuildFile; fileRef = DFB9656F4B2E3324F44CA1DCEDF40C34 /* IGListIndexPathResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E78D262F05BEB81A5E337106236A96C8 /* IGListAdapterUpdaterDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5974BF4A59EC768BBEFBE786DFDC1B91 /* IGListAdapterUpdaterDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ECFBF13E804B28687DAC495C54BE4832 /* IGListDisplayHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A599FA5ED979B7F790C6846227D769E /* IGListDisplayHandler.m */; };
-		F0F3D5FFCDC30D49DF2DA67386E90A4F /* IGListKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A9D7EC84CE771E477F43B568F42D875 /* IGListKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F1A4AC1157A6EF081EBF4AC010E796EC /* IGListStackedSectionControllerInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CCFF9C36E4D50553BEC6F713D97530D /* IGListStackedSectionControllerInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		F2EDA7B6871068A18A18A0AFFA3D2501 /* IGListStackedSectionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 32DF0F097C7AE72BACE3FFA644CFB261 /* IGListStackedSectionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F98F9A57ED0729DE18F34BA2DF6461BE /* IGListSupplementaryViewSource.h in Headers */ = {isa = PBXBuildFile; fileRef = FFBAB5D984C7C865C0960F7E147FDB1F /* IGListSupplementaryViewSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9C085C2B2790D6B93DB65463BD2E881 /* NSNumber+IGListDiffable.m in Sources */ = {isa = PBXBuildFile; fileRef = 987FD2A1CA17FA6F0D52678E8EDBA8B4 /* NSNumber+IGListDiffable.m */; };
-		FDE3410AE24B7898DBD20FE78CD01F97 /* IGListScrollDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B3AB3B676BC4493C2AD3CF3F6CF246F /* IGListScrollDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C648CA7DE082B6893731896D74DC800D /* IGListSectionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 739A8F8D4DDD065B82702DB690BEE4AA /* IGListSectionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C94B35361192D7E52CF1569BA6FEF163 /* IGListWorkingRangeHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = C3E2CBDFF1EDF19ECF5A7A1E8A2FA5AB /* IGListWorkingRangeHandler.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D39BC444927BE4636E6CDFC5A2D2FDB3 /* IGListSingleSectionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 036CEB09ADC9B0366EBB6C6C82024541 /* IGListSingleSectionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D7ADB1F788D207A9CBF3EF6D533DF363 /* IGListStackedSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = A53DED20ECE53E63696B11C4BE73C00E /* IGListStackedSectionController.m */; };
+		DD588BDDF0DFDF5DFD95EC120794A23E /* IGListSupplementaryViewSource.h in Headers */ = {isa = PBXBuildFile; fileRef = CFA5D9917E2B7CFB8FF8E9603E1E1CA1 /* IGListSupplementaryViewSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E733895B5254955FDC499927AC931A49 /* IGListAdapterUpdaterDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 15C2E9CF910FDC03D60C18D0950B6AC5 /* IGListAdapterUpdaterDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EFEF9C728B0228395AE0AE6462E9BDAE /* IGListMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 42B7BA34D33BD063286E35DFE7354E45 /* IGListMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F2763C888130E11820E27771592E9681 /* IGListMoveIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = 97599D6608CD31714EE41D6D20F84CA4 /* IGListMoveIndex.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9FD195160E171B81C8FE9D6A958C3A8 /* IGListAdapterInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = FA87E90F96DA5F762A024BA84BB0A6D5 /* IGListAdapterInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		FA385BC8D7FF5C3A3FCA309B06E651D8 /* IGListStackedSectionControllerInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA463B106CCD0E3D9AFF3D73A66F4F0 /* IGListStackedSectionControllerInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		FC16F4FA2375541EB06B5312C4B4A4A9 /* IGListBatchUpdateData.mm in Sources */ = {isa = PBXBuildFile; fileRef = AE3D7DB3996185E84E5671222FC996C0 /* IGListBatchUpdateData.mm */; };
+		FE0EC5D34C576E0A20373F4304683972 /* IGListSectionType.h in Headers */ = {isa = PBXBuildFile; fileRef = AD5D8383FF2C437A5E1E1DCB46500232 /* IGListSectionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,102 +102,102 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0BAF5AFCD2CD661355050276FBE9D1B2 /* IGListDisplayHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListDisplayHandler.h; sourceTree = "<group>"; };
-		0C0CDD4D3287D74F141A5A59D85AB282 /* IGListIndexSetResult.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListIndexSetResult.h; sourceTree = "<group>"; };
-		197EB500804D37CD486A718E89A69EC7 /* IGListAdapterUpdater.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapterUpdater.h; sourceTree = "<group>"; };
+		036CEB09ADC9B0366EBB6C6C82024541 /* IGListSingleSectionController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListSingleSectionController.h; sourceTree = "<group>"; };
+		051BD77520927C1F055B0F2844AF2E56 /* IGListDisplayDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListDisplayDelegate.h; sourceTree = "<group>"; };
+		05D072D9FA321DF02451E014FA4E54C5 /* IGListBindingSectionController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListBindingSectionController.h; sourceTree = "<group>"; };
+		094EE2FA32C72934D21D44EBDCE26113 /* IGListMoveIndexInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListMoveIndexInternal.h; sourceTree = "<group>"; };
+		0D31D53174F23C06AB123A933E1CBB38 /* UICollectionView+IGListBatchUpdateData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+IGListBatchUpdateData.h"; sourceTree = "<group>"; };
+		1130965B1EA1FF592AEA1197501FB282 /* IGListStackedSectionController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListStackedSectionController.h; sourceTree = "<group>"; };
+		15425D72CC5567C291B492C5C6DD7B05 /* IGListBindingSectionControllerSelectionDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListBindingSectionControllerSelectionDelegate.h; sourceTree = "<group>"; };
+		15C2E9CF910FDC03D60C18D0950B6AC5 /* IGListAdapterUpdaterDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapterUpdaterDelegate.h; sourceTree = "<group>"; };
+		15D4AF1FA9FF384E67C64817F732EE0C /* IGListAdapterUpdaterInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapterUpdaterInternal.h; sourceTree = "<group>"; };
 		1B2B14BA3AB402D9CC387EEB27A2F746 /* Pods-IGListKitExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-IGListKitExamples.debug.xcconfig"; sourceTree = "<group>"; };
+		1B785F688F33601F63F42F592CD40F5A /* NSNumber+IGListDiffable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSNumber+IGListDiffable.h"; sourceTree = "<group>"; };
 		1DC4F8DCC1835BACB957FEAD24EF8700 /* IGListKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = IGListKit.xcconfig; sourceTree = "<group>"; };
-		244822A6E2AEF7D14241F3CAD5E938AE /* IGListSectionType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListSectionType.h; sourceTree = "<group>"; };
-		288D15A2D11A21A2298F8D1383ED2CCB /* IGListCollectionViewLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListCollectionViewLayout.h; sourceTree = "<group>"; };
-		2B8F5DAA8FE2FEA0029A18C5847D6EBF /* IGListMoveIndexInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListMoveIndexInternal.h; sourceTree = "<group>"; };
-		2D6D78181F70B1A3B043039251E8477E /* IGListReloadDataUpdater.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListReloadDataUpdater.h; sourceTree = "<group>"; };
+		1EA463B106CCD0E3D9AFF3D73A66F4F0 /* IGListStackedSectionControllerInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListStackedSectionControllerInternal.h; sourceTree = "<group>"; };
+		22C688FAFE9C96A9E7BA2C5F9868334B /* IGListBindable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListBindable.h; sourceTree = "<group>"; };
+		28233226E62E3FAF4F720DA393DAE9FF /* IGListMoveIndex.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListMoveIndex.m; sourceTree = "<group>"; };
 		2F5AE0385534EC7E6CA75003A7280492 /* Pods-IGListKitExamples-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-IGListKitExamples-dummy.m"; sourceTree = "<group>"; };
-		3216B8555B8DF487452B87BE9AAB8868 /* IGListDiffKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListDiffKit.h; sourceTree = "<group>"; };
-		32DF0F097C7AE72BACE3FFA644CFB261 /* IGListStackedSectionController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListStackedSectionController.h; sourceTree = "<group>"; };
-		385964A1D5E0683682D87137286A57C0 /* IGListWorkingRangeHandler.mm */ = {isa = PBXFileReference; includeInIndex = 1; path = IGListWorkingRangeHandler.mm; sourceTree = "<group>"; };
-		3903AFAF78F8F6586532BB7A704EF4CB /* IGListCollectionViewLayout.mm */ = {isa = PBXFileReference; includeInIndex = 1; path = IGListCollectionViewLayout.mm; sourceTree = "<group>"; };
-		3A9D7EC84CE771E477F43B568F42D875 /* IGListKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListKit.h; sourceTree = "<group>"; };
-		419F58FFC1B537E4165F898A6ABF7C2D /* IGListBatchUpdateState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListBatchUpdateState.h; sourceTree = "<group>"; };
+		324EA5E2E12CAB8B5D6CF287D5554939 /* IGListSingleSectionController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListSingleSectionController.m; sourceTree = "<group>"; };
+		34C554C5EA28F66E13ECB1DBCE25B822 /* IGListCollectionView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListCollectionView.h; sourceTree = "<group>"; };
+		3536601E9D48C5EDAF04809AB5469A19 /* IGListBatchUpdates.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListBatchUpdates.h; sourceTree = "<group>"; };
+		37B2021A0CDE643B233A1E658654256A /* IGListKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListKit.h; sourceTree = "<group>"; };
+		39B9885E3ECAF4B1E195E5A1C84F787C /* IGListMoveIndexPath.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListMoveIndexPath.h; sourceTree = "<group>"; };
+		3BB3136EFF61B54745DD5F7A8CA755FC /* IGListIndexPathResult.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListIndexPathResult.h; sourceTree = "<group>"; };
+		3CAB2D77B6C4011C21DF6CEAA52EC568 /* IGListMoveIndexPath.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListMoveIndexPath.m; sourceTree = "<group>"; };
+		411ECD36E22A6967749CAEDF2E191A3C /* IGListDiffKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListDiffKit.h; sourceTree = "<group>"; };
 		428C13C7C57B2D91F00D94ECF1FA71F8 /* Pods-IGListKitExamples-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-IGListKitExamples-resources.sh"; sourceTree = "<group>"; };
-		45785920AE6E55CC35D8F3A25C6AEDFF /* IGListCollectionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListCollectionView.m; sourceTree = "<group>"; };
-		4606CB1B34CF697290FBED89412AB2A5 /* IGListExperiments.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListExperiments.h; sourceTree = "<group>"; };
-		46924D7931ED9C55E76D74FA18FEAC00 /* IGListStackedSectionController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListStackedSectionController.m; sourceTree = "<group>"; };
-		46C6260B9402F24F7810932429908B73 /* IGListDiff.mm */ = {isa = PBXFileReference; includeInIndex = 1; path = IGListDiff.mm; sourceTree = "<group>"; };
-		47EEA737C23CBF61AEA7F69EA8FC65B4 /* IGListBatchUpdates.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListBatchUpdates.m; sourceTree = "<group>"; };
-		4B77E7C3782A071BD3D397FC12396846 /* NSNumber+IGListDiffable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSNumber+IGListDiffable.h"; sourceTree = "<group>"; };
-		4D33668730D1DFE1D4CF7DB636169623 /* IGListWorkingRangeHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListWorkingRangeHandler.h; sourceTree = "<group>"; };
-		4F9811CA5F5ED216E6AE3491A89F3552 /* IGListAdapterDataSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapterDataSource.h; sourceTree = "<group>"; };
+		42B7BA34D33BD063286E35DFE7354E45 /* IGListMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListMacros.h; sourceTree = "<group>"; };
+		460E6FA02E3D2BFD2CEFD4DDE9F39C5A /* IGListUpdatingDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListUpdatingDelegate.h; sourceTree = "<group>"; };
+		4D381B4BCB7D99EBF7BE7C69D0B7EED7 /* IGListIndexSetResultInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListIndexSetResultInternal.h; sourceTree = "<group>"; };
 		52054AE893A0AE7FBFC54333D8ABD345 /* Pods-IGListKitExamples-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-IGListKitExamples-umbrella.h"; sourceTree = "<group>"; };
-		5258793B917221F31D2856D80ACBA567 /* UICollectionView+IGListBatchUpdateData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+IGListBatchUpdateData.h"; sourceTree = "<group>"; };
+		557CCA09A7AED3C9EA4C983411179262 /* NSString+IGListDiffable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSString+IGListDiffable.h"; sourceTree = "<group>"; };
 		572DECC5D68B18C3039F4C6A1FEB4A02 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		592B0560566B9C72D5FBCFD021AD5884 /* IGListKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = IGListKit.modulemap; sourceTree = "<group>"; };
-		5974BF4A59EC768BBEFBE786DFDC1B91 /* IGListAdapterUpdaterDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapterUpdaterDelegate.h; sourceTree = "<group>"; };
-		5A22193F16D92E9508FE85D556DA5F4B /* NSString+IGListDiffable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSString+IGListDiffable.h"; sourceTree = "<group>"; };
-		5A599FA5ED979B7F790C6846227D769E /* IGListDisplayHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListDisplayHandler.m; sourceTree = "<group>"; };
-		5C8120C78178691D001ADC52F45C4C13 /* IGListDiffable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListDiffable.h; sourceTree = "<group>"; };
-		5F751F2D886E9B089A5061D8ED461AA6 /* UICollectionView+IGListBatchUpdateData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+IGListBatchUpdateData.m"; sourceTree = "<group>"; };
-		618CD1BD22676BD28B3005E83E5D4542 /* IGListDiff.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListDiff.h; sourceTree = "<group>"; };
-		6201B8C782E89088C44482D56094E86E /* IGListAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapter.h; sourceTree = "<group>"; };
-		62569FDBCB3E49663019B396346C8245 /* IGListAdapterDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapterDelegate.h; sourceTree = "<group>"; };
-		6692BCFA51463333CE24FEE77A4007B7 /* IGListIndexPathResultInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListIndexPathResultInternal.h; sourceTree = "<group>"; };
-		697D078CA372E340E51AA66039187C52 /* IGListBatchUpdateData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListBatchUpdateData.h; sourceTree = "<group>"; };
-		69B2227179A7609DA82C2F7602A72FB5 /* IGListAdapterUpdater.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListAdapterUpdater.m; sourceTree = "<group>"; };
-		6AE530B0B2BF924A392E6E0A719A915F /* IGListSectionMap.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListSectionMap.h; sourceTree = "<group>"; };
-		6CCFF9C36E4D50553BEC6F713D97530D /* IGListStackedSectionControllerInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListStackedSectionControllerInternal.h; sourceTree = "<group>"; };
-		6D90761C758D5E97D3DC131CD4F9CC90 /* IGListSingleSectionController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListSingleSectionController.h; sourceTree = "<group>"; };
-		6DA3FB6B1657A66E976F582DBC2F1B66 /* IGListSectionControllerInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListSectionControllerInternal.h; sourceTree = "<group>"; };
+		64FB41B28C7E17DAB9F4E352BDC648E4 /* IGListBindingSectionControllerDataSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListBindingSectionControllerDataSource.h; sourceTree = "<group>"; };
+		68B4E37BE7EF5ADB0B44B9D0C61F66D7 /* IGListDiffable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListDiffable.h; sourceTree = "<group>"; };
+		6B4D925A6DD051D8B361761712D96E9C /* IGListWorkingRangeHandler.mm */ = {isa = PBXFileReference; includeInIndex = 1; path = IGListWorkingRangeHandler.mm; sourceTree = "<group>"; };
+		6D8CEF156910BEA0971C9ED20EB8D920 /* IGListAdapterUpdater.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListAdapterUpdater.m; sourceTree = "<group>"; };
 		71D44B887663E8A7D2752C9ED2356648 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		72D40101C8B2173CB3FD6BBBDAF82D96 /* IGListIndexSetResultInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListIndexSetResultInternal.h; sourceTree = "<group>"; };
-		76636A93A6764D852115F1C40E621951 /* IGListIndexSetResult.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListIndexSetResult.m; sourceTree = "<group>"; };
-		7AB528FC845B9B4A0377FC563DEF1EBF /* IGListSingleSectionController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListSingleSectionController.m; sourceTree = "<group>"; };
-		7D034A8EDA383ED29F55750C40185224 /* IGListMoveIndex.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListMoveIndex.m; sourceTree = "<group>"; };
-		81F66E7005ED6A4DFBD1942BCEA2E048 /* IGListAssert.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAssert.h; sourceTree = "<group>"; };
-		8B3AB3B676BC4493C2AD3CF3F6CF246F /* IGListScrollDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListScrollDelegate.h; sourceTree = "<group>"; };
+		72CD8EB80054C3426530549BF4C15420 /* IGListWorkingRangeDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListWorkingRangeDelegate.h; sourceTree = "<group>"; };
+		739A8F8D4DDD065B82702DB690BEE4AA /* IGListSectionController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListSectionController.h; sourceTree = "<group>"; };
+		7434C86EDE24CA0EFF019017A60BD9D4 /* IGListCollectionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListCollectionView.m; sourceTree = "<group>"; };
+		7456B994D853751D91DEA422ADFCB08E /* IGListExperiments.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListExperiments.h; sourceTree = "<group>"; };
+		745B534C638A5AE267B8EB790B963914 /* IGListBindingSectionController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListBindingSectionController.m; sourceTree = "<group>"; };
+		74E764FA03C75A025FE6396A40E42760 /* IGListAdapterProxy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapterProxy.h; sourceTree = "<group>"; };
+		79AAA9FF97313EC9C0E06DAF3D77E30B /* IGListAdapterProxy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListAdapterProxy.m; sourceTree = "<group>"; };
+		7B2D206DEC8D6DF0E4C4E81243C4354E /* IGListAdapterDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapterDelegate.h; sourceTree = "<group>"; };
+		7BE1BAC7E1F391BC81F8FCC6ADB63D03 /* IGListCompatibility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListCompatibility.h; sourceTree = "<group>"; };
+		8C58BCEB2489E9F95AF21FFEB56FD66C /* IGListBatchUpdates.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListBatchUpdates.m; sourceTree = "<group>"; };
+		8CDD09425C02489D971658844FE5E541 /* IGListDiff.mm */ = {isa = PBXFileReference; includeInIndex = 1; path = IGListDiff.mm; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9699862731767A477E47D42C41975A56 /* IGListKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IGListKit-umbrella.h"; sourceTree = "<group>"; };
-		96D3A785C87BFB34705180D91C0F7EC9 /* IGListUpdatingDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListUpdatingDelegate.h; sourceTree = "<group>"; };
-		987FD2A1CA17FA6F0D52678E8EDBA8B4 /* NSNumber+IGListDiffable.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+IGListDiffable.m"; sourceTree = "<group>"; };
-		9A99D426FD0211CA0174585E780319EB /* IGListAdapter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListAdapter.m; sourceTree = "<group>"; };
+		97599D6608CD31714EE41D6D20F84CA4 /* IGListMoveIndex.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListMoveIndex.h; sourceTree = "<group>"; };
+		9835405C599DE83D33F314A00DFD3142 /* IGListSectionControllerInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListSectionControllerInternal.h; sourceTree = "<group>"; };
+		98EDEDDA9960C02A40C9A7A6B79EB757 /* IGListAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapter.h; sourceTree = "<group>"; };
+		9C7AEBF78ADE776D85336522C3FE4B53 /* IGListCollectionViewLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListCollectionViewLayout.h; sourceTree = "<group>"; };
 		9D11DCAE06F644E6CCE659622CD8E616 /* IGListKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = IGListKit.framework; path = IGListKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9E8A7B66AA9513019D92AAEDDCCC51F1 /* IGListCollectionContext.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListCollectionContext.h; sourceTree = "<group>"; };
+		9EA52832E56CFD339F3C565404AB1ACE /* IGListIndexSetResult.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListIndexSetResult.h; sourceTree = "<group>"; };
 		A198E265B2C6E673C7C9C5050F92D9F0 /* Pods-IGListKitExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-IGListKitExamples.release.xcconfig"; sourceTree = "<group>"; };
-		A40A9214AA996BB01FB5389E76CC51BC /* IGListAdapterProxy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListAdapterProxy.m; sourceTree = "<group>"; };
-		A443CB8A28C20A4C404DB6979E1B4AF6 /* IGListDiffingSectionControllerDataSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListDiffingSectionControllerDataSource.h; sourceTree = "<group>"; };
-		A4D41A274BFBA02862DB2A18DBDB5B6E /* IGListBatchUpdates.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListBatchUpdates.h; sourceTree = "<group>"; };
+		A399AF975A3FBC7C4DFCE6B4934615EF /* IGListReloadDataUpdater.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListReloadDataUpdater.m; sourceTree = "<group>"; };
+		A53DED20ECE53E63696B11C4BE73C00E /* IGListStackedSectionController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListStackedSectionController.m; sourceTree = "<group>"; };
+		A6C9784744DCA415303DFA673C399094 /* IGListAdapterUpdater.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapterUpdater.h; sourceTree = "<group>"; };
+		A6D7D69386D57E964DD50300CAC047AD /* IGListCollectionViewLayout.mm */ = {isa = PBXFileReference; includeInIndex = 1; path = IGListCollectionViewLayout.mm; sourceTree = "<group>"; };
+		A7202AFD1084039A0FF97DEB1BEA27C5 /* UICollectionView+IGListBatchUpdateData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+IGListBatchUpdateData.m"; sourceTree = "<group>"; };
 		A7BBE69D34859663403DA26F14CC4DDB /* Pods-IGListKitExamples-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-IGListKitExamples-acknowledgements.markdown"; sourceTree = "<group>"; };
 		A851A4ACB8C0DE98BFFBC6FD4D1BACEE /* Pods-IGListKitExamples-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-IGListKitExamples-frameworks.sh"; sourceTree = "<group>"; };
-		AAF37B39ACBA7ADD9BC9EB2B6BD705FF /* IGListCompatibility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListCompatibility.h; sourceTree = "<group>"; };
-		AB3F5F91FDDACD3883D7222F3C4C9632 /* IGListSectionMap.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListSectionMap.m; sourceTree = "<group>"; };
 		AB4C132D7BA00C1384E27FAFD43A44B6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS10.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		ABF549428FEA18696E5358F599E11A24 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B02F88659D4085024D7CA208D27B15E5 /* IGListIndexPathResult.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListIndexPathResult.m; sourceTree = "<group>"; };
-		B04DADDDD6A5F7893D0F2EF01D024724 /* IGListDiffingSectionController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListDiffingSectionController.h; sourceTree = "<group>"; };
-		B57B8A716D535E6F55D7DB53AE96E68D /* IGListDiffingSectionControllerSelectionDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListDiffingSectionControllerSelectionDelegate.h; sourceTree = "<group>"; };
-		BB95CD0F809C1DDDF2DA9AC629109C5E /* IGListDisplayDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListDisplayDelegate.h; sourceTree = "<group>"; };
-		BD80D56F3CF598AA479CF4F67847DF62 /* IGListMoveIndexPath.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListMoveIndexPath.h; sourceTree = "<group>"; };
-		C160E29E5EC74FD94BF101CBC654B4FD /* IGListWorkingRangeDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListWorkingRangeDelegate.h; sourceTree = "<group>"; };
+		AD5D8383FF2C437A5E1E1DCB46500232 /* IGListSectionType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListSectionType.h; sourceTree = "<group>"; };
+		AE3D7DB3996185E84E5671222FC996C0 /* IGListBatchUpdateData.mm */ = {isa = PBXFileReference; includeInIndex = 1; path = IGListBatchUpdateData.mm; sourceTree = "<group>"; };
+		B285C7D38B0F662C2A782A5253C7BD37 /* IGListMoveIndexPathInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListMoveIndexPathInternal.h; sourceTree = "<group>"; };
+		B45207CEC6A00DCD14BD682D41887D6F /* IGListReloadDataUpdater.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListReloadDataUpdater.h; sourceTree = "<group>"; };
+		B46EBF07FF2266069E2945CA6A030A49 /* IGListBatchUpdateState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListBatchUpdateState.h; sourceTree = "<group>"; };
+		B4C62BDD69383983C7F5ED8FC219A8E0 /* IGListAssert.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAssert.h; sourceTree = "<group>"; };
+		B5CD72768391516CA41796EFE8404C67 /* IGListDiff.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListDiff.h; sourceTree = "<group>"; };
+		BB8E7DA1A616E340CE278E0CBF2511C2 /* IGListSectionMap.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListSectionMap.m; sourceTree = "<group>"; };
 		C21A7CA00A0F4B5304CF04AF01BD52EF /* IGListKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "IGListKit-dummy.m"; sourceTree = "<group>"; };
-		C39F4157C9C4FC125B2CB940A7B37921 /* IGListAdapterUpdaterInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapterUpdaterInternal.h; sourceTree = "<group>"; };
+		C39FA8BB9D046582CC3D1B4865602277 /* IGListIndexSetResult.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListIndexSetResult.m; sourceTree = "<group>"; };
+		C3E2CBDFF1EDF19ECF5A7A1E8A2FA5AB /* IGListWorkingRangeHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListWorkingRangeHandler.h; sourceTree = "<group>"; };
+		C6AC82154468869143414F1560AAA96C /* IGListSectionController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListSectionController.m; sourceTree = "<group>"; };
 		C7F454644FEBF5DB647AE1728D1FD067 /* Pods_IGListKitExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_IGListKitExamples.framework; path = "Pods-IGListKitExamples.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C9C8E35CDC49D4F76902E53EC5CF36A5 /* IGListBatchUpdateData.mm */ = {isa = PBXFileReference; includeInIndex = 1; path = IGListBatchUpdateData.mm; sourceTree = "<group>"; };
-		CB49A3DE6A13CEF0E7923D5DAE8EA282 /* IGListDiffingSectionController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListDiffingSectionController.m; sourceTree = "<group>"; };
-		CBB437F7486D8AD712E3E9289DB590D4 /* IGListReloadDataUpdater.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListReloadDataUpdater.m; sourceTree = "<group>"; };
-		CC2A59234645A546E2FE259E05370296 /* IGListBindable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListBindable.h; sourceTree = "<group>"; };
-		CC938ED36C0A86555808BDB74BE150FD /* IGListSectionController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListSectionController.h; sourceTree = "<group>"; };
-		CF2A1A62A5CDF1689878D84A74DFA90C /* IGListMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListMacros.h; sourceTree = "<group>"; };
-		D1CFC3A5D24943E5C05147EF23270584 /* IGListAdapterInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapterInternal.h; sourceTree = "<group>"; };
-		D58E49254945287400F6F38F5E31553E /* IGListMoveIndex.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListMoveIndex.h; sourceTree = "<group>"; };
+		C9EFD8948CEF217CE5481F95419BE9B1 /* IGListDisplayHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListDisplayHandler.h; sourceTree = "<group>"; };
+		CA686870F05E96F8B02A787EC7BC1085 /* IGListScrollDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListScrollDelegate.h; sourceTree = "<group>"; };
+		CBABEB4F62BC65DBC02E31724606306F /* IGListDisplayHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListDisplayHandler.m; sourceTree = "<group>"; };
+		CE3CDDBB5DEA0751548EEBDE855125BA /* NSString+IGListDiffable.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSString+IGListDiffable.m"; sourceTree = "<group>"; };
+		CFA5D9917E2B7CFB8FF8E9603E1E1CA1 /* IGListSupplementaryViewSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListSupplementaryViewSource.h; sourceTree = "<group>"; };
+		D56DB40C6B614C1D22E0D63023B0955A /* IGListAdapter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListAdapter.m; sourceTree = "<group>"; };
 		D803D538BF4074498E5ADB84A16E0395 /* Pods-IGListKitExamples-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-IGListKitExamples-acknowledgements.plist"; sourceTree = "<group>"; };
 		DDF922EBFB237C1B42E8B07306D987E8 /* Pods-IGListKitExamples.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-IGListKitExamples.modulemap"; sourceTree = "<group>"; };
-		DFB9656F4B2E3324F44CA1DCEDF40C34 /* IGListIndexPathResult.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListIndexPathResult.h; sourceTree = "<group>"; };
-		E29BC3F823E0E76B3A44F7739C7AADE2 /* NSString+IGListDiffable.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSString+IGListDiffable.m"; sourceTree = "<group>"; };
-		E3580A54146FF6FC727CC624F0A46098 /* IGListMoveIndexPathInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListMoveIndexPathInternal.h; sourceTree = "<group>"; };
-		E43DDB9583DF9C906B78C516A51BAE11 /* IGListCollectionView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListCollectionView.h; sourceTree = "<group>"; };
-		E5220482D2277B645826E3A22FFE55B1 /* IGListMoveIndexPath.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListMoveIndexPath.m; sourceTree = "<group>"; };
+		E5E1BDC1DF5814E63440C8210CBAC02D /* IGListIndexPathResultInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListIndexPathResultInternal.h; sourceTree = "<group>"; };
+		E9BA8DD62C2784599D5093B122CB5F0B /* IGListSectionMap.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListSectionMap.h; sourceTree = "<group>"; };
+		EAF35C422DF7134923D8F1558B3E44FC /* IGListIndexPathResult.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListIndexPathResult.m; sourceTree = "<group>"; };
+		ED270AF6D9D034CC34E4B8632E8BEF9E /* IGListBatchUpdateData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListBatchUpdateData.h; sourceTree = "<group>"; };
+		F3A898F7A0108DC39CB42701DD5B7A6F /* IGListCollectionContext.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListCollectionContext.h; sourceTree = "<group>"; };
+		F422959A75D5D086B9D0ECAC0F686963 /* NSNumber+IGListDiffable.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+IGListDiffable.m"; sourceTree = "<group>"; };
 		F59E7B2DB26D99FB12B7F05A0171A69B /* IGListKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IGListKit-prefix.pch"; sourceTree = "<group>"; };
-		FBC9FFE2E5D6BAD59964B5AD861F78BA /* IGListAdapterProxy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapterProxy.h; sourceTree = "<group>"; };
-		FD7FBAE56F416AE7FA2C2C3121DF2245 /* IGListSectionController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = IGListSectionController.m; sourceTree = "<group>"; };
-		FFBAB5D984C7C865C0960F7E147FDB1F /* IGListSupplementaryViewSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListSupplementaryViewSource.h; sourceTree = "<group>"; };
+		F7A8B747AC959218314BAAD2E75BC0ED /* IGListAdapterDataSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapterDataSource.h; sourceTree = "<group>"; };
+		FA87E90F96DA5F762A024BA84BB0A6D5 /* IGListAdapterInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IGListAdapterInternal.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,7 +224,7 @@
 		186F8751BE3DCAC7C64E31DC2B5716D8 /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				483DE1B930358CA8CDDB31B3EFB673D5 /* Source */,
+				1CE2BC771C170AF744C3C9BD43EC4989 /* Source */,
 			);
 			name = Default;
 			sourceTree = "<group>";
@@ -237,46 +237,77 @@
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		483DE1B930358CA8CDDB31B3EFB673D5 /* Source */ = {
+		1CE2BC771C170AF744C3C9BD43EC4989 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				6201B8C782E89088C44482D56094E86E /* IGListAdapter.h */,
-				9A99D426FD0211CA0174585E780319EB /* IGListAdapter.m */,
-				4F9811CA5F5ED216E6AE3491A89F3552 /* IGListAdapterDataSource.h */,
-				62569FDBCB3E49663019B396346C8245 /* IGListAdapterDelegate.h */,
-				197EB500804D37CD486A718E89A69EC7 /* IGListAdapterUpdater.h */,
-				69B2227179A7609DA82C2F7602A72FB5 /* IGListAdapterUpdater.m */,
-				5974BF4A59EC768BBEFBE786DFDC1B91 /* IGListAdapterUpdaterDelegate.h */,
-				CC2A59234645A546E2FE259E05370296 /* IGListBindable.h */,
-				9E8A7B66AA9513019D92AAEDDCCC51F1 /* IGListCollectionContext.h */,
-				E43DDB9583DF9C906B78C516A51BAE11 /* IGListCollectionView.h */,
-				45785920AE6E55CC35D8F3A25C6AEDFF /* IGListCollectionView.m */,
-				288D15A2D11A21A2298F8D1383ED2CCB /* IGListCollectionViewLayout.h */,
-				3903AFAF78F8F6586532BB7A704EF4CB /* IGListCollectionViewLayout.mm */,
-				B04DADDDD6A5F7893D0F2EF01D024724 /* IGListDiffingSectionController.h */,
-				CB49A3DE6A13CEF0E7923D5DAE8EA282 /* IGListDiffingSectionController.m */,
-				A443CB8A28C20A4C404DB6979E1B4AF6 /* IGListDiffingSectionControllerDataSource.h */,
-				B57B8A716D535E6F55D7DB53AE96E68D /* IGListDiffingSectionControllerSelectionDelegate.h */,
-				BB95CD0F809C1DDDF2DA9AC629109C5E /* IGListDisplayDelegate.h */,
-				3A9D7EC84CE771E477F43B568F42D875 /* IGListKit.h */,
-				2D6D78181F70B1A3B043039251E8477E /* IGListReloadDataUpdater.h */,
-				CBB437F7486D8AD712E3E9289DB590D4 /* IGListReloadDataUpdater.m */,
-				8B3AB3B676BC4493C2AD3CF3F6CF246F /* IGListScrollDelegate.h */,
-				CC938ED36C0A86555808BDB74BE150FD /* IGListSectionController.h */,
-				FD7FBAE56F416AE7FA2C2C3121DF2245 /* IGListSectionController.m */,
-				244822A6E2AEF7D14241F3CAD5E938AE /* IGListSectionType.h */,
-				6D90761C758D5E97D3DC131CD4F9CC90 /* IGListSingleSectionController.h */,
-				7AB528FC845B9B4A0377FC563DEF1EBF /* IGListSingleSectionController.m */,
-				32DF0F097C7AE72BACE3FFA644CFB261 /* IGListStackedSectionController.h */,
-				46924D7931ED9C55E76D74FA18FEAC00 /* IGListStackedSectionController.m */,
-				FFBAB5D984C7C865C0960F7E147FDB1F /* IGListSupplementaryViewSource.h */,
-				96D3A785C87BFB34705180D91C0F7EC9 /* IGListUpdatingDelegate.h */,
-				C160E29E5EC74FD94BF101CBC654B4FD /* IGListWorkingRangeDelegate.h */,
-				8679AE69C3CD22D3DAAB3C36A8DB0BF5 /* Common */,
-				53B5BEBC863F87607BB3EA3690107DBA /* Internal */,
+				98EDEDDA9960C02A40C9A7A6B79EB757 /* IGListAdapter.h */,
+				D56DB40C6B614C1D22E0D63023B0955A /* IGListAdapter.m */,
+				F7A8B747AC959218314BAAD2E75BC0ED /* IGListAdapterDataSource.h */,
+				7B2D206DEC8D6DF0E4C4E81243C4354E /* IGListAdapterDelegate.h */,
+				A6C9784744DCA415303DFA673C399094 /* IGListAdapterUpdater.h */,
+				6D8CEF156910BEA0971C9ED20EB8D920 /* IGListAdapterUpdater.m */,
+				15C2E9CF910FDC03D60C18D0950B6AC5 /* IGListAdapterUpdaterDelegate.h */,
+				22C688FAFE9C96A9E7BA2C5F9868334B /* IGListBindable.h */,
+				05D072D9FA321DF02451E014FA4E54C5 /* IGListBindingSectionController.h */,
+				745B534C638A5AE267B8EB790B963914 /* IGListBindingSectionController.m */,
+				64FB41B28C7E17DAB9F4E352BDC648E4 /* IGListBindingSectionControllerDataSource.h */,
+				15425D72CC5567C291B492C5C6DD7B05 /* IGListBindingSectionControllerSelectionDelegate.h */,
+				F3A898F7A0108DC39CB42701DD5B7A6F /* IGListCollectionContext.h */,
+				34C554C5EA28F66E13ECB1DBCE25B822 /* IGListCollectionView.h */,
+				7434C86EDE24CA0EFF019017A60BD9D4 /* IGListCollectionView.m */,
+				9C7AEBF78ADE776D85336522C3FE4B53 /* IGListCollectionViewLayout.h */,
+				A6D7D69386D57E964DD50300CAC047AD /* IGListCollectionViewLayout.mm */,
+				051BD77520927C1F055B0F2844AF2E56 /* IGListDisplayDelegate.h */,
+				37B2021A0CDE643B233A1E658654256A /* IGListKit.h */,
+				B45207CEC6A00DCD14BD682D41887D6F /* IGListReloadDataUpdater.h */,
+				A399AF975A3FBC7C4DFCE6B4934615EF /* IGListReloadDataUpdater.m */,
+				CA686870F05E96F8B02A787EC7BC1085 /* IGListScrollDelegate.h */,
+				739A8F8D4DDD065B82702DB690BEE4AA /* IGListSectionController.h */,
+				C6AC82154468869143414F1560AAA96C /* IGListSectionController.m */,
+				AD5D8383FF2C437A5E1E1DCB46500232 /* IGListSectionType.h */,
+				036CEB09ADC9B0366EBB6C6C82024541 /* IGListSingleSectionController.h */,
+				324EA5E2E12CAB8B5D6CF287D5554939 /* IGListSingleSectionController.m */,
+				1130965B1EA1FF592AEA1197501FB282 /* IGListStackedSectionController.h */,
+				A53DED20ECE53E63696B11C4BE73C00E /* IGListStackedSectionController.m */,
+				CFA5D9917E2B7CFB8FF8E9603E1E1CA1 /* IGListSupplementaryViewSource.h */,
+				460E6FA02E3D2BFD2CEFD4DDE9F39C5A /* IGListUpdatingDelegate.h */,
+				72CD8EB80054C3426530549BF4C15420 /* IGListWorkingRangeDelegate.h */,
+				2FBAA3D93C1EA46828B317BE4D2B8877 /* Common */,
+				B42B47F96576FA5925A6C40C1DE0E767 /* Internal */,
 			);
 			name = Source;
 			path = Source;
+			sourceTree = "<group>";
+		};
+		2FBAA3D93C1EA46828B317BE4D2B8877 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B4C62BDD69383983C7F5ED8FC219A8E0 /* IGListAssert.h */,
+				ED270AF6D9D034CC34E4B8632E8BEF9E /* IGListBatchUpdateData.h */,
+				AE3D7DB3996185E84E5671222FC996C0 /* IGListBatchUpdateData.mm */,
+				7BE1BAC7E1F391BC81F8FCC6ADB63D03 /* IGListCompatibility.h */,
+				B5CD72768391516CA41796EFE8404C67 /* IGListDiff.h */,
+				8CDD09425C02489D971658844FE5E541 /* IGListDiff.mm */,
+				68B4E37BE7EF5ADB0B44B9D0C61F66D7 /* IGListDiffable.h */,
+				411ECD36E22A6967749CAEDF2E191A3C /* IGListDiffKit.h */,
+				7456B994D853751D91DEA422ADFCB08E /* IGListExperiments.h */,
+				3BB3136EFF61B54745DD5F7A8CA755FC /* IGListIndexPathResult.h */,
+				EAF35C422DF7134923D8F1558B3E44FC /* IGListIndexPathResult.m */,
+				9EA52832E56CFD339F3C565404AB1ACE /* IGListIndexSetResult.h */,
+				C39FA8BB9D046582CC3D1B4865602277 /* IGListIndexSetResult.m */,
+				42B7BA34D33BD063286E35DFE7354E45 /* IGListMacros.h */,
+				97599D6608CD31714EE41D6D20F84CA4 /* IGListMoveIndex.h */,
+				28233226E62E3FAF4F720DA393DAE9FF /* IGListMoveIndex.m */,
+				39B9885E3ECAF4B1E195E5A1C84F787C /* IGListMoveIndexPath.h */,
+				3CAB2D77B6C4011C21DF6CEAA52EC568 /* IGListMoveIndexPath.m */,
+				1B785F688F33601F63F42F592CD40F5A /* NSNumber+IGListDiffable.h */,
+				F422959A75D5D086B9D0ECAC0F686963 /* NSNumber+IGListDiffable.m */,
+				557CCA09A7AED3C9EA4C983411179262 /* NSString+IGListDiffable.h */,
+				CE3CDDBB5DEA0751548EEBDE855125BA /* NSString+IGListDiffable.m */,
+				4ED3327DF9D804F4E88BC11DAD7D848E /* Internal */,
+			);
+			name = Common;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		4AA169AB4131F8244E9433A183E62775 /* Common */ = {
@@ -288,37 +319,24 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		4ED3327DF9D804F4E88BC11DAD7D848E /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				E5E1BDC1DF5814E63440C8210CBAC02D /* IGListIndexPathResultInternal.h */,
+				4D381B4BCB7D99EBF7BE7C69D0B7EED7 /* IGListIndexSetResultInternal.h */,
+				094EE2FA32C72934D21D44EBDCE26113 /* IGListMoveIndexInternal.h */,
+				B285C7D38B0F662C2A782A5253C7BD37 /* IGListMoveIndexPathInternal.h */,
+			);
+			name = Internal;
+			path = Internal;
+			sourceTree = "<group>";
+		};
 		51A62FAD141FCC64FABDAA958233E728 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
 				F22E6673D29C1778B1984CF7D4D871E9 /* Pods-IGListKitExamples */,
 			);
 			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		53B5BEBC863F87607BB3EA3690107DBA /* Internal */ = {
-			isa = PBXGroup;
-			children = (
-				D1CFC3A5D24943E5C05147EF23270584 /* IGListAdapterInternal.h */,
-				FBC9FFE2E5D6BAD59964B5AD861F78BA /* IGListAdapterProxy.h */,
-				A40A9214AA996BB01FB5389E76CC51BC /* IGListAdapterProxy.m */,
-				C39F4157C9C4FC125B2CB940A7B37921 /* IGListAdapterUpdaterInternal.h */,
-				A4D41A274BFBA02862DB2A18DBDB5B6E /* IGListBatchUpdates.h */,
-				47EEA737C23CBF61AEA7F69EA8FC65B4 /* IGListBatchUpdates.m */,
-				419F58FFC1B537E4165F898A6ABF7C2D /* IGListBatchUpdateState.h */,
-				0BAF5AFCD2CD661355050276FBE9D1B2 /* IGListDisplayHandler.h */,
-				5A599FA5ED979B7F790C6846227D769E /* IGListDisplayHandler.m */,
-				6DA3FB6B1657A66E976F582DBC2F1B66 /* IGListSectionControllerInternal.h */,
-				6AE530B0B2BF924A392E6E0A719A915F /* IGListSectionMap.h */,
-				AB3F5F91FDDACD3883D7222F3C4C9632 /* IGListSectionMap.m */,
-				6CCFF9C36E4D50553BEC6F713D97530D /* IGListStackedSectionControllerInternal.h */,
-				4D33668730D1DFE1D4CF7DB636169623 /* IGListWorkingRangeHandler.h */,
-				385964A1D5E0683682D87137286A57C0 /* IGListWorkingRangeHandler.mm */,
-				5258793B917221F31D2856D80ACBA567 /* UICollectionView+IGListBatchUpdateData.h */,
-				5F751F2D886E9B089A5061D8ED461AA6 /* UICollectionView+IGListBatchUpdateData.m */,
-			);
-			name = Internal;
-			path = Internal;
 			sourceTree = "<group>";
 		};
 		61F96534B3AFE724944526CC9F6F2EFE /* Products */ = {
@@ -328,18 +346,6 @@
 				C7F454644FEBF5DB647AE1728D1FD067 /* Pods_IGListKitExamples.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		65410DDD486BE68D1A36A79DA6B61633 /* Internal */ = {
-			isa = PBXGroup;
-			children = (
-				6692BCFA51463333CE24FEE77A4007B7 /* IGListIndexPathResultInternal.h */,
-				72D40101C8B2173CB3FD6BBBDAF82D96 /* IGListIndexSetResultInternal.h */,
-				2B8F5DAA8FE2FEA0029A18C5847D6EBF /* IGListMoveIndexInternal.h */,
-				E3580A54146FF6FC727CC624F0A46098 /* IGListMoveIndexPathInternal.h */,
-			);
-			name = Internal;
-			path = Internal;
 			sourceTree = "<group>";
 		};
 		65BD3785655BD52B06BEB4C93E2899C9 /* Internal */ = {
@@ -369,35 +375,29 @@
 			);
 			sourceTree = "<group>";
 		};
-		8679AE69C3CD22D3DAAB3C36A8DB0BF5 /* Common */ = {
+		B42B47F96576FA5925A6C40C1DE0E767 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
-				81F66E7005ED6A4DFBD1942BCEA2E048 /* IGListAssert.h */,
-				697D078CA372E340E51AA66039187C52 /* IGListBatchUpdateData.h */,
-				C9C8E35CDC49D4F76902E53EC5CF36A5 /* IGListBatchUpdateData.mm */,
-				AAF37B39ACBA7ADD9BC9EB2B6BD705FF /* IGListCompatibility.h */,
-				618CD1BD22676BD28B3005E83E5D4542 /* IGListDiff.h */,
-				46C6260B9402F24F7810932429908B73 /* IGListDiff.mm */,
-				5C8120C78178691D001ADC52F45C4C13 /* IGListDiffable.h */,
-				3216B8555B8DF487452B87BE9AAB8868 /* IGListDiffKit.h */,
-				4606CB1B34CF697290FBED89412AB2A5 /* IGListExperiments.h */,
-				DFB9656F4B2E3324F44CA1DCEDF40C34 /* IGListIndexPathResult.h */,
-				B02F88659D4085024D7CA208D27B15E5 /* IGListIndexPathResult.m */,
-				0C0CDD4D3287D74F141A5A59D85AB282 /* IGListIndexSetResult.h */,
-				76636A93A6764D852115F1C40E621951 /* IGListIndexSetResult.m */,
-				CF2A1A62A5CDF1689878D84A74DFA90C /* IGListMacros.h */,
-				D58E49254945287400F6F38F5E31553E /* IGListMoveIndex.h */,
-				7D034A8EDA383ED29F55750C40185224 /* IGListMoveIndex.m */,
-				BD80D56F3CF598AA479CF4F67847DF62 /* IGListMoveIndexPath.h */,
-				E5220482D2277B645826E3A22FFE55B1 /* IGListMoveIndexPath.m */,
-				4B77E7C3782A071BD3D397FC12396846 /* NSNumber+IGListDiffable.h */,
-				987FD2A1CA17FA6F0D52678E8EDBA8B4 /* NSNumber+IGListDiffable.m */,
-				5A22193F16D92E9508FE85D556DA5F4B /* NSString+IGListDiffable.h */,
-				E29BC3F823E0E76B3A44F7739C7AADE2 /* NSString+IGListDiffable.m */,
-				65410DDD486BE68D1A36A79DA6B61633 /* Internal */,
+				FA87E90F96DA5F762A024BA84BB0A6D5 /* IGListAdapterInternal.h */,
+				74E764FA03C75A025FE6396A40E42760 /* IGListAdapterProxy.h */,
+				79AAA9FF97313EC9C0E06DAF3D77E30B /* IGListAdapterProxy.m */,
+				15D4AF1FA9FF384E67C64817F732EE0C /* IGListAdapterUpdaterInternal.h */,
+				3536601E9D48C5EDAF04809AB5469A19 /* IGListBatchUpdates.h */,
+				8C58BCEB2489E9F95AF21FFEB56FD66C /* IGListBatchUpdates.m */,
+				B46EBF07FF2266069E2945CA6A030A49 /* IGListBatchUpdateState.h */,
+				C9EFD8948CEF217CE5481F95419BE9B1 /* IGListDisplayHandler.h */,
+				CBABEB4F62BC65DBC02E31724606306F /* IGListDisplayHandler.m */,
+				9835405C599DE83D33F314A00DFD3142 /* IGListSectionControllerInternal.h */,
+				E9BA8DD62C2784599D5093B122CB5F0B /* IGListSectionMap.h */,
+				BB8E7DA1A616E340CE278E0CBF2511C2 /* IGListSectionMap.m */,
+				1EA463B106CCD0E3D9AFF3D73A66F4F0 /* IGListStackedSectionControllerInternal.h */,
+				C3E2CBDFF1EDF19ECF5A7A1E8A2FA5AB /* IGListWorkingRangeHandler.h */,
+				6B4D925A6DD051D8B361761712D96E9C /* IGListWorkingRangeHandler.mm */,
+				0D31D53174F23C06AB123A933E1CBB38 /* UICollectionView+IGListBatchUpdateData.h */,
+				A7202AFD1084039A0FF97DEB1BEA27C5 /* UICollectionView+IGListBatchUpdateData.m */,
 			);
-			name = Common;
-			path = Common;
+			name = Internal;
+			path = Internal;
 			sourceTree = "<group>";
 		};
 		BEBFF9E5DE688C85D9EA208AFED4879F /* Source */ = {
@@ -472,63 +472,63 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		797D120B0F1595EB5F71FB468BD94AE5 /* Headers */ = {
+		CD568366E1FA8B552D94CEC6A2F2BD10 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				265D3C8FB20544BB7C4759A354DEC6C8 /* IGListAdapter.h in Headers */,
-				1C59D58BD9996BDAD05CD322BE149C15 /* IGListAdapterDataSource.h in Headers */,
-				DDFA81D9113B32CE5FC4ED54A9C5C923 /* IGListAdapterDelegate.h in Headers */,
-				AC2DAF1614094722C3E859D3D4B27EC4 /* IGListAdapterInternal.h in Headers */,
-				C8D9ECDE817BBB42058792313754A50A /* IGListAdapterProxy.h in Headers */,
-				2EE8E9E6CEB4ADE9CCF8D6D2421E6E0D /* IGListAdapterUpdater.h in Headers */,
-				E78D262F05BEB81A5E337106236A96C8 /* IGListAdapterUpdaterDelegate.h in Headers */,
-				5F6BD4B70F3D31251A2041C1507FA7D1 /* IGListAdapterUpdaterInternal.h in Headers */,
-				43B8F9C90DDC82D8754C2D9CA463D575 /* IGListAssert.h in Headers */,
-				1BB066C32440460D172B42463AD1891E /* IGListBatchUpdateData.h in Headers */,
-				77BB17CC423AC67076CBE1EFC7FE604B /* IGListBatchUpdates.h in Headers */,
-				39283CA73661ADC1F5E2D55997846AF5 /* IGListBatchUpdateState.h in Headers */,
-				0D0C955B8288471537DE202D10F41D40 /* IGListBindable.h in Headers */,
-				8E82C0D3C6CC5A7BA6BE6D9B87F8C7D9 /* IGListCollectionContext.h in Headers */,
-				4AF2F2BF3CC5D3313232E1206203F238 /* IGListCollectionView.h in Headers */,
-				094296CC53C54C57FFAB68055DCFB571 /* IGListCollectionViewLayout.h in Headers */,
-				C2846760E0A16C504A4132AF4E28C867 /* IGListCompatibility.h in Headers */,
-				DC01FE02A76D0F4B135AD3F5BF5715AA /* IGListDiff.h in Headers */,
-				5AD2931ACFB330ED104D1C95E991CD36 /* IGListDiffable.h in Headers */,
-				605064DE217886BDB5F54D2C4F1FFE10 /* IGListDiffingSectionController.h in Headers */,
-				85E8D228A20A3B1BAF66BA5E501E4130 /* IGListDiffingSectionControllerDataSource.h in Headers */,
-				17F0B841D9EE3836DE3A0D14FED1E1C0 /* IGListDiffingSectionControllerSelectionDelegate.h in Headers */,
-				68EDC4DFCF7E560963C5C2EA11A094C8 /* IGListDiffKit.h in Headers */,
-				93BCC6AE07FEEA7D4CA9858D109F9465 /* IGListDisplayDelegate.h in Headers */,
-				AB0C34571411C0FC12E64867D57FF4D0 /* IGListDisplayHandler.h in Headers */,
-				98B4349D76EDC06061E75377DD78C445 /* IGListExperiments.h in Headers */,
-				E2DF05F904DEF89E68F7F02A254976CE /* IGListIndexPathResult.h in Headers */,
-				279CC0663D7F7282341CAED75885D72C /* IGListIndexPathResultInternal.h in Headers */,
-				12DCDBA0E5D07C8E7DA041EC2DE71DE7 /* IGListIndexSetResult.h in Headers */,
-				6915573B0C51F6A4C4A578266531E0A7 /* IGListIndexSetResultInternal.h in Headers */,
-				5C39684A15D432763253B02909C3EBB3 /* IGListKit-umbrella.h in Headers */,
-				F0F3D5FFCDC30D49DF2DA67386E90A4F /* IGListKit.h in Headers */,
-				B2BB31F11BD602231FD2F7A0A7658CEC /* IGListMacros.h in Headers */,
-				329D07A0427FCBA2E015AF2EBD5BCF35 /* IGListMoveIndex.h in Headers */,
-				1C5D0A89E2C4242B8EA9355D86FFB3A2 /* IGListMoveIndexInternal.h in Headers */,
-				A17362A420E4975E16A915FEA2D09B34 /* IGListMoveIndexPath.h in Headers */,
-				5C740D36A9B579BA8A9D788A275D0BEF /* IGListMoveIndexPathInternal.h in Headers */,
-				7EC17B30BF38EA68C120D41893153F91 /* IGListReloadDataUpdater.h in Headers */,
-				FDE3410AE24B7898DBD20FE78CD01F97 /* IGListScrollDelegate.h in Headers */,
-				831CBC753FA9DCEA54C2D8BFDEE8BCFD /* IGListSectionController.h in Headers */,
-				C73B0F6EDA733686C75856DE0BECD5EB /* IGListSectionControllerInternal.h in Headers */,
-				C6F500BD74E677E78DA28B8ADCD3DC3F /* IGListSectionMap.h in Headers */,
-				C00C77FC180B0CEA9BE2085D7945CC56 /* IGListSectionType.h in Headers */,
-				3D6588A5AA74A7962586866045B40A9D /* IGListSingleSectionController.h in Headers */,
-				F2EDA7B6871068A18A18A0AFFA3D2501 /* IGListStackedSectionController.h in Headers */,
-				F1A4AC1157A6EF081EBF4AC010E796EC /* IGListStackedSectionControllerInternal.h in Headers */,
-				F98F9A57ED0729DE18F34BA2DF6461BE /* IGListSupplementaryViewSource.h in Headers */,
-				4E668F19F9497638DEC74538B289D7E1 /* IGListUpdatingDelegate.h in Headers */,
-				824309E031C431D409A2638D958A183A /* IGListWorkingRangeDelegate.h in Headers */,
-				48BFD8C741292D86E1A6799048064AAB /* IGListWorkingRangeHandler.h in Headers */,
-				AA83AE6D3E0569457291E3427268DFE9 /* NSNumber+IGListDiffable.h in Headers */,
-				CB0122E5D712D817BB43B8CB9D58C495 /* NSString+IGListDiffable.h in Headers */,
-				84F2E2A015B105C7642C03D33CD1A433 /* UICollectionView+IGListBatchUpdateData.h in Headers */,
+				B3A7005E2A67A6F93A8F3619E93137B8 /* IGListAdapter.h in Headers */,
+				628C423CD876498A3E7A9F40036C0CE9 /* IGListAdapterDataSource.h in Headers */,
+				9187781B6F9FAB1AA5B83FC038B59D2E /* IGListAdapterDelegate.h in Headers */,
+				F9FD195160E171B81C8FE9D6A958C3A8 /* IGListAdapterInternal.h in Headers */,
+				8C16089B3EB0A6EEDD64979BE5F3822F /* IGListAdapterProxy.h in Headers */,
+				58080F56F4E8DF8BF2F180356D016E40 /* IGListAdapterUpdater.h in Headers */,
+				E733895B5254955FDC499927AC931A49 /* IGListAdapterUpdaterDelegate.h in Headers */,
+				169ED9BD178AF69C34938B20724C31EF /* IGListAdapterUpdaterInternal.h in Headers */,
+				5CAD60035D12F141A0B280A55C6AE9F7 /* IGListAssert.h in Headers */,
+				765B6334CAFE8F88C4EBB9D1B5E69625 /* IGListBatchUpdateData.h in Headers */,
+				6C3695ACB9C6DD0D2B5841D0A27B4A13 /* IGListBatchUpdates.h in Headers */,
+				6F66D093C5ACD4120D13C1B5CC889767 /* IGListBatchUpdateState.h in Headers */,
+				173D5AF965162ADFCE37F534E4AE4C65 /* IGListBindable.h in Headers */,
+				A5BABA4F7D1AF33B33FA73BBA929F345 /* IGListBindingSectionController.h in Headers */,
+				1808124669CE0A964974881C142F9520 /* IGListBindingSectionControllerDataSource.h in Headers */,
+				87FAF79F94A0F35E0A7F5E2BCF4D82C4 /* IGListBindingSectionControllerSelectionDelegate.h in Headers */,
+				3FADD1C8254A38BCC52DB8BA989EDD10 /* IGListCollectionContext.h in Headers */,
+				5509E3BD60EF54D8EC8ADA7856762677 /* IGListCollectionView.h in Headers */,
+				C3B936F482041B8847E9FB43FDA5C721 /* IGListCollectionViewLayout.h in Headers */,
+				9FAEE02910593547060BD149421E7A3A /* IGListCompatibility.h in Headers */,
+				76D1F7C70052C0AB1C5D5EA5C87F1434 /* IGListDiff.h in Headers */,
+				58F84CD9814CC29B7F2FC522D33D8F55 /* IGListDiffable.h in Headers */,
+				84476AB0AF5C4264290D125CFCB72280 /* IGListDiffKit.h in Headers */,
+				60D885DA6630FF6A835F927349BFA61F /* IGListDisplayDelegate.h in Headers */,
+				BC23421B89F5F630103089656A2A844C /* IGListDisplayHandler.h in Headers */,
+				3E676CF81E678CCE7EB11096AAF2D2CB /* IGListExperiments.h in Headers */,
+				59E6066B1451FD3EA9C043E39A88BA6A /* IGListIndexPathResult.h in Headers */,
+				1A9452454E12EDDDA5A2CEB1C2A896A7 /* IGListIndexPathResultInternal.h in Headers */,
+				835EFB69DB3F695B3C82673DD7D6166B /* IGListIndexSetResult.h in Headers */,
+				687C7310580A9753C3D0A948D9150743 /* IGListIndexSetResultInternal.h in Headers */,
+				667420020452017438E40E7E3732039D /* IGListKit-umbrella.h in Headers */,
+				B5F763538956B9D79EC4FCF059B5C514 /* IGListKit.h in Headers */,
+				EFEF9C728B0228395AE0AE6462E9BDAE /* IGListMacros.h in Headers */,
+				F2763C888130E11820E27771592E9681 /* IGListMoveIndex.h in Headers */,
+				556563648DA5CC4312B393C2FCD849A7 /* IGListMoveIndexInternal.h in Headers */,
+				11F7B8FBECFF6A62AF3A84AED161CC8A /* IGListMoveIndexPath.h in Headers */,
+				795B3C1842C4684D9C15866DACAC802A /* IGListMoveIndexPathInternal.h in Headers */,
+				9AD9A9FB4B2595E434BCE9B16C6C755E /* IGListReloadDataUpdater.h in Headers */,
+				75D31EB733643BD01F205438D99039A2 /* IGListScrollDelegate.h in Headers */,
+				C648CA7DE082B6893731896D74DC800D /* IGListSectionController.h in Headers */,
+				A90FCB1D290A93B97C4EDF3B556C203E /* IGListSectionControllerInternal.h in Headers */,
+				7DC295E37EDABEDC05DEE5A2C460CF03 /* IGListSectionMap.h in Headers */,
+				FE0EC5D34C576E0A20373F4304683972 /* IGListSectionType.h in Headers */,
+				D39BC444927BE4636E6CDFC5A2D2FDB3 /* IGListSingleSectionController.h in Headers */,
+				97EF0A6D76AC654985C10D9760C49643 /* IGListStackedSectionController.h in Headers */,
+				FA385BC8D7FF5C3A3FCA309B06E651D8 /* IGListStackedSectionControllerInternal.h in Headers */,
+				DD588BDDF0DFDF5DFD95EC120794A23E /* IGListSupplementaryViewSource.h in Headers */,
+				4D7CF6BC7467CFCE87AB313992648BBD /* IGListUpdatingDelegate.h in Headers */,
+				43C006EB33DEC5BD3656F5653E9DAE91 /* IGListWorkingRangeDelegate.h in Headers */,
+				C94B35361192D7E52CF1569BA6FEF163 /* IGListWorkingRangeHandler.h in Headers */,
+				919C5FA721C75B94F6975BEC155A6C11 /* NSNumber+IGListDiffable.h in Headers */,
+				6D83186E4EA40752763B2A5212C37628 /* NSString+IGListDiffable.h in Headers */,
+				66184C6818854D5B8E86B35FED58A7BF /* UICollectionView+IGListBatchUpdateData.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,9 +547,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3C719990B4D0FC6490058FD9EA85513F /* Build configuration list for PBXNativeTarget "IGListKit" */;
 			buildPhases = (
-				9D883875B97C2906C599CC57FD4DA6B1 /* Sources */,
+				D515BFD69B94F5AF2D78264AC3B8D5B2 /* Sources */,
 				C9F6D43E674795822A1040923F163AF6 /* Frameworks */,
-				797D120B0F1595EB5F71FB468BD94AE5 /* Headers */,
+				CD568366E1FA8B552D94CEC6A2F2BD10 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -614,34 +614,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9D883875B97C2906C599CC57FD4DA6B1 /* Sources */ = {
+		D515BFD69B94F5AF2D78264AC3B8D5B2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C0A4617B99D0EBE247D5C6BF65729FE /* IGListAdapter.m in Sources */,
-				6C2F5CCB58161E575E24F319315DF17E /* IGListAdapterProxy.m in Sources */,
-				DDFEE25629C33EB2F76F28CC86D233A6 /* IGListAdapterUpdater.m in Sources */,
-				2DF9175208027337157D93B31B8EDDB9 /* IGListBatchUpdateData.mm in Sources */,
-				6047AC41B2A080415DC3E7261CDDD7FC /* IGListBatchUpdates.m in Sources */,
-				35343A745923EE8838670C8CA4A07666 /* IGListCollectionView.m in Sources */,
-				A644CFC8EB676C61C0D22168F8D31AFE /* IGListCollectionViewLayout.mm in Sources */,
-				23E49138E141B892C3C165D8646E5F41 /* IGListDiff.mm in Sources */,
-				D6636EEE87F68B66465901F721650CCD /* IGListDiffingSectionController.m in Sources */,
-				ECFBF13E804B28687DAC495C54BE4832 /* IGListDisplayHandler.m in Sources */,
-				CFBF49F88F02EA5CB3B24E943FD7516C /* IGListIndexPathResult.m in Sources */,
-				28E4F6767210A6D01337DAAE8D159DA2 /* IGListIndexSetResult.m in Sources */,
-				2C17DDC3F26F9721B0083BB9312311EB /* IGListKit-dummy.m in Sources */,
-				27C05637482F7B6DF80B3B6B35C7445C /* IGListMoveIndex.m in Sources */,
-				47F13A908B9A5BA240D0FEB18AB09F69 /* IGListMoveIndexPath.m in Sources */,
-				95E5618CA29FAE8884AA645BDCD2FD7C /* IGListReloadDataUpdater.m in Sources */,
-				388AFC2D3CAB6E543F9220458FA5F1A4 /* IGListSectionController.m in Sources */,
-				102C05C5C8BB3B61B47E1661EA4357A3 /* IGListSectionMap.m in Sources */,
-				0DA03EF516DBAA583AEFCE585297C43D /* IGListSingleSectionController.m in Sources */,
-				7999D4107DA7297060CA1F0F65C3B8C9 /* IGListStackedSectionController.m in Sources */,
-				C696B14A0D2999B3D7B047EC49DE571E /* IGListWorkingRangeHandler.mm in Sources */,
-				F9C085C2B2790D6B93DB65463BD2E881 /* NSNumber+IGListDiffable.m in Sources */,
-				6A364AA0A21EF04B42F4252D34490430 /* NSString+IGListDiffable.m in Sources */,
-				DAFBBD9B0542374EC064B167F5444102 /* UICollectionView+IGListBatchUpdateData.m in Sources */,
+				9D80094ABBB168FF938D09ADA1DF953D /* IGListAdapter.m in Sources */,
+				BCD1F4C7CCD7936A8359AB88DE63AFBC /* IGListAdapterProxy.m in Sources */,
+				83D6C20C3A95AAD7493B1467B4D161C6 /* IGListAdapterUpdater.m in Sources */,
+				FC16F4FA2375541EB06B5312C4B4A4A9 /* IGListBatchUpdateData.mm in Sources */,
+				A7E984545BDADAF95D49D385F80481A4 /* IGListBatchUpdates.m in Sources */,
+				C2C92E35BFBB64B99F1A9DEBFA4B0D2F /* IGListBindingSectionController.m in Sources */,
+				8A700E9557B164554CDAA2531F945955 /* IGListCollectionView.m in Sources */,
+				C45BC50DCD0077F5729FCF5C954F66F7 /* IGListCollectionViewLayout.mm in Sources */,
+				2048A9F788B981CE3479CBF6E4664AD4 /* IGListDiff.mm in Sources */,
+				0B90FDC95D3C7E4FD0AFF80E4565E1F8 /* IGListDisplayHandler.m in Sources */,
+				9FDBF734DAF7C5E8381EEF807CD03D2B /* IGListIndexPathResult.m in Sources */,
+				AB548EF751BD2B5308DC6D4096E01A44 /* IGListIndexSetResult.m in Sources */,
+				5B515062D046D80273591A9167E38BF5 /* IGListKit-dummy.m in Sources */,
+				AAF5A047D08EE639E1393D68CA3B1BD0 /* IGListMoveIndex.m in Sources */,
+				66B4BEF11D4331B7649DA86812EE628A /* IGListMoveIndexPath.m in Sources */,
+				A2826C4CA5DDA43A41570F576E47466B /* IGListReloadDataUpdater.m in Sources */,
+				B4EEED8C0FC92BF950EC7006F8D3A639 /* IGListSectionController.m in Sources */,
+				8A067E2D1E1C74A065D301AF73D9A5C5 /* IGListSectionMap.m in Sources */,
+				390A178AB97AA6350B22486CF028304F /* IGListSingleSectionController.m in Sources */,
+				D7ADB1F788D207A9CBF3EF6D533DF363 /* IGListStackedSectionController.m in Sources */,
+				2BD1A890107BEADF4B030A1E35E851D7 /* IGListWorkingRangeHandler.mm in Sources */,
+				566CEB19AE09C53C812D07B9D1932AAB /* NSNumber+IGListDiffable.m in Sources */,
+				320A3572DA9692AE7429E925C17B9951 /* NSString+IGListDiffable.m in Sources */,
+				6757FCEEB64EFF04A0BA84460384945C /* UICollectionView+IGListBatchUpdateData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

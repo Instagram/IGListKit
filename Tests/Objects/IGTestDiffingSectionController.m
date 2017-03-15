@@ -25,13 +25,13 @@
     return self;
 }
 
-#pragma mark - IGListDiffingSectionControllerDataSource
+#pragma mark - IGListBindingSectionControllerDataSource
 
-- (NSArray<id<IGListDiffable>> *)sectionController:(IGListDiffingSectionController *)sectionController viewModelsForObject:(id)object {
+- (NSArray<id<IGListDiffable>> *)sectionController:(IGListBindingSectionController *)sectionController viewModelsForObject:(id)object {
     return [(IGTestDiffingObject *)object objects];
 }
 
-- (UICollectionViewCell<IGListBindable> *)sectionController:(IGListDiffingSectionController *)sectionController cellForViewModel:(id)viewModel atIndex:(NSInteger)index {
+- (UICollectionViewCell<IGListBindable> *)sectionController:(IGListBindingSectionController *)sectionController cellForViewModel:(id)viewModel atIndex:(NSInteger)index {
     Class cellClass;
     if ([viewModel isKindOfClass:[NSString class]]) {
         cellClass = [IGTestStringBindableCell class];
@@ -44,14 +44,14 @@
     return cell;
 }
 
-- (CGSize)sectionController:(IGListDiffingSectionController *)sectionController sizeForViewModel:(id)viewModel atIndex:(NSInteger)index {
+- (CGSize)sectionController:(IGListBindingSectionController *)sectionController sizeForViewModel:(id)viewModel atIndex:(NSInteger)index {
     const BOOL isString = [viewModel isKindOfClass:[NSString class]];
     return CGSizeMake([self.collectionContext containerSize].width, isString ? 55 : 30);
 }
 
-#pragma mark - IGListDiffingSectionControllerSelectionDelegate
+#pragma mark - IGListBindingSectionControllerSelectionDelegate
 
-- (void)sectionController:(IGListDiffingSectionController *)sectionController didSelectItemAtIndex:(NSInteger)index viewModel:(id)viewModel {
+- (void)sectionController:(IGListBindingSectionController *)sectionController didSelectItemAtIndex:(NSInteger)index viewModel:(id)viewModel {
     self.selectedViewModel = viewModel;
 }
 

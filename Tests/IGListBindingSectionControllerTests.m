@@ -20,7 +20,7 @@
 #import "IGTestObject.h"
 #import "IGTestCell.h"
 
-@interface IGListDiffingSectionControllerTests : XCTestCase
+@interface IGListBindingSectionControllerTests : XCTestCase
 
 @property (nonatomic, strong) IGListCollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
@@ -30,7 +30,7 @@
 
 @end
 
-@implementation IGListDiffingSectionControllerTests
+@implementation IGListBindingSectionControllerTests
 
 - (void)setUp {
     [super setUp];

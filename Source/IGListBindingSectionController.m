@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGListDiffingSectionController.h"
+#import "IGListBindingSectionController.h"
 
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListDiffable.h>
@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
     IGListDiffingSectionStateUpdateApplied
 };
 
-@interface IGListDiffingSectionController()
+@interface IGListBindingSectionController()
 
 @property (nonatomic, strong, readwrite) NSArray<id<IGListDiffable>> *viewModels;
 
@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
 
 @end
 
-@implementation IGListDiffingSectionController
+@implementation IGListBindingSectionController
 
 #pragma mark - Public API
 
@@ -111,7 +111,7 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
         self.viewModels = [self.dataSource sectionController:self viewModelsForObject:object];
     } else {
         IGAssert([oldObject isEqualToDiffableObject:object],
-                 @"Unequal objects %@ and %@ will cause IGListDiffingSectionController to reload the entire section",
+                 @"Unequal objects %@ and %@ will cause IGListBindingSectionController to reload the entire section",
                  oldObject, object);
         [self updateAnimated:YES completion:nil];
     }

@@ -9,14 +9,14 @@
 
 #import <Foundation/Foundation.h>
 
-@class IGListDiffingSectionController;
+@class IGListBindingSectionController;
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- A protocol that handles cell selection events in an `IGListDiffingSectionController`.
+ A protocol that handles cell selection events in an `IGListBindingSectionController`.
  */
-@protocol IGListDiffingSectionControllerSelectionDelegate <NSObject>
+@protocol IGListBindingSectionControllerSelectionDelegate <NSObject>
 
 /**
  Tells the delegate that a cell at a given index was selected.
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param index The index of the selected cell.
  @param viewModel The view model that was bound to the cell.
  */
-- (void)sectionController:(IGListDiffingSectionController *)sectionController
+- (void)sectionController:(IGListBindingSectionController *)sectionController
      didSelectItemAtIndex:(NSInteger)index
                 viewModel:(id)viewModel;
 

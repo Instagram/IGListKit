@@ -9,7 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class IGListDiffingSectionController;
+@class IGListBindingSectionController;
 
 @protocol IGListBindable;
 @protocol IGListDiffable;
@@ -17,9 +17,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- A protocol that returns data to power cells in an `IGListDiffingSectionController`.
+ A protocol that returns data to power cells in an `IGListBindingSectionController`.
  */
-@protocol IGListDiffingSectionControllerDataSource <NSObject>
+@protocol IGListBindingSectionControllerDataSource <NSObject>
 
 /**
  Create an array of view models given a top-level object.
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param object The top-level object that powers the section controller.
  @return A new array of view models.
  */
-- (NSArray<id<IGListDiffable>> *)sectionController:(IGListDiffingSectionController *)sectionController
+- (NSArray<id<IGListDiffable>> *)sectionController:(IGListBindingSectionController *)sectionController
                                viewModelsForObject:(id)object;
 
 /**
@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
  @note The section controller will call `-bindViewModel:` with the provided view model after the cell is dequeued. You
  should handle cell configuration using this method. However, you can do additional configuration at this stage as well.
  */
-- (UICollectionViewCell<IGListBindable> *)sectionController:(IGListDiffingSectionController *)sectionController
+- (UICollectionViewCell<IGListBindable> *)sectionController:(IGListBindingSectionController *)sectionController
                                            cellForViewModel:(id)viewModel
                                                     atIndex:(NSInteger)index;
 
@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param index The index of the view model.
  @return A size for the view model.
  */
-- (CGSize)sectionController:(IGListDiffingSectionController *)sectionController
+- (CGSize)sectionController:(IGListBindingSectionController *)sectionController
            sizeForViewModel:(id)viewModel
                     atIndex:(NSInteger)index;
 
