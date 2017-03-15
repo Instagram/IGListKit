@@ -10,6 +10,13 @@
 		26271C8E1DAE9D3F0073E116 /* SingleSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26271C8D1DAE9D3F0073E116 /* SingleSectionViewController.swift */; };
 		26271C921DAE9EFC0073E116 /* NibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26271C911DAE9EFC0073E116 /* NibCell.xib */; };
 		26271C941DAE9F050073E116 /* NibCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26271C931DAE9F050073E116 /* NibCell.swift */; };
+		292658571E749EDC0041B56D /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292658561E749EDC0041B56D /* CalendarViewController.swift */; };
+		292658591E749F820041B56D /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292658581E749F820041B56D /* Month.swift */; };
+		292658601E74A19F0041B56D /* DayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2926585F1E74A19F0041B56D /* DayViewModel.swift */; };
+		292658641E74A2550041B56D /* MonthSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292658631E74A2550041B56D /* MonthSectionController.swift */; };
+		292658661E74A49D0041B56D /* CalendarDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292658651E74A49D0041B56D /* CalendarDayCell.swift */; };
+		292658681E74AE8A0041B56D /* MonthTitleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292658671E74AE8A0041B56D /* MonthTitleViewModel.swift */; };
+		2926586A1E74AEFE0041B56D /* MonthTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292658691E74AEFE0041B56D /* MonthTitleCell.swift */; };
 		2942FF8C1D9F39E00015D24B /* DemoSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2942FF831D9F39E00015D24B /* DemoSectionController.swift */; };
 		2942FF8D1D9F39E00015D24B /* EmbeddedSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2942FF841D9F39E00015D24B /* EmbeddedSectionController.swift */; };
 		2942FF8E1D9F39E00015D24B /* ExpandableSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2942FF851D9F39E00015D24B /* ExpandableSectionController.swift */; };
@@ -135,6 +142,13 @@
 		26271C8D1DAE9D3F0073E116 /* SingleSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleSectionViewController.swift; sourceTree = "<group>"; };
 		26271C911DAE9EFC0073E116 /* NibCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NibCell.xib; sourceTree = "<group>"; };
 		26271C931DAE9F050073E116 /* NibCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibCell.swift; sourceTree = "<group>"; };
+		292658561E749EDC0041B56D /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		292658581E749F820041B56D /* Month.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
+		2926585F1E74A19F0041B56D /* DayViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayViewModel.swift; sourceTree = "<group>"; };
+		292658631E74A2550041B56D /* MonthSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthSectionController.swift; sourceTree = "<group>"; };
+		292658651E74A49D0041B56D /* CalendarDayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDayCell.swift; sourceTree = "<group>"; };
+		292658671E74AE8A0041B56D /* MonthTitleViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthTitleViewModel.swift; sourceTree = "<group>"; };
+		292658691E74AEFE0041B56D /* MonthTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthTitleCell.swift; sourceTree = "<group>"; };
 		2942FF831D9F39E00015D24B /* DemoSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoSectionController.swift; sourceTree = "<group>"; };
 		2942FF841D9F39E00015D24B /* EmbeddedSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedSectionController.swift; sourceTree = "<group>"; };
 		2942FF851D9F39E00015D24B /* ExpandableSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableSectionController.swift; sourceTree = "<group>"; };
@@ -285,9 +299,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2926585C1E74A0360041B56D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				2926585F1E74A19F0041B56D /* DayViewModel.swift */,
+				292658671E74AE8A0041B56D /* MonthTitleViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		2942FF821D9F39E00015D24B /* SectionControllers */ = {
 			isa = PBXGroup;
 			children = (
+				56C05B821E49B4B40026DB39 /* CommentSectionController.h */,
+				56C05B831E49B4B40026DB39 /* CommentSectionController.m */,
 				2942FF831D9F39E00015D24B /* DemoSectionController.swift */,
 				29D2E4AC1DD69B6000CD255D /* DisplaySectionController.swift */,
 				2942FF841D9F39E00015D24B /* EmbeddedSectionController.swift */,
@@ -295,21 +320,20 @@
 				29C6297E1DCFD9E9004A5BB1 /* FeedItemSectionController.swift */,
 				2942FF861D9F39E00015D24B /* GridSectionController.swift */,
 				2942FF871D9F39E00015D24B /* HorizontalSectionController.swift */,
+				56C05B7F1E49B4AB0026DB39 /* ImageSectionController.h */,
+				56C05B801E49B4AB0026DB39 /* ImageSectionController.m */,
+				56C05B851E49B4C40026DB39 /* InteractiveSectionController.h */,
+				56C05B861E49B4C40026DB39 /* InteractiveSectionController.m */,
 				2942FF881D9F39E00015D24B /* LabelSectionController.swift */,
+				292658631E74A2550041B56D /* MonthSectionController.swift */,
 				2942FF891D9F39E00015D24B /* RemoveSectionController.swift */,
 				2942FF8A1D9F39E00015D24B /* SearchSectionController.swift */,
 				296DD7541DD2150600206780 /* SelfSizingSectionController.swift */,
 				821BC4B91DB8B61200172ED0 /* StoryboardLabelSectionController.swift */,
-				2942FF8B1D9F39E00015D24B /* UserSectionController.swift */,
-				2981BA361DB869FF00A987F9 /* WorkingRangeSectionController.swift */,
 				56C05B7C1E49B49C0026DB39 /* UserInfoSectionController.h */,
 				56C05B7D1E49B49C0026DB39 /* UserInfoSectionController.m */,
-				56C05B7F1E49B4AB0026DB39 /* ImageSectionController.h */,
-				56C05B801E49B4AB0026DB39 /* ImageSectionController.m */,
-				56C05B821E49B4B40026DB39 /* CommentSectionController.h */,
-				56C05B831E49B4B40026DB39 /* CommentSectionController.m */,
-				56C05B851E49B4C40026DB39 /* InteractiveSectionController.h */,
-				56C05B861E49B4C40026DB39 /* InteractiveSectionController.m */,
+				2942FF8B1D9F39E00015D24B /* UserSectionController.swift */,
+				2981BA361DB869FF00A987F9 /* WorkingRangeSectionController.swift */,
 			);
 			path = SectionControllers;
 			sourceTree = "<group>";
@@ -357,13 +381,17 @@
 		2961B3A31D68B0B5001C9451 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				292658561E749EDC0041B56D /* CalendarViewController.swift */,
 				2961B3A41D68B0B5001C9451 /* DemosViewController.swift */,
 				29459BFF1DBE48E200F05375 /* DiffTableViewController.swift */,
 				29D2E4AE1DD69C0E00CD255D /* DisplayViewController.swift */,
 				2991F92F1D7BC0E400B0C58F /* EmptyViewController.swift */,
+				56C05B661E49B2110026DB39 /* IGListKitExamples-Bridging-Header.h */,
 				2961B3A51D68B0B5001C9451 /* LoadMoreViewController.swift */,
 				299068271D75BFEC00A62888 /* MixedDataViewController.swift */,
 				2991F9231D7BB89F00B0C58F /* NestedAdapterViewController.swift */,
+				56C05B671E49B2120026DB39 /* ObjcDemoViewController.h */,
+				56C05B681E49B2120026DB39 /* ObjcDemoViewController.m */,
 				299B53FF1D6BD6630074A202 /* SearchViewController.swift */,
 				296DD7521DD2147500206780 /* SelfSizingCellsViewController.swift */,
 				82D91B681DBA0EF300E62758 /* SingleSectionStoryboardViewController.swift */,
@@ -372,9 +400,6 @@
 				821BC4B51DB8B3DC00172ED0 /* StoryboardViewController.swift */,
 				29C6297A1DCFD857004A5BB1 /* SupplementaryViewController.swift */,
 				2981BA381DB874BB00A987F9 /* WorkingRangeViewController.swift */,
-				56C05B671E49B2120026DB39 /* ObjcDemoViewController.h */,
-				56C05B681E49B2120026DB39 /* ObjcDemoViewController.m */,
-				56C05B661E49B2110026DB39 /* IGListKitExamples-Bridging-Header.h */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -382,17 +407,25 @@
 		2961B3A61D68B0B5001C9451 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				292658651E74A49D0041B56D /* CalendarDayCell.swift */,
 				2991F9181D7BADC900B0C58F /* CenterLabelCell.swift */,
+				56C05B701E49B32A0026DB39 /* CommentCell.h */,
+				56C05B711E49B32A0026DB39 /* CommentCell.m */,
 				29628F131D91905A0026B15A /* DetailLabelCell.swift */,
 				2991F9271D7BB9EC00B0C58F /* EmbeddedCollectionViewCell.swift */,
 				297546F91DD25384002A6F89 /* FullWidthSelfSizingCell.swift */,
 				2981BA341DB868A500A987F9 /* ImageCell.swift */,
+				56C05B731E49B33C0026DB39 /* InteractiveCell.h */,
+				56C05B741E49B33C0026DB39 /* InteractiveCell.m */,
 				2961B3A71D68B0B5001C9451 /* LabelCell.swift */,
 				296DD7561DD2163800206780 /* ManuallySelfSizingCell.swift */,
+				292658691E74AEFE0041B56D /* MonthTitleCell.swift */,
 				26271C931DAE9F050073E116 /* NibCell.swift */,
 				26271C911DAE9EFC0073E116 /* NibCell.xib */,
 				296DD7581DD2174200206780 /* NibSelfSizingCell.swift */,
 				296DD75A1DD217C000206780 /* NibSelfSizingCell.xib */,
+				56C05B761E49B3A50026DB39 /* PhotoCell.h */,
+				56C05B771E49B3A50026DB39 /* PhotoCell.m */,
 				2991F92B1D7BBE5400B0C58F /* RemoveCell.swift */,
 				2961B3AF1D68B28E001C9451 /* SearchCell.swift */,
 				2961B3A81D68B0B5001C9451 /* SpinnerCell.swift */,
@@ -401,12 +434,6 @@
 				29C629801DCFDAF3004A5BB1 /* UserHeaderView.xib */,
 				56C05B6A1E49B2E80026DB39 /* UserInfoCell.h */,
 				56C05B6B1E49B2E80026DB39 /* UserInfoCell.m */,
-				56C05B701E49B32A0026DB39 /* CommentCell.h */,
-				56C05B711E49B32A0026DB39 /* CommentCell.m */,
-				56C05B731E49B33C0026DB39 /* InteractiveCell.h */,
-				56C05B741E49B33C0026DB39 /* InteractiveCell.m */,
-				56C05B761E49B3A50026DB39 /* PhotoCell.h */,
-				56C05B771E49B3A50026DB39 /* PhotoCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -415,10 +442,12 @@
 			isa = PBXGroup;
 			children = (
 				29C6297C1DCFD8E5004A5BB1 /* FeedItem.swift */,
+				292658581E749F820041B56D /* Month.swift */,
 				296DD75C1DD21ADA00206780 /* SelectionModel.swift */,
 				2991F91D1D7BB30C00B0C58F /* User.swift */,
 				56C05B791E49B4030026DB39 /* UserInfo.h */,
 				56C05B7A1E49B4030026DB39 /* UserInfo.m */,
+				2926585C1E74A0360041B56D /* ViewModels */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -779,8 +808,10 @@
 			files = (
 				299068281D75BFEC00A62888 /* MixedDataViewController.swift in Sources */,
 				299B54001D6BD6630074A202 /* SearchViewController.swift in Sources */,
+				292658661E74A49D0041B56D /* CalendarDayCell.swift in Sources */,
 				56C05B7E1E49B49C0026DB39 /* UserInfoSectionController.m in Sources */,
 				2961B3AE1D68B0B5001C9451 /* SpinnerCell.swift in Sources */,
+				292658591E749F820041B56D /* Month.swift in Sources */,
 				296DD7591DD2174200206780 /* NibSelfSizingCell.swift in Sources */,
 				296DD7531DD2147500206780 /* SelfSizingCellsViewController.swift in Sources */,
 				56C05B691E49B2120026DB39 /* ObjcDemoViewController.m in Sources */,
@@ -789,6 +820,7 @@
 				2981BA351DB868A500A987F9 /* ImageCell.swift in Sources */,
 				2942FF931D9F39E00015D24B /* SearchSectionController.swift in Sources */,
 				297546FA1DD25384002A6F89 /* FullWidthSelfSizingCell.swift in Sources */,
+				292658681E74AE8A0041B56D /* MonthTitleViewModel.swift in Sources */,
 				29D873561E0C539700A6BA95 /* StackedViewController.swift in Sources */,
 				82D91B691DBA0EF300E62758 /* SingleSectionStoryboardViewController.swift in Sources */,
 				29D2E4AF1DD69C0E00CD255D /* DisplayViewController.swift in Sources */,
@@ -822,13 +854,17 @@
 				26271C8E1DAE9D3F0073E116 /* SingleSectionViewController.swift in Sources */,
 				2961B3AD1D68B0B5001C9451 /* LabelCell.swift in Sources */,
 				2942FF901D9F39E00015D24B /* HorizontalSectionController.swift in Sources */,
+				292658641E74A2550041B56D /* MonthSectionController.swift in Sources */,
 				2981BA371DB869FF00A987F9 /* WorkingRangeSectionController.swift in Sources */,
+				292658601E74A19F0041B56D /* DayViewModel.swift in Sources */,
 				2961B3AB1D68B0B5001C9451 /* DemosViewController.swift in Sources */,
 				296DD75D1DD21ADA00206780 /* SelectionModel.swift in Sources */,
 				29C6297D1DCFD8E5004A5BB1 /* FeedItem.swift in Sources */,
 				56C05B6C1E49B2E80026DB39 /* UserInfoCell.m in Sources */,
+				2926586A1E74AEFE0041B56D /* MonthTitleCell.swift in Sources */,
 				821BC4B61DB8B3DC00172ED0 /* StoryboardViewController.swift in Sources */,
 				296DD7571DD2163800206780 /* ManuallySelfSizingCell.swift in Sources */,
+				292658571E749EDC0041B56D /* CalendarViewController.swift in Sources */,
 				29C6297F1DCFD9E9004A5BB1 /* FeedItemSectionController.swift in Sources */,
 				2942FF8E1D9F39E00015D24B /* ExpandableSectionController.swift in Sources */,
 				56C05B721E49B32A0026DB39 /* CommentCell.m in Sources */,

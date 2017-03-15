@@ -79,7 +79,7 @@
 - (void)test_whenCleaningUpState_withChanges_thatUpdaterHasNoChanges {
     [self.updater performUpdateWithCollectionView:self.collectionView fromObjects:nil toObjects:@[@0] animated:YES objectTransitionBlock:self.updateBlock completion:nil];
     XCTAssertTrue([self.updater hasChanges]);
-    [self.updater cleanupState];
+    [self.updater cleanStateBeforeUpdates];
     XCTAssertFalse([self.updater hasChanges]);
 }
 
@@ -246,7 +246,7 @@
 
     __block NSInteger completionCounter = 0;
 
-    XCTestExpectation *expectation = genExpectation;
+    XCTestExpectation *expectation1 = genExpectation;
     void (^preUpdateBlock)() = ^{
         NSArray *anotherTo = @[
                                [IGSectionObject sectionWithObjects:@[]],
@@ -257,10 +257,11 @@
             completionCounter++;
             XCTAssertEqual([self.collectionView numberOfSections], 3);
             XCTAssertEqual(completionCounter, 2);
-            [expectation fulfill];
+            [expectation1 fulfill];
         }];
     };
 
+    XCTestExpectation *expectation2 = genExpectation;
     [self.updater performUpdateWithCollectionView:self.collectionView fromObjects:from toObjects:to animated:YES objectTransitionBlock:^(NSArray *toObjects) {
         // executing this block within the updater is just before performBatchUpdates: are applied
         // should be able to queue another update here, similar to an update being queued between it beginning and executing
@@ -270,7 +271,9 @@
         self.dataSource.sections = toObjects;
     } completion:^(BOOL finished) {
         completionCounter++;
+        XCTAssertEqual([self.collectionView numberOfSections], 2);
         XCTAssertEqual(completionCounter, 1);
+        [expectation2 fulfill];
     }];
     [self waitForExpectationsWithTimeout:15 handler:nil];
 }
@@ -503,6 +506,77 @@
     }];
     waitExpectation;
     [mockDelegate verify];
+}
+
+- (void)test_ {
+    IGSectionObject *object = [IGSectionObject sectionWithObjects:@[@0, @1, @2]];
+    self.dataSource.sections = @[object];
+
+    __block BOOL reloadDataCompletionExecuted = NO;
+    [self.updater reloadDataWithCollectionView:self.collectionView reloadUpdateBlock:^{} completion:^(BOOL finished) {
+        reloadDataCompletionExecuted = YES;
+    }];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.updater performUpdateWithCollectionView:self.collectionView animated:YES itemUpdates:^{
+        object.objects = @[@2, @1, @4, @5];
+        [self.updater insertItemsIntoCollectionView:self.collectionView indexPaths:@[
+                                                                                     [NSIndexPath indexPathForItem:2 inSection:0],
+                                                                                     [NSIndexPath indexPathForItem:3 inSection:0],
+                                                                                     ]];
+        [self.updater deleteItemsFromCollectionView:self.collectionView indexPaths:@[
+                                                                                     [NSIndexPath indexPathForItem:0 inSection:0],
+                                                                                     ]];
+        [self.updater moveItemInCollectionView:self.collectionView
+                                 fromIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]
+                                   toIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    } completion:^(BOOL finished) {
+        XCTAssertTrue(reloadDataCompletionExecuted);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
+}
+
+- (void)test_2 {
+    [self.collectionView removeFromSuperview];
+
+    IGSectionObject *object = [IGSectionObject sectionWithObjects:@[@0, @1, @2]];
+    self.dataSource.sections = @[object];
+
+    __block BOOL objectTransitionBlockExecuted = NO;
+    __block BOOL completionBlockExecuted = NO;
+    [self.updater performUpdateWithCollectionView:self.collectionView
+                                      fromObjects:self.dataSource.sections
+                                        toObjects:self.dataSource.sections
+                                         animated:YES
+                            objectTransitionBlock:^(NSArray *toObjects) {
+                                objectTransitionBlockExecuted = YES;
+                            }
+                                       completion:^(BOOL finished) {
+                                           completionBlockExecuted = YES;
+                                       }];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.updater performUpdateWithCollectionView:self.collectionView animated:YES itemUpdates:^{
+        object.objects = @[@2, @1, @4, @5];
+        [self.updater insertItemsIntoCollectionView:self.collectionView indexPaths:@[
+                                                                                     [NSIndexPath indexPathForItem:2 inSection:0],
+                                                                                     [NSIndexPath indexPathForItem:3 inSection:0],
+                                                                                     ]];
+        [self.updater deleteItemsFromCollectionView:self.collectionView indexPaths:@[
+                                                                                     [NSIndexPath indexPathForItem:0 inSection:0],
+                                                                                     ]];
+        [self.updater moveItemInCollectionView:self.collectionView
+                                 fromIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]
+                                   toIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    } completion:^(BOOL finished) {
+        XCTAssertTrue(objectTransitionBlockExecuted);
+        XCTAssertTrue(completionBlockExecuted);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
 @end

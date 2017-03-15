@@ -18,8 +18,19 @@
         _itemMoves = [NSMutableSet new];
         _itemReloads = [NSMutableSet new];
         _itemDeletes = [NSMutableSet new];
+        _itemUpdateBlocks = [NSMutableArray new];
+        _itemCompletionBlocks = [NSMutableArray new];
     }
     return self;
+}
+
+- (BOOL)hasChanges {
+    return [self.itemUpdateBlocks count] > 0
+    || [self.sectionReloads count] > 0
+    || [self.itemInserts count] > 0
+    || [self.itemMoves count] > 0
+    || [self.itemReloads count] > 0
+    || [self.itemDeletes count] > 0;
 }
 
 @end

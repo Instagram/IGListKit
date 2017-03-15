@@ -3,27 +3,25 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
+ * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestCell.h"
+#import "IGTestStringBindableCell.h"
 
-#import "IGTestObject.h"
-
-@implementation IGTestCell
+@implementation IGTestStringBindableCell
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        _label = [[UILabel alloc] init];
-        [self.contentView addSubview:_label];
+        _label = [UILabel new];
     }
     return self;
 }
 
+#pragma mark - IGListBindable
+
 - (void)bindViewModel:(id)viewModel {
-    IGTestObject *object = viewModel;
-    self.label.text = [object.value description];
+    self.label.text = viewModel;
 }
 
 @end

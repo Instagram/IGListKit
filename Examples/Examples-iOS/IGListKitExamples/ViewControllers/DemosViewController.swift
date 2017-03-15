@@ -37,7 +37,8 @@ final class DemosViewController: UIViewController, IGListAdapterDataSource {
         DemoItem(name: "Self-sizing cells", controllerClass: SelfSizingCellsViewController.self),
         DemoItem(name: "Display delegate", controllerClass: DisplayViewController.self),
         DemoItem(name: "Stacked Section Controllers", controllerClass: StackedViewController.self),
-        DemoItem(name: "Objc Demo", controllerClass: ObjcDemoViewController.self)
+        DemoItem(name: "Objc Demo", controllerClass: ObjcDemoViewController.self),
+        DemoItem(name: "Calendar (auto diffing)", controllerClass: CalendarViewController.self)
     ]
 
     override func viewDidLoad() {
