@@ -83,7 +83,7 @@ This release closes the [2.1.0 milestone](https://github.com/Instagram/IGListKit
 
 - `-[IGListAdapter updater]` is now public (read-only). [Adlai-Holler](https://github.com/Adlai-Holler) [(#379)](https://github.com/Instagram/IGListKit/pull/379)
 
-- Updated the Contributing.md file with new sections and explanations about how you can contribute to IGLIstKit.
+
 
 ### Fixes
 
