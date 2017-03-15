@@ -28,6 +28,22 @@ IGListExperimentEnabled(self.experiments, IGListExperimentMyAwesomeChange) {
 
 Once your experiment is confirmed we will remove the option and wrapping check!
 
+## How we do major and minor releases
+
+Keep in mind:
+
+2x PRs merge into stable
+3x PRs merge into master
+
+Then we PR from stable to master so we can keep the history clean.
+
+## Testing
+
+Keep in mind that we want 99% test coverage at all times. If you're adding new stuff into IGListKit get it tested.
+
+When fixing bugs, remember to recreate the bug in a unit test, then try and fix the test. This sets us up and help us to never regress that issue again.
+
+
 ## Contributor License Agreement ("CLA")
 
 In order to accept your pull request, we need you to submit a CLA. You only need
