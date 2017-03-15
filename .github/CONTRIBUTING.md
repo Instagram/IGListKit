@@ -49,6 +49,11 @@ outlined on that page and do not file a public issue.
 * 4 spaces for indentation rather than tabs
 * Public classes and methods must contain header documentation
 * Use plain C functions whenever possible (as opposed to class methods)
+* Restrict subclassing (objc macro, final in examples)
+* ivars v props
+* local vars instead of self.prop over & over
+
+
 
 ## Updating Testing Dependencies
 
