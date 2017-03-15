@@ -27,6 +27,12 @@ CGPoint p = CGPointMake(x, y); \
 XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
 } while(0)
 
+#define IGAssertEqualSize(size, w, h, ...) \
+do { \
+CGSize s = CGSizeMake(w, h); \
+XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
+} while(0)
+
 @interface IGListAdapterTests : XCTestCase
 
 // infra does not hold a strong ref to collection view
@@ -1081,6 +1087,14 @@ XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
     [self.adapter reloadDataWithCompletion:nil];
     NSArray *expected = @[@1, @2];
     XCTAssertEqualObjects(self.adapter.objects, expected);
+}
+
+- (void)test_whenSectionEdgeInsetIsNotZero {
+    // IGListTestAdapterDataSource does not handle NSStrings
+    self.dataSource.objects = @[@42];
+    [self.adapter reloadDataWithCompletion:nil];
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@42];
+    IGAssertEqualSize([self.adapter containerSizeForSectionController:controller], 98, 98);
 }
 
 @end

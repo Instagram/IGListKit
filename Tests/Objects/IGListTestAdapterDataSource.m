@@ -12,6 +12,7 @@
 #import <IGListKit/IGListAdapter.h>
 
 #import "IGListTestSection.h"
+#import "IGListTestContainerSizeSection.h"
 
 @implementation IGListTestAdapterDataSource
 
@@ -21,6 +22,9 @@
 
 - (IGListSectionController <IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
     if ([object isKindOfClass:[NSNumber class]]) {
+        if ([(NSNumber*)object  isEqual: @42]) {
+            return [IGListTestContainerSizeSection new];
+        }
         return [IGListTestSection new];
     }
     return nil;
