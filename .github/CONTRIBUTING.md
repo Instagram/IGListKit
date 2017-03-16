@@ -30,12 +30,14 @@ Once your experiment is confirmed we will remove the option and wrapping check!
 
 ## How we do major and minor releases
 
-Keep in mind:
+Current release pull requests merge into stable.
+Next major release pull requests merge into master.
 
-2x PRs merge into stable
-3x PRs merge into master
+Then we pull request from stable to master so we can keep the git history clean.
 
-Then we PR from stable to master so we can keep the history clean.
+Example:
+
+if current release is 2.1.0, then any commits for 2.2.0 go into stable while commits for 3.0 would go to master.
 
 ## Testing
 
@@ -66,8 +68,8 @@ outlined on that page and do not file a public issue.
 * Public classes and methods must contain header documentation
 * Use plain C functions whenever possible (as opposed to class methods)
 * Restrict subclassing (objc macro, final in examples)
-* ivars v props
-* local vars instead of self.prop over & over
+* instance variables instead of properties
+* local variables instead of self.prop over & over
 
 
 
