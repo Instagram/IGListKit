@@ -71,8 +71,6 @@ outlined on that page and do not file a public issue.
 * instance variables instead of properties
 * local variables instead of self.prop over & over
 
-
-
 ## Updating Testing Dependencies
 
 If you need a different version of one of the testing dependencies, you will need to first [install Cocoapods](https://guides.cocoapods.org/using/getting-started.html):
