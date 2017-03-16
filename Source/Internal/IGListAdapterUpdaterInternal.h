@@ -33,7 +33,7 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 
 @property (nonatomic, assign) BOOL queuedUpdateIsAnimated;
 
-@property (nonatomic, strong) IGListBatchUpdates *batchUpdatesCollector;
+@property (nonatomic, strong) IGListBatchUpdates *batchUpdates;
 
 @property (nonatomic, copy, nullable) IGListObjectTransitionBlock objectTransitionBlock;
 
