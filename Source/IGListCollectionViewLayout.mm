@@ -139,10 +139,8 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             // do not add zero height headers or headers that are outside the rect
             const CGRect frame = attributes.frame;
             const CGRect intersection = CGRectIntersection(frame, rect);
-            if (!CGRectIsEmpty(intersection) || CGRectGetHeight(frame) == 0.0) {
-                if (CGRectGetHeight(frame) > 0.0) {
-                    [result addObject:attributes];
-                }
+            if (!CGRectIsEmpty(intersection) && CGRectGetHeight(frame) > 0.0) {
+                [result addObject:attributes];
             }
         }
 
