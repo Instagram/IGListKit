@@ -11,6 +11,7 @@
 
 #import <IGListKit/IGListCollectionViewLayout.h>
 
+#import "IGListCollectionViewLayoutInternal.h"
 #import "IGLayoutTestDataSource.h"
 #import "IGLayoutTestItem.h"
 #import "IGLayoutTestSection.h"
@@ -233,7 +234,8 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
                             ]];
     XCTAssertEqual(self.collectionView.contentSize.height, 33);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
-    IGAssertEqualFrame([self cellForSection:0 item:1].frame, 33.5, 0, 33, 33);
+    const CGRect rect = IGListRectIntegralScaled(CGRectMake(33.5, 0, 33, 33));
+    IGAssertEqualFrame([self cellForSection:0 item:1].frame, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
     IGAssertEqualFrame([self cellForSection:0 item:2].frame, 67, 0, 33, 33);
 }
 
@@ -297,7 +299,8 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
                             ]];
     XCTAssertEqual(self.collectionView.contentSize.height, 33);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
-    IGAssertEqualFrame([self cellForSection:1 item:0].frame, 33.5, 0, 33, 33);
+    const CGRect rect = IGListRectIntegralScaled(CGRectMake(33.5, 0, 33, 33));
+    IGAssertEqualFrame([self cellForSection:1 item:0].frame, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
     IGAssertEqualFrame([self cellForSection:2 item:0].frame, 67, 0, 33, 33);
 }
 

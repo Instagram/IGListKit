@@ -8,6 +8,7 @@
  */
 
 #import "IGListCollectionViewLayout.h"
+#import "IGListCollectionViewLayoutInternal.h"
 
 #import <vector>
 
@@ -371,10 +372,10 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                 }
             }
 
-            const CGRect frame = CGRectMake(itemX,
-                                            itemY + insets.top,
-                                            itemWidth,
-                                            size.height);
+            const CGRect frame = IGListRectIntegralScaled(CGRectMake(itemX,
+                                                                     itemY + insets.top,
+                                                                     itemWidth,
+                                                                     size.height));
             sectionData[section].itemBounds[item] = frame;
 
             // track the max size of the row to find the y of the next row, adjust for top inset while iterating items
