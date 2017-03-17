@@ -76,6 +76,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 @property (nonatomic, assign, readonly) BOOL stickyHeaders;
 @property (nonatomic, assign, readonly) CGFloat topContentInset;
+@property (nonatomic, assign, readonly) BOOL stretchToEdge;
 
 @end
 
@@ -98,10 +99,12 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 }
 
 - (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
-                      topContentInset:(CGFloat)topContentInset {
+                      topContentInset:(CGFloat)topContentInset
+                        stretchToEdge:(BOOL)stretchToEdge {
     if (self = [super init]) {
         _stickyHeaders = stickyHeaders;
         _topContentInset = topContentInset;
+        _stretchToEdge = stretchToEdge;
         _attributesCache = [NSMutableDictionary new];
         _headerAttributesCache = [NSMutableDictionary new];
         _cachedLayoutInvalid = YES;
@@ -110,7 +113,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    return [self initWithStickyHeaders:NO topContentInset:0];
+    return [self initWithStickyHeaders:NO topContentInset:0 stretchToEdge:NO];
 }
 
 #pragma mark - UICollectionViewLayout
@@ -349,19 +352,21 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         
         // the farthest right the frame of an item in this section can go
         const CGFloat maxX = width - insets.right;
-
+        
         for (NSInteger item = 0; item < itemCount; item++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
             const CGSize size = [delegate collectionView:collectionView layout:self sizeForItemAtIndexPath:indexPath];
 
             IGAssert(size.width <= paddedWidth, @"Width of item %zi in section %zi must be less than container %.0f accounting for section insets %@",
                      item, section, width, NSStringFromUIEdgeInsets(insets));
-            const CGFloat itemWidth = MIN(size.width, paddedWidth);
+            CGFloat itemWidth = MIN(size.width, paddedWidth);
 
             // if the x + width of the item busts the width of the container
             // or if this is the first item and the header has a non-zero size
             // newline to the next row and reset
-            if (itemX + itemWidth > maxX
+            // define epsilon to avoid float overflow issue
+            const CGFloat epsilon = 1.0;
+            if (itemX + itemWidth > maxX + epsilon
                 || (item == 0 && headerExists)) {
                 itemY = nextRowY;
                 itemX = insets.left;
@@ -370,6 +375,11 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                 if (item > 0) {
                     itemY += lineSpacing;
                 }
+            }
+            
+            const CGFloat distanceToRighEdge = paddedWidth - (itemX + itemWidth);
+            if (self.stretchToEdge && distanceToRighEdge > 0 && distanceToRighEdge <= epsilon) {
+                itemWidth = paddedWidth - itemX;
             }
 
             const CGRect frame = IGListRectIntegralScaled(CGRectMake(itemX,

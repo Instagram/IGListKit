@@ -50,7 +50,11 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
 }
 
 - (void)setUpWithStickyHeaders:(BOOL)sticky topInset:(CGFloat)inset {
-    self.layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:sticky topContentInset:inset];
+    [self setUpWithStickyHeaders:sticky topInset:inset stretchToEdge:NO];
+}
+
+- (void)setUpWithStickyHeaders:(BOOL)sticky topInset:(CGFloat)inset stretchToEdge:(BOOL)stretchToEdge {
+    self.layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:sticky topContentInset:inset stretchToEdge:stretchToEdge];
     self.dataSource = [IGLayoutTestDataSource new];
     self.collectionView = [[UICollectionView alloc] initWithFrame:kTestFrame collectionViewLayout:self.layout];
     self.collectionView.dataSource = self.dataSource;
@@ -588,6 +592,81 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
     IGAssertEqualFrame([self headerForSection:0].frame, 0, 0, 40, 10);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 10, 40, 10);
     IGAssertEqualFrame([self cellForSection:0 item:1].frame, 0, 20, 40, 20);
+}
+
+- (void)test_whenItemsAddedWidthSmallerThanWidth_DifferenceSmallerThanEpsilon {
+    [self setUpWithStickyHeaders:NO topInset:0 stretchToEdge:YES];
+
+    const CGSize size = CGSizeMake(33, 33);
+    [self prepareWithData:@[
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:size],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:size],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:size],
+                                                                          ]],
+                            ]];
+    
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
+    IGAssertEqualFrame([self cellForSection:0 item:1].frame, 33, 0, 33, 33);
+    IGAssertEqualFrame([self cellForSection:0 item:2].frame, 66, 0, 34, 33);
+}
+
+- (void)test_whenItemsAddedWidthSmallerThanWidth_DifferenceBiggerThanEpsilon {
+    [self setUpWithStickyHeaders:NO topInset:0 stretchToEdge:YES];
+
+    [self prepareWithData:@[
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(33, 33)],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 33)],
+                                                                          ]],
+                            ]];
+    
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
+    IGAssertEqualFrame([self cellForSection:0 item:1].frame, 33, 0, 65, 33);
+}
+
+- (void)test_whenItemsAddedWithBiggerThanWidth_DifferenceSmallerThanEpsilon {
+    [self setUpWithStickyHeaders:NO topInset:0];
+
+    [self prepareWithData:@[
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 50)],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(51, 50)],
+                                                                          ]],
+                            ]];
+    
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 50, 50);
+    IGAssertEqualFrame([self cellForSection:0 item:1].frame, 50, 0, 51, 50);
+}
+
+- (void)test_whenItemsAddedWithBiggerThanWidth_DifferenceBiggerThanEpsilon {
+    [self setUpWithStickyHeaders:NO topInset:0];
+
+    [self prepareWithData:@[
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 50)],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(52, 50)],
+                                                                          ]],
+                            ]];
+    
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 50, 50);
+    IGAssertEqualFrame([self cellForSection:0 item:1].frame, 0, 50, 52, 50);
 }
 
 - (void)test_ {
