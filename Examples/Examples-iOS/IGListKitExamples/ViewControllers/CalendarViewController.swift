@@ -22,7 +22,7 @@ final class CalendarViewController: UIViewController, IGListAdapterDataSource {
     }()
     let collectionView = IGListCollectionView(
         frame: .zero,
-        collectionViewLayout: IGListCollectionViewLayout(stickyHeaders: false, topContentInset: 0)
+        collectionViewLayout: IGListCollectionViewLayout(stickyHeaders: false, topContentInset: 0, stretchToEdge: false)
     )
     
     var months = [Month]()
