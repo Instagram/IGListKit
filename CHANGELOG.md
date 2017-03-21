@@ -28,6 +28,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Renamed `IGListAdapterUpdaterDelegate` method to `listAdapterUpdater:didPerformBatchUpdates:collectionView:`. [Vincent Peng](https://github.com/vincent-peng) [(#491)](https://github.com/Instagram/IGListKit/pull/491)
 
+- Added `scrollViewDidEndScrollingAnimation:` and `scrollViewDidEndDecelerating:` UIScrollViewDelegate methods to IGListAdapterProxy. [Antoine Lamy](https://github.com/antoinelamy) [(#570)](https://github.com/Instagram/IGListKit/pull/570)
+
 
 ### Enhancements
 
