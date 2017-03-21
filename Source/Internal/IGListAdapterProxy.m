@@ -31,7 +31,9 @@ static BOOL isInterceptedSelector(SEL sel) {
             // UIScrollViewDelegate
             sel == @selector(scrollViewDidScroll:) ||
             sel == @selector(scrollViewWillBeginDragging:) ||
-            sel == @selector(scrollViewDidEndDragging:willDecelerate:)
+            sel == @selector(scrollViewDidEndDragging:willDecelerate:) ||
+            sel == @selector(scrollViewDidEndScrollingAnimation:) ||
+            sel == @selector(scrollViewDidEndDecelerating:)
             );
 }
 
