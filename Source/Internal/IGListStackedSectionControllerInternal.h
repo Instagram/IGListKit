@@ -13,6 +13,7 @@
 
 @interface IGListStackedSectionController ()
 <
+IGListBatchContext,
 IGListCollectionContext,
 IGListDisplayDelegate,
 IGListScrollDelegate,
@@ -32,6 +33,9 @@ IGListWorkingRangeDelegate
 
 /// A counted set of the visible section controllers, used to forward granular display events to child section controllers
 @property (nonatomic, strong, readonly) NSCountedSet *visibleSectionControllers;
+
+/// Temporary batch context so the stack controller can transform child indices within the stack before updating.
+@property (nonatomic, strong) id<IGListBatchContext> forwardingBatchContext;
 
 - (IGListSectionController <IGListSectionType> *)sectionControllerForObjectIndex:(NSInteger)itemIndex;
 - (NSInteger)offsetForSectionController:(IGListSectionController<IGListSectionType> *)sectionController;

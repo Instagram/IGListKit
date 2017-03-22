@@ -54,11 +54,6 @@ IGLK_SUBCLASSING_RESTRICTED
 @property (nonatomic, strong, readonly) NSSet<IGListMoveIndexPath *> *moveIndexPaths;
 
 /**
- Item reload index paths.
- */
-@property (nonatomic, strong, readonly) NSSet<NSIndexPath *> *reloadIndexPaths;
-
-/**
  Creates a new batch update object with section and item operations.
 
  @param insertSections   Section indexes to insert.
@@ -67,7 +62,6 @@ IGLK_SUBCLASSING_RESTRICTED
  @param insertIndexPaths Item index paths to insert.
  @param deleteIndexPaths Item index paths to delete.
  @param moveIndexPaths   Item index paths to move.
- @param reloadIndexPaths Item index paths to reload.
 
  @return A new batch update object.
  */
@@ -76,8 +70,7 @@ IGLK_SUBCLASSING_RESTRICTED
                           moveSections:(NSSet<IGListMoveIndex *> *)moveSections
                       insertIndexPaths:(NSSet<NSIndexPath *> *)insertIndexPaths
                       deleteIndexPaths:(NSSet<NSIndexPath *> *)deleteIndexPaths
-                        moveIndexPaths:(NSSet<IGListMoveIndexPath *> *)moveIndexPaths
-                      reloadIndexPaths:(NSSet<NSIndexPath *> *)reloadIndexPaths NS_DESIGNATED_INITIALIZER;
+                        moveIndexPaths:(NSSet<IGListMoveIndexPath *> *)moveIndexPaths NS_DESIGNATED_INITIALIZER;
 
 /**
  :nodoc:

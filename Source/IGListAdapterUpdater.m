@@ -277,8 +277,7 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
                                                                                  moveSections:moves
                                                                              insertIndexPaths:batchUpdates.itemInserts
                                                                              deleteIndexPaths:batchUpdates.itemDeletes
-                                                                               moveIndexPaths:batchUpdates.itemMoves
-                                                                             reloadIndexPaths:batchUpdates.itemReloads];
+                                                                               moveIndexPaths:batchUpdates.itemMoves];
     [collectionView ig_applyBatchUpdateData:updateData];
     return updateData;
 }
@@ -463,18 +462,6 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     } else {
         [self.delegate listAdapterUpdater:self willMoveFromIndexPath:fromIndexPath toIndexPath:toIndexPath collectionView:collectionView];
         [collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
-    }
-}
-
-- (void)reloadItemsInCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray <NSIndexPath *> *)indexPaths {
-    IGAssertMainThread();
-    IGParameterAssert(collectionView != nil);
-    IGParameterAssert(indexPaths != nil);
-    if (self.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {
-        [self.batchUpdates.itemReloads addObjectsFromArray:indexPaths];
-    } else {
-        [self.delegate listAdapterUpdater:self willReloadIndexPaths:indexPaths collectionView:collectionView];
-        [collectionView reloadItemsAtIndexPaths:indexPaths];
     }
 }
 

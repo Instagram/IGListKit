@@ -9,6 +9,7 @@
 
 #import <IGListKit/IGListAdapter.h>
 #import <IGListKit/IGListCollectionContext.h>
+#import <IGListKit/IGListBatchContext.h>
 
 #import "IGListAdapterProxy.h"
 #import "IGListDisplayHandler.h"
@@ -26,7 +27,8 @@ NS_INLINE NSString *IGListReusableViewIdentifier(Class viewClass, NSString * _Nu
 <
 UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout,
-IGListCollectionContext
+IGListCollectionContext,
+IGListBatchContext
 >
 {
     __weak UICollectionView *_collectionView;

@@ -62,8 +62,10 @@
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
     IGListTestSection *section = [self.adapter sectionControllerForObject:@2];
-    section.items = 3;
-    [section.collectionContext insertInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:0]];
+    [section.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+        section.items = 3;
+        [batchContext insertInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:0]];
+    } completion:nil];
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
 }
 
@@ -72,8 +74,10 @@
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
     IGListTestSection *section = [self.adapter sectionControllerForObject:@2];
-    section.items = 1;
-    [section.collectionContext deleteInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:0]];
+    [section.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+        section.items = 1;
+        [batchContext deleteInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:0]];
+    } completion:nil];
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 1);
 }
 
@@ -82,7 +86,9 @@
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
     IGListTestSection *section = [self.adapter sectionControllerForObject:@2];
-    [section.collectionContext reloadInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:0]];
+    [section.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+        [batchContext reloadInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:0]];
+    } completion:nil];
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
 }
 
@@ -100,7 +106,9 @@
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
     IGListTestSection *section = [self.adapter sectionControllerForObject:@2];
-    [section.collectionContext moveInSectionController:section fromIndex:0 toIndex:1];
+    [section.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+        [batchContext moveInSectionController:section fromIndex:0 toIndex:1];
+    } completion:nil];
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
 }
 

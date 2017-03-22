@@ -105,14 +105,6 @@ typedef void (^IGListReloadUpdateBlock)();
                      toIndexPath:(NSIndexPath *)toIndexPath;
 
 /**
- Tells the delegate to perform item reloads at the given index paths.
-
- @param collectionView The collection view on which to perform the transition.
- @param indexPaths     The index paths of items to reload.
- */
-- (void)reloadItemsInCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray <NSIndexPath *> *)indexPaths;
-
-/**
  Completely reload data in the collection.
 
  @param collectionView    The collection view to reload.

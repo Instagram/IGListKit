@@ -16,7 +16,6 @@
 - (void)ig_applyBatchUpdateData:(IGListBatchUpdateData *)updateData {
     [self deleteItemsAtIndexPaths:[updateData.deleteIndexPaths allObjects]];
     [self insertItemsAtIndexPaths:[updateData.insertIndexPaths allObjects]];
-    [self reloadItemsAtIndexPaths:[updateData.reloadIndexPaths allObjects]];
 
     for (IGListMoveIndexPath *move in updateData.moveIndexPaths) {
         [self moveItemAtIndexPath:move.from toIndexPath:move.to];

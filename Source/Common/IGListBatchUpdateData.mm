@@ -14,18 +14,6 @@
 
 #import <IGListKit/IGListAssert.h>
 
-// Filters indexPaths removing all paths that have a section in sections.
-static NSMutableSet *indexPathsMinusSections(NSSet<NSIndexPath *> *indexPaths, NSIndexSet *sections) {
-    NSMutableSet *filteredIndexPaths = [indexPaths mutableCopy];
-    for (NSIndexPath *indexPath in indexPaths) {
-        const NSInteger section = indexPath.section;
-        if ([sections containsIndex:section]) {
-            [filteredIndexPaths removeObject:indexPath];
-        }
-    }
-    return filteredIndexPaths;
-}
-
 // Plucks the given move from available moves and turns it into a delete + insert
 static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
                                          IGListMoveIndex *move,
@@ -65,15 +53,13 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
                           moveSections:(NSSet<IGListMoveIndex *> *)moveSections
                       insertIndexPaths:(NSSet<NSIndexPath *> *)insertIndexPaths
                       deleteIndexPaths:(NSSet<NSIndexPath *> *)deleteIndexPaths
-                        moveIndexPaths:(NSSet<IGListMoveIndexPath *> *)moveIndexPaths
-                      reloadIndexPaths:(NSSet<NSIndexPath *> *)reloadIndexPaths {
+                        moveIndexPaths:(NSSet<IGListMoveIndexPath *> *)moveIndexPaths {
     IGParameterAssert(insertSections != nil);
     IGParameterAssert(deleteSections != nil);
     IGParameterAssert(moveSections != nil);
     IGParameterAssert(insertIndexPaths != nil);
     IGParameterAssert(deleteIndexPaths != nil);
     IGParameterAssert(moveIndexPaths != nil);
-    IGParameterAssert(reloadIndexPaths != nil);
     if (self = [super init]) {
         NSMutableSet<IGListMoveIndex *> *mMoveSections = [moveSections mutableCopy];
         NSMutableIndexSet *mDeleteSections = [deleteSections mutableCopy];
@@ -103,12 +89,6 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
         NSMutableSet<NSIndexPath *> *mInsertIndexPaths = [insertIndexPaths mutableCopy];
         NSMutableSet<NSIndexPath *> *mDeleteIndexPaths = [deleteIndexPaths mutableCopy];
 
-        // UICollectionView will throw if reloading an index path in a section that is also deleted
-        NSMutableSet<NSIndexPath *> *mReloadIndexPaths = indexPathsMinusSections(reloadIndexPaths, deleteSections);
-
-        // UICollectionView will throw about simultaneous animations when reloading and moving cells at the same time
-        [IGListBatchUpdateData cleanIndexPathsWithMap:fromMap moves:mMoveSections indexPaths:mReloadIndexPaths deletes:mDeleteSections inserts:mInsertSections];
-
         // avoids a bug where a cell is animated twice and one of the snapshot cells is never removed from the hierarchy
         [IGListBatchUpdateData cleanIndexPathsWithMap:fromMap moves:mMoveSections indexPaths:mDeleteIndexPaths deletes:mDeleteSections inserts:mInsertSections];
 
@@ -119,14 +99,6 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
             // if the section w/ an index path move is deleted, just drop the move
             if ([deleteSections containsIndex:move.from.section]) {
                 [mMoveIndexPaths removeObject:move];
-            }
-
-            // if an index path is moved and reloaded, convert it into a delete+insert
-            if ([mReloadIndexPaths containsObject:move.from]) {
-                [mReloadIndexPaths removeObject:move.from];
-                [mMoveIndexPaths removeObject:move];
-                [mDeleteIndexPaths addObject:move.from];
-                [mInsertIndexPaths addObject:move.to];
             }
 
             // if a move is inside a section that is moved, convert the section move to a delete+insert
@@ -146,15 +118,14 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
         _deleteIndexPaths = [mDeleteIndexPaths copy];
         _insertIndexPaths = [mInsertIndexPaths copy];
         _moveIndexPaths = [mMoveIndexPaths copy];
-        _reloadIndexPaths = [mReloadIndexPaths copy];
     }
     return self;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@ %p; deleteSections: %zi; insertSections: %zi; moveSections: %zi; deleteIndexPaths: %zi; insertIndexPaths: %zi; reloadIndexPaths: %zi;>",
+    return [NSString stringWithFormat:@"<%@ %p; deleteSections: %zi; insertSections: %zi; moveSections: %zi; deleteIndexPaths: %zi; insertIndexPaths: %zi;>",
             NSStringFromClass(self.class), self, self.deleteSections.count, self.insertSections.count, self.moveSections.count,
-            self.deleteIndexPaths.count, self.insertIndexPaths.count, self.reloadIndexPaths.count];
+            self.deleteIndexPaths.count, self.insertIndexPaths.count];
 }
 
 @end

@@ -996,6 +996,60 @@
     return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:nibName forIndexPath:indexPath];
 }
 
+- (void)performBatchAnimated:(BOOL)animated updates:(void (^)(id<IGListBatchContext>))updates completion:(void (^)(BOOL))completion {
+    IGAssertMainThread();
+    IGParameterAssert(updates != nil);
+    UICollectionView *collectionView = self.collectionView;
+    IGAssert(collectionView != nil, @"Performing batch updates without a collection view.");
+    
+    __weak __typeof__(self) weakSelf = self;
+    [self.updater performUpdateWithCollectionView:collectionView animated:animated itemUpdates:^{
+        weakSelf.isInUpdateBlock = YES;
+        // the adapter acts as the batch context with its API stripped to just the IGListBatchContext protocol
+        updates(weakSelf);
+        weakSelf.isInUpdateBlock = NO;
+    } completion: ^(BOOL finished) {
+        [weakSelf updateBackgroundViewShouldHide:![weakSelf itemCountIsZero]];
+        if (completion) {
+            completion(finished);
+        }
+    }];
+}
+
+- (void)scrollToSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                          atIndex:(NSInteger)index
+                   scrollPosition:(UICollectionViewScrollPosition)scrollPosition
+                         animated:(BOOL)animated {
+    IGAssertMainThread();
+    IGParameterAssert(sectionController != nil);
+    
+    NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
+    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:scrollPosition animated:animated];
+}
+
+- (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                  completion:(void (^)(BOOL finished))completion{
+    const NSInteger section = [self sectionForSectionController:sectionController];
+    const NSInteger items = [_collectionView numberOfItemsInSection:section];
+    
+    NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray new];
+    for (NSInteger item = 0; item < items; item++) {
+        [indexPaths addObject:[NSIndexPath indexPathForItem:item inSection:section]];
+    }
+    
+    UICollectionViewLayout *layout = _collectionView.collectionViewLayout;
+    UICollectionViewLayoutInvalidationContext *context = [[[layout.class invalidationContextClass] alloc] init];
+    [context invalidateItemsAtIndexPaths:indexPaths];
+    
+    void (^block)() = ^{
+        [layout invalidateLayoutWithContext:context];
+    };
+    
+    [_collectionView performBatchUpdates:block completion:completion];
+}
+
+#pragma mark - IGListBatchContext
+
 - (void)reloadInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {
     IGAssertMainThread();
     IGParameterAssert(indexes != nil);
@@ -1007,30 +1061,24 @@
         return;
     }
 
-    if (self.isInUpdateBlock) {
-        /**
-         UICollectionView is not designed to support -reloadSections: or -reloadItemsAtIndexPaths: during batch updates.
-         Internally it appears to convert these operations to a delete+insert. However the transformation is too simple
-         in that it doesn't account for the item's section being moved (naturally or explicitly) and can queue animation
-         collisions.
+    /**
+     UICollectionView is not designed to support -reloadSections: or -reloadItemsAtIndexPaths: during batch updates.
+     Internally it appears to convert these operations to a delete+insert. However the transformation is too simple
+     in that it doesn't account for the item's section being moved (naturally or explicitly) and can queue animation
+     collisions.
 
-         If you have an object at section 2 with 4 items and attempt to reload item at index 1, you would create an
-         NSIndexPath at section: 2, item: 1. Within -performBatchUpdates:, UICollectionView converts this to a delete
-         and insert at the same NSIndexPath.
+     If you have an object at section 2 with 4 items and attempt to reload item at index 1, you would create an
+     NSIndexPath at section: 2, item: 1. Within -performBatchUpdates:, UICollectionView converts this to a delete
+     and insert at the same NSIndexPath.
 
-         If a section were inserted at position 2, the original section 2 has naturally shifted to section 3. However,
-         the insert NSIndexPath is section: 2, item: 1. Now the UICollectionView has a section animation at section 2,
-         as well as an item insert animation at section: 2, item: 1, and it will throw an exception.
+     If a section were inserted at position 2, the original section 2 has naturally shifted to section 3. However,
+     the insert NSIndexPath is section: 2, item: 1. Now the UICollectionView has a section animation at section 2,
+     as well as an item insert animation at section: 2, item: 1, and it will throw an exception.
 
-         IGListAdapter tracks the before/after mapping of section controllers to make precise NSIndexPath conversions.
-         */
-        [self deleteInSectionController:sectionController atIndexes:indexes];
-        [self insertInSectionController:sectionController atIndexes:indexes];
-    } else {
-        NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes usePreviousIfInUpdateBlock:YES];
-        [self.updater reloadItemsInCollectionView:collectionView indexPaths:indexPaths];
-        [self updateBackgroundViewShouldHide:![self itemCountIsZero]];
-    }
+     IGListAdapter tracks the before/after mapping of section controllers to make precise NSIndexPath conversions.
+     */
+    [self deleteInSectionController:sectionController atIndexes:indexes];
+    [self insertInSectionController:sectionController atIndexes:indexes];
 }
 
 - (void)insertInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {
@@ -1099,57 +1147,6 @@
     NSIndexSet *sections = [NSIndexSet indexSetWithIndex:section];
     [self.updater reloadCollectionView:collectionView sections:sections];
     [self updateBackgroundViewShouldHide:![self itemCountIsZero]];
-}
-
-- (void)performBatchAnimated:(BOOL)animated updates:(void (^)())updates completion:(void (^)(BOOL))completion {
-    IGAssertMainThread();
-    IGParameterAssert(updates != nil);
-    UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Performing batch updates without a collection view.");
-
-    __weak __typeof__(self) weakSelf = self;
-    [self.updater performUpdateWithCollectionView:collectionView animated:animated itemUpdates:^{
-        weakSelf.isInUpdateBlock = YES;
-        updates();
-        weakSelf.isInUpdateBlock = NO;
-    } completion: ^(BOOL finished) {
-        [weakSelf updateBackgroundViewShouldHide:![weakSelf itemCountIsZero]];
-        if (completion) {
-            completion(finished);
-        }
-    }];
-}
-
-- (void)scrollToSectionController:(IGListSectionController<IGListSectionType> *)sectionController
-                          atIndex:(NSInteger)index
-                   scrollPosition:(UICollectionViewScrollPosition)scrollPosition
-                         animated:(BOOL)animated {
-    IGAssertMainThread();
-    IGParameterAssert(sectionController != nil);
-
-    NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
-    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:scrollPosition animated:animated];
-}
-
-- (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController
-                                  completion:(void (^)(BOOL finished))completion{
-    const NSInteger section = [self sectionForSectionController:sectionController];
-    const NSInteger items = [_collectionView numberOfItemsInSection:section];
-
-    NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray new];
-    for (NSInteger item = 0; item < items; item++) {
-        [indexPaths addObject:[NSIndexPath indexPathForItem:item inSection:section]];
-    }
-
-    UICollectionViewLayout *layout = _collectionView.collectionViewLayout;
-    UICollectionViewLayoutInvalidationContext *context = [[[layout.class invalidationContextClass] alloc] init];
-    [context invalidateItemsAtIndexPaths:indexPaths];
-
-    void (^block)() = ^{
-        [layout invalidateLayoutWithContext:context];
-    };
-
-    [_collectionView performBatchUpdates:block completion:completion];
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout

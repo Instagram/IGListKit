@@ -233,17 +233,16 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@0 value:@[@2, @2]]
                              ]];
 
-    id mockCollectionView = [OCMockObject niceMockForClass:[IGListCollectionView class]];
-    self.adapter.collectionView = mockCollectionView;
-
     IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    
+    id mockBatchContext = [OCMockObject mockForProtocol:@protocol(IGListBatchContext)];
+    stack.forwardingBatchContext = mockBatchContext;
+    
     IGListTestSection *section2 = stack.sectionControllers[1];
 
-    [[mockCollectionView expect] reloadItemsAtIndexPaths:@[
-                                                           [NSIndexPath indexPathForItem:3 inSection:0]
-                                                           ]];
-    [section2.collectionContext reloadInSectionController:section2 atIndexes:[NSIndexSet indexSetWithIndex:1]];
-    [mockCollectionView verify];
+    [[mockBatchContext expect] reloadInSectionController:stack atIndexes:[NSIndexSet indexSetWithIndex:3]];
+    [stack reloadInSectionController:section2 atIndexes:[NSIndexSet indexSetWithIndex:1]];
+    [mockBatchContext verify];
 }
 
 - (void)test_whenInsertingItems_thatCollectionViewReloadsRelativeIndexPaths {
@@ -251,18 +250,17 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@0 value:@[@2, @2]]
                              ]];
 
-    id mockCollectionView = [OCMockObject niceMockForClass:[IGListCollectionView class]];
-    self.adapter.collectionView = mockCollectionView;
-
     IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    
+    id mockBatchContext = [OCMockObject mockForProtocol:@protocol(IGListBatchContext)];
+    stack.forwardingBatchContext = mockBatchContext;
+    
     IGListTestSection *section2 = stack.sectionControllers[1];
     section2.items = 3;
 
-    [[mockCollectionView expect] insertItemsAtIndexPaths:@[
-                                                           [NSIndexPath indexPathForItem:4 inSection:0]
-                                                           ]];
-    [section2.collectionContext insertInSectionController:section2 atIndexes:[NSIndexSet indexSetWithIndex:2]];
-    [mockCollectionView verify];
+    [[mockBatchContext expect] insertInSectionController:stack atIndexes:[NSIndexSet indexSetWithIndex:4]];
+    [stack insertInSectionController:section2 atIndexes:[NSIndexSet indexSetWithIndex:2]];
+    [mockBatchContext verify];
 
     XCTAssertEqual([stack numberOfItems], 5);
 }
@@ -272,18 +270,17 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@0 value:@[@2, @2]]
                              ]];
 
-    id mockCollectionView = [OCMockObject niceMockForClass:[IGListCollectionView class]];
-    self.adapter.collectionView = mockCollectionView;
-
     IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    
+    id mockBatchContext = [OCMockObject mockForProtocol:@protocol(IGListBatchContext)];
+    stack.forwardingBatchContext = mockBatchContext;
+    
     IGListTestSection *section2 = stack.sectionControllers[1];
     section2.items = 1;
 
-    [[mockCollectionView expect] deleteItemsAtIndexPaths:@[
-                                                           [NSIndexPath indexPathForItem:3 inSection:0]
-                                                           ]];
-    [section2.collectionContext deleteInSectionController:section2 atIndexes:[NSIndexSet indexSetWithIndex:1]];
-    [mockCollectionView verify];
+    [[mockBatchContext expect] deleteInSectionController:stack atIndexes:[NSIndexSet indexSetWithIndex:3]];
+    [stack deleteInSectionController:section2 atIndexes:[NSIndexSet indexSetWithIndex:1]];
+    [mockBatchContext verify];
 
     XCTAssertEqual([stack numberOfItems], 3);
 }
@@ -293,17 +290,18 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@0 value:@[@2, @2]]
                              ]];
 
-    id mockCollectionView = [OCMockObject niceMockForClass:[IGListCollectionView class]];
-    self.adapter.collectionView = mockCollectionView;
-
     IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    
+    id mockBatchContext = [OCMockObject mockForProtocol:@protocol(IGListBatchContext)];
+    stack.forwardingBatchContext = mockBatchContext;
+    
     IGListTestSection *section2 = stack.sectionControllers[1];
     section2.items = 3;
 
     // section 0 b/c any controller doing a full reload will queue reload of the entire stack
-    [[mockCollectionView expect] reloadSections:[NSIndexSet indexSetWithIndex:0]];
-    [section2.collectionContext reloadSectionController:section2];
-    [mockCollectionView verify];
+    [[mockBatchContext expect] reloadSectionController:stack];
+    [stack reloadSectionController:section2];
+    [mockBatchContext verify];
 
     XCTAssertEqual([stack numberOfItems], 5);
 }
@@ -492,9 +490,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     IGListTestSection *section2 = stack.sectionControllers[1];
 
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    [section1.collectionContext performBatchAnimated:YES updates:^{
+    [section1.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
         section1.items = 3;
-        [section1.collectionContext insertInSectionController:section1 atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 2)]];
+        [batchContext insertInSectionController:section1 atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 2)]];
     } completion:^(BOOL finished2) {
         XCTAssertEqual([self.collectionView numberOfSections], 3);
         XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 6);
@@ -503,9 +501,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
         [expectation fulfill];
     }];
 
-    [section2.collectionContext performBatchAnimated:YES updates:^{
+    [section2.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
         section2.items = 1;
-        [section2.collectionContext deleteInSectionController:section2 atIndexes:[NSIndexSet indexSetWithIndex:0]];
+        [batchContext deleteInSectionController:section2 atIndexes:[NSIndexSet indexSetWithIndex:0]];
     } completion:nil];
 
     [self waitForExpectationsWithTimeout:15 handler:nil];
@@ -832,9 +830,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
 
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    [section.collectionContext performBatchAnimated:YES updates:^{
+    [section.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
         section.items = 1;
-        [section.collectionContext deleteInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:1]];
+        [batchContext deleteInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:1]];
     } completion:^(BOOL finished) {
         XCTAssertEqual([self.collectionView numberOfSections], 1);
         XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
@@ -858,8 +856,8 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     IGListTestSection *section = stack.sectionControllers[1];
 
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    [section.collectionContext performBatchAnimated:YES updates:^{
-        [section.collectionContext moveInSectionController:section fromIndex:1 toIndex:0];
+    [section.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+        [batchContext moveInSectionController:section fromIndex:1 toIndex:0];
     } completion:^(BOOL finished) {
         XCTAssertEqual([self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]].tag, 0);
         XCTAssertEqual([self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1]].tag, 42);

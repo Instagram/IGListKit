@@ -156,7 +156,7 @@
     
     // "fake" batch updates to make sure that calling reload triggers a diffed batch update
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    [self.adapter performBatchAnimated:YES updates:^{} completion:^(BOOL finished) {
+    [self.adapter performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext){} completion:^(BOOL finished) {
         IGTestStringBindableCell *batchedCell00 = [self cellAtSection:0 item:0];
         IGTestNumberBindableCell *batchedCell01 = [self cellAtSection:0 item:1];
         IGTestStringBindableCell *batchedCell02 = [self cellAtSection:0 item:2];

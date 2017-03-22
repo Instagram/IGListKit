@@ -48,12 +48,11 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
     __block NSArray<id<IGListDiffable>> *oldViewModels = nil;
 
     id<IGListCollectionContext> collectionContext = self.collectionContext;
-
-    [collectionContext performBatchAnimated:animated updates:^{
+    [self.collectionContext performBatchAnimated:animated updates:^(id<IGListBatchContext> batchContext) {
         if (self.state != IGListDiffingSectionStateUpdateQueued) {
             return;
         }
-
+        
         oldViewModels = self.viewModels;
         self.viewModels = [self.dataSource sectionController:self viewModelsForObject:self.object];
         result = IGListDiff(oldViewModels, self.viewModels, IGListDiffEquality);
@@ -67,19 +66,18 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
                 [cell bindViewModel:self.viewModels[indexAfterUpdate]];
             }
         }];
-
-
-        [collectionContext deleteInSectionController:self atIndexes:result.deletes];
-        [collectionContext insertInSectionController:self atIndexes:result.inserts];
-
+        
+        
+        [batchContext deleteInSectionController:self atIndexes:result.deletes];
+        [batchContext insertInSectionController:self atIndexes:result.inserts];
+        
         for (IGListMoveIndex *move in result.moves) {
-            [collectionContext moveInSectionController:self fromIndex:move.from toIndex:move.to];
+            [batchContext moveInSectionController:self fromIndex:move.from toIndex:move.to];
         }
-
+        
         self.state = IGListDiffingSectionStateUpdateApplied;
     } completion:^(BOOL finished) {
         self.state = IGListDiffingSectionStateIdle;
-        
         if (completion != nil) {
             completion(YES);
         }

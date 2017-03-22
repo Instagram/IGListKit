@@ -156,7 +156,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     IGListSectionController <IGListSectionType> * second = [self.adapter sectionControllerForObject:@1];
 
     __block BOOL executed = NO;
-    [self.adapter performBatchAnimated:YES updates:^{
+    [self.adapter performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
         NSArray *paths = [self.adapter indexPathsFromSectionController:second
                                                                indexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 2)]
                                                     usePreviousIfInUpdateBlock:YES];
@@ -387,7 +387,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     IGListTestSection *firstSectionController = [self.adapter sectionControllerForObject:@(1)];
     IGListTestSection *secondSectionController = [self.adapter sectionControllerForObject:@(2)];
     XCTestExpectation *expectation =  [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    [self.adapter performBatchAnimated:YES updates:^{
+    [self.adapter performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
         firstSectionController.items = 0;
         [self.adapter deleteInSectionController:firstSectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
         secondSectionController.items = 0;
@@ -820,20 +820,6 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
         XCTAssertFalse(finished);
     }];
     XCTAssertTrue(executed);
-}
-
-- (void)test_whenSectionControllerReloading_withEmptyIndexes_thatNoUpdatesHappen {
-    self.dataSource.objects = @[@0, @1, @2];
-    [self.adapter reloadDataWithCompletion:nil];
-
-    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
-    [[mockDelegate reject] reloadItemsInCollectionView:[OCMArg any] indexPaths:[OCMArg any]];
-    self.adapter.updater = mockDelegate;
-
-    id sectionController = [self.adapter sectionControllerForObject:@1];
-    [self.adapter reloadInSectionController:sectionController atIndexes:[NSIndexSet new]];
-
-    [mockDelegate verify];
 }
 
 - (void)test_whenSectionControllerDeleting_withEmptyIndexes_thatNoUpdatesHappen {

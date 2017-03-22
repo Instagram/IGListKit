@@ -9,9 +9,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import <IGListKit/IGListBatchContext.h>
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class IGListSectionController;
+
 @protocol IGListSectionType;
 
 /**
@@ -191,51 +194,6 @@ NS_ASSUME_NONNULL_BEGIN
                                                                       atIndex:(NSInteger)index;
 
 /**
- Reloads cells in the section controller.
-
- @param sectionController  The section controller who's cells need reloading.
- @param indexes            The indexes of items that need reloading.
- */
-- (void)reloadInSectionController:(IGListSectionController<IGListSectionType> *)sectionController
-                        atIndexes:(NSIndexSet *)indexes;
-
-/**
- Inserts cells in the list.
-
- @param sectionController The section controller who's cells need inserting.
- @param indexes           The indexes of items that need inserting.
- */
-- (void)insertInSectionController:(IGListSectionController<IGListSectionType> *)sectionController
-                        atIndexes:(NSIndexSet *)indexes;
-
-/**
- Deletes cells in the list.
-
- @param sectionController The section controller who's cells need deleted.
- @param indexes           The indexes of items that need deleting.
- */
-- (void)deleteInSectionController:(IGListSectionController<IGListSectionType> *)sectionController
-                        atIndexes:(NSIndexSet *)indexes;
-
-/**
- Moves a cell from one index to another within the section controller.
-
- @param sectionController The section controller who's cell needs moved.
- @param fromIndex         The index the cell is currently in.
- @param toIndex           The index the cell should move to.
- */
-- (void)moveInSectionController:(IGListSectionController<IGListSectionType> *)sectionController
-                      fromIndex:(NSInteger)fromIndex
-                        toIndex:(NSInteger)toIndex;
-
-/**
- Reloads the entire section controller.
-
- @param sectionController The section controller who's cells need reloading.
- */
-- (void)reloadSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
-
-/**
  Invalidate the backing `UICollectionViewLayout` for all items in the section controller.
 
  @param sectionController The section controller that needs invalidating.
@@ -252,33 +210,35 @@ NS_ASSUME_NONNULL_BEGIN
  Batches and performs many cell-level updates in a single transaction.
 
  @param animated   A flag indicating if the transition should be animated.
- @param updates    A block containing all of the cell updates.
+ @param updates    A block with a context parameter to make mutations.
  @param completion An optional completion block to execute when the updates are finished.
 
- @note Use this method to batch cell updates (inserts, deletes, reloads) into a single transaction. This lets you
- make many changes to your data store and perform all the transitions at once.
+ @note You should make state changes that impact the number of items in your section controller within the updates
+ block alongside changes on the context object.
 
  For example, inside your section controllers, you may want to delete *and* insert into the data source that backs your
  section controller. For example:
 
  ```
- [self.collectionContext performBatchItemUpdates:^{
- // perform data source changes inside the update block
- [self.items addObject:newItem];
- [self.items removeObjectAtIndex:0];
+ [self.collectionContext performBatchItemUpdates:^ (id<IGListBatchContext> batchContext>){
+   // perform data source changes inside the update block
+   [self.items addObject:newItem];
+   [self.items removeObjectAtIndex:0];
 
- NSIndexSet *inserts = [NSIndexSet indexSetWithIndex:[self.items count] - 1];
- [self.collectionContext insertInSectionController:self atIndexes:inserts];
+   NSIndexSet *inserts = [NSIndexSet indexSetWithIndex:[self.items count] - 1];
+   [batchContext insertInSectionController:self atIndexes:inserts];
 
- NSIndexSet *deletes = [NSIndexSet indexSetWithIndex:0];
- [self.collectionContext deleteInSectionController:self atIndexes:deletes];
+   NSIndexSet *deletes = [NSIndexSet indexSetWithIndex:0];
+   [batchContext deleteInSectionController:self atIndexes:deletes];
  } completion:nil];
  ```
 
  @warning You **must** perform data modifications **inside** the update block. Updates will not be performed
  synchronously, so you should make sure that your data source changes only when necessary.
  */
-- (void)performBatchAnimated:(BOOL)animated updates:(void (^)())updates completion:(nullable void (^)(BOOL finished))completion;
+- (void)performBatchAnimated:(BOOL)animated
+                     updates:(void (^)(id<IGListBatchContext> batchContext))updates
+                  completion:(nullable void (^)(BOOL finished))completion;
 
 
 /**

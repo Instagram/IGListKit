@@ -28,6 +28,30 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Renamed `IGListAdapterUpdaterDelegate` method to `listAdapterUpdater:didPerformBatchUpdates:collectionView:`. [Vincent Peng](https://github.com/vincent-peng) [(#491)](https://github.com/Instagram/IGListKit/pull/491)
 
+- Moved section controller mutations to `IGListBatchContext`, provided as a parameter when calling `-perfomBatchAnimated:updates:completion` on a section controller's `collectionContext`. All updates (insert, delete, reload item/section controller) must now be done inside a batch update block. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+
+```objc
+// OLD
+[self.collectionContext performBatchAnimated:YES updates:^{
+  self.expanded = YES;
+  [self.collectionContext insertInSectionController:self atIndexes:[NSIndexSet indexSetWithIndex:1]];
+} completion:nil];
+
+// NEW
+[self.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+  self.expanded = YES;
+  [batchContext insertInSectionController:self atIndexes:[NSIndexSet indexSetWithIndex:1]];
+} completion:nil];
+
+// OLD
+[self.collectionContext reloadSectionController:self];
+
+// NEW
+[self.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+  [batchContext reloadSectionController:self];
+} completion:nil];
+```
+
 
 ### Enhancements
 

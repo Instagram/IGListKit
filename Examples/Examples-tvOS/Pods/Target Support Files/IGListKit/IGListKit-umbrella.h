@@ -29,6 +29,7 @@
 #import "IGListAdapterDelegate.h"
 #import "IGListAdapterUpdater.h"
 #import "IGListAdapterUpdaterDelegate.h"
+#import "IGListBatchContext.h"
 #import "IGListBindable.h"
 #import "IGListBindingSectionController.h"
 #import "IGListBindingSectionControllerDataSource.h"

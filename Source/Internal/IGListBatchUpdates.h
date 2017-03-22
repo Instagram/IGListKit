@@ -19,7 +19,6 @@ IGLK_SUBCLASSING_RESTRICTED
 @property (nonatomic, strong, readonly) NSMutableIndexSet *sectionReloads;
 @property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *itemInserts;
 @property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *itemDeletes;
-@property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *itemReloads;
 @property (nonatomic, strong, readonly) NSMutableSet<IGListMoveIndexPath *> *itemMoves;
 
 @property (nonatomic, strong, readonly) NSMutableArray<void (^)()> *itemUpdateBlocks;

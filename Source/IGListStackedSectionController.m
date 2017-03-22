@@ -278,40 +278,14 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
                                                                                                   atIndex:offsetIndex];
 }
 
-- (void)reloadInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {
-    NSIndexSet *itemIndexes = [self itemIndexesForSectionController:sectionController indexes:indexes];
-    [self.collectionContext reloadInSectionController:self atIndexes:itemIndexes];
-}
-
-- (void)insertInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {
-    [self reloadData];
-    NSIndexSet *itemIndexes = [self itemIndexesForSectionController:sectionController indexes:indexes];
-    [self.collectionContext insertInSectionController:self atIndexes:itemIndexes];
-}
-
-- (void)deleteInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {
-    [self reloadData];
-    NSIndexSet *itemIndexes = [self itemIndexesForSectionController:sectionController indexes:indexes];
-    [self.collectionContext deleteInSectionController:self atIndexes:itemIndexes];
-}
-
-- (void)moveInSectionController:(IGListSectionController<IGListSectionType> *)sectionController fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
-    [self reloadData];
-    const NSInteger fromRelativeIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:fromIndex];
-    const NSInteger toRelativeIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:toIndex];
-    [self.collectionContext moveInSectionController:self fromIndex:fromRelativeIndex toIndex:toRelativeIndex];
-}
-
-- (void)reloadSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
-    [self reloadData];
-    [self.collectionContext reloadSectionController:self];
-}
-
-- (void)performBatchAnimated:(BOOL)animated updates:(void (^)())updates completion:(void (^)(BOOL))completion {
-    [self.collectionContext performBatchAnimated:animated updates:^{
-        updates();
+- (void)performBatchAnimated:(BOOL)animated updates:(void (^)(id<IGListBatchContext>))updates completion:(void (^)(BOOL))completion {
+    __weak __typeof__(self) weakSelf = self;
+    [self.collectionContext performBatchAnimated:animated updates:^ (id<IGListBatchContext> batchContext) {
+        weakSelf.forwardingBatchContext = batchContext;
+        updates(weakSelf);
+        weakSelf.forwardingBatchContext = nil;
     } completion:^(BOOL finished) {
-        [self reloadData];
+        [weakSelf reloadData];
         if (completion) {
             completion(finished);
         }
@@ -331,6 +305,37 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 
 - (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController completion:(void (^)(BOOL))completion {
     [self.collectionContext invalidateLayoutForSectionController:self completion:completion];
+}
+
+#pragma mark - IGListBatchContext
+
+- (void)reloadInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {
+    NSIndexSet *itemIndexes = [self itemIndexesForSectionController:sectionController indexes:indexes];
+    [self.forwardingBatchContext reloadInSectionController:self atIndexes:itemIndexes];
+}
+
+- (void)insertInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {
+    [self reloadData];
+    NSIndexSet *itemIndexes = [self itemIndexesForSectionController:sectionController indexes:indexes];
+    [self.forwardingBatchContext insertInSectionController:self atIndexes:itemIndexes];
+}
+
+- (void)deleteInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {
+    [self reloadData];
+    NSIndexSet *itemIndexes = [self itemIndexesForSectionController:sectionController indexes:indexes];
+    [self.forwardingBatchContext deleteInSectionController:self atIndexes:itemIndexes];
+}
+
+- (void)moveInSectionController:(IGListSectionController<IGListSectionType> *)sectionController fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
+    [self reloadData];
+    const NSInteger fromRelativeIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:fromIndex];
+    const NSInteger toRelativeIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:toIndex];
+    [self.forwardingBatchContext moveInSectionController:self fromIndex:fromRelativeIndex toIndex:toRelativeIndex];
+}
+
+- (void)reloadSectionController:(IGListSectionController<IGListSectionType> *)sectionController {
+    [self reloadData];
+    [self.forwardingBatchContext reloadSectionController:self];
 }
 
 #pragma mark - IGListDisplayDelegate
