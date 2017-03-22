@@ -86,6 +86,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Only collect batch updates when explicitly inside the batch update block, execute them otherwise. Fixes dropped updates. [Ryan Nystrom](https://github.com/rnystrom) [(#494)](https://github.com/Instagram/IGListKit/pull/494)
 
+- Fix a potential crash when a section is moved and deleted at the same time. [Ryan Nystrom](https://github.com/rnystrom) [(#577)](https://github.com/Instagram/IGListKit/pull/577)
+
 2.1.0
 -----
 
