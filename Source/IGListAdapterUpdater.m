@@ -97,7 +97,8 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     NSMutableArray *uniqueObjects = [NSMutableArray new];
     for (id<IGListDiffable> object in objects) {
         id diffIdentifier = [object diffIdentifier];
-        if (![identifiers containsObject:diffIdentifier]) {
+        if (diffIdentifier != nil
+            && ![identifiers containsObject:diffIdentifier]) {
             [identifiers addObject:diffIdentifier];
             [uniqueObjects addObject:object];
         } else {
@@ -385,6 +386,8 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     for (id obj in toObjects) {
         IGAssert([obj conformsToProtocol:@protocol(IGListDiffable)],
                  @"In order to use IGListAdapterUpdater, object %@ must conform to IGListDiffable", obj);
+        IGAssert([obj diffIdentifier] != nil,
+                 @"Cannot have a nil diffIdentifier for object %@", obj);
     }
 #endif
 
