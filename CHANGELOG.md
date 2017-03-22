@@ -86,6 +86,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Only collect batch updates when explicitly inside the batch update block, execute them otherwise. Fixes dropped updates. [Ryan Nystrom](https://github.com/rnystrom) [(#494)](https://github.com/Instagram/IGListKit/pull/494)
 
+- Remove objects that return `nil` diff identifiers before updating. [Ryan Nystrom](https://github.com/rnystrom) [(af984ca)](https://github.com/Instagram/IGListKit/commit/af984ca81d4d8c4ba3012be1a45f69670a832ccf)
+
 2.1.0
 -----
 
