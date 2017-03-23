@@ -187,19 +187,40 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     XCTAssertEqualObjects(identifier, @"IGNibNameUICollectionViewCell");
 }
 
-- (void)test_whenDataSourceChanges_thatBackgroundViewVisibilityChanges {
+- (void)test_EmptyViewIsCreatedLazily {
+    UIView *emptyView = [[UIView alloc] init];
+    self.dataSource.emptyView = emptyView;
     self.dataSource.objects = @[@1];
-    UIView *background = [[UIView alloc] init];
-    self.dataSource.backgroundView = background;
     __block BOOL executed = NO;
     [self.adapter reloadDataWithCompletion:^(BOOL finished) {
-        XCTAssertTrue(self.adapter.collectionView.backgroundView.hidden, @"Background view should be hidden");
-        XCTAssertEqualObjects(background, self.adapter.collectionView.backgroundView, @"Background view not correctly assigned");
+        XCTAssertNil(self.adapter.emptyListView, @"Empty list view not correctly assigned");
 
         self.dataSource.objects = @[];
         [self.adapter reloadDataWithCompletion:^(BOOL finished2) {
-            XCTAssertFalse(self.adapter.collectionView.backgroundView.hidden, @"Background view should be visible");
-            XCTAssertEqualObjects(background, self.adapter.collectionView.backgroundView, @"Background view not correctly assigned");
+            XCTAssertFalse(self.adapter.emptyListView.hidden, @"Empty list view should be visible");
+            XCTAssertEqualObjects(emptyView, self.adapter.emptyListView, @"Empty list view not correctly assigned");
+            executed = YES;
+        }];
+    }];
+    XCTAssertTrue(executed);
+}
+
+- (void)test_whenDataSourceChanges_thatEmptyViewVisibilityChanges {
+    UIView *emptyView = [[UIView alloc] init];
+    self.dataSource.emptyView = emptyView;
+    self.dataSource.objects = @[];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    self.dataSource.objects = @[@1];
+    __block BOOL executed = NO;
+    [self.adapter reloadDataWithCompletion:^(BOOL finished) {
+        XCTAssertTrue(self.adapter.emptyListView.hidden, @"Empty list view should be hidden");
+        XCTAssertEqualObjects(emptyView, self.adapter.emptyListView, @"Empty list view not correctly assigned");
+
+        self.dataSource.objects = @[];
+        [self.adapter reloadDataWithCompletion:^(BOOL finished2) {
+            XCTAssertFalse(self.adapter.emptyListView.hidden, @"Empty list view should be visible");
+            XCTAssertEqualObjects(emptyView, self.adapter.emptyListView, @"Empty list view not correctly assigned");
             executed = YES;
         }];
     }];
@@ -336,65 +357,65 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 
 - (void)test_whenDataSourceAddsItems_thatEmptyViewBecomesVisible {
     self.dataSource.objects = @[];
-    UIView *background = [UIView new];
-    self.dataSource.backgroundView = background;
+    UIView *emptyView = [UIView new];
+    self.dataSource.emptyView = emptyView;
     [self.adapter reloadDataWithCompletion:nil];
-    XCTAssertEqual(self.collectionView.backgroundView, background);
-    XCTAssertFalse(self.collectionView.backgroundView.hidden);
+    XCTAssertEqual(self.adapter.emptyListView, emptyView);
+    XCTAssertFalse(self.adapter.emptyListView.hidden);
     self.dataSource.objects = @[@2];
     [self.adapter reloadDataWithCompletion:nil];
-    XCTAssertTrue(self.collectionView.backgroundView.hidden);
+    XCTAssertTrue(self.adapter.emptyListView.hidden);
 }
 
 - (void)test_whenInsertingIntoEmptySection_thatEmptyViewBecomesHidden {
     self.dataSource.objects = @[@0];
-    self.dataSource.backgroundView = [UIView new];
+    self.dataSource.emptyView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
-    XCTAssertFalse(self.collectionView.backgroundView.hidden);
+    XCTAssertFalse(self.adapter.emptyListView.hidden);
     IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(0)];
     sectionController.items = 1;
     [self.adapter insertInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
-    XCTAssertTrue(self.collectionView.backgroundView.hidden);
+    XCTAssertTrue(self.adapter.emptyListView.hidden);
 }
 
 - (void)test_whenDeletingAllItemsFromSection_thatEmptyViewBecomesVisible {
     self.dataSource.objects = @[@1];
-    self.dataSource.backgroundView = [UIView new];
+    self.dataSource.emptyView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
-    XCTAssertTrue(self.collectionView.backgroundView.hidden);
+    XCTAssertNil(self.adapter.emptyListView);
     IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(1)];
     sectionController.items = 0;
     [self.adapter deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
-    XCTAssertFalse(self.collectionView.backgroundView.hidden);
+    XCTAssertFalse(self.adapter.emptyListView.hidden);
 }
 
 - (void)test_whenEmptySectionAddsItems_thatEmptyViewBecomesHidden {
     self.dataSource.objects = @[@0];
-    self.dataSource.backgroundView = [UIView new];
+    self.dataSource.emptyView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
-    XCTAssertFalse(self.collectionView.backgroundView.hidden);
+    XCTAssertFalse(self.adapter.emptyListView.hidden);
     IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(0)];
     sectionController.items = 2;
     [self.adapter reloadSectionController:sectionController];
-    XCTAssertTrue(self.collectionView.backgroundView.hidden);
+    XCTAssertTrue(self.adapter.emptyListView.hidden);
 }
 
 - (void)test_whenSectionItemsAreDeletedAsBatch_thatEmptyViewBecomesVisible {
     self.dataSource.objects = @[@1, @2];
-    self.dataSource.backgroundView = [UIView new];
+    self.dataSource.emptyView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
-    XCTAssertTrue(self.collectionView.backgroundView.hidden);
+    XCTAssertNil(self.adapter.emptyListView);
     IGListTestSection *firstSectionController = [self.adapter sectionControllerForObject:@(1)];
     IGListTestSection *secondSectionController = [self.adapter sectionControllerForObject:@(2)];
     XCTestExpectation *expectation =  [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    [self.adapter performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [self.adapter performBatchAnimated:YES updates:^(id<IGListBatchContext>  _Nonnull batchContext) {
         firstSectionController.items = 0;
-        [self.adapter deleteInSectionController:firstSectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
+        [batchContext deleteInSectionController:firstSectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
         secondSectionController.items = 0;
         NSIndexSet *indexesToDelete = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)];
-        [self.adapter deleteInSectionController:secondSectionController atIndexes:indexesToDelete];
+        [batchContext deleteInSectionController:secondSectionController atIndexes:indexesToDelete];
     } completion:^(BOOL finished) {
-        XCTAssertFalse(self.collectionView.backgroundView.hidden);
+        XCTAssertFalse(self.adapter.emptyListView.hidden);
         [expectation fulfill];
     }];
     [self waitForExpectationsWithTimeout:15 handler:nil];

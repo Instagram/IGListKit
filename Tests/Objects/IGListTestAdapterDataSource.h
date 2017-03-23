@@ -16,6 +16,6 @@
 // array of numbers which is then passed to -[IGListTestSection setItems:]
 @property (nonatomic, strong) NSArray <NSNumber *> *objects;
 
-@property (nonatomic, strong) UIView *backgroundView;
+@property (nonatomic, strong) UIView *emptyView;
 
 @end
