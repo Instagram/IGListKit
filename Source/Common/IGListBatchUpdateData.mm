@@ -78,7 +78,7 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
             const NSInteger to = move.to;
 
             // if the move is already deleted or inserted, discard it because count-changing operations must match
-            // with data source changesw
+            // with data source changes
             if ([deleteSections containsIndex:from] || [insertSections containsIndex:to]) {
                 [mMoveSections removeObject:move];
             } else {
