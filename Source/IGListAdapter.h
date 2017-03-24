@@ -24,9 +24,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- A block to execute when list updates completes.
+ A block to execute when the list updates are completed.
 
- @param finished Specifies whether or not the updates finished.
+ @param finished Specifies whether or not the update animations completed successfully.
  */
 typedef void (^IGListUpdaterCompletion)(BOOL finished);
 
@@ -52,7 +52,7 @@ IGLK_SUBCLASSING_RESTRICTED
 @property (nonatomic, nullable, weak) IGListCollectionView *collectionView;
 
 /**
- The object that acts as the data source for the list adapter.
+ The object that acts as the data source for the adapter.
  */
 @property (nonatomic, nullable, weak) id <IGListAdapterDataSource> dataSource;
 
@@ -74,7 +74,7 @@ IGLK_SUBCLASSING_RESTRICTED
 @property (nonatomic, nullable, weak) id <UIScrollViewDelegate> scrollViewDelegate;
 
 /**
- The updater for this list adapter.
+ The updater for the adapter.
  */
 @property (nonatomic, strong, readonly) id <IGListUpdatingDelegate> updater;
 
@@ -104,11 +104,11 @@ IGLK_SUBCLASSING_RESTRICTED
                workingRangeSize:(NSInteger)workingRangeSize NS_DESIGNATED_INITIALIZER;
 
 /**
- Perform an update from the previous state of the data source. This is analagous to calling
+ Perform an update from the previous state of the data source. This is analogous to calling
  `-[UICollectionView performBatchUpdates:completion:]`.
 
  @param animated   A flag indicating if the transition should be animated.
- @param completion The block to execute when the update completes.
+ @param completion The block to execute when the updates complete.
  */
 - (void)performUpdatesAnimated:(BOOL)animated completion:(nullable IGListUpdaterCompletion)completion;
 
@@ -131,7 +131,7 @@ IGLK_SUBCLASSING_RESTRICTED
  
  @param section A section in the list.
 
- @return An section controller or `nil` if the section does not exist.
+ @return A section controller or `nil` if the section does not exist.
  */
 - (nullable IGListSectionController <IGListSectionType> *)sectionControllerForSection:(NSInteger)section;
 
@@ -149,7 +149,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @param object An object from the data source.
 
- @return An section controller or `nil` if `object` is not in the list.
+ @return A section controller or `nil` if `object` is not in the list.
 
  @see `-[IGListAdapterDataSource listAdapter:sectionControllerForObject:]`
  */
@@ -160,7 +160,7 @@ IGLK_SUBCLASSING_RESTRICTED
  
  @param sectionController A section controller in the list.
  
- @return The object for the specified section controller, or nil if not found.
+ @return The object for the specified section controller, or `nil` if not found.
  */
 - (nullable id)objectForSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
 
@@ -183,7 +183,7 @@ IGLK_SUBCLASSING_RESTRICTED
 - (NSInteger)sectionForObject:(id)object;
 
 /**
- Returns a copy of all the objects currently powering the adapter.
+ Returns a copy of all the objects currently driving the adapter.
 
  @return An array of objects.
  */
@@ -213,7 +213,7 @@ IGLK_SUBCLASSING_RESTRICTED
 - (NSArray<UICollectionViewCell *> *)visibleCellsForObject:(id)object;
 
 /**
- Scrolls to the sepcified object in the list adapter.
+ Scrolls to the specified object in the list adapter.
 
  @param object             The object to which to scroll.
  @param supplementaryKinds The types of supplementary views in the section.

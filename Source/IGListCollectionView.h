@@ -13,8 +13,8 @@
 
 /**
  This class is never actually used by the `IGListKit` infrastructure. 
- It exists only to give compiler errors when editing
- methods are called on the collection view returned by `-[IGListAdapter collectionView]`.
+ It exists only to give compiler errors when editing methods are called on the collection view returned by
+ `-[IGListAdapter collectionView]`.
  */
 IGLK_SUBCLASSING_RESTRICTED
 @interface IGListCollectionView : UICollectionView
