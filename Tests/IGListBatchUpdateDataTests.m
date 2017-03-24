@@ -119,4 +119,18 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
     XCTAssertEqualObjects(result.insertSections, indexSet(@[@1]));
 }
 
+- (void)test_whenMovingSections_withMoveFromConflictWithDelete_thatResultDropsTheMove {
+    IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
+                                                                           deleteSections:indexSet(@[@2])
+                                                                             moveSections:[NSSet setWithArray:@[newMove(2, 6), newMove(0, 2)]]
+                                                                         insertIndexPaths:[NSSet new]
+                                                                         deleteIndexPaths:[NSSet new]
+                                                                           moveIndexPaths:[NSSet new]];
+    XCTAssertEqual(result.deleteSections.count, 1);
+    XCTAssertEqual(result.moveSections.count, 1);
+    XCTAssertEqual(result.insertSections.count, 0);
+    XCTAssertEqualObjects(result.deleteSections, indexSet(@[@2]));
+    XCTAssertEqualObjects(result.moveSections.anyObject, newMove(0, 2));
+}
+
 @end

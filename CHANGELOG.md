@@ -88,6 +88,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Remove objects that return `nil` diff identifiers before updating. [Ryan Nystrom](https://github.com/rnystrom) [(af984ca)](https://github.com/Instagram/IGListKit/commit/af984ca81d4d8c4ba3012be1a45f69670a832ccf)
 
+- Fix a potential crash when a section is moved and deleted at the same time. [Ryan Nystrom](https://github.com/rnystrom) [(#577)](https://github.com/Instagram/IGListKit/pull/577)
+
 2.1.0
 -----
 
