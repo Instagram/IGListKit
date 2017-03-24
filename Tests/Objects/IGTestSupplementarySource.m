@@ -13,6 +13,13 @@
 
 @implementation IGTestSupplementarySource
 
+- (instancetype)init {
+    if (self = [super init]) {
+        _size = CGSizeMake(100, 10);
+    }
+    return self;
+}
+
 #pragma mark - IGListSupplementaryViewSource
 
 - (UICollectionReusableView *)viewForSupplementaryElementOfKind:(NSString *)elementKind
@@ -34,12 +41,7 @@
 }
 
 - (CGSize)sizeForSupplementaryViewOfKind:(NSString *)elementKind atIndex:(NSInteger)index {
-    return CGSizeMake([self.collectionContext containerSize].width, 10);
-}
-
-- (CGSize)estimatedSizeForSupplementaryViewOfKind:(NSString *)elementKind
-                                          atIndex:(NSInteger)index {
-    return CGSizeZero;
+    return self.size;
 }
 
 @end

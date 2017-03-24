@@ -458,14 +458,16 @@
     IGAssertMainThread();
 
     IGListSectionController <IGListSectionType> *sectionController = [self sectionControllerForSection:indexPath.section];
-    return [sectionController sizeForItemAtIndex:indexPath.item];
+    const CGSize size = [sectionController sizeForItemAtIndex:indexPath.item];
+    return CGSizeMake(MAX(size.width, 0.0), MAX(size.height, 0.0));
 }
 
 - (CGSize)sizeForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     IGAssertMainThread();
     id <IGListSupplementaryViewSource> supplementaryViewSource = [self supplementaryViewSourceAtIndexPath:indexPath];
     if ([[supplementaryViewSource supportedElementKinds] containsObject:elementKind]) {
-        return [supplementaryViewSource sizeForSupplementaryViewOfKind:elementKind atIndex:indexPath.item];
+        const CGSize size = [supplementaryViewSource sizeForSupplementaryViewOfKind:elementKind atIndex:indexPath.item];
+        return CGSizeMake(MAX(size.width, 0.0), MAX(size.height, 0.0));
     }
     return CGSizeZero;
 }
