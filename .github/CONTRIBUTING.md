@@ -30,19 +30,15 @@ Once your experiment is confirmed we will remove the option and wrapping check!
 
 ## How we do major and minor releases
 
-Everything merges into master
-When we cut a release, we merge from 'master' into 'stable', tag, and push to CocoaPods.
+Everything merges into master. When we cut a release, we merge from `master` into `stable`, tag, and push to CocoaPods.
 
-Example:
+*Example:*
 
-if current release is 2.1.0, then any commits for 2.2.0 go into stable while commits for 3.0 would go to master.
+If current release is `2.1.0`, then any commits for `2.2.0` go into `stable` while commits for `3.0` would go to `master`.
 
 ## Testing
 
-Keep in mind that we want 99% test coverage at all times. If you add new code, please make sure it gets tested!
-
-When fixing bugs, try to recreate the bug in a unit and then fix the test. This makes sure we never regress that issue again.
-
+Keep in mind that we want 99% test coverage at all times. If you add new code, please make sure it gets tested! When fixing bugs, try to reproduce the bug in a unit test and then fix the test. This makes sure we never regress that issue again.
 
 ## Contributor License Agreement ("CLA")
 
@@ -64,10 +60,10 @@ outlined on that page and do not file a public issue.
 
 * 4 spaces for indentation rather than tabs
 * Public classes and methods must contain header documentation
-* Use plain C functions whenever possible (as opposed to class methods)
-* Restrict subclassing (objc macro, final in examples), except when the class is designed for subclassing.
-* Instance variables instead of properties
-* Create local variables instead of accessing properties like 'self.property' repeatedly. This results in a larger binary and extra 'objc_msgSend(...)' calls.
+* Use plain C functions instead of class methods whenever possible
+* Restrict subclassing (`IGLK_SUBCLASSING_RESTRICTED` macro or `final` in Swift), unless the class is designed for subclassing.
+* Use instance variables instead of properties
+* Create local variables instead of repeatedly accessing properties like `self.property`. This results in a larger binary and extra `objc_msgSend(...)` calls.
 
 ## Updating Testing Dependencies
 
