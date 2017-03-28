@@ -90,6 +90,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Fix a potential crash when a section is moved and deleted at the same time. [Ryan Nystrom](https://github.com/rnystrom) [(#577)](https://github.com/Instagram/IGListKit/pull/577)
 
+- Fix bug where `IGListAdapterProxy` cast to `UICollectionViewDelegateFlowLayout` in Swift always fails. [Anton Romanov](https://github.com/Istered) [(#592)](https://github.com/Instagram/IGListKit/pull/592)
+
 2.1.0
 -----
 
@@ -242,5 +244,3 @@ You can find a [migration guide here](https://instagram.github.io/IGListKit/migr
 -----
 
 Initial release. :tada:
-
-
