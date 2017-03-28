@@ -58,6 +58,10 @@ static BOOL isInterceptedSelector(SEL sel) {
     return self;
 }
 
+- (BOOL)conformsToProtocol:(Protocol *)aProtocol {
+    return aProtocol == @protocol(UICollectionViewDelegateFlowLayout);
+}
+
 - (BOOL)respondsToSelector:(SEL)aSelector {
     return isInterceptedSelector(aSelector)
     || [_collectionViewTarget respondsToSelector:aSelector]
