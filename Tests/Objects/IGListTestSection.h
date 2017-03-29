@@ -16,6 +16,8 @@
 
 @property (nonatomic, assign) NSInteger items;
 
+@property (nonatomic, assign) CGSize size;
+
 @property (nonatomic, assign) BOOL wasSelected;
 
 @end

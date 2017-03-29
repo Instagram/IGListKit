@@ -1083,4 +1083,32 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     IGAssertEqualSize([self.adapter containerSizeForSectionController:controller], 98, 98);
 }
 
+- (void)test_whenSectionControllerReturnsNegativeSize_thatAdapterReturnsZero {
+    self.dataSource.objects = @[@1];
+    IGListTestSection *section = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    section.size = CGSizeMake(-1, -1);
+    const CGSize size = [self.adapter sizeForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    XCTAssertEqual(size.width, 0.0);
+    XCTAssertEqual(size.height, 0.0);
+}
+
+- (void)test_whenSupplementarySourceReturnsNegativeSize_thatAdapterReturnsZero {
+    self.dataSource.objects = @[@1];
+    [self.adapter reloadDataWithCompletion:nil];
+    
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
+    supplementarySource.size = CGSizeMake(-1, -1);
+    
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@1];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+    
+    const CGSize size = [self.adapter sizeForSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+                                                         atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    XCTAssertEqual(size.width, 0.0);
+    XCTAssertEqual(size.height, 0.0);
+}
+
 @end

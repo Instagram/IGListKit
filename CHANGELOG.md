@@ -90,6 +90,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Fix a potential crash when a section is moved and deleted at the same time. [Ryan Nystrom](https://github.com/rnystrom) [(#577)](https://github.com/Instagram/IGListKit/pull/577)
 
+- Prevent section controllers and supplementary sources from returning negative sizes that crash `UICollectionViewFlowLayout`. [Ryan Nystrom](https://github.com/rnystrom) [(#583)](https://github.com/Instagram/IGListKit/pull/583)
+
 2.1.0
 -----
 

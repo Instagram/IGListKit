@@ -15,6 +15,8 @@
 
 @property (nonatomic, assign) BOOL dequeueFromNib;
 
+@property (nonatomic, assign) CGSize size;
+
 @property (nonatomic, strong, readwrite) NSArray<NSString *> *supportedElementKinds;
 
 @property (nonatomic, weak) id<IGListCollectionContext> collectionContext;
