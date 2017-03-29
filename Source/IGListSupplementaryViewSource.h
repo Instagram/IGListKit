@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  `IGListAdapter` which then configures and maintains a `UICollectionView`. The supplementary API reflects that in
  `UICollectionView`, `UICollectionViewLayout`, and `UICollectionViewDataSource`.
  */
+NS_SWIFT_NAME(ListSupplementaryViewSource)
 @protocol IGListSupplementaryViewSource <NSObject>
 
 /**
