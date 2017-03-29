@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode8.2
+osx_image: xcode8.3
 
 cache:
   - cocoapods
@@ -15,8 +15,8 @@ env:
    - TVOS_SCHEME="IGListKit-tvOS"
    - MACOS_SCHEME="IGListKit-macOS"
 
-   - IOS_SDK=iphonesimulator10.2
-   - TVOS_SDK=appletvsimulator10.1
+   - IOS_SDK=iphonesimulator10.3
+   - TVOS_SDK=appletvsimulator10.2
    - MACOS_SDK=macosx10.12
 
    - IOS_EXAMPLE_WORKSPACE="Examples/Examples-iOS/IGListKitExamples.xcworkspace"
@@ -38,6 +38,7 @@ env:
    - DESTINATION="OS=10.0,name=iPhone 6s" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="YES" RUN_UI_TESTS="NO" POD_LINT="NO"
    - DESTINATION="OS=10.1,name=iPhone 6s" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="NO"  RUN_UI_TESTS="NO" POD_LINT="NO"
    - DESTINATION="OS=10.2,name=iPad Air 2" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="NO"  RUN_UI_TESTS="NO" POD_LINT="NO"
+   - DESTINATION="OS=10.3,name=iPad Air 2" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="NO"  RUN_UI_TESTS="NO" POD_LINT="NO"
 
    - DESTINATION="OS=9.0,name=Apple TV 1080p"  SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="YES" RUN_UI_TESTS="NO" POD_LINT="NO"
    - DESTINATION="OS=10.0,name=Apple TV 1080p" SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="YES" RUN_UI_TESTS="NO" POD_LINT="NO"
