@@ -9,6 +9,23 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 ### Breaking Changes
 
+- Added Swift annotation names removing IGL prefixes from API's and improving those of C functions. [Robert Payne](https://github.com/robertjpayne)
+
+```swift
+// OLD
+class MySectionController : IGListSectionController { ... }
+
+// NEW
+class MySectionController : ListSectionController { ... }
+
+// OLD
+IGListDiff([], [], .equality)
+
+// NEW
+ListDiff(oldArray: [], newArray: [], .equality)
+
+```
+
 - Updated `didSelect` delegate call in `IGListSingleSectionControllerDelegate` to include object. [Sherlouk](https://github.com/Sherlouk) [(#397)](https://github.com/Instagram/IGListKit/pull/397)
 
 ```objc
