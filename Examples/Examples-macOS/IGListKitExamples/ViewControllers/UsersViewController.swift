@@ -54,7 +54,7 @@ final class UsersViewController: NSViewController {
     var filteredUsers = [User]() {
         didSet {
             // get the difference between the old array of Users and the new array of Users
-            let diff = IGListDiff(oldValue, filteredUsers, .equality)
+            let diff = ListDiff(oldArray: oldValue, newArray: filteredUsers, option: .equality)
             
             // this difference is used here to update the table view, but it can be used
             // to update collection views and other similar interface elements

@@ -15,12 +15,12 @@
 import UIKit
 import IGListKit
 
-final class HorizontalSectionController: IGListSectionController, IGListSectionType, IGListAdapterDataSource {
+final class HorizontalSectionController: ListSectionController, ListSectionType, ListAdapterDataSource {
     
     var number: Int?
     
-    lazy var adapter: IGListAdapter = {
-        let adapter = IGListAdapter(updater: IGListAdapterUpdater(),
+    lazy var adapter: ListAdapter = {
+        let adapter = ListAdapter(updater: ListAdapterUpdater(),
                                     viewController: self.viewController,
                                     workingRangeSize: 0)
         adapter.dataSource = self
@@ -52,17 +52,17 @@ final class HorizontalSectionController: IGListSectionController, IGListSectionT
     
     func didSelectItem(at index: Int) {}
     
-    // MARK: IGListAdapterDataSource
+    // MARK: ListAdapterDataSource
     
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         guard let number = number else { return [] }
-        return (0..<number).map { $0 as IGListDiffable }
+        return (0..<number).map { $0 as ListDiffable }
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         return CarouselSectionController()
     }
     
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
+    func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
     
 }

@@ -15,12 +15,12 @@
 import UIKit
 import IGListKit
 
-final class SupplementaryViewController: UIViewController, IGListAdapterDataSource {
+final class SupplementaryViewController: UIViewController, ListAdapterDataSource {
 
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let feedItems = [
         FeedItem(pk: 1, user: User(pk: 100, name: "Jesse", handle: "jesse_squires"), comments: ["You rock!", "Hmm you sure about that?"]),
@@ -41,16 +41,16 @@ final class SupplementaryViewController: UIViewController, IGListAdapterDataSour
         collectionView.frame = view.bounds
     }
 
-    // MARK: IGListAdapterDataSource
+    // MARK: ListAdapterDataSource
 
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return feedItems
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         return FeedItemSectionController()
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
+    func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
 
 }

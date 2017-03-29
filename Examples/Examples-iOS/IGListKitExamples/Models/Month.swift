@@ -31,13 +31,13 @@ final class Month {
     
 }
 
-extension Month: IGListDiffable {
+extension Month: ListDiffable {
     
     func diffIdentifier() -> NSObjectProtocol {
         return name as NSObjectProtocol
     }
     
-    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         return true
     }
     
