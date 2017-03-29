@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  A protocol that returns data to power cells in an `IGListBindingSectionController`.
  */
+NS_SWIFT_NAME(ListBindingSectionControllerDataSource)
 @protocol IGListBindingSectionControllerDataSource <NSObject>
 
 /**

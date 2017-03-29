@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  A protocol that handles cell selection events in an `IGListBindingSectionController`.
  */
+NS_SWIFT_NAME(ListBindingSectionControllerSelectionDelegate)
 @protocol IGListBindingSectionControllerSelectionDelegate <NSObject>
 
 /**

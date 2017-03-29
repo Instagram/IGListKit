@@ -17,6 +17,7 @@
  methods are called on the collection view returned by `-[IGListAdapter collectionView]`.
  */
 IGLK_SUBCLASSING_RESTRICTED
+NS_SWIFT_NAME(ListCollectionView)
 @interface IGListCollectionView : UICollectionView
 
 /**
