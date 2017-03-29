@@ -15,12 +15,12 @@
 import UIKit
 import IGListKit
 
-final class DemosViewController: UIViewController, IGListAdapterDataSource {
+final class DemosViewController: UIViewController, ListAdapterDataSource {
     
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     let demos: [DemoItem] = [
         DemoItem(name: "Nested Adapter", controllerClass: NestedAdapterViewController.self)
@@ -40,17 +40,17 @@ final class DemosViewController: UIViewController, IGListAdapterDataSource {
         collectionView.frame = view.bounds
     }
     
-    // MARK: IGListAdapterDataSource
+    // MARK: ListAdapterDataSource
     
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return demos
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         return DemoSectionController()
     }
     
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
+    func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
 
 }
 

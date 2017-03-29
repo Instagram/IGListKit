@@ -33,13 +33,13 @@ final class DemoItem: NSObject {
 
 }
 
-extension DemoItem: IGListDiffable {
+extension DemoItem: ListDiffable {
 
     func diffIdentifier() -> NSObjectProtocol {
         return name as NSObjectProtocol
     }
 
-    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         if self === object { return true }
         guard let object = object as? DemoItem else { return false }
         return controllerClass == object.controllerClass && controllerIdentifier == object.controllerIdentifier
@@ -47,7 +47,7 @@ extension DemoItem: IGListDiffable {
 
 }
 
-final class DemoSectionController: IGListSectionController, IGListSectionType {
+final class DemoSectionController: ListSectionController, ListSectionType {
 
     var object: DemoItem?
 

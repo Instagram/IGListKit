@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class WorkingRangeSectionController: IGListSectionController, IGListSectionType, IGListWorkingRangeDelegate {
+final class WorkingRangeSectionController: ListSectionController, ListSectionType, ListWorkingRangeDelegate {
 
     var height: Int?
     var downloadedImage: UIImage?
@@ -64,9 +64,9 @@ final class WorkingRangeSectionController: IGListSectionController, IGListSectio
 
     func didSelectItem(at index: Int) {}
 
-    //MARK: IGListWorkingRangeDelegate
+    //MARK: ListWorkingRangeDelegate
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerWillEnterWorkingRange sectionController: IGListSectionController) {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerWillEnterWorkingRange sectionController: ListSectionController) {
         guard downloadedImage == nil,
             task == nil,
             let urlString = urlString,
@@ -90,6 +90,6 @@ final class WorkingRangeSectionController: IGListSectionController, IGListSectio
         task?.resume()
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerDidExitWorkingRange sectionController: IGListSectionController) {}
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerDidExitWorkingRange sectionController: ListSectionController) {}
 
 }

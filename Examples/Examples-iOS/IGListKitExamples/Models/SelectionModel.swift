@@ -30,13 +30,13 @@ final class SelectionModel: NSObject {
 
 }
 
-extension SelectionModel: IGListDiffable {
+extension SelectionModel: ListDiffable {
 
     func diffIdentifier() -> NSObjectProtocol {
         return self
     }
 
-    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         return isEqual(object)
     }
 
