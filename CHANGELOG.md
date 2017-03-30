@@ -52,6 +52,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 } completion:nil];
 ```
 
+- `-[IGListCollectionContext containerSize]` no longer accounts for the content inset of the collection view when returning a size. If you require that behavior, you can now use `-[IGListCollectionContext insetContainerSize]`. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+
 
 ### Enhancements
 

@@ -24,9 +24,19 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol IGListCollectionContext <NSObject>
 
 /**
- The size of the collection view. You may use this for sizing cells.
+ The size of the collection view. You can use this for sizing cells.
  */
 @property (nonatomic, readonly) CGSize containerSize;
+
+/**
+ The content insets of the collection view. You can use this for sizing cells.
+ */
+@property (nonatomic, readonly) UIEdgeInsets containerInset;
+
+/**
+ The size of the collection view with content insets applied.
+ */
+@property (nonatomic, readonly) CGSize insetContainerSize;
 
 /**
  Returns size of the collection view relative to the section controller.

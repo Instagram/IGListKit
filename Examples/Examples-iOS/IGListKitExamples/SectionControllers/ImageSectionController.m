@@ -15,6 +15,10 @@
 #import "ImageSectionController.h"
 #import "PhotoCell.h"
 
+@interface ImageSectionController () <IGListSupplementaryViewSource>
+
+@end
+
 @implementation ImageSectionController
 
 #pragma mark - IGListSectionType
@@ -37,6 +41,24 @@
 
 - (void)didSelectItemAtIndex:(NSInteger)index {
     
+}
+
+- (id<IGListSupplementaryViewSource>)supplementaryViewSource {
+    return self;
+}
+
+- (NSArray<NSString *> *)supportedElementKinds {
+    return @[UICollectionElementKindSectionFooter];
+}
+
+- (CGSize)sizeForSupplementaryViewOfKind:(NSString *)elementKind atIndex:(NSInteger)index {
+    return CGSizeMake(self.collectionContext.containerSize.width, 30);
+}
+
+- (UICollectionReusableView *)viewForSupplementaryElementOfKind:(NSString *)elementKind atIndex:(NSInteger)index {
+    UICollectionReusableView *view = [self.collectionContext dequeueReusableSupplementaryViewOfKind:elementKind forSectionController:self class:[UICollectionReusableView class] atIndex:index];
+    view.backgroundColor = [UIColor yellowColor];
+    return view;
 }
 
 @end

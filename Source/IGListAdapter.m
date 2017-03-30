@@ -817,7 +817,16 @@
 #pragma mark - IGListCollectionContext
 
 - (CGSize)containerSize {
-    return UIEdgeInsetsInsetRect(self.collectionView.bounds, self.collectionView.contentInset).size;
+    return self.collectionView.bounds.size;
+}
+
+- (UIEdgeInsets)containerInset {
+    return self.collectionView.contentInset;
+}
+
+- (CGSize)insetContainerSize {
+    IGListCollectionView *collectionView = self.collectionView;
+    return UIEdgeInsetsInsetRect(collectionView.bounds, collectionView.contentInset).size;
 }
 
 - (CGSize)containerSizeForSectionController:(IGListSectionController<IGListSectionType> *)sectionController {

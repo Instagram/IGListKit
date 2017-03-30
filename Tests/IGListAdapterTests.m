@@ -1111,4 +1111,26 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     XCTAssertEqual(size.height, 0.0);
 }
 
+- (void)test_whenQueryingContainerInset_thatMatchesCollectionView {
+    self.dataSource.objects = @[@2];
+    [self.adapter reloadDataWithCompletion:nil];
+    self.collectionView.contentInset = UIEdgeInsetsMake(1, 2, 3, 4);
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@2];
+    const UIEdgeInsets inset = [controller.collectionContext containerInset];
+    XCTAssertEqual(inset.top, 1);
+    XCTAssertEqual(inset.left, 2);
+    XCTAssertEqual(inset.bottom, 3);
+    XCTAssertEqual(inset.right, 4);
+}
+
+- (void)test_whenQueryingInsetContainerSize_thatResultIsBoundsInsetByContent {
+    self.dataSource.objects = @[@2];
+    [self.adapter reloadDataWithCompletion:nil];
+    self.collectionView.contentInset = UIEdgeInsetsMake(1, 2, 3, 4);
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@2];
+    const CGSize size = [controller.collectionContext insetContainerSize];
+    XCTAssertEqual(size.width, 94);
+    XCTAssertEqual(size.height, 96);
+}
+
 @end
