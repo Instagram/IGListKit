@@ -58,19 +58,19 @@
     return self;
 }
 
-- (IGListCollectionView *)collectionView {
-    return (IGListCollectionView *)_collectionView;
+- (UICollectionView *)collectionView {
+    return _collectionView;
 }
 
-- (void)setCollectionView:(IGListCollectionView *)collectionView {
+- (void)setCollectionView:(UICollectionView *)collectionView {
     IGAssertMainThread();
 
     // if collection view has been used by a different list adapter, treat it as if we were using a new collection view
-    // this happens when embedding a IGListCollectionView inside a UICollectionViewCell that is reused
+    // this happens when embedding a UICollectionView inside a UICollectionViewCell that is reused
     if (_collectionView != collectionView || _collectionView.dataSource != self) {
         // if the collection view was being used with another IGListAdapter (e.g. cell reuse)
         // destroy the previous association so the old adapter doesn't update the wrong collection view
-        static NSMapTable<IGListCollectionView *, IGListAdapter *> *globalCollectionViewAdapterMap = nil;
+        static NSMapTable<UICollectionView *, IGListAdapter *> *globalCollectionViewAdapterMap = nil;
         if (globalCollectionViewAdapterMap == nil) {
             globalCollectionViewAdapterMap = [NSMapTable weakToWeakObjectsMapTable];
         }
@@ -825,7 +825,7 @@
 }
 
 - (CGSize)insetContainerSize {
-    IGListCollectionView *collectionView = self.collectionView;
+    UICollectionView *collectionView = self.collectionView;
     return UIEdgeInsetsInsetRect(collectionView.bounds, collectionView.contentInset).size;
 }
 

@@ -21,7 +21,7 @@ final class WorkingRangeViewController: UIViewController, IGListAdapterDataSourc
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
 
-    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let data: [Int] = {
         var set = Set<Int>() // only use unique values
@@ -44,7 +44,7 @@ final class WorkingRangeViewController: UIViewController, IGListAdapterDataSourc
         collectionView.frame = view.bounds
     }
 
-    //MARK: IGListAdapterDataSource
+    // MARK: IGListAdapterDataSource
 
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
         return data as [IGListDiffable]

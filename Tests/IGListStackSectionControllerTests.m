@@ -37,7 +37,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 @interface IGListStackSectionControllerTests : XCTestCase
 
 @property (nonatomic, strong) UIWindow *window;
-@property (nonatomic, strong) IGListCollectionView *collectionView;
+@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
 @property (nonatomic, strong) IGTestStackedDataSource *dataSource;
 
@@ -259,6 +259,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@0 value:@[@2, @2]]
                              ]];
 
+    id mockCollectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
+    self.adapter.collectionView = mockCollectionView;
+
     IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     
     id mockBatchContext = [OCMockObject mockForProtocol:@protocol(IGListBatchContext)];
@@ -275,6 +278,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     [self setupWithObjects:@[
                              [[IGTestObject alloc] initWithKey:@0 value:@[@2, @2]]
                              ]];
+
+    id mockCollectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
+    self.adapter.collectionView = mockCollectionView;
 
     IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     
@@ -296,6 +302,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@0 value:@[@2, @2]]
                              ]];
 
+    id mockCollectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
+    self.adapter.collectionView = mockCollectionView;
+
     IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     
     id mockBatchContext = [OCMockObject mockForProtocol:@protocol(IGListBatchContext)];
@@ -315,6 +324,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     [self setupWithObjects:@[
                              [[IGTestObject alloc] initWithKey:@0 value:@[@2, @2]]
                              ]];
+
+    id mockCollectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
+    self.adapter.collectionView = mockCollectionView;
 
     IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     
