@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Tells the cell to configure itself with the given view model.
 
- @param viewModel The view model for the cel.
+ @param viewModel The view model for the cell.
 
  @note The view model can change many times throughout the lifetime of a cell as the model values change and the cell
  is reused. Implementations should use only this method to do their configuration.

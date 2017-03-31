@@ -15,7 +15,7 @@
 @protocol IGListSectionType;
 
 /**
- Implement this protocol to receive display events for an section controller when it is on screen.
+ Implement this protocol to receive display events for a section controller when it is on screen.
  */
 @protocol IGListScrollDelegate <NSObject>
 

@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return The size for the item at index.
 
- @note The returned size is not garaunteed to be used. The implementation may query sections for their
+ @note The returned size is not guaranteed to be used. The implementation may query sections for their
  layout information at will, or use its own layout metrics. For example, consider a dynamic-text sized list versus a fixed
  height-and-width grid. The former will ask each section for a size, and the latter will likely not.
  */
