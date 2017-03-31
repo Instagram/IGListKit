@@ -17,6 +17,7 @@
 #import <IGListKit/IGListMacros.h>
 
 @protocol IGListUpdatingDelegate;
+@protocol IGListManagementPerformable;
 
 @class IGListSectionController;
 
@@ -31,8 +32,8 @@ NS_SWIFT_NAME(ListUpdaterCompletion)
 typedef void (^IGListUpdaterCompletion)(BOOL finished);
 
 /**
- `IGListAdapter` objects provide an abstraction for feeds of objects in a `UICollectionView` by breaking each object 
- into individual sections, called "section controllers". These controllers (objects subclassing to 
+ `IGListAdapter` objects provide an abstraction for feeds of objects in a `UICollectionView` by breaking each object
+ into individual sections, called "section controllers". These controllers (objects subclassing to
  `IGListSectionController`) act as a data source and delegate for each section.
 
  Feed implementations must act as the data source for an `IGListAdapter` in order to drive the objects and section
@@ -48,9 +49,9 @@ NS_SWIFT_NAME(ListAdapter)
 @property (nonatomic, nullable, weak) UIViewController *viewController;
 
 /**
- The collection view used with the adapter.
+ The view used for display with the adapter.
  */
-@property (nonatomic, nullable, weak) UICollectionView *collectionView;
+@property (nonatomic, nullable, weak) UIView<IGListManagementPerformable> *collectionView;
 
 /**
  The object that acts as the data source for the adapter.
@@ -106,10 +107,10 @@ NS_SWIFT_NAME(ListAdapter)
 
 /**
  Initializes a new `IGListAdapter` object with a working range of `0`.
- 
+
  @param updater An object that manages updates to the collection view.
  @param viewController The view controller that will house the adapter.
- 
+
  @return A new list adapter object.
  */
 - (instancetype)initWithUpdater:(id <IGListUpdatingDelegate>)updater
@@ -140,7 +141,7 @@ NS_SWIFT_NAME(ListAdapter)
 
 /**
  Query the section controller at a given section index. Constant time lookup.
- 
+
  @param section A section in the list.
 
  @return A section controller or `nil` if the section does not exist.
@@ -169,9 +170,9 @@ NS_SWIFT_NAME(ListAdapter)
 
 /**
  Returns the object corresponding to the specified section controller in the list. Constant time lookup.
- 
+
  @param sectionController A section controller in the list.
- 
+
  @return The object for the specified section controller, or `nil` if not found.
  */
 - (nullable id)objectForSectionController:(IGListSectionController *)sectionController;
@@ -217,9 +218,9 @@ NS_SWIFT_NAME(ListAdapter)
 
 /**
  An unordered array of the currently visible cells for a given object.
- 
+
  @param object An object in the list
- 
+
  @return An array of collection view cells.
  */
 - (NSArray<UICollectionViewCell *> *)visibleCellsForObject:(id)object;

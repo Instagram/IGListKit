@@ -30,7 +30,7 @@ IGListCollectionContext,
 IGListBatchContext
 >
 {
-    __weak UICollectionView *_collectionView;
+    __weak UIView<IGListManagementPerformable> *_collectionView;
     BOOL _isDequeuingCell;
     BOOL _isSendingWorkingRangeDisplayUpdates;
 }
