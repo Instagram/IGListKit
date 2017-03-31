@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
  Only when `-diffIdentifier`s match is object equality compared, so you can assume the class is the same, and the
  instance has already been checked.
  */
-@interface IGListBindingSectionController : IGListSectionController<IGListSectionType>
+@interface IGListBindingSectionController<__covariant ObjectType : id<IGListDiffable>> : IGListSectionController<IGListSectionType>
 
 /**
  A data source that transforms a top-level object into view models, and returns cells and sizes for given view models.
@@ -58,6 +58,11 @@ NS_ASSUME_NONNULL_BEGIN
  A delegate that receives selection events from cells in an `IGListBindingSectionController` instance.
  */
 @property (nonatomic, weak, nullable) id<IGListBindingSectionControllerSelectionDelegate> selectionDelegate;
+
+/**
+ The object currently assigned to the section controller, if any.
+ */
+@property (nonatomic, strong, readonly, nullable) ObjectType object;
 
 /**
  The array of view models created from the data source. Values are changed when the top-level object changes or by

@@ -54,7 +54,11 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
         }
         
         oldViewModels = self.viewModels;
-        self.viewModels = [self.dataSource sectionController:self viewModelsForObject:self.object];
+
+        id<IGListDiffable> object = self.object;
+        IGAssert(object != nil, @"Expected IGListBindingSectionController object to be non-nil before updating.");
+        
+        self.viewModels = [self.dataSource sectionController:self viewModelsForObject:object];
         result = IGListDiff(oldViewModels, self.viewModels, IGListDiffEquality);
         
         [result.updates enumerateIndexesUsingBlock:^(NSUInteger oldUpdatedIndex, BOOL *stop) {
