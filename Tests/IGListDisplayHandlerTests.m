@@ -215,7 +215,7 @@
     [self.mockAdapterDelegate verify];
 
     [[self.mockDisplayDelegate expect] listAdapter:self.adapter willDisplaySectionController:self.list cell:cell atIndex:path.item];
-    [[self.mockAdapterDelegate reject] listAdapter:self.adapter willDisplayObject:self.list atIndex:path.item];
+    [[self.mockAdapterDelegate reject] listAdapter:self.adapter willDisplayObject:self.object atIndex:path.item];
     [[self.mockDisplayDelegate reject] listAdapter:self.adapter willDisplaySectionController:self.list];
 
     [self.displayHandler willDisplayCell:cell forListAdapter:self.adapter sectionController:self.list object:self.object indexPath:path];
