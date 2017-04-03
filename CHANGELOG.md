@@ -94,7 +94,7 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Prevent section controllers and supplementary sources from returning negative sizes that crash `UICollectionViewFlowLayout`. [Ryan Nystrom](https://github.com/rnystrom) [(#583)](https://github.com/Instagram/IGListKit/pull/583)
 
-- Fix a crash when inserting or deleting from the same index within the same batch-update application. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+- Fix a crash when inserting or deleting from the same index within the same batch-update application. [Ryan Nystrom](https://github.com/rnystrom) [(#616)](https://github.com/Instagram/IGListKit/pull/616)
 
 2.1.0
 -----
