@@ -47,9 +47,9 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
     IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[])
                                                                              moveSections:[NSSet new]
-                                                                         insertIndexPaths:[NSSet new]
-                                                                         deleteIndexPaths:[NSSet new]
-                                                                           moveIndexPaths:[NSSet new]];
+                                                                         insertIndexPaths:[NSArray new]
+                                                                         deleteIndexPaths:[NSArray new]
+                                                                           moveIndexPaths:[NSArray new]];
     XCTAssertNotNil(result);
 }
 
@@ -57,28 +57,28 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
     IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[@0, @1])
                                                                            deleteSections:indexSet(@[@5])
                                                                              moveSections:[NSSet setWithArray:@[newMove(3, 4)]]
-                                                                         insertIndexPaths:[NSSet setWithArray:@[newPath(0, 0)]]
-                                                                         deleteIndexPaths:[NSSet setWithArray:@[newPath(1, 0)]]
-                                                                           moveIndexPaths:[NSSet setWithArray:@[newMovePath(6, 0, 6, 1)]]];
+                                                                         insertIndexPaths:@[newPath(0, 0)]
+                                                                         deleteIndexPaths:@[newPath(1, 0)]
+                                                                           moveIndexPaths:@[newMovePath(6, 0, 6, 1)]];
     XCTAssertEqualObjects(result.insertSections, indexSet(@[@0, @1]));
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@5]));
     XCTAssertEqualObjects(result.moveSections, [NSSet setWithArray:@[newMove(3, 4)]]);
-    XCTAssertEqualObjects(result.insertIndexPaths, [NSSet setWithArray:@[newPath(0, 0)]]);
-    XCTAssertEqualObjects(result.deleteIndexPaths, [NSSet setWithArray:@[newPath(1, 0)]]);
+    XCTAssertEqualObjects(result.insertIndexPaths, @[newPath(0, 0)]);
+    XCTAssertEqualObjects(result.deleteIndexPaths, @[newPath(1, 0)]);
     XCTAssertEqual(result.moveIndexPaths.count, 1);
-    XCTAssertEqualObjects(result.moveIndexPaths.anyObject, [[IGListMoveIndexPath alloc] initWithFrom:newPath(6, 0) to:newPath(6, 1)]);
+    XCTAssertEqualObjects(result.moveIndexPaths.firstObject, [[IGListMoveIndexPath alloc] initWithFrom:newPath(6, 0) to:newPath(6, 1)]);
 }
 
 - (void)test_whenMovingSections_withItemDeletes_thatResultConvertsConflicts_toDeletesAndInserts {
     IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[])
                                                                              moveSections:[NSSet setWithArray:@[newMove(2, 4)]]
-                                                                         insertIndexPaths:[NSSet new]
-                                                                         deleteIndexPaths:[NSSet setWithArray:@[newPath(2, 0), newPath(3, 4)]]
-                                                                           moveIndexPaths:[NSSet new]];
+                                                                         insertIndexPaths:[NSArray new]
+                                                                         deleteIndexPaths:@[newPath(2, 0), newPath(3, 4)]
+                                                                           moveIndexPaths:[NSArray new]];
     XCTAssertEqualObjects(result.insertSections, indexSet(@[@4]));
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@2]));
-    XCTAssertEqualObjects(result.deleteIndexPaths, [NSSet setWithArray:@[newPath(3, 4)]]);
+    XCTAssertEqualObjects(result.deleteIndexPaths, @[newPath(3, 4)]);
     XCTAssertEqual(result.moveSections.count, 0);
 }
 
@@ -86,12 +86,12 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
     IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[])
                                                                              moveSections:[NSSet setWithArray:@[newMove(2, 4)]]
-                                                                         insertIndexPaths:[NSSet setWithArray:@[newPath(4, 0), newPath(3, 4)]]
-                                                                         deleteIndexPaths:[NSSet new]
-                                                                           moveIndexPaths:[NSSet new]];
+                                                                         insertIndexPaths:@[newPath(4, 0), newPath(3, 4)]
+                                                                         deleteIndexPaths:[NSArray new]
+                                                                           moveIndexPaths:[NSArray new]];
     XCTAssertEqualObjects(result.insertSections, indexSet(@[@4]));
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@2]));
-    XCTAssertEqualObjects(result.insertIndexPaths, [NSSet setWithArray:@[newPath(3, 4)]]);
+    XCTAssertEqualObjects(result.insertIndexPaths, @[newPath(3, 4)]);
     XCTAssertEqual(result.moveSections.count, 0);
 }
 
@@ -99,9 +99,9 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
     IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[@0])
                                                                              moveSections:[NSSet new]
-                                                                         insertIndexPaths:[NSSet new]
-                                                                         deleteIndexPaths:[NSSet new]
-                                                                           moveIndexPaths:[NSSet setWithArray:@[newMovePath(0, 0, 0, 1)]]];
+                                                                         insertIndexPaths:[NSArray new]
+                                                                         deleteIndexPaths:[NSArray new]
+                                                                           moveIndexPaths:@[newMovePath(0, 0, 0, 1)]];
     XCTAssertEqual(result.moveIndexPaths.count, 0);
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@0]));
 }
@@ -110,9 +110,9 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
     IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[])
                                                                              moveSections:[NSSet setWithArray:@[newMove(0, 1)]]
-                                                                         insertIndexPaths:[NSSet new]
-                                                                         deleteIndexPaths:[NSSet new]
-                                                                           moveIndexPaths:[NSSet setWithArray:@[newMovePath(0, 0, 0, 1)]]];
+                                                                         insertIndexPaths:[NSArray new]
+                                                                         deleteIndexPaths:[NSArray new]
+                                                                           moveIndexPaths:@[newMovePath(0, 0, 0, 1)]];
     XCTAssertEqual(result.moveIndexPaths.count, 0);
     XCTAssertEqual(result.moveSections.count, 0);
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@0]));
@@ -123,9 +123,9 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
     IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[@2])
                                                                              moveSections:[NSSet setWithArray:@[newMove(2, 6), newMove(0, 2)]]
-                                                                         insertIndexPaths:[NSSet new]
-                                                                         deleteIndexPaths:[NSSet new]
-                                                                           moveIndexPaths:[NSSet new]];
+                                                                         insertIndexPaths:[NSArray new]
+                                                                         deleteIndexPaths:[NSArray new]
+                                                                           moveIndexPaths:[NSArray new]];
     XCTAssertEqual(result.deleteSections.count, 1);
     XCTAssertEqual(result.moveSections.count, 1);
     XCTAssertEqual(result.insertSections.count, 0);

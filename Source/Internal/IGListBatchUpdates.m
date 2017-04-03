@@ -14,9 +14,9 @@
 - (instancetype)init {
     if (self = [super init]) {
         _sectionReloads = [NSMutableIndexSet new];
-        _itemInserts = [NSMutableSet new];
-        _itemMoves = [NSMutableSet new];
-        _itemDeletes = [NSMutableSet new];
+        _itemInserts = [NSMutableArray new];
+        _itemMoves = [NSMutableArray new];
+        _itemDeletes = [NSMutableArray new];
         _itemUpdateBlocks = [NSMutableArray new];
         _itemCompletionBlocks = [NSMutableArray new];
     }
