@@ -14,7 +14,7 @@
 
 import IGListKit
 
-class ListeningSectionController: IGListSectionController, IGListSectionType, IncrementListener {
+final class ListeningSectionController: IGListSectionController, IGListSectionType, IncrementListener {
 
     var value: Int = 0
 
