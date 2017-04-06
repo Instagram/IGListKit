@@ -9,7 +9,7 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 ### Breaking Changes
 
-- Added Swift annotation names removing IGL prefixes from API's and improving those of C functions. [Robert Payne](https://github.com/robertjpayne)
+- Added Swift annotation names removing IGL prefixes from API's and improving those of C functions. [Robert Payne](https://github.com/robertjpayne) [(#593)](https://github.com/Instagram/IGListKit/pull/593)
 
 ```swift
 // OLD
