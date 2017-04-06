@@ -36,7 +36,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 @interface IGListAdapterTests : XCTestCase
 
 // infra does not hold a strong ref to collection view
-@property (nonatomic, strong) IGListCollectionView *collectionView;
+@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
 @property (nonatomic, strong) IGListTestAdapterDataSource *dataSource;
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
@@ -53,7 +53,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
 
     self.layout = [[UICollectionViewFlowLayout alloc] init];
-    self.collectionView = [[IGListCollectionView alloc] initWithFrame:self.window.bounds collectionViewLayout:self.layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:self.window.bounds collectionViewLayout:self.layout];
 
     [self.window addSubview:self.collectionView];
 
@@ -279,7 +279,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     [self.collectionView layoutIfNeeded];
     XCTAssertNotNil([self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
 
-    IGListCollectionView *otherCollectionView = [[IGListCollectionView alloc] initWithFrame:self.collectionView.frame collectionViewLayout:self.collectionView.collectionViewLayout];
+    UICollectionView *otherCollectionView = [[UICollectionView alloc] initWithFrame:self.collectionView.frame collectionViewLayout:self.collectionView.collectionViewLayout];
     adapter.collectionView = otherCollectionView;
     [otherCollectionView layoutIfNeeded];
     XCTAssertNotNil([otherCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
@@ -528,7 +528,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 
     @autoreleasepool {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)
+        UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)
                                                                       collectionViewLayout:layout];
         weakCollectionView = collectionView;
 
@@ -568,7 +568,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 
     @autoreleasepool {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)
+        UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)
                                                                       collectionViewLayout:layout];
         weakCollectionView = collectionView;
 
@@ -1102,6 +1102,56 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     [self.adapter reloadDataWithCompletion:nil];
     IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@42];
     IGAssertEqualSize([self.adapter containerSizeForSectionController:controller], 98, 98);
+}
+
+- (void)test_whenSectionControllerReturnsNegativeSize_thatAdapterReturnsZero {
+    self.dataSource.objects = @[@1];
+    IGListTestSection *section = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    section.size = CGSizeMake(-1, -1);
+    const CGSize size = [self.adapter sizeForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    XCTAssertEqual(size.width, 0.0);
+    XCTAssertEqual(size.height, 0.0);
+}
+
+- (void)test_whenSupplementarySourceReturnsNegativeSize_thatAdapterReturnsZero {
+    self.dataSource.objects = @[@1];
+    [self.adapter reloadDataWithCompletion:nil];
+    
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
+    supplementarySource.size = CGSizeMake(-1, -1);
+    
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@1];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+    
+    const CGSize size = [self.adapter sizeForSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+                                                         atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    XCTAssertEqual(size.width, 0.0);
+    XCTAssertEqual(size.height, 0.0);
+}
+
+- (void)test_whenQueryingContainerInset_thatMatchesCollectionView {
+    self.dataSource.objects = @[@2];
+    [self.adapter reloadDataWithCompletion:nil];
+    self.collectionView.contentInset = UIEdgeInsetsMake(1, 2, 3, 4);
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@2];
+    const UIEdgeInsets inset = [controller.collectionContext containerInset];
+    XCTAssertEqual(inset.top, 1);
+    XCTAssertEqual(inset.left, 2);
+    XCTAssertEqual(inset.bottom, 3);
+    XCTAssertEqual(inset.right, 4);
+}
+
+- (void)test_whenQueryingInsetContainerSize_thatResultIsBoundsInsetByContent {
+    self.dataSource.objects = @[@2];
+    [self.adapter reloadDataWithCompletion:nil];
+    self.collectionView.contentInset = UIEdgeInsetsMake(1, 2, 3, 4);
+    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@2];
+    const CGSize size = [controller.collectionContext insetContainerSize];
+    XCTAssertEqual(size.width, 94);
+    XCTAssertEqual(size.height, 96);
 }
 
 @end

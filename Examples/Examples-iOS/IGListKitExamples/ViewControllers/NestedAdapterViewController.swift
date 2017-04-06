@@ -20,9 +20,9 @@ final class NestedAdapterViewController: UIViewController, ListAdapterDataSource
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-    let data = [
+    let data: [Any] = [
         "Ridiculus Elit Tellus Purus Aenean",
         "Condimentum Sollicitudin Adipiscing",
         14,
@@ -31,7 +31,7 @@ final class NestedAdapterViewController: UIViewController, ListAdapterDataSource
         6,
         "Tellus Nibh Ipsum Inceptos",
         2
-    ] as [Any]
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()

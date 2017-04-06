@@ -20,7 +20,7 @@ final class CalendarViewController: UIViewController, ListAdapterDataSource {
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView = ListCollectionView(
+    let collectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: ListCollectionViewLayout(stickyHeaders: false, topContentInset: 0, stretchToEdge: false)
     )
@@ -44,7 +44,7 @@ final class CalendarViewController: UIViewController, ListAdapterDataSource {
                 13: ["Dinner at The Smith"],
                 17: ["Buy running shoes", "Buy a fitbit", "Start running"],
                 20: ["Call mom"],
-                21: ["Contribute to ListKit"],
+                21: ["Contribute to IGListKit"],
                 25: ["Interview"],
                 26: ["Quit running", "Buy ice cream"]
             ]

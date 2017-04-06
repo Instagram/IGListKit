@@ -20,7 +20,7 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     let demos: [DemoItem] = [
         DemoItem(name: "Nested Adapter", controllerClass: NestedAdapterViewController.self)

@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  Sections and items are put into the same horizontal row until the max-x position of an item extends beyond the width
  of the collection view. When that happens, the item is "newlined" to the next row. The y position of that row is
- deteremined by the maximum height (including section insets) of the section/item of the previous row.
+ determined by the maximum height (including section insets) of the section/item of the previous row.
 
  Ex. of a section (2,0) with a large width causing a newline.
  ```
@@ -81,9 +81,11 @@ NS_SWIFT_NAME(ListCollectionViewLayout)
 
 /**
  Create and return a new collection view layout.
- @param stickyHeaders       Set to `YES` to stick section headers to the top of the bounds while scrolling.
- @param topContentInset     The top content inset used to offset the sticky headers. Ignored if stickyHeaders is `NO`.
- @param stretchToEdge       Specifies whether to stretch width of last item to right edge when distance from last item to right edge < epsilon(1)
+
+ @param stickyHeaders   Set to `YES` to stick section headers to the top of the bounds while scrolling.
+ @param topContentInset The top content inset used to offset the sticky headers. Ignored if stickyHeaders is `NO`.
+ @param stretchToEdge   Specifies whether to stretch width of last item to right edge when distance from last item to right edge < epsilon(1)
+
  @return A new collection view layout.
  */
 - (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders

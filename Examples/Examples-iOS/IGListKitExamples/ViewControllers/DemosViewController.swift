@@ -20,7 +20,7 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let demos: [DemoItem] = [
         DemoItem(name: "Tail Loading", controllerClass: LoadMoreViewController.self),
@@ -38,7 +38,8 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
         DemoItem(name: "Display delegate", controllerClass: DisplayViewController.self),
         DemoItem(name: "Stacked Section Controllers", controllerClass: StackedViewController.self),
         DemoItem(name: "Objc Demo", controllerClass: ObjcDemoViewController.self),
-        DemoItem(name: "Calendar (auto diffing)", controllerClass: CalendarViewController.self)
+        DemoItem(name: "Calendar (auto diffing)", controllerClass: CalendarViewController.self),
+        DemoItem(name: "Dependency Injection", controllerClass: AnnouncingDepsViewController.self)
     ]
 
     override func viewDidLoad() {

@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  The IGListSectionMap provides a way to map a collection of objects to a collection of section controllers and achieve
  constant-time lookups O(1).
 
- IGListSectionMap is a mutable object and does not garauntee thread safety.
+ IGListSectionMap is a mutable object and does not guarantee thread safety.
  */
 IGLK_SUBCLASSING_RESTRICTED
 @interface IGListSectionMap : NSObject <NSCopying>

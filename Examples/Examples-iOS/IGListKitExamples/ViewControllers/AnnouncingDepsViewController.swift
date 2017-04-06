@@ -1,9 +1,9 @@
 /**
  Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
- 
+
  The examples provided by Facebook are for non-commercial testing and evaluation
  purposes only. Facebook reserves all rights not expressly granted.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -13,58 +13,55 @@
  */
 
 import UIKit
-import NotificationCenter
 import IGListKit
 
-@available(iOSApplicationExtension 10.0, *)
-final class TodayViewController: UIViewController, NCWidgetProviding, ListAdapterDataSource {
-        
+final class AnnouncingDepsViewController: UIViewController, ListAdapterDataSource {
+
     lazy var adapter: ListAdapter = {
-        return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 1)
     }()
-    let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
-    let data = "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.".components(separatedBy: " ")
-    
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let data: [NSNumber] = Array(0..<20).map { $0 as NSNumber }
+    let announcer = IncrementAnnouncer()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        collectionView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
-        
-        view.addSubview(collectionView)
-        
-        // Enables the 'Show More' button in the widget interface
-        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+
+        // disable prefetching so cells are configured as they come on screen
+        if #available(iOS 10.0, *) {
+            collectionView.isPrefetchingEnabled = false
+        }
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                            target: self,
+                                                            action: #selector(AnnouncingDepsViewController.onAdd))
     }
 
-    
-    override func loadView() {
-        view = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 110))
-    }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
-    
-    // MARK: NCWidgetProviding
-    
-    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        preferredContentSize = maxSize
+
+    func onAdd() {
+        announcer.increment()
     }
-    
+
     // MARK: ListAdapterDataSource
-    
+
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return data as [ListDiffable]
+        return data
     }
-    
+
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return LabelSectionController()
+        return ListeningSectionController(announcer: announcer)
     }
-    
+
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }
+
 }

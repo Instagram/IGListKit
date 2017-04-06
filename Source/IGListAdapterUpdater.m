@@ -65,7 +65,7 @@
     }
 
     // execute all stored item update blocks even if we are just calling reloadData. the actual collection view
-    // mutations will be discarded, but clients are encouraged to put their actually /data/ mutations inside the
+    // mutations will be discarded, but clients are encouraged to put their actual /data/ mutations inside the
     // update block as well, so if we don't execute the block the changes will never happen
     for (IGListItemUpdateBlock itemUpdateBlock in batchUpdates.itemUpdateBlocks) {
         itemUpdateBlock();
@@ -305,7 +305,7 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     // remove indexpath/item changes
     self.objectTransitionBlock = nil;
     
-    // removes all object completion blocks. done before updates to start collecting completion blocks for coaslesced
+    // removes all object completion blocks. done before updates to start collecting completion blocks for coalesced
     // or re-entrant object updates
     [self.completionBlocks removeAllObjects];
 }

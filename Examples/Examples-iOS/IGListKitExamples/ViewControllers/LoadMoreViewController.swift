@@ -20,7 +20,7 @@ final class LoadMoreViewController: UIViewController, ListAdapterDataSource, UIS
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     lazy var items = Array(0...20)
     var loading = false

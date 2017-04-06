@@ -37,7 +37,7 @@
     self.list = [[IGListTestSection alloc] init];
     self.object = [[NSObject alloc] init];
     self.displayHandler = [[IGListDisplayHandler alloc] init];
-    IGListCollectionView *collectionView = [OCMockObject niceMockForClass:[IGListCollectionView class]];
+    UICollectionView *collectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     self.mockAdapterDataSource = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterDataSource)];
     IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
     self.adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:0];
@@ -215,7 +215,7 @@
     [self.mockAdapterDelegate verify];
 
     [[self.mockDisplayDelegate expect] listAdapter:self.adapter willDisplaySectionController:self.list cell:cell atIndex:path.item];
-    [[self.mockAdapterDelegate reject] listAdapter:self.adapter willDisplayObject:self.list atIndex:path.item];
+    [[self.mockAdapterDelegate reject] listAdapter:self.adapter willDisplayObject:self.object atIndex:path.item];
     [[self.mockDisplayDelegate reject] listAdapter:self.adapter willDisplaySectionController:self.list];
 
     [self.displayHandler willDisplayCell:cell forListAdapter:self.adapter sectionController:self.list object:self.object indexPath:path];

@@ -20,7 +20,8 @@ final class StackedViewController: UIViewController, ListAdapterDataSource {
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 1)
     }()
-    let collectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let data = [128, 256, 64]
 
@@ -55,5 +56,4 @@ final class StackedViewController: UIViewController, ListAdapterDataSource {
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
-
 }

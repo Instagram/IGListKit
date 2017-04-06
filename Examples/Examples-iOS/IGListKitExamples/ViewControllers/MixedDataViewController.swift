@@ -20,9 +20,9 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
-    let collectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-    let data = [
+    let data: [Any] = [
         "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.",
         GridItem(color: UIColor(red: 237/255.0, green: 73/255.0, blue: 86/255.0, alpha: 1), itemCount: 6),
         User(pk: 2, name: "Ryan Olson", handle: "ryanolsonk"),
@@ -35,7 +35,7 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
         "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
         GridItem(color: UIColor(red: 163/255.0, green: 42/255.0, blue: 186/255.0, alpha: 1), itemCount: 7),
         User(pk: 1, name: "Ryan Nystrom", handle: "_ryannystrom"),
-    ] as [Any]
+        ]
 
     let segments: [(String, Any.Type?)] = [
         ("All", nil),
@@ -43,6 +43,7 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
         ("Text", String.self),
         ("Users", User.self)
     ]
+
     var selectedClass: Any.Type?
 
     override func viewDidLoad() {
@@ -68,14 +69,14 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
         adapter.performUpdates(animated: true, completion: nil)
     }
 
-    //MARK: ListAdapterDataSource
+    // MARK: ListAdapterDataSource
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         guard selectedClass != nil else {
             return data.map { $0 as! ListDiffable }
         }
         return data.filter { type(of: $0) == selectedClass! }
-                   .map { $0 as! ListDiffable }
+            .map { $0 as! ListDiffable }
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
@@ -87,5 +88,4 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
-
 }

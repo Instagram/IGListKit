@@ -58,19 +58,19 @@
     return self;
 }
 
-- (IGListCollectionView *)collectionView {
-    return (IGListCollectionView *)_collectionView;
+- (UICollectionView *)collectionView {
+    return _collectionView;
 }
 
-- (void)setCollectionView:(IGListCollectionView *)collectionView {
+- (void)setCollectionView:(UICollectionView *)collectionView {
     IGAssertMainThread();
 
     // if collection view has been used by a different list adapter, treat it as if we were using a new collection view
-    // this happens when embedding a IGListCollectionView inside a UICollectionViewCell that is reused
+    // this happens when embedding a UICollectionView inside a UICollectionViewCell that is reused
     if (_collectionView != collectionView || _collectionView.dataSource != self) {
         // if the collection view was being used with another IGListAdapter (e.g. cell reuse)
         // destroy the previous association so the old adapter doesn't update the wrong collection view
-        static NSMapTable<IGListCollectionView *, IGListAdapter *> *globalCollectionViewAdapterMap = nil;
+        static NSMapTable<UICollectionView *, IGListAdapter *> *globalCollectionViewAdapterMap = nil;
         if (globalCollectionViewAdapterMap == nil) {
             globalCollectionViewAdapterMap = [NSMapTable weakToWeakObjectsMapTable];
         }
@@ -458,14 +458,16 @@
     IGAssertMainThread();
 
     IGListSectionController <IGListSectionType> *sectionController = [self sectionControllerForSection:indexPath.section];
-    return [sectionController sizeForItemAtIndex:indexPath.item];
+    const CGSize size = [sectionController sizeForItemAtIndex:indexPath.item];
+    return CGSizeMake(MAX(size.width, 0.0), MAX(size.height, 0.0));
 }
 
 - (CGSize)sizeForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     IGAssertMainThread();
     id <IGListSupplementaryViewSource> supplementaryViewSource = [self supplementaryViewSourceAtIndexPath:indexPath];
     if ([[supplementaryViewSource supportedElementKinds] containsObject:elementKind]) {
-        return [supplementaryViewSource sizeForSupplementaryViewOfKind:elementKind atIndex:indexPath.item];
+        const CGSize size = [supplementaryViewSource sizeForSupplementaryViewOfKind:elementKind atIndex:indexPath.item];
+        return CGSizeMake(MAX(size.width, 0.0), MAX(size.height, 0.0));
     }
     return CGSizeZero;
 }
@@ -824,7 +826,16 @@
 #pragma mark - IGListCollectionContext
 
 - (CGSize)containerSize {
-    return UIEdgeInsetsInsetRect(self.collectionView.bounds, self.collectionView.contentInset).size;
+    return self.collectionView.bounds.size;
+}
+
+- (UIEdgeInsets)containerInset {
+    return self.collectionView.contentInset;
+}
+
+- (CGSize)insetContainerSize {
+    UICollectionView *collectionView = self.collectionView;
+    return UIEdgeInsetsInsetRect(collectionView.bounds, collectionView.contentInset).size;
 }
 
 - (CGSize)containerSizeForSectionController:(IGListSectionController<IGListSectionType> *)sectionController {

@@ -30,7 +30,7 @@ NS_SWIFT_NAME(ListAdapterUpdaterDelegate)
 - (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView;
 
 /**
- Notifies the delegate that the updater succesfully finished `-[UICollectionView performBatchUpdates:completion:]`.
+ Notifies the delegate that the updater successfully finished `-[UICollectionView performBatchUpdates:completion:]`.
 
  @param listAdapterUpdater The adapter updater owning the transition.
  @param updates            The batch updates that were applied to the collection view.

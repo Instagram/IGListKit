@@ -14,20 +14,25 @@
 
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+@objc
+protocol IncrementListener: class {
+    func didIncrement(announcer: IncrementAnnouncer, value: Int)
+}
 
-    var window: UIWindow?
+final class IncrementAnnouncer: NSObject {
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = UINavigationController(rootViewController: DemosViewController())
-        window?.makeKeyAndVisible()
+    private var value: Int = 0
+    private let map: NSHashTable<IncrementListener> = NSHashTable<IncrementListener>.weakObjects()
 
-        UICollectionView.appearance().backgroundColor = .white
+    func addListener(listener: IncrementListener) {
+        map.add(listener)
+    }
 
-        return true
+    func increment() {
+        value += 1
+        for listener in map.allObjects {
+            listener.didIncrement(announcer: self, value: value)
+        }
     }
 
 }
-

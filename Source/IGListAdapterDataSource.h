@@ -46,7 +46,7 @@ NS_SWIFT_NAME(ListAdapterDataSource)
 
  Section controllers are initialized for all objects whenever the `IGListAdapter` is created, updated, or reloaded.
  Section controllers are reused when objects are moved or updated. Maintaining the `-[IGListDiffable diffIdentifier]`
- guarentees this.
+ guarantees this.
  */
 - (IGListSectionController <IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object;
 

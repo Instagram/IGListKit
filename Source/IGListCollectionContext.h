@@ -25,9 +25,19 @@ NS_SWIFT_NAME(ListCollectionContext)
 @protocol IGListCollectionContext <NSObject>
 
 /**
- The size of the collection view. You may use this for sizing cells.
+ The size of the collection view. You can use this for sizing cells.
  */
 @property (nonatomic, readonly) CGSize containerSize;
+
+/**
+ The content insets of the collection view. You can use this for sizing cells.
+ */
+@property (nonatomic, readonly) UIEdgeInsets containerInset;
+
+/**
+ The size of the collection view with content insets applied.
+ */
+@property (nonatomic, readonly) CGSize insetContainerSize;
 
 /**
  Returns size of the collection view relative to the section controller.
@@ -93,7 +103,7 @@ NS_SWIFT_NAME(ListCollectionContext)
 /**
  Returns the section index of an section controller.
 
- @param sectionController An section controller object.
+ @param sectionController A section controller object.
 
  @return The section index of the controller if found, otherwise `NSNotFound`.
  */
@@ -147,10 +157,10 @@ NS_SWIFT_NAME(ListCollectionContext)
 /**
  Dequeues a supplementary view from the collection view reuse pool.
 
- @param elementKind       The kind of supplementary veiw.
+ @param elementKind       The kind of supplementary view.
  @param sectionController The section controller requesting this information.
  @param viewClass         The class of the supplementary view.
- @param index             The index of the supplementary vew.
+ @param index             The index of the supplementary view.
 
  @return A supplementary view dequeued from the reuse pool or a newly created one.
 
@@ -164,10 +174,10 @@ NS_SWIFT_NAME(ListCollectionContext)
 /**
  Dequeues a supplementary view from the collection view reuse pool.
 
- @param elementKind       The kind of supplementary veiw.
+ @param elementKind       The kind of supplementary view.
  @param identifier        The identifier of the supplementary view in storyboard.
  @param sectionController The section controller requesting this information.
- @param index             The index of the supplementary vew.
+ @param index             The index of the supplementary view.
 
  @return A supplementary view dequeued from the reuse pool or a newly created one.
  */
@@ -178,11 +188,11 @@ NS_SWIFT_NAME(ListCollectionContext)
 /**
  Dequeues a supplementary view from the collection view reuse pool.
 
- @param elementKind       The kind of supplementary veiw.
+ @param elementKind       The kind of supplementary view.
  @param sectionController The section controller requesting this information.
  @param nibName           The name of the nib file.
  @param bundle            The bundle in which to search for the nib file. If `nil`, this method searches the main bundle.
- @param index             The index of the supplementary vew.
+ @param index             The index of the supplementary view.
 
  @return A supplementary view dequeued from the reuse pool or a newly created one.
 
@@ -201,7 +211,7 @@ NS_SWIFT_NAME(ListCollectionContext)
  @param completion        An optional completion block to execute when the updates are finished.
 
  @note This method can be wrapped in `UIView` animation APIs to control the duration or perform without animations. This
- will end up calling `-[UICollectionView performBatchUpdates:completion:] internally, so invalidated changes may not be
+ will end up calling `-[UICollectionView performBatchUpdates:completion:]` internally, so invalidated changes may not be
  reflected in the cells immediately.
  */
 - (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController

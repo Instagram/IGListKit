@@ -26,10 +26,4 @@
     return CGSizeMake([self.collectionContext containerSize].width, 45);
 }
 
-- (CGSize)estimatedSizeForSupplementaryViewOfKind:(NSString *)elementKind
-                                          atIndex:(NSInteger)index {
-    return CGSizeZero;
-}
-
-
 @end
