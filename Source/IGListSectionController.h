@@ -15,14 +15,12 @@
 #import <IGListKit/IGListSupplementaryViewSource.h>
 #import <IGListKit/IGListWorkingRangeDelegate.h>
 
-@protocol IGListDiffable;
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  The base class for section controllers used in a list. This class is intended to be subclassed.
  */
-@interface IGListSectionController<__covariant ObjectType : id<IGListDiffable>> : NSObject
+@interface IGListSectionController : NSObject
 
 /**
  The view controller housing the adapter that created this section controller.
