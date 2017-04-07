@@ -51,7 +51,7 @@ final class NestedAdapterViewController: UIViewController, IGListAdapterDataSour
         return data as! [IGListDiffable]
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController<IGListDiffable> {
         if object is Int {
             return HorizontalSectionController()
         } else {

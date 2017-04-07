@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class DisplaySectionController: IGListSectionController, IGListSectionType, IGListDisplayDelegate {
+final class DisplaySectionController: IGListSectionController<IGListDiffable>, IGListSectionType, IGListDisplayDelegate {
 
     override init() {
         super.init()
@@ -44,22 +44,22 @@ final class DisplaySectionController: IGListSectionController, IGListSectionType
 
     // MARK: IGListDisplayDelegate
 
-    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController) {
+    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController<IGListDiffable>) {
         let section = collectionContext!.section(for: self)
         print("Will display section \(section)")
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {
+    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController<IGListDiffable>, cell: UICollectionViewCell, at index: Int) {
         let section = collectionContext!.section(for: self)
         print("Did will display cell \(index) in section \(section)")
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController) {
+    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController<IGListDiffable>) {
         let section = collectionContext!.section(for: self)
         print("Did end displaying section \(section)")
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {
+    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController<IGListDiffable>, cell: UICollectionViewCell, at index: Int) {
         let section = collectionContext!.section(for: self)
         print("Did end displaying cell \(index) in section \(section)")
     }

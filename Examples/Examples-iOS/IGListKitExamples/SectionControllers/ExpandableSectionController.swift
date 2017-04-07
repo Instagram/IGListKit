@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class ExpandableSectionController: IGListSectionController, IGListSectionType {
+final class ExpandableSectionController: IGListSectionController<String>, IGListSectionType {
 
     var expanded = false
     var object: String?

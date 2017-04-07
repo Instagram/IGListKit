@@ -50,7 +50,7 @@ final class WorkingRangeViewController: UIViewController, IGListAdapterDataSourc
         return data as [IGListDiffable]
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController<IGListDiffable> {
         return WorkingRangeSectionController()
     }
 

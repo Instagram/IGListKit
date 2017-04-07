@@ -47,7 +47,7 @@ extension DemoItem: IGListDiffable {
 
 }
 
-final class DemoSectionController: IGListSectionController, IGListSectionType {
+final class DemoSectionController: IGListSectionController<DemoItem>, IGListSectionType {
 
     var object: DemoItem?
 

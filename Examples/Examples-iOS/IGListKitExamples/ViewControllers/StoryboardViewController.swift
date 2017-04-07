@@ -70,7 +70,7 @@ final class StoryboardViewController: UIViewController, IGListAdapterDataSource,
         return people
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController<IGListDiffable> {
         let sectionController = StoryboardLabelSectionController()
         sectionController.delegate = self
         return sectionController

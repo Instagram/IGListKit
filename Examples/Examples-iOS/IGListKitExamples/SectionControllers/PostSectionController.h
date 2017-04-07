@@ -13,7 +13,8 @@
  */
 
 #import <IGListKit/IGListKit.h>
+#import "Post.h"
 
-@interface PostSectionController : IGListSectionController <IGListSectionType>
+@interface PostSectionController : IGListSectionController<Post *> <IGListSectionType>
 
 @end

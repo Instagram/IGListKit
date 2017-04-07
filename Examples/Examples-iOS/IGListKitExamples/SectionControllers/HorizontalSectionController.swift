@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class HorizontalSectionController: IGListSectionController, IGListSectionType, IGListAdapterDataSource {
+final class HorizontalSectionController: IGListSectionController<Int>, IGListSectionType, IGListAdapterDataSource {
 
     var number: Int?
 
@@ -54,7 +54,7 @@ final class HorizontalSectionController: IGListSectionController, IGListSectionT
         return (0..<number).map { $0 as IGListDiffable }
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController<IGListDiffable> {
         return EmbeddedSectionController()
     }
 

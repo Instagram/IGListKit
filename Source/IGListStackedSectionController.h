@@ -10,6 +10,7 @@
 #import <IGListKit/IGListSectionController.h>
 #import <IGListKit/IGListSectionType.h>
 #import <IGListKit/IGListMacros.h>
+#import <IGListKit/IGListDiffable.h>
 
 /**
  An instance of `IGListStackedSectionController` is a clustered section controller, composed of many child section
@@ -22,7 +23,7 @@
  huge class.
  */
 IGLK_SUBCLASSING_RESTRICTED
-@interface IGListStackedSectionController : IGListSectionController <IGListSectionType>
+@interface IGListStackedSectionController<__covariant ObjectType : id<IGListDiffable>> : IGListSectionController<ObjectType> <IGListSectionType>
 
 /**
  Creates a new stacked section controller.

@@ -14,7 +14,7 @@
 
 import IGListKit
 
-final class FeedItemSectionController: IGListSectionController, IGListSectionType, IGListSupplementaryViewSource {
+final class FeedItemSectionController: IGListSectionController<FeedItem>, IGListSectionType, IGListSupplementaryViewSource {
 
     var feedItem: FeedItem!
 

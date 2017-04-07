@@ -60,7 +60,7 @@ final class SelfSizingCellsViewController: UIViewController, IGListAdapterDataSo
         return data as [IGListDiffable]
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController<IGListDiffable> {
         return SelfSizingSectionController()
     }
 

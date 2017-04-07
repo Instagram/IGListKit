@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
  Only when `-diffIdentifier`s match is object equality compared, so you can assume the class is the same, and the
  instance has already been checked.
  */
-@interface IGListBindingSectionController<__covariant ObjectType : id<IGListDiffable>> : IGListSectionController<IGListSectionType>
+@interface IGListBindingSectionController<__covariant ObjectType : id<IGListDiffable>, __covariant ViewModelType : id<IGListDiffable>> : IGListSectionController<ObjectType> <IGListSectionType>
 
 /**
  A data source that transforms a top-level object into view models, and returns cells and sizes for given view models.
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
  The array of view models created from the data source. Values are changed when the top-level object changes or by
  calling `-updateAnimated:completion:` manually.
  */
-@property (nonatomic, strong, readonly) NSArray<id<IGListDiffable>> *viewModels;
+@property (nonatomic, strong, readonly) NSArray<ViewModelType> *viewModels;
 
 /**
  Tells the section controller to query for new view models, diff the changes, and update its cells.

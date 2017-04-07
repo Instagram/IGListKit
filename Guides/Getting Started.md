@@ -43,7 +43,7 @@ func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
   return [ "Foo", "Bar", 42, "Biz" ]
 }
 
-func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController<IGListDiffable> {
   if object is String {
     return LabelSectionController()
   } else {

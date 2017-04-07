@@ -52,7 +52,7 @@ final class SearchViewController: UIViewController, IGListAdapterDataSource, Sea
         return [searchToken] + words.filter { $0.lowercased().contains(filterString.lowercased()) }.map { $0 as IGListDiffable }
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController<IGListDiffable> {
         if let obj = object as? NSNumber, obj == searchToken {
             let sectionController = SearchSectionController()
             sectionController.delegate = self
