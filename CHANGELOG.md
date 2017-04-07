@@ -94,6 +94,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Prevent section controllers and supplementary sources from returning negative sizes that crash `UICollectionViewFlowLayout`. [Ryan Nystrom](https://github.com/rnystrom) [(#583)](https://github.com/Instagram/IGListKit/pull/583)
 
+- Add nullability annotations to a few more headers. [Adlai Holler](https://github.com/Adlai-Holler) [(#626)](https://github.com/Instagram/IGListKit/pull/626)
+
 2.1.0
 -----
 
