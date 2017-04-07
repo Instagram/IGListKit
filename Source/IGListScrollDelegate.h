@@ -14,6 +14,8 @@
 
 @protocol IGListSectionType;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Implement this protocol to receive display events for a section controller when it is on screen.
  */
@@ -44,3 +46,5 @@
 - (void)listAdapter:(IGListAdapter *)listAdapter didEndDraggingSectionController:(IGListSectionController <IGListSectionType> *)sectionController willDecelerate:(BOOL)decelerate;
 
 @end
+
+NS_ASSUME_NONNULL_END

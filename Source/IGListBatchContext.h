@@ -13,6 +13,8 @@
 
 @protocol IGListSectionType;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Objects conforming to the IGListBatchContext protocol provide a way for section controllers to mutate their cells or
  reload everything within the section.
@@ -65,3 +67,5 @@
 - (void)reloadSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
 
 @end
+
+NS_ASSUME_NONNULL_END

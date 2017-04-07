@@ -11,6 +11,8 @@
 
 @class IGListAdapter;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Conform to `IGListAdapterDelegate` to receive display events for objects in a list.
  */
@@ -35,3 +37,5 @@
 - (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingObject:(id)object atIndex:(NSInteger)index;
 
 @end
+
+NS_ASSUME_NONNULL_END
