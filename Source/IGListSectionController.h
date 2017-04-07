@@ -14,11 +14,12 @@
 #import <IGListKit/IGListScrollDelegate.h>
 #import <IGListKit/IGListSupplementaryViewSource.h>
 #import <IGListKit/IGListWorkingRangeDelegate.h>
+#import <IGListKit/IGListDiffable.h>
 
 /**
  The base class for section controllers used in a list. This class is intended to be subclassed.
  */
-@interface IGListSectionController : NSObject
+@interface IGListSectionController<__covariant ObjectType : id<IGListDiffable>> : NSObject
 
 /**
  The view controller housing the adapter that created this section controller.
