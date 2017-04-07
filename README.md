@@ -201,6 +201,11 @@ Check out the updater `IGListReloadDataUpdater` (used in unit tests) for an exam
 
 You can find [the docs here](https://instagram.github.io/IGListKit). Documentation is generated with [jazzy](https://github.com/realm/jazzy) and hosted on [GitHub-Pages](https://pages.github.com).
 
+## Examples
+You can have a look at the Examples inside this repository or other examples are:
+
+• Ray Wenderlich - https://www.raywenderlich.com/147162/iglistkit-tutorial-better-uicollectionviews
+
 ## Contributing
 
 Please see the [CONTRIBUTING](CONTRIBUTING.md) file for how to help out. At Instagram we sync the open source version of `IGListKit` almost daily, so we're always testing the latest changes. But that requires all changes be thoroughly tested follow our style guide.
@@ -210,3 +215,4 @@ Please see the [CONTRIBUTING](CONTRIBUTING.md) file for how to help out. At Inst
 `IGListKit` is BSD-licensed. We also provide an additional patent grant.
 
 The files in the /Example directory are licensed under a separate license as specified in each file; documentation is licensed [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/).
+
