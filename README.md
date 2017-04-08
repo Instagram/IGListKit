@@ -82,6 +82,11 @@ github "Instagram/IGListKit" ~> 2.0.0
 
 You can find [the docs here](https://instagram.github.io/IGListKit). Documentation is generated with [jazzy](https://github.com/realm/jazzy) and hosted on [GitHub-Pages](https://pages.github.com).
 
+## Examples
+You can have a look at the Examples inside this repository or other examples are:
+
+• Ray Wenderlich - https://www.raywenderlich.com/147162/iglistkit-tutorial-better-uicollectionviews
+
 ## Vision
 
 For the long term goals and "vision" of `IGListKit`, please read our [Vision](https://github.com/Instagram/IGListKit/blob/master/Guides/VISION.md) doc.
