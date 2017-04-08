@@ -78,14 +78,15 @@ github "Instagram/IGListKit" ~> 2.0.0
 - Ray Wenderlich's [IGListKit Tutorial: Better UICollectionViews](https://www.raywenderlich.com/147162/iglistkit-tutorial-better-uicollectionviews)
 - Ryan Nystrom's [talk at try! Swift NYC](https://realm.io/news/tryswift-ryan-nystrom-refactoring-at-scale-lessons-learned-rewriting-instagram-feed/)
 
+## Examples
+You can have a look at the Examples inside this repository or other examples:
+
+• Examples Directory - https://github.com/Instagram/IGListKit/tree/master/Examples
+• Ray Wenderlich - https://www.raywenderlich.com/147162/iglistkit-tutorial-better-uicollectionviews
+
 ## Documentation
 
 You can find [the docs here](https://instagram.github.io/IGListKit). Documentation is generated with [jazzy](https://github.com/realm/jazzy) and hosted on [GitHub-Pages](https://pages.github.com).
-
-## Examples
-You can have a look at the Examples inside this repository or other examples are:
-
-• Ray Wenderlich - https://www.raywenderlich.com/147162/iglistkit-tutorial-better-uicollectionviews
 
 ## Vision
 
