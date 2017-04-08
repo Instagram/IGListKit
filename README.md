@@ -82,6 +82,7 @@ github "Instagram/IGListKit" ~> 2.0.0
 You can have a look at the Examples inside this repository or other examples:
 
 • Examples Directory - https://github.com/Instagram/IGListKit/tree/master/Examples
+
 • Ray Wenderlich - https://www.raywenderlich.com/147162/iglistkit-tutorial-better-uicollectionviews
 
 ## Documentation
