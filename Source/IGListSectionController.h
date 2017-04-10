@@ -15,6 +15,8 @@
 #import <IGListKit/IGListSupplementaryViewSource.h>
 #import <IGListKit/IGListWorkingRangeDelegate.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  The base class for section controllers used in a list. This class is intended to be subclassed.
  */
@@ -105,3 +107,5 @@
 @property (nonatomic, weak, nullable) id <IGListScrollDelegate> scrollDelegate;
 
 @end
+
+NS_ASSUME_NONNULL_END

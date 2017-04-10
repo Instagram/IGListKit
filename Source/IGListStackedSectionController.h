@@ -11,6 +11,8 @@
 #import <IGListKit/IGListSectionType.h>
 #import <IGListKit/IGListMacros.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  An instance of `IGListStackedSectionController` is a clustered section controller, composed of many child section
  controllers. It constructs and routes item-level indexes to the appropriate child section controller with a local
@@ -46,3 +48,5 @@ IGLK_SUBCLASSING_RESTRICTED
 + (instancetype)new NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END

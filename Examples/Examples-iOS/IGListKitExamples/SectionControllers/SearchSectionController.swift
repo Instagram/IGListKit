@@ -63,7 +63,7 @@ final class SearchSectionController: IGListSectionController, IGListSectionType,
         }
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter!, willBeginDragging sectionController: IGListSectionController!) {}
-    func listAdapter(_ listAdapter: IGListAdapter!, didEndDragging sectionController: IGListSectionController!, willDecelerate decelerate: Bool) {}
+    func listAdapter(_ listAdapter: IGListAdapter, willBeginDragging sectionController: IGListSectionController) {}
+    func listAdapter(_ listAdapter: IGListAdapter, didEndDragging sectionController: IGListSectionController, willDecelerate decelerate: Bool) {}
 
 }

@@ -12,6 +12,8 @@
 #import <IGListKit/IGListMacros.h>
 #import <IGListKit/IGListUpdatingDelegate.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  An `IGListReloadDataUpdater` is a concrete type that conforms to `IGListUpdatingDelegate`.
  It is an out-of-box updater for `IGListAdapter` objects to use.
@@ -22,3 +24,5 @@ IGLK_SUBCLASSING_RESTRICTED
 @interface IGListReloadDataUpdater : NSObject <IGListUpdatingDelegate>
 
 @end
+
+NS_ASSUME_NONNULL_END
