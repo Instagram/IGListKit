@@ -56,7 +56,7 @@ final class AnnouncingDepsViewController: UIViewController, IGListAdapterDataSou
         return data
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController<IGListDiffable> {
         return ListeningSectionController(announcer: announcer)
     }
 

@@ -12,6 +12,7 @@
 #import <IGListKit/IGListSectionController.h>
 #import <IGListKit/IGListSectionType.h>
 #import <IGListKit/IGListMacros.h>
+#import <IGListKit/IGListDiffable.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param item The model with which to configure the cell.
  @param cell The cell to configure.
  */
-typedef void (^IGListSingleSectionCellConfigureBlock)(id item, __kindof UICollectionViewCell *cell);
+#define IGListSingleSectionCellConfigureBlock void (^)(ObjectType item, __kindof UICollectionViewCell *cell)
 
 /**
  A block that returns the size for the cell given the collection context.
@@ -32,7 +33,7 @@ typedef void (^IGListSingleSectionCellConfigureBlock)(id item, __kindof UICollec
 
  @return The size for the cell.
  */
-typedef CGSize (^IGListSingleSectionCellSizeBlock)(id item, id<IGListCollectionContext> _Nullable collectionContext);
+#define IGListSingleSectionCellSizeBlock CGSize (^)(ObjectType item, id<IGListCollectionContext> _Nullable collectionContext)
 
 @class IGListSingleSectionController;
 
@@ -58,7 +59,7 @@ typedef CGSize (^IGListSingleSectionCellSizeBlock)(id item, id<IGListCollectionC
  simpler architecture.
  */
 IGLK_SUBCLASSING_RESTRICTED
-@interface IGListSingleSectionController : IGListSectionController <IGListSectionType>
+@interface IGListSingleSectionController<__covariant ObjectType : id<IGListDiffable>> : IGListSectionController<ObjectType> <IGListSectionType>
 
 /**
  Creates a new section controller for a given cell type that will always have only one cell when present in a list.

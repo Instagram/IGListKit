@@ -39,7 +39,7 @@ extension GridItem: IGListDiffable {
     
 }
 
-final class GridSectionController: IGListSectionController, IGListSectionType {
+final class GridSectionController: IGListSectionController<GridItem>, IGListSectionType {
 
     var object: GridItem?
 

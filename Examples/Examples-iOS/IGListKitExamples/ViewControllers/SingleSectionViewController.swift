@@ -46,20 +46,20 @@ final class SingleSectionViewController: UIViewController, IGListAdapterDataSour
         return data as [IGListDiffable]
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
-        let configureBlock = { (item: Any, cell: UICollectionViewCell) in
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController<IGListDiffable> {
+        let configureBlock = { (item: Int, cell: UICollectionViewCell) in
             guard let cell = cell as? NibCell, let number = item as? Int else { return }
             cell.textLabel.text = "Cell: \(number + 1)"
         }
         
-        let sizeBlock = { (item: Any, context: IGListCollectionContext?) -> CGSize in
+        let sizeBlock = { (item: Int, context: IGListCollectionContext?) -> CGSize in
             guard let context = context else { return CGSize() }
             return CGSize(width: context.containerSize.width, height: 44)
         }
-        let sectionController = IGListSingleSectionController(nibName: NibCell.nibName,
-                                                              bundle: nil,
-                                                              configureBlock: configureBlock,
-                                                              sizeBlock: sizeBlock)
+        let sectionController = IGListSingleSectionController<Int>(nibName: NibCell.nibName,
+                                                                   bundle: nil,
+                                                                   configureBlock: configureBlock,
+                                                                   sizeBlock: sizeBlock)
         sectionController.selectionDelegate = self
         
         return sectionController
@@ -69,7 +69,7 @@ final class SingleSectionViewController: UIViewController, IGListAdapterDataSour
     
     // MARK: - IGListSingleSectionControllerDelegate
     
-    func didSelect(_ sectionController: IGListSingleSectionController, with object: Any) {
+    func didSelect(_ sectionController: IGListSingleSectionController<IGListDiffable>, with object: Any) {
         let section = adapter.section(for: sectionController) + 1
         let alert = UIAlertController(title: "Section \(section) was selected \u{1F389}",
                                       message: "Cell Object: " + String(describing: object),

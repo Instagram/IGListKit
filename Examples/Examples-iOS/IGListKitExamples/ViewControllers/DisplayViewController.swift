@@ -40,7 +40,7 @@ final class DisplayViewController: UIViewController, IGListAdapterDataSource {
         return [1, 2, 3, 4, 5, 6] as [NSNumber]
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController<IGListDiffable> {
         return DisplaySectionController()
     }
 

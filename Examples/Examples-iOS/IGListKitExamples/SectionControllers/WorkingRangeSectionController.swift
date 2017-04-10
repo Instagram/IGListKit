@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class WorkingRangeSectionController: IGListSectionController, IGListSectionType, IGListWorkingRangeDelegate {
+final class WorkingRangeSectionController: IGListSectionController<Int>, IGListSectionType, IGListWorkingRangeDelegate {
 
     var height: Int?
     var downloadedImage: UIImage?

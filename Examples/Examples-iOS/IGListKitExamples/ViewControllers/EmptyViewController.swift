@@ -66,7 +66,7 @@ final class EmptyViewController: UIViewController, IGListAdapterDataSource, Remo
         return data as [IGListDiffable]
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController<IGListDiffable> {
         let sectionController = RemoveSectionController()
         sectionController.delegate = self
         return sectionController

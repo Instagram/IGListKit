@@ -46,7 +46,7 @@ final class DemosViewController: UIViewController, IGListAdapterDataSource {
         return demos
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController<IGListDiffable> {
         return DemoSectionController()
     }
     
