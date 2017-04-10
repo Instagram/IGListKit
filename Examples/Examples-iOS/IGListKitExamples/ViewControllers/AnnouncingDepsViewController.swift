@@ -15,10 +15,10 @@
 import UIKit
 import IGListKit
 
-final class AnnouncingDepsViewController: UIViewController, IGListAdapterDataSource {
+final class AnnouncingDepsViewController: UIViewController, ListAdapterDataSource {
 
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 1)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 1)
     }()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let data: [NSNumber] = Array(0..<20).map { $0 as NSNumber }
@@ -50,17 +50,17 @@ final class AnnouncingDepsViewController: UIViewController, IGListAdapterDataSou
         announcer.increment()
     }
 
-    // MARK: IGListAdapterDataSource
+    // MARK: ListAdapterDataSource
 
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return data
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         return ListeningSectionController(announcer: announcer)
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }
 

@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param finished Specifies whether or not the update finished.
  */
+NS_SWIFT_NAME(ListUpdatingCompletion)
 typedef void (^IGListUpdatingCompletion)(BOOL finished);
 
 /**
@@ -25,18 +26,22 @@ typedef void (^IGListUpdatingCompletion)(BOOL finished);
 
  @param toObjects The new objects in the collection.
  */
+NS_SWIFT_NAME(ListObjectTransitionBlock)
 typedef void (^IGListObjectTransitionBlock)(NSArray *toObjects);
 
 /// A block that contains all of the updates.
+NS_SWIFT_NAME(ListItemUpdateBlock)
 typedef void (^IGListItemUpdateBlock)();
 
 /// A block to be called when an adapter reloads the collection view.
+NS_SWIFT_NAME(ListReloadUpdateBlock)
 typedef void (^IGListReloadUpdateBlock)();
 
 /**
  Implement this protocol in order to handle both section and row based update events. Implementation should forward or
  coalesce these events to a backing store or collection.
  */
+NS_SWIFT_NAME(ListUpdatingDelegate)
 @protocol IGListUpdatingDelegate <NSObject>
 
 /**

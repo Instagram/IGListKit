@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  A result object returned when diffing with indexes.
  */
+NS_SWIFT_NAME(ListIndexSetResult)
 @interface IGListIndexSetResult : NSObject
 
 /**

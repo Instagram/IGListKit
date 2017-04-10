@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class MonthSectionController: IGListBindingSectionController<IGListDiffable>, IGListBindingSectionControllerDataSource, IGListBindingSectionControllerSelectionDelegate {
+final class MonthSectionController: ListBindingSectionController<ListDiffable>, ListBindingSectionControllerDataSource, ListBindingSectionControllerSelectionDelegate {
     
     var selectedDay: Int = -1
     
@@ -25,15 +25,15 @@ final class MonthSectionController: IGListBindingSectionController<IGListDiffabl
         selectionDelegate = self
     }
     
-    // MARK: IGListBindingSectionControllerDataSource
+    // MARK: ListBindingSectionControllerDataSource
     
-    func sectionController(_ sectionController: IGListBindingSectionController<IGListDiffable>, viewModelsFor object: Any) -> [IGListDiffable] {
+    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, viewModelsFor object: Any) -> [ListDiffable] {
         guard let month = object as? Month else { return [] }
         
         let date = Date()
         let today = Calendar.current.component(.day, from: date)
         
-        var viewModels = [IGListDiffable]()
+        var viewModels = [ListDiffable]()
         
         viewModels.append(MonthTitleViewModel(name: month.name))
         
@@ -54,7 +54,7 @@ final class MonthSectionController: IGListBindingSectionController<IGListDiffabl
         return viewModels
     }
     
-    func sectionController(_ sectionController: IGListBindingSectionController<IGListDiffable>, cellForViewModel viewModel: Any, at index: Int) -> UICollectionViewCell {
+    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, cellForViewModel viewModel: Any, at index: Int) -> UICollectionViewCell {
         let cellClass: AnyClass
         if viewModel is DayViewModel {
             cellClass = CalendarDayCell.self
@@ -66,7 +66,7 @@ final class MonthSectionController: IGListBindingSectionController<IGListDiffabl
         return collectionContext?.dequeueReusableCell(of: cellClass, for: self, at: index) ?? UICollectionViewCell()
     }
     
-    func sectionController(_ sectionController: IGListBindingSectionController<IGListDiffable>, sizeForViewModel viewModel: Any, at index: Int) -> CGSize {
+    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, sizeForViewModel viewModel: Any, at index: Int) -> CGSize {
         guard let width = collectionContext?.containerSize.width else { return .zero }
         if viewModel is DayViewModel {
             let square = width / 7.0
@@ -78,9 +78,9 @@ final class MonthSectionController: IGListBindingSectionController<IGListDiffabl
         }
     }
     
-    // MARK: IGListBindingSectionControllerSelectionDelegate
+    // MARK: ListBindingSectionControllerSelectionDelegate
     
-    func sectionController(_ sectionController: IGListBindingSectionController<IGListDiffable>, didSelectItemAt index: Int, viewModel: Any) {
+    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, didSelectItemAt index: Int, viewModel: Any) {
         guard let dayViewModel = viewModel as? DayViewModel else { return }
         if dayViewModel.day == selectedDay {
             selectedDay = -1

@@ -31,13 +31,13 @@ final class DayViewModel {
     
 }
 
-extension DayViewModel: IGListDiffable {
+extension DayViewModel: ListDiffable {
     
     func diffIdentifier() -> NSObjectProtocol {
         return day as NSObjectProtocol
     }
     
-    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         if self === object { return true }
         guard let object = object as? DayViewModel else { return false }
         return today == object.today && selected == object.selected && appointments == object.appointments

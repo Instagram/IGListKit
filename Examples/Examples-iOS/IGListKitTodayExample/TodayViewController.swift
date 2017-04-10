@@ -17,10 +17,10 @@ import NotificationCenter
 import IGListKit
 
 @available(iOSApplicationExtension 10.0, *)
-final class TodayViewController: UIViewController, NCWidgetProviding, IGListAdapterDataSource {
+final class TodayViewController: UIViewController, NCWidgetProviding, ListAdapterDataSource {
         
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
     let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     
@@ -54,17 +54,17 @@ final class TodayViewController: UIViewController, NCWidgetProviding, IGListAdap
         preferredContentSize = maxSize
     }
     
-    // MARK: IGListAdapterDataSource
+    // MARK: ListAdapterDataSource
     
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return data as [IGListDiffable]
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        return data as [ListDiffable]
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         return LabelSectionController()
     }
     
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }
 }

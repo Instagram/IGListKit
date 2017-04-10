@@ -42,7 +42,7 @@ IGListBatchContext
 
 @property (nonatomic, strong, nullable) IGListAdapterProxy *delegateProxy;
 
-@property (nonatomic, strong, nullable) UIView *emptyBackgroundView;
+@property (nonatomic, strong, nullable) UIView *emptyListView;
 
 /**
  When making object updates inside a batch update block, delete operations must use the section /before/ any moves take

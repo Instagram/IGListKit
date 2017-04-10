@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  Please see the unit tests for more configuration examples and expected output.
  */
-
+NS_SWIFT_NAME(ListCollectionViewLayout)
 @interface IGListCollectionViewLayout : UICollectionViewLayout
 
 /**

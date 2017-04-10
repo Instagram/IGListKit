@@ -1,6 +1,6 @@
 //
 //  CarouselCell.swift
-//  IGListKitExamples
+//  ListKitExamples
 //
 //  Created by Sherlock, James (Apprentice Software Developer) on 29/10/2016.
 //  Copyright © 2016 Instagram. All rights reserved.

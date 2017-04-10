@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  section to mutate its own position within a list. The row of an index path can be directly mapped to a cell within
  an `IGListSectionType` conforming object.
  */
+NS_SWIFT_NAME(ListSectionType)
 @protocol IGListSectionType <NSObject>
 
 /**
