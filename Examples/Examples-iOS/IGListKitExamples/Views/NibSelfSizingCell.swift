@@ -18,4 +18,10 @@ final class NibSelfSizingCell: UICollectionViewCell {
     
     @IBOutlet weak var contentLabel: UILabel!
 
+    private var content: String? {
+        didSet {
+            contentLabel.text = content
+        }
+    }
+
 }

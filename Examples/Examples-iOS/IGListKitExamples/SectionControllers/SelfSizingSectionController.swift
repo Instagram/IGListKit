@@ -17,7 +17,7 @@ import IGListKit
 
 final class SelfSizingSectionController: IGListSectionController, IGListSectionType {
 
-    var model: SelectionModel!
+    private var model: SelectionModel!
 
     override init() {
         super.init()
@@ -40,11 +40,11 @@ final class SelfSizingSectionController: IGListSectionController, IGListSectionT
         switch model.type {
         case .none:
             let manualCell = collectionContext!.dequeueReusableCell(of: ManuallySelfSizingCell.self, for: self, at: index) as! ManuallySelfSizingCell
-            manualCell.label.text = text
+            manualCell.text = text
             cell = manualCell
         case .fullWidth:
             let manualCell = collectionContext!.dequeueReusableCell(of: FullWidthSelfSizingCell.self, for: self, at: index) as! FullWidthSelfSizingCell
-            manualCell.label.text = text
+            manualCell.text = text
             cell = manualCell
         case .nib:
             let nibCell = collectionContext!.dequeueReusableCell(withNibName: "NibSelfSizingCell", bundle: nil, for: self, at: index) as! NibSelfSizingCell

@@ -18,7 +18,7 @@ final class DetailLabelCell: UICollectionViewCell {
 
     fileprivate let padding: CGFloat = 15.0
 
-    lazy var titleLabel: UILabel = {
+    lazy private var titleLabel: UILabel = {
         let view = UILabel()
         view.backgroundColor = .clear
         view.textAlignment = .left
@@ -28,7 +28,7 @@ final class DetailLabelCell: UICollectionViewCell {
         return view
     }()
 
-    lazy var detailLabel: UILabel = {
+    lazy private var detailLabel: UILabel = {
         let view = UILabel()
         view.backgroundColor = .clear
         view.textAlignment = .right
@@ -37,6 +37,19 @@ final class DetailLabelCell: UICollectionViewCell {
         self.contentView.addSubview(view)
         return view
     }()
+
+
+    var title: String? {
+        didSet {
+            titleLabel.text = title
+        }
+    }
+
+    var detail: String? {
+        didSet {
+            detailLabel.text = detail
+        }
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()

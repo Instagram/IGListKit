@@ -21,7 +21,7 @@ protocol StoryboardLabelSectionControllerDelegate: class {
 
 final class StoryboardLabelSectionController: IGListSectionController, IGListSectionType {
     
-    var object: Person?
+    private var object: Person?
     weak var delegate: StoryboardLabelSectionControllerDelegate?
     
     func numberOfItems() -> Int {
@@ -34,7 +34,7 @@ final class StoryboardLabelSectionController: IGListSectionController, IGListSec
     
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCellFromStoryboard(withIdentifier: "cell", for: self, at: index) as! StoryboardCell
-        cell.textLabel.text = object?.name
+        cell.text = object?.name
         return cell
     }
     

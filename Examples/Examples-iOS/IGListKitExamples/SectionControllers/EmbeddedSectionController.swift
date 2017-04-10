@@ -17,7 +17,7 @@ import IGListKit
 
 final class EmbeddedSectionController: IGListSectionController, IGListSectionType {
 
-    var number: Int?
+    private var number: Int?
 
     override init() {
         super.init()
@@ -36,7 +36,7 @@ final class EmbeddedSectionController: IGListSectionController, IGListSectionTyp
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as! CenterLabelCell
         let value = number ?? 0
-        cell.label.text = "\(value + 1)"
+        cell.text = "\(value + 1)"
         cell.backgroundColor = UIColor(red: 237/255.0, green: 73/255.0, blue: 86/255.0, alpha: 1)
         return cell
     }

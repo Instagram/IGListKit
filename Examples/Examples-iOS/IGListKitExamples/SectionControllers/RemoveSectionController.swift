@@ -21,7 +21,7 @@ protocol RemoveSectionControllerDelegate: class {
 final class RemoveSectionController: IGListSectionController, IGListSectionType, RemoveCellDelegate {
 
     weak var delegate: RemoveSectionControllerDelegate?
-    var number: Int?
+    private var number: Int?
 
     override init() {
         super.init()
@@ -38,7 +38,7 @@ final class RemoveSectionController: IGListSectionController, IGListSectionType,
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext?.dequeueReusableCell(of: RemoveCell.self, for: self, at: index) as! RemoveCell
-        cell.label.text = "Cell: \((number ?? 0) + 1)"
+        cell.text = "Cell: \((number ?? 0) + 1)"
         cell.delegate = self
         return cell
     }

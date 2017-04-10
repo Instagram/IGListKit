@@ -17,7 +17,7 @@ import IGListKit
 
 final class MonthTitleCell: UICollectionViewCell {
     
-    lazy var label: UILabel = {
+    fileprivate lazy var label: UILabel = {
         let view = UILabel()
         view.backgroundColor = .clear
         view.textAlignment = .center
@@ -26,6 +26,12 @@ final class MonthTitleCell: UICollectionViewCell {
         self.contentView.addSubview(view)
         return view
     }()
+
+    var text: String? {
+        didSet {
+            label.text = text
+        }
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()

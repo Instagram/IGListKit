@@ -17,7 +17,7 @@ import IGListKit
 
 final class UserSectionController: IGListSectionController, IGListSectionType {
 
-    var user: User?
+    private var user: User?
 
     func numberOfItems() -> Int {
         return 1
@@ -29,8 +29,8 @@ final class UserSectionController: IGListSectionController, IGListSectionType {
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: DetailLabelCell.self, for: self, at: index) as! DetailLabelCell
-        cell.titleLabel.text = user?.name
-        cell.detailLabel.text = "@" + (user?.handle ?? "")
+        cell.title = user?.name
+        cell.detail = "@" + (user?.handle ?? "")
         return cell
     }
 

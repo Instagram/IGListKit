@@ -16,13 +16,19 @@ import UIKit
 
 final class ManuallySelfSizingCell: UICollectionViewCell {
 
-    let label: UILabel = {
+    private let label: UILabel = {
         let label = UILabel()
         label.backgroundColor = UIColor.green.withAlphaComponent(0.1)
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+
+    var text: String? {
+        didSet {
+            label.text = text
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)

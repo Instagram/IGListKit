@@ -41,7 +41,7 @@ extension GridItem: IGListDiffable {
 
 final class GridSectionController: IGListSectionController, IGListSectionType {
 
-    var object: GridItem?
+    private var object: GridItem?
 
     override init() {
         super.init()
@@ -61,7 +61,7 @@ final class GridSectionController: IGListSectionController, IGListSectionType {
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as! CenterLabelCell
-        cell.label.text = "\(index + 1)"
+        cell.text = "\(index + 1)"
         cell.backgroundColor = object?.color
         return cell
     }

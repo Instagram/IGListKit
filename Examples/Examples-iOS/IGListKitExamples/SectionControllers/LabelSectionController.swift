@@ -17,7 +17,7 @@ import IGListKit
 
 final class LabelSectionController: IGListSectionController, IGListSectionType {
 
-    var object: String?
+    private var object: String?
 
     func numberOfItems() -> Int {
         return 1
@@ -29,7 +29,7 @@ final class LabelSectionController: IGListSectionController, IGListSectionType {
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
-        cell.label.text = object
+        cell.text = object
         return cell
     }
 

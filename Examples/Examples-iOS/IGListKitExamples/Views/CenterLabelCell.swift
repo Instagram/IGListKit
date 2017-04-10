@@ -16,7 +16,7 @@ import UIKit
 
 final class CenterLabelCell: UICollectionViewCell {
 
-    lazy var label: UILabel = {
+    lazy private var label: UILabel = {
         let view = UILabel()
         view.backgroundColor = .clear
         view.textAlignment = .center
@@ -25,6 +25,12 @@ final class CenterLabelCell: UICollectionViewCell {
         self.contentView.addSubview(view)
         return view
     }()
+
+    var text: String? {
+        didSet {
+            label.text = text
+        }
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()

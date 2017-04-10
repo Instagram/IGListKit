@@ -32,7 +32,7 @@ final class LabelCell: UICollectionViewCell {
         return ceil(bounds.height) + insets.top + insets.bottom
     }
 
-    let label: UILabel = {
+    fileprivate let label: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
         label.numberOfLines = 0
@@ -45,6 +45,12 @@ final class LabelCell: UICollectionViewCell {
         layer.backgroundColor = UIColor(red: 200/255.0, green: 199/255.0, blue: 204/255.0, alpha: 1).cgColor
         return layer
     }()
+
+    var text: String? {
+        didSet {
+            label.text = text
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)

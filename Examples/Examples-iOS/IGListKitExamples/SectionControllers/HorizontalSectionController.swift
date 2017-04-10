@@ -17,7 +17,7 @@ import IGListKit
 
 final class HorizontalSectionController: IGListSectionController, IGListSectionType, IGListAdapterDataSource {
 
-    var number: Int?
+    private var number: Int?
 
     lazy var adapter: IGListAdapter = {
         let adapter = IGListAdapter(updater: IGListAdapterUpdater(),
