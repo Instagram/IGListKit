@@ -16,7 +16,12 @@ import UIKit
 
 final class NibCell: UICollectionViewCell {
     static let nibName = "NibCell"
-    @IBOutlet var textLabel: UILabel!
+    @IBOutlet private var textLabel: UILabel!
+    var text: String? {
+        didSet {
+            textLabel.text = text
+        }
+    }
 }
 
 

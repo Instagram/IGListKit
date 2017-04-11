@@ -22,7 +22,7 @@ final class RemoveCell: UICollectionViewCell {
 
     weak var delegate: RemoveCellDelegate?
 
-    lazy var label: UILabel = {
+    private lazy var label: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
         self.contentView.addSubview(label)
@@ -38,6 +38,15 @@ final class RemoveCell: UICollectionViewCell {
         self.contentView.addSubview(button)
         return button
     }()
+
+    var text: String? {
+        get {
+            return label.text
+        }
+        set {
+            label.text = newValue
+        }
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()

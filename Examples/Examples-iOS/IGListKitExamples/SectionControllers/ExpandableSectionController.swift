@@ -17,8 +17,8 @@ import IGListKit
 
 final class ExpandableSectionController: IGListSectionController, IGListSectionType {
 
-    var expanded = false
-    var object: String?
+    private var expanded = false
+    private var object: String?
 
     func numberOfItems() -> Int {
         return 1
@@ -32,7 +32,7 @@ final class ExpandableSectionController: IGListSectionController, IGListSectionT
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
-        cell.label.text = object
+        cell.text = object
         return cell
     }
 

@@ -34,7 +34,7 @@ final class DisplaySectionController: IGListSectionController, IGListSectionType
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
         let section = collectionContext!.section(for: self)
-        cell.label.text = "Section \(section), cell \(index)"
+        cell.text = "Section \(section), cell \(index)"
         return cell
     }
 
