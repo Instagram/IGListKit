@@ -17,9 +17,9 @@ IGLK_SUBCLASSING_RESTRICTED
 @interface IGListBatchUpdates : NSObject
 
 @property (nonatomic, strong, readonly) NSMutableIndexSet *sectionReloads;
-@property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *itemInserts;
-@property (nonatomic, strong, readonly) NSMutableSet<NSIndexPath *> *itemDeletes;
-@property (nonatomic, strong, readonly) NSMutableSet<IGListMoveIndexPath *> *itemMoves;
+@property (nonatomic, strong, readonly) NSMutableArray<NSIndexPath *> *itemInserts;
+@property (nonatomic, strong, readonly) NSMutableArray<NSIndexPath *> *itemDeletes;
+@property (nonatomic, strong, readonly) NSMutableArray<IGListMoveIndexPath *> *itemMoves;
 
 @property (nonatomic, strong, readonly) NSMutableArray<void (^)()> *itemUpdateBlocks;
 @property (nonatomic, strong, readonly) NSMutableArray<void (^)(BOOL)> *itemCompletionBlocks;

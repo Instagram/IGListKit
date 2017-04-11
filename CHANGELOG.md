@@ -56,6 +56,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - `IGListCollectionView` has been **completely removed** in favor of using plain old `UICollectionView`. See discussion at [#409](https://github.com/Instagram/IGListKit/issues/409) for details. [Jesse Squires](https://github.com/jessesquires) [(tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
 
+- `IGListBatchUpdateData` replaced its `NSSet` properties with `NSArray` instead. [Ryan Nystrom](https://github.com/rnystrom) [(#616)](https://github.com/Instagram/IGListKit/pull/616)
+
 ### Enhancements
 
 - Added `-[IGListAdapter visibleCellsForObject:]` API. [Sherlouk](https://github.com/Sherlouk) [(#442)](https://github.com/Instagram/IGListKit/pull/442)
@@ -95,6 +97,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 - Prevent section controllers and supplementary sources from returning negative sizes that crash `UICollectionViewFlowLayout`. [Ryan Nystrom](https://github.com/rnystrom) [(#583)](https://github.com/Instagram/IGListKit/pull/583)
 
 - Add nullability annotations to a few more headers. [Adlai Holler](https://github.com/Adlai-Holler) [(#626)](https://github.com/Instagram/IGListKit/pull/626)
+
+- Fix a crash when inserting or deleting from the same index within the same batch-update application. [Ryan Nystrom](https://github.com/rnystrom) [(#616)](https://github.com/Instagram/IGListKit/pull/616)
 
 2.1.0
 -----

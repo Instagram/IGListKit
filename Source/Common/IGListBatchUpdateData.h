@@ -41,17 +41,17 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  Item insert index paths.
  */
-@property (nonatomic, strong, readonly) NSSet<NSIndexPath *> *insertIndexPaths;
+@property (nonatomic, strong, readonly) NSArray<NSIndexPath *> *insertIndexPaths;
 
 /**
  Item delete index paths.
  */
-@property (nonatomic, strong, readonly) NSSet<NSIndexPath *> *deleteIndexPaths;
+@property (nonatomic, strong, readonly) NSArray<NSIndexPath *> *deleteIndexPaths;
 
 /**
  Item moves.
  */
-@property (nonatomic, strong, readonly) NSSet<IGListMoveIndexPath *> *moveIndexPaths;
+@property (nonatomic, strong, readonly) NSArray<IGListMoveIndexPath *> *moveIndexPaths;
 
 /**
  Creates a new batch update object with section and item operations.
@@ -68,9 +68,9 @@ IGLK_SUBCLASSING_RESTRICTED
 - (instancetype)initWithInsertSections:(NSIndexSet *)insertSections
                         deleteSections:(NSIndexSet *)deleteSections
                           moveSections:(NSSet<IGListMoveIndex *> *)moveSections
-                      insertIndexPaths:(NSSet<NSIndexPath *> *)insertIndexPaths
-                      deleteIndexPaths:(NSSet<NSIndexPath *> *)deleteIndexPaths
-                        moveIndexPaths:(NSSet<IGListMoveIndexPath *> *)moveIndexPaths NS_DESIGNATED_INITIALIZER;
+                      insertIndexPaths:(NSArray<NSIndexPath *> *)insertIndexPaths
+                      deleteIndexPaths:(NSArray<NSIndexPath *> *)deleteIndexPaths
+                        moveIndexPaths:(NSArray<IGListMoveIndexPath *> *)moveIndexPaths NS_DESIGNATED_INITIALIZER;
 
 /**
  :nodoc:
