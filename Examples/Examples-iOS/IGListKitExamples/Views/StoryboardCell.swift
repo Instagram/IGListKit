@@ -18,8 +18,11 @@ final class StoryboardCell: UICollectionViewCell {
     @IBOutlet private weak var textLabel: UILabel!
 
     var text: String? {
-        didSet {
-            textLabel.text = text
+        get {
+            return textLabel.text
+        }
+        set {
+            textLabel.text = newValue
         }
     }
 }

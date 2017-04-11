@@ -40,14 +40,20 @@ final class DetailLabelCell: UICollectionViewCell {
 
 
     var title: String? {
-        didSet {
-            titleLabel.text = title
+        get {
+            return titleLabel.text
+        }
+        set {
+            titleLabel.text = newValue
         }
     }
 
     var detail: String? {
-        didSet {
-            detailLabel.text = detail
+        get {
+            return detailLabel.text
+        }
+        set {
+            detailLabel.text = newValue
         }
     }
 

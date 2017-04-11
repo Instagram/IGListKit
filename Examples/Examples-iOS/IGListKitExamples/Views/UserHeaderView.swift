@@ -20,14 +20,20 @@ final class UserHeaderView: UICollectionViewCell {
     @IBOutlet private weak var handleLabel: UILabel!
 
     var name: String? {
-        didSet {
-            nameLabel.text = name
+        get {
+            return nameLabel.text
+        }
+        set {
+            nameLabel.text = newValue
         }
     }
 
     var handle: String? {
-        didSet {
-            handleLabel.text = handle
+        get {
+            return handleLabel.text
+        }
+        set {
+            handleLabel.text = newValue
         }
     }
 

@@ -25,8 +25,11 @@ final class FullWidthSelfSizingCell: UICollectionViewCell {
     }()
 
     var text: String? {
-        didSet {
-            label.text = text
+        get {
+            return label.text
+        }
+        set {
+            label.text = newValue
         }
     }
 

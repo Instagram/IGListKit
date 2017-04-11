@@ -40,14 +40,20 @@ final class CalendarDayCell: UICollectionViewCell {
     }()
 
     var text: String? {
-        didSet {
-            label.text = text
+        get {
+            return label.text
+        }
+        set {
+            label.text = newValue
         }
     }
 
     var dots: String? {
-        didSet {
-            dotsLabel.text = dots
+        get {
+            return dotsLabel.text
+        }
+        set {
+            dotsLabel.text = newValue
         }
     }
 
