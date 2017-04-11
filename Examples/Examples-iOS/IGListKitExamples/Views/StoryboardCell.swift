@@ -15,5 +15,14 @@
 import UIKit
 
 final class StoryboardCell: UICollectionViewCell {
-    @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet private weak var textLabel: UILabel!
+
+    var text: String? {
+        get {
+            return textLabel.text
+        }
+        set {
+            textLabel.text = newValue
+        }
+    }
 }

@@ -17,7 +17,7 @@ import IGListKit
 
 final class MonthSectionController: IGListBindingSectionController<IGListDiffable>, IGListBindingSectionControllerDataSource, IGListBindingSectionControllerSelectionDelegate {
     
-    var selectedDay: Int = -1
+    private var selectedDay: Int = -1
     
     override init() {
         super.init()

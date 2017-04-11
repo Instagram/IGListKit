@@ -16,7 +16,7 @@ import IGListKit
 
 final class ListeningSectionController: IGListSectionController, IGListSectionType, IncrementListener {
 
-    var value: Int = 0
+    private var value: Int = 0
 
     init(announcer: IncrementAnnouncer) {
         super.init()
@@ -25,7 +25,7 @@ final class ListeningSectionController: IGListSectionController, IGListSectionTy
 
     func configureCell(cell: LabelCell) {
         let section = collectionContext!.section(for: self)
-        cell.label.text = "Section: \(section), value: \(value)"
+        cell.text = "Section: \(section), value: \(value)"
     }
 
     // MARK: IGListSectionType

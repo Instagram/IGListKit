@@ -50,7 +50,7 @@ final class StackedViewController: UIViewController, IGListAdapterDataSource {
             WorkingRangeSectionController(),
             DisplaySectionController(),
             HorizontalSectionController(),
-            ])!
+            ])
         sectionController.inset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         return sectionController
     }

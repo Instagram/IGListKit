@@ -49,7 +49,7 @@ extension DemoItem: IGListDiffable {
 
 final class DemoSectionController: IGListSectionController, IGListSectionType {
 
-    var object: DemoItem?
+    private var object: DemoItem?
 
     func numberOfItems() -> Int {
         return 1
@@ -61,7 +61,7 @@ final class DemoSectionController: IGListSectionController, IGListSectionType {
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
-        cell.label.text = object?.name
+        cell.text = object?.name
         return cell
     }
 

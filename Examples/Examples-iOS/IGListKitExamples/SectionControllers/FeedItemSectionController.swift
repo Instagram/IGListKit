@@ -16,7 +16,7 @@ import IGListKit
 
 final class FeedItemSectionController: IGListSectionController, IGListSectionType, IGListSupplementaryViewSource {
 
-    var feedItem: FeedItem!
+    private var feedItem: FeedItem!
 
     override init() {
         super.init()
@@ -35,7 +35,7 @@ final class FeedItemSectionController: IGListSectionController, IGListSectionTyp
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext?.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
-        cell.label.text = feedItem.comments[index]
+        cell.text = feedItem.comments[index]
         return cell
     }
 
@@ -57,8 +57,8 @@ final class FeedItemSectionController: IGListSectionController, IGListSectionTyp
                                                                        nibName: "UserHeaderView",
                                                                        bundle: nil,
                                                                        at: index) as! UserHeaderView
-        view.handleLabel.text = "@" + feedItem.user.handle
-        view.nameLabel.text = feedItem.user.name
+        view.handle = "@" + feedItem.user.handle
+        view.name = feedItem.user.name
         return view
     }
 

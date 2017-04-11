@@ -49,7 +49,7 @@ final class SingleSectionViewController: UIViewController, IGListAdapterDataSour
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
         let configureBlock = { (item: Any, cell: UICollectionViewCell) in
             guard let cell = cell as? NibCell, let number = item as? Int else { return }
-            cell.textLabel.text = "Cell: \(number + 1)"
+            cell.text = "Cell: \(number + 1)"
         }
         
         let sizeBlock = { (item: Any, context: IGListCollectionContext?) -> CGSize in
