@@ -529,6 +529,11 @@
         }
 
         [sectionControllers addObject:sectionController];
+
+#if DEBUG
+        IGAssert([NSSet setWithArray:sectionControllers].count == sectionControllers.count,
+                 @"Section controllers array is not filled with unique objects; section controllers are being reused");
+#endif
         [validObjects addObject:object];
     }
 
