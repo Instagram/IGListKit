@@ -20,12 +20,12 @@ func spinnerSectionController() -> IGListSingleSectionController {
         guard let cell = cell as? SpinnerCell else { return }
         cell.activityIndicator.startAnimating()
     }
-    
+
     let sizeBlock = { (item: Any, context: IGListCollectionContext?) -> CGSize in
         guard let context = context else { return .zero }
         return CGSize(width: context.containerSize.width, height: 100)
     }
-    
+
     return IGListSingleSectionController(cellClass: SpinnerCell.self,
                                          configureBlock: configureBlock,
                                          sizeBlock: sizeBlock)
@@ -44,5 +44,5 @@ final class SpinnerCell: UICollectionViewCell {
         let bounds = contentView.bounds
         activityIndicator.center = CGPoint(x: bounds.midX, y: bounds.midY)
     }
-    
+
 }

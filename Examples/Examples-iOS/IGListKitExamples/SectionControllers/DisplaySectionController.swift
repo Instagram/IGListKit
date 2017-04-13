@@ -32,7 +32,9 @@ final class DisplaySectionController: IGListSectionController, IGListDisplayDele
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
+        guard let cell = collectionContext?.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as? LabelCell else {
+            fatalError()
+        }
         let section = collectionContext!.section(for: self)
         cell.text = "Section \(section), cell \(index)"
         return cell
@@ -45,7 +47,10 @@ final class DisplaySectionController: IGListSectionController, IGListDisplayDele
         print("Will display section \(section)")
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {
+    func listAdapter(_ listAdapter: IGListAdapter,
+                     willDisplay sectionController: IGListSectionController,
+                     cell: UICollectionViewCell,
+                     at index: Int) {
         let section = collectionContext!.section(for: self)
         print("Did will display cell \(index) in section \(section)")
     }
@@ -55,7 +60,10 @@ final class DisplaySectionController: IGListSectionController, IGListDisplayDele
         print("Did end displaying section \(section)")
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {
+    func listAdapter(_ listAdapter: IGListAdapter,
+                     didEndDisplaying sectionController: IGListSectionController,
+                     cell: UICollectionViewCell,
+                     at index: Int) {
         let section = collectionContext!.section(for: self)
         print("Did end displaying cell \(index) in section \(section)")
     }

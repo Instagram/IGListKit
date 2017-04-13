@@ -35,7 +35,9 @@ final class ListeningSectionController: IGListSectionController, IncrementListen
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
+        guard let cell = collectionContext?.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as? LabelCell else {
+            fatalError()
+        }
         configureCell(cell: cell)
         return cell
     }

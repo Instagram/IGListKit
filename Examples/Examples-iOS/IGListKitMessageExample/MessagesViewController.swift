@@ -17,42 +17,42 @@ import Messages
 import IGListKit
 
 final class MessagesViewController: MSMessagesAppViewController, IGListAdapterDataSource {
-    
+
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
     let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
-    let data = "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.".components(separatedBy: " ")
-    
+
+    let data = "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat.".components(separatedBy: " ")
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         adapter.collectionView = collectionView
         adapter.dataSource = self
-        
+
         view.addSubview(collectionView)
     }
-    
+
     override func loadView() {
         view = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 200))
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
-    
+
     // MARK: IGListAdapterDataSource
-    
+
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
         return data as [IGListDiffable]
     }
-    
+
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
         return LabelSectionController()
     }
-    
+
     func emptyView(for listAdapter: IGListAdapter) -> UIView? {
         return nil
     }
