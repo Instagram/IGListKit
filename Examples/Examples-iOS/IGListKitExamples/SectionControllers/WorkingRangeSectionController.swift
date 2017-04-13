@@ -76,9 +76,9 @@ final class WorkingRangeSectionController: IGListSectionController, IGListSectio
         let section = collectionContext?.section(for: self) ?? 0
         print("Downloading image \(urlString) for section \(section)")
 
-        task = URLSession.shared.dataTask(with: url) { data, response, err in
+        task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, let image = UIImage(data: data) else {
-                return print("Error downloading \(urlString): " + String(describing: err))
+                return print("Error downloading \(urlString): " + String(describing: error))
             }
             DispatchQueue.main.async {
                 self.downloadedImage = image

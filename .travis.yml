@@ -5,6 +5,7 @@ cache:
   - cocoapods
   - slather
   - danger
+  - danger-swiftlint
 
 env:
    global:
@@ -48,6 +49,7 @@ env:
 before_install:
   - gem install slather --no-rdoc --no-ri --no-document --quiet
   - gem install danger --version '~> 4.3'
+  - gem install danger-swiftlint
 
 script:
 - set -o pipefail

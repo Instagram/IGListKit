@@ -18,3 +18,7 @@ has_doc_changes = !git.modified_files.grep(/docs/).empty?
 if has_doc_changes
   warn("Docs are regenerated when creating new releases.")
 end
+
+swiftlint.config_file = 'Examples/Examples-iOS/.swiftlint.yml'
+swiftlint.path = 'Examples/Examples-iOS/'
+swiftlint.lint_files
