@@ -34,9 +34,7 @@ final class EmbeddedCollectionViewCell: UICollectionViewCell {
     }
 
     override var canBecomeFocused: Bool {
-        get {
-            return false
-        }
+        return false
     }
 
 }

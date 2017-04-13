@@ -29,38 +29,38 @@ class UITestCase: XCTestCase {
 
     // Adapted from http://masilotti.com/xctest-helpers/
     internal func waitToAppear(element: XCUIElement,
-                              timeout: TimeInterval = 2,
-                              file: String = #file,
-                              line: UInt = #line) {
+                               timeout: TimeInterval = 2,
+                               file: String = #file,
+                               line: UInt = #line) {
         waitToAppear(elements: [element], timeout: timeout, file: file, line: line)
     }
 
     internal func waitToAppear(elements: [XCUIElement],
-                              timeout: TimeInterval = 2,
-                              file: String = #file,
-                              line: UInt = #line) {
+                               timeout: TimeInterval = 2,
+                               file: String = #file,
+                               line: UInt = #line) {
         waitTo(appear: true, elements: elements, timeout: timeout, file: file, line: line)
     }
 
     internal func waitToDisappear(element: XCUIElement,
-                                 timeout: TimeInterval = 2,
-                                 file: String = #file,
-                                 line: UInt = #line) {
+                                  timeout: TimeInterval = 2,
+                                  file: String = #file,
+                                  line: UInt = #line) {
         waitToDisappear(elements: [element], timeout: timeout, file: file, line: line)
     }
 
     internal func waitToDisappear(elements: [XCUIElement],
-                                 timeout: TimeInterval = 2,
-                                 file: String = #file,
-                                 line: UInt = #line) {
+                                  timeout: TimeInterval = 2,
+                                  file: String = #file,
+                                  line: UInt = #line) {
         waitTo(appear: false, elements: elements, timeout: timeout, file: file, line: line)
     }
 
     internal func waitTo(appear: Bool,
-                        elements: [XCUIElement],
-                        timeout: TimeInterval = 2,
-                        file: String = #file,
-                        line: UInt = #line) {
+                         elements: [XCUIElement],
+                         timeout: TimeInterval = 2,
+                         file: String = #file,
+                         line: UInt = #line) {
         let existsPredicate = NSPredicate(format: "exists == \(appear)")
         elements.forEach { element in
             expectation(for: existsPredicate, evaluatedWith: element, handler: nil)

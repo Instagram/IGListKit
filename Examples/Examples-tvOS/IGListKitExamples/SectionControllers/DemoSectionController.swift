@@ -22,8 +22,8 @@ final class DemoItem: NSObject {
     let controllerIdentifier: String?
 
     init(name: String,
-        controllerClass: UIViewController.Type,
-        controllerIdentifier: String? = nil) {
+         controllerClass: UIViewController.Type,
+         controllerIdentifier: String? = nil) {
         self.name = name
         self.controllerClass = controllerClass
         self.controllerIdentifier = controllerIdentifier
@@ -50,7 +50,9 @@ final class DemoSectionController: IGListSectionController, IGListSectionType {
     }
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: DemoCell.self, for: self, at: index) as! DemoCell
+        guard let cell = collectionContext?.dequeueReusableCell(of: DemoCell.self, for: self, at: index) as? DemoCell else {
+            fatalError()
+        }
         cell.label.text = object?.name
         return cell
     }

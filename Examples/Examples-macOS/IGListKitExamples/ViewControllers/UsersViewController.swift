@@ -105,7 +105,7 @@ final class UsersViewController: NSViewController {
     }
 
     @IBAction func delete(_ sender: Any?) {
-        guard tableView.selectedRowIndexes.count > 0 else { return }
+        guard !tableView.selectedRowIndexes.isEmpty else { return }
 
         tableView.selectedRowIndexes.forEach({ self.delete(user: self.filteredUsers[$0]) })
     }
@@ -138,7 +138,7 @@ extension UsersViewController: NSTableViewDelegate {
 
     @available(OSX 10.11, *)
     func tableView(_ tableView: NSTableView, rowActionsForRow row: Int, edge: NSTableRowActionEdge) -> [NSTableViewRowAction] {
-        let delete = NSTableViewRowAction(style: .destructive, title: "Delete") { action, row in
+        let delete = NSTableViewRowAction(style: .destructive, title: "Delete") { _, row in
             guard row < self.filteredUsers.count else { return }
 
             self.delete(user: self.filteredUsers[row])
