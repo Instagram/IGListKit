@@ -19,6 +19,5 @@ if has_doc_changes
   warn("Docs are regenerated when creating new releases.")
 end
 
-swiftlint.config_file = 'Examples/Examples-iOS/.swiftlint.yml'
-swiftlint.path = 'Examples/Examples-iOS/'
+swiftlint.config_file = '.swiftlint_CI.yml'
 swiftlint.lint_files

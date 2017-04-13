@@ -45,7 +45,7 @@ final class SearchViewController: UIViewController, IGListAdapterDataSource, Sea
         collectionView.frame = view.bounds
     }
 
-    //MARK: IGListAdapterDataSource
+    // MARK: IGListAdapterDataSource
 
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
         guard filterString != "" else { return [searchToken] + words.map { $0 as IGListDiffable } }
@@ -66,7 +66,7 @@ final class SearchViewController: UIViewController, IGListAdapterDataSource, Sea
         return nil
     }
 
-    //MARK: SearchSectionControllerDelegate
+    // MARK: SearchSectionControllerDelegate
 
     func searchSectionController(_ sectionController: SearchSectionController, didChangeText text: String) {
         filterString = text

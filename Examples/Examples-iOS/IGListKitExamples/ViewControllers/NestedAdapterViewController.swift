@@ -45,7 +45,7 @@ final class NestedAdapterViewController: UIViewController, IGListAdapterDataSour
         collectionView.frame = view.bounds
     }
 
-    //MARK: IGListAdapterDataSource
+    // MARK: IGListAdapterDataSource
 
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
         return data as! [IGListDiffable]

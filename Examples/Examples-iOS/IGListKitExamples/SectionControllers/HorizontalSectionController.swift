@@ -36,7 +36,11 @@ final class HorizontalSectionController: IGListSectionController, IGListSectionT
     }
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: EmbeddedCollectionViewCell.self, for: self, at: index) as! EmbeddedCollectionViewCell
+        guard let cell = collectionContext?.dequeueReusableCell(of: EmbeddedCollectionViewCell.self,
+                                                                for: self,
+                                                                at: index) as? EmbeddedCollectionViewCell else {
+                                                                    fatalError()
+        }
         adapter.collectionView = cell.collectionView
         return cell
     }
@@ -47,7 +51,7 @@ final class HorizontalSectionController: IGListSectionController, IGListSectionT
 
     func didSelectItem(at index: Int) {}
 
-    //MARK: IGListAdapterDataSource
+    // MARK: IGListAdapterDataSource
 
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
         guard let number = number else { return [] }

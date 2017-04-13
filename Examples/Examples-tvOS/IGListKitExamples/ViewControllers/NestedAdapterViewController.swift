@@ -16,13 +16,13 @@ import UIKit
 import IGListKit
 
 final class NestedAdapterViewController: UIViewController, IGListAdapterDataSource {
-    
+
     lazy var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
 
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
+
     let data: [Any] = [
         "Most Recent",
         10,
@@ -31,35 +31,35 @@ final class NestedAdapterViewController: UIViewController, IGListAdapterDataSour
         "New Arrivals",
         20
     ]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         collectionView.backgroundColor = .clear
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
-    
+
     // MARK: IGListAdapterDataSource
-    
+
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
         return data as! [IGListDiffable]
     }
-    
+
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
         if object is Int {
             return HorizontalSectionController()
         }
-        
+
         return LabelSectionController()
     }
-    
+
     func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
-    
+
 }
