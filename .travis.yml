@@ -50,6 +50,7 @@ before_install:
   - gem install slather --no-rdoc --no-ri --no-document --quiet
   - gem install danger --version '~> 4.3'
   - gem install danger-swiftlint
+  - ruby scripts/generate_ci_yaml.rb
 
 script:
 - set -o pipefail
