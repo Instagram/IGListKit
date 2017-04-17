@@ -35,6 +35,16 @@ IGLK_SUBCLASSING_RESTRICTED
                             scrollViewTarget:(nullable id<UIScrollViewDelegate>)scrollViewTarget
                                  interceptor:(IGListAdapter *)interceptor;
 
+/**
+ :nodoc:
+ */
+- (instancetype)init NS_UNAVAILABLE;
+
+/**
+ :nodoc:
+ */
++ (instancetype)new NS_UNAVAILABLE;
+
 @end
 
 NS_ASSUME_NONNULL_END
