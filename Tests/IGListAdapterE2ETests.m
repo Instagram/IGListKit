@@ -521,7 +521,7 @@
         __weak __typeof__(sectionController) weakSectionController = sectionController;
         sectionController.itemUpdateBlock = ^{
             executedUpdateBlock = YES;
-            XCTAssertEqual([weakSectionController.collectionContext sectionForSectionController:weakSectionController], 1);
+            XCTAssertEqual(weakSectionController.sectionIndex, 1);
         };
 
         [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished3) {

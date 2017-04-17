@@ -552,7 +552,9 @@
 
     // now that the maps have been created and contexts are assigned, we consider the section controller "fully loaded"
     for (id object in updatedObjects) {
-        [[map sectionControllerForObject:object] didUpdateToObject:object];
+        IGListSectionController<IGListSectionType> *sectionController = [map sectionControllerForObject:object];
+        sectionController.sectionIndex = [self sectionForSectionController:sectionController];
+        [sectionController didUpdateToObject:object];
     }
 
     NSInteger itemCount = 0;

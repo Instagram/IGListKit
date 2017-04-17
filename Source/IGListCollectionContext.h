@@ -101,15 +101,6 @@ NS_ASSUME_NONNULL_BEGIN
                    animated:(BOOL)animated;
 
 /**
- Returns the section index of an section controller.
-
- @param sectionController A section controller object.
-
- @return The section index of the controller if found, otherwise `NSNotFound`.
- */
-- (NSInteger)sectionForSectionController:(IGListSectionController *)sectionController;
-
-/**
  Dequeues a cell from the collection view reuse pool.
 
  @param cellClass The class of the cell you want to dequeue.
