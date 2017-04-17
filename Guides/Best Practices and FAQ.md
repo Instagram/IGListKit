@@ -48,9 +48,9 @@ This feature is on the `master` branch only and hasn't been officially tagged an
 - Core Data ([Working with Core Data](https://instagram.github.io/IGListKit/working-with-core-data.html) Guide)
 - AsyncDisplayKit ([AsyncDisplayKit/#2942](https://github.com/facebook/AsyncDisplayKit/pull/2942))
 - ComponentKit ([ocrickard/IGListKit-ComponentKit](https://github.com/ocrickard/IGListKit-ComponentKit))
+- RxSwift ([yuzushioh/RxIGListKit](https://github.com/yuzushioh/RxIGListKit))
 - React Native
 - Reactive Cocoa
-- RxSwift
 
 Yes.
 
