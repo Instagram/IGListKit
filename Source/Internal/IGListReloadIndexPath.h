@@ -11,6 +11,11 @@
 
 #import <IGListKit/IGListMacros.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+/**
+ An object with index path information for reloading an item during a batch update.
+ */
 IGLK_SUBCLASSING_RESTRICTED
 @interface IGListReloadIndexPath : NSObject
 
@@ -45,3 +50,5 @@ IGLK_SUBCLASSING_RESTRICTED
 + (instancetype)new NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END

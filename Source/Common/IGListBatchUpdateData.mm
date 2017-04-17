@@ -29,34 +29,6 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
 
 @implementation IGListBatchUpdateData
 
-/**
- Finds duplicate index paths and increments increments the item index so eacy operation is unique. Duplicate delete
- operations cannot be performed within the same batch update block. However deletes have corresponding data-source
- changes so the operation still has to occur, otherwise UICollectionView will throw an inconsistency exception. See
- https://github.com/Instagram/IGListKit/issues/651
- */
-static NSIndexPath *staggeredIndexPath(NSCountedSet<NSIndexPath *> *dupes, NSIndexPath *path) {
-    const NSInteger count = [dupes countForObject:path];
-    if (count == 0) {
-        [dupes addObject:path];
-        return path;
-    }
-
-    NSIndexPath *nextPath = [NSIndexPath indexPathForItem:path.item + count inSection:path.section];
-    NSIndexPath *staggeredPath = staggeredIndexPath(dupes, nextPath);
-    [dupes addObject:staggeredPath];
-    return staggeredPath;
-}
-
-+ (NSArray<NSIndexPath *> *)staggerDuplicateIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    NSCountedSet<NSIndexPath *> *dupes = [NSCountedSet new];
-    NSMutableArray<NSIndexPath *> *staggeredPaths = [NSMutableArray new];
-    for (NSIndexPath *path in indexPaths) {
-        [staggeredPaths addObject:staggeredIndexPath(dupes, path)];
-    }
-    return staggeredPaths;
-}
-
 // Converts all section moves that have index path operations into a section delete + insert.
 + (void)cleanIndexPathsWithMap:(const std::unordered_map<NSInteger, IGListMoveIndex*> &)map
                          moves:(NSMutableSet<IGListMoveIndex *> *)moves
@@ -119,7 +91,8 @@ static NSIndexPath *staggeredIndexPath(NSCountedSet<NSIndexPath *> *dupes, NSInd
         NSMutableArray<NSIndexPath *> *mInsertIndexPaths = [insertIndexPaths mutableCopy];
 
         // avoid a flaky UICollectionView bug when deleting from the same index path twice
-        NSMutableArray<NSIndexPath *> *mDeleteIndexPaths = [[IGListBatchUpdateData staggerDuplicateIndexPaths:deleteIndexPaths] mutableCopy];
+        // exposes a possible data source inconsistency issue
+        NSMutableArray<NSIndexPath *> *mDeleteIndexPaths = [[[NSSet setWithArray:deleteIndexPaths] allObjects] mutableCopy];
 
         // avoids a bug where a cell is animated twice and one of the snapshot cells is never removed from the hierarchy
         [IGListBatchUpdateData cleanIndexPathsWithMap:fromMap moves:mMoveSections indexPaths:mDeleteIndexPaths deletes:mDeleteSections inserts:mInsertSections];

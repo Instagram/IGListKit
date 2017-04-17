@@ -133,18 +133,4 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
     XCTAssertEqualObjects(result.moveSections.anyObject, newMove(0, 2));
 }
 
-- (void)test_whenDuplicateDeleteIndexPaths_thatDeletesStaggered {
-    IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
-                                                                           deleteSections:indexSet(@[])
-                                                                             moveSections:[NSSet new]
-                                                                         insertIndexPaths:@[]
-                                                                         deleteIndexPaths:@[newPath(2, 0), newPath(2, 0), newPath(2, 1), newPath(2, 4)]
-                                                                           moveIndexPaths:@[]];
-    XCTAssertEqual(result.deleteIndexPaths.count, 4);
-
-    NSArray *expected = @[newPath(2, 0), newPath(2, 1), newPath(2, 3), newPath(2, 4)];
-    NSArray *deleteResults = [result.deleteIndexPaths sortedArrayUsingSelector:@selector(compare:)];
-    XCTAssertEqualObjects(deleteResults, expected);
-}
-
 @end
