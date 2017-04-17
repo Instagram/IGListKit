@@ -58,6 +58,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - `IGListBatchUpdateData` replaced its `NSSet` properties with `NSArray` instead. [Ryan Nystrom](https://github.com/rnystrom) [(#616)](https://github.com/Instagram/IGListKit/pull/616)
 
+- `IGListUpdatingDelegate` now has a required method to handle reloading cells between index paths. [Ryan Nystrom](https://github.com/rnystrom) [(#657)](https://github.com/Instagram/IGListKit/pull/657)
+
 ### Enhancements
 
 - Added `-[IGListAdapter visibleCellsForObject:]` API. [Sherlouk](https://github.com/Sherlouk) [(#442)](https://github.com/Instagram/IGListKit/pull/442)
