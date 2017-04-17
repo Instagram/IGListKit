@@ -50,6 +50,7 @@ before_install:
   - gem install slather --no-rdoc --no-ri --no-document --quiet
   - gem install danger --version '~> 4.3'
   - gem install danger-prose
+  - pip install --user proselint
 
 script:
 - set -o pipefail
