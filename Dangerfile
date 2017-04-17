@@ -18,3 +18,5 @@ has_doc_changes = !git.modified_files.grep(/docs/).empty?
 if has_doc_changes
   warn("Docs are regenerated when creating new releases.")
 end
+
+prose.lint_files
