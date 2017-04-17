@@ -4,7 +4,7 @@ This guide provides details for how to migration between major versions of `IGLi
 
 ## From 2.x to 3.x
 
-For details on all changes in IGListKit 2.0.0, please see the [release notes](https://github.com/Instagram/IGListKit/releases/tag/3.0.0).
+For details on all changes in IGListKit 3.0.0, please see the [release notes](https://github.com/Instagram/IGListKit/releases/tag/3.0.0).
 
 ### IGListBindingSectionController
 
@@ -12,7 +12,7 @@ If you were using `IGListDiff(...)` _inside_ a section controller to compute dif
 
 ### IGListCollectionView removed
 
-You can simply Find & Replace `IGListCollectionView` with `UICollectionView` in your project to fix this.
+You can simply find regex `IGListCollectionView([ |\*|\(])` and replace with regex `UICollectionView$1` in your project to fix this.
 
 ![Replace IGListCollectionView](https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/replace-iglistcollectionview.png)
 
