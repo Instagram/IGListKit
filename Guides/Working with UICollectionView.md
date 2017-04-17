@@ -14,6 +14,8 @@ One of the primary purposes of `IGListKit` is to perform optimal batch updates f
 Avoid calling the following methods:
 
 ```objc
+// Objective-C
+
 - (void)performBatchUpdates:(void (^)(void))updates
                  completion:(void (^)(BOOL))completion;
 
@@ -45,3 +47,12 @@ Avoid calling the following methods:
 ## Performance
 
 In iOS 10, a new [cell prefetching API](https://developer.apple.com/reference/uikit/uicollectionviewdatasourceprefetching) was introduced. At Instagram, enabling this feature substantially degraded scrolling performance. We reccommend setting [`isPrefetchingEnabled`](https://developer.apple.com/reference/uikit/uicollectionview/1771771-isprefetchingenabled) to `NO` (`false` in Swift). Note that the default value is `true`.
+
+You can set this globally using `UIAppearance`:
+
+```objc
+// Objective-C
+if ([[UICollectionView class] instancesRespondToSelector:@selector(setPrefetchingEnabled:)]) {
+    [[UICollectionView appearance] setPrefetchingEnabled:NO];
+}
+```
