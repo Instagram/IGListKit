@@ -41,3 +41,7 @@ Avoid calling the following methods:
 
 - (void)setBackgroundView:(UIView *)backgroundView;
 ```
+
+## Performance
+
+In iOS 10, a new [cell prefetching API](https://developer.apple.com/reference/uikit/uicollectionviewdatasourceprefetching) was introduced. At Instagram, enabling this feature substantially degraded scrolling performance. We reccommend setting [`isPrefetchingEnabled`](https://developer.apple.com/reference/uikit/uicollectionview/1771771-isprefetchingenabled) to `NO` (`false` in Swift). Note that the default value is `true`.
