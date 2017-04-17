@@ -24,8 +24,7 @@ final class ListeningSectionController: IGListSectionController, IncrementListen
     }
 
     func configureCell(cell: LabelCell) {
-        let section = collectionContext!.section(for: self)
-        cell.text = "Section: \(section), value: \(value)"
+        cell.text = "Section: \(self.sectionIndex), value: \(value)"
     }
 
     // MARK: IGListSectionController Overrides
