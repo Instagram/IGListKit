@@ -62,6 +62,10 @@ Yes.
 
 No, but you can install the [diffing subspec via CocoaPods](https://instagram.github.io/IGListKit/installation.html).
 
+#### What's the purpose of `IGListCollectionView`?
+
+Historically, we used this subclass to gain compile-time safety to prevent disallowed methods from being called on `UICollectionView`, because `IGListKit` handles model and view updates. However, it has since been removed. See discussion at [#409](https://github.com/Instagram/IGListKit/issues/409).
+
 #### How can I manage cell selection and deselection?
 
 See discussion at [#184](https://github.com/Instagram/IGListKit/issues/184).
@@ -118,9 +122,9 @@ No! IGListKit is designed to have a 1:1 instance mapping between objects and sec
 
 IGListKit _does_ still use `UICollectionView`'s cell reuse, so you shouldn't be concerned about performance.
 
-#### Why does UICollectionViewFlowLayout put everything in a new row?
+#### Why does `UICollectionViewFlowLayout` put everything in a new row?
 
-`UICollectionViewFlowLayout` has its limitations, and its not well designed to support sections on the same "line". Instead you should use [IGListCollectionViewLayout](https://github.com/Instagram/IGListKit/blob/master/Source/IGListCollectionViewLayout.h).
+`UICollectionViewFlowLayout` has its limitations, and its not well designed to support sections on the same "line". Instead you should use [`IGListCollectionViewLayout`](https://github.com/Instagram/IGListKit/blob/master/Source/IGListCollectionViewLayout.h).
 
 #### What if I just want a section controller and don't need the object?
 
@@ -128,7 +132,7 @@ Feel free to use a static string or number as your model. You can use this objec
 
 #### How do I make my cells diff and animate?
 
-Use [IGListBindingSectionController](https://github.com/Instagram/IGListKit/blob/master/Source/IGListBindingSectionController.h) to automatically diff and animate your cells.
+Use [`IGListBindingSectionController`](https://github.com/Instagram/IGListKit/blob/master/Source/IGListBindingSectionController.h) to automatically diff and animate your cells.
 
 #### How can I power and update the number of items in a section controller with a dynamic array?
 
