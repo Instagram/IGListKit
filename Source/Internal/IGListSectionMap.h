@@ -107,6 +107,11 @@ IGLK_SUBCLASSING_RESTRICTED
  */
 - (instancetype)init NS_UNAVAILABLE;
 
+/**
+ :nodoc:
+ */
++ (instancetype)new NS_UNAVAILABLE;
+
 @end
 
 NS_ASSUME_NONNULL_END
