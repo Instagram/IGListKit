@@ -21,7 +21,7 @@ final class AnnouncingDepsViewController: UIViewController, IGListAdapterDataSou
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 1)
     }()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    let data: [NSNumber] = Array(0..<20).map { $0 as NSNumber }
+    let data: [NSNumber] = Array(0..<20).map { NSNumber(value: $0) }
     let announcer = IncrementAnnouncer()
 
     override func viewDidLoad() {
