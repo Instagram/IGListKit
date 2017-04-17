@@ -16,6 +16,7 @@
 
 #import "UICollectionView+IGListBatchUpdateData.h"
 #import "IGListMoveIndexPathInternal.h"
+#import "IGListReloadIndexPath.h"
 
 @implementation IGListAdapterUpdater
 
@@ -272,12 +273,24 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     // reloadSections: is unsafe to use within performBatchUpdates:, so instead convert all reloads into deletes+inserts
     convertReloadToDeleteInsert(reloads, deletes, inserts, diffResult, fromObjects);
 
+    NSMutableArray<NSIndexPath *> *itemInserts = batchUpdates.itemInserts;
+    NSMutableArray<NSIndexPath *> *itemDeletes = batchUpdates.itemDeletes;
+    NSMutableArray<IGListMoveIndexPath *> *itemMoves = batchUpdates.itemMoves;
+
+    NSSet<NSIndexPath *> *uniqueDeletes = [NSSet setWithArray:itemDeletes];
+    for (IGListReloadIndexPath *reload in batchUpdates.itemReloads) {
+        if (![uniqueDeletes containsObject:reload.fromIndexPath]) {
+            [itemDeletes addObject:reload.fromIndexPath];
+            [itemInserts addObject:reload.toIndexPath];
+        }
+    }
+
     IGListBatchUpdateData *updateData = [[IGListBatchUpdateData alloc] initWithInsertSections:inserts
                                                                                deleteSections:deletes
                                                                                  moveSections:moves
-                                                                             insertIndexPaths:batchUpdates.itemInserts
-                                                                             deleteIndexPaths:batchUpdates.itemDeletes
-                                                                               moveIndexPaths:batchUpdates.itemMoves];
+                                                                             insertIndexPaths:itemInserts
+                                                                             deleteIndexPaths:itemDeletes
+                                                                               moveIndexPaths:itemMoves];
     [collectionView ig_applyBatchUpdateData:updateData];
     return updateData;
 }
@@ -462,6 +475,17 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     } else {
         [self.delegate listAdapterUpdater:self willMoveFromIndexPath:fromIndexPath toIndexPath:toIndexPath collectionView:collectionView];
         [collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+    }
+}
+
+- (void)reloadItemInCollectionView:(UICollectionView *)collectionView
+                     fromIndexPath:(NSIndexPath *)fromIndexPath
+                       toIndexPath:(NSIndexPath *)toIndexPath {
+    if (self.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {
+        IGListReloadIndexPath *reload = [[IGListReloadIndexPath alloc] initWithFromIndexPath:fromIndexPath toIndexPath:toIndexPath];
+        [self.batchUpdates.itemReloads addObject:reload];
+    } else {
+        [collectionView reloadItemsAtIndexPaths:@[fromIndexPath]];
     }
 }
 
