@@ -397,7 +397,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
         XCTAssertFalse(self.collectionView.backgroundView.hidden);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:15 handler:nil];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 - (void)test_whenScrollViewDelegateSet_thatDelegateReceivesEvents {
