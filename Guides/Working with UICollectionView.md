@@ -4,7 +4,8 @@ This guide provides details on how to work with [`UICollectionView`](https://dev
 
 ## Background
 
-Early versions of `IGListKit` (v2.x and prior) shipped with a subclass of `UICollectionView` called [`IGListCollectionView`](https://github.com/Instagram/IGListKit/blob/2.1.0/Source/IGListCollectionView.h). The class contained *no* special functionality and was merely used to enforce compile-time restrictions to prevent users from calling certain methods directly on `UICollectionView`. Beginning with v3.0, `IGListCollectionView` [was removed](https://github.com/Instagram/IGListKit/commit/2284ce389708f62d99f48ff2ec15644f1ec59537) for a number of reasons. 
+Early versions of `IGListKit` (v2.x and prior) shipped with a subclass of `UICollectionView` called [`IGListCollectionView`](https://github.com/Instagram/IGListKit/blob/2.1.0/Source/IGListCollectionView.h). The class contained *no* special functionality and was merely used to enforce compile-time restrictions to prevent users from calling certain methods directly on `UICollectionView`. Beginning with 3.0, `IGListCollectionView` [was removed](https://github.com/Instagram/IGListKit/commit/2284ce389708f62d99f48ff2ec15644f1ec59537) for a number of reasons.
+
 For further discussion see [#240](https://github.com/Instagram/IGListKit/issues/240) and [#409](https://github.com/Instagram/IGListKit/issues/409).
 
 ## Methods to avoid
@@ -14,8 +15,6 @@ One of the primary purposes of `IGListKit` is to perform optimal batch updates f
 Avoid calling the following methods:
 
 ```objc
-// Objective-C
-
 - (void)performBatchUpdates:(void (^)(void))updates
                  completion:(void (^)(BOOL))completion;
 
@@ -46,13 +45,18 @@ Avoid calling the following methods:
 
 ## Performance
 
-In iOS 10, a new [cell prefetching API](https://developer.apple.com/reference/uikit/uicollectionviewdatasourceprefetching) was introduced. At Instagram, enabling this feature substantially degraded scrolling performance. We reccommend setting [`isPrefetchingEnabled`](https://developer.apple.com/reference/uikit/uicollectionview/1771771-isprefetchingenabled) to `NO` (`false` in Swift). Note that the default value is `true`.
+In iOS 10, a new [cell prefetching API](https://developer.apple.com/reference/uikit/uicollectionviewdatasourceprefetching) was introduced. At Instagram, enabling this feature substantially degraded scrolling performance. We recommend setting [`isPrefetchingEnabled`](https://developer.apple.com/reference/uikit/uicollectionview/1771771-isprefetchingenabled) to `NO` (`false` in Swift). Note that the default value is `true`.
 
 You can set this globally using `UIAppearance`:
 
 ```objc
-// Objective-C
 if ([[UICollectionView class] instancesRespondToSelector:@selector(setPrefetchingEnabled:)]) {
     [[UICollectionView appearance] setPrefetchingEnabled:NO];
+}
+```
+
+```swift
+if #available(iOS 10, *) {
+    UICollectionView.appearance().isPrefetchingEnabled = true
 }
 ```
