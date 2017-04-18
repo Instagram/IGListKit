@@ -153,6 +153,7 @@
 				888609031DEF38A00019A4A5 /* Resources */,
 				7261653A62E258B06255A692 /* [CP] Embed Pods Frameworks */,
 				A9371F8E91FEAE8E1BCCA004 /* [CP] Copy Pods Resources */,
+				DCACEFB51EA0050C00438BBB /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -255,6 +256,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		DCACEFB51EA0050C00438BBB /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\" --config ../.swiftlint.yml";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -61,7 +61,7 @@ final class LabelCell: UICollectionViewCell {
         contentView.layer.addSublayer(separator)
         contentView.backgroundColor = .white
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -80,14 +80,14 @@ final class LabelCell: UICollectionViewCell {
             contentView.backgroundColor = UIColor(white: isHighlighted ? 0.9 : 1, alpha: 1)
         }
     }
-    
+
 }
 
 extension LabelCell: IGListBindable {
-    
+
     func bindViewModel(_ viewModel: Any) {
         guard let viewModel = viewModel as? String else { return }
         label.text = viewModel
     }
-    
+
 }

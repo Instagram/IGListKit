@@ -26,7 +26,7 @@ final class User: IGListDiffable {
         self.handle = handle
     }
 
-    //MARK: IGListDiffable
+    // MARK: IGListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return pk as NSObjectProtocol

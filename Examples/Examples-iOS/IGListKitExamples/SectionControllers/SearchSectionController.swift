@@ -36,7 +36,9 @@ final class SearchSectionController: IGListSectionController, IGListSectionType,
     }
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: SearchCell.self, for: self, at: index) as! SearchCell
+        guard let cell = collectionContext?.dequeueReusableCell(of: SearchCell.self, for: self, at: index) as? SearchCell else {
+            fatalError()
+        }
         cell.searchBar.delegate = self
         return cell
     }
@@ -44,7 +46,7 @@ final class SearchSectionController: IGListSectionController, IGListSectionType,
     func didUpdate(to object: Any) {}
     func didSelectItem(at index: Int) {}
 
-    //MARK: UISearchBarDelegate
+    // MARK: UISearchBarDelegate
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         delegate?.searchSectionController(self, didChangeText: searchText)
@@ -54,7 +56,7 @@ final class SearchSectionController: IGListSectionController, IGListSectionType,
         delegate?.searchSectionController(self, didChangeText: "")
     }
 
-    //MARK: IGListScrollDelegate
+    // MARK: IGListScrollDelegate
 
     func listAdapter(_ listAdapter: IGListAdapter, didScroll sectionController: IGListSectionController) {
         if let searchBar = (collectionContext?.cellForItem(at: 0, sectionController: self) as? SearchCell)?.searchBar {
@@ -63,7 +65,10 @@ final class SearchSectionController: IGListSectionController, IGListSectionType,
         }
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, willBeginDragging sectionController: IGListSectionController) {}
-    func listAdapter(_ listAdapter: IGListAdapter, didEndDragging sectionController: IGListSectionController, willDecelerate decelerate: Bool) {}
+    func listAdapter(_ listAdapter: IGListAdapter,
+                     willBeginDragging sectionController: IGListSectionController) {}
+    func listAdapter(_ listAdapter: IGListAdapter,
+                     didEndDragging sectionController: IGListSectionController,
+                     willDecelerate decelerate: Bool) {}
 
 }

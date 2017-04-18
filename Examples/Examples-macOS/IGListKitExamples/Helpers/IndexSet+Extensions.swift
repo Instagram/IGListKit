@@ -15,9 +15,9 @@
 import Foundation
 
 extension IndexSet {
-    
+
     static var zero: IndexSet {
         return NSIndexSet(index: 0) as IndexSet
     }
-    
+
 }

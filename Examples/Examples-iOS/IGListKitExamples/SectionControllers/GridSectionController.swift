@@ -28,15 +28,15 @@ final class GridItem: NSObject {
 }
 
 extension GridItem: IGListDiffable {
-    
+
     func diffIdentifier() -> NSObjectProtocol {
         return self
     }
-    
+
     func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
         return self === object ? true : self.isEqual(object)
     }
-    
+
 }
 
 final class GridSectionController: IGListSectionController, IGListSectionType {
@@ -60,7 +60,9 @@ final class GridSectionController: IGListSectionController, IGListSectionType {
     }
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as! CenterLabelCell
+        guard let cell = collectionContext?.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as? CenterLabelCell else {
+            fatalError()
+        }
         cell.text = "\(index + 1)"
         cell.backgroundColor = object?.color
         return cell

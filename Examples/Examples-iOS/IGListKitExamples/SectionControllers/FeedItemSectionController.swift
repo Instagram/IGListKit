@@ -34,7 +34,9 @@ final class FeedItemSectionController: IGListSectionController, IGListSectionTyp
     }
 
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext?.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
+        guard let cell = collectionContext?.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as? LabelCell else {
+            fatalError()
+        }
         cell.text = feedItem.comments[index]
         return cell
     }
@@ -52,11 +54,13 @@ final class FeedItemSectionController: IGListSectionController, IGListSectionTyp
     }
 
     func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
-        let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
+        guard let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
                                                                        for: self,
                                                                        nibName: "UserHeaderView",
                                                                        bundle: nil,
-                                                                       at: index) as! UserHeaderView
+                                                                       at: index) as? UserHeaderView else {
+                                                                        fatalError()
+        }
         view.handle = "@" + feedItem.user.handle
         view.name = feedItem.user.name
         return view

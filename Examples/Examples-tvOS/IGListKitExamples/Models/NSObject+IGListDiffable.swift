@@ -22,7 +22,7 @@ extension NSObject: IGListDiffable {
     }
 
     public func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
-        return isEqual(object);
+        return isEqual(object)
     }
 
 }
