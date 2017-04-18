@@ -31,4 +31,4 @@ We also ask that you help keep our community welcoming and open.
 
 ## Communication
 
-Github Issues serve as the "source of truth" for all communication and decision-making about IGListKit. This keeps everything open and centralized. We will consider other forms of communication (Slack, Facebook Group, etc) once the scale of the project and/or community demands it.
+GitHub Issues serve as the "source of truth" for all communication and decision-making about IGListKit. This keeps everything open and centralized. We will consider other forms of communication (Slack, Facebook Group, etc) once the scale of the project and/or community demands it.
