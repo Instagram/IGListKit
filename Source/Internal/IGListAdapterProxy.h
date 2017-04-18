@@ -33,7 +33,7 @@ IGLK_SUBCLASSING_RESTRICTED
  */
 - (instancetype)initWithCollectionViewTarget:(nullable id<UICollectionViewDelegate>)collectionViewTarget
                             scrollViewTarget:(nullable id<UIScrollViewDelegate>)scrollViewTarget
-                                 interceptor:(IGListAdapter *)interceptor NS_DESIGNATED_INITIALIZER;
+                                 interceptor:(IGListAdapter *)interceptor;
 
 /**
  :nodoc:
