@@ -57,6 +57,6 @@ if ([[UICollectionView class] instancesRespondToSelector:@selector(setPrefetchin
 
 ```swift
 if #available(iOS 10, *) {
-    UICollectionView.appearance().isPrefetchingEnabled = true
+    UICollectionView.appearance().isPrefetchingEnabled = false
 }
 ```
