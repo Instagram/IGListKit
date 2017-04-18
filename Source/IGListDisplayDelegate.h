@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Tells the delegate that the specified section controller is about to be displayed.
 
- @param listAdapter       The list adapter for the section controller.
+ @param listAdapter The list adapter for the section controller.
  @param sectionController The section controller about to be displayed.
  */
 - (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController <IGListSectionType> *)sectionController;
@@ -40,10 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Tells the delegate that a cell in the specified list is about to be displayed.
 
- @param listAdapter       The list adapter in which the cell will display.
+ @param listAdapter The list adapter in which the cell will display.
  @param sectionController The section controller that is displaying the cell.
- @param cell              The cell about to be displayed.
- @param index             The index of the cell in the section.
+ @param cell The cell about to be displayed.
+ @param index The index of the cell in the section.
  */
 - (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController <IGListSectionType> *)sectionController
                cell:(UICollectionViewCell *)cell
@@ -52,10 +52,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Tells the delegate that a cell in the specified list is no longer being displayed.
 
- @param listAdapter       The list adapter in which the cell was displayed.
+ @param listAdapter The list adapter in which the cell was displayed.
  @param sectionController The section controller that is no longer displaying the cell.
- @param cell              The cell that is no longer displayed.
- @param index             The index of the cell in the section.
+ @param cell The cell that is no longer displayed.
+ @param index The index of the cell in the section.
  */
 - (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController <IGListSectionType> *)sectionController
                cell:(UICollectionViewCell *)cell

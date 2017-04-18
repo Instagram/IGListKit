@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, IGListDiffOption) {
 
  @param oldArray The old objects to diff against.
  @param newArray The new objects.
- @param option   An option on how to compare objects.
+ @param option An option on how to compare objects.
 
  @return A result object containing affected indexes.
  */
@@ -46,10 +46,10 @@ FOUNDATION_EXTERN IGListIndexSetResult *IGListDiff(NSArray<id<IGListDiffable>> *
  Creates a diff using index paths between two collections.
 
  @param fromSection The old section.
- @param toSection   The new section.
- @param oldArray    The old objects to diff against.
- @param newArray    The new objects.
- @param option      An option on how to compare objects.
+ @param toSection The new section.
+ @param oldArray The old objects to diff against.
+ @param newArray The new objects.
+ @param option An option on how to compare objects.
 
  @return A result object containing affected indexes.
  */

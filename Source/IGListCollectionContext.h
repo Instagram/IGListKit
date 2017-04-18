@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Returns the index of the specified cell in the collection relative to the section controller.
 
- @param cell              An existing cell in the collection.
+ @param cell An existing cell in the collection.
  @param sectionController The section controller requesting this information.
 
  @return The index of the cell or `NSNotFound` if it does not exist in the collection.
@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Returns the cell in the collection at the specified index for the section controller.
 
- @param index             The index of the desired cell.
+ @param index The index of the desired cell.
  @param sectionController The section controller requesting this information.
 
  @return The collection view cell, or `nil` if not found.
@@ -91,9 +91,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Deselects a cell in the collection.
 
- @param index             The index of the item to deselect.
+ @param index The index of the item to deselect.
  @param sectionController The section controller requesting this information.
- @param animated          Pass `YES` to animate the change, `NO` otherwise.
+ @param animated Pass `YES` to animate the change, `NO` otherwise.
  */
 - (void)deselectItemAtIndex:(NSInteger)index
           sectionController:(IGListSectionController<IGListSectionType> *)sectionController
@@ -111,9 +111,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Dequeues a cell from the collection view reuse pool.
 
- @param cellClass         The class of the cell you want to dequeue.
+ @param cellClass The class of the cell you want to dequeue.
  @param sectionController The section controller requesting this information.
- @param index             The index of the cell.
+ @param index The index of the cell.
 
  @return A cell dequeued from the reuse pool or a newly created one.
 
@@ -126,10 +126,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Dequeues a cell from the collection view reuse pool.
 
- @param nibName           The name of the nib file.
- @param bundle            The bundle in which to search for the nib file. If `nil`, this method searches the main bundle.
+ @param nibName The name of the nib file.
+ @param bundle The bundle in which to search for the nib file. If `nil`, this method searches the main bundle.
  @param sectionController The section controller requesting this information.
- @param index             The index of the cell.
+ @param index The index of the cell.
 
  @return A cell dequeued from the reuse pool or a newly created one.
 
@@ -143,9 +143,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Dequeues a storyboard prototype cell from the collection view reuse pool.
 
- @param identifier        The identifier of the cell prototype in storyboard.
+ @param identifier The identifier of the cell prototype in storyboard.
  @param sectionController The section controller requesting this information.
- @param index             The index of the cell.
+ @param index The index of the cell.
 
  @return A cell dequeued from the reuse pool or a newly created one.
  */
@@ -156,10 +156,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Dequeues a supplementary view from the collection view reuse pool.
 
- @param elementKind       The kind of supplementary view.
+ @param elementKind The kind of supplementary view.
  @param sectionController The section controller requesting this information.
- @param viewClass         The class of the supplementary view.
- @param index             The index of the supplementary view.
+ @param viewClass The class of the supplementary view.
+ @param index The index of the supplementary view.
 
  @return A supplementary view dequeued from the reuse pool or a newly created one.
 
@@ -173,10 +173,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Dequeues a supplementary view from the collection view reuse pool.
 
- @param elementKind       The kind of supplementary view.
- @param identifier        The identifier of the supplementary view in storyboard.
+ @param elementKind The kind of supplementary view.
+ @param identifier The identifier of the supplementary view in storyboard.
  @param sectionController The section controller requesting this information.
- @param index             The index of the supplementary view.
+ @param index The index of the supplementary view.
 
  @return A supplementary view dequeued from the reuse pool or a newly created one.
  */
@@ -187,11 +187,11 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Dequeues a supplementary view from the collection view reuse pool.
 
- @param elementKind       The kind of supplementary view.
+ @param elementKind The kind of supplementary view.
  @param sectionController The section controller requesting this information.
- @param nibName           The name of the nib file.
- @param bundle            The bundle in which to search for the nib file. If `nil`, this method searches the main bundle.
- @param index             The index of the supplementary view.
+ @param nibName The name of the nib file.
+ @param bundle The bundle in which to search for the nib file. If `nil`, this method searches the main bundle.
+ @param index The index of the supplementary view.
 
  @return A supplementary view dequeued from the reuse pool or a newly created one.
 
@@ -207,7 +207,7 @@ NS_ASSUME_NONNULL_BEGIN
  Invalidate the backing `UICollectionViewLayout` for all items in the section controller.
 
  @param sectionController The section controller that needs invalidating.
- @param completion        An optional completion block to execute when the updates are finished.
+ @param completion An optional completion block to execute when the updates are finished.
 
  @note This method can be wrapped in `UIView` animation APIs to control the duration or perform without animations. This
  will end up calling `-[UICollectionView performBatchUpdates:completion:]` internally, so invalidated changes may not be
@@ -219,8 +219,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Batches and performs many cell-level updates in a single transaction.
 
- @param animated   A flag indicating if the transition should be animated.
- @param updates    A block with a context parameter to make mutations.
+ @param animated A flag indicating if the transition should be animated.
+ @param updates A block with a context parameter to make mutations.
  @param completion An optional completion block to execute when the updates are finished.
 
  @note You should make state changes that impact the number of items in your section controller within the updates
@@ -255,9 +255,9 @@ NS_ASSUME_NONNULL_BEGIN
  Scrolls to the specified section controller in the list.
 
  @param sectionController The section controller.
- @param index             The index of the item in the section controller to which to scroll.
- @param scrollPosition    An option that specifies where the item should be positioned when scrolling finishes.
- @param animated          A flag indicating if the scrolling should be animated.
+ @param index The index of the item in the section controller to which to scroll.
+ @param scrollPosition An option that specifies where the item should be positioned when scrolling finishes.
+ @param animated A flag indicating if the scrolling should be animated.
  */
 - (void)scrollToSectionController:(IGListSectionController<IGListSectionType> *)sectionController
                           atIndex:(NSInteger)index

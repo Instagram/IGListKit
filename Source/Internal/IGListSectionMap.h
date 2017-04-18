@@ -35,7 +35,7 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  Update the map with objects and the section controller counterparts.
 
- @param objects            The objects in the collection.
+ @param objects The objects in the collection.
  @param sectionControllers The section controllers that map to each object.
  */
 - (void)updateWithObjects:(NSArray <id <NSObject>> *)objects sectionControllers:(NSArray <id <NSObject>> *)sectionControllers;

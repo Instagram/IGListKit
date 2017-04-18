@@ -56,12 +56,12 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  Creates a new batch update object with section and item operations.
 
- @param insertSections   Section indexes to insert.
- @param deleteSections   Section indexes to delete.
- @param moveSections     Section moves.
+ @param insertSections Section indexes to insert.
+ @param deleteSections Section indexes to delete.
+ @param moveSections Section moves.
  @param insertIndexPaths Item index paths to insert.
  @param deleteIndexPaths Item index paths to delete.
- @param moveIndexPaths   Item index paths to move.
+ @param moveIndexPaths Item index paths to move.
 
  @return A new batch update object.
  */
