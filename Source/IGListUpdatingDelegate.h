@@ -56,12 +56,12 @@ typedef void (^IGListReloadUpdateBlock)();
 /**
  Tells the delegate to perform a section transition from an old array of objects to a new one.
 
- @param collectionView        The collection view to perform the transition on.
- @param fromObjects           The previous objects in the collection view. Objects must conform to `IGListDiffable`.
- @param toObjects             The new objects in collection view. Objects must conform to `IGListDiffable`.
- @param animated              A flag indicating if the transition should be animated.
+ @param collectionView The collection view to perform the transition on.
+ @param fromObjects The previous objects in the collection view. Objects must conform to `IGListDiffable`.
+ @param toObjects The new objects in collection view. Objects must conform to `IGListDiffable`.
+ @param animated A flag indicating if the transition should be animated.
  @param objectTransitionBlock A block that must be called when the adapter applies changes to the collection view.
- @param completion            A completion block to execute when the update is finished.
+ @param completion A completion block to execute when the update is finished.
 
  @note Implementations determine how to transition between objects. You can perform a diff on the objects, reload
  each section, or simply call `-reloadData` on the collection view. In the end, the collection view must be setup with a
@@ -81,7 +81,7 @@ typedef void (^IGListReloadUpdateBlock)();
  Tells the delegate to perform item inserts at the given index paths.
 
  @param collectionView The collection view on which to perform the transition.
- @param indexPaths     The index paths to insert items into.
+ @param indexPaths The index paths to insert items into.
  */
 - (void)insertItemsIntoCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray <NSIndexPath *> *)indexPaths;
 
@@ -89,7 +89,7 @@ typedef void (^IGListReloadUpdateBlock)();
  Tells the delegate to perform item deletes at the given index paths.
 
  @param collectionView The collection view on which to perform the transition.
- @param indexPaths     The index paths to delete items from.
+ @param indexPaths The index paths to delete items from.
  */
 - (void)deleteItemsFromCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray <NSIndexPath *> *)indexPaths;
 
@@ -97,8 +97,8 @@ typedef void (^IGListReloadUpdateBlock)();
  Tells the delegate to move an item from and to given index paths.
 
  @param collectionView The collection view on which to perform the transition.
- @param fromIndexPath  The source index path of the item to move.
- @param toIndexPath    The destination index path of the item to move.
+ @param fromIndexPath The source index path of the item to move.
+ @param toIndexPath The destination index path of the item to move.
  */
 - (void)moveItemInCollectionView:(UICollectionView *)collectionView
                    fromIndexPath:(NSIndexPath *)fromIndexPath
@@ -107,9 +107,9 @@ typedef void (^IGListReloadUpdateBlock)();
 /**
  Completely reload data in the collection.
 
- @param collectionView    The collection view to reload.
+ @param collectionView The collection view to reload.
  @param reloadUpdateBlock A block that must be called when the adapter reloads the collection view.
- @param completion        A completion block to execute when the reload is finished.
+ @param completion A completion block to execute when the reload is finished.
  */
 - (void)reloadDataWithCollectionView:(UICollectionView *)collectionView
                    reloadUpdateBlock:(IGListReloadUpdateBlock)reloadUpdateBlock
@@ -119,7 +119,7 @@ typedef void (^IGListReloadUpdateBlock)();
  Completely reload each section in the collection view.
 
  @param collectionView The collection view to reload.
- @param sections       The sections to reload.
+ @param sections The sections to reload.
  */
 - (void)reloadCollectionView:(UICollectionView *)collectionView sections:(NSIndexSet *)sections;
 
@@ -127,9 +127,9 @@ typedef void (^IGListReloadUpdateBlock)();
  Perform an item update block in the collection view.
 
  @param collectionView The collection view to update.
- @param animated       A flag indicating if the transition should be animated.
- @param itemUpdates    A block containing all of the updates.
- @param completion     A completion block to execute when the update is finished.
+ @param animated A flag indicating if the transition should be animated.
+ @param itemUpdates A block containing all of the updates.
+ @param completion A completion block to execute when the update is finished.
  */
 - (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
                                animated:(BOOL)animated

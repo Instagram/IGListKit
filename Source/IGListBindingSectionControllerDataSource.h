@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param sectionController The section controller requesting view models.
  @param object The top-level object that powers the section controller.
+ 
  @return A new array of view models.
  */
 - (NSArray<id<IGListDiffable>> *)sectionController:(IGListBindingSectionController *)sectionController
@@ -37,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param sectionController The section controller requesting a cell.
  @param viewModel The view model for the cell.
  @param index The index of the view model.
+ 
  @return A dequeued cell.
  
  @note The section controller will call `-bindViewModel:` with the provided view model after the cell is dequeued. You
@@ -52,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param sectionController The section controller requesting a size.
  @param viewModel The view model for the cell.
  @param index The index of the view model.
+ 
  @return A size for the view model.
  */
 - (CGSize)sectionController:(IGListBindingSectionController *)sectionController

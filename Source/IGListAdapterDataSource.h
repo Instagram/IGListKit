@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
  Asks the data source for a section controller for the specified object in the list.
 
  @param listAdapter The list adapter requesting this information.
- @param object      An object in the list.
+ @param object An object in the list.
 
  @return A new section controller instance that can be displayed in the list.
 

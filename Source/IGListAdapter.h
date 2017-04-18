@@ -87,7 +87,7 @@ IGLK_SUBCLASSING_RESTRICTED
  Initializes a new `IGListAdapter` object.
 
  @param updater An object that manages updates to the collection view.
- @param viewController   The view controller that will house the adapter.
+ @param viewController The view controller that will house the adapter.
  @param workingRangeSize The number of objects before and after the viewport to consider within the working range.
 
  @return A new list adapter object.
@@ -107,7 +107,7 @@ IGLK_SUBCLASSING_RESTRICTED
  Perform an update from the previous state of the data source. This is analogous to calling
  `-[UICollectionView performBatchUpdates:completion:]`.
 
- @param animated   A flag indicating if the transition should be animated.
+ @param animated A flag indicating if the transition should be animated.
  @param completion The block to execute when the updates complete.
  */
 - (void)performUpdatesAnimated:(BOOL)animated completion:(nullable IGListUpdaterCompletion)completion;
@@ -215,11 +215,11 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  Scrolls to the specified object in the list adapter.
 
- @param object             The object to which to scroll.
+ @param object The object to which to scroll.
  @param supplementaryKinds The types of supplementary views in the section.
- @param scrollDirection    An option indicating the direction to scroll.
- @param scrollPosition     An option that specifies where the item should be positioned when scrolling finishes. 
- @param animated           A flag indicating if the scrolling should be animated.
+ @param scrollDirection An option indicating the direction to scroll.
+ @param scrollPosition An option that specifies where the item should be positioned when scrolling finishes.
+ @param animated A flag indicating if the scrolling should be animated.
  */
 - (void)scrollToObject:(id)object
     supplementaryKinds:(nullable NSArray<NSString *> *)supplementaryKinds
@@ -240,7 +240,7 @@ IGLK_SUBCLASSING_RESTRICTED
  Returns the size of a supplementary view in the list at the specified index path.
 
  @param elementKind The kind of supplementary view.
- @param indexPath   The index path of the supplementary view.
+ @param indexPath The index path of the supplementary view.
 
  @return The size of the supplementary view.
  */
