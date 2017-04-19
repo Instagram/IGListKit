@@ -83,6 +83,7 @@
 
         _collectionView = collectionView;
         _collectionView.dataSource = self;
+        [_collectionView.collectionViewLayout invalidateLayout];
 
         [self updateCollectionViewDelegate];
         [self updateAfterPublicSettingsChange];
