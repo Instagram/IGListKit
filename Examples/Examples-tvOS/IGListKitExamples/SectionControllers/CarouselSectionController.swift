@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class CarouselSectionController: IGListSectionController, IGListSectionType {
+final class CarouselSectionController: IGListSectionController {
 
     var number: Int?
     
@@ -24,11 +24,11 @@ final class CarouselSectionController: IGListSectionController, IGListSectionTyp
         self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
     }
     
-    func numberOfItems() -> Int {
+    override func numberOfItems() -> Int {
         return 1
     }
     
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         let height = collectionContext?.containerSize.height ?? 0
         let aspectRatio: CGFloat = 0.75 // 3:4
         let width = height * aspectRatio
@@ -36,17 +36,17 @@ final class CarouselSectionController: IGListSectionController, IGListSectionTyp
         return CGSize(width: width, height: height)
     }
     
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(withNibName: "CarouselCell", bundle: nil, for: self, at: index) as! CarouselCell
         let value = number ?? 0
         cell.titleLabel.text = "#\(value + 1)"
         return cell
     }
     
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         number = object as? Int
     }
     
-    func didSelectItem(at index: Int) {}
+    override func didSelectItem(at index: Int) {}
     
 }

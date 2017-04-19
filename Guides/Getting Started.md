@@ -8,23 +8,29 @@ After installing `IGListKit`, creating a new list is easy.
 
 ### Creating a section controller
 
-Creating a new section controller is simple. You subclass `IGListSectionController` and conform to the `IGListSectionType` protocol. Once you conform to `IGListSectionType`, the compiler will make sure you implement all of the required methods.
+Creating a new section controller is simple. All you have to do is subclass `IGListSectionController` and override at least `cellForItemAtIndex:` and `sizeForItemAtIndex:`.
 
 Take a look at [LabelSectionController](https://raw.githubusercontent.com/Instagram/IGListKit/master/Examples/Examples-iOS/IGListKitExamples/SectionControllers/LabelSectionController.swift) for an example section controller that handles a `String` and configures a single cell with a `UILabel`.
 
 ```swift
-class LabelSectionController: IGListSectionController, IGListSectionType {
-  // ...
+class LabelSectionController: IGListSectionController {
+  override func sizeForItem(at index: Int) -> CGSize {
+    return CGSize(width: collectionContext!.containerSize.width, height: 55)
+  }
+
+  override func cellForItem(at index: Int) -> UICollectionViewCell {
+    return collectionContext!.dequeueReusableCell(of: MyCell.self, for: self, at: index)
+  }
 }
 ```
 
 ### Creating the UI
 
-After creating at least one section controller, you must create an `IGListCollectionView` and `IGListAdapter`.
+After creating at least one section controller, you must create a `UICollectionView` and `IGListAdapter`.
 
 ```swift
 let layout = UICollectionViewFlowLayout()
-let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: layout)
+let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
 let updater = IGListAdapterUpdater()
 let adapter = IGListAdapter(updater: updater, viewController: self, workingRangeSize: 0)
