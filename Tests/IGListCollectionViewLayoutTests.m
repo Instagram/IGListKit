@@ -694,4 +694,34 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
     IGAssertEqualFrame([self cellForSection:5 item:0].frame, 277, 139, 136, 136);
 }
 
+- (void)test_whenQueryingAttributes_withSectionOOB_thatReturnsNil {
+    [self setUpWithStickyHeaders:NO topInset:0 stretchToEdge:YES];
+    [self prepareWithData:@[
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(33, 33)],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 33)],
+                                                                          ]],
+                            ]];
+    XCTAssertNil([self.layout layoutAttributesForItemAtIndexPath:quickPath(4, 0)]);
+}
+
+- (void)test_whenQueryingAttributes_withItemOOB_thatReturnsNil {
+    [self setUpWithStickyHeaders:NO topInset:0 stretchToEdge:YES];
+    [self prepareWithData:@[
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(33, 33)],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 33)],
+                                                                          ]],
+                            ]];
+    XCTAssertNil([self.layout layoutAttributesForItemAtIndexPath:quickPath(0, 4)]);
+}
+
 @end
