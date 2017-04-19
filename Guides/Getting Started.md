@@ -8,7 +8,7 @@ After installing `IGListKit`, creating a new list is easy.
 
 ### Creating a section controller
 
-Creating a new section controller is simple. All you have to do is subclass `IGListSectionController` and override at least `cellForItemAtIndex:` and `sizeForItemAtIndex:`.
+Creating a new section controller is simple. Subclass `IGListSectionController` and override at least `cellForItemAtIndex:` and `sizeForItemAtIndex:`.
 
 Take a look at [LabelSectionController](https://raw.githubusercontent.com/Instagram/IGListKit/master/Examples/Examples-iOS/IGListKitExamples/SectionControllers/LabelSectionController.swift) for an example section controller that handles a `String` and configures a single cell with a `UILabel`.
 
