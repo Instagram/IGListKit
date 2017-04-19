@@ -1097,7 +1097,7 @@
     self.dataSource.objects = @[one, two, three];
     [self.adapter performUpdatesAnimated:NO completion:nil];
 
-    IGListSectionController<IGListSectionType> *controller1a = [self.adapter sectionControllerForObject:one];
+    IGListSectionController *controller1a = [self.adapter sectionControllerForObject:one];
     XCTAssertEqual(controller1a.sectionIndex, 0);
     XCTAssertTrue(controller1a.isFirstSection);
 
@@ -1108,11 +1108,11 @@
     self.dataSource.objects = @[zero, one, two, three];
     [self.adapter performUpdatesAnimated:NO completion:nil];
 
-    IGListSectionController<IGListSectionType> *controller0 = [self.adapter sectionControllerForObject:zero];
+    IGListSectionController *controller0 = [self.adapter sectionControllerForObject:zero];
     XCTAssertEqual(controller0.sectionIndex, 0);
     XCTAssertTrue(controller0.isFirstSection);
 
-    IGListSectionController<IGListSectionType> *controller1b = [self.adapter sectionControllerForObject:one];
+    IGListSectionController *controller1b = [self.adapter sectionControllerForObject:one];
     XCTAssertEqual(controller1b.sectionIndex, 1);
     XCTAssertFalse(controller1b.isFirstSection);
 
