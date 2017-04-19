@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class EmbeddedSectionController: IGListSectionController, IGListSectionType {
+final class EmbeddedSectionController: IGListSectionController {
 
     private var number: Int?
 
@@ -24,16 +24,12 @@ final class EmbeddedSectionController: IGListSectionController, IGListSectionTyp
         self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
     }
 
-    func numberOfItems() -> Int {
-        return 1
-    }
-
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         let height = collectionContext?.containerSize.height ?? 0
         return CGSize(width: height, height: height)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as! CenterLabelCell
         let value = number ?? 0
         cell.text = "\(value + 1)"
@@ -41,10 +37,8 @@ final class EmbeddedSectionController: IGListSectionController, IGListSectionTyp
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         number = object as? Int
     }
-
-    func didSelectItem(at index: Int) {}
 
 }

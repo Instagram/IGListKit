@@ -31,7 +31,7 @@ struct _IGListWorkingRangeHandlerIndexPath {
 };
 
 struct _IGListWorkingRangeHandlerSectionControllerWrapper {
-    IGListSectionController<IGListSectionType> *sectionController;
+    IGListSectionController *sectionController;
 
     bool operator==(const _IGListWorkingRangeHandlerSectionControllerWrapper &other) const {
         return (sectionController == other.sectionController);
@@ -126,7 +126,7 @@ typedef std::unordered_set<_IGListWorkingRangeHandlerIndexPath, _IGListWorkingRa
     _IGListWorkingRangeSectionControllerSet workingRangeSectionControllers (visibleSectionSet.size());
     for (NSInteger idx = start; idx < end; idx++) {
         id item = [listAdapter objectAtSection:idx];
-        id <IGListSectionType> sectionController = [listAdapter sectionControllerForObject:item];
+        IGListSectionController *sectionController = [listAdapter sectionControllerForObject:item];
         workingRangeSectionControllers.insert({sectionController});
     }
 

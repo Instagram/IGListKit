@@ -41,7 +41,6 @@
 #import "IGListReloadDataUpdater.h"
 #import "IGListScrollDelegate.h"
 #import "IGListSectionController.h"
-#import "IGListSectionType.h"
 #import "IGListSingleSectionController.h"
 #import "IGListStackedSectionController.h"
 #import "IGListSupplementaryViewSource.h"

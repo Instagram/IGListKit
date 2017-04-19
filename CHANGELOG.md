@@ -100,6 +100,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Fix a crash when inserting or deleting from the same index within the same batch-update application. [Ryan Nystrom](https://github.com/rnystrom) [(#616)](https://github.com/Instagram/IGListKit/pull/616)
 
+- `IGListSectionType` protocol was removed and its methods were absorted into the `IGListSectionController` base class with default implementations. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+
 2.1.0
 -----
 

@@ -40,7 +40,7 @@
 
 - (void)willDisplayReusableView:(UICollectionReusableView *)view
                  forListAdapter:(IGListAdapter *)listAdapter
-              sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+              sectionController:(IGListSectionController *)sectionController
                          object:(id)object
                       indexPath:(NSIndexPath *)indexPath {
     IGParameterAssert(view != nil);
@@ -59,7 +59,7 @@
 
 - (void)didEndDisplayingReusableView:(UICollectionReusableView *)view
                       forListAdapter:(IGListAdapter *)listAdapter
-                   sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                   sectionController:(IGListSectionController *)sectionController
                               object:(id)object
                            indexPath:(NSIndexPath *)indexPath {
     IGParameterAssert(view != nil);
@@ -83,7 +83,7 @@
 
 - (void)willDisplaySupplementaryView:(UICollectionReusableView *)view
                       forListAdapter:(IGListAdapter *)listAdapter
-                   sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                   sectionController:(IGListSectionController *)sectionController
                               object:(id)object
                            indexPath:(NSIndexPath *)indexPath {
     [self willDisplayReusableView:view forListAdapter:listAdapter sectionController:sectionController object:object indexPath:indexPath];
@@ -91,7 +91,7 @@
 
 - (void)didEndDisplayingSupplementaryView:(UICollectionReusableView *)view
                            forListAdapter:(IGListAdapter *)listAdapter
-                        sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                        sectionController:(IGListSectionController *)sectionController
                                 indexPath:(NSIndexPath *)indexPath {
     // if cell display events break, don't send display events when the object has disappeared
     id object = [self pluckObjectForView:view];
@@ -100,7 +100,7 @@
 
 - (void)willDisplayCell:(UICollectionViewCell *)cell
          forListAdapter:(IGListAdapter *)listAdapter
-      sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+      sectionController:(IGListSectionController *)sectionController
                  object:(id)object
               indexPath:(NSIndexPath *)indexPath {
     id <IGListDisplayDelegate> displayDelegate = [sectionController displayDelegate];
@@ -110,7 +110,7 @@
 
 - (void)didEndDisplayingCell:(UICollectionViewCell *)cell
               forListAdapter:(IGListAdapter *)listAdapter
-           sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+           sectionController:(IGListSectionController *)sectionController
                    indexPath:(NSIndexPath *)indexPath {
     // if cell display events break, don't send cell events to the displayDelegate when the object has disappeared
     id object = [self pluckObjectForView:cell];

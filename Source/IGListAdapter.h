@@ -14,7 +14,6 @@
 #import <IGListKit/IGListCollectionContext.h>
 
 #import <IGListKit/IGListExperiments.h>
-#import <IGListKit/IGListSectionType.h>
 #import <IGListKit/IGListMacros.h>
 
 @protocol IGListUpdatingDelegate;
@@ -31,9 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^IGListUpdaterCompletion)(BOOL finished);
 
 /**
- `IGListAdapter` objects provide an abstraction for feeds of objects in a `UICollectionView` by breaking each object into
- individual sections, called "section controllers". These controllers (objects conforming to `IGListSectionType`) act as a
- data source and delegate for each section.
+ `IGListAdapter` objects provide an abstraction for feeds of objects in a `UICollectionView` by breaking each object 
+ into individual sections, called "section controllers". These controllers (objects subclassing to 
+ `IGListSectionController`) act as a data source and delegate for each section.
 
  Feed implementations must act as the data source for an `IGListAdapter` in order to drive the objects and section
  controllers in a collection view.
@@ -133,7 +132,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return A section controller or `nil` if the section does not exist.
  */
-- (nullable IGListSectionController <IGListSectionType> *)sectionControllerForSection:(NSInteger)section;
+- (nullable IGListSectionController *)sectionControllerForSection:(NSInteger)section;
 
 /**
  Query the section index of a list. Constant time lookup.
@@ -142,7 +141,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return The section index of the list if it exists, otherwise `NSNotFound`.
  */
-- (NSInteger)sectionForSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
+- (NSInteger)sectionForSectionController:(IGListSectionController *)sectionController;
 
 /**
  Returns the section controller for the specified object. Constant time lookup.
@@ -153,7 +152,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @see `-[IGListAdapterDataSource listAdapter:sectionControllerForObject:]`
  */
-- (__kindof IGListSectionController <IGListSectionType> * _Nullable)sectionControllerForObject:(id)object;
+- (__kindof IGListSectionController * _Nullable)sectionControllerForObject:(id)object;
 
 /**
  Returns the object corresponding to the specified section controller in the list. Constant time lookup.
@@ -162,7 +161,7 @@ IGLK_SUBCLASSING_RESTRICTED
  
  @return The object for the specified section controller, or `nil` if not found.
  */
-- (nullable id)objectForSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
+- (nullable id)objectForSectionController:(IGListSectionController *)sectionController;
 
 /**
  Returns the object corresponding to a section in the list. Constant time lookup.
@@ -194,7 +193,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return An array of section controllers.
  */
-- (NSArray<IGListSectionController<IGListSectionType> *> *)visibleSectionControllers;
+- (NSArray<IGListSectionController *> *)visibleSectionControllers;
 
 /**
  An unordered array of the currently visible objects.

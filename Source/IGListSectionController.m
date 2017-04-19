@@ -66,4 +66,21 @@ void IGListSectionControllerPopThread(void) {
     return self;
 }
 
+- (NSInteger)numberOfItems {
+    return 1;
+}
+
+- (CGSize)sizeForItemAtIndex:(NSInteger)index {
+    return CGSizeZero;
+}
+
+- (__kindof UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
+    IGFailAssert(@"Section controller %@ must override %s:", self, __PRETTY_FUNCTION__);
+    return nil;
+}
+
+- (void)didUpdateToObject:(id)object {}
+
+- (void)didSelectItemAtIndex:(NSInteger)index {}
+
 @end

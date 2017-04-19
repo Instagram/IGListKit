@@ -47,7 +47,7 @@
     return _objects;
 }
 
-- (IGListSectionController<IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter
+- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter
                                  sectionControllerForObject:(id)object {
     return [_map objectForKey:object];
 }

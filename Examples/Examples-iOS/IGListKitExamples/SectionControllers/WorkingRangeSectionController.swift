@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class WorkingRangeSectionController: IGListSectionController, IGListSectionType, IGListWorkingRangeDelegate {
+final class WorkingRangeSectionController: IGListSectionController, IGListWorkingRangeDelegate {
 
     private var height: Int?
     private var downloadedImage: UIImage?
@@ -37,17 +37,17 @@ final class WorkingRangeSectionController: IGListSectionController, IGListSectio
         workingRangeDelegate = self
     }
 
-    func numberOfItems() -> Int {
+    override func numberOfItems() -> Int {
         return 2
     }
 
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         let width: CGFloat = collectionContext?.containerSize.width ?? 0
         let height: CGFloat = CGFloat(index == 0 ? 55 : (self.height ?? 0))
         return CGSize(width: width, height: height)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cellClass: AnyClass = index == 0 ? LabelCell.self : ImageCell.self
         let cell = collectionContext!.dequeueReusableCell(of: cellClass, for: self, at: index)
         if let cell = cell as? LabelCell {
@@ -58,11 +58,9 @@ final class WorkingRangeSectionController: IGListSectionController, IGListSectio
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         self.height = object as? Int
     }
-
-    func didSelectItem(at index: Int) {}
 
     //MARK: IGListWorkingRangeDelegate
 

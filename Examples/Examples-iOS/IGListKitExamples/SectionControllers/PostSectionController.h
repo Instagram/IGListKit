@@ -14,6 +14,6 @@
 
 #import <IGListKit/IGListKit.h>
 
-@interface PostSectionController : IGListSectionController <IGListSectionType>
+@interface PostSectionController : IGListSectionController
 
 @end

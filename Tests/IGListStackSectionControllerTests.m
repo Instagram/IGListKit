@@ -801,7 +801,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     XCTAssertTrue([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
 
     IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
-    IGListSectionController<IGListSectionType> *section = stack.sectionControllers.lastObject;
+    IGListSectionController *section = stack.sectionControllers.lastObject;
     [section.collectionContext deselectItemAtIndex:0 sectionController:section animated:NO];
     XCTAssertFalse([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
 }

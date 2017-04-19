@@ -20,7 +20,7 @@
     return self.objects;
 }
 
-- (IGListSectionController <IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
+- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
     if ([object isKindOfClass:[NSNumber class]]) {
         if ([(NSNumber*)object  isEqual: @42]) {
             return [IGListTestContainerSizeSection new];

@@ -14,7 +14,7 @@
 @class IGListAdapter;
 @class IGListSectionController;
 
-@protocol IGListSectionType;
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,7 +32,7 @@ IGLK_SUBCLASSING_RESTRICTED
  */
 - (void)willDisplayCell:(UICollectionViewCell *)cell
          forListAdapter:(IGListAdapter *)listAdapter
-      sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+      sectionController:(IGListSectionController *)sectionController
                  object:(id)object
               indexPath:(NSIndexPath *)indexPath;
 
@@ -46,7 +46,7 @@ IGLK_SUBCLASSING_RESTRICTED
  */
 - (void)didEndDisplayingCell:(UICollectionViewCell *)cell
               forListAdapter:(IGListAdapter *)listAdapter
-           sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+           sectionController:(IGListSectionController *)sectionController
                    indexPath:(NSIndexPath *)indexPath;
 
 
@@ -61,7 +61,7 @@ IGLK_SUBCLASSING_RESTRICTED
  */
 - (void)willDisplaySupplementaryView:(UICollectionReusableView *)view
                       forListAdapter:(IGListAdapter *)listAdapter
-                   sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                   sectionController:(IGListSectionController *)sectionController
                               object:(id)object
                            indexPath:(NSIndexPath *)indexPath;
 
@@ -76,7 +76,7 @@ IGLK_SUBCLASSING_RESTRICTED
  */
 - (void)didEndDisplayingSupplementaryView:(UICollectionReusableView *)view
                            forListAdapter:(IGListAdapter *)listAdapter
-                        sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                        sectionController:(IGListSectionController *)sectionController
                                 indexPath:(NSIndexPath *)indexPath;
 
 @end

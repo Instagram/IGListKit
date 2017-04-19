@@ -22,7 +22,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    IGListSectionController <IGListSectionType> * sectionController = [self sectionControllerForSection:section];
+    IGListSectionController * sectionController = [self sectionControllerForSection:section];
     IGAssert(sectionController != nil, @"Nil section controller for section %zi for item %@. Check your -diffIdentifier and -isEqual: implementations.",
             section, [self.sectionMap objectForSection:section]);
     const NSInteger numberOfItems = [sectionController numberOfItems];
@@ -31,7 +31,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    IGListSectionController<IGListSectionType> *sectionController = [self sectionControllerForSection:indexPath.section];
+    IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
 
     // flag that a cell is being dequeued in case it tries to access a cell in the process
     _isDequeuingCell = YES;
@@ -47,7 +47,7 @@
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    IGListSectionController<IGListSectionType> *sectionController = [self sectionControllerForSection:indexPath.section];
+    IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
     id <IGListSupplementaryViewSource> supplementarySource = [sectionController supplementaryViewSource];
     UICollectionReusableView *view = [supplementarySource viewForSupplementaryElementOfKind:kind atIndex:indexPath.item];
     IGAssert(view != nil, @"Returned a nil supplementary view at indexPath <%@> from section controller: <%@>, supplementary source: <%@>", indexPath, sectionController, supplementarySource);
@@ -67,7 +67,7 @@
         [collectionViewDelegate collectionView:collectionView didSelectItemAtIndexPath:indexPath];
     }
 
-    IGListSectionController <IGListSectionType> * sectionController = [self sectionControllerForSection:indexPath.section];
+    IGListSectionController * sectionController = [self sectionControllerForSection:indexPath.section];
     [sectionController didSelectItemAtIndex:indexPath.item];
 }
 
@@ -78,7 +78,7 @@
         [collectionViewDelegate collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
     }
 
-    IGListSectionController <IGListSectionType> *sectionController = [self sectionControllerForView:cell];
+    IGListSectionController *sectionController = [self sectionControllerForView:cell];
     // if the section controller relationship was destroyed, reconnect it
     // this happens with iOS 10 UICollectionView display range changes
     if (sectionController == nil) {
@@ -101,7 +101,7 @@
         [collectionViewDelegate collectionView:collectionView didEndDisplayingCell:cell forItemAtIndexPath:indexPath];
     }
 
-    IGListSectionController <IGListSectionType> *sectionController = [self sectionControllerForView:cell];
+    IGListSectionController *sectionController = [self sectionControllerForView:cell];
     [self.displayHandler didEndDisplayingCell:cell forListAdapter:self sectionController:sectionController indexPath:indexPath];
     [self.workingRangeHandler didEndDisplayingItemAtIndexPath:indexPath forListAdapter:self];
 
@@ -115,7 +115,7 @@
         [collectionViewDelegate collectionView:collectionView willDisplaySupplementaryView:view forElementKind:elementKind atIndexPath:indexPath];
     }
 
-    IGListSectionController <IGListSectionType> *sectionController = [self sectionControllerForView:view];
+    IGListSectionController *sectionController = [self sectionControllerForView:view];
     // if the section controller relationship was destroyed, reconnect it
     // this happens with iOS 10 UICollectionView display range changes
     if (sectionController == nil) {
@@ -133,7 +133,7 @@
         [collectionViewDelegate collectionView:collectionView didEndDisplayingSupplementaryView:view forElementOfKind:elementKind atIndexPath:indexPath];
     }
 
-    IGListSectionController <IGListSectionType> *sectionController = [self sectionControllerForView:view];
+    IGListSectionController *sectionController = [self sectionControllerForView:view];
     [self.displayHandler didEndDisplayingSupplementaryView:view forListAdapter:self sectionController:sectionController indexPath:indexPath];
 
     [self removeMapForView:view];

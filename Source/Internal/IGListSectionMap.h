@@ -12,7 +12,7 @@
 #import <IGListKit/IGListMacros.h>
 
 @class IGListSectionController;
-@protocol IGListSectionType;
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -47,7 +47,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return A section controller.
  */
-- (nullable IGListSectionController <IGListSectionType> *)sectionControllerForSection:(NSInteger)section;
+- (nullable IGListSectionController *)sectionControllerForSection:(NSInteger)section;
 
 /**
  Fetch the object for a section
@@ -100,7 +100,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @param block A block object to operate on entries in the section controller map.
  */
-- (void)enumerateUsingBlock:(void (^)(id object, IGListSectionController<IGListSectionType> *sectionController, NSInteger section, BOOL *stop))block;
+- (void)enumerateUsingBlock:(void (^)(id object, IGListSectionController *sectionController, NSInteger section, BOOL *stop))block;
 
 /**
  :nodoc:

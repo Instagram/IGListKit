@@ -88,7 +88,7 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
     }];
 }
 
-#pragma mark - IGListSectionType
+#pragma mark - IGListSectionController Overrides
 
 - (NSInteger)numberOfItems {
     return self.viewModels.count;

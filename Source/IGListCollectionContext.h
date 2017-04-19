@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class IGListSectionController;
 
-@protocol IGListSectionType;
+
 
 /**
  The collection context provides limited access to the collection-related information that
@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return The size of the collection view minus the given section controller's insets.
  */
-- (CGSize)containerSizeForSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
+- (CGSize)containerSizeForSectionController:(IGListSectionController *)sectionController;
 
 /**
  Returns the index of the specified cell in the collection relative to the section controller.
@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return The index of the cell or `NSNotFound` if it does not exist in the collection.
  */
 - (NSInteger)indexForCell:(UICollectionViewCell *)cell
-        sectionController:(IGListSectionController<IGListSectionType> *)sectionController;
+        sectionController:(IGListSectionController *)sectionController;
 
 /**
  Returns the cell in the collection at the specified index for the section controller.
@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
  @warning This method may return `nil` if the cell is offscreen.
  */
 - (nullable __kindof UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index
-                                             sectionController:(IGListSectionController<IGListSectionType> *)sectionController;
+                                             sectionController:(IGListSectionController *)sectionController;
 
 /**
  Returns the visible cells for the given section controller.
@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return An array of visible cells, or an empty array if none are found.
  */
-- (NSArray<UICollectionViewCell *> *)visibleCellsForSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
+- (NSArray<UICollectionViewCell *> *)visibleCellsForSectionController:(IGListSectionController *)sectionController;
 
 /**
  Returns the visible paths for the given section controller.
@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return An array of visible index paths, or an empty array if none are found.
  */
-- (NSArray<NSIndexPath *> *)visibleIndexPathsForSectionController:(IGListSectionController<IGListSectionType> *) sectionController;
+- (NSArray<NSIndexPath *> *)visibleIndexPathsForSectionController:(IGListSectionController *) sectionController;
 
 /**
  Deselects a cell in the collection.
@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param animated Pass `YES` to animate the change, `NO` otherwise.
  */
 - (void)deselectItemAtIndex:(NSInteger)index
-          sectionController:(IGListSectionController<IGListSectionType> *)sectionController
+          sectionController:(IGListSectionController *)sectionController
                    animated:(BOOL)animated;
 
 /**
@@ -107,7 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return The section index of the controller if found, otherwise `NSNotFound`.
  */
-- (NSInteger)sectionForSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
+- (NSInteger)sectionForSectionController:(IGListSectionController *)sectionController;
 
 /**
  Dequeues a cell from the collection view reuse pool.
@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
  @note This method uses a string representation of the cell class as the identifier.
  */
 - (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
-                                         forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                         forSectionController:(IGListSectionController *)sectionController
                                                       atIndex:(NSInteger)index;
 
 /**
@@ -138,7 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (__kindof UICollectionViewCell *)dequeueReusableCellWithNibName:(NSString *)nibName
                                                            bundle:(nullable NSBundle *)bundle
-                                             forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                             forSectionController:(IGListSectionController *)sectionController
                                                           atIndex:(NSInteger)index;
 
 /**
@@ -151,7 +151,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A cell dequeued from the reuse pool or a newly created one.
  */
 - (__kindof UICollectionViewCell *)dequeueReusableCellFromStoryboardWithIdentifier:(NSString *)identifier
-                                                              forSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+                                                              forSectionController:(IGListSectionController *)sectionController
                                                                            atIndex:(NSInteger)index;
 
 /**
@@ -167,7 +167,7 @@ NS_ASSUME_NONNULL_BEGIN
  @note This method uses a string representation of the view class as the identifier.
  */
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
-                                                         forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                                         forSectionController:(IGListSectionController *)sectionController
                                                                         class:(Class)viewClass
                                                                       atIndex:(NSInteger)index;
 
@@ -183,7 +183,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewFromStoryboardOfKind:(NSString *)elementKind
                                                                              withIdentifier:(NSString *)identifier
-                                                                       forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                                                       forSectionController:(IGListSectionController *)sectionController
                                                                                     atIndex:(NSInteger)index;
 /**
  Dequeues a supplementary view from the collection view reuse pool.
@@ -199,7 +199,7 @@ NS_ASSUME_NONNULL_BEGIN
  @note This method uses a string representation of the view class as the identifier.
  */
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
-                                                         forSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+                                                         forSectionController:(IGListSectionController *)sectionController
                                                                       nibName:(NSString *)nibName
                                                                        bundle:(nullable NSBundle *)bundle
                                                                       atIndex:(NSInteger)index;
@@ -214,7 +214,7 @@ NS_ASSUME_NONNULL_BEGIN
  will end up calling `-[UICollectionView performBatchUpdates:completion:]` internally, so invalidated changes may not be
  reflected in the cells immediately.
  */
-- (void)invalidateLayoutForSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+- (void)invalidateLayoutForSectionController:(IGListSectionController *)sectionController
                                   completion:(nullable void (^)(BOOL finished))completion;
 
 /**
@@ -260,7 +260,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param scrollPosition An option that specifies where the item should be positioned when scrolling finishes.
  @param animated A flag indicating if the scrolling should be animated.
  */
-- (void)scrollToSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+- (void)scrollToSectionController:(IGListSectionController *)sectionController
                           atIndex:(NSInteger)index
                    scrollPosition:(UICollectionViewScrollPosition)scrollPosition
                          animated:(BOOL)animated;

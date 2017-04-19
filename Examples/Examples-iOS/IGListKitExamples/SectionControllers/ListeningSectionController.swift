@@ -14,7 +14,7 @@
 
 import IGListKit
 
-final class ListeningSectionController: IGListSectionController, IGListSectionType, IncrementListener {
+final class ListeningSectionController: IGListSectionController, IncrementListener {
 
     private var value: Int = 0
 
@@ -28,24 +28,17 @@ final class ListeningSectionController: IGListSectionController, IGListSectionTy
         cell.text = "Section: \(section), value: \(value)"
     }
 
-    // MARK: IGListSectionType
+    // MARK: IGListSectionController Overrides
 
-    func numberOfItems() -> Int {
-        return 1
-    }
-
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
         configureCell(cell: cell)
         return cell
     }
-
-    func didUpdate(to object: Any) {}
-    func didSelectItem(at index: Int) {}
 
     // MARK: IncrementListener
 

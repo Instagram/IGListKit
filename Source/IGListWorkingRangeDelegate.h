@@ -12,7 +12,7 @@
 @class IGListAdapter;
 @class IGListSectionController;
 
-@protocol IGListSectionType;
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param listAdapter The adapter controlling the list.
  @param sectionController The section controller entering the range.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerWillEnterWorkingRange:(IGListSectionController <IGListSectionType> *)sectionController;
+- (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerWillEnterWorkingRange:(IGListSectionController *)sectionController;
 
 /**
  Notifies the delegate that an section controller exited the working range.
@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param listAdapter The adapter controlling the list.
  @param sectionController The section controller that exited the range.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerDidExitWorkingRange:(IGListSectionController <IGListSectionType> *)sectionController;
+- (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerDidExitWorkingRange:(IGListSectionController *)sectionController;
 
 @end
 
