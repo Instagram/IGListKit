@@ -25,12 +25,7 @@
 #import "IGTestSupplementarySource.h"
 #import "IGTestSupplementarySource.h"
 #import "IGTestStoryboardSupplementarySource.h"
-
-#define IGAssertEqualSize(size, w, h, ...) \
-do { \
-CGSize s = CGSizeMake(w, h); \
-XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
-} while(0)
+#import "IGListTestHelpers.h"
 
 static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 

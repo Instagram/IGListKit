@@ -19,49 +19,21 @@
 #import "IGListAdapterInternal.h"
 #import "IGTestObject.h"
 #import "IGTestCell.h"
+#import "IGListTestCase.h"
 
-@interface IGListBindingSectionControllerTests : XCTestCase
-
-@property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) IGListAdapter *adapter;
-@property (nonatomic, strong) IGTestDiffingDataSource *dataSource;
-@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
-@property (nonatomic, strong) UIWindow *window;
+@interface IGListBindingSectionControllerTests : IGListTestCase
 
 @end
 
 @implementation IGListBindingSectionControllerTests
 
 - (void)setUp {
-    [super setUp];
-
-    self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 1000)];
-
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:self.window.bounds collectionViewLayout:layout];
-
-    [self.window addSubview:self.collectionView];
-
     self.dataSource = [IGTestDiffingDataSource new];
-    self.adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new]
-                                           viewController:nil
-                                         workingRangeSize:0];
-}
 
-- (void)tearDown {
-    [super tearDown];
+    // give us more room to show cells
+    self.frame = CGRectMake(0, 0, 100, 1000);
 
-    self.window = nil;
-    self.collectionView = nil;
-    self.adapter = nil;
-    self.dataSource = nil;
-}
-
-- (void)setupWithObjects:(NSArray<IGTestDiffingObject *> *)objects {
-    self.dataSource.objects = objects;
-    self.adapter.collectionView = self.collectionView;
-    self.adapter.dataSource = self.dataSource;
-    [self.collectionView layoutIfNeeded];
+    [super setUp];
 }
 
 - (id)cellAtSection:(NSInteger)section item:(NSInteger)item {

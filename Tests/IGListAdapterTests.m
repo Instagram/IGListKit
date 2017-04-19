@@ -20,61 +20,22 @@
 #import "IGListTestSection.h"
 #import "IGTestSupplementarySource.h"
 #import "IGTestNibSupplementaryView.h"
+#import "IGListTestCase.h"
 
-#define IGAssertEqualPoint(point, x, y, ...) \
-do { \
-CGPoint p = CGPointMake(x, y); \
-XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
-} while(0)
-
-#define IGAssertEqualSize(size, w, h, ...) \
-do { \
-CGSize s = CGSizeMake(w, h); \
-XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
-} while(0)
-
-@interface IGListAdapterTests : XCTestCase
-
-// infra does not hold a strong ref to collection view
-@property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) IGListAdapter *adapter;
-@property (nonatomic, strong) IGListTestAdapterDataSource *dataSource;
-@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
-@property (nonatomic, strong) UIWindow *window;
-
+@interface IGListAdapterTests : IGListTestCase
 @end
 
 @implementation IGListAdapterTests
 
 - (void)setUp {
+    self.dataSource = [IGListTestAdapterDataSource new];
+    self.updater = [IGListReloadDataUpdater new];
+
     [super setUp];
 
-    // minimum line spacing, item size, and minimum interim spacing are all set in IGListTestSection
-    self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-
-    self.layout = [[UICollectionViewFlowLayout alloc] init];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:self.window.bounds collectionViewLayout:self.layout];
-
-    [self.window addSubview:self.collectionView];
-
-    // syncronous reloads so we dont have to do expectations or other nonsense
-    IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
-
-    self.dataSource = [[IGListTestAdapterDataSource alloc] init];
-    self.adapter = [[IGListAdapter alloc] initWithUpdater:updater
-                                           viewController:nil
-                                         workingRangeSize:0];
+    // test case doesn't use -setupWithObjects for more control over update events
     self.adapter.collectionView = self.collectionView;
     self.adapter.dataSource = self.dataSource;
-}
-
-- (void)tearDown {
-    [super tearDown];
-    self.window = nil;
-    self.collectionView = nil;
-    self.adapter = nil;
-    self.dataSource = nil;
-    self.layout = nil;
 }
 
 - (void)test_whenAdapterNotUpdated_withDataSourceUpdated_thatAdapterHasNoSectionControllers {
@@ -190,7 +151,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 - (void)test_whenDataSourceChanges_thatBackgroundViewVisibilityChanges {
     self.dataSource.objects = @[@1];
     UIView *background = [[UIView alloc] init];
-    self.dataSource.backgroundView = background;
+    ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = background;
     __block BOOL executed = NO;
     [self.adapter reloadDataWithCompletion:^(BOOL finished) {
         XCTAssertTrue(self.adapter.collectionView.backgroundView.hidden, @"Background view should be hidden");
@@ -337,7 +298,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 - (void)test_whenDataSourceAddsItems_thatEmptyViewBecomesVisible {
     self.dataSource.objects = @[];
     UIView *background = [UIView new];
-    self.dataSource.backgroundView = background;
+    ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = background;
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual(self.collectionView.backgroundView, background);
     XCTAssertFalse(self.collectionView.backgroundView.hidden);
@@ -348,7 +309,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 
 - (void)test_whenInsertingIntoEmptySection_thatEmptyViewBecomesHidden {
     self.dataSource.objects = @[@0];
-    self.dataSource.backgroundView = [UIView new];
+    ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertFalse(self.collectionView.backgroundView.hidden);
     IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(0)];
@@ -359,7 +320,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 
 - (void)test_whenDeletingAllItemsFromSection_thatEmptyViewBecomesVisible {
     self.dataSource.objects = @[@1];
-    self.dataSource.backgroundView = [UIView new];
+    ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertTrue(self.collectionView.backgroundView.hidden);
     IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(1)];
@@ -370,7 +331,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 
 - (void)test_whenEmptySectionAddsItems_thatEmptyViewBecomesHidden {
     self.dataSource.objects = @[@0];
-    self.dataSource.backgroundView = [UIView new];
+    ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertFalse(self.collectionView.backgroundView.hidden);
     IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(0)];
@@ -381,7 +342,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 
 - (void)test_whenSectionItemsAreDeletedAsBatch_thatEmptyViewBecomesVisible {
     self.dataSource.objects = @[@1, @2];
-    self.dataSource.backgroundView = [UIView new];
+    ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertTrue(self.collectionView.backgroundView.hidden);
     IGListTestSection *firstSectionController = [self.adapter sectionControllerForObject:@(1)];

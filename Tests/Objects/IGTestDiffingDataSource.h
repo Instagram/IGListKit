@@ -11,9 +11,11 @@
 
 #import <IGListKit/IGListAdapterDataSource.h>
 
+#import "IGListTestCase.h"
+
 @class IGTestDiffingObject;
 
-@interface IGTestDiffingDataSource : NSObject <IGListAdapterDataSource>
+@interface IGTestDiffingDataSource : NSObject <IGListTestCaseDataSource>
 
 @property (nonatomic, strong) NSArray<IGTestDiffingObject *> *objects;
 

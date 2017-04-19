@@ -13,8 +13,6 @@
 #import "IGListAdapterUpdaterInternal.h"
 #import "IGListTestUICollectionViewDataSource.h"
 
-#define genTestObject(k, v) [[IGSectionObject alloc] initWithKey:k value:v]
-
 #define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
 #define waitExpectation [self waitForExpectationsWithTimeout:30 handler:nil]
 

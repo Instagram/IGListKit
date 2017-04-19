@@ -12,8 +12,9 @@
 #import <IGListKit/IGListAdapterDataSource.h>
 
 #import "IGTestObject.h"
+#import "IGListTestCase.h"
 
-@interface IGTestSingleItemDataSource : NSObject <IGListAdapterDataSource>
+@interface IGTestSingleItemDataSource : NSObject <IGListTestCaseDataSource>
 
 @property (nonatomic, strong) NSArray <IGTestObject *> *objects;
 
