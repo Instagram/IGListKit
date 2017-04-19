@@ -506,9 +506,6 @@
     // for IGListSectionController subclasses after calling [super init]
     IGListSectionControllerPushThread(self.viewController, self);
 
-    id firstObject = objects.firstObject;
-    id lastObject = objects.lastObject;
-
     for (id object in objects) {
         // infra checks to see if a controller exists
         IGListSectionController *sectionController = [map sectionControllerForObject:object];
@@ -527,8 +524,6 @@
         // in case the section controller was created outside of -listAdapter:sectionControllerForObject:
         sectionController.collectionContext = self;
         sectionController.viewController = self.viewController;
-        sectionController.isFirstSection = (object == firstObject);
-        sectionController.isLastSection = (object == lastObject);
 
         // check if the item has changed instances or is new
         const NSInteger oldSection = [map sectionForObject:object];
@@ -552,9 +547,7 @@
 
     // now that the maps have been created and contexts are assigned, we consider the section controller "fully loaded"
     for (id object in updatedObjects) {
-        IGListSectionController<IGListSectionType> *sectionController = [map sectionControllerForObject:object];
-        sectionController.sectionIndex = [self sectionForSectionController:sectionController];
-        [sectionController didUpdateToObject:object];
+        [[map sectionControllerForObject:object] didUpdateToObject:object];
     }
 
     NSInteger itemCount = 0;
