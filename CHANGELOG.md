@@ -72,6 +72,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Added `IGListBindingSectionController` which automatically binds view models to cells and animates updates at the cell level. [Ryan Nystrom](https://github.com/rnystrom) [(#494)](https://github.com/Instagram/IGListKit/pull/494)
 
+- Added `IGListGenericSectionController` to take advantage of Objective-C (and Swift) generics and automatically store strongly-typed references to the object powering your section controller. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+
 ### Fixes
 
 - Gracefully handle a `nil` section controller returned by an `IGListAdapterDataSource`. [Ryan Nystrom](https://github.com/rnystrom) [(#488)](https://github.com/Instagram/IGListKit/pull/488)

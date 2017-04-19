@@ -37,6 +37,7 @@
 #import "IGListCollectionContext.h"
 #import "IGListCollectionViewLayout.h"
 #import "IGListDisplayDelegate.h"
+#import "IGListGenericSectionController.h"
 #import "IGListKit.h"
 #import "IGListReloadDataUpdater.h"
 #import "IGListScrollDelegate.h"
