@@ -1090,31 +1090,35 @@
 }
 
 - (void)test_whenInsertingAtBeginning_thatAllSectionControllerIndexesUpdateCorrectly_forInsertAtHead {
-    self.dataSource.objects = @[@1, @2, @3];
-    [self.adapter reloadDataWithCompletion:nil];
+    NSNumber *zero = @0;
+    NSNumber *one = @1;
+    NSNumber *two = @2;
+    NSNumber *three = @3;
+    self.dataSource.objects = @[one, two, three];
+    [self.adapter performUpdatesAnimated:NO completion:nil];
 
-    IGListSectionController<IGListSectionType> *controller1a = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController<IGListSectionType> *controller1a = [self.adapter sectionControllerForObject:one];
     XCTAssertEqual(controller1a.sectionIndex, 0);
     XCTAssertTrue(controller1a.isFirstSection);
 
-    XCTAssertEqual([self.adapter sectionControllerForObject:@2].sectionIndex, 1);
-    XCTAssertEqual([self.adapter sectionControllerForObject:@3].sectionIndex, 2);
-    XCTAssertTrue([self.adapter sectionControllerForObject:@3].isLastSection);
+    XCTAssertEqual([self.adapter sectionControllerForObject:two].sectionIndex, 1);
+    XCTAssertEqual([self.adapter sectionControllerForObject:three].sectionIndex, 2);
+    XCTAssertTrue([self.adapter sectionControllerForObject:three].isLastSection);
 
-    self.dataSource.objects = [@[@0] arrayByAddingObjectsFromArray:self.dataSource.objects];
-    [self.adapter reloadDataWithCompletion:nil];
+    self.dataSource.objects = @[zero, one, two, three];
+    [self.adapter performUpdatesAnimated:NO completion:nil];
 
-    IGListSectionController<IGListSectionType> *controller0 = [self.adapter sectionControllerForObject:@0];
+    IGListSectionController<IGListSectionType> *controller0 = [self.adapter sectionControllerForObject:zero];
     XCTAssertEqual(controller0.sectionIndex, 0);
     XCTAssertTrue(controller0.isFirstSection);
 
-    IGListSectionController<IGListSectionType> *controller1b = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController<IGListSectionType> *controller1b = [self.adapter sectionControllerForObject:one];
     XCTAssertEqual(controller1b.sectionIndex, 1);
     XCTAssertFalse(controller1b.isFirstSection);
 
-    XCTAssertEqual([self.adapter sectionControllerForObject:@2].sectionIndex, 2);
-    XCTAssertEqual([self.adapter sectionControllerForObject:@3].sectionIndex, 3);
-    XCTAssertTrue([self.adapter sectionControllerForObject:@3].isLastSection);
+    XCTAssertEqual([self.adapter sectionControllerForObject:two].sectionIndex, 2);
+    XCTAssertEqual([self.adapter sectionControllerForObject:three].sectionIndex, 3);
+    XCTAssertTrue([self.adapter sectionControllerForObject:three].isLastSection);
 }
 
 @end
