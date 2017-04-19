@@ -942,7 +942,8 @@
     IGAssertMainThread();
     IGParameterAssert(indexes != nil);
     IGParameterAssert(sectionController != nil);
-    IGAssert(self.collectionView != nil, @"Tried to reload the adapter from %@ without a collection view at indexes %@.", sectionController, indexes);
+    UICollectionView *collectionView = self.collectionView;
+    IGAssert(collectionView != nil, @"Tried to reload the adapter from %@ without a collection view at indexes %@.", sectionController, indexes);
 
     if (indexes.count == 0) {
         return;
@@ -964,8 +965,15 @@
 
      IGListAdapter tracks the before/after mapping of section controllers to make precise NSIndexPath conversions.
      */
-    [self deleteInSectionController:sectionController atIndexes:indexes];
-    [self insertInSectionController:sectionController atIndexes:indexes];
+    [indexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
+        NSIndexPath *fromIndexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:YES];
+        NSIndexPath *toIndexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
+        // index paths could be nil if a section controller is prematurely reloading or a reload was batched with
+        // the section controller being deleted
+        if (fromIndexPath != nil && toIndexPath != nil) {
+            [self.updater reloadItemInCollectionView:collectionView fromIndexPath:fromIndexPath toIndexPath:toIndexPath];
+        }
+    }];
 }
 
 - (void)insertInSectionController:(IGListSectionController<IGListSectionType> *)sectionController atIndexes:(NSIndexSet *)indexes {

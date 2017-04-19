@@ -170,6 +170,10 @@
 		292807391E82CE240077A81C /* IGListBatchContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 292807381E82CE240077A81C /* IGListBatchContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2928073A1E82CE2E0077A81C /* IGListBatchContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 292807381E82CE240077A81C /* IGListBatchContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		294AC6321DDE4C19002FCE5D /* IGListDiffResultTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AC6311DDE4C19002FCE5D /* IGListDiffResultTests.m */; };
+		296AC95C1EA518D3005137E2 /* IGListReloadIndexPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 296AC95A1EA518D3005137E2 /* IGListReloadIndexPath.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		296AC95D1EA518D3005137E2 /* IGListReloadIndexPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 296AC95A1EA518D3005137E2 /* IGListReloadIndexPath.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		296AC95F1EA518D3005137E2 /* IGListReloadIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 296AC95B1EA518D3005137E2 /* IGListReloadIndexPath.m */; };
+		296AC9601EA518D3005137E2 /* IGListReloadIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 296AC95B1EA518D3005137E2 /* IGListReloadIndexPath.m */; };
 		297278BD1E6B58560099D8EA /* IGListBatchUpdates.h in Headers */ = {isa = PBXBuildFile; fileRef = 297278BB1E6B58560099D8EA /* IGListBatchUpdates.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		297278BE1E6B58560099D8EA /* IGListBatchUpdates.h in Headers */ = {isa = PBXBuildFile; fileRef = 297278BB1E6B58560099D8EA /* IGListBatchUpdates.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		297278BF1E6B58560099D8EA /* IGListBatchUpdates.m in Sources */ = {isa = PBXBuildFile; fileRef = 297278BC1E6B58560099D8EA /* IGListBatchUpdates.m */; };
@@ -402,6 +406,8 @@
 		292807381E82CE240077A81C /* IGListBatchContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListBatchContext.h; sourceTree = "<group>"; };
 		294369B01DB1B7AE0025F6E7 /* IGTestNibCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IGTestNibCell.xib; sourceTree = "<group>"; };
 		294AC6311DDE4C19002FCE5D /* IGListDiffResultTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListDiffResultTests.m; sourceTree = "<group>"; };
+		296AC95A1EA518D3005137E2 /* IGListReloadIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListReloadIndexPath.h; sourceTree = "<group>"; };
+		296AC95B1EA518D3005137E2 /* IGListReloadIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListReloadIndexPath.m; sourceTree = "<group>"; };
 		297278BB1E6B58560099D8EA /* IGListBatchUpdates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListBatchUpdates.h; sourceTree = "<group>"; };
 		297278BC1E6B58560099D8EA /* IGListBatchUpdates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListBatchUpdates.m; sourceTree = "<group>"; };
 		297278C31E6B59D50099D8EA /* IGListBatchUpdateState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListBatchUpdateState.h; sourceTree = "<group>"; };
@@ -652,6 +658,8 @@
 				917E89871E800EE70015F934 /* IGListCollectionViewLayoutInternal.h */,
 				0B3B92BA1E08D7F5008390ED /* IGListDisplayHandler.h */,
 				0B3B92BB1E08D7F5008390ED /* IGListDisplayHandler.m */,
+				296AC95A1EA518D3005137E2 /* IGListReloadIndexPath.h */,
+				296AC95B1EA518D3005137E2 /* IGListReloadIndexPath.m */,
 				0B3B92BC1E08D7F5008390ED /* IGListSectionControllerInternal.h */,
 				0B3B92BD1E08D7F5008390ED /* IGListSectionMap.h */,
 				0B3B92BE1E08D7F5008390ED /* IGListSectionMap.m */,
@@ -847,6 +855,7 @@
 				0B3B93051E08D7F5008390ED /* IGListCollectionContext.h in Headers */,
 				292658701E75E0830041B56D /* IGListBindingSectionControllerSelectionDelegate.h in Headers */,
 				0B3B931D1E08D7F5008390ED /* IGListSingleSectionController.h in Headers */,
+				296AC95D1EA518D3005137E2 /* IGListReloadIndexPath.h in Headers */,
 				0B3B92D11E08D7F5008390ED /* IGListExperiments.h in Headers */,
 				DAD4A40D1E8E9E1E00DACC36 /* IGListAdapter+UICollectionView.h in Headers */,
 				0B3B93331E08D7F5008390ED /* IGListAdapterUpdaterInternal.h in Headers */,
@@ -907,6 +916,7 @@
 				0B3B93041E08D7F5008390ED /* IGListCollectionContext.h in Headers */,
 				0B3B931C1E08D7F5008390ED /* IGListSingleSectionController.h in Headers */,
 				0B3B92D01E08D7F5008390ED /* IGListExperiments.h in Headers */,
+				296AC95C1EA518D3005137E2 /* IGListReloadIndexPath.h in Headers */,
 				0B3B93321E08D7F5008390ED /* IGListAdapterUpdaterInternal.h in Headers */,
 				DA5F484B1E8E9D7000DAE6DA /* IGListAdapter+UICollectionView.h in Headers */,
 				0B3B93381E08D7F5008390ED /* IGListSectionControllerInternal.h in Headers */,
@@ -1300,6 +1310,7 @@
 				0B3B92CD1E08D7F5008390ED /* IGListDiff.mm in Sources */,
 				297278C11E6B58560099D8EA /* IGListBatchUpdates.m in Sources */,
 				0B3B931F1E08D7F5008390ED /* IGListSingleSectionController.m in Sources */,
+				296AC9601EA518D3005137E2 /* IGListReloadIndexPath.m in Sources */,
 				0B3B92D51E08D7F5008390ED /* IGListIndexPathResult.m in Sources */,
 				0B3B93371E08D7F5008390ED /* IGListDisplayHandler.m in Sources */,
 				0B3B92E11E08D7F5008390ED /* IGListMoveIndex.m in Sources */,
@@ -1387,6 +1398,7 @@
 				0B3B92CC1E08D7F5008390ED /* IGListDiff.mm in Sources */,
 				297278BF1E6B58560099D8EA /* IGListBatchUpdates.m in Sources */,
 				0B3B931E1E08D7F5008390ED /* IGListSingleSectionController.m in Sources */,
+				296AC95F1EA518D3005137E2 /* IGListReloadIndexPath.m in Sources */,
 				0B3B92D41E08D7F5008390ED /* IGListIndexPathResult.m in Sources */,
 				0B3B93361E08D7F5008390ED /* IGListDisplayHandler.m in Sources */,
 				0B3B92E01E08D7F5008390ED /* IGListMoveIndex.m in Sources */,

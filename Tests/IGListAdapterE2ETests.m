@@ -1477,7 +1477,7 @@
     [self waitForExpectationsWithTimeout:15 handler:nil];
 }
 
-- (void)test_whenDeletingItemsTwice_withDataUpdatedTwice_thatAllUpdatesAppliedWithoutException {
+- (void)FIXME_test_whenDeletingItemsTwice_withDataUpdatedTwice_thatAllUpdatesAppliedWithoutException {
     [self setupWithObjects:@[
                              genTestObject(@1, @4),
                              ]];
@@ -1497,5 +1497,6 @@
     }];
     [self waitForExpectationsWithTimeout:15 handler:nil];
 }
+
 
 @end

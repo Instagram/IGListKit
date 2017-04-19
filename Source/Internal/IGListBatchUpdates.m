@@ -17,6 +17,7 @@
         _itemInserts = [NSMutableArray new];
         _itemMoves = [NSMutableArray new];
         _itemDeletes = [NSMutableArray new];
+        _itemReloads = [NSMutableArray new];
         _itemUpdateBlocks = [NSMutableArray new];
         _itemCompletionBlocks = [NSMutableArray new];
     }
@@ -28,6 +29,7 @@
     || [self.sectionReloads count] > 0
     || [self.itemInserts count] > 0
     || [self.itemMoves count] > 0
+    || [self.itemReloads count] > 0
     || [self.itemDeletes count] > 0;
 }
 
