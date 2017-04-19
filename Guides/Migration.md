@@ -6,6 +6,21 @@ This guide provides details for how to migration between major versions of `IGLi
 
 For details on all changes in IGListKit 3.0.0, please see the [release notes](https://github.com/Instagram/IGListKit/releases/tag/3.0.0).
 
+### IGListSectionType removed
+
+In order to make building section controllers even easier, we removed the protocol and absorbed all of the methods into `IGListSectionController` with default implementations.
+
+- `numberOfItems` returns 1 item
+- `didUpdateToObject:` and `didSelectItemAtIndex:` do nothing
+- `sizeForItemAtIndex:` returns `CGSizeZero`
+- `cellForItemAtIndex:` asserts (you must override this method)
+
+In Objective-C, all you need to do is find & remove all uses of `IGListSectionType`. This includes `IGListSectionController` and `IGListAdapterDataSource` implementations.
+
+In Swift, you will also need to add `override` keywords to all methods.
+
+The compiler will catch all instances that need fixed.
+
 ### IGListBindingSectionController
 
 If you were using `IGListDiff(...)` _inside_ a section controller to compute diffs for cells, we recommend that you start using `IGListBindingSectionController` which wraps this behavior in an elegant and tested API.
@@ -46,9 +61,11 @@ self.expanded = YES;
 **Swift**
 
 ```swift
+// OLD
 expanded = true
 collectionContext?.insert(in: self, at: [0])
 
+// NEW
 collectionContext?.performBatch(animated: true, updates: { (batchContext) in
   self.exanded = true
   batchContext.insert(in: self, at: [0])
