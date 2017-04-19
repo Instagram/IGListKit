@@ -102,6 +102,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - `IGListSectionType` protocol was removed and its methods were absorted into the `IGListSectionController` base class with default implementations. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
 
+- When setting the collection view on `IGListAdapter`, its layout is now properly invalidated. [Jesse Squires](https://github.com/jessesquires) [(#677)](https://github.com/Instagram/IGListKit/pull/677)
+
 2.1.0
 -----
 
