@@ -116,7 +116,7 @@
         XCTAssertEqualObjects(cell2.label.text, @"Qux");
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:15 handler:nil];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 - (void)test_whenSelected_thatDelegateReceivesEvent {
