@@ -39,15 +39,15 @@ final class LoadMoreViewController: UIViewController, IGListAdapterDataSource, U
         collectionView.frame = view.bounds
     }
 
-    //MARK: IGListAdapterDataSource
+    // MARK: IGListAdapterDataSource
 
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
         var objects = items as [IGListDiffable]
-        
+
         if loading {
             objects.append(spinToken as IGListDiffable)
         }
-        
+
         return objects
     }
 
@@ -61,9 +61,11 @@ final class LoadMoreViewController: UIViewController, IGListAdapterDataSource, U
 
     func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
 
-    //MARK: UIScrollViewDelegate
+    // MARK: UIScrollViewDelegate
 
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView,
+                                   withVelocity velocity: CGPoint,
+                                   targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let distance = scrollView.contentSize.height - (targetContentOffset.pointee.y + scrollView.bounds.height)
         if !loading && distance < 200 {
             loading = true

@@ -62,7 +62,7 @@ final class WorkingRangeSectionController: IGListSectionController, IGListWorkin
         self.height = object as? Int
     }
 
-    //MARK: IGListWorkingRangeDelegate
+    // MARK: IGListWorkingRangeDelegate
 
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerWillEnterWorkingRange sectionController: IGListSectionController) {
         guard downloadedImage == nil,
@@ -74,9 +74,9 @@ final class WorkingRangeSectionController: IGListSectionController, IGListWorkin
         let section = collectionContext?.section(for: self) ?? 0
         print("Downloading image \(urlString) for section \(section)")
 
-        task = URLSession.shared.dataTask(with: url) { data, response, err in
+        task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, let image = UIImage(data: data) else {
-                return print("Error downloading \(urlString): " + String(describing: err))
+                return print("Error downloading \(urlString): " + String(describing: error))
             }
             DispatchQueue.main.async {
                 self.downloadedImage = image

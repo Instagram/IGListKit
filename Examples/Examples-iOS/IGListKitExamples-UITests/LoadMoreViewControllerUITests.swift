@@ -15,20 +15,20 @@
 import XCTest
 
 final class LoadMoreViewControllerUITests: UITestCase {
-    
+
     func test_whenScrollingToTheBottom_thatNewItemsAreLoaded() {
         let collectionViews = XCUIApplication().collectionViews
         collectionViews.cells.staticTexts["Tail Loading"].tap()
-        
+
         // Swipe up until the last element before loading new data is visible
         let lastElem = collectionViews.cells.staticTexts["20"]
         while !lastElem.exists || !XCUIApplication().windows.element(boundBy: 0).frame.contains(lastElem.frame) {
             collectionViews.element.swipeUp()
         }
-        
+
         // Wait for item "21" to be loaded asynchronously
         let newlyLoadedElement = collectionViews.cells.staticTexts["21"]
-        waitToAppear(element: newlyLoadedElement)        
+        waitToAppear(element: newlyLoadedElement)
     }
-    
+
 }
