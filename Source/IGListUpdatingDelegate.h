@@ -105,6 +105,21 @@ typedef void (^IGListReloadUpdateBlock)();
                      toIndexPath:(NSIndexPath *)toIndexPath;
 
 /**
+ Tells the delegate to reload an item from and to given index paths.
+
+ @param collectionView The collection view on which to perform the transition.
+ @param fromIndexPath The source index path of the item to reload.
+ @param toIndexPath The destination index path of the item to reload.
+
+ @note Since UICollectionView is unable to handle calling -[UICollectionView reloadItemsAtIndexPaths:] safely while also
+ executing insert and delete operations in the same batch updates, the updater must know about the origin and
+ destination of the reload to perform a safe transition.
+ */
+- (void)reloadItemInCollectionView:(UICollectionView *)collectionView
+                     fromIndexPath:(NSIndexPath *)fromIndexPath
+                       toIndexPath:(NSIndexPath *)toIndexPath;
+
+/**
  Completely reload data in the collection.
 
  @param collectionView The collection view to reload.

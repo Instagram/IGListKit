@@ -32,13 +32,14 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
 // Converts all section moves that have index path operations into a section delete + insert.
 + (void)cleanIndexPathsWithMap:(const std::unordered_map<NSInteger, IGListMoveIndex*> &)map
                          moves:(NSMutableSet<IGListMoveIndex *> *)moves
-                    indexPaths:(NSMutableSet<NSIndexPath *> *)indexPaths
+                    indexPaths:(NSMutableArray<NSIndexPath *> *)indexPaths
                        deletes:(NSMutableIndexSet *)deletes
                        inserts:(NSMutableIndexSet *)inserts {
-    for (NSIndexPath *path in [indexPaths copy]) {
+    for (NSInteger i = indexPaths.count - 1; i >= 0; i--) {
+        NSIndexPath *path = indexPaths[i];
         const auto it = map.find(path.section);
         if (it != map.end() && it->second != nil) {
-            [indexPaths removeObject:path];
+            [indexPaths removeObjectAtIndex:i];
             convertMoveToDeleteAndInsert(moves, it->second, deletes, inserts);
         }
     }
@@ -87,8 +88,11 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
             }
         }
 
-        NSMutableSet<NSIndexPath *> *mInsertIndexPaths = [insertIndexPaths mutableCopy];
-        NSMutableSet<NSIndexPath *> *mDeleteIndexPaths = [deleteIndexPaths mutableCopy];
+        NSMutableArray<NSIndexPath *> *mInsertIndexPaths = [insertIndexPaths mutableCopy];
+
+        // avoid a flaky UICollectionView bug when deleting from the same index path twice
+        // exposes a possible data source inconsistency issue
+        NSMutableArray<NSIndexPath *> *mDeleteIndexPaths = [[[NSSet setWithArray:deleteIndexPaths] allObjects] mutableCopy];
 
         // avoids a bug where a cell is animated twice and one of the snapshot cells is never removed from the hierarchy
         [IGListBatchUpdateData cleanIndexPathsWithMap:fromMap moves:mMoveSections indexPaths:mDeleteIndexPaths deletes:mDeleteSections inserts:mInsertSections];
