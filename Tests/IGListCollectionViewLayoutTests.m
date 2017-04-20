@@ -15,6 +15,7 @@
 #import "IGLayoutTestDataSource.h"
 #import "IGLayoutTestItem.h"
 #import "IGLayoutTestSection.h"
+#import "IGListTestHelpers.h"
 
 @interface IGListCollectionViewLayoutTests : XCTestCase
 
@@ -26,27 +27,14 @@
 
 static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 
-static NSIndexPath *quickPath(NSInteger section, NSInteger item) {
-    return [NSIndexPath indexPathForItem:item inSection:section];
-}
-
-#define IGAssertEqualFrame(frame, x, y, w, h, ...) \
-do { \
-CGRect expected = CGRectMake(x, y, w, h); \
-XCTAssertEqual(CGRectGetMinX(expected), CGRectGetMinX(frame)); \
-XCTAssertEqual(CGRectGetMinY(expected), CGRectGetMinY(frame)); \
-XCTAssertEqual(CGRectGetWidth(expected), CGRectGetWidth(frame)); \
-XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
-} while(0)
-
 @implementation IGListCollectionViewLayoutTests
 
 - (UICollectionViewCell *)cellForSection:(NSInteger)section item:(NSInteger)item {
-    return [self.collectionView cellForItemAtIndexPath:quickPath(section, item)];
+    return [self.collectionView cellForItemAtIndexPath:genIndexPath(section, item)];
 }
 
 - (UICollectionReusableView *)headerForSection:(NSInteger)section {
-    return [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:quickPath(section, 0)];
+    return [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:genIndexPath(section, 0)];
 }
 
 - (void)setUpWithStickyHeaders:(BOOL)sticky topInset:(CGFloat)inset {
@@ -481,9 +469,9 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
         [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:2]];
         [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:3]];
         [self.collectionView moveSection:3 toSection:1];
-        [self.collectionView reloadItemsAtIndexPaths:@[quickPath(0, 0)]];
-        [self.collectionView deleteItemsAtIndexPaths:@[quickPath(0, 1)]];
-        [self.collectionView insertItemsAtIndexPaths:@[quickPath(2, 1)]];
+        [self.collectionView reloadItemsAtIndexPaths:@[genIndexPath(0, 0)]];
+        [self.collectionView deleteItemsAtIndexPaths:@[genIndexPath(0, 1)]];
+        [self.collectionView insertItemsAtIndexPaths:@[genIndexPath(2, 1)]];
     } completion:^(BOOL finished) {
         [self.collectionView layoutIfNeeded];
         [expectation fulfill];
@@ -706,7 +694,7 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
                                                                           [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 33)],
                                                                           ]],
                             ]];
-    XCTAssertNil([self.layout layoutAttributesForItemAtIndexPath:quickPath(4, 0)]);
+    XCTAssertNil([self.layout layoutAttributesForItemAtIndexPath:genIndexPath(4, 0)]);
 }
 
 - (void)test_whenQueryingAttributes_withItemOOB_thatReturnsNil {
@@ -721,7 +709,7 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
                                                                           [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 33)],
                                                                           ]],
                             ]];
-    XCTAssertNil([self.layout layoutAttributesForItemAtIndexPath:quickPath(0, 4)]);
+    XCTAssertNil([self.layout layoutAttributesForItemAtIndexPath:genIndexPath(0, 4)]);
 }
 
 @end

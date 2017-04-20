@@ -13,8 +13,6 @@
 #import "IGListTestSection.h"
 #import "IGTestObject.h"
 
-#define genTestObject(k, v) [[IGTestObject alloc] initWithKey:k value:v]
-
 @interface IGListSectionMapTests : XCTestCase
 
 @end

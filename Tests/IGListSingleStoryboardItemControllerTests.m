@@ -12,8 +12,7 @@
 #import "IGTestStoryboardCell.h"
 #import "IGTestSingleStoryboardItemDataSource.h"
 #import "IGTestStoryboardViewController.h"
-
-#define genTestObject(k, v) [[IGTestObject alloc] initWithKey:k value:v]
+#import "IGListTestCase.h"
 
 #define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
 
