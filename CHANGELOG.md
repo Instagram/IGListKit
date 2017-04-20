@@ -78,6 +78,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 ### Fixes
 
+- Added protection from this kind of bug in `UICollectionView` - [Bug description](http://stackoverflow.com/a/13389461/377384). In certain conditions: when section insets, lineSpacing and interItemSpacing are set, when scroll fast blocks of cells are disappearing from collectionView. I added check that exactly two consecutive elements are out of rect - only in this case enumeration of attributes in `layoutAttributesForItemAtIndexPath` will be stopped.
+
 - Gracefully handle a `nil` section controller returned by an `IGListAdapterDataSource`. [Ryan Nystrom](https://github.com/rnystrom) [(#488)](https://github.com/Instagram/IGListKit/pull/488)
 
 - Fix bug where emptyView's hidden status is not updated after the number of items is changed with `insertInSectionController:atIndexes:` or related methods. [Peter Edmonston](https://github.com/edmonston) [(#395)](https://github.com/Instagram/IGListKit/pull/395)

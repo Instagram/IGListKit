@@ -126,7 +126,12 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     // since we iterate through sections ascending, we may hit a section who is only partially visible
     // in that case we short circuit building layout attributes
     BOOL remainingCellsOutOfRect = NO;
-
+    
+    // sometimes, when scrolling fast in UICollectionView appears bug with duplicated element attributes
+    // one of wich is out of rect, so we shouldn't immidiatelly return once we found only one cell
+    // that is out of rect - wait second one to make sure we are finish with cells in rect
+    BOOL secondCellOutOfRectDetected = NO;
+    
     const NSRange range = [self rangeOfSectionsInRect:rect];
     if (range.location == NSNotFound) {
         return nil;
@@ -153,10 +158,13 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
             UICollectionViewLayoutAttributes *attributes = [self layoutAttributesForItemAtIndexPath:indexPath];
             if (!CGRectIntersectsRect(attributes.frame, rect)) {
-                if (remainingCellsOutOfRect) {
+                if (remainingCellsOutOfRect && secondCellOutOfRectDetected) {
                     return result;
+                } else {
+                    secondCellOutOfRectDetected = YES;
                 }
             } else {
+                secondCellOutOfRectDetected = NO;
                 remainingCellsOutOfRect = YES;
                 [result addObject:attributes];
             }
