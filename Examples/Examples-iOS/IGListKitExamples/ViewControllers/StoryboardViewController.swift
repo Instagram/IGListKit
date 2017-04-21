@@ -20,7 +20,7 @@ final class StoryboardViewController: UIViewController, IGListAdapterDataSource,
     @IBOutlet weak var collectionView: UICollectionView!
     
     lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self)
     }()
     
     lazy var people = [

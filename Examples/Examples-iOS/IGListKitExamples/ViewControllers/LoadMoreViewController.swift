@@ -18,7 +18,7 @@ import IGListKit
 final class LoadMoreViewController: UIViewController, IGListAdapterDataSource, UIScrollViewDelegate {
 
     lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self)
     }()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 

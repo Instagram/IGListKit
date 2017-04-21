@@ -18,7 +18,7 @@ import IGListKit
 final class SingleSectionStoryboardViewController: UIViewController, IGListAdapterDataSource, IGListSingleSectionControllerDelegate {
     
     lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self)
     }()
     
     @IBOutlet weak var collectionView: UICollectionView!

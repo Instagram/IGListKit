@@ -18,7 +18,7 @@ import IGListKit
 final class SelfSizingCellsViewController: UIViewController, IGListAdapterDataSource {
 
     lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self)
     }()
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

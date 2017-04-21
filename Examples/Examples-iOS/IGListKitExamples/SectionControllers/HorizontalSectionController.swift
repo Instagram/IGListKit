@@ -21,8 +21,7 @@ final class HorizontalSectionController: IGListSectionController, IGListAdapterD
 
     lazy var adapter: IGListAdapter = {
         let adapter = IGListAdapter(updater: IGListAdapterUpdater(),
-                                    viewController: self.viewController,
-                                    workingRangeSize: 0)
+                                    viewController: self.viewController)
         adapter.dataSource = self
         return adapter
     }()
