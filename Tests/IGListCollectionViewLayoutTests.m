@@ -520,6 +520,64 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     XCTAssertEqual([self.layout layoutAttributesForElementsInRect:CGRectMake(0, 250, 100, 1)].count, 1);
 }
 
+- (void)test_whenSecondItemDoesntIntersectRect_thatOtherAttributesExist {
+    [self setUpWithStickyHeaders:NO topInset:0];
+    NSMutableArray *data = [NSMutableArray new];
+    for (NSInteger i = 0; i < 6; i++) {
+        [data addObject:[[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                        lineSpacing:0
+                                                   interitemSpacing:0
+                                                       headerHeight:0
+                                                              items:@[
+                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize){50, 100}],
+                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize){50, 10}],
+                                                                      ]]];
+    }
+    [self prepareWithData:data];
+    
+    NSArray *attributes = [self.layout layoutAttributesForElementsInRect:CGRectMake(0, 50, 100, 100)];
+    NSArray *paths = [[attributes valueForKeyPath:@"indexPath"] sortedArrayUsingSelector:@selector(compare:)];
+    NSArray *expectation = @[
+                             genIndexPath(0, 0),
+                             genIndexPath(1, 0),
+                             genIndexPath(1, 1),
+                             ];
+    
+    // should include 2 of the 100-height items and one of the 10-height
+    XCTAssertEqualObjects(paths, expectation);
+}
+
+- (void)test_whenTwoConsecutiveItemsDontIntersectRect_thatOtherAttributesExist {
+    [self setUpWithStickyHeaders:NO topInset:0];
+    NSMutableArray *data = [NSMutableArray new];
+    for (NSInteger i = 0; i < 6; i++) {
+        [data addObject:[[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                        lineSpacing:0
+                                                   interitemSpacing:0
+                                                       headerHeight:0
+                                                              items:@[
+                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize){30, 100}],
+                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize){30, 10}],
+                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize){30, 10}],
+                                                                      ]]];
+    }
+    [self prepareWithData:data];
+    
+    NSArray *attributes = [self.layout layoutAttributesForElementsInRect:CGRectMake(0, 50, 100, 100)];
+    NSArray *paths = [[attributes valueForKeyPath:@"indexPath"] sortedArrayUsingSelector:@selector(compare:)];
+
+    NSArray *expectation = @[
+                             genIndexPath(0, 0),
+                             genIndexPath(1, 0),
+                             genIndexPath(1, 1),
+                             genIndexPath(1, 2),
+                             ];
+    
+    // should include 2 of the 100-height items and two of the 10-height
+    XCTAssertEqualObjects(paths, expectation);
+}
+
+
 - (void)test_whenChangingBoundsSize_withItemsThatNewlineAfterChange_thatLayoutShiftsItems {
     [self setUpWithStickyHeaders:NO topInset:0];
 

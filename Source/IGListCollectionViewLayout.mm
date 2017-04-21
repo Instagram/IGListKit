@@ -123,10 +123,6 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
     NSMutableArray *result = [NSMutableArray new];
 
-    // since we iterate through sections ascending, we may hit a section who is only partially visible
-    // in that case we short circuit building layout attributes
-    BOOL remainingCellsOutOfRect = NO;
-
     const NSRange range = [self rangeOfSectionsInRect:rect];
     if (range.location == NSNotFound) {
         return nil;
@@ -152,12 +148,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         for (NSInteger item = 0; item < itemCount; item++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
             UICollectionViewLayoutAttributes *attributes = [self layoutAttributesForItemAtIndexPath:indexPath];
-            if (!CGRectIntersectsRect(attributes.frame, rect)) {
-                if (remainingCellsOutOfRect) {
-                    return result;
-                }
-            } else {
-                remainingCellsOutOfRect = YES;
+            if (CGRectIntersectsRect(attributes.frame, rect)) {
                 [result addObject:attributes];
             }
         }
