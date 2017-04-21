@@ -27,25 +27,6 @@
 
 static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 
-<<<<<<< HEAD
-static NSIndexPath *quickPath(NSInteger section, NSInteger item) {
-    return [NSIndexPath indexPathForItem:item inSection:section];
-}
-
-
-#define genIndexPath(s, i) [NSIndexPath indexPathForItem:i inSection:s]
-
-#define IGAssertEqualFrame(frame, x, y, w, h, ...) \
-do { \
-CGRect expected = CGRectMake(x, y, w, h); \
-XCTAssertEqual(CGRectGetMinX(expected), CGRectGetMinX(frame)); \
-XCTAssertEqual(CGRectGetMinY(expected), CGRectGetMinY(frame)); \
-XCTAssertEqual(CGRectGetWidth(expected), CGRectGetWidth(frame)); \
-XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
-} while(0)
-
-=======
->>>>>>> fdbe025fe160583c1be288be6296458e258d7188
 @implementation IGListCollectionViewLayoutTests
 
 - (UICollectionViewCell *)cellForSection:(NSInteger)section item:(NSInteger)item {
