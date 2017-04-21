@@ -96,19 +96,17 @@ IGLK_SUBCLASSING_RESTRICTED
  the previous and succeeding 2 objects will be notified that they are within the working range. As you scroll the list
  the range is updated as objects enter and exit the working range.
 
- To opt out of using the working range, use `initWithUpdater:viewController` or provide a working range of `0`.
+ To opt out of using the working range, use `initWithUpdater:viewController:` or provide a working range of `0`.
  */
 - (instancetype)initWithUpdater:(id <IGListUpdatingDelegate>)updater
                  viewController:(nullable UIViewController *)viewController
                workingRangeSize:(NSInteger)workingRangeSize NS_DESIGNATED_INITIALIZER;
 
 /**
- Initializes a new `IGListAdapter` object.
+ Initializes a new `IGListAdapter` object with a working range of `0`.
  
  @param updater An object that manages updates to the collection view.
  @param viewController The view controller that will house the adapter.
- 
- @note This defaults the working range to 0.
  
  @return A new list adapter object.
  */
