@@ -96,7 +96,7 @@ IGLK_SUBCLASSING_RESTRICTED
  the previous and succeeding 2 objects will be notified that they are within the working range. As you scroll the list
  the range is updated as objects enter and exit the working range.
 
- To opt out of using the working range, use `initWithUpdater:viewController` instead.
+ To opt out of using the working range, use `initWithUpdater:viewController` or provide a working range of `0`.
  */
 - (instancetype)initWithUpdater:(id <IGListUpdatingDelegate>)updater
                  viewController:(nullable UIViewController *)viewController
