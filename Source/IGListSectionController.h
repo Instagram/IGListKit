@@ -23,6 +23,64 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IGListSectionController : NSObject
 
 /**
+ Returns the number of items in the section.
+
+ @return A count of items in the list.
+
+ @note The count returned is used to drive the number of cells displayed for this section controller. The default 
+ implementation returns 1. **Calling super is not required.**
+ */
+- (NSInteger)numberOfItems;
+
+/**
+ The specific size for the item at the specified index.
+
+ @param index The row index of the item.
+
+ @return The size for the item at index.
+
+ @note The returned size is not guaranteed to be used. The implementation may query sections for their
+ layout information at will, or use its own layout metrics. For example, consider a dynamic-text sized list versus a
+ fixed height-and-width grid. The former will ask each section for a size, and the latter will likely not. The default
+ implementation returns size zero. **Calling super is not required.**
+ */
+- (CGSize)sizeForItemAtIndex:(NSInteger)index;
+
+/**
+ Return a dequeued cell for a given index.
+
+ @param index The index of the requested row.
+
+ @return A configured `UICollectionViewCell` subclass.
+
+ @note This is your opportunity to do any cell setup and configuration. The infrastructure requests a cell when it
+ will be used on screen. You should never allocate new cells in this method, instead use the provided adapter to call
+ one of the dequeue methods on the IGListCollectionContext. The default implementation will assert. **You must override
+ this method without calling super.**
+ */
+- (__kindof UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index;
+
+/**
+ Updates the section controller to a new object.
+
+ @param object The object mapped to this section controller.
+
+ @note When this method is called, all available contexts and configurations have been set for the section
+ controller. This method will only be called when the object instance has changed, including from `nil` or a previous
+ object. **Calling super is not required.**
+ */
+- (void)didUpdateToObject:(id)object;
+
+/**
+ Tells the section controller that the cell at the specified index path was selected.
+
+ @param index The index of the selected cell.
+
+ @note The default implementation does nothing. **Calling super is not required.**
+ */
+- (void)didSelectItemAtIndex:(NSInteger)index;
+
+/**
  The view controller housing the adapter that created this section controller.
 
  @note Use this view controller to push, pop, present, or do other custom transitions. 

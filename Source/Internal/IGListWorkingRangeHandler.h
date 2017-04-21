@@ -11,7 +11,7 @@
 
 @class IGListAdapter;
 
-@protocol IGListSectionType;
+
 
 @interface IGListWorkingRangeHandler : NSObject
 
@@ -26,7 +26,7 @@
 /**
  Tells the handler that a cell will be displayed in the IGListKit infra.
 
- @param indexPath   The index path of the cell in the UICollectionView.
+ @param indexPath The index path of the cell in the UICollectionView.
  @param listAdapter The adapter managing the infra.
  */
 - (void)willDisplayItemAtIndexPath:(NSIndexPath *)indexPath
@@ -35,7 +35,7 @@
 /**
  Tells the handler that a cell did end display in the IGListKit infra.
 
- @param indexPath   The index path of the cell in the UICollectionView.
+ @param indexPath The index path of the cell in the UICollectionView.
  @param listAdapter The adapter managing the infra.
  */
 - (void)didEndDisplayingItemAtIndexPath:(NSIndexPath *)indexPath

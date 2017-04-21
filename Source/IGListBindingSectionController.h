@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 
 #import <IGListKit/IGListMacros.h>
-#import <IGListKit/IGListSectionType.h>
+
 #import <IGListKit/IGListSectionController.h>
 #import <IGListKit/IGListBindingSectionControllerSelectionDelegate.h>
 #import <IGListKit/IGListBindingSectionControllerDataSource.h>
@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
  Only when `-diffIdentifier`s match is object equality compared, so you can assume the class is the same, and the
  instance has already been checked.
  */
-@interface IGListBindingSectionController<__covariant ObjectType : id<IGListDiffable>> : IGListSectionController<IGListSectionType>
+@interface IGListBindingSectionController<__covariant ObjectType : id<IGListDiffable>> : IGListSectionController
 
 /**
  A data source that transforms a top-level object into view models, and returns cells and sizes for given view models.

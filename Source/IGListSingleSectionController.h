@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #import <IGListKit/IGListSectionController.h>
-#import <IGListKit/IGListSectionType.h>
+
 #import <IGListKit/IGListMacros.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -27,7 +27,7 @@ typedef void (^IGListSingleSectionCellConfigureBlock)(id item, __kindof UICollec
 /**
  A block that returns the size for the cell given the collection context.
 
- @param item              The model for the section.
+ @param item The model for the section.
  @param collectionContext The collection context for the section.
 
  @return The size for the cell.
@@ -45,7 +45,7 @@ typedef CGSize (^IGListSingleSectionCellSizeBlock)(id item, id<IGListCollectionC
  Tells the delegate that the section controller was selected.
 
  @param sectionController The section controller that was selected.
- @param object            The model for the given section.
+ @param object The model for the given section.
  */
 - (void)didSelectSectionController:(IGListSingleSectionController *)sectionController
                         withObject:(id)object;
@@ -58,14 +58,14 @@ typedef CGSize (^IGListSingleSectionCellSizeBlock)(id item, id<IGListCollectionC
  simpler architecture.
  */
 IGLK_SUBCLASSING_RESTRICTED
-@interface IGListSingleSectionController : IGListSectionController <IGListSectionType>
+@interface IGListSingleSectionController : IGListSectionController
 
 /**
  Creates a new section controller for a given cell type that will always have only one cell when present in a list.
  
- @param cellClass      The `UICollectionViewCell` subclass for the single cell.
+ @param cellClass The `UICollectionViewCell` subclass for the single cell.
  @param configureBlock A block that configures the cell with the item given to the section controller.
- @param sizeBlock      A block that returns the size for the cell given the collection context.
+ @param sizeBlock A block that returns the size for the cell given the collection context.
  
  @return A new section controller.
  
@@ -79,10 +79,10 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  Creates a new section controller for a given nib name and bundle that will always have only one cell when present in a list.
  
- @param nibName        The name of the nib file for the single cell.
- @param bundle         The bundle in which to search for the nib file. If `nil`, this method looks for the file in the main bundle.
+ @param nibName The name of the nib file for the single cell.
+ @param bundle The bundle in which to search for the nib file. If `nil`, this method looks for the file in the main bundle.
  @param configureBlock A block that configures the cell with the item given to the section controller.
- @param sizeBlock      A block that returns the size for the cell given the collection context.
+ @param sizeBlock A block that returns the size for the cell given the collection context.
  
  @return A new section controller.
 
@@ -97,9 +97,9 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  Creates a new section controller for a given storyboard cell identifier that will always have only one cell when present in a list.
  
- @param identifier     The identifier of the cell prototype in storyboard.
+ @param identifier The identifier of the cell prototype in storyboard.
  @param configureBlock A block that configures the cell with the item given to the section controller.
- @param sizeBlock      A block that returns the size for the cell given the collection context.
+ @param sizeBlock A block that returns the size for the cell given the collection context.
  
  @return A new section controller.
 

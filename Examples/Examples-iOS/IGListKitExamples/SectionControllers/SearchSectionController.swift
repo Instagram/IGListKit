@@ -18,7 +18,7 @@ protocol SearchSectionControllerDelegate: class {
     func searchSectionController(_ sectionController: SearchSectionController, didChangeText text: String)
 }
 
-final class SearchSectionController: IGListSectionController, IGListSectionType, UISearchBarDelegate, IGListScrollDelegate {
+final class SearchSectionController: IGListSectionController, UISearchBarDelegate, IGListScrollDelegate {
 
     weak var delegate: SearchSectionControllerDelegate?
 
@@ -27,22 +27,15 @@ final class SearchSectionController: IGListSectionController, IGListSectionType,
         scrollDelegate = self
     }
 
-    func numberOfItems() -> Int {
-        return 1
-    }
-
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 44)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: SearchCell.self, for: self, at: index) as! SearchCell
         cell.searchBar.delegate = self
         return cell
     }
-
-    func didUpdate(to object: Any) {}
-    func didSelectItem(at index: Int) {}
 
     //MARK: UISearchBarDelegate
 

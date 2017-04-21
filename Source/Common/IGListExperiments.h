@@ -22,7 +22,7 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
 /**
  Check if an experiment is enabled in a bitmask.
 
- @param mask   The bitmask of experiments.
+ @param mask The bitmask of experiments.
  @param option The option to compare with.
 
  @return `YES` if the option is in the bitmask, otherwise `NO`.
@@ -36,9 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Performs an index diff with an experiment bitmask.
 
- @param oldArray    The old array of objects.
- @param newArray    The new array of objects.
- @param option      Option to specify the type of diff.
+ @param oldArray The old array of objects.
+ @param newArray The new array of objects.
+ @param option Option to specify the type of diff.
  @param experiments Optional experiments.
 
  @return An index set result object contained the changed indexes.
@@ -54,10 +54,10 @@ FOUNDATION_EXTERN IGListIndexSetResult *IGListDiffExperiment(NSArray<id<IGListDi
  Performs a index path diff with an experiment bitmask.
 
  @param fromSection The old section.
- @param toSection   The new section.
- @param oldArray    The old array of objects.
- @param newArray    The new array of objects.
- @param option      Option to specify the type of diff.
+ @param toSection The new section.
+ @param oldArray The old array of objects.
+ @param newArray The new array of objects.
+ @param option Option to specify the type of diff.
  @param experiments Optional experiments.
 
  @return An index path result object containing the changed indexPaths.

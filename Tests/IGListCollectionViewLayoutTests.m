@@ -15,6 +15,7 @@
 #import "IGLayoutTestDataSource.h"
 #import "IGLayoutTestItem.h"
 #import "IGLayoutTestSection.h"
+#import "IGListTestHelpers.h"
 
 @interface IGListCollectionViewLayoutTests : XCTestCase
 
@@ -26,27 +27,14 @@
 
 static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 
-static NSIndexPath *quickPath(NSInteger section, NSInteger item) {
-    return [NSIndexPath indexPathForItem:item inSection:section];
-}
-
-#define IGAssertEqualFrame(frame, x, y, w, h, ...) \
-do { \
-CGRect expected = CGRectMake(x, y, w, h); \
-XCTAssertEqual(CGRectGetMinX(expected), CGRectGetMinX(frame)); \
-XCTAssertEqual(CGRectGetMinY(expected), CGRectGetMinY(frame)); \
-XCTAssertEqual(CGRectGetWidth(expected), CGRectGetWidth(frame)); \
-XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
-} while(0)
-
 @implementation IGListCollectionViewLayoutTests
 
 - (UICollectionViewCell *)cellForSection:(NSInteger)section item:(NSInteger)item {
-    return [self.collectionView cellForItemAtIndexPath:quickPath(section, item)];
+    return [self.collectionView cellForItemAtIndexPath:genIndexPath(section, item)];
 }
 
 - (UICollectionReusableView *)headerForSection:(NSInteger)section {
-    return [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:quickPath(section, 0)];
+    return [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:genIndexPath(section, 0)];
 }
 
 - (void)setUpWithStickyHeaders:(BOOL)sticky topInset:(CGFloat)inset {
@@ -481,9 +469,9 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
         [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:2]];
         [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:3]];
         [self.collectionView moveSection:3 toSection:1];
-        [self.collectionView reloadItemsAtIndexPaths:@[quickPath(0, 0)]];
-        [self.collectionView deleteItemsAtIndexPaths:@[quickPath(0, 1)]];
-        [self.collectionView insertItemsAtIndexPaths:@[quickPath(2, 1)]];
+        [self.collectionView reloadItemsAtIndexPaths:@[genIndexPath(0, 0)]];
+        [self.collectionView deleteItemsAtIndexPaths:@[genIndexPath(0, 1)]];
+        [self.collectionView insertItemsAtIndexPaths:@[genIndexPath(2, 1)]];
     } completion:^(BOOL finished) {
         [self.collectionView layoutIfNeeded];
         [expectation fulfill];
@@ -492,20 +480,20 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
 
         IGAssertEqualFrame([self headerForSection:0].frame, 10, 10, 85, 10);
         IGAssertEqualFrame([self cellForSection:0 item:0].frame, 10, 20, 85, 30);
-        
+
         IGAssertEqualFrame([self headerForSection:1].frame, 10, 65, 85, 10);
         IGAssertEqualFrame([self cellForSection:1 item:0].frame, 10, 75, 85, 40);
-        
+
         IGAssertEqualFrame([self headerForSection:2].frame, 10, 130, 85, 10);
         IGAssertEqualFrame([self cellForSection:2 item:0].frame, 10, 140, 85, 30);
         IGAssertEqualFrame([self cellForSection:2 item:1].frame, 10, 180, 85, 10);
-        
+
         IGAssertEqualFrame([self headerForSection:3].frame, 10, 205, 85, 10);
         IGAssertEqualFrame([self cellForSection:3 item:0].frame, 10, 215, 85, 10);
         IGAssertEqualFrame([self cellForSection:3 item:1].frame, 10, 235, 85, 20);
     }];
-    
-    [self waitForExpectationsWithTimeout:10 handler:^(NSError * _Nullable error) {
+
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError * _Nullable error) {
         XCTAssertNil(error);
     }];
 }
@@ -609,7 +597,7 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
                                                                           [[IGLayoutTestItem alloc] initWithSize:size],
                                                                           ]],
                             ]];
-    
+
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
     IGAssertEqualFrame([self cellForSection:0 item:1].frame, 33, 0, 33, 33);
     IGAssertEqualFrame([self cellForSection:0 item:2].frame, 66, 0, 34, 33);
@@ -628,7 +616,7 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
                                                                           [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 33)],
                                                                           ]],
                             ]];
-    
+
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
     IGAssertEqualFrame([self cellForSection:0 item:1].frame, 33, 0, 65, 33);
 }
@@ -646,7 +634,7 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
                                                                           [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(51, 50)],
                                                                           ]],
                             ]];
-    
+
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 50, 50);
     IGAssertEqualFrame([self cellForSection:0 item:1].frame, 50, 0, 51, 50);
 }
@@ -664,7 +652,7 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
                                                                           [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(52, 50)],
                                                                           ]],
                             ]];
-    
+
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 50, 50);
     IGAssertEqualFrame([self cellForSection:0 item:1].frame, 0, 50, 52, 50);
 }
@@ -672,7 +660,7 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
 - (void)test_ {
     [self setUpWithStickyHeaders:NO topInset:0];
     self.collectionView.frame = CGRectMake(0, 0, 414, 736);
-    
+
     NSMutableArray *data = [NSMutableArray new];
     for (NSInteger i = 0; i < 6; i++) {
         [data addObject:[[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsMake(1, 1, 1, 1)
@@ -684,7 +672,7 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
                                                                       ]]];
     }
     [self prepareWithData:data];
-    
+
     XCTAssertEqual(self.collectionView.contentSize.height, 276);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 1, 1, 136, 136);
     IGAssertEqualFrame([self cellForSection:1 item:0].frame, 139, 1, 136, 136);
@@ -692,6 +680,36 @@ XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
     IGAssertEqualFrame([self cellForSection:3 item:0].frame, 1, 139, 136, 136);
     IGAssertEqualFrame([self cellForSection:4 item:0].frame, 139, 139, 136, 136);
     IGAssertEqualFrame([self cellForSection:5 item:0].frame, 277, 139, 136, 136);
+}
+
+- (void)test_whenQueryingAttributes_withSectionOOB_thatReturnsNil {
+    [self setUpWithStickyHeaders:NO topInset:0 stretchToEdge:YES];
+    [self prepareWithData:@[
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(33, 33)],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 33)],
+                                                                          ]],
+                            ]];
+    XCTAssertNil([self.layout layoutAttributesForItemAtIndexPath:genIndexPath(4, 0)]);
+}
+
+- (void)test_whenQueryingAttributes_withItemOOB_thatReturnsNil {
+    [self setUpWithStickyHeaders:NO topInset:0 stretchToEdge:YES];
+    [self prepareWithData:@[
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(33, 33)],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 33)],
+                                                                          ]],
+                            ]];
+    XCTAssertNil([self.layout layoutAttributesForItemAtIndexPath:genIndexPath(0, 4)]);
 }
 
 @end

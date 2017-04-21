@@ -71,7 +71,7 @@
 
 }
 
-#pragma mark - IGListSectionType
+#pragma mark - IGListSectionController Overrides
 
 - (NSInteger)numberOfItems {
     return 1;

@@ -13,8 +13,6 @@
 #import "IGListTestSection.h"
 #import "IGTestObject.h"
 
-#define genTestObject(k, v) [[IGTestObject alloc] initWithKey:k value:v]
-
 @interface IGListSectionMapTests : XCTestCase
 
 @end
@@ -75,7 +73,7 @@
     IGListSectionMap *map = [[IGListSectionMap alloc] initWithMapTable:[NSMapTable strongToStrongObjectsMapTable]];
     [map updateWithObjects:objects sectionControllers:sectionControllers];
     __block NSInteger counter = 0;
-    [map enumerateUsingBlock:^(id item, IGListSectionController<IGListSectionType> * sectionController, NSInteger section, BOOL *stop) {
+    [map enumerateUsingBlock:^(id item, IGListSectionController * sectionController, NSInteger section, BOOL *stop) {
         counter++;
         *stop = section == 1;
     }];

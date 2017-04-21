@@ -11,7 +11,7 @@
 
 @class IGListSectionController;
 
-@protocol IGListSectionType;
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,37 +25,37 @@ NS_ASSUME_NONNULL_BEGIN
  Reloads cells in the section controller.
  
  @param sectionController  The section controller who's cells need reloading.
- @param indexes            The indexes of items that need reloading.
+ @param indexes The indexes of items that need reloading.
  */
-- (void)reloadInSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+- (void)reloadInSectionController:(IGListSectionController *)sectionController
                         atIndexes:(NSIndexSet *)indexes;
 
 /**
  Inserts cells in the list.
  
  @param sectionController The section controller who's cells need inserting.
- @param indexes           The indexes of items that need inserting.
+ @param indexes The indexes of items that need inserting.
  */
-- (void)insertInSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+- (void)insertInSectionController:(IGListSectionController *)sectionController
                         atIndexes:(NSIndexSet *)indexes;
 
 /**
  Deletes cells in the list.
  
  @param sectionController The section controller who's cells need deleted.
- @param indexes           The indexes of items that need deleting.
+ @param indexes The indexes of items that need deleting.
  */
-- (void)deleteInSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+- (void)deleteInSectionController:(IGListSectionController *)sectionController
                         atIndexes:(NSIndexSet *)indexes;
 
 /**
  Moves a cell from one index to another within the section controller.
  
  @param sectionController The section controller who's cell needs moved.
- @param fromIndex         The index the cell is currently in.
- @param toIndex           The index the cell should move to.
+ @param fromIndex The index the cell is currently in.
+ @param toIndex The index the cell should move to.
  */
-- (void)moveInSectionController:(IGListSectionController<IGListSectionType> *)sectionController
+- (void)moveInSectionController:(IGListSectionController *)sectionController
                       fromIndex:(NSInteger)fromIndex
                         toIndex:(NSInteger)toIndex;
 
@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param sectionController The section controller who's cells need reloading.
  */
-- (void)reloadSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
+- (void)reloadSectionController:(IGListSectionController *)sectionController;
 
 @end
 

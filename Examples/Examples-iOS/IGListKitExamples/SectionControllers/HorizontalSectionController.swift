@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class HorizontalSectionController: IGListSectionController, IGListSectionType, IGListAdapterDataSource {
+final class HorizontalSectionController: IGListSectionController, IGListAdapterDataSource {
 
     private var number: Int?
 
@@ -27,25 +27,19 @@ final class HorizontalSectionController: IGListSectionController, IGListSectionT
         return adapter
     }()
 
-    func numberOfItems() -> Int {
-        return 1
-    }
-
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 100)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: EmbeddedCollectionViewCell.self, for: self, at: index) as! EmbeddedCollectionViewCell
         adapter.collectionView = cell.collectionView
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         number = object as? Int
     }
-
-    func didSelectItem(at index: Int) {}
 
     //MARK: IGListAdapterDataSource
 

@@ -20,61 +20,22 @@
 #import "IGListTestSection.h"
 #import "IGTestSupplementarySource.h"
 #import "IGTestNibSupplementaryView.h"
+#import "IGListTestCase.h"
 
-#define IGAssertEqualPoint(point, x, y, ...) \
-do { \
-CGPoint p = CGPointMake(x, y); \
-XCTAssertEqual(CGPointEqualToPoint(point, p), YES); \
-} while(0)
-
-#define IGAssertEqualSize(size, w, h, ...) \
-do { \
-CGSize s = CGSizeMake(w, h); \
-XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
-} while(0)
-
-@interface IGListAdapterTests : XCTestCase
-
-// infra does not hold a strong ref to collection view
-@property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) IGListAdapter *adapter;
-@property (nonatomic, strong) IGListTestAdapterDataSource *dataSource;
-@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
-@property (nonatomic, strong) UIWindow *window;
-
+@interface IGListAdapterTests : IGListTestCase
 @end
 
 @implementation IGListAdapterTests
 
 - (void)setUp {
+    self.dataSource = [IGListTestAdapterDataSource new];
+    self.updater = [IGListReloadDataUpdater new];
+
     [super setUp];
 
-    // minimum line spacing, item size, and minimum interim spacing are all set in IGListTestSection
-    self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-
-    self.layout = [[UICollectionViewFlowLayout alloc] init];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:self.window.bounds collectionViewLayout:self.layout];
-
-    [self.window addSubview:self.collectionView];
-
-    // syncronous reloads so we dont have to do expectations or other nonsense
-    IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
-
-    self.dataSource = [[IGListTestAdapterDataSource alloc] init];
-    self.adapter = [[IGListAdapter alloc] initWithUpdater:updater
-                                           viewController:nil
-                                         workingRangeSize:0];
+    // test case doesn't use -setupWithObjects for more control over update events
     self.adapter.collectionView = self.collectionView;
     self.adapter.dataSource = self.dataSource;
-}
-
-- (void)tearDown {
-    [super tearDown];
-    self.window = nil;
-    self.collectionView = nil;
-    self.adapter = nil;
-    self.dataSource = nil;
-    self.layout = nil;
 }
 
 - (void)test_whenAdapterNotUpdated_withDataSourceUpdated_thatAdapterHasNoSectionControllers {
@@ -103,14 +64,14 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 - (void)test_whenAdapterUpdated_thatSectionControllerHasSection {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListSectionController <IGListSectionType> * list = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController * list = [self.adapter sectionControllerForObject:@1];
     XCTAssertEqual([self.adapter sectionForSectionController:list], 1);
 }
 
 - (void)test_whenAdapterUpdated_withUnknownItem_thatSectionControllerHasNoSection {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListSectionController <IGListSectionType> * randomList = [[IGListTestSection alloc] init];
+    IGListSectionController * randomList = [[IGListTestSection alloc] init];
     XCTAssertEqual([self.adapter sectionForSectionController:randomList], NSNotFound);
 }
 
@@ -123,21 +84,21 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 - (void)test_whenAdapterUpdated_thatSectionControllerHasCorrectObject {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListSectionController <IGListSectionType> * list = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController * list = [self.adapter sectionControllerForObject:@1];
     XCTAssertEqual([self.adapter objectForSectionController:list], @1);
 }
 
 - (void)test_whenQueryingAdapter_withUnknownItem_thatObjectForSectionControllerIsNil {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListSectionController <IGListSectionType> * randomList = [[IGListTestSection alloc] init];
+    IGListSectionController * randomList = [[IGListTestSection alloc] init];
     XCTAssertNil([self.adapter objectForSectionController:randomList]);
 }
 
 - (void)test_whenQueryingIndexPaths_withSectionController_thatPathsAreEqual {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListSectionController <IGListSectionType> * second = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController * second = [self.adapter sectionControllerForObject:@1];
     NSArray *paths0 = [self.adapter indexPathsFromSectionController:second
                                                             indexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 4)]
                                                  usePreviousIfInUpdateBlock:NO];
@@ -153,7 +114,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 - (void)test_whenQueryingIndexPaths_insideBatchUpdateBlock_thatPathsAreEqual {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListSectionController <IGListSectionType> * second = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController * second = [self.adapter sectionControllerForObject:@1];
 
     __block BOOL executed = NO;
     [self.adapter performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
@@ -190,7 +151,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 - (void)test_whenDataSourceChanges_thatBackgroundViewVisibilityChanges {
     self.dataSource.objects = @[@1];
     UIView *background = [[UIView alloc] init];
-    self.dataSource.backgroundView = background;
+    ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = background;
     __block BOOL executed = NO;
     [self.adapter reloadDataWithCompletion:^(BOOL finished) {
         XCTAssertTrue(self.adapter.collectionView.backgroundView.hidden, @"Background view should be hidden");
@@ -209,9 +170,9 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 - (void)test_whenReloadingData_thatNewSectionControllersAreCreated {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];
-    IGListSectionController <IGListSectionType> *oldSectionController = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController *oldSectionController = [self.adapter sectionControllerForObject:@1];
     [self.adapter reloadDataWithCompletion:nil];
-    IGListSectionController <IGListSectionType> *newSectionController = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController *newSectionController = [self.adapter sectionControllerForObject:@1];
     XCTAssertNotEqual(oldSectionController, newSectionController);
 }
 
@@ -223,7 +184,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
                                                    workingRangeSize:0];
     adapter.collectionView = self.collectionView;
     adapter.dataSource = self.dataSource;
-    IGListSectionController <IGListSectionType> *sectionController = [adapter sectionControllerForObject:@1];
+    IGListSectionController *sectionController = [adapter sectionControllerForObject:@1];
     XCTAssertEqual(controller, sectionController.viewController);
 }
 
@@ -337,7 +298,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 - (void)test_whenDataSourceAddsItems_thatEmptyViewBecomesVisible {
     self.dataSource.objects = @[];
     UIView *background = [UIView new];
-    self.dataSource.backgroundView = background;
+    ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = background;
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual(self.collectionView.backgroundView, background);
     XCTAssertFalse(self.collectionView.backgroundView.hidden);
@@ -348,7 +309,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 
 - (void)test_whenInsertingIntoEmptySection_thatEmptyViewBecomesHidden {
     self.dataSource.objects = @[@0];
-    self.dataSource.backgroundView = [UIView new];
+    ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertFalse(self.collectionView.backgroundView.hidden);
     IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(0)];
@@ -359,7 +320,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 
 - (void)test_whenDeletingAllItemsFromSection_thatEmptyViewBecomesVisible {
     self.dataSource.objects = @[@1];
-    self.dataSource.backgroundView = [UIView new];
+    ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertTrue(self.collectionView.backgroundView.hidden);
     IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(1)];
@@ -370,7 +331,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 
 - (void)test_whenEmptySectionAddsItems_thatEmptyViewBecomesHidden {
     self.dataSource.objects = @[@0];
-    self.dataSource.backgroundView = [UIView new];
+    ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertFalse(self.collectionView.backgroundView.hidden);
     IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(0)];
@@ -381,7 +342,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
 
 - (void)test_whenSectionItemsAreDeletedAsBatch_thatEmptyViewBecomesVisible {
     self.dataSource.objects = @[@1, @2];
-    self.dataSource.backgroundView = [UIView new];
+    ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertTrue(self.collectionView.backgroundView.hidden);
     IGListTestSection *firstSectionController = [self.adapter sectionControllerForObject:@(1)];
@@ -397,7 +358,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
         XCTAssertFalse(self.collectionView.backgroundView.hidden);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:15 handler:nil];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 - (void)test_whenScrollViewDelegateSet_thatDelegateReceivesEvents {
@@ -466,7 +427,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
 
-    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@1];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
 
@@ -487,7 +448,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
 
-    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@1];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
 
@@ -708,7 +669,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
 
-    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@1];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
 
@@ -729,7 +690,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader, UICollectionElementKindSectionFooter];
 
-    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@1];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
 
@@ -977,7 +938,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     self.dataSource.objects = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16, @17, @18, @19];
     [self.adapter reloadDataWithCompletion:nil];
     
-    IGListSectionController<IGListSectionType> *section = [self.adapter sectionControllerForObject:@8];
+    IGListSectionController *section = [self.adapter sectionControllerForObject:@8];
     [section.collectionContext scrollToSectionController:section atIndex:0 scrollPosition:UICollectionViewScrollPositionTop animated:NO];
     XCTAssertEqual(self.collectionView.contentOffset.x, 0);
     XCTAssertEqual(self.collectionView.contentOffset.y, 280);
@@ -992,7 +953,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
 
-    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@0];
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@0];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
 
@@ -1017,7 +978,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
 
-    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@0];
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@0];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
 
@@ -1079,7 +1040,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     // IGListTestAdapterDataSource does not handle NSStrings
     self.dataSource.objects = @[@42];
     [self.adapter reloadDataWithCompletion:nil];
-    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@42];
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@42];
     IGAssertEqualSize([self.adapter containerSizeForSectionController:controller], 98, 98);
 }
 
@@ -1101,7 +1062,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
     supplementarySource.size = CGSizeMake(-1, -1);
     
-    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@1];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
     
@@ -1115,7 +1076,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     self.dataSource.objects = @[@2];
     [self.adapter reloadDataWithCompletion:nil];
     self.collectionView.contentInset = UIEdgeInsetsMake(1, 2, 3, 4);
-    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@2];
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@2];
     const UIEdgeInsets inset = [controller.collectionContext containerInset];
     XCTAssertEqual(inset.top, 1);
     XCTAssertEqual(inset.left, 2);
@@ -1127,7 +1088,7 @@ XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
     self.dataSource.objects = @[@2];
     [self.adapter reloadDataWithCompletion:nil];
     self.collectionView.contentInset = UIEdgeInsetsMake(1, 2, 3, 4);
-    IGListSectionController<IGListSectionType> *controller = [self.adapter sectionControllerForObject:@2];
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@2];
     const CGSize size = [controller.collectionContext insetContainerSize];
     XCTAssertEqual(size.width, 94);
     XCTAssertEqual(size.height, 96);

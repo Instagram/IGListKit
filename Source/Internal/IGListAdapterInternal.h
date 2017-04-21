@@ -15,6 +15,7 @@
 #import "IGListDisplayHandler.h"
 #import "IGListSectionMap.h"
 #import "IGListWorkingRangeHandler.h"
+#import "IGListAdapter+UICollectionView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,13 +26,13 @@ NS_INLINE NSString *IGListReusableViewIdentifier(Class viewClass, NSString * _Nu
 
 @interface IGListAdapter ()
 <
-UICollectionViewDataSource,
-UICollectionViewDelegateFlowLayout,
 IGListCollectionContext,
 IGListBatchContext
 >
 {
     __weak UICollectionView *_collectionView;
+    BOOL _isDequeuingCell;
+    BOOL _isSendingWorkingRangeDisplayUpdates;
 }
 
 @property (nonatomic, strong) id <IGListUpdatingDelegate> updater;
@@ -61,7 +62,12 @@ IGListBatchContext
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewIdentifiers;
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewNibNames;
 
-- (NSArray *)indexPathsFromSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+
+- (void)mapView:(__kindof UIView *)view toSectionController:(IGListSectionController *)sectionController;
+- (nullable IGListSectionController *)sectionControllerForView:(__kindof UIView *)view;
+- (void)removeMapForView:(__kindof UIView *)view;
+
+- (NSArray *)indexPathsFromSectionController:(IGListSectionController *)sectionController
                                      indexes:(NSIndexSet *)indexes
                   usePreviousIfInUpdateBlock:(BOOL)usePreviousIfInUpdateBlock;
 
