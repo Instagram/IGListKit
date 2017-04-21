@@ -7,15 +7,12 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <Foundation/Foundation.h>
+#import "IGListGenericSectionController.h"
 
-#import <IGListKit/IGListAdapterDataSource.h>
+@implementation IGListGenericSectionController
 
-#import "IGTestObject.h"
-#import "IGListTestCase.h"
-
-@interface IGTestSingleNibItemDataSource : NSObject <IGListTestCaseDataSource>
-
-@property (nonatomic, strong) NSArray <IGTestObject *> *objects;
+- (void)didUpdateToObject:(id)object {
+    _object = object;
+}
 
 @end

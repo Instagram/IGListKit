@@ -20,7 +20,6 @@
 #import "IGTestObject.h"
 
 #define genIndexPath(i, s) [NSIndexPath indexPathForItem:i inSection:s]
-#define genTestObject(k, d) [[IGTestObject alloc] initWithKey:k value:d]
 
 #define IGAssertContains(collection, object) do {\
     id haystack = collection; id needle = object; \

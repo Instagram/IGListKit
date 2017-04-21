@@ -25,12 +25,7 @@
 #import "IGTestSupplementarySource.h"
 #import "IGTestSupplementarySource.h"
 #import "IGTestStoryboardSupplementarySource.h"
-
-#define IGAssertEqualSize(size, w, h, ...) \
-do { \
-CGSize s = CGSizeMake(w, h); \
-XCTAssertEqual(CGSizeEqualToSize(size, s), YES); \
-} while(0)
+#import "IGListTestHelpers.h"
 
 static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
@@ -445,7 +440,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
         [mockDelegate verify];
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:15 handler:nil];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 - (void)test_whenQueryingVisibleSectionControllers_withCellsOffscreen_thatOnlyVisibleReturned {
@@ -544,7 +539,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
         [batchContext deleteInSectionController:section2 atIndexes:[NSIndexSet indexSetWithIndex:0]];
     } completion:nil];
 
-    [self waitForExpectationsWithTimeout:15 handler:nil];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 - (void)test_whenSelectingItems_thatChildSectionControllersSelected {
@@ -801,7 +796,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     XCTAssertTrue([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
 
     IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
-    IGListSectionController<IGListSectionType> *section = stack.sectionControllers.lastObject;
+    IGListSectionController *section = stack.sectionControllers.lastObject;
     [section.collectionContext deselectItemAtIndex:0 sectionController:section animated:NO];
     XCTAssertFalse([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
 }
@@ -831,7 +826,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
         [expectation fulfill];
     }];
 
-    [self waitForExpectationsWithTimeout:15 handler:nil];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 - (void)test_whenScrolling_withWorkingRange_thatChildSectionControllersReceiveEvents {
@@ -877,7 +872,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
         [expectation fulfill];
     }];
 
-    [self waitForExpectationsWithTimeout:15 handler:nil];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 - (void)test_whenMovingItemsInChild_thatCorrectCellsAreMoved {
@@ -904,7 +899,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
         [expectation fulfill];
     }];
 
-    [self waitForExpectationsWithTimeout:15 handler:nil];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 @end

@@ -21,7 +21,7 @@
     return self.objects;
 }
 
-- (IGListSectionController <IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
+- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
     NSMutableArray *controllers = [[NSMutableArray alloc] init];
     for (id value in [(IGTestObject *)object value]) {
         id controller;

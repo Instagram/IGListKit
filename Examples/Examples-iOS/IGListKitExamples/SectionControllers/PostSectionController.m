@@ -26,7 +26,7 @@ static NSInteger cellsBeforeComments = 3;
     Post *_post;
 }
 
-#pragma mark - IGListSectionType
+#pragma mark - IGListSectionController Overrides
 
 - (NSInteger)numberOfItems {
     return cellsBeforeComments + _post.comments.count;
@@ -68,7 +68,5 @@ static NSInteger cellsBeforeComments = 3;
 - (void)didUpdateToObject:(id)object {
     _post = object;
 }
-
-- (void)didSelectItemAtIndex:(NSInteger)index {}
 
 @end

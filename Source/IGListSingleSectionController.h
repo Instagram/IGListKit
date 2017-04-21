@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #import <IGListKit/IGListSectionController.h>
-#import <IGListKit/IGListSectionType.h>
+
 #import <IGListKit/IGListMacros.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -58,7 +58,7 @@ typedef CGSize (^IGListSingleSectionCellSizeBlock)(id item, id<IGListCollectionC
  simpler architecture.
  */
 IGLK_SUBCLASSING_RESTRICTED
-@interface IGListSingleSectionController : IGListSectionController <IGListSectionType>
+@interface IGListSingleSectionController : IGListSectionController
 
 /**
  Creates a new section controller for a given cell type that will always have only one cell when present in a list.

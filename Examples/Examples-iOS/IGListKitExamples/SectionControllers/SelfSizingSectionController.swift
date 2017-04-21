@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class SelfSizingSectionController: IGListSectionController, IGListSectionType {
+final class SelfSizingSectionController: IGListSectionController {
 
     private var model: SelectionModel!
 
@@ -26,15 +26,15 @@ final class SelfSizingSectionController: IGListSectionController, IGListSectionT
         minimumInteritemSpacing = 4
     }
 
-    func numberOfItems() -> Int {
+    override func numberOfItems() -> Int {
         return model.options.count
     }
 
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         let text = model.options[index]
         let cell: UICollectionViewCell
         switch model.type {
@@ -54,10 +54,8 @@ final class SelfSizingSectionController: IGListSectionController, IGListSectionT
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         self.model = object as? SelectionModel
     }
-
-    func didSelectItem(at index: Int) {}
 
 }

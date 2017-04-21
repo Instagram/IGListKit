@@ -63,11 +63,11 @@ IGListBatchContext
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewNibNames;
 
 
-- (void)mapView:(__kindof UIView *)view toSectionController:(IGListSectionController<IGListSectionType> *)sectionController;
-- (nullable IGListSectionController<IGListSectionType> *)sectionControllerForView:(__kindof UIView *)view;
+- (void)mapView:(__kindof UIView *)view toSectionController:(IGListSectionController *)sectionController;
+- (nullable IGListSectionController *)sectionControllerForView:(__kindof UIView *)view;
 - (void)removeMapForView:(__kindof UIView *)view;
 
-- (NSArray *)indexPathsFromSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+- (NSArray *)indexPathsFromSectionController:(IGListSectionController *)sectionController
                                      indexes:(NSIndexSet *)indexes
                   usePreviousIfInUpdateBlock:(BOOL)usePreviousIfInUpdateBlock;
 

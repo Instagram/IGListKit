@@ -47,29 +47,25 @@ extension DemoItem: IGListDiffable {
 
 }
 
-final class DemoSectionController: IGListSectionController, IGListSectionType {
+final class DemoSectionController: IGListSectionController {
 
     private var object: DemoItem?
 
-    func numberOfItems() -> Int {
-        return 1
-    }
-
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
         cell.text = object?.name
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         self.object = object as? DemoItem
     }
 
-    func didSelectItem(at index: Int) {
+    override func didSelectItem(at index: Int) {
         if let identifier = object?.controllerIdentifier {
             let storyboard = UIStoryboard(name: "Demo", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: identifier)

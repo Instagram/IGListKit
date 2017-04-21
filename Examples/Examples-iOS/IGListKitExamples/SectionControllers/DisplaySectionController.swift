@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class DisplaySectionController: IGListSectionController, IGListSectionType, IGListDisplayDelegate {
+final class DisplaySectionController: IGListSectionController, IGListDisplayDelegate {
 
     override init() {
         super.init()
@@ -23,24 +23,20 @@ final class DisplaySectionController: IGListSectionController, IGListSectionType
         inset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
     }
 
-    func numberOfItems() -> Int {
+    override func numberOfItems() -> Int {
         return 4
     }
 
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
         let section = collectionContext!.section(for: self)
         cell.text = "Section \(section), cell \(index)"
         return cell
     }
-
-    func didUpdate(to object: Any) {}
-
-    func didSelectItem(at index: Int) {}
 
     // MARK: IGListDisplayDelegate
 

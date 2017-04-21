@@ -31,7 +31,7 @@ final class DemoItem: NSObject {
     
 }
 
-final class DemoSectionController: IGListSectionController, IGListSectionType {
+final class DemoSectionController: IGListSectionController {
 
     var object: DemoItem?
     
@@ -40,26 +40,26 @@ final class DemoSectionController: IGListSectionController, IGListSectionType {
         inset = UIEdgeInsets(top: 0, left: 50, bottom: 10, right: 0)
     }
     
-    func numberOfItems() -> Int {
+    override func numberOfItems() -> Int {
         return 1
     }
     
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         let itemWidth = (collectionContext!.containerSize.width / 2) - inset.left
         return CGSize(width: itemWidth, height: 100)
     }
     
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: DemoCell.self, for: self, at: index) as! DemoCell
         cell.label.text = object?.name
         return cell
     }
     
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         self.object = object as? DemoItem
     }
     
-    func didSelectItem(at index: Int) {
+    override func didSelectItem(at index: Int) {
         if let identifier = object?.controllerIdentifier {
             let storyboard = UIStoryboard(name: "Demo", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: identifier)

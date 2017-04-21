@@ -166,6 +166,14 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         return attributes;
     }
 
+    // avoid OOB errors
+    const NSInteger section = indexPath.section;
+    const NSInteger item = indexPath.item;
+    if (section >= _sectionData.size()
+        || item >= _sectionData[section].itemBounds.size()) {
+        return nil;
+    }
+
     attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
     attributes.frame = _sectionData[indexPath.section].itemBounds[indexPath.item];
     adjustZIndexForAttributes(attributes);
@@ -183,8 +191,13 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         return attributes;
     }
 
-    UICollectionView *collectionView = self.collectionView;
+    // avoid OOB errors
     const NSInteger section = indexPath.section;
+    if (section >= _sectionData.size()) {
+        return nil;
+    }
+
+    UICollectionView *collectionView = self.collectionView;
     const IGListSectionEntry entry = _sectionData[section];
     const CGFloat minY = CGRectGetMinY(entry.bounds);
 

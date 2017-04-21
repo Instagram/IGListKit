@@ -19,49 +19,21 @@
 #import "IGListAdapterInternal.h"
 #import "IGTestObject.h"
 #import "IGTestCell.h"
+#import "IGListTestCase.h"
 
-@interface IGListBindingSectionControllerTests : XCTestCase
-
-@property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) IGListAdapter *adapter;
-@property (nonatomic, strong) IGTestDiffingDataSource *dataSource;
-@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
-@property (nonatomic, strong) UIWindow *window;
+@interface IGListBindingSectionControllerTests : IGListTestCase
 
 @end
 
 @implementation IGListBindingSectionControllerTests
 
 - (void)setUp {
-    [super setUp];
-
-    self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 1000)];
-
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:self.window.bounds collectionViewLayout:layout];
-
-    [self.window addSubview:self.collectionView];
-
     self.dataSource = [IGTestDiffingDataSource new];
-    self.adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new]
-                                           viewController:nil
-                                         workingRangeSize:0];
-}
 
-- (void)tearDown {
-    [super tearDown];
+    // give us more room to show cells
+    self.frame = CGRectMake(0, 0, 100, 1000);
 
-    self.window = nil;
-    self.collectionView = nil;
-    self.adapter = nil;
-    self.dataSource = nil;
-}
-
-- (void)setupWithObjects:(NSArray<IGTestDiffingObject *> *)objects {
-    self.dataSource.objects = objects;
-    self.adapter.collectionView = self.collectionView;
-    self.adapter.dataSource = self.dataSource;
-    [self.collectionView layoutIfNeeded];
+    [super setUp];
 }
 
 - (id)cellAtSection:(NSInteger)section item:(NSInteger)item {
@@ -128,7 +100,7 @@
         [expectation fulfill];
     }];
 
-    [self waitForExpectationsWithTimeout:15 handler:nil];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 - (void)test_whenSelectingCell_thatCorrectViewModelSelected {
@@ -145,15 +117,15 @@
                              [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
                              ]];
     [self.adapter reloadObjects:@[[[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@"four", @4, @"seven", @7]]]];
-    
+
     IGTestNumberBindableCell *cell00 = [self cellAtSection:0 item:0];
     IGTestStringBindableCell *cell01 = [self cellAtSection:0 item:1];
-    
+
     XCTAssertEqualObjects(cell00.textField.text, @"7");
     XCTAssertEqualObjects(cell01.label.text, @"seven");
     XCTAssertNil([self cellAtSection:0 item:2]);
     XCTAssertNil([self cellAtSection:0 item:3]);
-    
+
     // "fake" batch updates to make sure that calling reload triggers a diffed batch update
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adapter performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext){} completion:^(BOOL finished) {
@@ -161,16 +133,16 @@
         IGTestNumberBindableCell *batchedCell01 = [self cellAtSection:0 item:1];
         IGTestStringBindableCell *batchedCell02 = [self cellAtSection:0 item:2];
         IGTestNumberBindableCell *batchedCell03 = [self cellAtSection:0 item:3];
-        
+
         XCTAssertEqualObjects(batchedCell00.label.text, @"four");
         XCTAssertEqualObjects(batchedCell01.textField.text, @"4");
         XCTAssertEqualObjects(batchedCell02.label.text, @"seven");
         XCTAssertEqualObjects(batchedCell03.textField.text, @"7");
-        
+
         [expectation fulfill];
     }];
-    
-    [self waitForExpectationsWithTimeout:16 handler:nil];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 - (void)test_whenUpdating_withViewModelMovesAndReloads_thatCellUpdatedAndInstanceSame {
@@ -182,13 +154,13 @@
     [self setupWithObjects:@[
                              [[IGTestDiffingObject alloc] initWithKey:@1 objects:initObjects]
                              ]];
-    
+
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
-    
+
     IGTestStringBindableCell *cell00 = [self cellAtSection:0 item:0];
     IGTestStringBindableCell *cell01 = [self cellAtSection:0 item:1];
     IGTestCell *cell02 = [self cellAtSection:0 item:2];
-    
+
     XCTAssertEqualObjects(cell00.label.text, @"foo");
     XCTAssertEqualObjects(cell01.label.text, @"bar");
     XCTAssertEqualObjects(cell02.label.text, @"baz");
@@ -201,25 +173,25 @@
     self.dataSource.objects = @[
                                 [[IGTestDiffingObject alloc] initWithKey:@1 objects:newObjects]
                                 ];
-    
+
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
         IGTestCell *batchedCell00 = [self cellAtSection:0 item:0];
         IGTestStringBindableCell *batchedCell01 = [self cellAtSection:0 item:1];
         IGTestStringBindableCell *batchedCell02 = [self cellAtSection:0 item:2];
-        
+
         XCTAssertEqualObjects(batchedCell00.label.text, @"bang");
         XCTAssertEqualObjects(batchedCell01.label.text, @"foo");
         XCTAssertEqualObjects(batchedCell02.label.text, @"bar");
-        
+
         XCTAssertEqual(cell00, batchedCell01);
         XCTAssertEqual(cell01, batchedCell02);
         XCTAssertEqual(cell02, batchedCell00);
-        
+
         [expectation fulfill];
     }];
-    
-    [self waitForExpectationsWithTimeout:16 handler:nil];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 - (void)test_whenUpdatingManually_with2Updates_thatBothCompletionBlocksCalled {
@@ -227,21 +199,21 @@
                              [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
                              ]];
     IGTestDiffingSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
-    
+
     XCTestExpectation *expectation1 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [section updateAnimated:YES completion:^(BOOL updated) {
         XCTAssertTrue(updated);
         [expectation1 fulfill];
     }];
-    
+
     XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [section updateAnimated:YES completion:^(BOOL updated) {
         // queued second, shouldn't execute update block
         XCTAssertFalse(updated);
         [expectation2 fulfill];
     }];
-    
-    [self waitForExpectationsWithTimeout:15 handler:nil];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 @end

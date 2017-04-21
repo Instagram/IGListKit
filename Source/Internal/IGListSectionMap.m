@@ -14,8 +14,8 @@
 @interface IGListSectionMap ()
 
 // both of these maps allow fast lookups of objects, list objects, and indexes
-@property (nonatomic, strong, readonly, nonnull) NSMapTable<id, IGListSectionController<IGListSectionType> *> *objectToSectionControllerMap;
-@property (nonatomic, strong, readonly, nonnull) NSMapTable<IGListSectionController<IGListSectionType> *, NSNumber *> *sectionControllerToSectionMap;
+@property (nonatomic, strong, readonly, nonnull) NSMapTable<id, IGListSectionController *> *objectToSectionControllerMap;
+@property (nonatomic, strong, readonly, nonnull) NSMapTable<IGListSectionController *, NSNumber *> *sectionControllerToSectionMap;
 
 @property (nonatomic, strong, nonnull) NSMutableArray *mObjects;
 
@@ -45,14 +45,14 @@
     return [self.mObjects copy];
 }
 
-- (NSInteger)sectionForSectionController:(IGListSectionController <IGListSectionType> *)sectionController {
+- (NSInteger)sectionForSectionController:(IGListSectionController *)sectionController {
     IGParameterAssert(sectionController != nil);
 
     NSNumber *index = [self.sectionControllerToSectionMap objectForKey:sectionController];
     return index != nil ? [index integerValue] : NSNotFound;
 }
 
-- (IGListSectionController <IGListSectionType> *)sectionControllerForSection:(NSInteger)section {
+- (IGListSectionController *)sectionControllerForSection:(NSInteger)section {
     return [self.objectToSectionControllerMap objectForKey:[self objectForSection:section]];
 }
 
@@ -64,7 +64,7 @@
     [self reset];
 
     [objects enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
-        IGListSectionController<IGListSectionType> *sectionController = sectionControllers[idx];
+        IGListSectionController *sectionController = sectionControllers[idx];
 
         // set the index of the list for easy reverse lookup
         [self.sectionControllerToSectionMap setObject:@(idx) forKey:sectionController];
@@ -72,7 +72,7 @@
     }];
 }
 
-- (nullable IGListSectionController <IGListSectionType> *)sectionControllerForObject:(id)object {
+- (nullable IGListSectionController *)sectionControllerForObject:(id)object {
     IGParameterAssert(object != nil);
 
     return [self.objectToSectionControllerMap objectForKey:object];
@@ -112,14 +112,14 @@
     self.mObjects[section] = object;
 }
 
-- (void)enumerateUsingBlock:(void (^)(id object, IGListSectionController <IGListSectionType> *sectionController, NSInteger section, BOOL *stop))block {
+- (void)enumerateUsingBlock:(void (^)(id object, IGListSectionController *sectionController, NSInteger section, BOOL *stop))block {
     IGParameterAssert(block != nil);
 
     BOOL stop = NO;
     NSArray *objects = self.objects;
     for (NSInteger section = 0; section < objects.count; section++) {
         id object = objects[section];
-        IGListSectionController <IGListSectionType> *sectionController = [self sectionControllerForObject:object];
+        IGListSectionController *sectionController = [self sectionControllerForObject:object];
         block(object, sectionController, section, &stop);
         if (stop) {
             break;

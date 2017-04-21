@@ -39,7 +39,7 @@ extension GridItem: IGListDiffable {
     
 }
 
-final class GridSectionController: IGListSectionController, IGListSectionType {
+final class GridSectionController: IGListSectionController {
 
     private var object: GridItem?
 
@@ -49,27 +49,25 @@ final class GridSectionController: IGListSectionController, IGListSectionType {
         self.minimumLineSpacing = 1
     }
 
-    func numberOfItems() -> Int {
+    override func numberOfItems() -> Int {
         return object?.itemCount ?? 0
     }
 
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         let width = collectionContext?.containerSize.width ?? 0
         let itemSize = floor(width / 4)
         return CGSize(width: itemSize, height: itemSize)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext!.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as! CenterLabelCell
         cell.text = "\(index + 1)"
         cell.backgroundColor = object?.color
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         self.object = object as? GridItem
     }
-
-    func didSelectItem(at index: Int) {}
 
 }

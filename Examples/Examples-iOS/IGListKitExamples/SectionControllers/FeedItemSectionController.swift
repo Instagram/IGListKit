@@ -14,7 +14,7 @@
 
 import IGListKit
 
-final class FeedItemSectionController: IGListSectionController, IGListSectionType, IGListSupplementaryViewSource {
+final class FeedItemSectionController: IGListSectionController, IGListSupplementaryViewSource {
 
     private var feedItem: FeedItem!
 
@@ -23,27 +23,25 @@ final class FeedItemSectionController: IGListSectionController, IGListSectionTyp
         supplementaryViewSource = self
     }
 
-    // MARK: IGlistSectionType
+    // MARK: IGListSectionController Overrides
 
-    func numberOfItems() -> Int {
+    override func numberOfItems() -> Int {
         return feedItem.comments.count
     }
 
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = collectionContext?.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
         cell.text = feedItem.comments[index]
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         feedItem = object as? FeedItem
     }
-
-    func didSelectItem(at index: Int) {}
 
     // MARK: IGListSupplementaryViewSource
 
