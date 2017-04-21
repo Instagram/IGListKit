@@ -74,6 +74,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 ### Fixes
 
+- Fix bug - issue https://github.com/Instagram/IGListKit/issues/680 with empty space in CollectionView . [Artem Goncharov](https://github.com/madmag77)
+
 - Gracefully handle a `nil` section controller returned by an `IGListAdapterDataSource`. [Ryan Nystrom](https://github.com/rnystrom) [(#488)](https://github.com/Instagram/IGListKit/pull/488)
 
 - Fix bug where emptyView's hidden status is not updated after the number of items is changed with `insertInSectionController:atIndexes:` or related methods. [Peter Edmonston](https://github.com/edmonston) [(#395)](https://github.com/Instagram/IGListKit/pull/395)
