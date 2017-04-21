@@ -41,6 +41,7 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 @property (nonatomic, assign, getter=hasQueuedReloadData) BOOL queuedReloadData;
 
 @property (nonatomic, assign) IGListBatchUpdateState state;
+@property (nonatomic, strong, nullable) IGListBatchUpdateData *applyingUpdateData;
 
 - (void)performReloadDataWithCollectionView:(UICollectionView *)collectionView;
 - (void)performBatchUpdatesWithCollectionView:(UICollectionView *)collectionView;
