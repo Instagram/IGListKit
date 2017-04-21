@@ -1460,5 +1460,24 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenReloadingSameItemTwice_thatDeletesAndInsertsAreBalanced {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @4),
+                             ]];
+
+    IGTestObject *object = self.dataSource.objects[0];
+    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+
+    XCTestExpectation *expectation = genExpectation;
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+        [batchContext reloadInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
+        [batchContext reloadInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
+    } completion:^(BOOL finished2) {
+        XCTAssertEqual([self.collectionView numberOfSections], 1);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 4);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
 
 @end
