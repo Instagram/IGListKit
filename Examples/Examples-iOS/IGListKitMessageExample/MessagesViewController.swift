@@ -19,7 +19,7 @@ import IGListKit
 final class MessagesViewController: MSMessagesAppViewController, IGListAdapterDataSource {
     
     lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self)
     }()
     let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     

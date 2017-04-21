@@ -20,7 +20,7 @@ import IGListKit
 final class TodayViewController: UIViewController, NCWidgetProviding, IGListAdapterDataSource {
         
     lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self)
     }()
     let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     

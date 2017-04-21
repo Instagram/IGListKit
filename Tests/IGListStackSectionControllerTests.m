@@ -670,7 +670,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
 - (void)test_whenUsingSupplementary_withCode_thatSupplementaryViewExists {
     // updater that uses reloadData so we can rebuild all views/sizes
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new] viewController:nil workingRangeSize:0];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new] viewController:nil];
 
     self.dataSource.objects = @[
                                 [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
@@ -702,7 +702,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
 - (void)test_whenUsingSupplementary_withNib_thatSupplementaryViewExists {
     // updater that uses reloadData so we can rebuild all views/sizes
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new] viewController:nil workingRangeSize:0];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new] viewController:nil];
 
     self.dataSource.objects = @[
                                 [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
@@ -735,7 +735,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
 - (void)test_whenUsingSupplementary_withStoryboard_thatSupplementaryViewExists {
     // updater that uses reloadData so we can rebuild all views/sizes
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new] viewController:nil workingRangeSize:0];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new] viewController:nil];
 
     self.dataSource.objects = @[
                                 [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],

@@ -59,8 +59,7 @@
                                              collectionViewLayout:[UICollectionViewFlowLayout new]];
     [self.view addSubview:self.collectionView];
     self.adapter = [[IGListAdapter alloc] initWithUpdater:[[IGListAdapterUpdater alloc] init]
-                                           viewController:self
-                                         workingRangeSize:0];
+                                           viewController:self];
 
     self.adapter.collectionView = self.collectionView;
     self.adapter.dataSource = self;

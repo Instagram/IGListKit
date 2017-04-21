@@ -18,7 +18,7 @@ import IGListKit
 final class CalendarViewController: UIViewController, IGListAdapterDataSource {
     
     lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self)
     }()
     let collectionView = UICollectionView(
         frame: .zero,
