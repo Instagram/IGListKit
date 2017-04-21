@@ -11,8 +11,12 @@
 
 #import <IGListKit/IGListMacros.h>
 
+@class IGListAdapter;
+
 IGLK_SUBCLASSING_RESTRICTED
 @interface IGListDebugger : NSObject
+
++ (void)trackAdapter:(IGListAdapter *)adapter;
 
 + (NSArray<NSString *> *)adapterDescriptions;
 

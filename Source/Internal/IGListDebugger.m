@@ -14,9 +14,20 @@
 
 @implementation IGListDebugger
 
+static NSHashTable<IGListAdapter *> *livingAdaptersTable = nil;
+
++ (void)trackAdapter:(IGListAdapter *)adapter {
+#if IGLK_DEBUG_DESCRIPTION_ENABLED
+    if (livingAdaptersTable == nil) {
+        livingAdaptersTable = [NSHashTable weakObjectsHashTable];
+    }
+    [livingAdaptersTable addObject:adapter];
+#endif // #if IGLK_DEBUG_DESCRIPTION_ENABLED
+}
+
 + (NSArray<NSString *> *)adapterDescriptions {
     NSMutableArray *descriptions = [NSMutableArray new];
-    for (IGListAdapter *adapter in IGListAllAdpaterInstances()) {
+    for (IGListAdapter *adapter in livingAdaptersTable) {
         [descriptions addObject:[adapter debugDescription]];
     }
     return descriptions;

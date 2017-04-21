@@ -31,9 +31,9 @@
     updater.applyingUpdateData = [[IGListBatchUpdateData alloc] initWithInsertSections:[NSIndexSet indexSetWithIndex:1]
                                                                         deleteSections:[NSIndexSet indexSetWithIndex:2]
                                                                           moveSections:[NSSet setWithObject:[[IGListMoveIndex alloc] initWithFrom:3 to:4]]
-                                                                      insertIndexPaths:[NSSet setWithObject:path]
-                                                                      deleteIndexPaths:[NSSet setWithObject:path]
-                                                                        moveIndexPaths:[NSSet setWithObject:[[IGListMoveIndexPath alloc] initWithFrom:path to:path]]];
+                                                                      insertIndexPaths:@[path]
+                                                                      deleteIndexPaths:@[path]
+                                                                        moveIndexPaths:@[[[IGListMoveIndexPath alloc] initWithFrom:path to:path]]];
     IGListTestAdapterDataSource *dataSource = [IGListTestAdapterDataSource new];
     dataSource.objects = @[@1, @2, @3];
     IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];

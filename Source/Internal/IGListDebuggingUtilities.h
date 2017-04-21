@@ -14,5 +14,3 @@
 extern NSString *IGListDebugBOOL(BOOL b);
 
 extern NSArray<NSString *> *IGListDebugIndentedLines(NSArray<NSString *> *lines);
-
-extern NSArray<IGListAdapter *> *IGListAllAdpaterInstances(void);

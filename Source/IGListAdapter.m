@@ -14,6 +14,7 @@
 #import <IGListKit/IGListSupplementaryViewSource.h>
 
 #import "IGListSectionControllerInternal.h"
+#import "IGListDebugger.h"
 
 @implementation IGListAdapter {
     NSMapTable<UICollectionReusableView *, IGListSectionController *> *_viewSectionControllerMap;
@@ -51,6 +52,8 @@
 
         _updater = updater;
         _viewController = viewController;
+
+        [IGListDebugger trackAdapter:self];
     }
     return self;
 }
