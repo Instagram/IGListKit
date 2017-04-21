@@ -669,7 +669,7 @@
 - (void)test_whenPerformingUpdates_withoutSettingDataSource_thatCompletionBlockExecutes {
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
     [self.window addSubview:collectionView];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
     adapter.collectionView = collectionView;
 
     self.dataSource.objects = @[
@@ -720,7 +720,7 @@
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
     [self.window addSubview:collectionView];
     IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:0];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
     adapter.dataSource = self.dataSource;
     adapter.collectionView = collectionView;
     [collectionView layoutSubviews];
@@ -1125,7 +1125,7 @@
 - (void)test_whenQueuingUpdate_withSectionControllerBatchUpdate_thatSectionControllerNotRetained {
     __weak id weakSectionController = nil;
     @autoreleasepool {
-        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
+        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
         IGTestDelegateDataSource *dataSource = [IGTestDelegateDataSource new];
         IGTestObject *object = genTestObject(@1, @2);
         dataSource.objects = @[object];
@@ -1310,7 +1310,7 @@
 }
 
 - (void)test_whenAdaptersSwapCollectionViews_thatOldAdapterDoesntUpdateOldCollectionView {
-    IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
+    IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
     IGTestDelegateDataSource *dataSource1 = [IGTestDelegateDataSource new];
     dataSource1.objects = @[genTestObject(@1, @2)];
     adapter1.dataSource = dataSource1;
@@ -1320,7 +1320,7 @@
     XCTAssertEqual([self.collectionView numberOfSections], 1);
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
 
-    IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
+    IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
     IGTestDelegateDataSource *dataSource2 = [IGTestDelegateDataSource new];
     dataSource2.objects = @[genTestObject(@1, @1), genTestObject(@2, @1)];
     adapter2.dataSource = dataSource2;
@@ -1344,7 +1344,7 @@
 }
 
 - (void)test_whenAdaptersSwapCollectionViews_ {
-    IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
+    IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
     IGTestDelegateDataSource *dataSource1 = [IGTestDelegateDataSource new];
     dataSource1.objects = @[genTestObject(@1, @2)];
     adapter1.dataSource = dataSource1;
@@ -1354,7 +1354,7 @@
     XCTAssertEqual([self.collectionView numberOfSections], 1);
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
 
-    IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];
+    IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
     IGTestDelegateDataSource *dataSource2 = [IGTestDelegateDataSource new];
     dataSource2.objects = @[genTestObject(@1, @1), genTestObject(@2, @1)];
     adapter2.dataSource = dataSource2;

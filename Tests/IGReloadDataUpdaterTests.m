@@ -42,8 +42,7 @@
 
     self.dataSource = [[IGListTestAdapterDataSource alloc] init];
     self.adapter = [[IGListAdapter alloc] initWithUpdater:updater
-                                           viewController:nil
-                                         workingRangeSize:0];
+                                           viewController:nil];
     self.adapter.collectionView = self.collectionView;
     self.adapter.dataSource = self.dataSource;
 }

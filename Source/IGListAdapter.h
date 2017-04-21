@@ -103,6 +103,17 @@ IGLK_SUBCLASSING_RESTRICTED
                workingRangeSize:(NSInteger)workingRangeSize NS_DESIGNATED_INITIALIZER;
 
 /**
+ Initializes a new `IGListAdapter` object.
+ 
+ @param updater An object that manages updates to the collection view.
+ @param viewController The view controller that will house the adapter.
+ 
+ @return A new list adapter object.
+ */
+- (instancetype)initWithUpdater:(id <IGListUpdatingDelegate>)updater
+                 viewController:(nullable UIViewController *)viewController;
+
+/**
  Perform an update from the previous state of the data source. This is analogous to calling
  `-[UICollectionView performBatchUpdates:completion:]`.
 

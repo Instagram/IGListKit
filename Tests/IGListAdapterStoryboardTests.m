@@ -44,7 +44,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
     self.dataSource = [[IGListTestAdapterStoryboardDataSource alloc] init];
     self.updater = [[IGListAdapterUpdater alloc] init];
-    self.adapter = [[IGListAdapter alloc] initWithUpdater:self.updater viewController:self.viewController workingRangeSize:0];
+    self.adapter = [[IGListAdapter alloc] initWithUpdater:self.updater viewController:self.viewController];
 }
 
 - (void)tearDown {

@@ -55,6 +55,13 @@
     return self;
 }
 
+- (instancetype)initWithUpdater:(id<IGListUpdatingDelegate>)updater
+                 viewController:(UIViewController *)viewController {
+    return [self initWithUpdater:updater
+                  viewController:viewController
+                workingRangeSize:0];
+}
+
 - (UICollectionView *)collectionView {
     return _collectionView;
 }
