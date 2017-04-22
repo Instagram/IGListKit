@@ -280,12 +280,16 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     NSMutableArray<IGListMoveIndexPath *> *itemMoves = batchUpdates.itemMoves;
 
     NSSet<NSIndexPath *> *uniqueDeletes = [NSSet setWithArray:itemDeletes];
+    NSMutableSet<NSIndexPath *> *reloadDeletePaths = [NSMutableSet new];
+    NSMutableSet<NSIndexPath *> *reloadInsertPaths = [NSMutableSet new];
     for (IGListReloadIndexPath *reload in batchUpdates.itemReloads) {
         if (![uniqueDeletes containsObject:reload.fromIndexPath]) {
-            [itemDeletes addObject:reload.fromIndexPath];
-            [itemInserts addObject:reload.toIndexPath];
+            [reloadDeletePaths addObject:reload.fromIndexPath];
+            [reloadInsertPaths addObject:reload.toIndexPath];
         }
     }
+    [itemDeletes addObjectsFromArray:[reloadDeletePaths allObjects]];
+    [itemInserts addObjectsFromArray:[reloadInsertPaths allObjects]];
 
     IGListBatchUpdateData *updateData = [[IGListBatchUpdateData alloc] initWithInsertSections:inserts
                                                                                deleteSections:deletes
