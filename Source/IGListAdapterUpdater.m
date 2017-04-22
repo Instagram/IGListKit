@@ -286,6 +286,8 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
             [reloadInsertPaths addObject:reload.toIndexPath];
         }
     }
+    [itemDeletes addObjectsFromArray:[reloadDeletePaths allObjects]];
+    [itemInserts addObjectsFromArray:[reloadInsertPaths allObjects]];
 
     IGListBatchUpdateData *updateData = [[IGListBatchUpdateData alloc] initWithInsertSections:inserts
                                                                                deleteSections:deletes
