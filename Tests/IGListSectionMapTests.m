@@ -88,4 +88,18 @@
     XCTAssertNil([map objectForSection:4]);
 }
 
+- (void)test_whenUpdatingItems_thatSectionControllerIndexesAreUpdated {
+    NSArray *objects = @[@0, @1, @2];
+
+    IGListTestSection *one = [IGListTestSection new];
+    XCTAssertEqual(one.sectionIndex, NSNotFound);
+
+    NSArray *sectionControllers = @[[IGListTestSection new], one, [IGListTestSection new]];
+    IGListSectionMap *map = [[IGListSectionMap alloc] initWithMapTable:[NSMapTable strongToStrongObjectsMapTable]];
+    [map updateWithObjects:objects sectionControllers:sectionControllers];
+
+    XCTAssertEqual(one.sectionIndex, 1);
+    XCTAssertFalse(one.isFirstSection);
+}
+
 @end

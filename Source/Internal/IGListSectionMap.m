@@ -61,9 +61,9 @@
 - (void)updateWithObjects:(NSArray *)objects sectionControllers:(NSArray *)sectionControllers {
     IGParameterAssert(objects.count == sectionControllers.count);
 
-    self.mObjects = [objects mutableCopy];
-
     [self reset];
+
+    self.mObjects = [objects mutableCopy];
 
     id firstObject = objects.firstObject;
     id lastObject = objects.lastObject;
@@ -108,6 +108,12 @@
 }
 
 - (void)reset {
+    [self enumerateUsingBlock:^(id  _Nonnull object, IGListSectionController * _Nonnull sectionController, NSInteger section, BOOL * _Nonnull stop) {
+        sectionController.sectionIndex = NSNotFound;
+        sectionController.isFirstSection = NO;
+        sectionController.isLastSection = NO;
+    }];
+
     [self.sectionControllerToSectionMap removeAllObjects];
     [self.objectToSectionControllerMap removeAllObjects];
 }
