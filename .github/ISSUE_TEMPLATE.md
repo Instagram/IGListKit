@@ -12,3 +12,10 @@
 - Devices/Simulators affected:
 - Reproducible in the demo project? (Yes/No):
 - Related issues:
+
+### Debug information
+
+```bash
+# Please include debug logs using the following lldb command:
+po [IGListDebugger dump]
+```
