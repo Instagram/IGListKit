@@ -38,7 +38,7 @@ IGLK_SUBCLASSING_RESTRICTED
  @param objects The objects in the collection.
  @param sectionControllers The section controllers that map to each object.
  */
-- (void)updateWithObjects:(NSArray <id <NSObject>> *)objects sectionControllers:(NSArray <id <NSObject>> *)sectionControllers;
+- (void)updateWithObjects:(NSArray <id <NSObject>> *)objects sectionControllers:(NSArray <IGListSectionController *> *)sectionControllers;
 
 /**
  Fetch a section controller given a section.

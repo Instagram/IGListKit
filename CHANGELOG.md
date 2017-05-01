@@ -60,6 +60,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - `IGListUpdatingDelegate` now requires method `-reloadItemInCollectionView:fromIndexPath:toIndexPath:` to handle reloading cells between index paths. [Ryan Nystrom](https://github.com/rnystrom) [(#657)](https://github.com/Instagram/IGListKit/pull/657)
 
+- `-[IGListCollectionContext sectionForSectionController:]` has been removed and replaced with the `NSInteger sectionIndex` property on `IGListSectionController`. [Andrew Monshizadeh](https://github.com/amonshiz) [#671](http://github.com/Instagram/IGListKit/pull/671)
+
 ### Enhancements
 
 - Added an initializer on `IGListAdapter` that does not take a `workingRangeSize` and defaults it to 0. [BasThomas](https://github.com/BasThomas) [(#414)](https://github.com/Instagram/IGListKit/issues/414)

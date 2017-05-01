@@ -241,12 +241,12 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     IGListTestSection *section21 = stack2.sectionControllers[0];
     IGListTestSection *section22 = stack2.sectionControllers[1];
 
-    XCTAssertEqual([stack1.collectionContext sectionForSectionController:stack1], 0);
-    XCTAssertEqual([stack2.collectionContext sectionForSectionController:stack2], 1);
-    XCTAssertEqual([section11.collectionContext sectionForSectionController:section11], 0);
-    XCTAssertEqual([section12.collectionContext sectionForSectionController:section12], 0);
-    XCTAssertEqual([section21.collectionContext sectionForSectionController:section21], 1);
-    XCTAssertEqual([section22.collectionContext sectionForSectionController:section22], 1);
+    XCTAssertEqual(stack1.sectionIndex, 0);
+    XCTAssertEqual(stack2.sectionIndex, 1);
+    XCTAssertEqual(section11.sectionIndex, 0);
+    XCTAssertEqual(section12.sectionIndex, 0);
+    XCTAssertEqual(section21.sectionIndex, 1);
+    XCTAssertEqual(section22.sectionIndex, 1);
 }
 
 - (void)test_whenReloadingItems_thatCollectionViewReloadsRelativeIndexPaths {

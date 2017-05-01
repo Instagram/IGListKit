@@ -98,6 +98,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable, readonly) id <IGListCollectionContext> collectionContext;
 
 /**
+ Returns the index within the list for this section controller.
+ */
+@property (nonatomic, assign, readonly) NSInteger sectionIndex;
+
+/**
  Returns `YES` if the section controller is the first section in the list, `NO` otherwise.
  */
 @property (nonatomic, assign, readonly) BOOL isFirstSection;

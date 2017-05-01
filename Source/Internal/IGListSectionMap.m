@@ -11,6 +11,8 @@
 
 #import <IGListKit/IGListAssert.h>
 
+#import "IGListSectionControllerInternal.h"
+
 @interface IGListSectionMap ()
 
 // both of these maps allow fast lookups of objects, list objects, and indexes
@@ -59,9 +61,12 @@
 - (void)updateWithObjects:(NSArray *)objects sectionControllers:(NSArray *)sectionControllers {
     IGParameterAssert(objects.count == sectionControllers.count);
 
+    [self reset];
+
     self.mObjects = [objects mutableCopy];
 
-    [self reset];
+    id firstObject = objects.firstObject;
+    id lastObject = objects.lastObject;
 
     [objects enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
         IGListSectionController *sectionController = sectionControllers[idx];
@@ -69,6 +74,10 @@
         // set the index of the list for easy reverse lookup
         [self.sectionControllerToSectionMap setObject:@(idx) forKey:sectionController];
         [self.objectToSectionControllerMap setObject:sectionController forKey:object];
+
+        sectionController.isFirstSection = (object == firstObject);
+        sectionController.isLastSection = (object == lastObject);
+        sectionController.sectionIndex = (NSInteger)idx;
     }];
 }
 
@@ -99,6 +108,12 @@
 }
 
 - (void)reset {
+    [self enumerateUsingBlock:^(id  _Nonnull object, IGListSectionController * _Nonnull sectionController, NSInteger section, BOOL * _Nonnull stop) {
+        sectionController.sectionIndex = NSNotFound;
+        sectionController.isFirstSection = NO;
+        sectionController.isLastSection = NO;
+    }];
+
     [self.sectionControllerToSectionMap removeAllObjects];
     [self.objectToSectionControllerMap removeAllObjects];
 }
