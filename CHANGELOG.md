@@ -114,7 +114,7 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - When setting the collection view on `IGListAdapter`, its layout is now properly invalidated. [Jesse Squires](https://github.com/jessesquires) [(#677)](https://github.com/Instagram/IGListKit/pull/677)
 
-- `IGListSupplementaryViewSource` is now able to receive section indexes different than 0.
+- Fixed a bug in `IGListSupplementaryViewSource` where it would always have a section index of 0. [Marcelo Gobetti](https://github.com/gobetti) [(#715)](https://github.com/Instagram/IGListKit/pull/715)
 
 2.1.0
 -----
