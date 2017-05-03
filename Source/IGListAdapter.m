@@ -474,7 +474,7 @@
     IGAssertMainThread();
     id <IGListSupplementaryViewSource> supplementaryViewSource = [self supplementaryViewSourceAtIndexPath:indexPath];
     if ([[supplementaryViewSource supportedElementKinds] containsObject:elementKind]) {
-        const CGSize size = [supplementaryViewSource sizeForSupplementaryViewOfKind:elementKind atIndex:indexPath.item];
+        const CGSize size = [supplementaryViewSource sizeForSupplementaryViewOfKind:elementKind atIndex:indexPath.section];
         return CGSizeMake(MAX(size.width, 0.0), MAX(size.height, 0.0));
     }
     return CGSizeZero;
