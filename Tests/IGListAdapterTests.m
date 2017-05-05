@@ -1067,6 +1067,24 @@
     XCTAssertEqual(size.height, 0.0);
 }
 
+- (void)test_whenSectionIndexGreaterThanZero_thatAdapterReturnsSizeForSectionIndexesGreaterThanZero {
+  self.dataSource.objects = @[@1];
+  [self.adapter reloadDataWithCompletion:nil];
+  
+  IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+  supplementarySource.collectionContext = self.adapter;
+  supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
+  
+  IGListSectionController *controller = [self.adapter sectionControllerForObject:@1];
+  controller.supplementaryViewSource = supplementarySource;
+  supplementarySource.sectionController = controller;
+  
+  const CGSize size = [self.adapter sizeForSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+                                                       atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+  XCTAssertEqual(size.width, supplementarySource.sizeForSectionIndexesGreaterThanZero.width);
+  XCTAssertEqual(size.height, supplementarySource.sizeForSectionIndexesGreaterThanZero.height);
+}
+
 - (void)test_whenQueryingContainerInset_thatMatchesCollectionView {
     self.dataSource.objects = @[@2];
     [self.adapter reloadDataWithCompletion:nil];

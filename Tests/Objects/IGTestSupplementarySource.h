@@ -17,6 +17,8 @@
 
 @property (nonatomic, assign) CGSize size;
 
+@property (nonatomic, assign) CGSize sizeForSectionIndexesGreaterThanZero;
+
 @property (nonatomic, strong, readwrite) NSArray<NSString *> *supportedElementKinds;
 
 @property (nonatomic, weak) id<IGListCollectionContext> collectionContext;

@@ -16,6 +16,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         _size = CGSizeMake(100, 10);
+        _sizeForSectionIndexesGreaterThanZero = CGSizeMake(100, 20);
     }
     return self;
 }
@@ -41,6 +42,9 @@
 }
 
 - (CGSize)sizeForSupplementaryViewOfKind:(NSString *)elementKind atIndex:(NSInteger)index {
+    if (index > 0) {
+      return self.sizeForSectionIndexesGreaterThanZero;
+    }
     return self.size;
 }
 
