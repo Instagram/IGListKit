@@ -116,6 +116,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Fixes a bug when reusing `UICollectionView`s with multiple `IGListAdapter`s in an embedded environment that would accidentally `nil` the `collectionView` property of another adapter. [Ryan Nystrom](https://github.com/rnystrom) [(#721)](https://github.com/Instagram/IGListKit/pull/721)
 
+- Fixes a bug where maintaining a reference to a section controller but not the list adapter in an async block could lead to calling `-[IGListAdapter sectionForSectionController:]` (or checking `-[IGListSectionController sectionIndex]`) and receiving an incorrect value. With the adapter check the value would be 0 because the adapter was `nil` and for the section controller property the value would be the last set index value. [Andrew Monshizadeh](https://github.com/amonshiz) [(#709)](https://github.com/Instagram/IGListKit/issues/709)
+
 2.1.0
 -----
 
