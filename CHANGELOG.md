@@ -64,7 +64,7 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 ### Enhancements
 
-- Added an initializer on `IGListAdapter` that does not take a `workingRangeSize` and defaults it to 0. [BasThomas](https://github.com/BasThomas) [(#414)](https://github.com/Instagram/IGListKit/issues/414)
+- Added an initializer on `IGListAdapter` that does not take a `workingRangeSize` and defaults it to 0. [BasThomas](https://github.com/BasThomas) [(#686)](https://github.com/Instagram/IGListKit/pull/686)
 
 - Added `-[IGListAdapter visibleCellsForObject:]` API. [Sherlouk](https://github.com/Sherlouk) [(#442)](https://github.com/Instagram/IGListKit/pull/442)
 
