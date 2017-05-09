@@ -32,6 +32,7 @@
     [debug addObject:[NSString stringWithFormat:@"Scroll view delegate: %@", self.scrollViewDelegate]];
     [debug addObject:[NSString stringWithFormat:@"Is in update block: %@", IGListDebugBOOL(self.isInUpdateBlock)]];
     [debug addObject:[NSString stringWithFormat:@"View controller: %@", self.viewController]];
+    [debug addObject:[NSString stringWithFormat:@"Is prefetching enabled: %@", IGListDebugBOOL(self.collectionView.isPrefetchingEnabled)]];
 
     if (self.registeredCellClasses.count > 0) {
         [debug addObject:@"Registered cell classes:"];
