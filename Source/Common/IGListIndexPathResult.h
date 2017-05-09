@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  A result object returned when diffing with sections.
  */
+NS_SWIFT_NAME(ListIndexPathResult)
 @interface IGListIndexPathResult : NSObject
 
 /**

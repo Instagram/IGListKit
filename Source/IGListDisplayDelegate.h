@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Implement this protocol to receive display events for a section controller when it is on screen.
  */
+NS_SWIFT_NAME(ListDisplayDelegate)
 @protocol IGListDisplayDelegate <NSObject>
 
 /**

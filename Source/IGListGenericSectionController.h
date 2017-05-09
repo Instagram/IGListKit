@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
  This class adds a helper layer to `IGListSectionController` to automatically store a generic object in
  `didUpdateToObject:`.
  */
+NS_SWIFT_NAME(ListGenericSectionController)
 @interface IGListGenericSectionController<__covariant ObjectType> : IGListSectionController
 
 /**

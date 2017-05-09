@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class SelfSizingSectionController: IGListSectionController {
+final class SelfSizingSectionController: ListSectionController {
 
     private var model: SelectionModel!
 

@@ -47,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
  Only when `-diffIdentifier`s match is object equality compared, so you can assume the class is the same, and the
  instance has already been checked.
  */
+NS_SWIFT_NAME(ListBindingSectionController)
 @interface IGListBindingSectionController<__covariant ObjectType : id<IGListDiffable>> : IGListSectionController
 
 /**

@@ -15,10 +15,10 @@
 import UIKit
 import IGListKit
 
-final class SearchViewController: UIViewController, IGListAdapterDataSource, SearchSectionControllerDelegate {
+final class SearchViewController: UIViewController, ListAdapterDataSource, SearchSectionControllerDelegate {
 
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     lazy var words: [String] = {
@@ -45,14 +45,14 @@ final class SearchViewController: UIViewController, IGListAdapterDataSource, Sea
         collectionView.frame = view.bounds
     }
 
-    //MARK: IGListAdapterDataSource
+    //MARK: ListAdapterDataSource
 
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        guard filterString != "" else { return [searchToken] + words.map { $0 as IGListDiffable } }
-        return [searchToken] + words.filter { $0.lowercased().contains(filterString.lowercased()) }.map { $0 as IGListDiffable }
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        guard filterString != "" else { return [searchToken] + words.map { $0 as ListDiffable } }
+        return [searchToken] + words.filter { $0.lowercased().contains(filterString.lowercased()) }.map { $0 as ListDiffable }
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         if let obj = object as? NSNumber, obj == searchToken {
             let sectionController = SearchSectionController()
             sectionController.delegate = self
@@ -62,7 +62,7 @@ final class SearchViewController: UIViewController, IGListAdapterDataSource, Sea
         }
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }
 

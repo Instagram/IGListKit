@@ -14,7 +14,7 @@
 
 import IGListKit
 
-final class ListeningSectionController: IGListSectionController, IncrementListener {
+final class ListeningSectionController: ListSectionController, IncrementListener {
 
     private var value: Int = 0
 
@@ -27,7 +27,7 @@ final class ListeningSectionController: IGListSectionController, IncrementListen
         cell.text = "Section: \(self.sectionIndex), value: \(value)"
     }
 
-    // MARK: IGListSectionController Overrides
+    // MARK: ListSectionController Overrides
 
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)

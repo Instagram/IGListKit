@@ -19,7 +19,7 @@ protocol StoryboardLabelSectionControllerDelegate: class {
     func removeSectionControllerWantsRemoved(_ sectionController: StoryboardLabelSectionController)
 }
 
-final class StoryboardLabelSectionController: IGListSectionController {
+final class StoryboardLabelSectionController: ListSectionController {
     
     private var object: Person?
     weak var delegate: StoryboardLabelSectionControllerDelegate?

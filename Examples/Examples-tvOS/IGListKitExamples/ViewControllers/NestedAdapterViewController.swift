@@ -15,10 +15,10 @@
 import UIKit
 import IGListKit
 
-final class NestedAdapterViewController: UIViewController, IGListAdapterDataSource {
+final class NestedAdapterViewController: UIViewController, ListAdapterDataSource {
     
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
 
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -46,13 +46,13 @@ final class NestedAdapterViewController: UIViewController, IGListAdapterDataSour
         collectionView.frame = view.bounds
     }
     
-    // MARK: IGListAdapterDataSource
+    // MARK: ListAdapterDataSource
     
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return data as! [IGListDiffable]
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        return data as! [ListDiffable]
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         if object is Int {
             return HorizontalSectionController()
         }
@@ -60,6 +60,6 @@ final class NestedAdapterViewController: UIViewController, IGListAdapterDataSour
         return LabelSectionController()
     }
     
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
+    func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
     
 }

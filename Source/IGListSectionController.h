@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  The base class for section controllers used in a list. This class is intended to be subclassed.
  */
+NS_SWIFT_NAME(ListSectionController)
 @interface IGListSectionController : NSObject
 
 /**

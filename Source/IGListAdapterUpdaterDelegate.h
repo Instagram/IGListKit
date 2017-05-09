@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  A protocol that receives events about `IGListAdapterUpdater` operations.
  */
+NS_SWIFT_NAME(ListAdapterUpdaterDelegate)
 @protocol IGListAdapterUpdaterDelegate <NSObject>
 
 /**

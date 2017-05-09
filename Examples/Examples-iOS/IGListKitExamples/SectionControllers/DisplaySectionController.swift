@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class DisplaySectionController: IGListSectionController, IGListDisplayDelegate {
+final class DisplaySectionController: ListSectionController, ListDisplayDelegate {
 
     override init() {
         super.init()
@@ -37,21 +37,21 @@ final class DisplaySectionController: IGListSectionController, IGListDisplayDele
         return cell
     }
 
-    // MARK: IGListDisplayDelegate
+    // MARK: ListDisplayDelegate
 
-    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController) {
+    func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController) {
         print("Will display section \(self.sectionIndex)")
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {
+    func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController, cell: UICollectionViewCell, at index: Int) {
         print("Did will display cell \(index) in section \(self.sectionIndex)")
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController) {
+    func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying sectionController: ListSectionController) {
         print("Did end displaying section \(self.sectionIndex)")
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {
+    func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying sectionController: ListSectionController, cell: UICollectionViewCell, at index: Int) {
         print("Did end displaying cell \(index) in section \(self.sectionIndex)")
     }
 

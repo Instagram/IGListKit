@@ -15,12 +15,12 @@
 import UIKit
 import IGListKit
 
-final class StoryboardViewController: UIViewController, IGListAdapterDataSource, StoryboardLabelSectionControllerDelegate {
+final class StoryboardViewController: UIViewController, ListAdapterDataSource, StoryboardLabelSectionControllerDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
     lazy var people = [
@@ -64,19 +64,19 @@ final class StoryboardViewController: UIViewController, IGListAdapterDataSource,
         adapter.dataSource = self
     }
     
-    //MARK: IGListAdapterDataSource
+    //MARK: ListAdapterDataSource
     
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return people
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         let sectionController = StoryboardLabelSectionController()
         sectionController.delegate = self
         return sectionController
     }
     
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
+    func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
     
     func removeSectionControllerWantsRemoved(_ sectionController: StoryboardLabelSectionController) {
         let section = adapter.section(for: sectionController)

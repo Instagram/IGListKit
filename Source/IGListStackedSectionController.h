@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
  huge class.
  */
 IGLK_SUBCLASSING_RESTRICTED
+NS_SWIFT_NAME(ListStackedSectionController)
 @interface IGListStackedSectionController : IGListSectionController
 
 /**

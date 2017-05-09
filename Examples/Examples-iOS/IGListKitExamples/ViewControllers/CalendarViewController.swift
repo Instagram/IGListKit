@@ -15,14 +15,14 @@
 import UIKit
 import IGListKit
 
-final class CalendarViewController: UIViewController, IGListAdapterDataSource {
+final class CalendarViewController: UIViewController, ListAdapterDataSource {
     
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     let collectionView = UICollectionView(
         frame: .zero,
-        collectionViewLayout: IGListCollectionViewLayout(stickyHeaders: false, topContentInset: 0, stretchToEdge: false)
+        collectionViewLayout: ListCollectionViewLayout(stickyHeaders: false, topContentInset: 0, stretchToEdge: false)
     )
     
     var months = [Month]()
@@ -61,16 +61,16 @@ final class CalendarViewController: UIViewController, IGListAdapterDataSource {
         collectionView.frame = view.bounds
     }
     
-    // MARK: IGListAdapterDataSource
+    // MARK: ListAdapterDataSource
     
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return months
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         return MonthSectionController()
     }
     
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
+    func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
 
 }

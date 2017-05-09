@@ -68,7 +68,7 @@ final class CalendarDayCell: UICollectionViewCell {
 
 }
 
-extension CalendarDayCell: IGListBindable {
+extension CalendarDayCell: ListBindable {
     
     func bindViewModel(_ viewModel: Any) {
         guard let viewModel = viewModel as? DayViewModel else { return }

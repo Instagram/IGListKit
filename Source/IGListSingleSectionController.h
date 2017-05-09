@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param item The model with which to configure the cell.
  @param cell The cell to configure.
  */
+NS_SWIFT_NAME(ListSingleSectionCellConfigureBlock)
 typedef void (^IGListSingleSectionCellConfigureBlock)(id item, __kindof UICollectionViewCell *cell);
 
 /**
@@ -32,6 +33,7 @@ typedef void (^IGListSingleSectionCellConfigureBlock)(id item, __kindof UICollec
 
  @return The size for the cell.
  */
+NS_SWIFT_NAME(ListSingleSectionCellSizeBlock)
 typedef CGSize (^IGListSingleSectionCellSizeBlock)(id item, id<IGListCollectionContext> _Nullable collectionContext);
 
 @class IGListSingleSectionController;
@@ -39,6 +41,7 @@ typedef CGSize (^IGListSingleSectionCellSizeBlock)(id item, id<IGListCollectionC
 /**
  A delegate that can receive selection events on an `IGListSingleSectionController`.
  */
+NS_SWIFT_NAME(ListSingleSectionControllerDelegate)
 @protocol IGListSingleSectionControllerDelegate <NSObject>
 
 /**
@@ -58,6 +61,7 @@ typedef CGSize (^IGListSingleSectionCellSizeBlock)(id item, id<IGListCollectionC
  simpler architecture.
  */
 IGLK_SUBCLASSING_RESTRICTED
+NS_SWIFT_NAME(ListSingleSectionController)
 @interface IGListSingleSectionController : IGListSectionController
 
 /**

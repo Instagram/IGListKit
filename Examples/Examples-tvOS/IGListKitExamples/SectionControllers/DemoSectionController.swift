@@ -31,7 +31,7 @@ final class DemoItem: NSObject {
     
 }
 
-final class DemoSectionController: IGListSectionController {
+final class DemoSectionController: ListSectionController {
 
     var object: DemoItem?
     

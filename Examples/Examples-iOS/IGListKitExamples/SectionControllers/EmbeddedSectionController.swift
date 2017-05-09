@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class EmbeddedSectionController: IGListSectionController {
+final class EmbeddedSectionController: ListSectionController {
 
     private var number: Int?
 

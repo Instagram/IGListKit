@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param finished Specifies whether or not the update animations completed successfully.
  */
+NS_SWIFT_NAME(ListUpdaterCompletion)
 typedef void (^IGListUpdaterCompletion)(BOOL finished);
 
 /**
@@ -38,6 +39,7 @@ typedef void (^IGListUpdaterCompletion)(BOOL finished);
  controllers in a collection view.
  */
 IGLK_SUBCLASSING_RESTRICTED
+NS_SWIFT_NAME(ListAdapter)
 @interface IGListAdapter : NSObject
 
 /**

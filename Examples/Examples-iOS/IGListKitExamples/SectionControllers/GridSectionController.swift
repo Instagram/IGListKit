@@ -27,19 +27,19 @@ final class GridItem: NSObject {
 
 }
 
-extension GridItem: IGListDiffable {
+extension GridItem: ListDiffable {
     
     func diffIdentifier() -> NSObjectProtocol {
         return self
     }
     
-    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         return self === object ? true : self.isEqual(object)
     }
     
 }
 
-final class GridSectionController: IGListSectionController {
+final class GridSectionController: ListSectionController {
 
     private var object: GridItem?
 

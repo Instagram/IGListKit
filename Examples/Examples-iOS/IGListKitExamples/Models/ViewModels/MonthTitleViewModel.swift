@@ -25,13 +25,13 @@ final class MonthTitleViewModel {
     
 }
 
-extension MonthTitleViewModel: IGListDiffable {
+extension MonthTitleViewModel: ListDiffable {
     
     func diffIdentifier() -> NSObjectProtocol {
         return name as NSObjectProtocol
     }
     
-    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         if self === object { return true }
         guard object is MonthTitleViewModel else { return false }
         // name is checked in the diffidentifier, so we can assume its equal

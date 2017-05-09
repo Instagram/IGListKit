@@ -15,10 +15,10 @@
 import UIKit
 import IGListKit
 
-final class MixedDataViewController: UIViewController, IGListAdapterDataSource {
+final class MixedDataViewController: UIViewController, ListAdapterDataSource {
 
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
@@ -69,17 +69,17 @@ final class MixedDataViewController: UIViewController, IGListAdapterDataSource {
         adapter.performUpdates(animated: true, completion: nil)
     }
 
-    // MARK: IGListAdapterDataSource
+    // MARK: ListAdapterDataSource
 
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         guard selectedClass != nil else {
-            return data.map { $0 as! IGListDiffable }
+            return data.map { $0 as! ListDiffable }
         }
         return data.filter { type(of: $0) == selectedClass! }
-            .map { $0 as! IGListDiffable }
+            .map { $0 as! ListDiffable }
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         switch object {
         case is String:   return ExpandableSectionController()
         case is GridItem: return GridSectionController()
@@ -87,5 +87,5 @@ final class MixedDataViewController: UIViewController, IGListAdapterDataSource {
         }
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
+    func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
 }

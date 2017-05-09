@@ -43,7 +43,7 @@ final class MonthTitleCell: UICollectionViewCell {
     
 }
 
-extension MonthTitleCell: IGListBindable {
+extension MonthTitleCell: ListBindable {
     
     func bindViewModel(_ viewModel: Any) {
         guard let viewModel = viewModel as? MonthTitleViewModel else { return }

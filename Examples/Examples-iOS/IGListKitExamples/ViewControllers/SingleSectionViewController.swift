@@ -15,10 +15,10 @@
 import UIKit
 import IGListKit
 
-final class SingleSectionViewController: UIViewController, IGListAdapterDataSource, IGListSingleSectionControllerDelegate {
+final class SingleSectionViewController: UIViewController, ListAdapterDataSource, ListSingleSectionControllerDelegate {
     
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -40,23 +40,23 @@ final class SingleSectionViewController: UIViewController, IGListAdapterDataSour
         collectionView.frame = view.bounds
     }
     
-    //MARK: - IGListAdapterDataSource
+    //MARK: - ListAdapterDataSource
     
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return data as [IGListDiffable]
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        return data as [ListDiffable]
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         let configureBlock = { (item: Any, cell: UICollectionViewCell) in
             guard let cell = cell as? NibCell, let number = item as? Int else { return }
             cell.text = "Cell: \(number + 1)"
         }
         
-        let sizeBlock = { (item: Any, context: IGListCollectionContext?) -> CGSize in
+        let sizeBlock = { (item: Any, context: ListCollectionContext?) -> CGSize in
             guard let context = context else { return CGSize() }
             return CGSize(width: context.containerSize.width, height: 44)
         }
-        let sectionController = IGListSingleSectionController(nibName: NibCell.nibName,
+        let sectionController = ListSingleSectionController(nibName: NibCell.nibName,
                                                               bundle: nil,
                                                               configureBlock: configureBlock,
                                                               sizeBlock: sizeBlock)
@@ -65,11 +65,11 @@ final class SingleSectionViewController: UIViewController, IGListAdapterDataSour
         return sectionController
     }
     
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
+    func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
     
-    // MARK: - IGListSingleSectionControllerDelegate
+    // MARK: - ListSingleSectionControllerDelegate
     
-    func didSelect(_ sectionController: IGListSingleSectionController, with object: Any) {
+    func didSelect(_ sectionController: ListSingleSectionController, with object: Any) {
         let section = adapter.section(for: sectionController) + 1
         let alert = UIAlertController(title: "Section \(section) was selected \u{1F389}",
                                       message: "Cell Object: " + String(describing: object),
