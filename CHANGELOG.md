@@ -82,6 +82,8 @@ This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit
 
 - Added a debug option for IGListKit that you can print to lldb via `po [IGListDebugger dump]`. [Ryan Nystrom](https://github.com/rnystrom) [(#617)](https://github.com/Instagram/IGListKit/pull/617)
 
+- Added `UICollectionView`s `isPrefetchingEnabled` to the `IGListAdapter` debug description. [BasThomas](https://github.com/BasThomas) [(#726)](https://github.com/Instagram/IGListKit/issues/726)
+
 ### Fixes
 
 - Gracefully handle a `nil` section controller returned by an `IGListAdapterDataSource`. [Ryan Nystrom](https://github.com/rnystrom) [(#488)](https://github.com/Instagram/IGListKit/pull/488)
