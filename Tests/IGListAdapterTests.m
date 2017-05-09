@@ -1214,4 +1214,38 @@
     XCTAssertEqual([wAdapter sectionForSectionController:sc], 0);
 }
 
+- (void)test_whenSwappingCollectionViews_withMultipleAdapters_thatDoesntNilOtherAdaptersCollectionView {
+    IGListTestAdapterDataSource *dataSource1 = [IGListTestAdapterDataSource new];
+    IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    adapter1.dataSource = dataSource1;
+
+    IGListTestAdapterDataSource *dataSource2 = [IGListTestAdapterDataSource new];
+    IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    adapter2.dataSource = dataSource2;
+
+    UICollectionView *collectionView1 = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
+    UICollectionView *collectionView2 = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
+
+    adapter1.collectionView = collectionView1;
+    adapter2.collectionView = collectionView2;
+
+    XCTAssertEqual(adapter1.collectionView, collectionView1);
+    XCTAssertEqual(collectionView1.dataSource, adapter1);
+    XCTAssertEqual(adapter2.collectionView, collectionView2);
+    XCTAssertEqual(collectionView2.dataSource, adapter2);
+
+    adapter2.collectionView = collectionView1;
+
+    XCTAssertEqual(adapter2.collectionView, collectionView1);
+    XCTAssertEqual(collectionView1.dataSource, adapter2);
+    XCTAssertNil(adapter1.collectionView);
+
+    adapter1.collectionView = collectionView2;
+
+    XCTAssertEqual(adapter1.collectionView, collectionView2);
+    XCTAssertEqual(collectionView2.dataSource, adapter1);
+    XCTAssertEqual(adapter2.collectionView, collectionView1);
+    XCTAssertEqual(collectionView1.dataSource, adapter2);
+}
+
 @end

@@ -81,6 +81,7 @@
         if (globalCollectionViewAdapterMap == nil) {
             globalCollectionViewAdapterMap = [NSMapTable weakToWeakObjectsMapTable];
         }
+        [globalCollectionViewAdapterMap removeObjectForKey:_collectionView];
         [[globalCollectionViewAdapterMap objectForKey:collectionView] setCollectionView:nil];
         [globalCollectionViewAdapterMap setObject:self forKey:collectionView];
 
