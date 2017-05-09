@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  An object representing a move between indexes.
  */
+NS_SWIFT_NAME(ListMoveIndex)
 @interface IGListMoveIndex : NSObject
 
 /**

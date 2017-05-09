@@ -14,7 +14,7 @@
 
 import IGListKit
 
-final class FeedItemSectionController: IGListSectionController, IGListSectionType, IGListSupplementaryViewSource {
+final class FeedItemSectionController: ListSectionController, ListSectionType, ListSupplementaryViewSource {
 
     var feedItem: FeedItem!
 
@@ -45,7 +45,7 @@ final class FeedItemSectionController: IGListSectionController, IGListSectionTyp
 
     func didSelectItem(at index: Int) {}
 
-    // MARK: IGListSupplementaryViewSource
+    // MARK: ListSupplementaryViewSource
 
     func supportedElementKinds() -> [String] {
         return [UICollectionElementKindSectionHeader]

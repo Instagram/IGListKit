@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
  update via `-[UICollectionView performBatchUpdates:completion:]`.
  */
 IGLK_SUBCLASSING_RESTRICTED
+NS_SWIFT_NAME(ListBatchUpdateData)
 @interface IGListBatchUpdateData : NSObject
 
 /**

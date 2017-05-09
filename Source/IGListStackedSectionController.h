@@ -22,6 +22,7 @@
  huge class.
  */
 IGLK_SUBCLASSING_RESTRICTED
+NS_SWIFT_NAME(ListStackedSectionController)
 @interface IGListStackedSectionController : IGListSectionController <IGListSectionType>
 
 /**

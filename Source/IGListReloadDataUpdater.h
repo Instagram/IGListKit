@@ -19,6 +19,7 @@
  @note This updater performs simple, synchronous updates using `-[UICollectionView reloadData]`.
  */
 IGLK_SUBCLASSING_RESTRICTED
+NS_SWIFT_NAME(ListReloadDataUpdater)
 @interface IGListReloadDataUpdater : NSObject <IGListUpdatingDelegate>
 
 @end

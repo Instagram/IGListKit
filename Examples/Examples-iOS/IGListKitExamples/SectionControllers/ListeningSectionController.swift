@@ -14,7 +14,7 @@
 
 import IGListKit
 
-final class ListeningSectionController: IGListSectionController, IGListSectionType, IncrementListener {
+final class ListeningSectionController: ListSectionController, ListSectionType, IncrementListener {
 
     var value: Int = 0
 
@@ -28,7 +28,7 @@ final class ListeningSectionController: IGListSectionController, IGListSectionTy
         cell.label.text = "Section: \(section), value: \(value)"
     }
 
-    // MARK: IGListSectionType
+    // MARK: ListSectionType
 
     func numberOfItems() -> Int {
         return 1

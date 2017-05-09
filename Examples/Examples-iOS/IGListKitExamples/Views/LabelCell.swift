@@ -74,7 +74,7 @@ final class LabelCell: UICollectionViewCell {
     
 }
 
-extension LabelCell: IGListBindable {
+extension LabelCell: ListBindable {
     
     func bindViewModel(_ viewModel: Any) {
         guard let viewModel = viewModel as? String else { return }

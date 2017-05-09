@@ -15,10 +15,10 @@
 import UIKit
 import IGListKit
 
-final class StackedViewController: UIViewController, IGListAdapterDataSource {
+final class StackedViewController: UIViewController, ListAdapterDataSource {
 
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 1)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 1)
     }()
 
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -38,15 +38,15 @@ final class StackedViewController: UIViewController, IGListAdapterDataSource {
         collectionView.frame = view.bounds
     }
 
-    // MARK: IGListAdapterDataSource
+    // MARK: ListAdapterDataSource
 
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return data as [IGListDiffable]
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        return data as [ListDiffable]
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         // note that each child section controller is designed to handle an Int (or no data)
-        let sectionController = IGListStackedSectionController(sectionControllers: [
+        let sectionController = ListStackedSectionController(sectionControllers: [
             WorkingRangeSectionController(),
             DisplaySectionController(),
             HorizontalSectionController(),
@@ -55,5 +55,5 @@ final class StackedViewController: UIViewController, IGListAdapterDataSource {
         return sectionController
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
+    func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
 }
