@@ -97,7 +97,7 @@ ListDiff(oldArray: [], newArray: [], .equality)
 
 - Added `IGListBindingSectionController` which automatically binds view models to cells and animates updates at the cell level. [Ryan Nystrom](https://github.com/rnystrom) [(#494)](https://github.com/Instagram/IGListKit/pull/494)
 
-- Added `IGListGenericSectionController` to take advantage of Objective-C (and Swift) generics and automatically store strongly-typed references to the object powering your section controller. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+- Added `IGListGenericSectionController` to take advantage of Objective-C (and Swift) generics and automatically store strongly-typed references to the object powering your section controller. [Ryan Nystrom](https://github.com/rnystrom) ([301f147](https://github.com/Instagram/IGListKit/commit/301f1471c9a7a802320e07890f5e98f15ada4e2e))
 
 - Added a debug option for IGListKit that you can print to lldb via `po [IGListDebugger dump]`. [Ryan Nystrom](https://github.com/rnystrom) [(#617)](https://github.com/Instagram/IGListKit/pull/617)
 
@@ -129,7 +129,7 @@ ListDiff(oldArray: [], newArray: [], .equality)
 
 - Fix a crash when inserting or deleting from the same index within the same batch-update application. [Ryan Nystrom](https://github.com/rnystrom) [(#616)](https://github.com/Instagram/IGListKit/pull/616)
 
-- `IGListSectionType` protocol was removed and its methods were absorted into the `IGListSectionController` base class with default implementations. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+- `IGListSectionType` protocol was removed and its methods were absorted into the `IGListSectionController` base class with default implementations. [Ryan Nystrom](https://github.com/rnystrom) ([3102852](https://github.com/Instagram/IGListKit/commit/3102852ce258274e8727f9094695a9c331e1abf3))
 
 - When setting the collection view on `IGListAdapter`, its layout is now properly invalidated. [Jesse Squires](https://github.com/jessesquires) [(#677)](https://github.com/Instagram/IGListKit/pull/677)
 
