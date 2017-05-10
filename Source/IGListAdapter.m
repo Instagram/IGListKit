@@ -27,6 +27,8 @@
         _collectionView.dataSource = nil;
         _collectionView.delegate = nil;
     }
+
+    [self.sectionMap reset];
 }
 
 

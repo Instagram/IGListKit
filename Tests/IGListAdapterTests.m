@@ -1210,7 +1210,8 @@
         XCTAssertEqual(sc.sectionIndex, 1);
     }
 
-    XCTAssertEqual(sc.sectionIndex, 1);
+    XCTAssertEqual(sc.sectionIndex, NSNotFound);
+    // This will be 0 because wAdapter should be nil and so nil messaging will return 0
     XCTAssertEqual([wAdapter sectionForSectionController:sc], 0);
 }
 
