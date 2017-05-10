@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>IGListKit  Reference</title>
+    <title>VISION  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,7 +10,7 @@
     
   </head>
   <body>
-    <a title="IGListKit  Reference"></a>
+    <a title="VISION  Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="index.html">IGListKit Docs</a> (99% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="index.html">IGListKit Reference</a>
         <img id="carat" src="img/carat.png" />
-        IGListKit  Reference
+        VISION  Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -238,131 +238,40 @@
         <section>
           <section class="section">
             
-            <p align="center">
-  <img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/logo-animation.gif" width=400 />
-</p>
+            <h1 id='vision' class='heading'>Vision</h1>
 
-<p align="center">
-    <a href="https://travis-ci.org/Instagram/IGListKit">
-        <img src="https://travis-ci.org/Instagram/IGListKit.svg?branch=master&style=flat"
-             alt="Build Status">
-    </a>
-    <a href="https://coveralls.io/github/Instagram/IGListKit?branch=master">
-      <img src="https://coveralls.io/repos/github/Instagram/IGListKit/badge.svg?branch=master"
-           alt="Coverage Status" />
-    </a>
-    <a href="https://cocoapods.org/pods/IGListKit">
-        <img src="https://img.shields.io/cocoapods/v/IGListKit.svg?style=flat"
-             alt="Pods Version">
-    </a>
-    <a href="https://instagram.github.io/IGListKit/">
-        <img src="https://img.shields.io/cocoapods/p/IGListKit.svg?style=flat"
-             alt="Platforms">
-    </a>
-    <a href="https://github.com/Carthage/Carthage">
-        <img src="https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?style=flat"
-             alt="Carthage Compatible">
-    </a>
-</p>
+<p>This document serves to outline the long term goals of IGListKit and act as a guidance when making decisions about features and issues.</p>
+<h2 id='prioritizing-features-amp-fixes' class='heading'>Prioritizing Features &amp; Fixes</h2>
 
-<hr>
+<p>IGListKit is a data-driven, list-building framework built, owned, and maintained by the engineering team at Instagram. Because IGListKit powers parts of the Instagram iOS app, we prioritize features and bugs towards those that effect Instagram. However the team recognizes the wide range of use-cases for IGListKit and wants to serve as broad an audience as possible without sacrificing our own needs.</p>
+<h2 id='goals-amp-scope' class='heading'>Goals &amp; Scope</h2>
 
-<p>A data-driven <code>UICollectionView</code> framework for building fast and flexible lists.</p>
-
-<table><thead>
-<tr>
-<th></th>
-<th>Main Features</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>&#128581;</td>
-<td>Never call <code>performBatchUpdates(_:, completion:)</code> or <code>reloadData()</code> again</td>
-</tr>
-<tr>
-<td>&#127968;</td>
-<td>Better architecture with reusable cells and components</td>
-</tr>
-<tr>
-<td>&#128288;</td>
-<td>Create collections with multiple data types</td>
-</tr>
-<tr>
-<td>&#128273;</td>
-<td>Decoupled diffing algorithm</td>
-</tr>
-<tr>
-<td>&#9989;</td>
-<td>Fully unit tested</td>
-</tr>
-<tr>
-<td>&#128269;</td>
-<td>Customize your diffing behavior for your models</td>
-</tr>
-<tr>
-<td>&#128241;</td>
-<td>Simply <code>UICollectionView</code> at its core</td>
-</tr>
-<tr>
-<td>&#128640;</td>
-<td>Extendable API</td>
-</tr>
-<tr>
-<td>&#128038;</td>
-<td>Written in Objective-C with full Swift interop support</td>
-</tr>
-</tbody></table>
-
-<p><code>IGListKit</code> is built and maintained with &#10084;&#65039; by <a href="https://engineering.instagram.com/">Instagram engineering</a>.
-We use the open source version <code>master</code> branch in the Instagram app.</p>
-<h2 id='requirements' class='heading'>Requirements</h2>
+<p>The core goal of IGListKit is to build fast, stable, and data-driven lists in iOS applications. That scope includes things like:</p>
 
 <ul>
-<li>Xcode 8.0+</li>
-<li>iOS 8.0+</li>
-<li>tvOS 9.0+</li>
-<li>macOS 10.10+ <em>(diffing algorithm components only)</em></li>
-<li>Interoperability with Swift 3.0+</li>
+<li><code>UICollectionView</code> and <code>UITableView</code> integrations</li>
+<li>Data and state management</li>
+<li>Diffing algorithms</li>
 </ul>
-<h2 id='installation' class='heading'>Installation</h2>
-<h3 id='cocoapods' class='heading'>CocoaPods</h3>
 
-<p>The preferred installation method is with <a href="https://cocoapods.org">CocoaPods</a>. Add the following to your <code>Podfile</code>:</p>
-<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'IGListKit'</span><span class="p">,</span> <span class="s1">'~&gt; 2.0.0'</span>
-</code></pre>
-<h3 id='carthage' class='heading'>Carthage</h3>
-
-<p>For <a href="https://github.com/Carthage/Carthage">Carthage</a>, add the following to your <code>Cartfile</code>:</p>
-<pre class="highlight plaintext"><code>github "Instagram/IGListKit" ~&gt; 2.0.0
-</code></pre>
-
-<blockquote>
-<p>For advanced usage, see our <a href="https://instagram.github.io/IGListKit/installation.html">Installation Guide</a>.</p>
-</blockquote>
-<h2 id='getting-started' class='heading'>Getting Started</h2>
+<p>While IGListKit uses specific tools, we do want to limit the reach of how we use those tools. We highly encourage people to explore solutions that fit their needs and will try to assist when possible. Examples of things beyond the scope of IGListKit:</p>
 
 <ul>
-<li>Our <a href="https://instagram.github.io/IGListKit/getting-started.html">Getting Started guide</a></li>
-<li>Ray Wenderlich&rsquo;s <a href="https://www.raywenderlich.com/147162/iglistkit-tutorial-better-uicollectionviews">IGListKit Tutorial: Better UICollectionViews</a></li>
-<li>Our <a href="https://github.com/Instagram/IGListKit/tree/master/Examples">example projects</a></li>
-<li>Ryan Nystrom&rsquo;s <a href="https://realm.io/news/tryswift-ryan-nystrom-refactoring-at-scale-lessons-learned-rewriting-instagram-feed/">talk at try! Swift NYC</a> (Note: this talk was for an earlier version. Some APIs have changed.)</li>
-<li><a href="https://medium.com/cocoaacademymag/iglistkit-migrating-an-uitableview-to-iglistkitcollectionview-65a30cf9bac9">Migrating an UITableView to IGListCollectionView</a>, by Rodrigo Cavalcante</li>
-<li><a href="https://overflow.buffer.com/2017/04/10/keeping-data-fresh-buffer-ios-asyncdisplaykit-iglistkit-pusher/">Keeping data fresh in Buffer for iOS with AsyncDisplayKit, IGListKit &amp; Pusher</a>, Andy Yates, Buffer</li>
+<li>Advanced/custom <code>UICollectionViewLayout</code>s</li>
+<li>Sizing and layout (e.g. auto layout, estimated sizes)</li>
+<li>Render and display pipelines</li>
+<li>Integration with third-parties</li>
 </ul>
-<h2 id='documentation' class='heading'>Documentation</h2>
+<h2 id='collaboration-amp-community' class='heading'>Collaboration &amp; Community</h2>
 
-<p>You can find <a href="https://instagram.github.io/IGListKit">the docs here</a>. Documentation is generated with <a href="https://github.com/realm/jazzy">jazzy</a> and hosted on <a href="https://pages.github.com">GitHub-Pages</a>.</p>
-<h2 id='vision' class='heading'>Vision</h2>
+<p>While IGListKit is an Instagram project, we want to give as much ownership and responsibility to the community as possible. We welcome everyone to become a collaborator on the project with whatever level of contribution you feel comfortable with.</p>
 
-<p>For the long term goals and <q>vision</q> of <code>IGListKit</code>, please read our <a href="https://github.com/Instagram/IGListKit/blob/master/Guides/VISION.md">Vision</a> doc.</p>
-<h2 id='contributing' class='heading'>Contributing</h2>
+<p>We recognize that maintaining open source projects can be demanding, and often done in addition to other responsibilities. We have no expectation for the amount or frequency of contribution from anyone.</p>
 
-<p>Please see the <a href="https://github.com/Instagram/IGListKit/blob/master/.github/CONTRIBUTING.md">CONTRIBUTING</a> file for how to help out. At Instagram we sync the open source version of <code>IGListKit</code> daily, so we&rsquo;re always testing the latest changes. But that requires all changes be thoroughly tested and follow our style guide.</p>
-<h2 id='license' class='heading'>License</h2>
+<p>We also ask that you help keep our community welcoming and open.</p>
+<h2 id='communication' class='heading'>Communication</h2>
 
-<p><code>IGListKit</code> is BSD-licensed. We also provide an additional patent grant.</p>
-
-<p>The files in the <code>/Examples/</code> directory are licensed under a separate license as specified in each file. Documentation is licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a>.</p>
+<p>GitHub Issues serve as the <q>source of truth</q> for all communication and decision-making about IGListKit. This keeps everything open and centralized. We will consider other forms of communication (Slack, Facebook Group, etc) once the scale of the project and/or community demands it.</p>
 
           </section>
         </section>

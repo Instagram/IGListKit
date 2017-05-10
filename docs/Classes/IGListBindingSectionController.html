@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>IGListDiffable Protocol Reference</title>
+    <title>IGListBindingSectionController Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/objc/Protocol/IGListDiffable" class="dashAnchor"></a>
-    <a title="IGListDiffable Protocol Reference"></a>
+    <a name="//apple_ref/objc/Class/IGListBindingSectionController" class="dashAnchor"></a>
+    <a title="IGListBindingSectionController Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">IGListKit Docs</a> (99% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">IGListKit Reference</a>
         <img id="carat" src="../img/carat.png" />
-        IGListDiffable Protocol Reference
+        IGListBindingSectionController Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -238,14 +238,37 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>IGListDiffable</h1>
+            <h1>IGListBindingSectionController</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListDiffable</span></code></pre>
+                  <pre class="highlight"><code>
+<span class="k">@interface</span> <span class="nc">IGListBindingSectionController</span> <span class="o">&lt;</span> <span class="n">__covariant</span> <span class="n">ObjectType</span>
+    <span class="o">:</span> <span class="n">id</span> <span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="o">:</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="k">@end</span></code></pre>
 
                 </div>
               </div>
-            <p>The <code>IGListDiffable</code> protocol provides methods needed to compare the identity and equality of two objects.</p>
+            <p>This section controller uses a data source to transform its <q>top level</q> object into an array of diffable view models.
+It then automatically binds each view model to cells via the <code><a href="../Protocols/IGListBindable.html">IGListBindable</a></code> protocol.</p>
+
+<p>Models used with <code>IGListBindingSectionController</code> should take special care to always return <code>YES</code> for identical
+objects. That is, any objects with matching <code>-diffIdentifier</code>s should always be equal, that way the section controller
+can create new view models via the data source, create a diff, and update the specific cells that have changed.</p>
+
+<p>In Objective-C, your <code>-isEqualToDiffableObject:</code> can simply be:</p>
+<pre class="highlight plaintext"><code>- (BOOL)isEqualToDiffableObject:(id)object {
+  return YES;
+}
+</code></pre>
+
+<p>In Swift:</p>
+<pre class="highlight plaintext"><code>func isEqual(toDiffableObject object: IGListDiffable?) -&gt; Bool {
+  return true
+}
+</code></pre>
+
+<p>Only when <code>-diffIdentifier</code>s match is object equality compared, so you can assume the class is the same, and the
+instance has already been checked.</p>
 
           </section>
           <section class="section task-group-section">
@@ -254,9 +277,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListDiffable(im)diffIdentifier"></a>
-                    <a name="//apple_ref/objc/Method/-diffIdentifier" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListDiffable(im)diffIdentifier">-diffIdentifier</a>
+                    <a name="/c:objc(cs)IGListBindingSectionController(py)dataSource"></a>
+                    <a name="//apple_ref/objc/Property/dataSource" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBindingSectionController(py)dataSource">dataSource</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -264,37 +287,18 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a key that uniquely identifies the object.</p>
-<div class="aside aside-note">
-    <p class="aside-title">Note</p>
-    <p>Two objects may share the same identifier, but are not equal. A common pattern is to use the <code>NSObject</code> 
-category for automatic conformance. However this means that objects will be identified on their
-pointer value so finding updates becomes impossible.</p>
-
-</div>
-<div class="aside aside-warning">
-    <p class="aside-title">Warning</p>
-    <p>This value should never be mutated.</p>
-
-</div>
+                        <p>A data source that transforms a top-level object into view models, and returns cells and sizes for given view models.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="n">diffIdentifier</span><span class="p">;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
+    <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a></span><span class="o">&gt;</span>
+        <span class="n">dataSource</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">diffIdentifier</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSObjectProtocol</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A key that can be used to uniquely identify the object.</p>
                       </div>
                     </section>
                   </div>
@@ -302,9 +306,9 @@ pointer value so finding updates becomes impossible.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListDiffable(im)isEqualToDiffableObject:"></a>
-                    <a name="//apple_ref/objc/Method/-isEqualToDiffableObject:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListDiffable(im)isEqualToDiffableObject:">-isEqualToDiffableObject:</a>
+                    <a name="/c:objc(cs)IGListBindingSectionController(py)selectionDelegate"></a>
+                    <a name="//apple_ref/objc/Property/selectionDelegate" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBindingSectionController(py)selectionDelegate">selectionDelegate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -312,19 +316,100 @@ pointer value so finding updates becomes impossible.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns whether the receiver and a given object are equal.</p>
+                        <p>A delegate that receives selection events from cells in an <code>IGListBindingSectionController</code> instance.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">isEqualToDiffableObject</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
+    <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a></span><span class="o">&gt;</span>
+        <span class="n">selectionDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListBindingSectionController(py)object"></a>
+                    <a name="//apple_ref/objc/Property/object" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBindingSectionController(py)object">object</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The object currently assigned to the section controller, if any.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
                         <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="n">toDiffableObject</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">ListDiffable</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">ObjectType</span> <span class="n">object</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListBindingSectionController(py)viewModels"></a>
+                    <a name="//apple_ref/objc/Property/viewModels" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBindingSectionController(py)viewModels">viewModels</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The array of view models created from the data source. Values are changed when the top-level object changes or by
+calling <code><a href="../Classes/IGListBindingSectionController.html#/c:objc(cs)IGListBindingSectionController(im)updateAnimated:completion:">-updateAnimated:completion:</a></code> manually.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
+    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">viewModels</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListBindingSectionController(im)updateAnimated:completion:"></a>
+                    <a name="//apple_ref/objc/Method/-updateAnimated:completion:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBindingSectionController(im)updateAnimated:completion:">-updateAnimated:completion:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Tells the section controller to query for new view models, diff the changes, and update its cells.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">updateAnimated</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+            <span class="nf">completion</span><span class="p">:(</span><span class="n">nullable</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">BOOL</span><span class="p">))</span><span class="nv">completion</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -335,21 +420,29 @@ pointer value so finding updates becomes impossible.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>object</em>
+                                <em>animated</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The object to be compared to the receiver.</p>
+                                  <p>A flag indicating if the transition should be animated or not.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional completion block executed after updates finish. Parameter is YES if updates were applied.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p><code>YES</code> if the receiver and object are equal, otherwise <code>NO</code>.</p>
                       </div>
                     </section>
                   </div>

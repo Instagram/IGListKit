@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>IGListKit  Reference</title>
+    <title>Working with UICollectionView  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,7 +10,7 @@
     
   </head>
   <body>
-    <a title="IGListKit  Reference"></a>
+    <a title="Working with UICollectionView  Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="index.html">IGListKit Docs</a> (99% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="index.html">IGListKit Reference</a>
         <img id="carat" src="img/carat.png" />
-        IGListKit  Reference
+        Working with UICollectionView  Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -238,131 +238,59 @@
         <section>
           <section class="section">
             
-            <p align="center">
-  <img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/logo-animation.gif" width=400 />
-</p>
+            <h1 id='working-with-code-uicollectionview-code' class='heading'>Working with <code>UICollectionView</code></h1>
 
-<p align="center">
-    <a href="https://travis-ci.org/Instagram/IGListKit">
-        <img src="https://travis-ci.org/Instagram/IGListKit.svg?branch=master&style=flat"
-             alt="Build Status">
-    </a>
-    <a href="https://coveralls.io/github/Instagram/IGListKit?branch=master">
-      <img src="https://coveralls.io/repos/github/Instagram/IGListKit/badge.svg?branch=master"
-           alt="Coverage Status" />
-    </a>
-    <a href="https://cocoapods.org/pods/IGListKit">
-        <img src="https://img.shields.io/cocoapods/v/IGListKit.svg?style=flat"
-             alt="Pods Version">
-    </a>
-    <a href="https://instagram.github.io/IGListKit/">
-        <img src="https://img.shields.io/cocoapods/p/IGListKit.svg?style=flat"
-             alt="Platforms">
-    </a>
-    <a href="https://github.com/Carthage/Carthage">
-        <img src="https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?style=flat"
-             alt="Carthage Compatible">
-    </a>
-</p>
+<p>This guide provides details on how to work with <a href="https://developer.apple.com/reference/uikit/uicollectionview"><code>UICollectionView</code></a> and <code>IGListKit</code>.</p>
+<h2 id='background' class='heading'>Background</h2>
 
-<hr>
+<p>Early versions of <code>IGListKit</code> (2.x and prior) shipped with a subclass of <code>UICollectionView</code> called <a href="https://github.com/Instagram/IGListKit/blob/2.1.0/Source/IGListCollectionView.h"><code>IGListCollectionView</code></a>. The class contained <em>no</em> special functionality and was merely used to enforce compile-time restrictions to prevent users from calling certain methods directly on <code>UICollectionView</code>. Beginning with 3.0, <code>IGListCollectionView</code> <a href="https://github.com/Instagram/IGListKit/commit/2284ce389708f62d99f48ff2ec15644f1ec59537">was removed</a> for a number of reasons.</p>
 
-<p>A data-driven <code>UICollectionView</code> framework for building fast and flexible lists.</p>
+<p>For further discussion see <a href="https://github.com/Instagram/IGListKit/issues/240">#240</a> and <a href="https://github.com/Instagram/IGListKit/issues/409">#409</a>.</p>
+<h2 id='methods-to-avoid' class='heading'>Methods to avoid</h2>
 
-<table><thead>
-<tr>
-<th></th>
-<th>Main Features</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>&#128581;</td>
-<td>Never call <code>performBatchUpdates(_:, completion:)</code> or <code>reloadData()</code> again</td>
-</tr>
-<tr>
-<td>&#127968;</td>
-<td>Better architecture with reusable cells and components</td>
-</tr>
-<tr>
-<td>&#128288;</td>
-<td>Create collections with multiple data types</td>
-</tr>
-<tr>
-<td>&#128273;</td>
-<td>Decoupled diffing algorithm</td>
-</tr>
-<tr>
-<td>&#9989;</td>
-<td>Fully unit tested</td>
-</tr>
-<tr>
-<td>&#128269;</td>
-<td>Customize your diffing behavior for your models</td>
-</tr>
-<tr>
-<td>&#128241;</td>
-<td>Simply <code>UICollectionView</code> at its core</td>
-</tr>
-<tr>
-<td>&#128640;</td>
-<td>Extendable API</td>
-</tr>
-<tr>
-<td>&#128038;</td>
-<td>Written in Objective-C with full Swift interop support</td>
-</tr>
-</tbody></table>
+<p>One of the primary purposes of <code>IGListKit</code> is to perform optimal batch updates for <code>UICollectionView</code>. Thus, clients <strong>should never</strong> call any APIs on <code>UICollectionView</code> that involved reloading, inserting, deleting, or otherwise updating cells and index paths. Instead, use the APIs provided by <a href="https://instagram.github.io/IGListKit/Classes/IGListAdapter.html"><code>IGListAdapter</code></a>. You should also avoid setting the <a href="https://developer.apple.com/reference/uikit/uicollectionview/1618033-delegate"><code>delegate</code></a> and <a href="https://developer.apple.com/reference/uikit/uicollectionview/1618091-datasource"><code>dataSource</code></a> of the collection view, as this is also the responsibility of <code>IGListAdapter</code>.</p>
 
-<p><code>IGListKit</code> is built and maintained with &#10084;&#65039; by <a href="https://engineering.instagram.com/">Instagram engineering</a>.
-We use the open source version <code>master</code> branch in the Instagram app.</p>
-<h2 id='requirements' class='heading'>Requirements</h2>
+<p>Avoid calling the following methods:</p>
+<pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">performBatchUpdates</span><span class="p">:(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="kt">void</span><span class="p">))</span><span class="nv">updates</span>
+                 <span class="nf">completion</span><span class="p">:(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">BOOL</span><span class="p">))</span><span class="nv">completion</span><span class="p">;</span>
 
-<ul>
-<li>Xcode 8.0+</li>
-<li>iOS 8.0+</li>
-<li>tvOS 9.0+</li>
-<li>macOS 10.10+ <em>(diffing algorithm components only)</em></li>
-<li>Interoperability with Swift 3.0+</li>
-</ul>
-<h2 id='installation' class='heading'>Installation</h2>
-<h3 id='cocoapods' class='heading'>CocoaPods</h3>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">reloadData</span><span class="p">;</span>
 
-<p>The preferred installation method is with <a href="https://cocoapods.org">CocoaPods</a>. Add the following to your <code>Podfile</code>:</p>
-<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'IGListKit'</span><span class="p">,</span> <span class="s1">'~&gt; 2.0.0'</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadSections</span><span class="p">:(</span><span class="n">NSIndexSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">sections</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">insertSections</span><span class="p">:(</span><span class="n">NSIndexSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">sections</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">deleteSections</span><span class="p">:(</span><span class="n">NSIndexSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">sections</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">moveSection</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span> <span class="nf">toSection</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">newSection</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">insertItemsAtIndexPaths</span><span class="p">:(</span><span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPaths</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadItemsAtIndexPaths</span><span class="p">:(</span><span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPaths</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">deleteItemsAtIndexPaths</span><span class="p">:(</span><span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPaths</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">moveItemAtIndexPath</span><span class="p">:(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span> <span class="nf">toIndexPath</span><span class="p">:(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">newIndexPath</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setDelegate</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">UICollectionViewDelegate</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">delegate</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setDataSource</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">UICollectionViewDataSource</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">dataSource</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setBackgroundView</span><span class="p">:(</span><span class="n">UIView</span> <span class="o">*</span><span class="p">)</span><span class="nv">backgroundView</span><span class="p">;</span>
 </code></pre>
-<h3 id='carthage' class='heading'>Carthage</h3>
+<h2 id='performance' class='heading'>Performance</h2>
 
-<p>For <a href="https://github.com/Carthage/Carthage">Carthage</a>, add the following to your <code>Cartfile</code>:</p>
-<pre class="highlight plaintext"><code>github "Instagram/IGListKit" ~&gt; 2.0.0
+<p>In iOS 10, a new <a href="https://developer.apple.com/reference/uikit/uicollectionviewdatasourceprefetching">cell prefetching API</a> was introduced. At Instagram, enabling this feature substantially degraded scrolling performance. We recommend setting <a href="https://developer.apple.com/reference/uikit/uicollectionview/1771771-isprefetchingenabled"><code>isPrefetchingEnabled</code></a> to <code>NO</code> (<code>false</code> in Swift). Note that the default value is <code>true</code>.</p>
+
+<p>You can set this globally using <code>UIAppearance</code>:</p>
+<pre class="highlight objective_c"><code><span class="k">if</span> <span class="p">([[</span><span class="n">UICollectionView</span> <span class="nf">class</span><span class="p">]</span> <span class="nf">instancesRespondToSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nf">setPrefetchingEnabled</span><span class="p">:)])</span> <span class="p">{</span>
+    <span class="p">[[</span><span class="n">UICollectionView</span> <span class="nf">appearance</span><span class="p">]</span> <span class="nf">setPrefetchingEnabled</span><span class="p">:</span><span class="nb">NO</span><span class="p">];</span>
+<span class="p">}</span>
 </code></pre>
-
-<blockquote>
-<p>For advanced usage, see our <a href="https://instagram.github.io/IGListKit/installation.html">Installation Guide</a>.</p>
-</blockquote>
-<h2 id='getting-started' class='heading'>Getting Started</h2>
-
-<ul>
-<li>Our <a href="https://instagram.github.io/IGListKit/getting-started.html">Getting Started guide</a></li>
-<li>Ray Wenderlich&rsquo;s <a href="https://www.raywenderlich.com/147162/iglistkit-tutorial-better-uicollectionviews">IGListKit Tutorial: Better UICollectionViews</a></li>
-<li>Our <a href="https://github.com/Instagram/IGListKit/tree/master/Examples">example projects</a></li>
-<li>Ryan Nystrom&rsquo;s <a href="https://realm.io/news/tryswift-ryan-nystrom-refactoring-at-scale-lessons-learned-rewriting-instagram-feed/">talk at try! Swift NYC</a> (Note: this talk was for an earlier version. Some APIs have changed.)</li>
-<li><a href="https://medium.com/cocoaacademymag/iglistkit-migrating-an-uitableview-to-iglistkitcollectionview-65a30cf9bac9">Migrating an UITableView to IGListCollectionView</a>, by Rodrigo Cavalcante</li>
-<li><a href="https://overflow.buffer.com/2017/04/10/keeping-data-fresh-buffer-ios-asyncdisplaykit-iglistkit-pusher/">Keeping data fresh in Buffer for iOS with AsyncDisplayKit, IGListKit &amp; Pusher</a>, Andy Yates, Buffer</li>
-</ul>
-<h2 id='documentation' class='heading'>Documentation</h2>
-
-<p>You can find <a href="https://instagram.github.io/IGListKit">the docs here</a>. Documentation is generated with <a href="https://github.com/realm/jazzy">jazzy</a> and hosted on <a href="https://pages.github.com">GitHub-Pages</a>.</p>
-<h2 id='vision' class='heading'>Vision</h2>
-
-<p>For the long term goals and <q>vision</q> of <code>IGListKit</code>, please read our <a href="https://github.com/Instagram/IGListKit/blob/master/Guides/VISION.md">Vision</a> doc.</p>
-<h2 id='contributing' class='heading'>Contributing</h2>
-
-<p>Please see the <a href="https://github.com/Instagram/IGListKit/blob/master/.github/CONTRIBUTING.md">CONTRIBUTING</a> file for how to help out. At Instagram we sync the open source version of <code>IGListKit</code> daily, so we&rsquo;re always testing the latest changes. But that requires all changes be thoroughly tested and follow our style guide.</p>
-<h2 id='license' class='heading'>License</h2>
-
-<p><code>IGListKit</code> is BSD-licensed. We also provide an additional patent grant.</p>
-
-<p>The files in the <code>/Examples/</code> directory are licensed under a separate license as specified in each file. Documentation is licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a>.</p>
+<pre class="highlight swift"><code><span class="k">if</span> <span class="kd">#available(iOS 10, *)</span> <span class="p">{</span>
+    <span class="kt">UICollectionView</span><span class="o">.</span><span class="nf">appearance</span><span class="p">()</span><span class="o">.</span><span class="n">isPrefetchingEnabled</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="p">}</span>
+</code></pre>
 
           </section>
         </section>

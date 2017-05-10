@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>IGListDiffable Protocol Reference</title>
+    <title>IGListBindable Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/objc/Protocol/IGListDiffable" class="dashAnchor"></a>
-    <a title="IGListDiffable Protocol Reference"></a>
+    <a name="//apple_ref/objc/Protocol/IGListBindable" class="dashAnchor"></a>
+    <a title="IGListBindable Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">IGListKit Docs</a> (99% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">IGListKit Reference</a>
         <img id="carat" src="../img/carat.png" />
-        IGListDiffable Protocol Reference
+        IGListBindable Protocol Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -238,14 +238,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>IGListDiffable</h1>
+            <h1>IGListBindable</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListDiffable</span></code></pre>
+                  <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListBindable</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
 
                 </div>
               </div>
-            <p>The <code>IGListDiffable</code> protocol provides methods needed to compare the identity and equality of two objects.</p>
+            <p>A protocol for cells that configure themselves given a view model.</p>
 
           </section>
           <section class="section task-group-section">
@@ -254,9 +254,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListDiffable(im)diffIdentifier"></a>
-                    <a name="//apple_ref/objc/Method/-diffIdentifier" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListDiffable(im)diffIdentifier">-diffIdentifier</a>
+                    <a name="/c:objc(pl)IGListBindable(im)bindViewModel:"></a>
+                    <a name="//apple_ref/objc/Method/-bindViewModel:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListBindable(im)bindViewModel:">-bindViewModel:</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -264,17 +264,11 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a key that uniquely identifies the object.</p>
+                        <p>Tells the cell to configure itself with the given view model.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    <p>Two objects may share the same identifier, but are not equal. A common pattern is to use the <code>NSObject</code> 
-category for automatic conformance. However this means that objects will be identified on their
-pointer value so finding updates becomes impossible.</p>
-
-</div>
-<div class="aside aside-warning">
-    <p class="aside-title">Warning</p>
-    <p>This value should never be mutated.</p>
+    <p>The view model can change many times throughout the lifetime of a cell as the model values change and the cell
+is reused. Implementations should use only this method to do their configuration.</p>
 
 </div>
 
@@ -283,48 +277,12 @@ pointer value so finding updates becomes impossible.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="n">diffIdentifier</span><span class="p">;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">bindViewModel</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">viewModel</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">diffIdentifier</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSObjectProtocol</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A key that can be used to uniquely identify the object.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(pl)IGListDiffable(im)isEqualToDiffableObject:"></a>
-                    <a name="//apple_ref/objc/Method/-isEqualToDiffableObject:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListDiffable(im)isEqualToDiffableObject:">-isEqualToDiffableObject:</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns whether the receiver and a given object are equal.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">isEqualToDiffableObject</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="n">toDiffableObject</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">ListDiffable</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">bindViewModel</span><span class="p">(</span><span class="n">_</span> <span class="nv">viewModel</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -335,21 +293,17 @@ pointer value so finding updates becomes impossible.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>object</em>
+                                <em>viewModel</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The object to be compared to the receiver.</p>
+                                  <p>The view model for the cell.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p><code>YES</code> if the receiver and object are equal, otherwise <code>NO</code>.</p>
                       </div>
                     </section>
                   </div>
