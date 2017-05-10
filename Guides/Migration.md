@@ -6,6 +6,12 @@ This guide provides details for how to migration between major versions of `IGLi
 
 For details on all changes in IGListKit 3.0.0, please see the [release notes](https://github.com/Instagram/IGListKit/releases/tag/3.0.0).
 
+### "IG" prefix removed for Swift
+
+Since Swift uses modules, we don't need to use the `IG` prefix to avoid collisions. This also makes your code look _Swifty_.
+
+To migrate, use Xcode's Find navigator (command-3), search for `IGList`, and replace with `List`.
+
 ### IGListSectionType removed
 
 In order to make building section controllers even easier, we removed the protocol and absorbed all of the methods into `IGListSectionController` with default implementations.
