@@ -4,7 +4,7 @@ This guide provides details for how to migration between major versions of `IGLi
 
 ## From 1.x to 2.x
 
-For details on all changes in IGListKit 2.0.0, please see the [release notes](https://github.com/Instagram/IGListKit/releases/tag/2.0.0).
+For details on all changes in `IGListKit` 2.0.0, please see the [release notes](https://github.com/Instagram/IGListKit/releases/tag/2.0.0).
 
 ### IGListDiffable Conformance
 
@@ -33,12 +33,12 @@ If you relied on the default `NSObject<IGListDiffable>` category, you will need 
 ```swift
 import IGListKit
 
-extension MyModel: IGListDiffable {
+extension MyModel: ListDiffable {
   func diffIdentifier() -> NSObjectProtocol {
     return self
   }
   
-  func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+  func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
     return isEqual(object)
   }
 }
