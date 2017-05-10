@@ -126,7 +126,7 @@ The algorithm will skip updating two `User` objects that have the same `primaryK
 If you want to use the diffing algorithm outside of `IGListAdapter` and `UICollectionView`, you can! The diffing algorithm was built with the flexibility to be used with any models that conform to `IGListDiffable`.
 
 ```swift
-let result = ListDiff(oldUsers, newUsers, .equality)
+let result = ListDiff(oldArray: oldUsers, newArray: newUsers, .equality)
 ```
 
 With this you have all of the deletes, reloads, moves, and inserts! There's even a function to generate `NSIndexPath` results.
