@@ -32,7 +32,9 @@ final class DisplaySectionController: ListSectionController, ListDisplayDelegate
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
+        guard let cell = collectionContext?.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as? LabelCell else {
+            fatalError()
+        }
         cell.text = "Section \(self.sectionIndex), cell \(index)"
         return cell
     }

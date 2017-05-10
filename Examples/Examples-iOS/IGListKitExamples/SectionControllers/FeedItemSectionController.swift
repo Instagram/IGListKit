@@ -50,11 +50,13 @@ final class FeedItemSectionController: ListSectionController, ListSupplementaryV
     }
 
     func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
-        let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
+        guard let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
                                                                        for: self,
                                                                        nibName: "UserHeaderView",
                                                                        bundle: nil,
-                                                                       at: index) as! UserHeaderView
+                                                                       at: index) as? UserHeaderView else {
+                                                                        fatalError()
+        }
         view.handle = "@" + feedItem.user.handle
         view.name = feedItem.user.name
         return view

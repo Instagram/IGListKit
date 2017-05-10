@@ -37,7 +37,12 @@ final class CarouselSectionController: ListSectionController {
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(withNibName: "CarouselCell", bundle: nil, for: self, at: index) as! CarouselCell
+        guard let cell = collectionContext?.dequeueReusableCell(withNibName: "CarouselCell",
+                                                                bundle: nil,
+                                                                for: self,
+                                                                at: index) as? CarouselCell else {
+                                                                    fatalError()
+        }
         let value = number ?? 0
         cell.titleLabel.text = "#\(value + 1)"
         return cell

@@ -32,7 +32,9 @@ final class SearchSectionController: ListSectionController, UISearchBarDelegate,
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: SearchCell.self, for: self, at: index) as! SearchCell
+        guard let cell = collectionContext?.dequeueReusableCell(of: SearchCell.self, for: self, at: index) as? SearchCell else {
+            fatalError()
+        }
         cell.searchBar.delegate = self
         return cell
     }

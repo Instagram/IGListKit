@@ -29,7 +29,11 @@ final class StoryboardLabelSectionController: ListSectionController {
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCellFromStoryboard(withIdentifier: "cell", for: self, at: index) as! StoryboardCell
+        guard let cell = collectionContext?.dequeueReusableCellFromStoryboard(withIdentifier: "cell",
+                                                                              for: self,
+                                                                              at: index) as? StoryboardCell else {
+                                                                                fatalError()
+        }
         cell.text = object?.name
         return cell
     }

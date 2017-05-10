@@ -51,7 +51,9 @@ final class DemoSectionController: ListSectionController {
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: DemoCell.self, for: self, at: index) as! DemoCell
+        guard let cell = collectionContext?.dequeueReusableCell(of: DemoCell.self, for: self, at: index) as? DemoCell else {
+            fatalError()
+        }
         cell.label.text = object?.name
         return cell
     }
