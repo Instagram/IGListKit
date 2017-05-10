@@ -26,7 +26,7 @@ final class FeedItem: ListDiffable {
         self.comments = comments
     }
 
-    //MARK: ListDiffable
+    // MARK: ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return pk as NSObjectProtocol

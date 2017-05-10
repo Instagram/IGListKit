@@ -26,7 +26,7 @@ final class User: ListDiffable {
         self.handle = handle
     }
 
-    //MARK: ListDiffable
+    // MARK: ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return pk as NSObjectProtocol

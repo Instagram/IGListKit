@@ -33,7 +33,9 @@ final class RemoveSectionController: ListSectionController, RemoveCellDelegate {
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext?.dequeueReusableCell(of: RemoveCell.self, for: self, at: index) as! RemoveCell
+        guard let cell = collectionContext?.dequeueReusableCell(of: RemoveCell.self, for: self, at: index) as? RemoveCell else {
+            fatalError()
+        }
         cell.text = "Cell: \((number ?? 0) + 1)"
         cell.delegate = self
         return cell
@@ -43,7 +45,7 @@ final class RemoveSectionController: ListSectionController, RemoveCellDelegate {
         number = object as? Int
     }
 
-    //MARK: RemoveCellDelegate
+    // MARK: RemoveCellDelegate
 
     func removeCellDidTapButton(_ cell: RemoveCell) {
         delegate?.removeSectionControllerWantsRemoved(self)

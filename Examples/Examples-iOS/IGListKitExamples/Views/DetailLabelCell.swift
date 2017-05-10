@@ -38,7 +38,6 @@ final class DetailLabelCell: UICollectionViewCell {
         return view
     }()
 
-
     var title: String? {
         get {
             return titleLabel.text
