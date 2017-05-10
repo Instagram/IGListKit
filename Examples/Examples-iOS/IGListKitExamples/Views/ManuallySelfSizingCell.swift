@@ -45,7 +45,7 @@ final class ManuallySelfSizingCell: UICollectionViewCell {
         NSLayoutConstraint(item: contentView, attribute: .bottom, relatedBy: .equal, toItem: label, attribute: .bottom, multiplier: 1, constant: 15).isActive = true
         NSLayoutConstraint(item: contentView, attribute: .trailing, relatedBy: .equal, toItem: label, attribute: .trailing, multiplier: 1, constant: 15).isActive = true
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -60,5 +60,5 @@ final class ManuallySelfSizingCell: UICollectionViewCell {
         layoutAttributes.frame = newFrame
         return layoutAttributes
     }
-    
+
 }

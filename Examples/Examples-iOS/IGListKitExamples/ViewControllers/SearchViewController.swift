@@ -45,7 +45,7 @@ final class SearchViewController: UIViewController, ListAdapterDataSource, Searc
         collectionView.frame = view.bounds
     }
 
-    //MARK: ListAdapterDataSource
+    // MARK: ListAdapterDataSource
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         guard filterString != "" else { return [searchToken] + words.map { $0 as ListDiffable } }
@@ -66,7 +66,7 @@ final class SearchViewController: UIViewController, ListAdapterDataSource, Searc
         return nil
     }
 
-    //MARK: SearchSectionControllerDelegate
+    // MARK: SearchSectionControllerDelegate
 
     func searchSectionController(_ sectionController: SearchSectionController, didChangeText text: String) {
         filterString = text

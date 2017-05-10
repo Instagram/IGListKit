@@ -43,7 +43,10 @@ final class DisplaySectionController: ListSectionController, ListDisplayDelegate
         print("Will display section \(self.sectionIndex)")
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController, cell: UICollectionViewCell, at index: Int) {
+    func listAdapter(_ listAdapter: ListAdapter,
+                     willDisplay sectionController: ListSectionController,
+                     cell: UICollectionViewCell,
+                     at index: Int) {
         print("Did will display cell \(index) in section \(self.sectionIndex)")
     }
 
@@ -51,7 +54,10 @@ final class DisplaySectionController: ListSectionController, ListDisplayDelegate
         print("Did end displaying section \(self.sectionIndex)")
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying sectionController: ListSectionController, cell: UICollectionViewCell, at index: Int) {
+    func listAdapter(_ listAdapter: ListAdapter,
+                     didEndDisplaying sectionController: ListSectionController,
+                     cell: UICollectionViewCell,
+                     at index: Int) {
         print("Did end displaying cell \(index) in section \(self.sectionIndex)")
     }
 

@@ -39,15 +39,22 @@ final class SelfSizingSectionController: ListSectionController {
         let cell: UICollectionViewCell
         switch model.type {
         case .none:
-            let manualCell = collectionContext!.dequeueReusableCell(of: ManuallySelfSizingCell.self, for: self, at: index) as! ManuallySelfSizingCell
+            let manualCell = collectionContext!.dequeueReusableCell(of: ManuallySelfSizingCell.self,
+                                                                    for: self,
+                                                                    at: index) as! ManuallySelfSizingCell
             manualCell.text = text
             cell = manualCell
         case .fullWidth:
-            let manualCell = collectionContext!.dequeueReusableCell(of: FullWidthSelfSizingCell.self, for: self, at: index) as! FullWidthSelfSizingCell
+            let manualCell = collectionContext!.dequeueReusableCell(of: FullWidthSelfSizingCell.self,
+                                                                    for: self,
+                                                                    at: index) as! FullWidthSelfSizingCell
             manualCell.text = text
             cell = manualCell
         case .nib:
-            let nibCell = collectionContext!.dequeueReusableCell(withNibName: "NibSelfSizingCell", bundle: nil, for: self, at: index) as! NibSelfSizingCell
+            let nibCell = collectionContext!.dequeueReusableCell(withNibName: "NibSelfSizingCell",
+                                                                 bundle: nil,
+                                                                 for: self,
+                                                                 at: index) as! NibSelfSizingCell
             nibCell.contentLabel.text = text
             cell = nibCell
         }

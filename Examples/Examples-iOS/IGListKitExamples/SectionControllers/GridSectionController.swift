@@ -28,15 +28,15 @@ final class GridItem: NSObject {
 }
 
 extension GridItem: ListDiffable {
-    
+
     func diffIdentifier() -> NSObjectProtocol {
         return self
     }
-    
+
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         return self === object ? true : self.isEqual(object)
     }
-    
+
 }
 
 final class GridSectionController: ListSectionController {

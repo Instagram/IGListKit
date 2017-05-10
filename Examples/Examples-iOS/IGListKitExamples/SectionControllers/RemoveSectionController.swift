@@ -43,7 +43,7 @@ final class RemoveSectionController: ListSectionController, RemoveCellDelegate {
         number = object as? Int
     }
 
-    //MARK: RemoveCellDelegate
+    // MARK: RemoveCellDelegate
 
     func removeCellDidTapButton(_ cell: RemoveCell) {
         delegate?.removeSectionControllerWantsRemoved(self)

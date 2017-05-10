@@ -16,52 +16,54 @@ import UIKit
 import IGListKit
 
 final class HorizontalSectionController: ListSectionController, ListAdapterDataSource {
-    
+
     var number: Int?
-    
+
     lazy var adapter: ListAdapter = {
         let adapter = ListAdapter(updater: ListAdapterUpdater(),
                                     viewController: self.viewController)
         adapter.dataSource = self
         return adapter
     }()
-    
+
     override init() {
         super.init()
         self.inset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
     }
-    
+
     override func numberOfItems() -> Int {
         return 1
     }
-    
+
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 340)
     }
-    
+
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: EmbeddedCollectionViewCell.self, for: self, at: index) as! EmbeddedCollectionViewCell
+        let cell = collectionContext!.dequeueReusableCell(of: EmbeddedCollectionViewCell.self,
+                                                          for: self,
+                                                          at: index) as! EmbeddedCollectionViewCell
         adapter.collectionView = cell.collectionView
         return cell
     }
-    
+
     override func didUpdate(to object: Any) {
         number = object as? Int
     }
-    
+
     override func didSelectItem(at index: Int) {}
-    
+
     // MARK: ListAdapterDataSource
-    
+
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         guard let number = number else { return [] }
         return (0..<number).map { $0 as ListDiffable }
     }
-    
+
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         return CarouselSectionController()
     }
-    
+
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
-    
+
 }

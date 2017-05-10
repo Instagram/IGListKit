@@ -34,7 +34,7 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
         GridItem(color: UIColor(red: 112/255.0, green: 192/255.0, blue: 80/255.0, alpha: 1), itemCount: 3),
         "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
         GridItem(color: UIColor(red: 163/255.0, green: 42/255.0, blue: 186/255.0, alpha: 1), itemCount: 7),
-        User(pk: 1, name: "Ryan Nystrom", handle: "_ryannystrom"),
+        User(pk: 1, name: "Ryan Nystrom", handle: "_ryannystrom")
         ]
 
     let segments: [(String, Any.Type?)] = [
@@ -49,7 +49,7 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let control = UISegmentedControl(items: segments.map { return $0.0 } )
+        let control = UISegmentedControl(items: segments.map { return $0.0 })
         control.selectedSegmentIndex = 0
         control.addTarget(self, action: #selector(MixedDataViewController.onControl(_:)), for: .valueChanged)
         navigationItem.titleView = control

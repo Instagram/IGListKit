@@ -40,10 +40,34 @@ final class FullWidthSelfSizingCell: UICollectionViewCell {
 
         contentView.addSubview(label)
 
-        NSLayoutConstraint(item: label, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 15).isActive = true
-        NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1, constant: 15).isActive = true
-        NSLayoutConstraint(item: contentView, attribute: .bottom, relatedBy: .equal, toItem: label, attribute: .bottom, multiplier: 1, constant: 15).isActive = true
-        NSLayoutConstraint(item: contentView, attribute: .trailing, relatedBy: .equal, toItem: label, attribute: .trailing, multiplier: 1, constant: 15).isActive = true
+        NSLayoutConstraint(item: label,
+                           attribute: .top,
+                           relatedBy: .equal,
+                           toItem: contentView,
+                           attribute: .top,
+                           multiplier: 1,
+                           constant: 15).isActive = true
+        NSLayoutConstraint(item: label,
+                           attribute: .leading,
+                           relatedBy: .equal,
+                           toItem: contentView,
+                           attribute: .leading,
+                           multiplier: 1,
+                           constant: 15).isActive = true
+        NSLayoutConstraint(item: contentView,
+                           attribute: .bottom,
+                           relatedBy: .equal,
+                           toItem: label,
+                           attribute: .bottom,
+                           multiplier: 1,
+                           constant: 15).isActive = true
+        NSLayoutConstraint(item: contentView,
+                           attribute: .trailing,
+                           relatedBy: .equal,
+                           toItem: label,
+                           attribute: .trailing,
+                           multiplier: 1,
+                           constant: 15).isActive = true
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -60,5 +84,5 @@ final class FullWidthSelfSizingCell: UICollectionViewCell {
         layoutAttributes.frame = newFrame
         return layoutAttributes
     }
-    
+
 }
