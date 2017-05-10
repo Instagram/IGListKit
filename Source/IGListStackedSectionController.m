@@ -148,7 +148,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 
 - (void)didUpdateToObject:(id)object {
     for (IGListSectionController *sectionController in self.sectionControllers) {
-        sectionController.sectionIndex = self.sectionIndex;
+        sectionController.section = self.section;
         [sectionController didUpdateToObject:object];
     }
     [self reloadData];

@@ -32,27 +32,35 @@ final class DisplaySectionController: ListSectionController, ListDisplayDelegate
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
-        cell.text = "Section \(self.sectionIndex), cell \(index)"
+        guard let cell = collectionContext?.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as? LabelCell else {
+            fatalError()
+        }
+        cell.text = "Section \(self.section), cell \(index)"
         return cell
     }
 
     // MARK: ListDisplayDelegate
 
     func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController) {
-        print("Will display section \(self.sectionIndex)")
+        print("Will display section \(self.section)")
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController, cell: UICollectionViewCell, at index: Int) {
-        print("Did will display cell \(index) in section \(self.sectionIndex)")
+    func listAdapter(_ listAdapter: ListAdapter,
+                     willDisplay sectionController: ListSectionController,
+                     cell: UICollectionViewCell,
+                     at index: Int) {
+                       print("Did will display cell \(index) in section \(self.section)")
     }
 
     func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying sectionController: ListSectionController) {
-        print("Did end displaying section \(self.sectionIndex)")
+        print("Did end displaying section \(self.section)")
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying sectionController: ListSectionController, cell: UICollectionViewCell, at index: Int) {
-        print("Did end displaying cell \(index) in section \(self.sectionIndex)")
+    func listAdapter(_ listAdapter: ListAdapter,
+                     didEndDisplaying sectionController: ListSectionController,
+                     cell: UICollectionViewCell,
+                     at index: Int) {
+                       print("Did end displaying cell \(index) in section \(self.section)")
     }
 
 }
