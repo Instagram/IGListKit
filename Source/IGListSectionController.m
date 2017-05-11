@@ -62,7 +62,7 @@ void IGListSectionControllerPopThread(void) {
         _minimumInteritemSpacing = 0.0;
         _minimumLineSpacing = 0.0;
         _inset = UIEdgeInsetsZero;
-        _sectionIndex = NSNotFound;
+        _section = NSNotFound;
     }
     return self;
 }
