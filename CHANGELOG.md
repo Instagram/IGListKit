@@ -2,7 +2,10 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
-3.0.0 (**upcoming release**)
+3.1.0 (**upcoming release**)
+-----
+
+3.0.0 
 -----
 
 This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/3).
@@ -157,8 +160,6 @@ This release closes the [2.1.0 milestone](https://github.com/Instagram/IGListKit
 - Added `allowsBackgroundReloading` flag (default `YES`) to `IGListAdapterUpdater` so users can configure this behavior as needed. [Adlai-Holler](https://github.com/Adlai-Holler) [(#375)](https://github.com/Instagram/IGListKit/pull/375)
 
 - `-[IGListAdapter updater]` is now public (read-only). [Adlai-Holler](https://github.com/Adlai-Holler) [(#379)](https://github.com/Instagram/IGListKit/pull/379)
-
-
 
 ### Fixes
 
