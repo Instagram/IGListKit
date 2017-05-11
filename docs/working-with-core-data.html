@@ -247,7 +247,7 @@
 
 <p><code>IGListKit</code> requires an immutable model in order to correctly calculate the diffing between model snapshots and to correctly animate the <code>UICollectionView</code>.</p>
 
-<p>In order to satisfy these prerequisites, Core Data <code>NSManagedObject</code>s should not be used directly as <code>IGListDiffable</code> objects. Instead, a view model (or some sort of token object) should be used to mimic (or act as a placeholder for) the data that will be displayed in the collection view.</p>
+<p>In order to satisfy these prerequisites, Core Data <code>NSManagedObject</code>s should not be used directly as <code>ListDiffable</code> objects. Instead, a view model (or some sort of token object) should be used to mimic (or act as a placeholder for) the data that will be displayed in the collection view.</p>
 <h2 id='further-discussion' class='heading'>Further discussion</h2>
 
 <p>There are further discussions on this topic at <a href="https://github.com/Instagram/IGListKit/issues/460">#460</a>, <a href="https://github.com/Instagram/IGListKit/issues/461">#461</a>, <a href="https://github.com/Instagram/IGListKit/issues/407">#407</a>.</p>
@@ -285,13 +285,13 @@
 </code></pre>
 
 <p>The <code>IGListDiffable</code> protocol is implemented on the <code>ViewModel</code> layer:</p>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UserViewModel</span><span class="p">:</span> <span class="kt">IGListDiffable</span> <span class="p">{</span>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UserViewModel</span><span class="p">:</span> <span class="kt">ListDiffable</span> <span class="p">{</span>
 
     <span class="kd">public</span> <span class="kd">func</span> <span class="nf">diffIdentifier</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSObjectProtocol</span> <span class="p">{</span>
         <span class="k">return</span> <span class="kt">NSString</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="n">firstName</span> <span class="o">+</span> <span class="n">lastName</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="n">toDiffableObject</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">IGListDiffable</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="n">toDiffableObject</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">ListDiffable</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
         <span class="k">guard</span> <span class="k">let</span> <span class="nv">toObject</span> <span class="o">=</span> <span class="n">object</span> <span class="k">as?</span> <span class="kt">UserViewModel</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">false</span> <span class="p">}</span>
 
         <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="n">firstName</span> <span class="o">==</span> <span class="n">toObject</span><span class="o">.</span><span class="n">firstName</span>
@@ -365,7 +365,7 @@
 <h3 id='configure-the-datasource' class='heading'>Configure the datasource</h3>
 
 <p>The data source retrieves ViewModels and configures the <code>IGListSectionController</code> with them:</p>
-<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">objects</span><span class="p">(</span><span class="k">for</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">IGListAdapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">IGListDiffable</span><span class="p">]</span> <span class="p">{</span>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">objects</span><span class="p">(</span><span class="k">for</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">ListAdapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]</span> <span class="p">{</span>
     <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="n">userProvider</span><span class="o">.</span><span class="nf">getUsers</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre>
@@ -381,7 +381,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-10)</p>
+          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

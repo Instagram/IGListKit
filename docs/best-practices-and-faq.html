@@ -319,12 +319,12 @@ This would only happen if your objects provide <em>non-unique</em> diff identifi
 </code></pre>
 
 <p>Just don&rsquo;t forget to make your models diffable using the data in the contained models:</p>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">WeatherSectionModel</span><span class="p">:</span> <span class="kt">IGListDiffable</span> <span class="p">{</span>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">WeatherSectionModel</span><span class="p">:</span> <span class="kt">ListDiffable</span> <span class="p">{</span>
   <span class="kd">func</span> <span class="nf">diffIdentifier</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSObjectProtocol</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">location</span><span class="o">.</span><span class="n">identifier</span>
   <span class="p">}</span>
 
-  <span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="n">toDiffableObject</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">IGListDiffable</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+  <span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="n">toDiffableObject</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">ListDiffable</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
     <span class="k">guard</span> <span class="k">self</span> <span class="o">!==</span> <span class="n">object</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span> <span class="p">}</span>
     <span class="k">guard</span> <span class="k">let</span> <span class="nv">object</span> <span class="o">=</span> <span class="n">object</span> <span class="k">as?</span> <span class="kt">WeatherSectionModel</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">false</span> <span class="p">}</span>
     <span class="k">return</span> <span class="n">location</span> <span class="o">==</span> <span class="n">object</span><span class="o">.</span><span class="n">location</span> <span class="o">&amp;&amp;</span> <span class="n">forecast</span> <span class="o">==</span> <span class="n">object</span><span class="o">.</span><span class="n">forecast</span> <span class="o">&amp;&amp;</span> <span class="n">conditions</span> <span class="o">==</span> <span class="n">object</span><span class="o">.</span><span class="n">conditions</span>
@@ -339,9 +339,9 @@ This would only happen if your objects provide <em>non-unique</em> diff identifi
 <p>We recommend using dependency injection and announcing changes, demonstrated in <a href="https://github.com/Instagram/IGListKit/blob/master/Examples/Examples-iOS/IGListKitExamples/ViewControllers/AnnouncingDepsViewController.swift">our example</a>.</p>
 <h4 id='should-i-reuse-my-section-controllers-between-models' class='heading'>Should I reuse my section controllers between models?</h4>
 
-<p>No! IGListKit is designed to have a 1:1 instance mapping between objects and section controllers. IGListKit does not reuse section controllers, and if you do unintended behaviors will occur.</p>
+<p>No! <code>IGListKit</code> is designed to have a 1:1 instance mapping between objects and section controllers. <code>IGListKit</code> does not reuse section controllers, and if you do unintended behaviors will occur.</p>
 
-<p>IGListKit <em>does</em> still use <code>UICollectionView</code>&lsquo;s cell reuse, so you shouldn&rsquo;t be concerned about performance.</p>
+<p><code>IGListKit</code> <em>does</em> still use <code>UICollectionView</code>&lsquo;s cell reuse, so you shouldn&rsquo;t be concerned about performance.</p>
 <h4 id='why-does-code-uicollectionviewflowlayout-code-put-everything-in-a-new-row' class='heading'>Why does <code>UICollectionViewFlowLayout</code> put everything in a new row?</h4>
 
 <p><code>UICollectionViewFlowLayout</code> has its limitations, and its not well designed to support sections on the same <q>line</q>. Instead you should use <a href="https://github.com/Instagram/IGListKit/blob/master/Source/IGListCollectionViewLayout.h"><code>IGListCollectionViewLayout</code></a>.</p>
@@ -354,7 +354,7 @@ This would only happen if your objects provide <em>non-unique</em> diff identifi
 <h4 id='how-can-i-power-and-update-the-number-of-items-in-a-section-controller-with-a-dynamic-array' class='heading'>How can I power and update the number of items in a section controller with a dynamic array?</h4>
 
 <p>We recommend creating a model that owns an array to the items that power <code>numberOfItems</code>. Checkout our <a href="https://github.com/Instagram/IGListKit/blob/master/Examples/Examples-iOS/IGListKitExamples/SectionControllers/PostSectionController.m#L32">Post example</a> that has dynamic comment cells. Just be sure to check when your array changes:</p>
-<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Forecast</span><span class="p">:</span> <span class="kt">IGListDiffable</span> <span class="p">{</span>
+<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Forecast</span><span class="p">:</span> <span class="kt">ListDiffable</span> <span class="p">{</span>
   <span class="k">let</span> <span class="nv">day</span><span class="p">:</span> <span class="kt">Date</span>
   <span class="k">let</span> <span class="nv">hourly</span><span class="p">:</span> <span class="p">[</span><span class="kt">HourlyForecast</span><span class="p">]</span>
 
@@ -362,7 +362,7 @@ This would only happen if your objects provide <em>non-unique</em> diff identifi
     <span class="k">return</span> <span class="n">day</span>
   <span class="p">}</span>
 
-  <span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="n">toDiffableObject</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">IGListDiffable</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+  <span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="n">toDiffableObject</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">ListDiffable</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
     <span class="k">guard</span> <span class="k">self</span> <span class="o">!==</span> <span class="n">object</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span> <span class="p">}</span>
     <span class="k">guard</span> <span class="k">let</span> <span class="nv">object</span> <span class="o">=</span> <span class="n">object</span> <span class="k">as?</span> <span class="kt">Forecast</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">false</span> <span class="p">}</span>
     <span class="k">return</span> <span class="n">hourly</span> <span class="o">==</span> <span class="n">object</span><span class="o">.</span><span class="n">hourly</span> <span class="c1">// compare elements in the arrays</span>
@@ -373,7 +373,7 @@ This would only happen if your objects provide <em>non-unique</em> diff identifi
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-10)</p>
+          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
