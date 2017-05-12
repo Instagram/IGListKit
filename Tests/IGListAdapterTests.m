@@ -1098,26 +1098,26 @@
     [self.adapter performUpdatesAnimated:NO completion:nil];
 
     IGListSectionController *controller1a = [self.adapter sectionControllerForObject:one];
-    XCTAssertEqual(controller1a.sectionIndex, 0);
+    XCTAssertEqual(controller1a.section, 0);
     XCTAssertTrue(controller1a.isFirstSection);
 
-    XCTAssertEqual([self.adapter sectionControllerForObject:two].sectionIndex, 1);
-    XCTAssertEqual([self.adapter sectionControllerForObject:three].sectionIndex, 2);
+    XCTAssertEqual([self.adapter sectionControllerForObject:two].section, 1);
+    XCTAssertEqual([self.adapter sectionControllerForObject:three].section, 2);
     XCTAssertTrue([self.adapter sectionControllerForObject:three].isLastSection);
 
     self.dataSource.objects = @[zero, one, two, three];
     [self.adapter performUpdatesAnimated:NO completion:nil];
 
     IGListSectionController *controller0 = [self.adapter sectionControllerForObject:zero];
-    XCTAssertEqual(controller0.sectionIndex, 0);
+    XCTAssertEqual(controller0.section, 0);
     XCTAssertTrue(controller0.isFirstSection);
 
     IGListSectionController *controller1b = [self.adapter sectionControllerForObject:one];
-    XCTAssertEqual(controller1b.sectionIndex, 1);
+    XCTAssertEqual(controller1b.section, 1);
     XCTAssertFalse(controller1b.isFirstSection);
 
-    XCTAssertEqual([self.adapter sectionControllerForObject:two].sectionIndex, 2);
-    XCTAssertEqual([self.adapter sectionControllerForObject:three].sectionIndex, 3);
+    XCTAssertEqual([self.adapter sectionControllerForObject:two].section, 2);
+    XCTAssertEqual([self.adapter sectionControllerForObject:three].section, 3);
     XCTAssertTrue([self.adapter sectionControllerForObject:three].isLastSection);
 }
 
@@ -1130,27 +1130,27 @@
     [self.adapter performUpdatesAnimated:NO completion:nil];
 
     IGListSectionController *zeroController = [self.adapter sectionControllerForSection:0];
-    XCTAssertEqual(zeroController.sectionIndex, 0);
+    XCTAssertEqual(zeroController.section, 0);
     XCTAssertTrue(zeroController.isFirstSection);
 
     IGListSectionController *oneController = [self.adapter sectionControllerForSection:1];
-    XCTAssertEqual(oneController.sectionIndex, 1);
+    XCTAssertEqual(oneController.section, 1);
     XCTAssertFalse(oneController.isFirstSection);
 
     IGListSectionController *threeController = [self.adapter sectionControllerForSection:3];
-    XCTAssertEqual(threeController.sectionIndex, 3);
+    XCTAssertEqual(threeController.section, 3);
     XCTAssertTrue(threeController.isLastSection);
 
     self.dataSource.objects = @[one, two, three];
     [self.adapter performUpdatesAnimated:NO completion:nil];
 
-    XCTAssertEqual(zeroController.sectionIndex, NSNotFound);
+    XCTAssertEqual(zeroController.section, NSNotFound);
     XCTAssertFalse(zeroController.isFirstSection);
 
-    XCTAssertEqual(oneController.sectionIndex, 0);
+    XCTAssertEqual(oneController.section, 0);
     XCTAssertTrue(oneController.isFirstSection);
 
-    XCTAssertEqual(threeController.sectionIndex, 2);
+    XCTAssertEqual(threeController.section, 2);
     XCTAssertTrue(threeController.isLastSection);
 }
 
@@ -1163,31 +1163,31 @@
     [self.adapter performUpdatesAnimated:NO completion:nil];
 
     IGListSectionController *zeroController = [self.adapter sectionControllerForSection:0];
-    XCTAssertEqual(zeroController.sectionIndex, 0);
+    XCTAssertEqual(zeroController.section, 0);
     XCTAssertTrue(zeroController.isFirstSection);
 
     IGListSectionController *oneController = [self.adapter sectionControllerForSection:1];
-    XCTAssertEqual(oneController.sectionIndex, 1);
+    XCTAssertEqual(oneController.section, 1);
     XCTAssertFalse(oneController.isFirstSection);
 
     IGListSectionController *threeController = [self.adapter sectionControllerForSection:3];
-    XCTAssertEqual(threeController.sectionIndex, 3);
+    XCTAssertEqual(threeController.section, 3);
     XCTAssertTrue(threeController.isLastSection);
 
     self.dataSource.objects = @[zero, two, three];
     [self.adapter performUpdatesAnimated:NO completion:nil];
 
-    XCTAssertEqual(zeroController.sectionIndex, 0);
+    XCTAssertEqual(zeroController.section, 0);
     XCTAssertTrue(zeroController.isFirstSection);
 
-    XCTAssertEqual(oneController.sectionIndex, NSNotFound);
+    XCTAssertEqual(oneController.section, NSNotFound);
     XCTAssertFalse(oneController.isFirstSection);
 
-    XCTAssertEqual(threeController.sectionIndex, 2);
+    XCTAssertEqual(threeController.section, 2);
     XCTAssertTrue(threeController.isLastSection);
 }
 
-- (void)test_withStrongRefToSectionController_thatAdapterSectionIndexIsZero_thatSectionControllerIndexDoesNotChange {
+- (void)test_withStrongRefToSectionController_thatAdaptersectionIsZero_thatSectionControllerIndexDoesNotChange {
     IGListSectionController *sc = nil;
 
     // hold a weak reference to simulate what would happen to the collectionContext object on a section controller
@@ -1207,11 +1207,10 @@
         [adapter performUpdatesAnimated:NO completion:nil];
 
         sc = [adapter sectionControllerForSection:1];
-        XCTAssertEqual(sc.sectionIndex, 1);
+        XCTAssertEqual(sc.section, 1);
     }
 
-    XCTAssertEqual(sc.sectionIndex, NSNotFound);
-    // This will be 0 because wAdapter should be nil and so nil messaging will return 0
+    XCTAssertEqual(sc.section, NSNotFound);
     XCTAssertEqual([wAdapter sectionForSectionController:sc], 0);
 }
 

@@ -9,9 +9,11 @@
 
 #import "UICollectionView+DebugDescription.h"
 
+#import <IGListKit/IGListMacros.h>
+
 @implementation UICollectionView (DebugDescription)
 
-- (NSArray<NSString *> *)debugDescriptionLines; {
+- (NSArray<NSString *> *)debugDescriptionLines {
     NSMutableArray *debug = [NSMutableArray new];
 #if IGLK_DEBUG_DESCRIPTION_ENABLED
     [debug addObject:[NSString stringWithFormat:@"Class: %@, instance: %p", NSStringFromClass(self.class), self]];

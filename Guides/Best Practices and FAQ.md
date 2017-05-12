@@ -95,12 +95,12 @@ class WeatherSectionModel {
 Just don't forget to make your models diffable using the data in the contained models:
 
 ```swift
-extension WeatherSectionModel: IGListDiffable {
+extension WeatherSectionModel: ListDiffable {
   func diffIdentifier() -> NSObjectProtocol {
     return location.identifier
   }
 
-  func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+  func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
     guard self !== object else { return true }
     guard let object = object as? WeatherSectionModel else { return false }
     return location == object.location && forecast == object.forecast && conditions == object.conditions
@@ -118,9 +118,9 @@ We recommend using dependency injection and announcing changes, demonstrated in 
 
 #### Should I reuse my section controllers between models?
 
-No! IGListKit is designed to have a 1:1 instance mapping between objects and section controllers. IGListKit does not reuse section controllers, and if you do unintended behaviors will occur.
+No! `IGListKit` is designed to have a 1:1 instance mapping between objects and section controllers. `IGListKit` does not reuse section controllers, and if you do unintended behaviors will occur.
 
-IGListKit _does_ still use `UICollectionView`'s cell reuse, so you shouldn't be concerned about performance.
+`IGListKit` _does_ still use `UICollectionView`'s cell reuse, so you shouldn't be concerned about performance.
 
 #### Why does `UICollectionViewFlowLayout` put everything in a new row?
 
@@ -139,7 +139,7 @@ Use [`IGListBindingSectionController`](https://github.com/Instagram/IGListKit/bl
 We recommend creating a model that owns an array to the items that power `numberOfItems`. Checkout our [Post example](https://github.com/Instagram/IGListKit/blob/master/Examples/Examples-iOS/IGListKitExamples/SectionControllers/PostSectionController.m#L32) that has dynamic comment cells. Just be sure to check when your array changes:
 
 ```swift
-class Forecast: IGListDiffable {
+class Forecast: ListDiffable {
   let day: Date
   let hourly: [HourlyForecast]
 
@@ -147,7 +147,7 @@ class Forecast: IGListDiffable {
     return day
   }
 
-  func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+  func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
     guard self !== object else { return true }
     guard let object = object as? Forecast else { return false }
     return hourly == object.hourly // compare elements in the arrays
