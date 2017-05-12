@@ -71,7 +71,7 @@ final class WorkingRangeSectionController: ListSectionController, ListWorkingRan
             let url = URL(string: urlString)
             else { return }
 
-        print("Downloading image \(urlString) for section \(self.sectionIndex)")
+        print("Downloading image \(urlString) for section \(self.section)")
 
         task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, let image = UIImage(data: data) else {

@@ -8,7 +8,7 @@ The main difference in the setup and architecture of a Core Data and `IGListKit`
 
 `IGListKit` requires an immutable model in order to correctly calculate the diffing between model snapshots and to correctly animate the `UICollectionView`.
 
-In order to satisfy these prerequisites, Core Data `NSManagedObject`s should not be used directly as `IGListDiffable` objects. Instead, a view model (or some sort of token object) should be used to mimic (or act as a placeholder for) the data that will be displayed in the collection view.
+In order to satisfy these prerequisites, Core Data `NSManagedObject`s should not be used directly as `ListDiffable` objects. Instead, a view model (or some sort of token object) should be used to mimic (or act as a placeholder for) the data that will be displayed in the collection view.
 
 ## Further discussion
 
@@ -58,13 +58,13 @@ extension UserViewModel {
 The `IGListDiffable` protocol is implemented on the `ViewModel` layer:
 
 ```swift
-extension UserViewModel: IGListDiffable {
+extension UserViewModel: ListDiffable {
 
     public func diffIdentifier() -> NSObjectProtocol {
         return NSString(string: firstName + lastName)
     }
 
-    public func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+    public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         guard let toObject = object as? UserViewModel else { return false }
 
         return self.firstName == toObject.firstName
@@ -149,7 +149,7 @@ extension UserProvider: NSFetchedResultsControllerDelegate {
 The data source retrieves ViewModels and configures the `IGListSectionController` with them:
 
 ```swift
-func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
     return self.userProvider.getUsers()
 }
 ```

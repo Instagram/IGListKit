@@ -77,7 +77,7 @@
 
         sectionController.isFirstSection = (object == firstObject);
         sectionController.isLastSection = (object == lastObject);
-        sectionController.sectionIndex = (NSInteger)idx;
+        sectionController.section = (NSInteger)idx;
     }];
 }
 
@@ -109,7 +109,7 @@
 
 - (void)reset {
     [self enumerateUsingBlock:^(id  _Nonnull object, IGListSectionController * _Nonnull sectionController, NSInteger section, BOOL * _Nonnull stop) {
-        sectionController.sectionIndex = NSNotFound;
+        sectionController.section = NSNotFound;
         sectionController.isFirstSection = NO;
         sectionController.isLastSection = NO;
     }];

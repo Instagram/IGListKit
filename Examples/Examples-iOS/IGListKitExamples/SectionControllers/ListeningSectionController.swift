@@ -24,7 +24,7 @@ final class ListeningSectionController: ListSectionController, IncrementListener
     }
 
     func configureCell(cell: LabelCell) {
-        cell.text = "Section: \(self.sectionIndex), value: \(value)"
+        cell.text = "Section: \(self.section), value: \(value)"
     }
 
     // MARK: ListSectionController Overrides

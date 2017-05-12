@@ -99,9 +99,12 @@ NS_SWIFT_NAME(ListSectionController)
 @property (nonatomic, weak, nullable, readonly) id <IGListCollectionContext> collectionContext;
 
 /**
- Returns the index within the list for this section controller.
+ Returns the section within the list for this section controller.
+
+ @note This value also relates to the section within a `UICollectionView` that this section controller's cells belong.
+ It also relates to the `-[NSIndexPath section]` value for individual cells within the collection view.
  */
-@property (nonatomic, assign, readonly) NSInteger sectionIndex;
+@property (nonatomic, assign, readonly) NSInteger section;
 
 /**
  Returns `YES` if the section controller is the first section in the list, `NO` otherwise.
