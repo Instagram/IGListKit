@@ -16,7 +16,7 @@ import UIKit
 import IGListKit
 
 final class CalendarViewController: UIViewController, ListAdapterDataSource {
-    
+
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
@@ -24,15 +24,15 @@ final class CalendarViewController: UIViewController, ListAdapterDataSource {
         frame: .zero,
         collectionViewLayout: ListCollectionViewLayout(stickyHeaders: false, topContentInset: 0, stretchToEdge: false)
     )
-    
+
     var months = [Month]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let date = Date()
         let currentMonth = Calendar.current.component(.month, from: date)
-        
+
         let month = Month(
             name: DateFormatter().monthSymbols[currentMonth - 1],
             days: 30,
@@ -50,27 +50,27 @@ final class CalendarViewController: UIViewController, ListAdapterDataSource {
             ]
         )
         months.append(month)
-        
+
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
-    
+
     // MARK: ListAdapterDataSource
-    
+
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return months
     }
-    
+
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         return MonthSectionController()
     }
-    
+
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
 
 }

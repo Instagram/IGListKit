@@ -16,25 +16,25 @@ import Foundation
 import IGListKit
 
 final class User: ListDiffable {
-    
+
     let pk: Int
     let name: String
-    
+
     init(pk: Int, name: String) {
         self.pk = pk
         self.name = name
     }
-    
-    //MARK: ListDiffable
-    
+
+    // MARK: ListDiffable
+
     func diffIdentifier() -> NSObjectProtocol {
         return pk as NSObjectProtocol
     }
-    
+
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         guard self !== object else { return true }
         guard let object = object as? User else { return false }
         return name == object.name
     }
-    
+
 }

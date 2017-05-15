@@ -15,7 +15,7 @@
 import UIKit
 
 final class DemoCell: UICollectionViewCell {
-    
+
     lazy var label: UILabel = {
         let view = UILabel()
         view.textColor = .black
@@ -23,13 +23,13 @@ final class DemoCell: UICollectionViewCell {
         self.contentView.addSubview(view)
         return view
     }()
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
         label.frame = contentView.bounds.insetBy(dx: 32, dy: 16)
     }
-    
+
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         let newBackgroundOpacity: CGFloat = isFocused ? 0.6 : 0.3
         let newFontSize: CGFloat = isFocused ? 50 : 35
@@ -37,5 +37,5 @@ final class DemoCell: UICollectionViewCell {
         contentView.backgroundColor = UIColor.white.withAlphaComponent(newBackgroundOpacity)
         label.font = .boldSystemFont(ofSize: newFontSize)
     }
-    
+
 }

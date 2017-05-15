@@ -20,7 +20,7 @@ final class EmptyViewController: UIViewController, ListAdapterDataSource, Remove
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
-    
+
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let emptyLabel: UILabel = {
@@ -60,7 +60,7 @@ final class EmptyViewController: UIViewController, ListAdapterDataSource, Remove
         adapter.performUpdates(animated: true, completion: nil)
     }
 
-    //MARK: ListAdapterDataSource
+    // MARK: ListAdapterDataSource
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return data as [ListDiffable]
@@ -76,7 +76,7 @@ final class EmptyViewController: UIViewController, ListAdapterDataSource, Remove
         return emptyLabel
     }
 
-    //MARK: RemoveSectionControllerDelegate
+    // MARK: RemoveSectionControllerDelegate
 
     func removeSectionControllerWantsRemoved(_ sectionController: RemoveSectionController) {
         let section = adapter.section(for: sectionController)
@@ -84,5 +84,5 @@ final class EmptyViewController: UIViewController, ListAdapterDataSource, Remove
         data.remove(at: index)
         adapter.performUpdates(animated: true, completion: nil)
     }
-    
+
 }

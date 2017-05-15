@@ -23,23 +23,42 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let demos: [DemoItem] = [
-        DemoItem(name: "Tail Loading", controllerClass: LoadMoreViewController.self),
-        DemoItem(name: "Search Autocomplete", controllerClass: SearchViewController.self),
-        DemoItem(name: "Mixed Data", controllerClass: MixedDataViewController.self),
-        DemoItem(name: "Nested Adapter", controllerClass: NestedAdapterViewController.self),
-        DemoItem(name: "Empty View", controllerClass: EmptyViewController.self),
-        DemoItem(name: "Single Section Controller", controllerClass: SingleSectionViewController.self),
-        DemoItem(name: "Storyboard", controllerClass: SingleSectionViewController.self, controllerIdentifier: "demo"),
-        DemoItem(name: "Single Section Storyboard", controllerClass: SingleSectionStoryboardViewController.self, controllerIdentifier: "singleSectionDemo"),
-        DemoItem(name: "Working Range", controllerClass: WorkingRangeViewController.self),
-        DemoItem(name: "Diff Algorithm", controllerClass: DiffTableViewController.self),
-        DemoItem(name: "Supplementary Views", controllerClass: SupplementaryViewController.self),
-        DemoItem(name: "Self-sizing cells", controllerClass: SelfSizingCellsViewController.self),
-        DemoItem(name: "Display delegate", controllerClass: DisplayViewController.self),
-        DemoItem(name: "Stacked Section Controllers", controllerClass: StackedViewController.self),
-        DemoItem(name: "Objc Demo", controllerClass: ObjcDemoViewController.self),
-        DemoItem(name: "Calendar (auto diffing)", controllerClass: CalendarViewController.self),
-        DemoItem(name: "Dependency Injection", controllerClass: AnnouncingDepsViewController.self)
+        DemoItem(name: "Tail Loading",
+                 controllerClass: LoadMoreViewController.self),
+        DemoItem(name: "Search Autocomplete",
+                 controllerClass: SearchViewController.self),
+        DemoItem(name: "Mixed Data",
+                 controllerClass: MixedDataViewController.self),
+        DemoItem(name: "Nested Adapter",
+                 controllerClass: NestedAdapterViewController.self),
+        DemoItem(name: "Empty View",
+                 controllerClass: EmptyViewController.self),
+        DemoItem(name: "Single Section Controller",
+                 controllerClass: SingleSectionViewController.self),
+        DemoItem(name: "Storyboard",
+                 controllerClass: SingleSectionViewController.self,
+                 controllerIdentifier: "demo"),
+        DemoItem(name: "Single Section Storyboard",
+                 controllerClass: SingleSectionStoryboardViewController.self,
+                 controllerIdentifier: "singleSectionDemo"),
+        DemoItem(name: "Working Range",
+                 controllerClass: WorkingRangeViewController.self),
+        DemoItem(name: "Diff Algorithm",
+                 controllerClass: DiffTableViewController.self),
+        DemoItem(name: "Supplementary Views",
+                 controllerClass: SupplementaryViewController.self),
+        DemoItem(name: "Self-sizing cells",
+                 controllerClass: SelfSizingCellsViewController.self),
+        DemoItem(name: "Display delegate",
+                 controllerClass: DisplayViewController.self),
+        DemoItem(name: "Stacked Section Controllers",
+                 controllerClass: StackedViewController.self),
+        DemoItem(name: "Objc Demo",
+                 controllerClass: ObjcDemoViewController.self),
+        DemoItem(name: "Calendar (auto diffing)",
+                 controllerClass: CalendarViewController.self),
+        DemoItem(name: "Dependency Injection",
+                 controllerClass: AnnouncingDepsViewController.self)
     ]
 
     override func viewDidLoad() {
@@ -55,7 +74,7 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
         collectionView.frame = view.bounds
     }
 
-    //MARK: ListAdapterDataSource
+    // MARK: ListAdapterDataSource
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return demos
