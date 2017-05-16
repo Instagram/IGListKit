@@ -16,49 +16,52 @@ import UIKit
 import IGListKit
 
 final class DemoItem: NSObject {
-    
+
     let name: String
     let controllerClass: UIViewController.Type
     let controllerIdentifier: String?
-    
+
     init(name: String,
-        controllerClass: UIViewController.Type,
-        controllerIdentifier: String? = nil) {
+         controllerClass: UIViewController.Type,
+         controllerIdentifier: String? = nil) {
+
         self.name = name
         self.controllerClass = controllerClass
         self.controllerIdentifier = controllerIdentifier
     }
-    
+
 }
 
 final class DemoSectionController: ListSectionController {
 
     var object: DemoItem?
-    
+
     override init() {
         super.init()
         inset = UIEdgeInsets(top: 0, left: 50, bottom: 10, right: 0)
     }
-    
+
     override func numberOfItems() -> Int {
         return 1
     }
-    
+
     override func sizeForItem(at index: Int) -> CGSize {
         let itemWidth = (collectionContext!.containerSize.width / 2) - inset.left
         return CGSize(width: itemWidth, height: 100)
     }
-    
+
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: DemoCell.self, for: self, at: index) as! DemoCell
+        guard let cell = collectionContext?.dequeueReusableCell(of: DemoCell.self, for: self, at: index) as? DemoCell else {
+            fatalError()
+        }
         cell.label.text = object?.name
         return cell
     }
-    
+
     override func didUpdate(to object: Any) {
         self.object = object as? DemoItem
     }
-    
+
     override func didSelectItem(at index: Int) {
         if let identifier = object?.controllerIdentifier {
             let storyboard = UIStoryboard(name: "Demo", bundle: nil)
@@ -70,5 +73,5 @@ final class DemoSectionController: ListSectionController {
             viewController?.navigationController?.pushViewController(controller, animated: true)
         }
     }
-    
+
 }

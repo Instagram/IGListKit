@@ -30,7 +30,9 @@ final class EmbeddedSectionController: ListSectionController {
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as! CenterLabelCell
+        guard let cell = collectionContext?.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as? CenterLabelCell else {
+            fatalError()
+        }
         let value = number ?? 0
         cell.text = "\(value + 1)"
         cell.backgroundColor = UIColor(red: 237/255.0, green: 73/255.0, blue: 86/255.0, alpha: 1)

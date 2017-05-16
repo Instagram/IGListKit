@@ -39,15 +39,15 @@ final class LoadMoreViewController: UIViewController, ListAdapterDataSource, UIS
         collectionView.frame = view.bounds
     }
 
-    //MARK: ListAdapterDataSource
+    // MARK: ListAdapterDataSource
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         var objects = items as [ListDiffable]
-        
+
         if loading {
             objects.append(spinToken as ListDiffable)
         }
-        
+
         return objects
     }
 
@@ -61,9 +61,12 @@ final class LoadMoreViewController: UIViewController, ListAdapterDataSource, UIS
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
 
-    //MARK: UIScrollViewDelegate
+    // MARK: UIScrollViewDelegate
 
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView,
+                                   withVelocity velocity: CGPoint,
+                                   targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+
         let distance = scrollView.contentSize.height - (targetContentOffset.pointee.y + scrollView.bounds.height)
         if !loading && distance < 200 {
             loading = true

@@ -160,6 +160,7 @@
 				98ED5C151DC52AD400EA56B2 /* Resources */,
 				94ED0862BED5FDA44D2DD21D /* [CP] Embed Pods Frameworks */,
 				1ECBF3F943F0EFD1FCF6741F /* [CP] Copy Pods Resources */,
+				DC1296C31EC389410043990F /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -261,6 +262,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		DC1296C31EC389410043990F /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint --config ../.swiftlint.yml\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

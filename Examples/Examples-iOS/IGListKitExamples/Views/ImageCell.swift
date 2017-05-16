@@ -35,7 +35,7 @@ final class ImageCell: UICollectionViewCell {
         contentView.addSubview(imageView)
         contentView.addSubview(activityView)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -55,5 +55,5 @@ final class ImageCell: UICollectionViewCell {
             activityView.startAnimating()
         }
     }
-    
+
 }
