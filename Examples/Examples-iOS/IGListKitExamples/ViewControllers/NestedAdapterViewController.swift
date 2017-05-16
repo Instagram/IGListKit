@@ -45,7 +45,7 @@ final class NestedAdapterViewController: UIViewController, ListAdapterDataSource
         collectionView.frame = view.bounds
     }
 
-    //MARK: ListAdapterDataSource
+    // MARK: ListAdapterDataSource
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return data as! [ListDiffable]
