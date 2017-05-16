@@ -75,7 +75,7 @@ collectionContext?.insert(in: self, at: [0])
 
 // NEW
 collectionContext?.performBatch(animated: true, updates: { (batchContext) in
-  self.exanded = true
+  self.expanded = true
   batchContext.insert(in: self, at: [0])
 })
 ```
