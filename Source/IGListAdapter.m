@@ -951,8 +951,7 @@
     IGAssertMainThread();
     IGParameterAssert(indexes != nil);
     IGParameterAssert(sectionController != nil);
-    UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Tried to reload the adapter from %@ without a collection view at indexes %@.", sectionController, indexes);
+    IGAssert(self.collectionView != nil, @"Tried to reload the adapter from %@ without a collection view at indexes %@.", sectionController, indexes);
 
     if (indexes.count == 0) {
         return;
