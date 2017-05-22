@@ -93,6 +93,8 @@ For the long term goals and "vision" of `IGListKit`, please read our [Vision](ht
 
 Please see the [CONTRIBUTING](https://github.com/Instagram/IGListKit/blob/master/.github/CONTRIBUTING.md) file for how to help out. At Instagram we sync the open source version of `IGListKit` daily, so we're always testing the latest changes. But that requires all changes be thoroughly tested and follow our style guide.
 
+We have a set of [starter tasks](https://github.com/Instagram/IGListKit/issues?q=is%3Aissue+is%3Aopen+label%3Astarter-task) that are great for beginners to jump in on and start contributing. 
+
 ## License
 
 `IGListKit` is BSD-licensed. We also provide an additional patent grant.
