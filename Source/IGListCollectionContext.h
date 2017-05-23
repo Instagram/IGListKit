@@ -15,8 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class IGListSectionController;
 
-
-
 /**
  The collection context provides limited access to the collection-related information that
  section controllers need for operations like sizing, dequeing cells, insterting, deleting, reloading, etc.
