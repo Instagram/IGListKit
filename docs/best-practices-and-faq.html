@@ -344,7 +344,7 @@ This would only happen if your objects provide <em>non-unique</em> diff identifi
 <p><code>IGListKit</code> <em>does</em> still use <code>UICollectionView</code>&lsquo;s cell reuse, so you shouldn&rsquo;t be concerned about performance.</p>
 <h4 id='why-does-code-uicollectionviewflowlayout-code-put-everything-in-a-new-row' class='heading'>Why does <code>UICollectionViewFlowLayout</code> put everything in a new row?</h4>
 
-<p><code>UICollectionViewFlowLayout</code> has its limitations, and its not well designed to support sections on the same <q>line</q>. Instead you should use <a href="https://github.com/Instagram/IGListKit/blob/master/Source/IGListCollectionViewLayout.h"><code>IGListCollectionViewLayout</code></a>.</p>
+<p><code>UICollectionViewFlowLayout</code> has its limitations, and it's not well designed to support sections on the same <q>line</q>. Instead you should use <a href="https://github.com/Instagram/IGListKit/blob/master/Source/IGListCollectionViewLayout.h"><code>IGListCollectionViewLayout</code></a>.</p>
 <h4 id='what-if-i-just-want-a-section-controller-and-don-39-t-need-the-object' class='heading'>What if I just want a section controller and don&rsquo;t need the object?</h4>
 
 <p>Feel free to use a static string or number as your model. You can use this object as a <q>key</q> to find your section controller. Take a look at our <a href="https://github.com/Instagram/IGListKit/blob/master/Examples/Examples-iOS/IGListKitExamples/ViewControllers/SearchViewController.swift#L34">example</a> of this.</p>
