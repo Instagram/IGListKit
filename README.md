@@ -87,7 +87,7 @@ You can find [the docs here](https://instagram.github.io/IGListKit). Documentati
 
 ## Vision
 
-For the long term goals and "vision" of `IGListKit`, please read our [Vision](https://github.com/Instagram/IGListKit/blob/master/Guides/VISION.md) doc.
+For the long-term goals and "vision" of `IGListKit`, please read our [Vision](https://github.com/Instagram/IGListKit/blob/master/Guides/VISION.md) doc.
 
 ## Contributing
 
