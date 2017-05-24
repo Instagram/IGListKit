@@ -14,7 +14,7 @@ if has_source_changes && no_changelog_entry && not_declared_trivial
 end
 
 # Docs are regenerated when releasing
-has_doc_changes = !git.modified_files.grep(/docs/).empty?
+has_doc_changes = !git.modified_files.grep(/docs\//).empty?
 if has_doc_changes
   warn("Docs are regenerated when creating new releases.")
 end
