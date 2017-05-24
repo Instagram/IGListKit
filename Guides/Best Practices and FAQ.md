@@ -124,7 +124,7 @@ No! `IGListKit` is designed to have a 1:1 instance mapping between objects and s
 
 #### Why does `UICollectionViewFlowLayout` put everything in a new row?
 
-`UICollectionViewFlowLayout` has its limitations, and its not well designed to support sections on the same "line". Instead you should use [`IGListCollectionViewLayout`](https://github.com/Instagram/IGListKit/blob/master/Source/IGListCollectionViewLayout.h).
+`UICollectionViewFlowLayout` has its limitations, and it's not well designed to support sections on the same "line". Instead you should use [`IGListCollectionViewLayout`](https://github.com/Instagram/IGListKit/blob/master/Source/IGListCollectionViewLayout.h).
 
 #### What if I just want a section controller and don't need the object?
 
