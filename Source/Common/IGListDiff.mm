@@ -106,7 +106,7 @@ static id IGListDiffing(BOOL returnIndexPaths,
         IGListEntry &entry = table[key];
         entry.oldCounter++;
 
-        // push the original indices where the item occured onto the index stack
+        // push the original indices where the item occurred onto the index stack
         entry.oldIndexes.push(i);
 
         // note: the entry is just a pointer to the entry which is stack-allocated in the table

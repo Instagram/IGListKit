@@ -33,7 +33,7 @@ let layout = UICollectionViewFlowLayout()
 let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
 let updater = ListAdapterUpdater()
-let adapter = ListAdapter(updater: updater, viewController: self, workingRangeSize: 0)
+let adapter = ListAdapter(updater: updater, viewController: self)
 adapter.collectionView = collectionView
 ```
 
