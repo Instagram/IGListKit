@@ -16,7 +16,7 @@
  */
 NS_SWIFT_NAME(ListExperiment)
 typedef NS_OPTIONS (NSInteger, IGListExperiment) {
-    /// Specifies no experiements.
+    /// Specifies no experiments.
     IGListExperimentNone = 1 << 1,
 };
 
