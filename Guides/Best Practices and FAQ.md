@@ -72,7 +72,7 @@ See discussion at [#184](https://github.com/Instagram/IGListKit/issues/184).
 
 #### I have a *huge* data set and [`-performUpdatesAnimated: completion:`](https://instagram.github.io/IGListKit/Classes/IGListAdapter.html#/c:objc(cs)IGListAdapter(im)performUpdatesAnimated:completion:) is *super* slow. What do I do?
 
-If you have multiple thousands of items and you cannot batch them in, you'll see performance issues with `-performUpdatesAnimated: completion:`. The real bottle neck behind the scenes here is `UICollectionView` attempting to insert so many cells at once. Instead, call [`-reloadDataWithCompletion:`](https://instagram.github.io/IGListKit/Classes/IGListAdapter.html#/c:objc(cs)IGListAdapter(im)reloadDataWithCompletion:) when you first load data, which will be super fast. Behind the scenes, this method *does not* do any diffing and simply calls `-reloadData` on `UICollectionView`. For subsequent updates, you can then use `-performUpdatesAnimated: completion:`.
+If you have multiple thousands of items and you cannot batch them in, you'll see performance issues with `-performUpdatesAnimated: completion:`. The real bottle neck behind the scenes here is `UICollectionView` attempting to insert so many cells at once. Instead, call [`-reloadDataWithCompletion:`](https://instagram.github.io/IGListKit/Classes/IGListAdapter.html#/c:objc(cs)IGListAdapter(im)reloadDataWithCompletion:) when you first load data. Behind the scenes, this method *does not* do any diffing and simply calls `-reloadData` on `UICollectionView`. For subsequent updates, you can then use `-performUpdatesAnimated: completion:`.
 
 #### How do I use IGListKit and estimated cell sizes with Auto Layout?
 
