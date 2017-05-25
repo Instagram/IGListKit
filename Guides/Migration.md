@@ -10,7 +10,7 @@ For details on all changes in IGListKit 3.0.0, please see the [release notes](ht
 
 ### "IG" prefix removed for Swift
 
-We have improved how `IGListKit` APIs get imported into Swift. The `IG` prefix has been removed for Swift clients. For example, `IGListSectionController` becomes `ListSectionController` instead. Along with other interoperability improvements, this should make `IGListKit` feel more *swifty*.
+We have improved how `IGListKit` APIs get imported into Swift. The `IG` prefix has been removed for Swift clients. For example, `IGListSectionController` becomes `ListSectionController` instead. Along with other interoperability improvements, this makes `IGListKit` more readable in Swift.
 
 To migrate, use Xcode's Find navigator (command-3), search for `IGList`, and replace with `List`.
 

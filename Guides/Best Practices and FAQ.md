@@ -70,9 +70,9 @@ Historically, we used this subclass to gain compile-time safety to prevent disal
 
 See discussion at [#184](https://github.com/Instagram/IGListKit/issues/184).
 
-#### I have a *huge* data set and [`-peformUpdatesAnimated: completion:`](https://instagram.github.io/IGListKit/Classes/IGListAdapter.html#/c:objc(cs)IGListAdapter(im)performUpdatesAnimated:completion:) is *super* slow. What do I do?
+#### I have a *huge* data set and [`-performUpdatesAnimated: completion:`](https://instagram.github.io/IGListKit/Classes/IGListAdapter.html#/c:objc(cs)IGListAdapter(im)performUpdatesAnimated:completion:) is *super* slow. What do I do?
 
-If you have multiple thousands of items and you cannot batch them in, you'll see performance issues with `-peformUpdatesAnimated: completion:`. The real bottle neck behind the scenes here is `UICollectionView` attempting to insert so many cells at once. Instead, call [`-reloadDataWithCompletion:`](https://instagram.github.io/IGListKit/Classes/IGListAdapter.html#/c:objc(cs)IGListAdapter(im)reloadDataWithCompletion:) when you first load data, which will be super fast. Behind the scenes, this method *does not* do any diffing and simply calls `-reloadData` on `UICollectionView`. For subsequent updates, you can then use `-peformUpdatesAnimated: completion:`.
+If you have multiple thousands of items and you cannot batch them in, you'll see performance issues with `-performUpdatesAnimated: completion:`. The real bottle neck behind the scenes here is `UICollectionView` attempting to insert so many cells at once. Instead, call [`-reloadDataWithCompletion:`](https://instagram.github.io/IGListKit/Classes/IGListAdapter.html#/c:objc(cs)IGListAdapter(im)reloadDataWithCompletion:) when you first load data. Behind the scenes, this method *does not* do any diffing and simply calls `-reloadData` on `UICollectionView`. For subsequent updates, you can then use `-performUpdatesAnimated: completion:`.
 
 #### How do I use IGListKit and estimated cell sizes with Auto Layout?
 
@@ -124,7 +124,7 @@ No! `IGListKit` is designed to have a 1:1 instance mapping between objects and s
 
 #### Why does `UICollectionViewFlowLayout` put everything in a new row?
 
-`UICollectionViewFlowLayout` has its limitations, and its not well designed to support sections on the same "line". Instead you should use [`IGListCollectionViewLayout`](https://github.com/Instagram/IGListKit/blob/master/Source/IGListCollectionViewLayout.h).
+`UICollectionViewFlowLayout` has its limitations, and it's not well designed to support sections on the same "line". Instead you should use [`IGListCollectionViewLayout`](https://github.com/Instagram/IGListKit/blob/master/Source/IGListCollectionViewLayout.h).
 
 #### What if I just want a section controller and don't need the object?
 

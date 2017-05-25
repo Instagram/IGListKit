@@ -94,7 +94,7 @@ NS_SWIFT_NAME(ListSectionController)
 /**
  A context object for interacting with the collection. 
  
- Use this property for accessing the collection size, dequeing cells, reloading, inserting, deleting, etc.
+ Use this property for accessing the collection size, dequeuing cells, reloading, inserting, deleting, etc.
  */
 @property (nonatomic, weak, nullable, readonly) id <IGListCollectionContext> collectionContext;
 
