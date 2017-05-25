@@ -4,7 +4,6 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 3.1.0 (**upcoming release**)
 -----
-- Updated styling by removing white space from IGListCollectionContext and IGListAdapterDataSource. [Joseph Ortiz](https://github.com/joseph-ortiz) [(#783)](https://github.com/Instagram/IGListKit/pull/783)
 
 3.0.0 
 -----
