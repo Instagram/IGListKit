@@ -9,7 +9,7 @@ warn("Big PR") if git.lines_of_code > 500
 
 # Changelog entries are required for changes to library files.
 no_changelog_entry = !git.modified_files.include?("CHANGELOG.md")
-if has_source_changes && no_changelog_entry && not_declared_trivial
+if has_source_changes && no_changelog_entry && not_declared_trivial && git.lines_of_code > 10
   fail("Any source code changes should have an entry in CHANGELOG.md.")
 end
 
