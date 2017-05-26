@@ -85,6 +85,8 @@ github "Instagram/IGListKit" ~> 3.0
 
 You can find [the docs here](https://instagram.github.io/IGListKit). Documentation is generated with [jazzy](https://github.com/realm/jazzy) and hosted on [GitHub-Pages](https://pages.github.com).
 
+To regenerate docs, run `./scripts/build_docs.sh` from the root directory in the repo.
+
 ## Vision
 
 For the long-term goals and "vision" of `IGListKit`, please read our [Vision](https://github.com/Instagram/IGListKit/blob/master/Guides/VISION.md) doc.
@@ -93,7 +95,7 @@ For the long-term goals and "vision" of `IGListKit`, please read our [Vision](ht
 
 Please see the [CONTRIBUTING](https://github.com/Instagram/IGListKit/blob/master/.github/CONTRIBUTING.md) file for how to help. At Instagram, we sync the open source version of `IGListKit` daily, so we're always testing the latest changes. But that requires all changes be thoroughly tested and follow our style guide.
 
-We have a set of [starter tasks](https://github.com/Instagram/IGListKit/issues?q=is%3Aissue+is%3Aopen+label%3Astarter-task) that are great for beginners to jump in on and start contributing. 
+We have a set of [starter tasks](https://github.com/Instagram/IGListKit/issues?q=is%3Aissue+is%3Aopen+label%3Astarter-task) that are great for beginners to jump in on and start contributing.
 
 ## License
 
