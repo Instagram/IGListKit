@@ -97,6 +97,8 @@ Please see the [CONTRIBUTING](https://github.com/Instagram/IGListKit/blob/master
 
 We have a set of [starter tasks](https://github.com/Instagram/IGListKit/issues?q=is%3Aissue+is%3Aopen+label%3Astarter-task) that are great for beginners to jump in on and start contributing.
 
+We have a set of [starter tasks](https://github.com/Instagram/IGListKit/issues?q=is%3Aissue+is%3Aopen+label%3Astarter-task) that are great for beginners to jump in on and start contributing. 
+
 ## License
 
 `IGListKit` is BSD-licensed. We also provide an additional patent grant.
