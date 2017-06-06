@@ -140,6 +140,8 @@ ListDiff(oldArray: [], newArray: [], .equality)
 
 - Fixes a bug where maintaining a reference to a section controller but not the list adapter in an async block could lead to calling `-[IGListAdapter sectionForSectionController:]` (or checking `-[IGListSectionController sectionIndex]`) and receiving an incorrect value. With the adapter check the value would be 0 because the adapter was `nil` and for the section controller property the value would be the last set index value. [Andrew Monshizadeh](https://github.com/amonshiz) [(#709)](https://github.com/Instagram/IGListKit/issues/709)
 
+- Prevent diffing if old array or new array is empty. [Smiley Rob](https://github.com/rjchatfield) [(#419)](https://github.com/Instagram/IGListKit/pull/419)
+
 2.1.0
 -----
 
