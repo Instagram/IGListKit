@@ -8,6 +8,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 ### Fixes
 
 - Prevent a crash when update queued immediately after item batch update. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+- Fix `scrollToObject:supplementaryKinds:...` not scrolling when section is empty but does have supplymentary views
 
 ### Enhancements
 
