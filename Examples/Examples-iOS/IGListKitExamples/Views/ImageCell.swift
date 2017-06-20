@@ -14,7 +14,7 @@
 
 import UIKit
 
-class ImageCell: UICollectionViewCell {
+final class ImageCell: UICollectionViewCell {
 
     fileprivate let imageView: UIImageView = {
         let view = UIImageView()
@@ -35,7 +35,7 @@ class ImageCell: UICollectionViewCell {
         contentView.addSubview(imageView)
         contentView.addSubview(activityView)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -55,5 +55,5 @@ class ImageCell: UICollectionViewCell {
             activityView.startAnimating()
         }
     }
-    
+
 }

@@ -15,14 +15,14 @@
 import UIKit
 import IGListKit
 
-final class NestedAdapterViewController: UIViewController, IGListAdapterDataSource {
+final class NestedAdapterViewController: UIViewController, ListAdapterDataSource {
 
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
-    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-    let data = [
+    let data: [Any] = [
         "Ridiculus Elit Tellus Purus Aenean",
         "Condimentum Sollicitudin Adipiscing",
         14,
@@ -31,7 +31,7 @@ final class NestedAdapterViewController: UIViewController, IGListAdapterDataSour
         6,
         "Tellus Nibh Ipsum Inceptos",
         2
-    ] as [Any]
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,13 +45,13 @@ final class NestedAdapterViewController: UIViewController, IGListAdapterDataSour
         collectionView.frame = view.bounds
     }
 
-    //MARK: IGListAdapterDataSource
+    // MARK: ListAdapterDataSource
 
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return data as! [IGListDiffable]
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        return data as! [ListDiffable]
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         if object is Int {
             return HorizontalSectionController()
         } else {
@@ -59,7 +59,7 @@ final class NestedAdapterViewController: UIViewController, IGListAdapterDataSour
         }
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }
 

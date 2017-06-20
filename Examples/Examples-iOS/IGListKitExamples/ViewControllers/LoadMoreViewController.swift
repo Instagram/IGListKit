@@ -15,12 +15,12 @@
 import UIKit
 import IGListKit
 
-final class LoadMoreViewController: UIViewController, IGListAdapterDataSource, UIScrollViewDelegate {
+final class LoadMoreViewController: UIViewController, ListAdapterDataSource, UIScrollViewDelegate {
 
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
-    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     lazy var items = Array(0...20)
     var loading = false
@@ -39,19 +39,19 @@ final class LoadMoreViewController: UIViewController, IGListAdapterDataSource, U
         collectionView.frame = view.bounds
     }
 
-    //MARK: IGListAdapterDataSource
+    // MARK: ListAdapterDataSource
 
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        var objects = items as [IGListDiffable]
-        
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        var objects = items as [ListDiffable]
+
         if loading {
-            objects.append(spinToken as IGListDiffable)
+            objects.append(spinToken as ListDiffable)
         }
-        
+
         return objects
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         if let obj = object as? String, obj == spinToken {
             return spinnerSectionController()
         } else {
@@ -59,11 +59,14 @@ final class LoadMoreViewController: UIViewController, IGListAdapterDataSource, U
         }
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
+    func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
 
-    //MARK: UIScrollViewDelegate
+    // MARK: UIScrollViewDelegate
 
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView,
+                                   withVelocity velocity: CGPoint,
+                                   targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+
         let distance = scrollView.contentSize.height - (targetContentOffset.pointee.y + scrollView.bounds.height)
         if !loading && distance < 200 {
             loading = true

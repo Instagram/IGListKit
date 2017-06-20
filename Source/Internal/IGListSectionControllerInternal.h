@@ -19,6 +19,8 @@ FOUNDATION_EXTERN void IGListSectionControllerPopThread(void);
 
 @property (nonatomic, weak, readwrite) UIViewController *viewController;
 
+@property (nonatomic, assign, readwrite) NSInteger section;
+
 @property (nonatomic, assign, readwrite) BOOL isFirstSection;
 
 @property (nonatomic, assign, readwrite) BOOL isLastSection;

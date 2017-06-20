@@ -14,7 +14,7 @@
     <a title="IGListAdapterUpdaterDelegate Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (100% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -32,6 +32,9 @@
             <a href="../Guides.html">Guides</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../best-practices-and-faq.html">Best Practices and FAQ</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../getting-started.html">Getting Started</a>
               </li>
               <li class="nav-group-task">
@@ -42,6 +45,15 @@
               </li>
               <li class="nav-group-task">
                 <a href="../migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../vision.html">VISION</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-core-data.html">Working with Core Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-uicollectionview.html">Working with UICollectionView</a>
               </li>
             </ul>
           </li>
@@ -69,10 +81,13 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
+                <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListGridCollectionViewLayout.html">IGListGridCollectionViewLayout</a>
+                <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -135,6 +150,18 @@
                 <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListBatchContext.html">IGListBatchContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindable.html">IGListBindable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
@@ -145,9 +172,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/IGListSectionType.html">IGListSectionType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
@@ -252,11 +276,6 @@
         <span class="p">(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="o">!</span><span class="p">,</span> <span class="n">willPerformBatchUpdatesWithCollectionView</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -271,7 +290,6 @@
                               <td>
                                 <div>
                                   <p>The adapter updater owning the transition.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -284,7 +302,6 @@
                               <td>
                                 <div>
                                   <p>The collection view that will perform the batch updates.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -297,9 +314,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:didPerformBatchUpdates:withCollectionView:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapterUpdater:didPerformBatchUpdates:withCollectionView:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:didPerformBatchUpdates:withCollectionView:">-listAdapterUpdater:didPerformBatchUpdates:withCollectionView:</a>
+                    <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:didPerformBatchUpdates:collectionView:"></a>
+                    <a name="//apple_ref/objc/Method/-listAdapterUpdater:didPerformBatchUpdates:collectionView:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:didPerformBatchUpdates:collectionView:">-listAdapterUpdater:didPerformBatchUpdates:collectionView:</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -307,8 +324,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that the updater succesfully finished <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
-
+                        <p>Notifies the delegate that the updater successfully finished <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>This event is called in the completion block of the batch update.</p>
@@ -322,12 +338,7 @@
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
     <span class="nf">didPerformBatchUpdates</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">updates</span>
-        <span class="nf">withCollectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="o">!</span><span class="p">,</span> <span class="n">didPerformBatchUpdates</span> <span class="nv">updates</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="n">withCollectionView</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
+            <span class="nf">collectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -344,7 +355,6 @@
                               <td>
                                 <div>
                                   <p>The adapter updater owning the transition.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -357,7 +367,6 @@
                               <td>
                                 <div>
                                   <p>The batch updates that were applied to the collection view.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -370,7 +379,6 @@
                               <td>
                                 <div>
                                   <p>The collection view that performed the batch updates.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -394,7 +402,6 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Notifies the delegate that the updater will call <code>-[UICollectionView insertItemsAtIndexPaths:]</code>.</p>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>This event is only sent when outside of <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
@@ -411,11 +418,6 @@
             <span class="nf">collectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="o">!</span><span class="p">,</span> <span class="n">willInsertIndexPaths</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -430,7 +432,6 @@
                               <td>
                                 <div>
                                   <p>The adapter updater owning the transition.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -443,7 +444,6 @@
                               <td>
                                 <div>
                                   <p>An array of index paths that will be inserted.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -456,7 +456,6 @@
                               <td>
                                 <div>
                                   <p>The collection view that will perform the insert.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -480,7 +479,6 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Notifies the delegate that the updater will call <code>-[UICollectionView deleteItemsAtIndexPaths:]</code>.</p>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>This event is only sent when outside of <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
@@ -497,9 +495,82 @@
             <span class="nf">collectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>listAdapterUpdater</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The adapter updater owning the transition.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexPaths</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of index paths that will be deleted.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collectionView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The collection view that will perform the delete.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willMoveFromIndexPath:toIndexPath:collectionView:"></a>
+                    <a name="//apple_ref/objc/Method/-listAdapterUpdater:willMoveFromIndexPath:toIndexPath:collectionView:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willMoveFromIndexPath:toIndexPath:collectionView:">-listAdapterUpdater:willMoveFromIndexPath:toIndexPath:collectionView:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Notifies the delegate that the updater will call <code>-[UICollectionView moveItemAtIndexPath:toIndexPath:]</code></p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This event is only sent when outside of <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
                         <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="o">!</span><span class="p">,</span> <span class="n">willDeleteIndexPaths</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
+     <span class="nf">willMoveFromIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">fromIndexPath</span>
+               <span class="nf">toIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">toIndexPath</span>
+            <span class="nf">collectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -516,20 +587,30 @@
                               <td>
                                 <div>
                                   <p>The adapter updater owning the transition.</p>
-
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <code>
-                                <em>indexPaths</em>
+                                <em>fromIndexPath</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>An array of index paths that will be deleted.</p>
-
+                                  <p>The index path of the item that will be moved.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>toIndexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index path to move the item to.</p>
                                 </div>
                               </td>
                             </tr>
@@ -541,8 +622,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The collection view that will perform the delete.</p>
-
+                                  <p>The collection view that will perform the move.</p>
                                 </div>
                               </td>
                             </tr>
@@ -566,7 +646,6 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Notifies the delegate that the updater will call <code>-[UICollectionView reloadItemsAtIndexPaths:]</code>.</p>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>This event is only sent when outside of <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
@@ -583,11 +662,6 @@
             <span class="nf">collectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="o">!</span><span class="p">,</span> <span class="n">willReloadIndexPaths</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -602,7 +676,6 @@
                               <td>
                                 <div>
                                   <p>The adapter updater owning the transition.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -615,7 +688,6 @@
                               <td>
                                 <div>
                                   <p>An array of index paths that will be reloaded.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -628,7 +700,6 @@
                               <td>
                                 <div>
                                   <p>The collection view that will perform the reload.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -652,7 +723,6 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Notifies the delegate that the updater will call <code>-[UICollectionView reloadSections:]</code>.</p>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>This event is only sent when outside of <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
@@ -669,11 +739,6 @@
             <span class="nf">collectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="o">!</span><span class="p">,</span> <span class="n">willReloadSections</span> <span class="nv">sections</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -688,7 +753,6 @@
                               <td>
                                 <div>
                                   <p>The adapter updater owning the transition.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -701,7 +765,6 @@
                               <td>
                                 <div>
                                   <p>The sections that will be reloaded</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -714,7 +777,6 @@
                               <td>
                                 <div>
                                   <p>The collection view that will perform the reload.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -748,11 +810,6 @@
     <span class="nf">willReloadDataWithCollectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="o">!</span><span class="p">,</span> <span class="n">willReloadDataWithCollectionView</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -767,7 +824,6 @@
                               <td>
                                 <div>
                                   <p>The adapter updater owning the transition.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -780,7 +836,6 @@
                               <td>
                                 <div>
                                   <p>The collection view that will be reloaded.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -814,11 +869,6 @@
     <span class="nf">didReloadDataWithCollectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="o">!</span><span class="p">,</span> <span class="n">didReloadDataWithCollectionView</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -833,7 +883,6 @@
                               <td>
                                 <div>
                                   <p>The adapter updater owning the transition.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -846,7 +895,6 @@
                               <td>
                                 <div>
                                   <p>The collection view that reloaded.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -883,11 +931,6 @@
                    <span class="nf">updates</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">updates</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="o">!</span><span class="p">,</span> <span class="n">willCrashWithException</span> <span class="nv">exception</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">fromObjects</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">toObjects</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">updates</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -902,7 +945,6 @@
                               <td>
                                 <div>
                                   <p>The adapter updater owning the transition.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -915,7 +957,6 @@
                               <td>
                                 <div>
                                   <p>The exception thrown by the collection view.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -928,7 +969,6 @@
                               <td>
                                 <div>
                                   <p>The items transitioned from in the diff, if any.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -941,7 +981,6 @@
                               <td>
                                 <div>
                                   <p>The items transitioned to in the diff, if any.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -954,7 +993,6 @@
                               <td>
                                 <div>
                                   <p>The batch updates that were applied to the collection view.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -969,8 +1007,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-01-04)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

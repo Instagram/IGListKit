@@ -14,7 +14,7 @@
     <a title="IGListAdapter Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (100% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -32,6 +32,9 @@
             <a href="../Guides.html">Guides</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../best-practices-and-faq.html">Best Practices and FAQ</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../getting-started.html">Getting Started</a>
               </li>
               <li class="nav-group-task">
@@ -42,6 +45,15 @@
               </li>
               <li class="nav-group-task">
                 <a href="../migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../vision.html">VISION</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-core-data.html">Working with Core Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-uicollectionview.html">Working with UICollectionView</a>
               </li>
             </ul>
           </li>
@@ -69,10 +81,13 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
+                <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListGridCollectionViewLayout.html">IGListGridCollectionViewLayout</a>
+                <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -135,6 +150,18 @@
                 <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListBatchContext.html">IGListBatchContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindable.html">IGListBindable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
@@ -145,9 +172,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/IGListSectionType.html">IGListSectionType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
@@ -217,13 +241,14 @@
             <h1>IGListAdapter</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListAdapter</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
+                  <pre class="highlight"><code>
+<span class="k">@interface</span> <span class="nc">IGListAdapter</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                 </div>
               </div>
-            <p><code>IGListAdapter</code> objects provide an abstraction for feeds of objects in a <code>UICollectionView</code> by breaking each object into
-individual sections, called <q>section controllers</q>. These controllers (objects conforming to <code><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></code>) act as a
-data source and delegate for each section.</p>
+            <p><code>IGListAdapter</code> objects provide an abstraction for feeds of objects in a <code>UICollectionView</code> by breaking each object 
+into individual sections, called <q>section controllers</q>. These controllers (objects subclassing to 
+<code><a href="../Classes/IGListSectionController.html">IGListSectionController</a></code>) act as a data source and delegate for each section.</p>
 
 <p>Feed implementations must act as the data source for an <code>IGListAdapter</code> in order to drive the objects and section
 controllers in a collection view.</p>
@@ -279,7 +304,7 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a></span> <span class="o">*</span><span class="n">collectionView</span><span class="p">;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="n">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -299,7 +324,7 @@ controllers in a collection view.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The object that acts as the data source for the list adapter.</p>
+                        <p>The object that acts as the data source for the adapter.</p>
 
                       </div>
                       <div class="declaration">
@@ -308,11 +333,6 @@ controllers in a collection view.</p>
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterDataSource.html">IGListAdapterDataSource</a></span><span class="o">&gt;</span>
     <span class="n">dataSource</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">dataSource</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -342,11 +362,6 @@ controllers in a collection view.</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a></span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -365,7 +380,6 @@ controllers in a collection view.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>The object that receives <code>UICollectionViewDelegate</code> events.</p>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     This object <em>will not</em> receive <code>UIScrollViewDelegate</code> events. Instead use scrollViewDelegate.
@@ -379,11 +393,6 @@ controllers in a collection view.</p>
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">UICollectionViewDelegate</span><span class="o">&gt;</span>
     <span class="n">collectionViewDelegate</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">collectionViewDelegate</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -414,11 +423,6 @@ controllers in a collection view.</p>
     <span class="n">scrollViewDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">scrollViewDelegate</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -436,7 +440,7 @@ controllers in a collection view.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The updater for this list adapter.</p>
+                        <p>The updater for the adapter.</p>
 
                       </div>
                       <div class="declaration">
@@ -474,11 +478,6 @@ controllers in a collection view.</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="n">experiments</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">experiments</span><span class="p">:</span> <span class="kt">Int32</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -497,7 +496,6 @@ controllers in a collection view.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Initializes a new <code>IGListAdapter</code> object.</p>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>The working range is the number of objects beyond the visible objects (plus and minus) that should be
@@ -507,7 +505,7 @@ the range is updated as objects enter and exit the working range.</p>
 
 </div>
 
-<p>To opt out of using the working range, you can provide a value of <code>0</code>.</p>
+<p>To opt out of using the working range, use <code>initWithUpdater:viewController:</code> or provide a working range of <code>0</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -534,7 +532,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>An object that manages updates to the collection view.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -547,7 +544,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>The view controller that will house the adapter.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -560,7 +556,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>The number of objects before and after the viewport to consider within the working range.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -570,7 +565,70 @@ the range is updated as objects enter and exit the working range.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>A new list adapter object.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListAdapter(im)initWithUpdater:viewController:"></a>
+                    <a name="//apple_ref/objc/Method/-initWithUpdater:viewController:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)initWithUpdater:viewController:">-initWithUpdater:viewController:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes a new <code>IGListAdapter</code> object with a working range of <code>0</code>.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
+<span class="nf">initWithUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a></span><span class="o">&gt;</span><span class="p">)</span><span class="nv">updater</span>
+ <span class="nf">viewController</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="nv">viewController</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>updater</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object that manages updates to the collection view.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>viewController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The view controller that will house the adapter.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new list adapter object.</p>
                       </div>
                     </section>
                   </div>
@@ -588,7 +646,7 @@ the range is updated as objects enter and exit the working range.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Perform an update from the previous state of the data source. This is analagous to calling
+                        <p>Perform an update from the previous state of the data source. This is analogous to calling
 <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
 
                       </div>
@@ -598,11 +656,6 @@ the range is updated as objects enter and exit the working range.</p>
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">performUpdatesAnimated</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span>
                     <span class="nf">completion</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a></span><span class="p">)</span><span class="nv">completion</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">performUpdatesAnimated</span><span class="p">(</span><span class="n">_</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -619,7 +672,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>A flag indicating if the transition should be animated.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -631,8 +683,7 @@ the range is updated as objects enter and exit the working range.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The block to execute when the update completes.</p>
-
+                                  <p>The block to execute when the updates complete.</p>
                                 </div>
                               </td>
                             </tr>
@@ -665,11 +716,6 @@ the range is updated as objects enter and exit the working range.</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadDataWithCompletion</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a></span><span class="p">)</span><span class="nv">completion</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">reloadData</span><span class="p">(</span><span class="n">withCompletion</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -684,7 +730,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>The block to execute when the reload completes.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -717,11 +762,6 @@ the range is updated as objects enter and exit the working range.</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadObjects</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nv">objects</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">reloadObjects</span><span class="p">(</span><span class="n">_</span> <span class="nv">objects</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -736,12 +776,62 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>The objects to reload.</p>
-
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListAdapter(im)sectionControllerForSection:"></a>
+                    <a name="//apple_ref/objc/Method/-sectionControllerForSection:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)sectionControllerForSection:">-sectionControllerForSection:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Query the section controller at a given section index. Constant time lookup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nf">sectionControllerForSection</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>section</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A section in the list.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A section controller or <code>nil</code> if the section does not exist.</p>
                       </div>
                     </section>
                   </div>
@@ -767,12 +857,7 @@ the range is updated as objects enter and exit the working range.</p>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">sectionForSectionController</span><span class="p">:</span>
-    <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">section</span><span class="p">(</span><span class="k">for</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="o">!</span></code></pre>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -789,7 +874,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>A list object.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -799,7 +883,6 @@ the range is updated as objects enter and exit the working range.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>The section index of the list if it exists, otherwise <code>NSNotFound</code>.</p>
-
                       </div>
                     </section>
                   </div>
@@ -818,10 +901,9 @@ the range is updated as objects enter and exit the working range.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Returns the section controller for the specified object. Constant time lookup.</p>
-
 <div class="aside aside-see">
     <p class="aside-title">See</p>
-    <p><code>-[IGListAdapterDataSource listAdapter:sectionControllerForObject:]</code></p>
+    <p><code><a href="../Protocols/IGListAdapterDataSource.html#/c:objc(pl)IGListAdapterDataSource(im)listAdapter:sectionControllerForObject:">-[IGListAdapterDataSource listAdapter:sectionControllerForObject:]</a></code></p>
 
 </div>
 
@@ -830,13 +912,8 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">__kindof</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">_Nullable</span><span class="p">)</span>
-<span class="nf">sectionControllerForObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">sectionController</span><span class="p">(</span><span class="k">for</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">__kindof</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="n">_Nullable</span><span class="p">)</span><span class="nf">sectionControllerForObject</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -853,7 +930,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>An object from the data source.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -862,8 +938,7 @@ the range is updated as objects enter and exit the working range.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>An section controller or <code>nil</code> if <code>object</code> is not in the list.</p>
-
+                        <p>A section controller or <code>nil</code> if <code>object</code> is not in the list.</p>
                       </div>
                     </section>
                   </div>
@@ -889,12 +964,7 @@ the range is updated as objects enter and exit the working range.</p>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">id</span><span class="p">)</span><span class="nf">objectForSectionController</span><span class="p">:</span>
-    <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">object</span><span class="p">(</span><span class="k">for</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -911,7 +981,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>A section controller in the list.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -920,8 +989,7 @@ the range is updated as objects enter and exit the working range.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>The object for the specified section controller, or nil if not found.</p>
-
+                        <p>The object for the specified section controller, or <code>nil</code> if not found.</p>
                       </div>
                     </section>
                   </div>
@@ -949,11 +1017,6 @@ the range is updated as objects enter and exit the working range.</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">id</span><span class="p">)</span><span class="nf">objectAtSection</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">object</span><span class="p">(</span><span class="n">atSection</span> <span class="nv">section</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -968,7 +1031,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>A section in the list.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -978,7 +1040,6 @@ the range is updated as objects enter and exit the working range.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>The object for the specified section, or <code>nil</code> if the section does not exist.</p>
-
                       </div>
                     </section>
                   </div>
@@ -1006,11 +1067,6 @@ the range is updated as objects enter and exit the working range.</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">sectionForObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">section</span><span class="p">(</span><span class="k">for</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="o">!</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -1025,7 +1081,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>An object in the list.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -1035,7 +1090,6 @@ the range is updated as objects enter and exit the working range.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>The section index of <code>object</code> if found, otherwise <code>NSNotFound</code>.</p>
-
                       </div>
                     </section>
                   </div>
@@ -1053,7 +1107,7 @@ the range is updated as objects enter and exit the working range.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a copy of all the objects currently powering the adapter.</p>
+                        <p>Returns a copy of all the objects currently driving the adapter.</p>
 
                       </div>
                       <div class="declaration">
@@ -1063,16 +1117,10 @@ the range is updated as objects enter and exit the working range.</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="n">objects</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">objects</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="o">!</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Return Value</h4>
                         <p>An array of objects.</p>
-
                       </div>
                     </section>
                   </div>
@@ -1097,20 +1145,13 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span>
-    <span class="n">visibleSectionControllers</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">visibleSectionControllers</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="o">!</span></code></pre>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="n">visibleSectionControllers</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
                       <div>
                         <h4>Return Value</h4>
                         <p>An array of section controllers.</p>
-
                       </div>
                     </section>
                   </div>
@@ -1138,16 +1179,61 @@ the range is updated as objects enter and exit the working range.</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="n">visibleObjects</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">visibleObjects</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="o">!</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Return Value</h4>
                         <p>An array of objects</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListAdapter(im)visibleCellsForObject:"></a>
+                    <a name="//apple_ref/objc/Method/-visibleCellsForObject:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)visibleCellsForObject:">-visibleCellsForObject:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An unordered array of the currently visible cells for a given object.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">UICollectionViewCell</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nf">visibleCellsForObject</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object in the list</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of collection view cells.</p>
                       </div>
                     </section>
                   </div>
@@ -1165,7 +1251,7 @@ the range is updated as objects enter and exit the working range.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Scrolls to the sepcified object in the list adapter.</p>
+                        <p>Scrolls to the specified object in the list adapter.</p>
 
                       </div>
                       <div class="declaration">
@@ -1177,11 +1263,6 @@ the range is updated as objects enter and exit the working range.</p>
        <span class="nf">scrollDirection</span><span class="p">:(</span><span class="n">UICollectionViewScrollDirection</span><span class="p">)</span><span class="nv">scrollDirection</span>
         <span class="nf">scrollPosition</span><span class="p">:(</span><span class="n">UICollectionViewScrollPosition</span><span class="p">)</span><span class="nv">scrollPosition</span>
               <span class="nf">animated</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">scroll</span><span class="p">(</span><span class="n">to</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">supplementaryKinds</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">scrollDirection</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">scrollPosition</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1198,7 +1279,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>The object to which to scroll.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -1211,7 +1291,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>The types of supplementary views in the section.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -1224,7 +1303,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>An option indicating the direction to scroll.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -1236,8 +1314,7 @@ the range is updated as objects enter and exit the working range.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>An option that specifies where the item should be positioned when scrolling finishes. </p>
-
+                                  <p>An option that specifies where the item should be positioned when scrolling finishes.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1250,7 +1327,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>A flag indicating if the scrolling should be animated.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -1283,11 +1359,6 @@ the range is updated as objects enter and exit the working range.</p>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">CGSize</span><span class="p">)</span><span class="nf">sizeForItemAtIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">sizeForItem</span><span class="p">(</span><span class="n">atIndexPath</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="o">!</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -1302,7 +1373,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>The index path of the cell.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -1312,7 +1382,6 @@ the range is updated as objects enter and exit the working range.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>The size of the cell.</p>
-
                       </div>
                     </section>
                   </div>
@@ -1341,11 +1410,6 @@ the range is updated as objects enter and exit the working range.</p>
                              <span class="nf">atIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">sizeForSupplementaryView</span><span class="p">(</span><span class="n">ofKind</span> <span class="nv">elementKind</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="n">atIndexPath</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="o">!</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -1360,7 +1424,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>The kind of supplementary view.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -1373,7 +1436,6 @@ the range is updated as objects enter and exit the working range.</p>
                               <td>
                                 <div>
                                   <p>The index path of the supplementary view.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -1383,7 +1445,6 @@ the range is updated as objects enter and exit the working range.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>The size of the supplementary view.</p>
-
                       </div>
                     </section>
                   </div>
@@ -1393,8 +1454,8 @@ the range is updated as objects enter and exit the working range.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-01-04)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

@@ -14,7 +14,7 @@
     <a title="IGListSectionController Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (100% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -32,6 +32,9 @@
             <a href="../Guides.html">Guides</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../best-practices-and-faq.html">Best Practices and FAQ</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../getting-started.html">Getting Started</a>
               </li>
               <li class="nav-group-task">
@@ -42,6 +45,15 @@
               </li>
               <li class="nav-group-task">
                 <a href="../migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../vision.html">VISION</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-core-data.html">Working with Core Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-uicollectionview.html">Working with UICollectionView</a>
               </li>
             </ul>
           </li>
@@ -69,10 +81,13 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
+                <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListGridCollectionViewLayout.html">IGListGridCollectionViewLayout</a>
+                <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -135,6 +150,18 @@
                 <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListBatchContext.html">IGListBatchContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindable.html">IGListBindable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
@@ -145,9 +172,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/IGListSectionType.html">IGListSectionType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
@@ -217,7 +241,8 @@
             <h1>IGListSectionController</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListSectionController</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
+                  <pre class="highlight"><code>
+<span class="k">@interface</span> <span class="nc">IGListSectionController</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                 </div>
               </div>
@@ -227,6 +252,263 @@
           <section class="section task-group-section">
             <div class="task-group">
               <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListSectionController(im)numberOfItems"></a>
+                    <a name="//apple_ref/objc/Method/-numberOfItems" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)numberOfItems">-numberOfItems</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the number of items in the section.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>The count returned is used to drive the number of cells displayed for this section controller. The default 
+implementation returns 1. <strong>Calling super is not required.</strong></p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="n">numberOfItems</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A count of items in the list.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListSectionController(im)sizeForItemAtIndex:"></a>
+                    <a name="//apple_ref/objc/Method/-sizeForItemAtIndex:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)sizeForItemAtIndex:">-sizeForItemAtIndex:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The specific size for the item at the specified index.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>The returned size is not guaranteed to be used. The implementation may query sections for their
+layout information at will, or use its own layout metrics. For example, consider a dynamic-text sized list versus a
+fixed height-and-width grid. The former will ask each section for a size, and the latter will likely not. The default
+implementation returns size zero. <strong>Calling super is not required.</strong></p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">CGSize</span><span class="p">)</span><span class="nf">sizeForItemAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">index</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The row index of the item.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The size for the item at index.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListSectionController(im)cellForItemAtIndex:"></a>
+                    <a name="//apple_ref/objc/Method/-cellForItemAtIndex:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)cellForItemAtIndex:">-cellForItemAtIndex:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return a dequeued cell for a given index.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This is your opportunity to do any cell setup and configuration. The infrastructure requests a cell when it
+will be used on screen. You should never allocate new cells in this method, instead use the provided adapter to call
+one of the dequeue methods on the IGListCollectionContext. The default implementation will assert. <strong>You must override
+this method without calling super.</strong></p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">__kindof</span> <span class="n">UICollectionViewCell</span> <span class="o">*</span><span class="p">)</span><span class="nf">cellForItemAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">index</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the requested row.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A configured <code>UICollectionViewCell</code> subclass.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListSectionController(im)didUpdateToObject:"></a>
+                    <a name="//apple_ref/objc/Method/-didUpdateToObject:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)didUpdateToObject:">-didUpdateToObject:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Updates the section controller to a new object.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>When this method is called, all available contexts and configurations have been set for the section
+controller. This method will only be called when the object instance has changed, including from <code>nil</code> or a previous
+object. <strong>Calling super is not required.</strong></p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didUpdateToObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object mapped to this section controller.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListSectionController(im)didSelectItemAtIndex:"></a>
+                    <a name="//apple_ref/objc/Method/-didSelectItemAtIndex:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)didSelectItemAtIndex:">-didSelectItemAtIndex:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Tells the section controller that the cell at the specified index path was selected.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>The default implementation does nothing. <strong>Calling super is not required.</strong></p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didSelectItemAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">index</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the selected cell.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -241,13 +523,11 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>The view controller housing the adapter that created this section controller.</p>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>Use this view controller to push, pop, present, or do other custom transitions. </p>
 
 </div>
-
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     <p>It is considered very bad practice to cast this to a known view controller 
@@ -282,7 +562,7 @@ and call methods on it other than for navigations and transitions.</p>
                       <div class="abstract">
                         <p>A context object for interacting with the collection. </p>
 
-<p>Use this property for accessing the collection size, dequeing cells, reloading, inserting, deleting, etc.</p>
+<p>Use this property for accessing the collection size, dequeuing cells, reloading, inserting, deleting, etc.</p>
 
                       </div>
                       <div class="declaration">
@@ -293,9 +573,37 @@ and call methods on it other than for navigations and transitions.</p>
     <span class="n">collectionContext</span><span class="p">;</span></code></pre>
 
                         </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListSectionController(py)section"></a>
+                    <a name="//apple_ref/objc/Property/section" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(py)section">section</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the section within the list for this section controller.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This value also relates to the section within a <code>UICollectionView</code> that this section controller&rsquo;s cells belong.
+It also relates to the <code>-[NSIndexPath section]</code> value for individual cells within the collection view.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
                         <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">collectionContext</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">assign</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSInteger</span> <span class="n">section</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -325,11 +633,6 @@ and call methods on it other than for navigations and transitions.</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">assign</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">isFirstSection</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">isFirstSection</span><span class="p">:</span> <span class="kt">Int32</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -357,11 +660,6 @@ and call methods on it other than for navigations and transitions.</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">assign</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">isLastSection</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">isLastSection</span><span class="p">:</span> <span class="kt">Int32</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -380,7 +678,6 @@ and call methods on it other than for navigations and transitions.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>The margins used to lay out content in the section controller.</p>
-
 <div class="aside aside-see">
     <p class="aside-title">See</p>
     <code>-[UICollectionViewFlowLayout sectionInset]</code>.
@@ -393,11 +690,6 @@ and call methods on it other than for navigations and transitions.</p>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIEdgeInsets</span> <span class="n">inset</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">inset</span><span class="p">:</span> <span class="kt">Int32</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -418,7 +710,6 @@ and call methods on it other than for navigations and transitions.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>The minimum spacing to use between rows of items.</p>
-
 <div class="aside aside-see">
     <p class="aside-title">See</p>
     <code>-[UICollectionViewFlowLayout minimumLineSpacing]</code>.
@@ -431,11 +722,6 @@ and call methods on it other than for navigations and transitions.</p>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGFloat</span> <span class="n">minimumLineSpacing</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">minimumLineSpacing</span><span class="p">:</span> <span class="kt">Int32</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -456,7 +742,6 @@ and call methods on it other than for navigations and transitions.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>The minimum spacing to use between items in the same row.</p>
-
 <div class="aside aside-see">
     <p class="aside-title">See</p>
     <code>-[UICollectionViewFlowLayout minimumInteritemSpacing]</code>.
@@ -469,11 +754,6 @@ and call methods on it other than for navigations and transitions.</p>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGFloat</span> <span class="n">minimumInteritemSpacing</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">minimumInteritemSpacing</span><span class="p">:</span> <span class="kt">Int32</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -494,7 +774,6 @@ and call methods on it other than for navigations and transitions.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>The supplementary view source for the section controller. Can be <code>nil</code>.</p>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>You may wish to return <code>self</code> if your section controller implements this protocol.</p>
@@ -510,16 +789,10 @@ and call methods on it other than for navigations and transitions.</p>
     <span class="n">supplementaryViewSource</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">supplementaryViewSource</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Return Value</h4>
                         <p>An object that conforms to <code><a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a></code> or <code>nil</code>.</p>
-
                       </div>
                     </section>
                   </div>
@@ -538,7 +811,6 @@ and call methods on it other than for navigations and transitions.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>An object that handles display events for the section controller. Can be <code>nil</code>.</p>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>You may wish to return <code>self</code> if your section controller implements this protocol.</p>
@@ -554,16 +826,10 @@ and call methods on it other than for navigations and transitions.</p>
     <span class="n">displayDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">displayDelegate</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Return Value</h4>
                         <p>An object that conforms to <code><a href="../Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a></code> or <code>nil</code>.</p>
-
                       </div>
                     </section>
                   </div>
@@ -582,7 +848,6 @@ and call methods on it other than for navigations and transitions.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>An object that handles working range events for the section controller. Can be <code>nil</code>.</p>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>You may wish to return <code>self</code> if your section controller implements this protocol.</p>
@@ -598,16 +863,10 @@ and call methods on it other than for navigations and transitions.</p>
     <span class="n">workingRangeDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">workingRangeDelegate</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Return Value</h4>
                         <p>An object that conforms to <code><a href="../Protocols/IGListWorkingRangeDelegate.html">IGListWorkingRangeDelegate</a></code> or <code>nil</code>.</p>
-
                       </div>
                     </section>
                   </div>
@@ -625,8 +884,7 @@ and call methods on it other than for navigations and transitions.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An object that handles display events for the section controller. Can be <code>nil</code>.</p>
-
+                        <p>An object that handles scroll events for the section controller. Can be <code>nil</code>.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>You may wish to return <code>self</code> if your section controller implements this protocol.</p>
@@ -642,16 +900,10 @@ and call methods on it other than for navigations and transitions.</p>
     <span class="n">scrollDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">scrollDelegate</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>An object that conforms to <code><a href="../Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a></code> or <code>nil</code>.</p>
-
+                        <p>An object that conforms to <code><a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a></code> or <code>nil</code>.</p>
                       </div>
                     </section>
                   </div>
@@ -661,8 +913,8 @@ and call methods on it other than for navigations and transitions.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-01-04)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

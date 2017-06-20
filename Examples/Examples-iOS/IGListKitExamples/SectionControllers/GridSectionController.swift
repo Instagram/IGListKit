@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class GridItem: NSObject {
+final class GridItem: NSObject {
 
     let color: UIColor
     let itemCount: Int
@@ -27,21 +27,21 @@ class GridItem: NSObject {
 
 }
 
-extension GridItem: IGListDiffable {
-    
+extension GridItem: ListDiffable {
+
     func diffIdentifier() -> NSObjectProtocol {
         return self
     }
-    
-    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         return self === object ? true : self.isEqual(object)
     }
-    
+
 }
 
-final class GridSectionController: IGListSectionController, IGListSectionType {
+final class GridSectionController: ListSectionController {
 
-    var object: GridItem?
+    private var object: GridItem?
 
     override init() {
         super.init()
@@ -49,27 +49,27 @@ final class GridSectionController: IGListSectionController, IGListSectionType {
         self.minimumLineSpacing = 1
     }
 
-    func numberOfItems() -> Int {
+    override func numberOfItems() -> Int {
         return object?.itemCount ?? 0
     }
 
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         let width = collectionContext?.containerSize.width ?? 0
         let itemSize = floor(width / 4)
         return CGSize(width: itemSize, height: itemSize)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as! CenterLabelCell
-        cell.label.text = "\(index + 1)"
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
+        guard let cell = collectionContext?.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as? CenterLabelCell else {
+            fatalError()
+        }
+        cell.text = "\(index + 1)"
         cell.backgroundColor = object?.color
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         self.object = object as? GridItem
     }
-
-    func didSelectItem(at index: Int) {}
 
 }

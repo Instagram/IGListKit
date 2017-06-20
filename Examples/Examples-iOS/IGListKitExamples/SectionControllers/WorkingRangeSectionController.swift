@@ -15,13 +15,13 @@
 import UIKit
 import IGListKit
 
-final class WorkingRangeSectionController: IGListSectionController, IGListSectionType, IGListWorkingRangeDelegate {
+final class WorkingRangeSectionController: ListSectionController, ListWorkingRangeDelegate {
 
-    var height: Int?
-    var downloadedImage: UIImage?
-    var task: URLSessionDataTask?
+    private var height: Int?
+    private var downloadedImage: UIImage?
+    private var task: URLSessionDataTask?
 
-    var urlString: String? {
+    private var urlString: String? {
         guard let height = height,
             let width = collectionContext?.containerSize.width
             else { return nil }
@@ -37,48 +37,45 @@ final class WorkingRangeSectionController: IGListSectionController, IGListSectio
         workingRangeDelegate = self
     }
 
-    func numberOfItems() -> Int {
+    override func numberOfItems() -> Int {
         return 2
     }
 
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         let width: CGFloat = collectionContext?.containerSize.width ?? 0
         let height: CGFloat = CGFloat(index == 0 ? 55 : (self.height ?? 0))
         return CGSize(width: width, height: height)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cellClass: AnyClass = index == 0 ? LabelCell.self : ImageCell.self
         let cell = collectionContext!.dequeueReusableCell(of: cellClass, for: self, at: index)
         if let cell = cell as? LabelCell {
-            cell.label.text = urlString
+            cell.text = urlString
         } else if let cell = cell as? ImageCell {
             cell.setImage(image: downloadedImage)
         }
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         self.height = object as? Int
     }
 
-    func didSelectItem(at index: Int) {}
+    // MARK: ListWorkingRangeDelegate
 
-    //MARK: IGListWorkingRangeDelegate
-
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerWillEnterWorkingRange sectionController: IGListSectionController) {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerWillEnterWorkingRange sectionController: ListSectionController) {
         guard downloadedImage == nil,
             task == nil,
             let urlString = urlString,
             let url = URL(string: urlString)
             else { return }
 
-        let section = collectionContext?.section(for: self) ?? 0
-        print("Downloading image \(urlString) for section \(section)")
+        print("Downloading image \(urlString) for section \(self.section)")
 
-        task = URLSession.shared.dataTask(with: url) { data, response, err in
+        task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, let image = UIImage(data: data) else {
-                return print("Error downloading \(urlString): \(err)")
+                return print("Error downloading \(urlString): " + String(describing: error))
             }
             DispatchQueue.main.async {
                 self.downloadedImage = image
@@ -90,6 +87,6 @@ final class WorkingRangeSectionController: IGListSectionController, IGListSectio
         task?.resume()
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerDidExitWorkingRange sectionController: IGListSectionController) {}
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerDidExitWorkingRange sectionController: ListSectionController) {}
 
 }

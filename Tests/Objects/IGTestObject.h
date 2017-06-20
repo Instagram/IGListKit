@@ -11,6 +11,8 @@
 
 #import <IGListKit/IGListKit.h>
 
+#define genTestObject(k, v) [[IGTestObject alloc] initWithKey:k value:v]
+
 @interface IGTestObject : NSObject <IGListDiffable, NSCopying>
 
 - (instancetype)initWithKey:(id <NSCopying>)key value:(id)value;

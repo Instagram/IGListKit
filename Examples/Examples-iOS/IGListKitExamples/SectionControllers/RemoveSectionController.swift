@@ -18,38 +18,34 @@ protocol RemoveSectionControllerDelegate: class {
     func removeSectionControllerWantsRemoved(_ sectionController: RemoveSectionController)
 }
 
-final class RemoveSectionController: IGListSectionController, IGListSectionType, RemoveCellDelegate {
+final class RemoveSectionController: ListSectionController, RemoveCellDelegate {
 
     weak var delegate: RemoveSectionControllerDelegate?
-    var number: Int?
+    private var number: Int?
 
     override init() {
         super.init()
         inset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
     }
 
-    func numberOfItems() -> Int {
-        return 1
-    }
-
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext?.dequeueReusableCell(of: RemoveCell.self, for: self, at: index) as! RemoveCell
-        cell.label.text = "Cell: \((number ?? 0) + 1)"
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
+        guard let cell = collectionContext?.dequeueReusableCell(of: RemoveCell.self, for: self, at: index) as? RemoveCell else {
+            fatalError()
+        }
+        cell.text = "Cell: \((number ?? 0) + 1)"
         cell.delegate = self
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         number = object as? Int
     }
 
-    func didSelectItem(at index: Int) {}
-
-    //MARK: RemoveCellDelegate
+    // MARK: RemoveCellDelegate
 
     func removeCellDidTapButton(_ cell: RemoveCell) {
         delegate?.removeSectionControllerWantsRemoved(self)

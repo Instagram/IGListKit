@@ -14,9 +14,12 @@
 @implementation UICollectionView (IGListBatchUpdateData)
 
 - (void)ig_applyBatchUpdateData:(IGListBatchUpdateData *)updateData {
-    [self deleteItemsAtIndexPaths:[updateData.deleteIndexPaths allObjects]];
-    [self insertItemsAtIndexPaths:[updateData.insertIndexPaths allObjects]];
-    [self reloadItemsAtIndexPaths:[updateData.reloadIndexPaths allObjects]];
+    [self deleteItemsAtIndexPaths:updateData.deleteIndexPaths];
+    [self insertItemsAtIndexPaths:updateData.insertIndexPaths];
+
+    for (IGListMoveIndexPath *move in updateData.moveIndexPaths) {
+        [self moveItemAtIndexPath:move.from toIndexPath:move.to];
+    }
 
     for (IGListMoveIndex *move in updateData.moveSections) {
         [self moveSection:move.from toSection:move.to];

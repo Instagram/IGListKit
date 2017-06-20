@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  A result object returned when diffing with indexes.
  */
+NS_SWIFT_NAME(ListIndexSetResult)
 @interface IGListIndexSetResult : NSObject
 
 /**
@@ -29,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSIndexSet *deletes;
 
 /**
- The indexes in the new collection that need updated.
+ The indexes in the old collection that need updated.
  */
 @property (nonatomic, strong, readonly) NSIndexSet *updates;
 
@@ -39,11 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSArray<IGListMoveIndex *> *moves;
 
 /**
- Returns whether the result has any changes or not.
-
- @return `YES` if the result has changes, `NO` otherwise.
+ A Read-only boolean that indicates whether the result has any changes or not.
+ `YES` if the result has changes, `NO` otherwise.
  */
-- (BOOL)hasChanges;
+@property (nonatomic, assign, readonly) BOOL hasChanges;
 
 /**
  Returns the index of the object with the specified identifier *before* the diff.

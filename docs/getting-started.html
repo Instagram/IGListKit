@@ -13,7 +13,7 @@
     <a title="Getting Started  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (100% documented)</p>
+        <p><a href="index.html">IGListKit Docs</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -31,6 +31,9 @@
             <a href="Guides.html">Guides</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="best-practices-and-faq.html">Best Practices and FAQ</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="getting-started.html">Getting Started</a>
               </li>
               <li class="nav-group-task">
@@ -41,6 +44,15 @@
               </li>
               <li class="nav-group-task">
                 <a href="migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="vision.html">VISION</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="working-with-core-data.html">Working with Core Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="working-with-uicollectionview.html">Working with UICollectionView</a>
               </li>
             </ul>
           </li>
@@ -68,10 +80,13 @@
                 <a href="Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
+                <a href="Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/IGListGridCollectionViewLayout.html">IGListGridCollectionViewLayout</a>
+                <a href="Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -134,6 +149,18 @@
                 <a href="Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="Protocols/IGListBatchContext.html">IGListBatchContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBindable.html">IGListBindable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
@@ -144,9 +171,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Protocols/IGListSectionType.html">IGListSectionType</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
@@ -214,44 +238,50 @@
         <section>
           <section class="section">
             
-            <a href='#getting-started' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='getting-started'>Getting Started</h1>
+            <h1 id='getting-started' class='heading'>Getting Started</h1>
 
 <p>This guide provides a brief overview for how to get started using <code>IGListKit</code>.</p>
-<a href='#creating-your-first-list' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='creating-your-first-list'>Creating your first list</h2>
+<h2 id='creating-your-first-list' class='heading'>Creating your first list</h2>
 
 <p>After installing <code>IGListKit</code>, creating a new list is easy.</p>
-<a href='#creating-a-section-controller' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='creating-a-section-controller'>Creating a section controller</h3>
+<h3 id='creating-a-section-controller' class='heading'>Creating a section controller</h3>
 
-<p>Creating a new section controller is simple. You subclass <code>IGListSectionController</code> and conform to the <code>IGListSectionType</code> protocol. Once you conform to <code>IGListSectionType</code>, the compiler will make sure you implement all of the required methods.</p>
+<p>Creating a new section controller is simple. Subclass <code>IGListSectionController</code> and override at least <code>cellForItemAtIndex:</code> and <code>sizeForItemAtIndex:</code>.</p>
 
 <p>Take a look at <a href="https://raw.githubusercontent.com/Instagram/IGListKit/master/Examples/Examples-iOS/IGListKitExamples/SectionControllers/LabelSectionController.swift">LabelSectionController</a> for an example section controller that handles a <code>String</code> and configures a single cell with a <code>UILabel</code>.</p>
-<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">LabelSectionController</span><span class="p">:</span> <span class="kt">IGListSectionController</span><span class="p">,</span> <span class="kt">IGListSectionType</span> <span class="p">{</span>
-  <span class="c1">// ...</span>
+<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">LabelSectionController</span><span class="p">:</span> <span class="kt">ListSectionController</span> <span class="p">{</span>
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">sizeForItem</span><span class="p">(</span><span class="n">at</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="n">collectionContext</span><span class="o">!.</span><span class="n">containerSize</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">55</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">cellForItem</span><span class="p">(</span><span class="n">at</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionViewCell</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">collectionContext</span><span class="o">!.</span><span class="nf">dequeueReusableCell</span><span class="p">(</span><span class="nv">of</span><span class="p">:</span> <span class="kt">MyCell</span><span class="o">.</span><span class="k">self</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">at</span><span class="p">:</span> <span class="n">index</span><span class="p">)</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<a href='#creating-the-ui' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='creating-the-ui'>Creating the UI</h3>
+<h3 id='creating-the-ui' class='heading'>Creating the UI</h3>
 
-<p>After creating at least one section controller, you must create an <code>IGListCollectionView</code> and <code>IGListAdapter</code>.</p>
+<p>After creating at least one section controller, you must create a <code>UICollectionView</code> and <code>IGListAdapter</code>.</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">layout</span> <span class="o">=</span> <span class="kt">UICollectionViewFlowLayout</span><span class="p">()</span>
-<span class="k">let</span> <span class="nv">collectionView</span> <span class="o">=</span> <span class="kt">IGListCollectionView</span><span class="p">(</span><span class="nv">frame</span><span class="p">:</span> <span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="nv">collectionViewLayout</span><span class="p">:</span> <span class="n">layout</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">collectionView</span> <span class="o">=</span> <span class="kt">UICollectionView</span><span class="p">(</span><span class="nv">frame</span><span class="p">:</span> <span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="nv">collectionViewLayout</span><span class="p">:</span> <span class="n">layout</span><span class="p">)</span>
 
-<span class="k">let</span> <span class="nv">updater</span> <span class="o">=</span> <span class="kt">IGListAdapterUpdater</span><span class="p">()</span>
-<span class="k">let</span> <span class="nv">adapter</span> <span class="o">=</span> <span class="kt">IGListAdapter</span><span class="p">(</span><span class="nv">updater</span><span class="p">:</span> <span class="n">updater</span><span class="p">,</span> <span class="nv">viewController</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">workingRangeSize</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">updater</span> <span class="o">=</span> <span class="kt">ListAdapterUpdater</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">adapter</span> <span class="o">=</span> <span class="kt">ListAdapter</span><span class="p">(</span><span class="nv">updater</span><span class="p">:</span> <span class="n">updater</span><span class="p">,</span> <span class="nv">viewController</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
 <span class="n">adapter</span><span class="o">.</span><span class="n">collectionView</span> <span class="o">=</span> <span class="n">collectionView</span>
 </code></pre>
 
 <blockquote>
 <p><strong>Note:</strong> This example is done within a <code>UIViewController</code> and uses both a stock <code>UICollectionViewFlowLayout</code> and <code>IGListAdapterUpdater</code>. You can use your own layout and updater if you need advanced features!</p>
 </blockquote>
-<a href='#connecting-the-data-source' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='connecting-the-data-source'>Connecting the data source</h3>
+<h3 id='connecting-the-data-source' class='heading'>Connecting the data source</h3>
 
-<p>The last step is the <code>IGListAdapter</code>&rsquo;s data source and returning some data.</p>
-<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">objects</span><span class="p">(</span><span class="k">for</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">IGListAdapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">IGListDiffable</span><span class="p">]</span> <span class="p">{</span>
+<p>The last step is the <code>IGListAdapter</code>&lsquo;s data source and returning some data.</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">objects</span><span class="p">(</span><span class="k">for</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">ListAdapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]</span> <span class="p">{</span>
   <span class="c1">// this can be anything!</span>
   <span class="k">return</span> <span class="p">[</span> <span class="s">"Foo"</span><span class="p">,</span> <span class="s">"Bar"</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="s">"Biz"</span> <span class="p">]</span>
 <span class="p">}</span>
 
-<span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">IGListAdapter</span><span class="p">,</span> <span class="n">sectionControllerFor</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">IGListSectionController</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">ListAdapter</span><span class="p">,</span> <span class="n">sectionControllerFor</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ListSectionController</span> <span class="p">{</span>
   <span class="k">if</span> <span class="n">object</span> <span class="k">is</span> <span class="kt">String</span> <span class="p">{</span>
     <span class="k">return</span> <span class="kt">LabelSectionController</span><span class="p">()</span>
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -259,15 +289,18 @@
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kd">func</span> <span class="nf">emptyView</span><span class="p">(</span><span class="k">for</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">IGListAdapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIView</span><span class="p">?</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="nf">emptyView</span><span class="p">(</span><span class="k">for</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">ListAdapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIView</span><span class="p">?</span> <span class="p">{</span>
   <span class="k">return</span> <span class="kc">nil</span>
 <span class="p">}</span>
 </code></pre>
 
 <p>You can return an array of <em>any</em> type of data, as long as it conforms to <code>IGListDiffable</code>.</p>
-<a href='#diffing' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='diffing'>Diffing</h2>
+<h3 id='immutability' class='heading'>Immutability</h3>
 
-<p><code>IGListKit</code> uses an algorithm adapted from a paper titled <a href="http://dl.acm.org/citation.cfm?id=359467&amp;dl=ACM&amp;coll=DL">A technique for isolating differences between files</a> by Paul Heckel. This algorithm uses a technique known as the <em>longest common subsequence</em> to find a minimal diff between collections in linear time <code>O(n)</code>. It finds all <strong>inserts</strong>, <strong>deletes</strong>, <strong>updates</strong>, and <strong>moves</strong> between arrays of data.</p>
+<p>The data should be immutable. If you return mutable objects that you will be editing later, <code>IGListKit</code> will not be able to diff the models accurately. This is because the instances have already been changed. Thus, the updates to the objects would be lost. Instead, always return a newly instantiated, immutable object and implement <code>IGListDiffable</code>.</p>
+<h2 id='diffing' class='heading'>Diffing</h2>
+
+<p><code>IGListKit</code> uses an algorithm adapted from a paper titled <a href="http://dl.acm.org/citation.cfm?id=359467&dl=ACM&coll=DL">A technique for isolating differences between files</a> by Paul Heckel. This algorithm uses a technique known as the <em>longest common subsequence</em> to find a minimal diff between collections in linear time <code>O(n)</code>. It finds all <strong>inserts</strong>, <strong>deletes</strong>, <strong>updates</strong>, and <strong>moves</strong> between arrays of data.</p>
 
 <p>To add custom, diffable models, you need to conform to the <code>IGListDiffable</code> protocol and implement <code>diffIdentifier()</code> and <code>isEqual(toDiffableObject:)</code>.</p>
 
@@ -311,34 +344,34 @@
 <blockquote>
 <p><strong>Note:</strong> Remember that <code>isEqual(toDiffableObject:)</code> should return <code>false</code> when you want to reload the cells in the corresponding section controller.</p>
 </blockquote>
-<a href='#diffing-outside-of-iglistkit' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='diffing-outside-of-iglistkit'>Diffing outside of IGListKit</h3>
+<h3 id='diffing-outside-of-iglistkit' class='heading'>Diffing outside of IGListKit</h3>
 
 <p>If you want to use the diffing algorithm outside of <code>IGListAdapter</code> and <code>UICollectionView</code>, you can! The diffing algorithm was built with the flexibility to be used with any models that conform to <code>IGListDiffable</code>.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="kt">IGListDiff</span><span class="p">(</span><span class="n">oldUsers</span><span class="p">,</span> <span class="n">newUsers</span><span class="p">,</span> <span class="o">.</span><span class="n">equality</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="kt">ListDiff</span><span class="p">(</span><span class="nv">oldArray</span><span class="p">:</span> <span class="n">oldUsers</span><span class="p">,</span> <span class="nv">newArray</span><span class="p">:</span> <span class="n">newUsers</span><span class="p">,</span> <span class="o">.</span><span class="n">equality</span><span class="p">)</span>
 </code></pre>
 
 <p>With this you have all of the deletes, reloads, moves, and inserts! There&rsquo;s even a function to generate <code>NSIndexPath</code> results.</p>
-<a href='#advanced-features' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='advanced-features'>Advanced Features</h2>
-<a href='#working-range' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='working-range'>Working Range</h3>
+<h2 id='advanced-features' class='heading'>Advanced Features</h2>
+<h3 id='working-range' class='heading'>Working Range</h3>
 
 <p>A <em>working range</em> is a range of section controllers who aren&rsquo;t yet visible, but are near the screen. Section controllers are notified of their entrance and exit to this range. This concept lets your section controllers <strong>prepare content</strong> before they come on screen (e.g. download images).</p>
 
 <p>The <code>IGListAdapter</code> must be initialized with a range value in order to work. This value is a multiple of the visible height or width, depending on the scroll-direction.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">adapter</span> <span class="o">=</span> <span class="kt">IGListAdapter</span><span class="p">(</span><span class="nv">updater</span><span class="p">:</span> <span class="kt">IGListAdapterUpdater</span><span class="p">(),</span>
-                     <span class="nv">viewController</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span>
-                   <span class="nv">workingRangeSize</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">// 1 before/after visible objects</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">adapter</span> <span class="o">=</span> <span class="kt">ListAdapter</span><span class="p">(</span><span class="nv">updater</span><span class="p">:</span> <span class="kt">ListAdapterUpdater</span><span class="p">(),</span>
+                   <span class="nv">viewController</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span>
+                 <span class="nv">workingRangeSize</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">// 1 before/after visible objects</span>
 </code></pre>
 
 <p><img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/workingrange.png" alt="working-range"></p>
 
 <p>You can set the weak <code>workingRangeDelegate</code> on a section controller to receive events.</p>
-<a href='#supplementary-views' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='supplementary-views'>Supplementary Views</h3>
+<h3 id='supplementary-views' class='heading'>Supplementary Views</h3>
 
 <p>Adding supplementary views to section controllers is as simple as setting the (weak) <code>supplementaryViewSource</code> and implementing the <code>IGListSupplementaryViewSource</code> protocol. This protocol works nearly the same as returning and configuring cells.</p>
-<a href='#display-delegate' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='display-delegate'>Display Delegate</h3>
+<h3 id='display-delegate' class='heading'>Display Delegate</h3>
 
 <p>Section controllers can set the weak <code>displayDelegate</code> delegate to an object, including <code>self</code>, to receive display events about a section controller and individual cells.</p>
-<a href='#custom-updaters' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='custom-updaters'>Custom Updaters</h3>
+<h3 id='custom-updaters' class='heading'>Custom Updaters</h3>
 
 <p>The default <code>IGListAdapterUpdater</code> should handle any <code>UICollectionView</code> update that you need. However, if you find the functionality lacking, or want to perform updates in a very specific way, you can create an object that conforms to the <code>IGListUpdatingDelegate</code> protocol and initialize a new <code>IGListAdapter</code> with it.</p>
 
@@ -347,8 +380,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-01-04)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

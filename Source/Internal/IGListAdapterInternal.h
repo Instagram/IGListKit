@@ -9,11 +9,13 @@
 
 #import <IGListKit/IGListAdapter.h>
 #import <IGListKit/IGListCollectionContext.h>
+#import <IGListKit/IGListBatchContext.h>
 
 #import "IGListAdapterProxy.h"
 #import "IGListDisplayHandler.h"
 #import "IGListSectionMap.h"
 #import "IGListWorkingRangeHandler.h"
+#import "IGListAdapter+UICollectionView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,12 +26,13 @@ NS_INLINE NSString *IGListReusableViewIdentifier(Class viewClass, NSString * _Nu
 
 @interface IGListAdapter ()
 <
-UICollectionViewDataSource,
-UICollectionViewDelegateFlowLayout,
-IGListCollectionContext
+IGListCollectionContext,
+IGListBatchContext
 >
 {
     __weak UICollectionView *_collectionView;
+    BOOL _isDequeuingCell;
+    BOOL _isSendingWorkingRangeDisplayUpdates;
 }
 
 @property (nonatomic, strong) id <IGListUpdatingDelegate> updater;
@@ -59,10 +62,18 @@ IGListCollectionContext
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewIdentifiers;
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewNibNames;
 
-- (NSArray *)indexPathsFromSectionController:(IGListSectionController <IGListSectionType> *)sectionController
+
+- (void)mapView:(__kindof UIView *)view toSectionController:(IGListSectionController *)sectionController;
+- (nullable IGListSectionController *)sectionControllerForView:(__kindof UIView *)view;
+- (void)removeMapForView:(__kindof UIView *)view;
+
+- (NSArray *)indexPathsFromSectionController:(IGListSectionController *)sectionController
                                      indexes:(NSIndexSet *)indexes
-                        adjustForUpdateBlock:(BOOL)adjustForUpdateBlock;
-- (nullable NSIndexPath *)indexPathForSectionController:(IGListSectionController *)controller index:(NSInteger)index;
+                  usePreviousIfInUpdateBlock:(BOOL)usePreviousIfInUpdateBlock;
+
+- (nullable NSIndexPath *)indexPathForSectionController:(IGListSectionController *)controller
+                                                  index:(NSInteger)index
+                             usePreviousIfInUpdateBlock:(BOOL)usePreviousIfInUpdateBlock;
 
 @end
 

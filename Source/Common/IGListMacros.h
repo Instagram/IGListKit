@@ -24,3 +24,7 @@
 #else
 #define IGLKLog( s, ... )
 #endif
+
+#ifndef IGLK_DEBUG_DESCRIPTION_ENABLED
+#define IGLK_DEBUG_DESCRIPTION_ENABLED DEBUG
+#endif // #ifndef IGLK_DEBUG_DESCRIPTION_ENABLED

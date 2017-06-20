@@ -15,35 +15,39 @@
 import UIKit
 import IGListKit
 
-final class ExpandableSectionController: IGListSectionController, IGListSectionType {
+final class ExpandableSectionController: ListSectionController {
 
-    var expanded = false
-    var object: String?
+    private var expanded = false
+    private var object: String?
 
-    func numberOfItems() -> Int {
-        return 1
-    }
-
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         let width = collectionContext!.containerSize.width
         let height = expanded ? LabelCell.textHeight(object ?? "", width: width) : LabelCell.singleLineHeight
         return CGSize(width: width, height: height)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
-        cell.label.numberOfLines = expanded ? 0 : 1
-        cell.label.text = object
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
+        guard let cell = collectionContext?.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as? LabelCell else {
+            fatalError()
+        }
+        cell.text = object
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         self.object = object as? String
     }
 
-    func didSelectItem(at index: Int) {
+    override func didSelectItem(at index: Int) {
         expanded = !expanded
-        collectionContext?.reload(in: self, at: IndexSet(integer: 0))
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       usingSpringWithDamping: 0.4,
+                       initialSpringVelocity: 0.6,
+                       options: [],
+                       animations: {
+                        self.collectionContext?.invalidateLayout(for: self)
+        })
     }
 
 }

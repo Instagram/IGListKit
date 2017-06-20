@@ -15,29 +15,25 @@
 import UIKit
 import IGListKit
 
-final class UserSectionController: IGListSectionController, IGListSectionType {
+final class UserSectionController: ListSectionController {
 
-    var user: User?
+    private var user: User?
 
-    func numberOfItems() -> Int {
-        return 1
-    }
-
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: DetailLabelCell.self, for: self, at: index) as! DetailLabelCell
-        cell.titleLabel.text = user?.name
-        cell.detailLabel.text = "@" + (user?.handle ?? "")
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
+        guard let cell = collectionContext?.dequeueReusableCell(of: DetailLabelCell.self, for: self, at: index) as? DetailLabelCell else {
+            fatalError()
+        }
+        cell.title = user?.name
+        cell.detail = "@" + (user?.handle ?? "")
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         self.user = object as? User
     }
-
-    func didSelectItem(at index: Int) {}
 
 }

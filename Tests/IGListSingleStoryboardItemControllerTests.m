@@ -12,14 +12,13 @@
 #import "IGTestStoryboardCell.h"
 #import "IGTestSingleStoryboardItemDataSource.h"
 #import "IGTestStoryboardViewController.h"
-
-#define genTestObject(k, v) [[IGTestObject alloc] initWithKey:k value:v]
+#import "IGListTestCase.h"
 
 #define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
 
 @interface IGListSingleStoryboardSectionControllerTests : XCTestCase
 
-@property (nonatomic, strong) IGListCollectionView *collectionView;
+@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
 @property (nonatomic, strong) IGListAdapterUpdater *updater;
 @property (nonatomic, strong) IGTestSingleStoryboardItemDataSource *dataSource;
@@ -115,7 +114,7 @@
         XCTAssertEqualObjects(cell2.label.text, @"Qux");
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:15 handler:nil];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 @end

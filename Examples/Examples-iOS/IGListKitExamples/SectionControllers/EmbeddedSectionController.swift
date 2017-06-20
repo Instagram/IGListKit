@@ -15,36 +15,32 @@
 import UIKit
 import IGListKit
 
-final class EmbeddedSectionController: IGListSectionController, IGListSectionType {
+final class EmbeddedSectionController: ListSectionController {
 
-    var number: Int?
+    private var number: Int?
 
     override init() {
         super.init()
         self.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
     }
 
-    func numberOfItems() -> Int {
-        return 1
-    }
-
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         let height = collectionContext?.containerSize.height ?? 0
         return CGSize(width: height, height: height)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as! CenterLabelCell
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
+        guard let cell = collectionContext?.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as? CenterLabelCell else {
+            fatalError()
+        }
         let value = number ?? 0
-        cell.label.text = "\(value + 1)"
+        cell.text = "\(value + 1)"
         cell.backgroundColor = UIColor(red: 237/255.0, green: 73/255.0, blue: 86/255.0, alpha: 1)
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         number = object as? Int
     }
-
-    func didSelectItem(at index: Int) {}
 
 }

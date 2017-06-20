@@ -12,35 +12,40 @@
 @class IGListAdapter;
 @class IGListSectionController;
 
-@protocol IGListSectionType;
+
+
+NS_ASSUME_NONNULL_BEGIN
 
 /**
- Implement this protocol to receive display events for an section controller when it is on screen.
+ Implement this protocol to receive display events for a section controller when it is on screen.
  */
+NS_SWIFT_NAME(ListScrollDelegate)
 @protocol IGListScrollDelegate <NSObject>
 
 /**
  Tells the delegate that the section controller was scrolled on screen.
 
- @param listAdapter       The list adapter whose collection view was scrolled.
+ @param listAdapter The list adapter whose collection view was scrolled.
  @param sectionController The visible section controller that was scrolled.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter didScrollSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
+- (void)listAdapter:(IGListAdapter *)listAdapter didScrollSectionController:(IGListSectionController *)sectionController;
 
 /**
  Tells the delegate that the section controller will be dragged on screen.
 
- @param listAdapter       The list adapter whose collection view will drag.
+ @param listAdapter The list adapter whose collection view will drag.
  @param sectionController The visible section controller that will drag.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter willBeginDraggingSectionController:(IGListSectionController <IGListSectionType> *)sectionController;
+- (void)listAdapter:(IGListAdapter *)listAdapter willBeginDraggingSectionController:(IGListSectionController *)sectionController;
 
 /**
  Tells the delegate that the section controller did end dragging on screen.
 
- @param listAdapter       The list adapter whose collection view ended dragging.
+ @param listAdapter The list adapter whose collection view ended dragging.
  @param sectionController The visible section controller that ended dragging.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter didEndDraggingSectionController:(IGListSectionController <IGListSectionType> *)sectionController willDecelerate:(BOOL)decelerate;
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDraggingSectionController:(IGListSectionController *)sectionController willDecelerate:(BOOL)decelerate;
 
 @end
+
+NS_ASSUME_NONNULL_END

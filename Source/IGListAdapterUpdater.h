@@ -18,13 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  An `IGListAdapterUpdater` is a concrete type that conforms to `IGListUpdatingDelegate`.
- It is an out-of-box upater for `IGListAdapter` objects to use.
+ It is an out-of-box updater for `IGListAdapter` objects to use.
 
  @note This updater performs re-entrant, coalesced updating for a list. It also uses a least-minimal diff 
  for calculating UI updates when `IGListAdapter` calls 
  `-performUpdateWithCollectionView:fromObjects:toObjects:completion:`.
  */
 IGLK_SUBCLASSING_RESTRICTED
+NS_SWIFT_NAME(ListAdapterUpdater)
 @interface IGListAdapterUpdater : NSObject <IGListUpdatingDelegate>
 
 /**

@@ -14,15 +14,24 @@
 
 import UIKit
 
-class ManuallySelfSizingCell: UICollectionViewCell {
+final class ManuallySelfSizingCell: UICollectionViewCell {
 
-    let label: UILabel = {
+    private let label: UILabel = {
         let label = UILabel()
         label.backgroundColor = UIColor.green.withAlphaComponent(0.1)
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+
+    var text: String? {
+        get {
+            return label.text
+        }
+        set {
+            label.text = newValue
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,12 +40,36 @@ class ManuallySelfSizingCell: UICollectionViewCell {
 
         contentView.addSubview(label)
 
-        NSLayoutConstraint(item: label, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 15).isActive = true
-        NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1, constant: 15).isActive = true
-        NSLayoutConstraint(item: contentView, attribute: .bottom, relatedBy: .equal, toItem: label, attribute: .bottom, multiplier: 1, constant: 15).isActive = true
-        NSLayoutConstraint(item: contentView, attribute: .trailing, relatedBy: .equal, toItem: label, attribute: .trailing, multiplier: 1, constant: 15).isActive = true
+        NSLayoutConstraint(item: label,
+                           attribute: .top,
+                           relatedBy: .equal,
+                           toItem: contentView,
+                           attribute: .top,
+                           multiplier: 1,
+                           constant: 15).isActive = true
+        NSLayoutConstraint(item: label,
+                           attribute: .leading,
+                           relatedBy: .equal,
+                           toItem: contentView,
+                           attribute: .leading,
+                           multiplier: 1,
+                           constant: 15).isActive = true
+        NSLayoutConstraint(item: contentView,
+                           attribute: .bottom,
+                           relatedBy: .equal,
+                           toItem: label,
+                           attribute: .bottom,
+                           multiplier: 1,
+                           constant: 15).isActive = true
+        NSLayoutConstraint(item: contentView,
+                           attribute: .trailing,
+                           relatedBy: .equal,
+                           toItem: label,
+                           attribute: .trailing,
+                           multiplier: 1,
+                           constant: 15).isActive = true
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -51,5 +84,5 @@ class ManuallySelfSizingCell: UICollectionViewCell {
         layoutAttributes.frame = newFrame
         return layoutAttributes
     }
-    
+
 }

@@ -15,14 +15,14 @@
 import UIKit
 import IGListKit
 
-final class MixedDataViewController: UIViewController, IGListAdapterDataSource {
+final class MixedDataViewController: UIViewController, ListAdapterDataSource {
 
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
-    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-    let data = [
+    let data: [Any] = [
         "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.",
         GridItem(color: UIColor(red: 237/255.0, green: 73/255.0, blue: 86/255.0, alpha: 1), itemCount: 6),
         User(pk: 2, name: "Ryan Olson", handle: "ryanolsonk"),
@@ -34,8 +34,8 @@ final class MixedDataViewController: UIViewController, IGListAdapterDataSource {
         GridItem(color: UIColor(red: 112/255.0, green: 192/255.0, blue: 80/255.0, alpha: 1), itemCount: 3),
         "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
         GridItem(color: UIColor(red: 163/255.0, green: 42/255.0, blue: 186/255.0, alpha: 1), itemCount: 7),
-        User(pk: 1, name: "Ryan Nystrom", handle: "_ryannystrom"),
-    ] as [Any]
+        User(pk: 1, name: "Ryan Nystrom", handle: "_ryannystrom")
+        ]
 
     let segments: [(String, Any.Type?)] = [
         ("All", nil),
@@ -43,12 +43,13 @@ final class MixedDataViewController: UIViewController, IGListAdapterDataSource {
         ("Text", String.self),
         ("Users", User.self)
     ]
+
     var selectedClass: Any.Type?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let control = UISegmentedControl(items: segments.map { return $0.0 } )
+        let control = UISegmentedControl(items: segments.map { return $0.0 })
         control.selectedSegmentIndex = 0
         control.addTarget(self, action: #selector(MixedDataViewController.onControl(_:)), for: .valueChanged)
         navigationItem.titleView = control
@@ -68,17 +69,17 @@ final class MixedDataViewController: UIViewController, IGListAdapterDataSource {
         adapter.performUpdates(animated: true, completion: nil)
     }
 
-    //MARK: IGListAdapterDataSource
+    // MARK: ListAdapterDataSource
 
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         guard selectedClass != nil else {
-            return data.map { $0 as! IGListDiffable }
+            return data.map { $0 as! ListDiffable }
         }
         return data.filter { type(of: $0) == selectedClass! }
-                   .map { $0 as! IGListDiffable }
+            .map { $0 as! ListDiffable }
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         switch object {
         case is String:   return ExpandableSectionController()
         case is GridItem: return GridSectionController()
@@ -86,6 +87,5 @@ final class MixedDataViewController: UIViewController, IGListAdapterDataSource {
         }
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
-
+    func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
 }
