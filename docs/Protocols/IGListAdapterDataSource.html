@@ -14,7 +14,7 @@
     <a title="IGListAdapterDataSource Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (100% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -32,6 +32,9 @@
             <a href="../Guides.html">Guides</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../best-practices-and-faq.html">Best Practices and FAQ</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../getting-started.html">Getting Started</a>
               </li>
               <li class="nav-group-task">
@@ -42,6 +45,15 @@
               </li>
               <li class="nav-group-task">
                 <a href="../migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../vision.html">VISION</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-core-data.html">Working with Core Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-uicollectionview.html">Working with UICollectionView</a>
               </li>
             </ul>
           </li>
@@ -69,10 +81,13 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
+                <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListGridCollectionViewLayout.html">IGListGridCollectionViewLayout</a>
+                <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -135,6 +150,18 @@
                 <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListBatchContext.html">IGListBatchContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindable.html">IGListBindable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
@@ -145,9 +172,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/IGListSectionType.html">IGListSectionType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
@@ -251,11 +275,6 @@
     <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">objects</span><span class="p">(</span><span class="k">for</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="o">!</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -270,7 +289,6 @@
                               <td>
                                 <div>
                                   <p>The list adapter requesting this information.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -280,7 +298,6 @@
                       <div>
                         <h4>Return Value</h4>
                         <p>An array of objects for the list.</p>
-
                       </div>
                     </section>
                   </div>
@@ -299,7 +316,6 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Asks the data source for a section controller for the specified object in the list.</p>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>New section controllers should be initialized here for objects when asked. You may pass any other data to
@@ -308,17 +324,17 @@ the section controller at this time.</p>
 </div>
 
 <p>Section controllers are initialized for all objects whenever the <code><a href="../Classes/IGListAdapter.html">IGListAdapter</a></code> is created, updated, or reloaded.
-Section controllers are reused when objects are moved or updated. Maintaining the <code>-[IGListDiffable diffIdentifier]</code>
-guarentees this.</p>
+Section controllers are reused when objects are moved or updated. Maintaining the <code><a href="../Protocols/IGListDiffable.html#/c:objc(pl)IGListDiffable(im)diffIdentifier">-[IGListDiffable diffIdentifier]</a></code>
+guarantees this.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span>
-               <span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
-<span class="nf">sectionControllerForObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:</span>
+                                         <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
+                      <span class="nf">sectionControllerForObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -335,7 +351,6 @@ guarentees this.</p>
                               <td>
                                 <div>
                                   <p>The list adapter requesting this information.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -348,7 +363,6 @@ guarentees this.</p>
                               <td>
                                 <div>
                                   <p>An object in the list.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -358,7 +372,6 @@ guarentees this.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>A new section controller instance that can be displayed in the list.</p>
-
                       </div>
                     </section>
                   </div>
@@ -377,7 +390,6 @@ guarentees this.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Asks the data source for a view to use as the collection view background when the list is empty.</p>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>This method is called every time the list adapter is updated. You are free to return new views every time,
@@ -395,11 +407,6 @@ adding the background view and maintaining its visibility.</p>
     <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">emptyView</span><span class="p">(</span><span class="k">for</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="o">!</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -414,7 +421,6 @@ adding the background view and maintaining its visibility.</p>
                               <td>
                                 <div>
                                   <p>The list adapter requesting this information.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -424,7 +430,6 @@ adding the background view and maintaining its visibility.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>A view to use as the collection view background, or <code>nil</code> if you don&rsquo;t want a background view.</p>
-
                       </div>
                     </section>
                   </div>
@@ -434,8 +439,8 @@ adding the background view and maintaining its visibility.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-01-04)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

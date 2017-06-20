@@ -14,51 +14,53 @@
 
 import IGListKit
 
-final class FeedItemSectionController: IGListSectionController, IGListSectionType, IGListSupplementaryViewSource {
+final class FeedItemSectionController: ListSectionController, ListSupplementaryViewSource {
 
-    var feedItem: FeedItem!
+    private var feedItem: FeedItem!
 
     override init() {
         super.init()
         supplementaryViewSource = self
     }
 
-    // MARK: IGlistSectionType
+    // MARK: IGListSectionController Overrides
 
-    func numberOfItems() -> Int {
+    override func numberOfItems() -> Int {
         return feedItem.comments.count
     }
 
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext?.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
-        cell.label.text = feedItem.comments[index]
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
+        guard let cell = collectionContext?.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as? LabelCell else {
+            fatalError()
+        }
+        cell.text = feedItem.comments[index]
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         feedItem = object as? FeedItem
     }
 
-    func didSelectItem(at index: Int) {}
-
-    // MARK: IGListSupplementaryViewSource
+    // MARK: ListSupplementaryViewSource
 
     func supportedElementKinds() -> [String] {
         return [UICollectionElementKindSectionHeader]
     }
 
     func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
-        let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
+        guard let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
                                                                        for: self,
                                                                        nibName: "UserHeaderView",
                                                                        bundle: nil,
-                                                                       at: index) as! UserHeaderView
-        view.handleLabel.text = "@" + feedItem.user.handle
-        view.nameLabel.text = feedItem.user.name
+                                                                       at: index) as? UserHeaderView else {
+                                                                        fatalError()
+        }
+        view.handle = "@" + feedItem.user.handle
+        view.name = feedItem.user.name
         return view
     }
 

@@ -14,7 +14,7 @@
     <a title="IGListScrollDelegate Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (100% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -32,6 +32,9 @@
             <a href="../Guides.html">Guides</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../best-practices-and-faq.html">Best Practices and FAQ</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../getting-started.html">Getting Started</a>
               </li>
               <li class="nav-group-task">
@@ -42,6 +45,15 @@
               </li>
               <li class="nav-group-task">
                 <a href="../migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../vision.html">VISION</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-core-data.html">Working with Core Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-uicollectionview.html">Working with UICollectionView</a>
               </li>
             </ul>
           </li>
@@ -69,10 +81,13 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
+                <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListGridCollectionViewLayout.html">IGListGridCollectionViewLayout</a>
+                <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -135,6 +150,18 @@
                 <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListBatchContext.html">IGListBatchContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindable.html">IGListBindable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
@@ -145,9 +172,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/IGListSectionType.html">IGListSectionType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
@@ -221,7 +245,7 @@
 
                 </div>
               </div>
-            <p>Implement this protocol to receive display events for an section controller when it is on screen.</p>
+            <p>Implement this protocol to receive display events for a section controller when it is on screen.</p>
 
           </section>
           <section class="section task-group-section">
@@ -247,9 +271,9 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
     <span class="nf">didScrollSectionController</span><span class="p">:</span>
-        <span class="p">(</span><span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
+        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -266,7 +290,6 @@
                               <td>
                                 <div>
                                   <p>The list adapter whose collection view was scrolled.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -279,7 +302,6 @@
                               <td>
                                 <div>
                                   <p>The visible section controller that was scrolled.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -309,9 +331,9 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
     <span class="nf">willBeginDraggingSectionController</span><span class="p">:</span>
-        <span class="p">(</span><span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
+        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -328,7 +350,6 @@
                               <td>
                                 <div>
                                   <p>The list adapter whose collection view will drag.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -341,7 +362,6 @@
                               <td>
                                 <div>
                                   <p>The visible section controller that will drag.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -371,9 +391,9 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
     <span class="nf">didEndDraggingSectionController</span><span class="p">:</span>
-        <span class="p">(</span><span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span>
+        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span>
                      <span class="nf">willDecelerate</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">decelerate</span><span class="p">;</span></code></pre>
 
                         </div>
@@ -391,7 +411,6 @@
                               <td>
                                 <div>
                                   <p>The list adapter whose collection view ended dragging.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -404,7 +423,6 @@
                               <td>
                                 <div>
                                   <p>The visible section controller that ended dragging.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -419,8 +437,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-01-04)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

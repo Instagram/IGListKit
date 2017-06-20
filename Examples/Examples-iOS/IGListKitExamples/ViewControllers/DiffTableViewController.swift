@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class Person: IGListDiffable {
+final class Person: ListDiffable {
 
     let pk: Int
     let name: String
@@ -29,7 +29,7 @@ final class Person: IGListDiffable {
         return pk as NSNumber
     }
 
-    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         guard let object = object as? Person else { return false }
         return self.name == object.name
     }
@@ -79,7 +79,7 @@ final class DiffTableViewController: UITableViewController {
         usingOldPeople = !usingOldPeople
         people = to
 
-        let result = IGListDiffPaths(0, 0, from, to, .equality).forBatchUpdates()
+        let result = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: from, newArray: to, option: .equality).forBatchUpdates()
 
         tableView.beginUpdates()
         tableView.deleteRows(at: result.deletes, with: .fade)

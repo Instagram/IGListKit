@@ -15,28 +15,30 @@
 import UIKit
 import IGListKit
 
-final class LabelSectionController: IGListSectionController, IGListSectionType {
-    
+final class LabelSectionController: ListSectionController {
+
     var object: String?
-    
-    func numberOfItems() -> Int {
+
+    override func numberOfItems() -> Int {
         return 1
     }
-    
-    func sizeForItem(at index: Int) -> CGSize {
+
+    override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)
     }
-    
-    func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
+
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
+        guard let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as? LabelCell else {
+            fatalError()
+        }
         cell.label.text = object
         return cell
     }
-    
-    func didUpdate(to object: Any) {
+
+    override func didUpdate(to object: Any) {
         self.object = String(describing: object)
     }
-    
-    func didSelectItem(at index: Int) {}
-    
+
+    override func didSelectItem(at index: Int) {}
+
 }

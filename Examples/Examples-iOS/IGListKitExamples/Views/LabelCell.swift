@@ -13,8 +13,9 @@
  */
 
 import UIKit
+import IGListKit
 
-class LabelCell: UICollectionViewCell {
+final class LabelCell: UICollectionViewCell {
 
     fileprivate static let insets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
     fileprivate static let font = UIFont.systemFont(ofSize: 17)
@@ -31,10 +32,10 @@ class LabelCell: UICollectionViewCell {
         return ceil(bounds.height) + insets.top + insets.bottom
     }
 
-    let label: UILabel = {
+    fileprivate let label: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
-        label.numberOfLines = 1
+        label.numberOfLines = 0
         label.font = LabelCell.font
         return label
     }()
@@ -45,13 +46,22 @@ class LabelCell: UICollectionViewCell {
         return layer
     }()
 
+    var text: String? {
+        get {
+            return label.text
+        }
+        set {
+            label.text = newValue
+        }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(label)
         contentView.layer.addSublayer(separator)
         contentView.backgroundColor = .white
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -70,5 +80,14 @@ class LabelCell: UICollectionViewCell {
             contentView.backgroundColor = UIColor(white: isHighlighted ? 0.9 : 1, alpha: 1)
         }
     }
-    
+
+}
+
+extension LabelCell: ListBindable {
+
+    func bindViewModel(_ viewModel: Any) {
+        guard let viewModel = viewModel as? String else { return }
+        label.text = viewModel
+    }
+
 }

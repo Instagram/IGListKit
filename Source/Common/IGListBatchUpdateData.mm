@@ -14,18 +14,6 @@
 
 #import <IGListKit/IGListAssert.h>
 
-// Filters indexPaths removing all paths that have a section in sections.
-static NSMutableSet *indexPathsMinusSections(NSSet<NSIndexPath *> *indexPaths, NSIndexSet *sections) {
-    NSMutableSet *filteredIndexPaths = [indexPaths mutableCopy];
-    for (NSIndexPath *indexPath in indexPaths) {
-        const NSUInteger section = indexPath.section;
-        if ([sections containsIndex:section]) {
-            [filteredIndexPaths removeObject:indexPath];
-        }
-    }
-    return filteredIndexPaths;
-}
-
 // Plucks the given move from available moves and turns it into a delete + insert
 static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
                                          IGListMoveIndex *move,
@@ -42,15 +30,16 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
 @implementation IGListBatchUpdateData
 
 // Converts all section moves that have index path operations into a section delete + insert.
-+ (void)cleanIndexPathsWithMap:(const std::unordered_map<NSUInteger, IGListMoveIndex*> &)map
++ (void)cleanIndexPathsWithMap:(const std::unordered_map<NSInteger, IGListMoveIndex*> &)map
                          moves:(NSMutableSet<IGListMoveIndex *> *)moves
-                    indexPaths:(NSMutableSet<NSIndexPath *> *)indexPaths
+                    indexPaths:(NSMutableArray<NSIndexPath *> *)indexPaths
                        deletes:(NSMutableIndexSet *)deletes
                        inserts:(NSMutableIndexSet *)inserts {
-    for (NSIndexPath *path in [indexPaths copy]) {
+    for (NSInteger i = indexPaths.count - 1; i >= 0; i--) {
+        NSIndexPath *path = indexPaths[i];
         const auto it = map.find(path.section);
         if (it != map.end() && it->second != nil) {
-            [indexPaths removeObject:path];
+            [indexPaths removeObjectAtIndex:i];
             convertMoveToDeleteAndInsert(moves, it->second, deletes, inserts);
         }
     }
@@ -63,48 +52,47 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
 - (instancetype)initWithInsertSections:(NSIndexSet *)insertSections
                         deleteSections:(NSIndexSet *)deleteSections
                           moveSections:(NSSet<IGListMoveIndex *> *)moveSections
-                      insertIndexPaths:(NSSet<NSIndexPath *> *)insertIndexPaths
-                      deleteIndexPaths:(NSSet<NSIndexPath *> *)deleteIndexPaths
-                      reloadIndexPaths:(NSSet<NSIndexPath *> *)reloadIndexPaths {
+                      insertIndexPaths:(NSArray<NSIndexPath *> *)insertIndexPaths
+                      deleteIndexPaths:(NSArray<NSIndexPath *> *)deleteIndexPaths
+                        moveIndexPaths:(NSArray<IGListMoveIndexPath *> *)moveIndexPaths {
     IGParameterAssert(insertSections != nil);
     IGParameterAssert(deleteSections != nil);
     IGParameterAssert(moveSections != nil);
     IGParameterAssert(insertIndexPaths != nil);
     IGParameterAssert(deleteIndexPaths != nil);
-    IGParameterAssert(reloadIndexPaths != nil);
+    IGParameterAssert(moveIndexPaths != nil);
     if (self = [super init]) {
         NSMutableSet<IGListMoveIndex *> *mMoveSections = [moveSections mutableCopy];
         NSMutableIndexSet *mDeleteSections = [deleteSections mutableCopy];
         NSMutableIndexSet *mInsertSections = [insertSections mutableCopy];
+        NSMutableSet<IGListMoveIndexPath *> *mMoveIndexPaths = [moveIndexPaths mutableCopy];
 
         // these collections should NEVER be mutated during cleanup passes, otherwise sections that have multiple item
         // changes (e.g. a moved section that has a delete + reload on different index paths w/in the section) will only
         // convert one of the item changes into a section delete+insert. this will fail hard and be VERY difficult to
         // debug
-        const NSUInteger moveCount = [moveSections count];
-        std::unordered_map<NSUInteger, IGListMoveIndex*> fromMap(moveCount);
-        std::unordered_map<NSUInteger, IGListMoveIndex*> toMap(moveCount);
+        const NSInteger moveCount = [moveSections count];
+        std::unordered_map<NSInteger, IGListMoveIndex*> fromMap(moveCount);
+        std::unordered_map<NSInteger, IGListMoveIndex*> toMap(moveCount);
         for (IGListMoveIndex *move in moveSections) {
-            const NSUInteger from = move.from;
-            const NSUInteger to = move.to;
+            const NSInteger from = move.from;
+            const NSInteger to = move.to;
 
-            // if the move is already deleted or inserted, discard it and use delete+insert instead
+            // if the move is already deleted or inserted, discard it because count-changing operations must match
+            // with data source changes
             if ([deleteSections containsIndex:from] || [insertSections containsIndex:to]) {
-                convertMoveToDeleteAndInsert(mMoveSections, move, mDeleteSections, mInsertSections);
+                [mMoveSections removeObject:move];
             } else {
                 fromMap[from] = move;
                 toMap[to] = move;
             }
         }
 
-        NSMutableSet<NSIndexPath *> *mInsertIndexPaths = [insertIndexPaths mutableCopy];
-        NSMutableSet<NSIndexPath *> *mDeleteIndexPaths = [deleteIndexPaths mutableCopy];
+        NSMutableArray<NSIndexPath *> *mInsertIndexPaths = [insertIndexPaths mutableCopy];
 
-        // UICollectionView will throw if reloading an index path in a section that is also deleted
-        NSMutableSet<NSIndexPath *> *mReloadIndexPaths = indexPathsMinusSections(reloadIndexPaths, deleteSections);
-
-        // UICollectionView will throw about simultaneous animations when reloading and moving cells at the same time
-        [IGListBatchUpdateData cleanIndexPathsWithMap:fromMap moves:mMoveSections indexPaths:mReloadIndexPaths deletes:mDeleteSections inserts:mInsertSections];
+        // avoid a flaky UICollectionView bug when deleting from the same index path twice
+        // exposes a possible data source inconsistency issue
+        NSMutableArray<NSIndexPath *> *mDeleteIndexPaths = [[[NSSet setWithArray:deleteIndexPaths] allObjects] mutableCopy];
 
         // avoids a bug where a cell is animated twice and one of the snapshot cells is never removed from the hierarchy
         [IGListBatchUpdateData cleanIndexPathsWithMap:fromMap moves:mMoveSections indexPaths:mDeleteIndexPaths deletes:mDeleteSections inserts:mInsertSections];
@@ -112,20 +100,37 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
         // prevents a bug where UICollectionView corrupts the heap memory when inserting into a section that is moved
         [IGListBatchUpdateData cleanIndexPathsWithMap:toMap moves:mMoveSections indexPaths:mInsertIndexPaths deletes:mDeleteSections inserts:mInsertSections];
 
+        for (IGListMoveIndexPath *move in moveIndexPaths) {
+            // if the section w/ an index path move is deleted, just drop the move
+            if ([deleteSections containsIndex:move.from.section]) {
+                [mMoveIndexPaths removeObject:move];
+            }
+
+            // if a move is inside a section that is moved, convert the section move to a delete+insert
+            const auto it = fromMap.find(move.from.section);
+            if (it != fromMap.end() && it->second != nil) {
+                IGListMoveIndex *sectionMove = it->second;
+                [mMoveIndexPaths removeObject:move];
+                [mMoveSections removeObject:sectionMove];
+                [mDeleteSections addIndex:sectionMove.from];
+                [mInsertSections addIndex:sectionMove.to];
+            }
+        }
+
         _deleteSections = [mDeleteSections copy];
         _insertSections = [mInsertSections copy];
         _moveSections = [mMoveSections copy];
         _deleteIndexPaths = [mDeleteIndexPaths copy];
         _insertIndexPaths = [mInsertIndexPaths copy];
-        _reloadIndexPaths = [mReloadIndexPaths copy];
+        _moveIndexPaths = [mMoveIndexPaths copy];
     }
     return self;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@ %p; deleteSections: %zi; insertSections: %zi; moveSections: %zi; deleteIndexPaths: %zi; insertIndexPaths: %zi; reloadIndexPaths: %zi;>",
+    return [NSString stringWithFormat:@"<%@ %p; deleteSections: %zi; insertSections: %zi; moveSections: %zi; deleteIndexPaths: %zi; insertIndexPaths: %zi;>",
             NSStringFromClass(self.class), self, self.deleteSections.count, self.insertSections.count, self.moveSections.count,
-            self.deleteIndexPaths.count, self.insertIndexPaths.count, self.reloadIndexPaths.count];
+            self.deleteIndexPaths.count, self.insertIndexPaths.count];
 }
 
 @end

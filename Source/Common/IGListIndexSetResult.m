@@ -47,7 +47,7 @@
     NSMutableArray<IGListMoveIndex *> *filteredMoves = [moves mutableCopy];
 
     // convert all update+move to delete+insert
-    const NSUInteger moveCount = moves.count;
+    const NSInteger moveCount = moves.count;
     for (NSInteger i = moveCount - 1; i >= 0; i--) {
         IGListMoveIndex *move = moves[i];
         if ([filteredUpdates containsIndex:move.from]) {

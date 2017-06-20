@@ -13,7 +13,7 @@
     <a title="Protocols  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (100% documented)</p>
+        <p><a href="index.html">IGListKit Docs</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -31,6 +31,9 @@
             <a href="Guides.html">Guides</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="best-practices-and-faq.html">Best Practices and FAQ</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="getting-started.html">Getting Started</a>
               </li>
               <li class="nav-group-task">
@@ -41,6 +44,15 @@
               </li>
               <li class="nav-group-task">
                 <a href="migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="vision.html">VISION</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="working-with-core-data.html">Working with Core Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="working-with-uicollectionview.html">Working with UICollectionView</a>
               </li>
             </ul>
           </li>
@@ -68,10 +80,13 @@
                 <a href="Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
+                <a href="Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/IGListGridCollectionViewLayout.html">IGListGridCollectionViewLayout</a>
+                <a href="Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -134,6 +149,18 @@
                 <a href="Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="Protocols/IGListBatchContext.html">IGListBatchContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBindable.html">IGListBindable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
@@ -144,9 +171,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Protocols/IGListSectionType.html">IGListSectionType</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
@@ -244,11 +268,6 @@
                           <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListAdapterDataSource</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListAdapterDataSource</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -318,9 +337,153 @@
                           <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListAdapterUpdaterDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
 
                         </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListBatchContext"></a>
+                    <a name="//apple_ref/objc/Protocol/IGListBatchContext" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListBatchContext">IGListBatchContext</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Objects conforming to the IGListBatchContext protocol provide a way for section controllers to mutate their cells or
+reload everything within the section.</p>
+
+                        <a href="Protocols/IGListBatchContext.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListBatchContext</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListAdapterUpdaterDelegate</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">ListBatchContext</span> <span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListBindable"></a>
+                    <a name="//apple_ref/objc/Protocol/IGListBindable" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListBindable">IGListBindable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A protocol for cells that configure themselves given a view model.</p>
+
+                        <a href="Protocols/IGListBindable.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListBindable</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">ListBindable</span> <span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListBindingSectionControllerDataSource"></a>
+                    <a name="//apple_ref/objc/Protocol/IGListBindingSectionControllerDataSource" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListBindingSectionControllerDataSource">IGListBindingSectionControllerDataSource</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A protocol that returns data to power cells in an <code><a href="Classes/IGListBindingSectionController.html">IGListBindingSectionController</a></code>.</p>
+
+                        <a href="Protocols/IGListBindingSectionControllerDataSource.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListBindingSectionControllerDataSource</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">ListBindingSectionControllerDataSource</span> <span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListBindingSectionControllerSelectionDelegate"></a>
+                    <a name="//apple_ref/objc/Protocol/IGListBindingSectionControllerSelectionDelegate" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListBindingSectionControllerSelectionDelegate">IGListBindingSectionControllerSelectionDelegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A protocol that handles cell selection events in an <code><a href="Classes/IGListBindingSectionController.html">IGListBindingSectionController</a></code>.</p>
+
+                        <a href="Protocols/IGListBindingSectionControllerSelectionDelegate.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListBindingSectionControllerSelectionDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">ListBindingSectionControllerSelectionDelegate</span> <span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
 
                         </div>
                       </div>
@@ -345,7 +508,7 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>The collection context provides limited access to the collection-related information that
-section controllers need for operations like sizing, dequeing cells, insterting, deleting, reloading, etc.</p>
+section controllers need for operations like sizing, dequeuing cells, insterting, deleting, reloading, etc.</p>
 
                         <a href="Protocols/IGListCollectionContext.html" class="slightly-smaller">See more</a>
                       </div>
@@ -354,11 +517,6 @@ section controllers need for operations like sizing, dequeing cells, insterting,
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListCollectionContext</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListCollectionContext</span></code></pre>
 
                         </div>
                       </div>
@@ -395,7 +553,7 @@ section controllers need for operations like sizing, dequeing cells, insterting,
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListDiffable</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">ListDiffable</span></code></pre>
 
                         </div>
                       </div>
@@ -419,7 +577,7 @@ section controllers need for operations like sizing, dequeing cells, insterting,
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Implement this protocol to receive display events for an section controller when it is on screen.</p>
+                        <p>Implement this protocol to receive display events for a section controller when it is on screen.</p>
 
                         <a href="Protocols/IGListDisplayDelegate.html" class="slightly-smaller">See more</a>
                       </div>
@@ -428,11 +586,6 @@ section controllers need for operations like sizing, dequeing cells, insterting,
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListDisplayDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListDisplayDelegate</span></code></pre>
 
                         </div>
                       </div>
@@ -456,7 +609,7 @@ section controllers need for operations like sizing, dequeing cells, insterting,
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Implement this protocol to receive display events for an section controller when it is on screen.</p>
+                        <p>Implement this protocol to receive display events for a section controller when it is on screen.</p>
 
                         <a href="Protocols/IGListScrollDelegate.html" class="slightly-smaller">See more</a>
                       </div>
@@ -465,58 +618,6 @@ section controllers need for operations like sizing, dequeing cells, insterting,
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListScrollDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListScrollDelegate</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(pl)IGListSectionType"></a>
-                    <a name="//apple_ref/objc/Protocol/IGListSectionType" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListSectionType">IGListSectionType</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Implement this protocol in order to be used within the <code>IGListKit</code> data infrastructure and be registered for use in an
-<code><a href="Classes/IGListAdapter.html">IGListAdapter</a></code>. An <code>IGListSectionType</code> conforming object represents a single instance of an object in a collection of
-objects.</p>
-
-<p>The infrastructure uses each <code>IGListSectionType</code> conforming object as a <q>view model</q> to populate and control cells as
-part of a section in a <code>UICollectionView</code>. <code>IGListSectionType</code> objects should be architected without knowledge of
-<q>global</q> state of the list in which they are contained.</p>
-
-<p>Index paths are used as a convenience for communicating the section index to each section object without allowing each
-section to mutate its own position within a list. The row of an index path can be directly mapped to a cell within
-an <code>IGListSectionType</code> conforming object.</p>
-
-                        <a href="Protocols/IGListSectionType.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListSectionType</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListSectionType</span></code></pre>
 
                         </div>
                       </div>
@@ -549,11 +650,6 @@ an <code>IGListSectionType</code> conforming object.</p>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListSingleSectionControllerDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListSingleSectionControllerDelegate</span></code></pre>
 
                         </div>
                       </div>
@@ -590,11 +686,6 @@ an <code>IGListSectionType</code> conforming object.</p>
                           <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListSupplementaryViewSource</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListSupplementaryViewSource</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -625,12 +716,7 @@ coalesce these events to a backing store or collection.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListUpdatingDelegate</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListUpdatingDelegate</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListUpdatingDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -668,11 +754,6 @@ you could begin decoding images, or warming text caches.</p>
                           <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListWorkingRangeDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">IGListWorkingRangeDelegate</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -682,8 +763,8 @@ you could begin decoding images, or warming text caches.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-01-04)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

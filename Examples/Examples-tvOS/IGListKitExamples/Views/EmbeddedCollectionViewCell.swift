@@ -16,27 +16,25 @@ import UIKit
 import IGListKit
 
 final class EmbeddedCollectionViewCell: UICollectionViewCell {
-    
-    lazy var collectionView: IGListCollectionView = {
+
+    lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let view = IGListCollectionView(frame: .zero, collectionViewLayout: layout)
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.backgroundColor = .clear
         view.alwaysBounceVertical = false
         view.alwaysBounceHorizontal = true
         self.contentView.addSubview(view)
         return view
     }()
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         collectionView.frame = contentView.frame
     }
-  
+
     override var canBecomeFocused: Bool {
-        get {
-            return false
-        }
+        return false
     }
-    
+
 }

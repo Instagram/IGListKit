@@ -15,14 +15,14 @@
 import Foundation
 import IGListKit
 
-extension NSObject: IGListDiffable {
+extension NSObject: ListDiffable {
 
     public func diffIdentifier() -> NSObjectProtocol {
         return self
     }
 
-    public func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
-        return isEqual(object);
+    public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        return isEqual(object)
     }
 
 }

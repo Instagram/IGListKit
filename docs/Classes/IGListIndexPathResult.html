@@ -14,7 +14,7 @@
     <a title="IGListIndexPathResult Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (100% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -32,6 +32,9 @@
             <a href="../Guides.html">Guides</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../best-practices-and-faq.html">Best Practices and FAQ</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../getting-started.html">Getting Started</a>
               </li>
               <li class="nav-group-task">
@@ -42,6 +45,15 @@
               </li>
               <li class="nav-group-task">
                 <a href="../migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../vision.html">VISION</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-core-data.html">Working with Core Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-uicollectionview.html">Working with UICollectionView</a>
               </li>
             </ul>
           </li>
@@ -69,10 +81,13 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
+                <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListGridCollectionViewLayout.html">IGListGridCollectionViewLayout</a>
+                <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -135,6 +150,18 @@
                 <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListBatchContext.html">IGListBatchContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindable.html">IGListBindable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
@@ -145,9 +172,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/IGListSectionType.html">IGListSectionType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
@@ -217,7 +241,8 @@
             <h1>IGListIndexPathResult</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListIndexPathResult</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
+                  <pre class="highlight"><code>
+<span class="k">@interface</span> <span class="nc">IGListIndexPathResult</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                 </div>
               </div>
@@ -304,7 +329,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The index paths in the new collection that need updated.</p>
+                        <p>The index paths in the old collection that need updated.</p>
 
                       </div>
                       <div class="declaration">
@@ -359,9 +384,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListIndexPathResult(im)hasChanges"></a>
-                    <a name="//apple_ref/objc/Method/-hasChanges" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListIndexPathResult(im)hasChanges">-hasChanges</a>
+                    <a name="/c:objc(cs)IGListIndexPathResult(py)hasChanges"></a>
+                    <a name="//apple_ref/objc/Property/hasChanges" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListIndexPathResult(py)hasChanges">hasChanges</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -369,26 +394,22 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns whether the result has any changes or not.</p>
+                        <p>A Read-only boolean that indicates whether the result has any changes or not.
+<code>YES</code> if the result has changes, <code>NO</code> otherwise.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">hasChanges</span><span class="p">;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">assign</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">hasChanges</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">hasChanges</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">hasChanges</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p><code>YES</code> if the result has changes, <code>NO</code> otherwise.</p>
-
                       </div>
                     </section>
                   </div>
@@ -407,10 +428,9 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Returns the index path of the object with the specified identifier <em>before</em> the diff.</p>
-
 <div class="aside aside-see">
     <p class="aside-title">See</p>
-    <p><code>-[IGListDiffable diffIdentifier]</code>.</p>
+    <p><code><a href="../Protocols/IGListDiffable.html#/c:objc(pl)IGListDiffable(im)diffIdentifier">-[IGListDiffable diffIdentifier]</a></code>.</p>
 
 </div>
 
@@ -442,7 +462,6 @@
                               <td>
                                 <div>
                                   <p>The diff identifier of the object.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -452,7 +471,6 @@
                       <div>
                         <h4>Return Value</h4>
                         <p>The index path of the object before the diff, or <code>nil</code>.</p>
-
                       </div>
                     </section>
                   </div>
@@ -471,10 +489,9 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Returns the index path of the object with the specified identifier <em>after</em> the diff.</p>
-
 <div class="aside aside-see">
     <p class="aside-title">See</p>
-    <p><code>-[IGListDiffable diffIdentifier]</code>.</p>
+    <p><code><a href="../Protocols/IGListDiffable.html#/c:objc(pl)IGListDiffable(im)diffIdentifier">-[IGListDiffable diffIdentifier]</a></code>.</p>
 
 </div>
 
@@ -506,7 +523,6 @@
                               <td>
                                 <div>
                                   <p>The diff identifier of the object.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -516,7 +532,6 @@
                       <div>
                         <h4>Return Value</h4>
                         <p>The index path of the object after the diff, or <code>nil</code>.</p>
-
                       </div>
                     </section>
                   </div>
@@ -546,7 +561,7 @@
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">forBatchUpdates</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">IGListIndexPathResult</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">forBatchUpdates</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ListIndexPathResult</span></code></pre>
 
                         </div>
                       </div>
@@ -558,8 +573,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-01-04)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

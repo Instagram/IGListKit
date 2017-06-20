@@ -15,9 +15,9 @@
 import UIKit
 import IGListKit
 
-final class SelfSizingSectionController: IGListSectionController, IGListSectionType {
+final class SelfSizingSectionController: ListSectionController {
 
-    var model: SelectionModel!
+    private var model: SelectionModel!
 
     override init() {
         super.init()
@@ -26,38 +26,49 @@ final class SelfSizingSectionController: IGListSectionController, IGListSectionT
         minimumInteritemSpacing = 4
     }
 
-    func numberOfItems() -> Int {
+    override func numberOfItems() -> Int {
         return model.options.count
     }
 
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         let text = model.options[index]
         let cell: UICollectionViewCell
         switch model.type {
         case .none:
-            let manualCell = collectionContext!.dequeueReusableCell(of: ManuallySelfSizingCell.self, for: self, at: index) as! ManuallySelfSizingCell
-            manualCell.label.text = text
+            guard let manualCell = collectionContext?.dequeueReusableCell(of: ManuallySelfSizingCell.self,
+                                                                    for: self,
+                                                                    at: index) as? ManuallySelfSizingCell else {
+                                                                        fatalError()
+            }
+            manualCell.text = text
             cell = manualCell
         case .fullWidth:
-            let manualCell = collectionContext!.dequeueReusableCell(of: FullWidthSelfSizingCell.self, for: self, at: index) as! FullWidthSelfSizingCell
-            manualCell.label.text = text
+            guard let manualCell = collectionContext?.dequeueReusableCell(of: FullWidthSelfSizingCell.self,
+                                                                    for: self,
+                                                                    at: index) as? FullWidthSelfSizingCell else {
+                                                                        fatalError()
+            }
+            manualCell.text = text
             cell = manualCell
         case .nib:
-            let nibCell = collectionContext!.dequeueReusableCell(withNibName: "NibSelfSizingCell", bundle: nil, for: self, at: index) as! NibSelfSizingCell
+            guard let nibCell = collectionContext?.dequeueReusableCell(withNibName: "NibSelfSizingCell",
+                                                                 bundle: nil,
+                                                                 for: self,
+                                                                 at: index) as? NibSelfSizingCell else {
+                                                                    fatalError()
+            }
             nibCell.contentLabel.text = text
             cell = nibCell
         }
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         self.model = object as? SelectionModel
     }
-
-    func didSelectItem(at index: Int) {}
 
 }

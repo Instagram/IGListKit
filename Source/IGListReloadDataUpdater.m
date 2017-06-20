@@ -49,6 +49,14 @@
     [self synchronousReloadDataWithCollectionView:collectionView];
 }
 
+- (void)moveItemInCollectionView:(UICollectionView *)collectionView fromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+    [self synchronousReloadDataWithCollectionView:collectionView];
+}
+
+- (void)reloadItemInCollectionView:(UICollectionView *)collectionView fromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+    [self synchronousReloadDataWithCollectionView:collectionView];
+}
+
 - (void)reloadItemsInCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray<NSIndexPath *> *)indexPaths {
     [self synchronousReloadDataWithCollectionView:collectionView];
 }

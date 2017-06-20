@@ -14,7 +14,7 @@
 
 import UIKit
 
-class SearchCell: UICollectionViewCell {
+final class SearchCell: UICollectionViewCell {
 
     lazy var searchBar: UISearchBar = {
         let view = UISearchBar()

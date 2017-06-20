@@ -14,7 +14,7 @@
     <a title="IGListBatchUpdateData Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (100% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -32,6 +32,9 @@
             <a href="../Guides.html">Guides</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../best-practices-and-faq.html">Best Practices and FAQ</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../getting-started.html">Getting Started</a>
               </li>
               <li class="nav-group-task">
@@ -42,6 +45,15 @@
               </li>
               <li class="nav-group-task">
                 <a href="../migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../vision.html">VISION</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-core-data.html">Working with Core Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-uicollectionview.html">Working with UICollectionView</a>
               </li>
             </ul>
           </li>
@@ -69,10 +81,13 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
+                <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListGridCollectionViewLayout.html">IGListGridCollectionViewLayout</a>
+                <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -135,6 +150,18 @@
                 <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListBatchContext.html">IGListBatchContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindable.html">IGListBindable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
@@ -145,9 +172,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/IGListSectionType.html">IGListSectionType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
@@ -217,7 +241,8 @@
             <h1>IGListBatchUpdateData</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListBatchUpdateData</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
+                  <pre class="highlight"><code>
+<span class="k">@interface</span> <span class="nc">IGListBatchUpdateData</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                 </div>
               </div>
@@ -252,11 +277,6 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSIndexSet</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">insertSections</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">insertSections</span><span class="p">:</span> <span class="kt">IndexSet</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -284,11 +304,6 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSIndexSet</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">deleteSections</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">deleteSections</span><span class="p">:</span> <span class="kt">IndexSet</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -306,7 +321,7 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>section moves.</p>
+                        <p>Section moves.</p>
 
                       </div>
                       <div class="declaration">
@@ -315,11 +330,6 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
     <span class="n">NSSet</span><span class="o">&lt;</span><span class="n"><a href="../Classes/IGListMoveIndex.html">IGListMoveIndex</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">moveSections</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">moveSections</span><span class="p">:</span> <span class="kt">Set</span></code></pre>
 
                         </div>
                       </div>
@@ -347,12 +357,7 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
-    <span class="n">NSSet</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">insertIndexPaths</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">insertIndexPaths</span><span class="p">:</span> <span class="kt">Set</span></code></pre>
+    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">insertIndexPaths</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -380,12 +385,7 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
-    <span class="n">NSSet</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">deleteIndexPaths</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">deleteIndexPaths</span><span class="p">:</span> <span class="kt">Set</span></code></pre>
+    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">deleteIndexPaths</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -395,9 +395,9 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListBatchUpdateData(py)reloadIndexPaths"></a>
-                    <a name="//apple_ref/objc/Property/reloadIndexPaths" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListBatchUpdateData(py)reloadIndexPaths">reloadIndexPaths</a>
+                    <a name="/c:objc(cs)IGListBatchUpdateData(py)moveIndexPaths"></a>
+                    <a name="//apple_ref/objc/Property/moveIndexPaths" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBatchUpdateData(py)moveIndexPaths">moveIndexPaths</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -405,7 +405,7 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Item reload index paths.</p>
+                        <p>Item moves.</p>
 
                       </div>
                       <div class="declaration">
@@ -413,12 +413,7 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
-    <span class="n">NSSet</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">reloadIndexPaths</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">reloadIndexPaths</span><span class="p">:</span> <span class="kt">Set</span></code></pre>
+    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/IGListMoveIndexPath.html">IGListMoveIndexPath</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">moveIndexPaths</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -428,9 +423,9 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListBatchUpdateData(im)initWithInsertSections:deleteSections:moveSections:insertIndexPaths:deleteIndexPaths:reloadIndexPaths:"></a>
-                    <a name="//apple_ref/objc/Method/-initWithInsertSections:deleteSections:moveSections:insertIndexPaths:deleteIndexPaths:reloadIndexPaths:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListBatchUpdateData(im)initWithInsertSections:deleteSections:moveSections:insertIndexPaths:deleteIndexPaths:reloadIndexPaths:">-initWithInsertSections:deleteSections:moveSections:insertIndexPaths:deleteIndexPaths:reloadIndexPaths:</a>
+                    <a name="/c:objc(cs)IGListBatchUpdateData(im)initWithInsertSections:deleteSections:moveSections:insertIndexPaths:deleteIndexPaths:moveIndexPaths:"></a>
+                    <a name="//apple_ref/objc/Method/-initWithInsertSections:deleteSections:moveSections:insertIndexPaths:deleteIndexPaths:moveIndexPaths:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBatchUpdateData(im)initWithInsertSections:deleteSections:moveSections:insertIndexPaths:deleteIndexPaths:moveIndexPaths:">-initWithInsertSections:deleteSections:moveSections:insertIndexPaths:deleteIndexPaths:moveIndexPaths:</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -449,14 +444,9 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
 <span class="nf">initWithInsertSections</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">insertSections</span>
         <span class="nf">deleteSections</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">deleteSections</span>
           <span class="nf">moveSections</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSSet</span><span class="o">&lt;</span><span class="n"><a href="../Classes/IGListMoveIndex.html">IGListMoveIndex</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">moveSections</span>
-      <span class="nf">insertIndexPaths</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSSet</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">insertIndexPaths</span>
-      <span class="nf">deleteIndexPaths</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSSet</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">deleteIndexPaths</span>
-      <span class="nf">reloadIndexPaths</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSSet</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">reloadIndexPaths</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="nv">insertSections</span><span class="p">:</span> <span class="kt">IndexSet</span><span class="p">,</span> <span class="nv">deleteSections</span><span class="p">:</span> <span class="kt">IndexSet</span><span class="p">,</span> <span class="nv">moveSections</span><span class="p">:</span> <span class="kt">Set</span></code></pre>
+      <span class="nf">insertIndexPaths</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">insertIndexPaths</span>
+      <span class="nf">deleteIndexPaths</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">deleteIndexPaths</span>
+        <span class="nf">moveIndexPaths</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/IGListMoveIndexPath.html">IGListMoveIndexPath</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">moveIndexPaths</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -473,7 +463,6 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                               <td>
                                 <div>
                                   <p>Section indexes to insert.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -486,7 +475,6 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                               <td>
                                 <div>
                                   <p>Section indexes to delete.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -499,7 +487,6 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                               <td>
                                 <div>
                                   <p>Section moves.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -512,7 +499,6 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                               <td>
                                 <div>
                                   <p>Item index paths to insert.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -525,20 +511,18 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                               <td>
                                 <div>
                                   <p>Item index paths to delete.</p>
-
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <code>
-                                <em>reloadIndexPaths</em>
+                                <em>moveIndexPaths</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>Item index paths to reload.</p>
-
+                                  <p>Item index paths to move.</p>
                                 </div>
                               </td>
                             </tr>
@@ -548,7 +532,6 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>A new batch update object.</p>
-
                       </div>
                     </section>
                   </div>
@@ -558,8 +541,8 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-01-04)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

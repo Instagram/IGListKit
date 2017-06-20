@@ -14,7 +14,7 @@
 
 import IGListKit
 
-final class FeedItem: IGListDiffable {
+final class FeedItem: ListDiffable {
 
     let pk: Int
     let user: User
@@ -26,13 +26,13 @@ final class FeedItem: IGListDiffable {
         self.comments = comments
     }
 
-    //MARK: IGListDiffable
+    // MARK: ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return pk as NSObjectProtocol
     }
 
-    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         guard self !== object else { return true }
         guard let object = object as? FeedItem else { return false }
         return user.isEqual(toDiffableObject: object.user) && comments == object.comments

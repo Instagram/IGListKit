@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  A result object returned when diffing with sections.
  */
+NS_SWIFT_NAME(ListIndexPathResult)
 @interface IGListIndexPathResult : NSObject
 
 /**
@@ -29,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSArray<NSIndexPath *> *deletes;
 
 /**
- The index paths in the new collection that need updated.
+ The index paths in the old collection that need updated.
  */
 @property (nonatomic, copy, readonly) NSArray<NSIndexPath *> *updates;
 
@@ -39,11 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSArray<IGListMoveIndexPath *> *moves;
 
 /**
- Returns whether the result has any changes or not.
-
- @return `YES` if the result has changes, `NO` otherwise.
+ A Read-only boolean that indicates whether the result has any changes or not.
+ `YES` if the result has changes, `NO` otherwise.
  */
-- (BOOL)hasChanges;
+@property (nonatomic, assign, readonly) BOOL hasChanges;
 
 /**
  Returns the index path of the object with the specified identifier *before* the diff.

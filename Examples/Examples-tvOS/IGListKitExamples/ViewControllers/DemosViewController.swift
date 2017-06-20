@@ -15,17 +15,17 @@
 import UIKit
 import IGListKit
 
-final class DemosViewController: UIViewController, IGListAdapterDataSource {
-    
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+final class DemosViewController: UIViewController, ListAdapterDataSource {
+
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
-    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+
     let demos: [DemoItem] = [
         DemoItem(name: "Nested Adapter", controllerClass: NestedAdapterViewController.self)
     ]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Demo Chooser"
@@ -34,23 +34,22 @@ final class DemosViewController: UIViewController, IGListAdapterDataSource {
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
-    
-    // MARK: IGListAdapterDataSource
-    
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+
+    // MARK: ListAdapterDataSource
+
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return demos
     }
-    
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         return DemoSectionController()
     }
-    
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
+
+    func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
 
 }
-

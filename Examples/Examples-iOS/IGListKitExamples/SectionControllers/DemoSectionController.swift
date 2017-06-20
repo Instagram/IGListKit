@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-class DemoItem: NSObject {
+final class DemoItem: NSObject {
 
     let name: String
     let controllerClass: UIViewController.Type
@@ -33,13 +33,13 @@ class DemoItem: NSObject {
 
 }
 
-extension DemoItem: IGListDiffable {
+extension DemoItem: ListDiffable {
 
     func diffIdentifier() -> NSObjectProtocol {
         return name as NSObjectProtocol
     }
 
-    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         if self === object { return true }
         guard let object = object as? DemoItem else { return false }
         return controllerClass == object.controllerClass && controllerIdentifier == object.controllerIdentifier
@@ -47,29 +47,27 @@ extension DemoItem: IGListDiffable {
 
 }
 
-final class DemoSectionController: IGListSectionController, IGListSectionType {
+final class DemoSectionController: ListSectionController {
 
-    var object: DemoItem?
+    private var object: DemoItem?
 
-    func numberOfItems() -> Int {
-        return 1
-    }
-
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as! LabelCell
-        cell.label.text = object?.name
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
+        guard let cell = collectionContext?.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as? LabelCell else {
+            fatalError()
+        }
+        cell.text = object?.name
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         self.object = object as? DemoItem
     }
 
-    func didSelectItem(at index: Int) {
+    override func didSelectItem(at index: Int) {
         if let identifier = object?.controllerIdentifier {
             let storyboard = UIStoryboard(name: "Demo", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: identifier)

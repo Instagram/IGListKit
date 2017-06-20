@@ -11,7 +11,9 @@
 
 #import <IGListKit/IGListAdapterDataSource.h>
 
-@interface IGListTestAdapterDataSource : NSObject <IGListAdapterDataSource>
+#import "IGListTestCase.h"
+
+@interface IGListTestAdapterDataSource : NSObject <IGListTestCaseDataSource>
 
 // array of numbers which is then passed to -[IGListTestSection setItems:]
 @property (nonatomic, strong) NSArray <NSNumber *> *objects;

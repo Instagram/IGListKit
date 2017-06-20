@@ -20,7 +20,6 @@
 #import "IGTestObject.h"
 
 #define genIndexPath(i, s) [NSIndexPath indexPathForItem:i inSection:s]
-#define genTestObject(k, d) [[IGTestObject alloc] initWithKey:k value:d]
 
 #define IGAssertContains(collection, object) do {\
     id haystack = collection; id needle = object; \
@@ -43,22 +42,22 @@ static NSArray *sorted(NSArray *arr) {
 
 
 @interface IGListIndexSetResult (UnitTests)
-- (NSUInteger)changeCount;
+- (NSInteger)changeCount;
 @end
 
 @implementation IGListIndexSetResult (UnitTests)
-- (NSUInteger)changeCount {
+- (NSInteger)changeCount {
     return self.inserts.count + self.deletes.count + self.moves.count + self.updates.count;
 }
 @end
 
 
 @interface IGListIndexPathResult (UnitTests)
-- (NSUInteger)changeCount;
+- (NSInteger)changeCount;
 @end
 
 @implementation IGListIndexPathResult (UnitTests)
-- (NSUInteger)changeCount {
+- (NSInteger)changeCount {
     return self.inserts.count + self.deletes.count + self.moves.count + self.updates.count;
 }
 @end

@@ -16,44 +16,44 @@ import UIKit
 import Messages
 import IGListKit
 
-final class MessagesViewController: MSMessagesAppViewController, IGListAdapterDataSource {
-    
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+final class MessagesViewController: MSMessagesAppViewController, ListAdapterDataSource {
+
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
-    let collectionView = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
+    let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+
     let data = "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.".components(separatedBy: " ")
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         adapter.collectionView = collectionView
         adapter.dataSource = self
-        
+
         view.addSubview(collectionView)
     }
-    
+
     override func loadView() {
         view = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 200))
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
-    
-    // MARK: IGListAdapterDataSource
-    
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return data as [IGListDiffable]
+
+    // MARK: ListAdapterDataSource
+
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        return data as [ListDiffable]
     }
-    
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         return LabelSectionController()
     }
-    
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
+
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }
 }

@@ -14,7 +14,7 @@
     <a title="IGListSingleSectionController Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (100% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -32,6 +32,9 @@
             <a href="../Guides.html">Guides</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../best-practices-and-faq.html">Best Practices and FAQ</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../getting-started.html">Getting Started</a>
               </li>
               <li class="nav-group-task">
@@ -42,6 +45,15 @@
               </li>
               <li class="nav-group-task">
                 <a href="../migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../vision.html">VISION</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-core-data.html">Working with Core Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-uicollectionview.html">Working with UICollectionView</a>
               </li>
             </ul>
           </li>
@@ -69,10 +81,13 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
+                <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListGridCollectionViewLayout.html">IGListGridCollectionViewLayout</a>
+                <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -135,6 +150,18 @@
                 <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListBatchContext.html">IGListBatchContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindable.html">IGListBindable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
@@ -145,9 +172,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/IGListSectionType.html">IGListSectionType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
@@ -217,13 +241,14 @@
             <h1>IGListSingleSectionController</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">IGListSingleSectionController</span>
-    <span class="p">:</span> <span class="nc">IGListSectionController</span> <span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSectionType.html">IGListSectionType</a></span><span class="o">&gt;</span></code></pre>
+                  <pre class="highlight"><code>
+<span class="k">@interface</span> <span class="nc">IGListSingleSectionController</span> <span class="p">:</span> <span class="nc"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span></code></pre>
 
                 </div>
               </div>
             <p>This section controller is meant to make building simple, single-cell lists easier. By providing the type of cell, a block
-to configure the cell, and a block to return the size of a cell, you can use an IGListAdapter-powered list simpler architecture.</p>
+to configure the cell, and a block to return the size of a cell, you can use an <code><a href="../Classes/IGListAdapter.html">IGListAdapter</a></code>-powered list with a
+simpler architecture.</p>
 
           </section>
           <section class="section task-group-section">
@@ -243,7 +268,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Creates a new section controller for a given cell type that will always have only one cell when present in a list.</p>
-
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     <p>Be VERY CAREFUL not to create retain cycles by holding strong references to: the object that owns the adapter
@@ -262,11 +286,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
         <span class="nf">sizeBlock</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a></span><span class="p">)</span><span class="nv">sizeBlock</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="nf">init</span><span class="o">!</span><span class="p">(</span><span class="nv">cellClass</span><span class="p">:</span> <span class="kt">AnyClass</span><span class="o">!</span><span class="p">,</span> <span class="nv">configureBlock</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">sizeBlock</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -281,7 +300,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                               <td>
                                 <div>
                                   <p>The <code>UICollectionViewCell</code> subclass for the single cell.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -294,7 +312,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                               <td>
                                 <div>
                                   <p>A block that configures the cell with the item given to the section controller.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -307,7 +324,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                               <td>
                                 <div>
                                   <p>A block that returns the size for the cell given the collection context.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -317,7 +333,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                       <div>
                         <h4>Return Value</h4>
                         <p>A new section controller.</p>
-
                       </div>
                     </section>
                   </div>
@@ -336,7 +351,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Creates a new section controller for a given nib name and bundle that will always have only one cell when present in a list.</p>
-
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     <p>Be VERY CAREFUL not to create retain cycles by holding strong references to: the object that owns the adapter
@@ -356,11 +370,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
       <span class="nf">sizeBlock</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a></span><span class="p">)</span><span class="nv">sizeBlock</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="nf">init</span><span class="o">!</span><span class="p">(</span><span class="nv">nibName</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">bundle</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">configureBlock</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">sizeBlock</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -375,7 +384,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                               <td>
                                 <div>
                                   <p>The name of the nib file for the single cell.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -387,8 +395,7 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                               </td>
                               <td>
                                 <div>
-                                  <p>The bundle in which to search for the nib file. If nil, this method looks for the file in the main bundle.</p>
-
+                                  <p>The bundle in which to search for the nib file. If <code>nil</code>, this method looks for the file in the main bundle.</p>
                                 </div>
                               </td>
                             </tr>
@@ -401,7 +408,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                               <td>
                                 <div>
                                   <p>A block that configures the cell with the item given to the section controller.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -414,7 +420,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                               <td>
                                 <div>
                                   <p>A block that returns the size for the cell given the collection context.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -424,7 +429,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                       <div>
                         <h4>Return Value</h4>
                         <p>A new section controller.</p>
-
                       </div>
                     </section>
                   </div>
@@ -443,7 +447,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Creates a new section controller for a given storyboard cell identifier that will always have only one cell when present in a list.</p>
-
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     <p>Be VERY CAREFUL not to create retain cycles by holding strong references to: the object that owns the adapter
@@ -464,11 +467,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                            <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a></span><span class="p">)</span><span class="n">sizeBlock</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="nf">init</span><span class="o">!</span><span class="p">(</span><span class="n">storyboardCellIdentifier</span> <span class="nv">identifier</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">configureBlock</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">sizeBlock</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -483,7 +481,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                               <td>
                                 <div>
                                   <p>The identifier of the cell prototype in storyboard.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -496,7 +493,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                               <td>
                                 <div>
                                   <p>A block that configures the cell with the item given to the section controller.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -509,7 +505,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                               <td>
                                 <div>
                                   <p>A block that returns the size for the cell given the collection context.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -519,7 +514,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
                       <div>
                         <h4>Return Value</h4>
                         <p>A new section controller.</p>
-
                       </div>
                     </section>
                   </div>
@@ -549,11 +543,6 @@ to configure the cell, and a block to return the size of a cell, you can use an 
         <span class="n">selectionDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">selectionDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -563,8 +552,8 @@ to configure the cell, and a block to return the size of a cell, you can use an 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-01-04)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

@@ -13,47 +13,17 @@
 #import "IGListAdapterInternal.h"
 #import "IGTestCell.h"
 #import "IGTestSingleItemDataSource.h"
+#import "IGListTestCase.h"
 
-#define genTestObject(k, v) [[IGTestObject alloc] initWithKey:k value:v]
-
-#define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
-
-@interface IGListSingleSectionControllerTests : XCTestCase
-
-@property (nonatomic, strong) IGListCollectionView *collectionView;
-@property (nonatomic, strong) IGListAdapter *adapter;
-@property (nonatomic, strong) IGListAdapterUpdater *updater;
-@property (nonatomic, strong) IGTestSingleItemDataSource *dataSource;
-@property (nonatomic, strong) UIWindow *window;
+@interface IGListSingleSectionControllerTests : IGListTestCase
 
 @end
 
 @implementation IGListSingleSectionControllerTests
 
 - (void)setUp {
+    self.dataSource = [IGTestSingleItemDataSource new];
     [super setUp];
-    self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.collectionView = [[IGListCollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:layout];
-    [self.window addSubview:self.collectionView];
-    self.dataSource = [[IGTestSingleItemDataSource alloc] init];
-    self.updater = [[IGListAdapterUpdater alloc] init];
-    self.adapter = [[IGListAdapter alloc] initWithUpdater:self.updater viewController:nil workingRangeSize:2];
-}
-
-- (void)tearDown {
-    [super tearDown];
-    self.window = nil;
-    self.collectionView = nil;
-    self.adapter = nil;
-    self.dataSource = nil;
-}
-
-- (void)setupWithObjects:(NSArray *)objects {
-    self.dataSource.objects = objects;
-    self.adapter.collectionView = self.collectionView;
-    self.adapter.dataSource = self.dataSource;
-    [self.collectionView layoutIfNeeded];
 }
 
 - (void)test_whenDisplayingCollectionView_thatSectionsHaveOneItem {
@@ -116,7 +86,7 @@
         XCTAssertEqualObjects(cell2.label.text, @"Qux");
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:15 handler:nil];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 - (void)test_whenSelected_thatDelegateReceivesEvent {
@@ -126,7 +96,7 @@
     IGListSingleSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
     id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListSingleSectionControllerDelegate)];
     section.selectionDelegate = mockDelegate;
-    [[mockDelegate expect] didSelectSingleSectionController:section];
+    [[mockDelegate expect] didSelectSectionController:section withObject:self.dataSource.objects.firstObject];
     [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     [mockDelegate verify];
 }

@@ -14,7 +14,7 @@
     <a title="IGListUpdatingDelegate Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (100% documented)</p>
+        <p><a href="../index.html">IGListKit Docs</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -32,6 +32,9 @@
             <a href="../Guides.html">Guides</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../best-practices-and-faq.html">Best Practices and FAQ</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../getting-started.html">Getting Started</a>
               </li>
               <li class="nav-group-task">
@@ -42,6 +45,15 @@
               </li>
               <li class="nav-group-task">
                 <a href="../migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../vision.html">VISION</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-core-data.html">Working with Core Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-uicollectionview.html">Working with UICollectionView</a>
               </li>
             </ul>
           </li>
@@ -69,10 +81,13 @@
                 <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes.html#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
+                <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IGListGridCollectionViewLayout.html">IGListGridCollectionViewLayout</a>
+                <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
@@ -135,6 +150,18 @@
                 <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListBatchContext.html">IGListBatchContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindable.html">IGListBindable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
@@ -145,9 +172,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/IGListSectionType.html">IGListSectionType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
@@ -217,7 +241,7 @@
             <h1>IGListUpdatingDelegate</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListUpdatingDelegate</span></code></pre>
+                  <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListUpdatingDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
 
                 </div>
               </div>
@@ -242,7 +266,6 @@ coalesce these events to a backing store or collection.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Asks the delegate for the pointer functions for looking up an object in a collection.</p>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>Since the updating delegate is responsible for transitioning between object sets, it becomes the <q>source of
@@ -262,16 +285,10 @@ objects are looked up by pointer, or more traditionally, with <code>-hash</code>
                           <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSPointerFunctions</span> <span class="o">*</span><span class="p">)</span><span class="n">objectLookupPointerFunctions</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">objectLookupPointerFunctions</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="o">!</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Return Value</h4>
                         <p>Pointer functions for looking up an object in a collection.</p>
-
                       </div>
                     </section>
                   </div>
@@ -290,7 +307,6 @@ objects are looked up by pointer, or more traditionally, with <code>-hash</code>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Tells the delegate to perform a section transition from an old array of objects to a new one.</p>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>Implementations determine how to transition between objects. You can perform a diff on the objects, reload
@@ -319,11 +335,6 @@ that the updater is applying.</p>
                      <span class="nf">completion</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a></span><span class="p">)</span><span class="nv">completion</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">performUpdate</span><span class="p">(</span><span class="n">withCollectionView</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">fromObjects</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">toObjects</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">objectTransitionBlock</span><span class="p">:</span> <span class="kt"><a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a></span><span class="o">!</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -338,7 +349,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>The collection view to perform the transition on.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -351,7 +361,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>The previous objects in the collection view. Objects must conform to <code>IGListDiffable</code>.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -364,7 +373,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>The new objects in collection view. Objects must conform to <code>IGListDiffable</code>.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -377,7 +385,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>A flag indicating if the transition should be animated.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -390,7 +397,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>A block that must be called when the adapter applies changes to the collection view.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -403,7 +409,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>A completion block to execute when the update is finished.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -438,11 +443,6 @@ that the updater is applying.</p>
                                <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPaths</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">insertItems</span><span class="p">(</span><span class="n">intoCollectionView</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -457,7 +457,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>The collection view on which to perform the transition.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -470,7 +469,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>The index paths to insert items into.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -505,11 +503,6 @@ that the updater is applying.</p>
                                <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPaths</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">deleteItems</span><span class="p">(</span><span class="n">fromCollectionView</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -524,7 +517,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>The collection view on which to perform the transition.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -537,7 +529,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>The index paths to delete items from.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -550,9 +541,9 @@ that the updater is applying.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListUpdatingDelegate(im)reloadItemsInCollectionView:indexPaths:"></a>
-                    <a name="//apple_ref/objc/Method/-reloadItemsInCollectionView:indexPaths:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)reloadItemsInCollectionView:indexPaths:">-reloadItemsInCollectionView:indexPaths:</a>
+                    <a name="/c:objc(pl)IGListUpdatingDelegate(im)moveItemInCollectionView:fromIndexPath:toIndexPath:"></a>
+                    <a name="//apple_ref/objc/Method/-moveItemInCollectionView:fromIndexPath:toIndexPath:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)moveItemInCollectionView:fromIndexPath:toIndexPath:">-moveItemInCollectionView:fromIndexPath:toIndexPath:</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -560,21 +551,16 @@ that the updater is applying.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Tells the delegate to perform item reloads at the given index paths.</p>
+                        <p>Tells the delegate to move an item from and to given index paths.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadItemsInCollectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span>
-                         <span class="nf">indexPaths</span><span class="p">:</span>
-                             <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPaths</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">reloadItems</span><span class="p">(</span><span class="n">inCollectionView</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">moveItemInCollectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span>
+                   <span class="nf">fromIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">fromIndexPath</span>
+                     <span class="nf">toIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">toIndexPath</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -591,20 +577,109 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>The collection view on which to perform the transition.</p>
-
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <code>
-                                <em>indexPaths</em>
+                                <em>fromIndexPath</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The index paths of items to reload.</p>
+                                  <p>The source index path of the item to move.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>toIndexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The destination index path of the item to move.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListUpdatingDelegate(im)reloadItemInCollectionView:fromIndexPath:toIndexPath:"></a>
+                    <a name="//apple_ref/objc/Method/-reloadItemInCollectionView:fromIndexPath:toIndexPath:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)reloadItemInCollectionView:fromIndexPath:toIndexPath:">-reloadItemInCollectionView:fromIndexPath:toIndexPath:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Tells the delegate to reload an item from and to given index paths.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Since UICollectionView is unable to handle calling -[UICollectionView reloadItemsAtIndexPaths:] safely while also
+executing insert and delete operations in the same batch updates, the updater must know about the origin and
+destination of the reload to perform a safe transition.</p>
 
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadItemInCollectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span>
+                     <span class="nf">fromIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">fromIndexPath</span>
+                       <span class="nf">toIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">toIndexPath</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collectionView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The collection view on which to perform the transition.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fromIndexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The source index path of the item to reload.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>toIndexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The destination index path of the item to reload.</p>
                                 </div>
                               </td>
                             </tr>
@@ -640,11 +715,6 @@ that the updater is applying.</p>
                   <span class="nf">completion</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a></span><span class="p">)</span><span class="nv">completion</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">reloadData</span><span class="p">(</span><span class="n">withCollectionView</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="n">reloadUpdate</span> <span class="nv">reloadUpdateBlock</span><span class="p">:</span> <span class="kt"><a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a></span><span class="o">!</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -659,7 +729,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>The collection view to reload.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -672,7 +741,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>A block that must be called when the adapter reloads the collection view.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -685,7 +753,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>A completion block to execute when the reload is finished.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -719,11 +786,6 @@ that the updater is applying.</p>
                     <span class="nf">sections</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">sections</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">reloadCollectionView</span><span class="p">(</span><span class="n">_</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">sections</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -738,7 +800,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>The collection view to reload.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -751,7 +812,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>The sections to reload.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -788,11 +848,6 @@ that the updater is applying.</p>
                      <span class="nf">completion</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a></span><span class="p">)</span><span class="nv">completion</span><span class="p">;</span></code></pre>
 
                         </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">performUpdate</span><span class="p">(</span><span class="n">withCollectionView</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">,</span> <span class="nv">itemUpdates</span><span class="p">:</span> <span class="kt"><a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a></span><span class="o">!</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">Any</span><span class="o">!</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -807,7 +862,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>The collection view to update.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -820,7 +874,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>A flag indicating if the transition should be animated.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -833,7 +886,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>A block containing all of the updates.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -846,7 +898,6 @@ that the updater is applying.</p>
                               <td>
                                 <div>
                                   <p>A completion block to execute when the update is finished.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -861,8 +912,8 @@ that the updater is applying.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-01-04)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
