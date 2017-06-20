@@ -272,6 +272,7 @@
     id<IGListAdapterDataSource> dataSource = self.dataSource;
     UICollectionView *collectionView = self.collectionView;
     if (dataSource == nil || collectionView == nil) {
+        IGLKLog(@"Warning: Your call to performUpdatesAnimated-method is ignored as dataSource or collectionView haven't been set.");        
         if (completion) {
             completion(NO);
         }
@@ -308,6 +309,7 @@
     id<IGListAdapterDataSource> dataSource = self.dataSource;
     UICollectionView *collectionView = self.collectionView;
     if (dataSource == nil || collectionView == nil) {
+        IGLKLog(@"Warning: Your call to reloadDataWithCompletion-method is ignored as dataSource or collectionView haven't been set.");        
         if (completion) {
             completion(NO);
         }
