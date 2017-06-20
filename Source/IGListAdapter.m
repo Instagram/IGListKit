@@ -591,14 +591,9 @@
 
 - (IGListSectionMap *)sectionMapUsingPreviousIfInUpdateBlock:(BOOL)usePreviousMapIfInUpdateBlock {
     // if we are inside an update block, we may have to use the /previous/ item map for some operations
-<<<<<<< HEAD
-    if (adjustForUpdateBlock && self.isInUpdateBlock && self.previousSectionMap != nil) {
-        return self.previousSectionMap;
-=======
     IGListSectionMap *previousSectionMap = self.previousSectionMap;
     if (usePreviousMapIfInUpdateBlock && self.isInUpdateBlock && previousSectionMap != nil) {
         return previousSectionMap;
->>>>>>> upstream/master
     } else {
         return self.sectionMap;
     }
