@@ -5,7 +5,11 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 3.1.0 (**upcoming release**)
 -----
 
-3.0.0 
+### Enhancements
+
+- Added an assertion if the `diffIdentifiers` aren't unique when performing updates. [viktorgardart](https://github.com/viktorgardart) [(#814)](https://github.com/Instagram/IGListKit/pull/821)
+
+3.0.0
 -----
 
 This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/3).
