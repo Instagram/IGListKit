@@ -62,6 +62,12 @@ func emptyView(for listAdapter: ListAdapter) -> UIView? {
 }
 ```
 
+After you have created the data source you need to connect it to the `IGListAdapter`, by setting the `dataSource`-property of the earlier created `IGListAdapter`:
+
+```swift
+adapter.dataSource = self
+```
+
 You can return an array of _any_ type of data, as long as it conforms to `IGListDiffable`.
 
 ### Immutability
