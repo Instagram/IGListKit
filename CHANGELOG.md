@@ -7,7 +7,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Enhancements
 
-- Added an assertion if the `diffIdentifiers` aren't unique when performing updates. [viktorgardart](https://github.com/viktorgardart) [(#814)](https://github.com/Instagram/IGListKit/pull/821)
+- Added an assertion if the `diffIdentifiers` aren't unique when performing updates. [viktorgardart](https://github.com/viktorgardart) [(#821)](https://github.com/Instagram/IGListKit/pull/821)
 
 3.0.0
 -----
