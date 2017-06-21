@@ -272,6 +272,7 @@
     id<IGListAdapterDataSource> dataSource = self.dataSource;
     UICollectionView *collectionView = self.collectionView;
     if (dataSource == nil || collectionView == nil) {
+        IGLKLog(@"Warning: Your call to performUpdatesAnimated-method is ignored as dataSource or collectionView haven't been set.");        
         if (completion) {
             completion(NO);
         }
@@ -308,6 +309,7 @@
     id<IGListAdapterDataSource> dataSource = self.dataSource;
     UICollectionView *collectionView = self.collectionView;
     if (dataSource == nil || collectionView == nil) {
+        IGLKLog(@"Warning: Your call to reloadDataWithCompletion-method is ignored as dataSource or collectionView haven't been set.");        
         if (completion) {
             completion(NO);
         }
@@ -589,14 +591,9 @@
 
 - (IGListSectionMap *)sectionMapUsingPreviousIfInUpdateBlock:(BOOL)usePreviousMapIfInUpdateBlock {
     // if we are inside an update block, we may have to use the /previous/ item map for some operations
-<<<<<<< HEAD
-    if (adjustForUpdateBlock && self.isInUpdateBlock && self.previousSectionMap != nil) {
-        return self.previousSectionMap;
-=======
     IGListSectionMap *previousSectionMap = self.previousSectionMap;
     if (usePreviousMapIfInUpdateBlock && self.isInUpdateBlock && previousSectionMap != nil) {
         return previousSectionMap;
->>>>>>> upstream/master
     } else {
         return self.sectionMap;
     }
