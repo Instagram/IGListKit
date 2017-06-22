@@ -46,7 +46,7 @@
         NSMapTable *table = [[NSMapTable alloc] initWithKeyPointerFunctions:keyFunctions valuePointerFunctions:valueFunctions capacity:0];
         _sectionMap = [[IGListSectionMap alloc] initWithMapTable:table];
 
-        _displayHandler = [[IGListDisplayHandler alloc] init];
+        _displayHandler = [IGListDisplayHandler new];
         _workingRangeHandler = [[IGListWorkingRangeHandler alloc] initWithWorkingRangeSize:workingRangeSize];
 
         _viewSectionControllerMap = [NSMapTable mapTableWithKeyOptions:NSMapTableObjectPointerPersonality | NSMapTableStrongMemory
@@ -330,7 +330,7 @@
     IGAssertMainThread();
     IGParameterAssert(objects);
 
-    NSMutableIndexSet *sections = [[NSMutableIndexSet alloc] init];
+    NSMutableIndexSet *sections = [NSMutableIndexSet new];
 
     // use the item map based on whether or not we're in an update block
     IGListSectionMap *map = [self sectionMapUsingPreviousIfInUpdateBlock:YES];
@@ -602,7 +602,7 @@
 - (NSArray<NSIndexPath *> *)indexPathsFromSectionController:(IGListSectionController *)sectionController
                                                     indexes:(NSIndexSet *)indexes
                                  usePreviousIfInUpdateBlock:(BOOL)usePreviousIfInUpdateBlock {
-    NSMutableArray<NSIndexPath *> *indexPaths = [[NSMutableArray alloc] init];
+    NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray new];
 
     IGListSectionMap *map = [self sectionMapUsingPreviousIfInUpdateBlock:usePreviousIfInUpdateBlock];
     const NSInteger section = [map sectionForSectionController:sectionController];
@@ -629,7 +629,7 @@
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForIndexPath:(NSIndexPath *)indexPath
                                                            supplementaryKinds:(NSArray<NSString *> *)supplementaryKinds {
     UICollectionViewLayout *layout = self.collectionView.collectionViewLayout;
-    NSMutableArray<UICollectionViewLayoutAttributes *> *attributes = [[NSMutableArray alloc] init];
+    NSMutableArray<UICollectionViewLayoutAttributes *> *attributes = [NSMutableArray new];
 
     UICollectionViewLayoutAttributes *cellAttributes = [layout layoutAttributesForItemAtIndexPath:indexPath];
     if (cellAttributes) {
