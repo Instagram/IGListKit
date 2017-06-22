@@ -494,8 +494,11 @@
     IGParameterAssert(dataSource != nil);
 
 #if DEBUG
+    NSCountedSet *identifiersSet = [NSCountedSet new];
     for (id object in objects) {
+        [identifiersSet addObject:[object diffIdentifier]];
         IGAssert([object isEqualToDiffableObject:object], @"Object instance %@ not equal to itself. This will break infra map tables.", object);
+        IGAssert([identifiersSet countForObject:[object diffIdentifier]] <= 1, @"Diff identifier %@ for object %@ occurs more than once. Identifiers must be unique!", [object diffIdentifier], object);
     }
 #endif
 

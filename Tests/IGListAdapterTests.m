@@ -1248,4 +1248,9 @@
     XCTAssertEqual(collectionView1.dataSource, adapter2);
 }
 
+- (void)test_whenPassingNonUniqueIdentifiers_adapterShouldAssert {
+    self.dataSource.objects = @[@0, @1, @2, @0];
+    XCTAssertThrows([self.adapter reloadDataWithCompletion:nil]);
+}
+
 @end
