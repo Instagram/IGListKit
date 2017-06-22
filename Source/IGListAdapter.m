@@ -726,7 +726,8 @@
     IGParameterAssert(cell != nil);
     IGParameterAssert(sectionController != nil);
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-    IGAssert(indexPath.section == [self sectionForSectionController:sectionController],
+    IGAssert(indexPath == nil
+             || indexPath.section == [self sectionForSectionController:sectionController],
              @"Requesting a cell from another section controller is not allowed.");
     return indexPath != nil ? indexPath.item : NSNotFound;
 }
