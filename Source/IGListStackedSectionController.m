@@ -51,7 +51,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
             sectionController.viewController = self.viewController;
         }
 
-        _visibleSectionControllers = [[NSCountedSet alloc] init];
+        _visibleSectionControllers = [NSCountedSet new];
         _sectionControllers = [NSOrderedSet orderedSetWithArray:sectionControllers];
 
         self.displayDelegate = self;
@@ -65,8 +65,8 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 #pragma mark - Private API
 
 - (void)reloadData {
-    NSMutableArray *sectionControllers = [[NSMutableArray alloc] init];
-    NSMutableArray *offsets = [[NSMutableArray alloc] init];
+    NSMutableArray *sectionControllers = [NSMutableArray new];
+    NSMutableArray *offsets = [NSMutableArray new];
 
     NSInteger numberOfItems = 0;
     for (IGListSectionController *sectionController in self.sectionControllers) {
@@ -111,7 +111,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 
 - (NSIndexSet *)itemIndexesForSectionController:(IGListSectionController *)sectionController indexes:(NSIndexSet *)indexes {
     const NSInteger offset = [self offsetForSectionController:sectionController];
-    NSMutableIndexSet *itemIndexes = [[NSMutableIndexSet alloc] init];
+    NSMutableIndexSet *itemIndexes = [NSMutableIndexSet new];
     [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         [itemIndexes addIndex:(idx + offset)];
     }];

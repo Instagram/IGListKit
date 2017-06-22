@@ -25,7 +25,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _visibleListSections = [[NSCountedSet alloc] init];
+        _visibleListSections = [NSCountedSet new];
         _visibleViewObjectMap = [[NSMapTable alloc] initWithKeyOptions:NSMapTableStrongMemory valueOptions:NSMapTableStrongMemory capacity:0];
     }
     return self;
