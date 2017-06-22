@@ -300,7 +300,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     if (_stickyHeaderOriginYAdjustment != stickyHeaderOriginYAdjustment) {
         _stickyHeaderOriginYAdjustment = stickyHeaderOriginYAdjustment;
 
-        IGListCollectionViewLayoutInvalidationContext *invalidationContext = [[IGListCollectionViewLayoutInvalidationContext alloc] init];
+        IGListCollectionViewLayoutInvalidationContext *invalidationContext = [IGListCollectionViewLayoutInvalidationContext new];
         invalidationContext.ig_invalidateSupplementaryAttributes = YES;
         [self invalidateLayoutWithContext:invalidationContext];
     }
