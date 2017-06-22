@@ -62,7 +62,7 @@ func emptyView(for listAdapter: ListAdapter) -> UIView? {
 }
 ```
 
-After you have created the data source you need to connect it to the `IGListAdapter`, by setting the `dataSource`-property of the earlier created `IGListAdapter`:
+After you have created the data source you need to connect it to the `IGListAdapter` by setting its `dataSource` property:
 
 ```swift
 adapter.dataSource = self
