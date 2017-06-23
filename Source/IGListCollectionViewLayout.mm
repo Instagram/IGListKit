@@ -353,15 +353,16 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         // add the left inset in case the section falls on the same row as the previous
         // if the section is newlined then the x is reset
         itemX += insets.left;
-        
+
         // the farthest right the frame of an item in this section can go
         const CGFloat maxX = width - insets.right;
-        
+
         for (NSInteger item = 0; item < itemCount; item++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
             const CGSize size = [delegate collectionView:collectionView layout:self sizeForItemAtIndexPath:indexPath];
 
-            IGAssert(fabs(size.width - paddedWidth) < FLT_EPSILON, @"Width of item %zi in section %zi must be less than container %.0f accounting for section insets %@",
+            IGAssert(size.width <= paddedWidth || fabs(size.width - paddedWidth) < FLT_EPSILON,
+                     @"Width of item %zi in section %zi must be less than container %.0f accounting for section insets %@",
                      item, section, width, NSStringFromUIEdgeInsets(insets));
             CGFloat itemWidth = MIN(size.width, paddedWidth);
 
@@ -380,7 +381,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                     itemY += lineSpacing;
                 }
             }
-            
+
             const CGFloat distanceToRighEdge = paddedWidth - (itemX + itemWidth);
             if (self.stretchToEdge && distanceToRighEdge > 0 && distanceToRighEdge <= epsilon) {
                 itemWidth = paddedWidth - itemX;
@@ -446,7 +447,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             }
         }
     }
-    
+
     return result;
 }
 
