@@ -361,7 +361,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
             const CGSize size = [delegate collectionView:collectionView layout:self sizeForItemAtIndexPath:indexPath];
 
-            IGAssert(size.width <= paddedWidth, @"Width of item %zi in section %zi must be less than container %.0f accounting for section insets %@",
+            IGAssert(fabs(size.width - paddedWidth) < FLT_EPSILON, @"Width of item %zi in section %zi must be less than container %.0f accounting for section insets %@",
                      item, section, width, NSStringFromUIEdgeInsets(insets));
             CGFloat itemWidth = MIN(size.width, paddedWidth);
 
