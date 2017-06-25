@@ -46,7 +46,7 @@
         NSMapTable *table = [[NSMapTable alloc] initWithKeyPointerFunctions:keyFunctions valuePointerFunctions:valueFunctions capacity:0];
         _sectionMap = [[IGListSectionMap alloc] initWithMapTable:table];
 
-        _displayHandler = [[IGListDisplayHandler alloc] init];
+        _displayHandler = [IGListDisplayHandler new];
         _workingRangeHandler = [[IGListWorkingRangeHandler alloc] initWithWorkingRangeSize:workingRangeSize];
 
         _viewSectionControllerMap = [NSMapTable mapTableWithKeyOptions:NSMapTableObjectPointerPersonality | NSMapTableStrongMemory
@@ -330,7 +330,7 @@
     IGAssertMainThread();
     IGParameterAssert(objects);
 
-    NSMutableIndexSet *sections = [[NSMutableIndexSet alloc] init];
+    NSMutableIndexSet *sections = [NSMutableIndexSet new];
 
     // use the item map based on whether or not we're in an update block
     IGListSectionMap *map = [self sectionMapUsingPreviousIfInUpdateBlock:YES];
@@ -494,8 +494,11 @@
     IGParameterAssert(dataSource != nil);
 
 #if DEBUG
+    NSCountedSet *identifiersSet = [NSCountedSet new];
     for (id object in objects) {
+        [identifiersSet addObject:[object diffIdentifier]];
         IGAssert([object isEqualToDiffableObject:object], @"Object instance %@ not equal to itself. This will break infra map tables.", object);
+        IGAssert([identifiersSet countForObject:[object diffIdentifier]] <= 1, @"Diff identifier %@ for object %@ occurs more than once. Identifiers must be unique!", [object diffIdentifier], object);
     }
 #endif
 
@@ -602,7 +605,7 @@
 - (NSArray<NSIndexPath *> *)indexPathsFromSectionController:(IGListSectionController *)sectionController
                                                     indexes:(NSIndexSet *)indexes
                                  usePreviousIfInUpdateBlock:(BOOL)usePreviousIfInUpdateBlock {
-    NSMutableArray<NSIndexPath *> *indexPaths = [[NSMutableArray alloc] init];
+    NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray new];
 
     IGListSectionMap *map = [self sectionMapUsingPreviousIfInUpdateBlock:usePreviousIfInUpdateBlock];
     const NSInteger section = [map sectionForSectionController:sectionController];
@@ -629,7 +632,7 @@
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForIndexPath:(NSIndexPath *)indexPath
                                                            supplementaryKinds:(NSArray<NSString *> *)supplementaryKinds {
     UICollectionViewLayout *layout = self.collectionView.collectionViewLayout;
-    NSMutableArray<UICollectionViewLayoutAttributes *> *attributes = [[NSMutableArray alloc] init];
+    NSMutableArray<UICollectionViewLayoutAttributes *> *attributes = [NSMutableArray new];
 
     UICollectionViewLayoutAttributes *cellAttributes = [layout layoutAttributesForItemAtIndexPath:indexPath];
     if (cellAttributes) {
@@ -728,7 +731,8 @@
     IGParameterAssert(cell != nil);
     IGParameterAssert(sectionController != nil);
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-    IGAssert(indexPath.section == [self sectionForSectionController:sectionController],
+    IGAssert(indexPath == nil
+             || indexPath.section == [self sectionForSectionController:sectionController],
              @"Requesting a cell from another section controller is not allowed.");
     return indexPath != nil ? indexPath.item : NSNotFound;
 }
