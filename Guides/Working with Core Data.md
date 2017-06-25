@@ -16,7 +16,7 @@ There are further discussions on this topic at [#460](https://github.com/Instagr
 
 ## Basic Setup
 
-The basic setup for Core Data and `IGListKit` is the same as the normal setup that is found in the [Getting Started Guide](https://instagram.github.io/IGListKit/getting-started.html). The main difference will be in the setup of the model in the datasource.
+The basic setup for Core Data and `IGListKit` is the same as the normal setup that is found in the [Getting Started Guide](https://instagram.github.io/IGListKit/getting-started.html). The main difference will be in the setup of the model used in the `IGListAdapterDataSource`.
 
 ## Working with view model
 
