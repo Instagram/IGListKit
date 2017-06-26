@@ -16,12 +16,13 @@ import UIKit
 import IGListKit
 
 final class SupplementaryViewController: UIViewController, ListAdapterDataSource {
-    
+
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: ListCollectionViewLayout(stickyHeaders: true, topContentInset: 0.0, stretchToEdge: false))
-    
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: ListCollectionViewLayout(
+        stickyHeaders: true, topContentInset: 0.0, stretchToEdge: false))
+
     let feedItems = [
         FeedItem(pk: 1, user: User(pk: 100, name: "Jesse", handle: "jesse_squires"), comments: [
             "You rock!",
@@ -49,14 +50,14 @@ final class SupplementaryViewController: UIViewController, ListAdapterDataSource
             "What's the eta?"
             ])
     ]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if let flowLayout = collectionView.collectionViewLayout as? ListCollectionViewLayout {
             let statusBarSize = UIApplication.shared.statusBarFrame.size
             let navigationBarVisible = self.navigationController?.isNavigationBarHidden == false
             let navigationBarHeight = ( navigationBarVisible ? self.navigationController!.navigationBar.frame.height : 0 )
-            
+
             // If we are showing a navigation bar we need to change the y offset for the sticky headers as normal behaviour
             // of the UICollectionView to keep scrolling under the navigation bar. This case the sticky headers to end up below
             // this bar too hence this bit of calculation to determine what the correct y offset is
@@ -67,22 +68,21 @@ final class SupplementaryViewController: UIViewController, ListAdapterDataSource
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
-    
+
     // MARK: ListAdapterDataSource
-    
+
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return feedItems
     }
-    
+
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         return FeedItemSectionController()
     }
-    
+
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
-    
 }
