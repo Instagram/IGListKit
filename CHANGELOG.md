@@ -3,6 +3,11 @@
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
 3.1.0 (**upcoming release**)
+
+### Fixes
+
+- `IGListCollectionViewLayout` now uses `FLT_EPSILON` for comparison between element width and collection view width. This is to deal with float point precision loss during some calculations. [Andrew Monshizadeh](https://github.com/amonshiz) [(#828)](https://github.com/Instagram/IGListKit/pull/828)
+
 -----
 
 3.0.0
