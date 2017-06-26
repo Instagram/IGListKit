@@ -7,13 +7,11 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class UIView;
-
-@protocol IGListManagementPerformable <NSObject>
+@protocol IGListViewType <NSObject>
 
 /**
  Executes a group of updates.
@@ -25,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
                  completion:(void (^ __nullable)(BOOL))completion;
 
 /**
- Perform an immediate reload of the data in the data source, discarding the old objects.
+ Perform a synchronous reload of the data in the data source, discarding the old objects.
  */
 - (void)reloadData;
 

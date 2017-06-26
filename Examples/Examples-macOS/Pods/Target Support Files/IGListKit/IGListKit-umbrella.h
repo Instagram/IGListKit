@@ -24,6 +24,7 @@
 #import "IGListMoveIndexPath.h"
 #import "NSNumber+IGListDiffable.h"
 #import "NSString+IGListDiffable.h"
+#import "UICollectionView+IGListViewType.h"
 
 FOUNDATION_EXPORT double IGListKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];

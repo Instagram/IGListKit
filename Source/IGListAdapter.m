@@ -12,7 +12,7 @@
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListAdapterUpdater.h>
 #import <IGListKit/IGListSupplementaryViewSource.h>
-#import <IGListKit/IGListManagementPerformable.h>
+#import <IGListKit/IGListViewType.h>
 
 #import "IGListSectionControllerInternal.h"
 #import "IGListDebugger.h"
@@ -68,11 +68,11 @@
                 workingRangeSize:0];
 }
 
-- (UIView<IGListManagementPerformable> *)collectionView {
-    return (UIView<IGListManagementPerformable> *)_collectionView;
+- (UIView<IGListViewType> *)collectionView {
+    return (UIView<IGListViewType> *)_collectionView;
 }
 
-- (void)setCollectionView:(UIView<IGListManagementPerformable> *)collectionView {
+- (void)setCollectionView:(UIView<IGListViewType> *)collectionView {
     IGAssertMainThread();
 
     // if collection view has been used by a different list adapter, treat it as if we were using a new collection view
@@ -80,7 +80,7 @@
     if (_collectionView != collectionView || _collectionView.dataSource != self) {
         // if the collection view was being used with another IGListAdapter (e.g. cell reuse)
         // destroy the previous association so the old adapter doesn't update the wrong collection view
-        static NSMapTable<UIView<IGListManagementPerformable> *, IGListAdapter *> *globalCollectionViewAdapterMap = nil;
+        static NSMapTable<UIView<IGListViewType> *, IGListAdapter *> *globalCollectionViewAdapterMap = nil;
         if (globalCollectionViewAdapterMap == nil) {
             globalCollectionViewAdapterMap = [NSMapTable weakToWeakObjectsMapTable];
         }
@@ -172,7 +172,7 @@
         return;
     }
 
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     const NSInteger numberOfItems = [collectionView numberOfItemsInSection:section];
     if (numberOfItems == 0) {
         return;
@@ -271,7 +271,7 @@
     IGAssertMainThread();
 
     id<IGListAdapterDataSource> dataSource = self.dataSource;
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     if (dataSource == nil || collectionView == nil) {
         if (completion) {
             completion(NO);
@@ -307,7 +307,7 @@
     IGAssertMainThread();
 
     id<IGListAdapterDataSource> dataSource = self.dataSource;
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     if (dataSource == nil || collectionView == nil) {
         if (completion) {
             completion(NO);
@@ -350,7 +350,7 @@
         }
     }
 
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Tried to reload the adapter without a collection view");
 
     [self.updater reloadCollectionView:collectionView sections:sections];
@@ -454,7 +454,7 @@
     }
 
     NSArray<UICollectionViewCell *> *visibleCells = [self.collectionView visibleCells];
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     NSPredicate *controllerPredicate = [NSPredicate predicateWithBlock:^BOOL(UICollectionViewCell* cell, NSDictionary* bindings) {
         NSIndexPath *indexPath = [collectionView indexPathForCell:cell];
         return indexPath.section == section;
@@ -712,7 +712,7 @@
 }
 
 - (CGSize)insetContainerSize {
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     return UIEdgeInsetsInsetRect(collectionView.bounds, collectionView.contentInset).size;
 }
 
@@ -758,7 +758,7 @@
 
 - (NSArray<UICollectionViewCell *> *)visibleCellsForSectionController:(IGListSectionController *)sectionController {
     NSMutableArray *cells = [NSMutableArray new];
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     NSArray *visibleCells = [collectionView visibleCells];
     const NSInteger section = [self sectionForSectionController:sectionController];
     for (UICollectionViewCell *cell in visibleCells) {
@@ -771,7 +771,7 @@
 
 - (NSArray<NSIndexPath *> *)visibleIndexPathsForSectionController:(IGListSectionController *) sectionController {
     NSMutableArray *paths = [NSMutableArray new];
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     NSArray *visiblePaths = [collectionView indexPathsForVisibleItems];
     const NSInteger section = [self sectionForSectionController:sectionController];
     for (NSIndexPath *path in visiblePaths) {
@@ -798,7 +798,7 @@
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(cellClass != nil);
     IGParameterAssert(index >= 0);
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Dequeueing cell of class %@ from section controller %@ without a collection view at index %zi", NSStringFromClass(cellClass), sectionController, index);
     NSString *identifier = IGListReusableViewIdentifier(cellClass, nil, nil);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
@@ -815,7 +815,7 @@
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(identifier.length > 0);
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
     return [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
@@ -829,7 +829,7 @@
     IGParameterAssert([nibName length] > 0);
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(index >= 0);
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Dequeueing cell with nib name %@ and bundle %@ from section controller %@ without a collection view at index %zi.", nibName, bundle, sectionController, index);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
     if (![self.registeredNibNames containsObject:nibName]) {
@@ -849,7 +849,7 @@
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(viewClass != nil);
     IGParameterAssert(index >= 0);
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Dequeueing cell of class %@ from section controller %@ without a collection view at index %zi with supplementary view %@", NSStringFromClass(viewClass), sectionController, index, elementKind);
     NSString *identifier = IGListReusableViewIdentifier(viewClass, nil, elementKind);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
@@ -869,7 +869,7 @@
     IGParameterAssert(identifier.length > 0);
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(index >= 0);
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Dequeueing Supplementary View from storyboard of kind %@ with identifier %@ for section controller %@ without a collection view at index %zi", elementKind, identifier, sectionController, index);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
     return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
@@ -883,7 +883,7 @@
     IGAssertMainThread();
     IGParameterAssert([nibName length] > 0);
     IGParameterAssert([elementKind length] > 0);
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
     if (![self.registeredSupplementaryViewNibNames containsObject:nibName]) {
@@ -897,7 +897,7 @@
 - (void)performBatchAnimated:(BOOL)animated updates:(void (^)(id<IGListBatchContext>))updates completion:(void (^)(BOOL))completion {
     IGAssertMainThread();
     IGParameterAssert(updates != nil);
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Performing batch updates without a collection view.");
     
     __weak __typeof__(self) weakSelf = self;
@@ -952,7 +952,7 @@
     IGAssertMainThread();
     IGParameterAssert(indexes != nil);
     IGParameterAssert(sectionController != nil);
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Tried to reload the adapter from %@ without a collection view at indexes %@.", sectionController, indexes);
 
     if (indexes.count == 0) {
@@ -990,7 +990,7 @@
     IGAssertMainThread();
     IGParameterAssert(indexes != nil);
     IGParameterAssert(sectionController != nil);
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Inserting items from %@ without a collection view at indexes %@.", sectionController, indexes);
 
     if (indexes.count == 0) {
@@ -1006,7 +1006,7 @@
     IGAssertMainThread();
     IGParameterAssert(indexes != nil);
     IGParameterAssert(sectionController != nil);
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Deleting items from %@ without a collection view at indexes %@.", sectionController, indexes);
 
     if (indexes.count == 0) {
@@ -1023,7 +1023,7 @@
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(fromIndex >= 0);
     IGParameterAssert(toIndex >= 0);
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Moving items from %@ without a collection view from index %zi to index %zi.",
              sectionController, fromIndex, toIndex);
 
@@ -1040,7 +1040,7 @@
 - (void)reloadSectionController:(IGListSectionController *)sectionController {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
-    UIView<IGListManagementPerformable> *collectionView = self.collectionView;
+    UIView<IGListViewType> *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reloading items from %@ without a collection view.", sectionController);
 
     IGListSectionMap *map = [self sectionMapUsingPreviousIfInUpdateBlock:YES];

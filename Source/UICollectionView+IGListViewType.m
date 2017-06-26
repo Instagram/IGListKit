@@ -7,8 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "UICollectionView+IGListManagementPerformable.h"
+#import "UICollectionView+IGListViewType.h"
 
 
-@implementation UICollectionView (IGListManagementPerformable)
+@implementation UICollectionView (IGListViewType)
 @end

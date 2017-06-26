@@ -12,7 +12,7 @@
 
 #import "IGListAdapterUpdaterInternal.h"
 #import "IGListTestUICollectionViewDataSource.h"
-#import "UICollectionView+IGListManagementPerformable.h"
+#import "UICollectionView+IGListViewType.h"
 
 #define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
 #define waitExpectation [self waitForExpectationsWithTimeout:30 handler:nil]

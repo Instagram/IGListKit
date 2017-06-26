@@ -13,7 +13,7 @@
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListBatchUpdateData.h>
 #import <IGListKit/IGListDiff.h>
-#import <IGListKit/IGListManagementPerformable.h>
+#import <IGListKit/IGListViewType.h>
 
 #import "UICollectionView+IGListBatchUpdateData.h"
 #import "IGListMoveIndexPathInternal.h"
@@ -485,7 +485,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     }
 }
 
-- (void)reloadItemInCollectionView:(UIView<IGListManagementPerformable> *)collectionView
+- (void)reloadItemInCollectionView:(UIView<IGListViewType> *)collectionView
                      fromIndexPath:(NSIndexPath *)fromIndexPath
                        toIndexPath:(NSIndexPath *)toIndexPath {
     if (self.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {

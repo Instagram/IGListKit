@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "IGListManagementPerformable.h"
+#import <IGListKit/IGListViewType.h>
 
-@interface UICollectionView (IGListManagementPerformable) <IGListManagementPerformable>
+@interface UICollectionView (IGListViewType) <IGListViewType>
 @end

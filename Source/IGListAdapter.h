@@ -17,7 +17,7 @@
 #import <IGListKit/IGListMacros.h>
 
 @protocol IGListUpdatingDelegate;
-@protocol IGListManagementPerformable;
+@protocol IGListViewType;
 
 @class IGListSectionController;
 
@@ -49,9 +49,9 @@ NS_SWIFT_NAME(ListAdapter)
 @property (nonatomic, nullable, weak) UIViewController *viewController;
 
 /**
- The view used for display with the adapter.
+ The list view used for display with the adapter.
  */
-@property (nonatomic, nullable, weak) UIView<IGListManagementPerformable> *collectionView;
+@property (nonatomic, nullable, weak) UIView<IGListViewType> *collectionView;
 
 /**
  The object that acts as the data source for the adapter.

@@ -24,6 +24,7 @@
 #import "IGListMoveIndexPath.h"
 #import "NSNumber+IGListDiffable.h"
 #import "NSString+IGListDiffable.h"
+#import "UICollectionView+IGListViewType.h"
 #import "IGListAdapter.h"
 #import "IGListAdapterDataSource.h"
 #import "IGListAdapterDelegate.h"
@@ -46,6 +47,7 @@
 #import "IGListStackedSectionController.h"
 #import "IGListSupplementaryViewSource.h"
 #import "IGListUpdatingDelegate.h"
+#import "IGListViewType.h"
 #import "IGListWorkingRangeDelegate.h"
 #import "IGListAssert.h"
 #import "IGListBatchUpdateData.h"
@@ -61,6 +63,7 @@
 #import "IGListMoveIndexPath.h"
 #import "NSNumber+IGListDiffable.h"
 #import "NSString+IGListDiffable.h"
+#import "UICollectionView+IGListViewType.h"
 
 FOUNDATION_EXPORT double IGListKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
