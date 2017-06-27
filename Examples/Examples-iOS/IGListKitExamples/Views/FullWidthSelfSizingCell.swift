@@ -74,6 +74,7 @@ final class FullWidthSelfSizingCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // swiftlint:disable:next line_length
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         setNeedsLayout()
         layoutIfNeeded()

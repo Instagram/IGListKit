@@ -48,6 +48,7 @@ final class NestedAdapterViewController: UIViewController, ListAdapterDataSource
     // MARK: ListAdapterDataSource
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        // swiftlint:disable:next force_cast
         return data as! [ListDiffable]
     }
 

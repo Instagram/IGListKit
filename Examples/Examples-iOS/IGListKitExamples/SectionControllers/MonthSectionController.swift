@@ -15,7 +15,8 @@
 import UIKit
 import IGListKit
 
-final class MonthSectionController: ListBindingSectionController<ListDiffable>, ListBindingSectionControllerDataSource, ListBindingSectionControllerSelectionDelegate {
+final class MonthSectionController: ListBindingSectionController<ListDiffable>,
+    ListBindingSectionControllerDataSource, ListBindingSectionControllerSelectionDelegate {
 
     private var selectedDay: Int = -1
 
