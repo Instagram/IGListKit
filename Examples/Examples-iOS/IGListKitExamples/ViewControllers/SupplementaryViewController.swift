@@ -85,4 +85,5 @@ final class SupplementaryViewController: UIViewController, ListAdapterDataSource
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
+ 
 }
