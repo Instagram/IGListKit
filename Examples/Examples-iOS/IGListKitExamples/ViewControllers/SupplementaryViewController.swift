@@ -1,9 +1,9 @@
 /**
  Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
- 
+
  The examples provided by Facebook are for non-commercial testing and evaluation
  purposes only. Facebook reserves all rights not expressly granted.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -85,5 +85,5 @@ final class SupplementaryViewController: UIViewController, ListAdapterDataSource
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
- 
+
 }
