@@ -220,7 +220,7 @@
     const UIEdgeInsets contentInset = collectionView.contentInset;
     CGPoint contentOffset = collectionView.contentOffset;
     switch (scrollDirection) {
-        case UICollectionViewScrollDirectionHorizontal:
+        case UICollectionViewScrollDirectionHorizontal: {
             switch (scrollPosition) {
                 case UICollectionViewScrollPositionRight:
                     contentOffset.x = offsetMax - collectionViewWidth - contentInset.left;
@@ -238,8 +238,13 @@
                     contentOffset.x = offsetMin - contentInset.left;
                     break;
             }
+            const CGFloat maxOffsetX = collectionView.contentSize.width - collectionView.frame.size.width + collectionView.contentInset.right;
+            const CGFloat minOffsetX = -collectionView.contentInset.left;
+            contentOffset.x = MIN(contentOffset.x, maxOffsetX);
+            contentOffset.x = MAX(contentOffset.x, minOffsetX);
             break;
-        case UICollectionViewScrollDirectionVertical:
+        }
+        case UICollectionViewScrollDirectionVertical: {
             switch (scrollPosition) {
                 case UICollectionViewScrollPositionBottom:
                     contentOffset.y = offsetMax - collectionViewHeight - contentInset.top;
@@ -257,7 +262,12 @@
                     contentOffset.y = offsetMin - contentInset.top;
                     break;
             }
+            const CGFloat maxOffsetY = collectionView.contentSize.height - collectionView.frame.size.height + collectionView.contentInset.bottom;
+            const CGFloat minOffsetY = -collectionView.contentInset.top;
+            contentOffset.y = MIN(contentOffset.y, maxOffsetY);
+            contentOffset.y = MAX(contentOffset.y, minOffsetY);
             break;
+        }
     }
 
     [collectionView setContentOffset:contentOffset animated:animated];
