@@ -23,8 +23,10 @@ final class MessagesViewController: MSMessagesAppViewController, ListAdapterData
     }()
     let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-    // swiftlint:disable:next line_length
-    let data = "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.".components(separatedBy: " ")
+    let data = [
+            "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, ",
+            "nisi erat porttitor ligula, eget lacinia odio sem nec elit."
+        ].joined(separator: "").components(separatedBy: " ")
 
     override func viewDidLoad() {
         super.viewDidLoad()

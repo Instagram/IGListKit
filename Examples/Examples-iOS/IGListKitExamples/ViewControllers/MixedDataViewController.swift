@@ -23,8 +23,8 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let data: [Any] = [
-        // swiftlint:disable:next line_length
-        "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.",
+        "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, " +
+        "nisi erat porttitor ligula, eget lacinia odio sem nec elit.",
         GridItem(color: UIColor(red: 237/255.0, green: 73/255.0, blue: 86/255.0, alpha: 1), itemCount: 6),
         User(pk: 2, name: "Ryan Olson", handle: "ryanolsonk"),
         "Praesent commodo cursus magna, vel scelerisque nisl consectetur et.",
@@ -73,15 +73,20 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
     // MARK: ListAdapterDataSource
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        guard selectedClass != nil else {
-            // swiftlint:disable:next force_cast
-            return data.map { $0 as! ListDiffable }
+        guard let selectedClass = selectedClass else {
+            return data.map {
+                guard let item = $0 as? ListDiffable else {
+                    fatalError("Item is not a ListDiffable")
+                }
+                return item
+            }
         }
-        // swiftlint:disable:next force_cast
-        return data.filter { type(of: $0) == selectedClass! }
+        return data.filter { type(of: $0) == selectedClass }
             .map {
-                // swiftlint:disable:next force_cast
-                $0 as! ListDiffable
+                guard let item = $0 as? ListDiffable else {
+                    fatalError("Item is not a ListDiffable")
+                }
+                return item
             }
     }
 

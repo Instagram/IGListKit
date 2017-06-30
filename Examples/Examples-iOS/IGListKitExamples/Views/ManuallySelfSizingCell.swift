@@ -74,8 +74,8 @@ final class ManuallySelfSizingCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // swiftlint:disable:next line_length
-    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes)
+        -> UICollectionViewLayoutAttributes {
         setNeedsLayout()
         layoutIfNeeded()
         let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)

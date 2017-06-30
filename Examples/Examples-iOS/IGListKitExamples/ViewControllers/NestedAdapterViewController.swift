@@ -48,8 +48,11 @@ final class NestedAdapterViewController: UIViewController, ListAdapterDataSource
     // MARK: ListAdapterDataSource
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        // swiftlint:disable:next force_cast
-        return data as! [ListDiffable]
+        guard let data = data as? [ListDiffable] else {
+            return []
+        }
+
+        return data
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
