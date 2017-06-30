@@ -21,7 +21,8 @@ final class SearchViewController: UIViewController, ListAdapterDataSource, Searc
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    lazy var words: [String] = {
+    lazy var words: Set<String> = {
+        // swiftlint:disable:next
         let str = "Humblebrag skateboard tacos viral small batch blue bottle, schlitz fingerstache etsy squid. "
             + "Listicle tote bag helvetica XOXO literally, meggings cardigan kickstarter roof party deep"
             + "v selvage scenester venmo truffaut. You probably haven't heard of them fanny pack austin next level "
@@ -29,10 +30,10 @@ final class SearchViewController: UIViewController, ListAdapterDataSource, Searc
             + "denim butcher. Single-origin coffee try-hard echo park neutra, cornhole banh mi meh austin readymade "
             + "tacos taxidermy pug tattooed. Cold-pressed +1 ethical, four loko cardigan meh forage YOLO health "
             + "goth sriracha kale chips. Mumblecore cardigan humblebrag, lo-fi typewriter truffaut leggings health goth."
-        var words = [String]()
+        var words = Set<String>()
         let range = str.startIndex ..< str.endIndex
         str.enumerateSubstrings(in: range, options: .byWords) { (substring, _, _, _) in
-            words.append(substring!)
+            words.insert(substring!)
         }
         return words
     }()
