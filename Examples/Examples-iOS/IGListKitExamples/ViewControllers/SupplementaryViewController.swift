@@ -57,10 +57,8 @@ final class SupplementaryViewController: UIViewController, ListAdapterDataSource
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        collectionView.frame = view.bounds
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         if let flowLayout = collectionView.collectionViewLayout as? ListCollectionViewLayout {
             // If we are showing a navigation bar we need to change the y offset for the sticky headers as normal behaviour
             // of the UICollectionView to keep scrolling under the navigation bar. This case the sticky headers to end up below
@@ -68,6 +66,10 @@ final class SupplementaryViewController: UIViewController, ListAdapterDataSource
             flowLayout.stickyHeaderOriginYAdjustment = self.topLayoutGuide.length
             collectionView.collectionViewLayout = flowLayout
         }
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.frame = view.bounds
     }
 
     // MARK: ListAdapterDataSource
