@@ -53,25 +53,21 @@ final class SupplementaryViewController: UIViewController, ListAdapterDataSource
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let flowLayout = collectionView.collectionViewLayout as? ListCollectionViewLayout {
-            let statusBarSize = UIApplication.shared.statusBarFrame.size
-            let navigationBarVisible = self.navigationController?.isNavigationBarHidden == false
-            let navigationBarHeight = ( navigationBarVisible ? self.navigationController!.navigationBar.frame.height : 0 )
-
-            // If we are showing a navigation bar we need to change the y offset for the sticky headers as normal behaviour
-            // of the UICollectionView to keep scrolling under the navigation bar. This case the sticky headers to end up below
-            // this bar too hence this bit of calculation to determine what the correct y offset is
-            flowLayout.stickyHeaderOriginYAdjustment = navigationBarHeight + statusBarSize.height
-            collectionView.collectionViewLayout = flowLayout
-        }
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
-
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
+
+        if let flowLayout = collectionView.collectionViewLayout as? ListCollectionViewLayout {
+            // If we are showing a navigation bar we need to change the y offset for the sticky headers as normal behaviour
+            // of the UICollectionView to keep scrolling under the navigation bar. This case the sticky headers to end up below
+            // this bar too hence this bit of calculation to determine what the correct y offset is
+            flowLayout.stickyHeaderOriginYAdjustment = self.topLayoutGuide.length
+            collectionView.collectionViewLayout = flowLayout
+        }
     }
 
     // MARK: ListAdapterDataSource
