@@ -22,21 +22,23 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
     }()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-    let data: [Any] = [
-        "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, " +
-        "nisi erat porttitor ligula, eget lacinia odio sem nec elit.",
+    let data: [ListDiffable] = [
+        ("Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, " +
+        "nisi erat porttitor ligula, eget lacinia odio sem nec elit.") as ListDiffable,
         GridItem(color: UIColor(red: 237/255.0, green: 73/255.0, blue: 86/255.0, alpha: 1), itemCount: 6),
         User(pk: 2, name: "Ryan Olson", handle: "ryanolsonk"),
-        "Praesent commodo cursus magna, vel scelerisque nisl consectetur et.",
+        "Praesent commodo cursus magna, vel scelerisque nisl consectetur et." as ListDiffable,
         User(pk: 4, name: "Oliver Rickard", handle: "ocrickard"),
         GridItem(color: UIColor(red: 56/255.0, green: 151/255.0, blue: 240/255.0, alpha: 1), itemCount: 5),
-        "Nullam quis risus eget urna mollis ornare vel eu leo. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.",
+        ("Nullam quis risus eget urna mollis ornare vel eu leo. Praesent commodo " +
+        "cursus magna, vel scelerisque nisl consectetur et.") as ListDiffable,
         User(pk: 3, name: "Jesse Squires", handle: "jesse_squires"),
         GridItem(color: UIColor(red: 112/255.0, green: 192/255.0, blue: 80/255.0, alpha: 1), itemCount: 3),
-        "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+        ("Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, " +
+        "ut fermentum massa justo sit amet risus.") as ListDiffable,
         GridItem(color: UIColor(red: 163/255.0, green: 42/255.0, blue: 186/255.0, alpha: 1), itemCount: 7),
         User(pk: 1, name: "Ryan Nystrom", handle: "_ryannystrom")
-        ]
+    ]
 
     let segments: [(String, Any.Type?)] = [
         ("All", nil),
@@ -75,26 +77,25 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         guard let selectedClass = selectedClass else {
             return data.map {
-                guard let item = $0 as? ListDiffable else {
-                    fatalError("Item is not a ListDiffable")
-                }
-                return item
+                return $0
             }
         }
-        return data.filter { type(of: $0) == selectedClass }
-            .map {
-                guard let item = $0 as? ListDiffable else {
-                    fatalError("Item is not a ListDiffable")
+        return data.filter {
+                if selectedClass == String.self, $0 is String {
+                    return true
                 }
-                return item
+                return type(of: $0) == selectedClass
+            }
+            .map {
+                return $0
             }
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         switch object {
-        case is String:   return ExpandableSectionController()
+        case is User:   return UserSectionController()
         case is GridItem: return GridSectionController()
-        default:          return UserSectionController()
+        default: return ExpandableSectionController()
         }
     }
 
