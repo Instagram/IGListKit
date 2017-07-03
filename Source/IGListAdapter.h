@@ -16,6 +16,7 @@
 #import <IGListKit/IGListExperiments.h>
 #import <IGListKit/IGListMacros.h>
 
+@protocol IGListReusableView;
 @protocol IGListUpdatingDelegate;
 @protocol IGListViewType;
 
@@ -223,7 +224,7 @@ NS_SWIFT_NAME(ListAdapter)
 
  @return An array of collection view cells.
  */
-- (NSArray<UICollectionViewCell *> *)visibleCellsForObject:(id)object;
+- (NSArray<UIView<IGListReusableView> *> *)visibleCellsForObject:(id)object;
 
 /**
  Scrolls to the specified object in the list adapter.

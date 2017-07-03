@@ -12,13 +12,15 @@
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListAdapterUpdater.h>
 #import <IGListKit/IGListSupplementaryViewSource.h>
+#import <IGListKit/IGListReusableView.h>
 #import <IGListKit/IGListViewType.h>
+#import <IGListKit/UICollectionView+IGListViewType.h>
 
 #import "IGListSectionControllerInternal.h"
 #import "IGListDebugger.h"
 
 @implementation IGListAdapter {
-    NSMapTable<UICollectionReusableView *, IGListSectionController *> *_viewSectionControllerMap;
+    NSMapTable<UIView<IGListReusableView> *, IGListSectionController *> *_viewSectionControllerMap;
 }
 
 - (void)dealloc {
@@ -413,7 +415,7 @@
 
 - (NSArray<IGListSectionController *> *)visibleSectionControllers {
     IGAssertMainThread();
-    NSArray<UICollectionViewCell *> *visibleCells = [self.collectionView visibleCells];
+    NSArray<UIView<IGListReusableView> *> *visibleCells = [self.collectionView visibleCells];
     NSMutableSet *visibleSectionControllers = [NSMutableSet new];
     for (UICollectionViewCell *cell in visibleCells) {
         IGListSectionController *sectionController = [self sectionControllerForView:cell];
@@ -427,7 +429,7 @@
 
 - (NSArray *)visibleObjects {
     IGAssertMainThread();
-    NSArray<UICollectionViewCell *> *visibleCells = [self.collectionView visibleCells];
+    NSArray<UIView<IGListReusableView> *> *visibleCells = [self.collectionView visibleCells];
     NSMutableSet *visibleObjects = [NSMutableSet new];
     for (UICollectionViewCell *cell in visibleCells) {
         IGListSectionController *sectionController = [self sectionControllerForView:cell];
@@ -444,7 +446,7 @@
     return [visibleObjects allObjects];
 }
 
-- (NSArray<UICollectionViewCell *> *)visibleCellsForObject:(id)object {
+- (NSArray<UIView<IGListReusableView> *> *)visibleCellsForObject:(id)object {
     IGAssertMainThread();
     IGParameterAssert(object != nil);
 
@@ -453,9 +455,9 @@
         return [NSArray new];
     }
 
-    NSArray<UICollectionViewCell *> *visibleCells = [self.collectionView visibleCells];
+    NSArray<UIView<IGListReusableView> *> *visibleCells = [self.collectionView visibleCells];
     UIView<IGListViewType> *collectionView = self.collectionView;
-    NSPredicate *controllerPredicate = [NSPredicate predicateWithBlock:^BOOL(UICollectionViewCell* cell, NSDictionary* bindings) {
+    NSPredicate *controllerPredicate = [NSPredicate predicateWithBlock:^BOOL(UIView<IGListReusableView>* cell, NSDictionary* bindings) {
         NSIndexPath *indexPath = [collectionView indexPathForCell:cell];
         return indexPath.section == section;
     }];
@@ -645,19 +647,19 @@
     return attributes;
 }
 
-- (void)mapView:(__kindof UIView *)view toSectionController:(IGListSectionController *)sectionController {
+- (void)mapView:(UIView<IGListReusableView> *)view toSectionController:(IGListSectionController *)sectionController {
     IGAssertMainThread();
     IGParameterAssert(view != nil);
     IGParameterAssert(sectionController != nil);
     [_viewSectionControllerMap setObject:sectionController forKey:view];
 }
 
-- (nullable IGListSectionController *)sectionControllerForView:(__kindof UIView *)view {
+- (nullable IGListSectionController *)sectionControllerForView:(UIView<IGListReusableView> *)view {
     IGAssertMainThread();
     return [_viewSectionControllerMap objectForKey:view];
 }
 
-- (void)removeMapForView:(__kindof UIView *)view {
+- (void)removeMapForView:(UIView<IGListReusableView> *)view {
     IGAssertMainThread();
     [_viewSectionControllerMap removeObjectForKey:view];
 }
@@ -722,7 +724,7 @@
                       self.containerSize.height - inset.top - inset.bottom);
 }
 
-- (NSInteger)indexForCell:(UICollectionViewCell *)cell sectionController:(nonnull IGListSectionController *)sectionController {
+- (NSInteger)indexForCell:(UIView<IGListReusableView> *)cell sectionController:(nonnull IGListSectionController *)sectionController {
     IGAssertMainThread();
     IGParameterAssert(cell != nil);
     IGParameterAssert(sectionController != nil);
@@ -732,8 +734,8 @@
     return indexPath != nil ? indexPath.item : NSNotFound;
 }
 
-- (__kindof UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index
-                                    sectionController:(IGListSectionController *)sectionController {
+- (UIView<IGListReusableView> *)cellForItemAtIndex:(NSInteger)index
+                                 sectionController:(IGListSectionController *)sectionController {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
 
@@ -748,7 +750,7 @@
         && indexPath.section < [self.collectionView numberOfSections]) {
         // only return a cell if it belongs to the section controller
         // this association is created in -collectionView:cellForItemAtIndexPath:
-        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+        UIView<IGListReusableView> *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
         if ([self sectionControllerForView:cell] == sectionController) {
             return cell;
         }
@@ -756,12 +758,12 @@
     return nil;
 }
 
-- (NSArray<UICollectionViewCell *> *)visibleCellsForSectionController:(IGListSectionController *)sectionController {
+- (NSArray<UIView<IGListReusableView> *> *)visibleCellsForSectionController:(IGListSectionController *)sectionController {
     NSMutableArray *cells = [NSMutableArray new];
     UIView<IGListViewType> *collectionView = self.collectionView;
     NSArray *visibleCells = [collectionView visibleCells];
     const NSInteger section = [self sectionForSectionController:sectionController];
-    for (UICollectionViewCell *cell in visibleCells) {
+    for (UIView<IGListReusableView> *cell in visibleCells) {
         if ([collectionView indexPathForCell:cell].section == section) {
             [cells addObject:cell];
         }
@@ -791,9 +793,9 @@
     [self.collectionView deselectItemAtIndexPath:indexPath animated:animated];
 }
 
-- (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
-                                         forSectionController:(IGListSectionController *)sectionController
-                                                      atIndex:(NSInteger)index {
+- (UIView<IGListReusableView> *)dequeueReusableCellOfClass:(Class)cellClass
+                                      forSectionController:(IGListSectionController *)sectionController
+                                                   atIndex:(NSInteger)index {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(cellClass != nil);
@@ -809,9 +811,9 @@
     return [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
 }
 
-- (__kindof UICollectionViewCell *)dequeueReusableCellFromStoryboardWithIdentifier:(NSString *)identifier
-                                                              forSectionController:(IGListSectionController *)sectionController
-                                                                           atIndex:(NSInteger)index {
+- (UIView<IGListReusableView> *)dequeueReusableCellFromStoryboardWithIdentifier:(NSString *)identifier
+                                                           forSectionController:(IGListSectionController *)sectionController
+                                                                        atIndex:(NSInteger)index {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(identifier.length > 0);
@@ -821,10 +823,10 @@
     return [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
 }
 
-- (UICollectionViewCell *)dequeueReusableCellWithNibName:(NSString *)nibName
-                                                  bundle:(NSBundle *)bundle
-                                    forSectionController:(IGListSectionController *)sectionController
-                                                 atIndex:(NSInteger)index {
+- (UIView<IGListReusableView> *)dequeueReusableCellWithNibName:(NSString *)nibName
+                                                        bundle:(NSBundle *)bundle
+                                          forSectionController:(IGListSectionController *)sectionController
+                                                       atIndex:(NSInteger)index {
     IGAssertMainThread();
     IGParameterAssert([nibName length] > 0);
     IGParameterAssert(sectionController != nil);
@@ -840,10 +842,10 @@
     return [collectionView dequeueReusableCellWithReuseIdentifier:nibName forIndexPath:indexPath];
 }
 
-- (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
-                                                         forSectionController:(IGListSectionController *)sectionController
-                                                                        class:(Class)viewClass
-                                                                      atIndex:(NSInteger)index {
+- (UIView<IGListReusableView> *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
+                                                  forSectionController:(IGListSectionController *)sectionController
+                                                                 class:(Class)viewClass
+                                                               atIndex:(NSInteger)index {
     IGAssertMainThread();
     IGParameterAssert(elementKind.length > 0);
     IGParameterAssert(sectionController != nil);
@@ -860,10 +862,10 @@
     return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
 }
 
-- (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewFromStoryboardOfKind:(NSString *)elementKind
-                                                                             withIdentifier:(NSString *)identifier
-                                                                       forSectionController:(IGListSectionController *)sectionController
-                                                                                    atIndex:(NSInteger)index {
+- (UIView<IGListReusableView> *)dequeueReusableSupplementaryViewFromStoryboardOfKind:(NSString *)elementKind
+                                                                      withIdentifier:(NSString *)identifier
+                                                                forSectionController:(IGListSectionController *)sectionController
+                                                                             atIndex:(NSInteger)index {
     IGAssertMainThread();
     IGParameterAssert(elementKind.length > 0);
     IGParameterAssert(identifier.length > 0);
@@ -875,11 +877,11 @@
     return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
 }
 
-- (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
-                                                         forSectionController:(IGListSectionController *)sectionController
-                                                                      nibName:(NSString *)nibName
-                                                                       bundle:(NSBundle *)bundle
-                                                                      atIndex:(NSInteger)index {
+- (UIView<IGListReusableView> *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
+                                                  forSectionController:(IGListSectionController *)sectionController
+                                                               nibName:(NSString *)nibName
+                                                                bundle:(NSBundle *)bundle
+                                                               atIndex:(NSInteger)index {
     IGAssertMainThread();
     IGParameterAssert([nibName length] > 0);
     IGParameterAssert([elementKind length] > 0);

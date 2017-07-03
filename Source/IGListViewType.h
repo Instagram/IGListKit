@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol IGListReusableView;
+
 @protocol IGListViewType <NSObject>
 
 /**
@@ -100,7 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  The visible views of the list being represented.
  */
-- (NSArray<__kindof UIView *> *)visibleCells;
+- (NSArray<__kindof UIView<IGListReusableView> *> *)visibleCells;
 
 /**
  The index paths of the items that have views contained within the `visibleCells` collection.
@@ -114,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return The index path of the cell or `nil` if it is not currently owned/managed by this object.
  */
-- (nullable NSIndexPath *)indexPathForCell:(__kindof UIView *)cell;
+- (nullable NSIndexPath *)indexPathForCell:(UIView<IGListReusableView> *)cell;
 
 /**
  The cell for a given index path.
@@ -123,7 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return The cell at the index path or `nil` if there is no cell currently owned/managed by this object.
  */
-- (nullable __kindof UIView *)cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (nullable __kindof UIView<IGListReusableView> *)cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
  The view for the given kind at the given index path.
@@ -133,7 +135,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return The cell at the index path or `nil` if there is no cell currently owned/managed by this object.
  */
-- (nullable __kindof UIView *)supplementaryViewForElementKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath;
+- (nullable __kindof UIView<IGListReusableView> *)supplementaryViewForElementKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath;
 
 /**
  Scroll to the item at the index path if possible.
@@ -209,7 +211,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @note If the presenting object does not have a registered Class or nib for this identifier, this method should error.
  */
-- (__kindof UIView *)dequeueReusableCellWithReuseIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath;
+- (__kindof UIView<IGListReusableView> *)dequeueReusableCellWithReuseIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath;
 
 /**
  Request a fully initialized, reusable view of the type and kind registered for the identifier.
@@ -222,7 +224,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @note If the presenting object does not have a registered Class or nib for this kind and identifier, then this method should error.
  */
-- (__kindof UIView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind withReuseIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath;
+- (__kindof UIView<IGListReusableView> *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind withReuseIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath;
 
 /**
  The distance the content is inset from the containing presenting object.
