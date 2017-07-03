@@ -627,7 +627,8 @@
     [self.adapter scrollToObject:@3 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 30);
     [self.adapter scrollToObject:@6 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
-    IGAssertEqualPoint([self.collectionView contentOffset], 0, 150);
+    // Content height minus collection view height is 110, can't scroll more than that
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 110);
     [self.adapter scrollToObject:@6 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 105);
     [self.adapter scrollToObject:@6 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionBottom animated:NO];
@@ -649,7 +650,8 @@
     [self.adapter scrollToObject:@3 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionHorizontal scrollPosition:UICollectionViewScrollPositionNone animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 30, 0);
     [self.adapter scrollToObject:@6 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionHorizontal scrollPosition:UICollectionViewScrollPositionNone animated:NO];
-    IGAssertEqualPoint([self.collectionView contentOffset], 150, 0);
+    // Content width minus collection view width is 110, can't scroll more than that
+    IGAssertEqualPoint([self.collectionView contentOffset], 110, 0);
     [self.adapter scrollToObject:@6 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionHorizontal scrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 105, 0);
     [self.adapter scrollToObject:@6 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionHorizontal scrollPosition:UICollectionViewScrollPositionRight animated:NO];
@@ -676,7 +678,8 @@
     [self.adapter scrollToObject:@1 supplementaryKinds:@[UICollectionElementKindSectionHeader] scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
     [self.adapter scrollToObject:@2 supplementaryKinds:@[UICollectionElementKindSectionHeader] scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
-    IGAssertEqualPoint([self.collectionView contentOffset], 0, 20);
+    // Content height smaller than collection view height, won't scroll
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
 }
 
 - (void)test_whenScrollToItem_thatSupplementarySourceSupportsHeaderAndFooter {
@@ -698,7 +701,8 @@
     [self.adapter scrollToObject:@1 supplementaryKinds:@[UICollectionElementKindSectionHeader, UICollectionElementKindSectionFooter] scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
     [self.adapter scrollToObject:@2 supplementaryKinds:@[UICollectionElementKindSectionHeader, UICollectionElementKindSectionFooter] scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
-    IGAssertEqualPoint([self.collectionView contentOffset], 0, 30);
+    // Content height smaller than collection view height, won't scroll
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
 }
 
 - (void)test_whenScrollVerticallyToItem_thatFeedIsEmpty {
@@ -719,9 +723,11 @@
     [self.adapter scrollToObject:@5 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
     [self.adapter scrollToObject:@2 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
-    IGAssertEqualPoint([self.collectionView contentOffset], 0, 10);
+    // Content height is smaller than collection view height, can't scroll
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
     [self.adapter scrollToObject:@5 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
-    IGAssertEqualPoint([self.collectionView contentOffset], 0, 10);
+    // Content height is smaller than collection view height, can't scroll
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
 }
 
 - (void)test_whenQueryingIndexPath_withOOBSectionController_thatNilReturned {
