@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol IGListDiffable;
+@protocol IGListViewType;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -75,7 +76,7 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
  The `objectTransitionBlock` block should be called prior to making any `UICollectionView` updates, passing in the `toObjects`
  that the updater is applying.
  */
-- (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
+- (void)performUpdateWithCollectionView:(UIView<IGListViewType> *)collectionView
                             fromObjects:(nullable NSArray<id <IGListDiffable>> *)fromObjects
                               toObjects:(nullable NSArray<id <IGListDiffable>> *)toObjects
                                animated:(BOOL)animated
@@ -88,7 +89,7 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
  @param collectionView The collection view on which to perform the transition.
  @param indexPaths The index paths to insert items into.
  */
-- (void)insertItemsIntoCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray <NSIndexPath *> *)indexPaths;
+- (void)insertItemsIntoCollectionView:(UIView<IGListViewType> *)collectionView indexPaths:(NSArray <NSIndexPath *> *)indexPaths;
 
 /**
  Tells the delegate to perform item deletes at the given index paths.
@@ -96,7 +97,7 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
  @param collectionView The collection view on which to perform the transition.
  @param indexPaths The index paths to delete items from.
  */
-- (void)deleteItemsFromCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray <NSIndexPath *> *)indexPaths;
+- (void)deleteItemsFromCollectionView:(UIView<IGListViewType> *)collectionView indexPaths:(NSArray <NSIndexPath *> *)indexPaths;
 
 /**
  Tells the delegate to move an item from and to given index paths.
@@ -105,7 +106,7 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
  @param fromIndexPath The source index path of the item to move.
  @param toIndexPath The destination index path of the item to move.
  */
-- (void)moveItemInCollectionView:(UICollectionView *)collectionView
+- (void)moveItemInCollectionView:(UIView<IGListViewType> *)collectionView
                    fromIndexPath:(NSIndexPath *)fromIndexPath
                      toIndexPath:(NSIndexPath *)toIndexPath;
 
@@ -120,7 +121,7 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
  executing insert and delete operations in the same batch updates, the updater must know about the origin and
  destination of the reload to perform a safe transition.
  */
-- (void)reloadItemInCollectionView:(UICollectionView *)collectionView
+- (void)reloadItemInCollectionView:(UIView<IGListViewType> *)collectionView
                      fromIndexPath:(NSIndexPath *)fromIndexPath
                        toIndexPath:(NSIndexPath *)toIndexPath;
 
@@ -131,7 +132,7 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
  @param reloadUpdateBlock A block that must be called when the adapter reloads the collection view.
  @param completion A completion block to execute when the reload is finished.
  */
-- (void)reloadDataWithCollectionView:(UICollectionView *)collectionView
+- (void)reloadDataWithCollectionView:(UIView<IGListViewType> *)collectionView
                    reloadUpdateBlock:(IGListReloadUpdateBlock)reloadUpdateBlock
                           completion:(nullable IGListUpdatingCompletion)completion;
 
@@ -141,7 +142,7 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
  @param collectionView The collection view to reload.
  @param sections The sections to reload.
  */
-- (void)reloadCollectionView:(UICollectionView *)collectionView sections:(NSIndexSet *)sections;
+- (void)reloadCollectionView:(UIView<IGListViewType> *)collectionView sections:(NSIndexSet *)sections;
 
 /**
  Perform an item update block in the collection view.
@@ -151,7 +152,7 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
  @param itemUpdates A block containing all of the updates.
  @param completion A completion block to execute when the update is finished.
  */
-- (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
+- (void)performUpdateWithCollectionView:(UIView<IGListViewType> *)collectionView
                                animated:(BOOL)animated
                             itemUpdates:(IGListItemUpdateBlock)itemUpdates
                              completion:(nullable IGListUpdatingCompletion)completion;

@@ -26,6 +26,7 @@
 #import "IGTestSupplementarySource.h"
 #import "IGTestStoryboardSupplementarySource.h"
 #import "IGListTestHelpers.h"
+#import "UICollectionViewCell+IGListReusableView.h"
 
 static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 

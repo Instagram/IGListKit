@@ -32,7 +32,11 @@
     [debug addObject:[NSString stringWithFormat:@"Scroll view delegate: %@", self.scrollViewDelegate]];
     [debug addObject:[NSString stringWithFormat:@"Is in update block: %@", IGListDebugBOOL(self.isInUpdateBlock)]];
     [debug addObject:[NSString stringWithFormat:@"View controller: %@", self.viewController]];
-    [debug addObject:[NSString stringWithFormat:@"Is prefetching enabled: %@", IGListDebugBOOL(self.collectionView.isPrefetchingEnabled)]];
+
+    if ([self.collectionView isKindOfClass:UICollectionView.class]) {
+        [debug addObject:[NSString stringWithFormat:@"Is prefetching enabled: %@",
+                                                    IGListDebugBOOL(((UICollectionView *)self.collectionView).isPrefetchingEnabled)]];
+    }
 
     if (self.registeredCellClasses.count > 0) {
         [debug addObject:@"Registered cell classes:"];
@@ -68,7 +72,7 @@
     }
 
     [debug addObject:[NSString stringWithFormat:@"Collection view details:"]];
-    [debug addObjectsFromArray:IGListDebugIndentedLines([self.collectionView debugDescriptionLines])];
+    [debug addObjectsFromArray:IGListDebugIndentedLines([(UICollectionView *)self.collectionView debugDescriptionLines])];
 #endif // #if IGLK_DEBUG_DESCRIPTION_ENABLED
     return debug;
 }
