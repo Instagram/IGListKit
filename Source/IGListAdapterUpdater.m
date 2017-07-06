@@ -181,14 +181,12 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
 
     const IGListExperiment experiments = self.experiments;
 
-    // block that performs diff and stores result in scoped object
-    __block IGListIndexSetResult *result = nil;
-    void (^performDiff)() = ^{
-        result = IGListDiffExperiment(fromObjects, toObjects, IGListDiffEquality, experiments);
+    IGListIndexSetResult *(^performDiff)() = ^{
+        return IGListDiffExperiment(fromObjects, toObjects, IGListDiffEquality, experiments);
     };
 
-    // block used as the first param of -[UICollectionView performBatchUpdates:completion:]
-    void (^batchUpdatesBlock)() = ^{
+    // block executed in the first param block of -[UICollectionView performBatchUpdates:completion:]
+    void (^batchUpdatesBlock)(IGListIndexSetResult *result) = ^(IGListIndexSetResult *result){
         executeUpdateBlocks();
 
         self.applyingUpdateData = [self flushCollectionView:collectionView
@@ -212,15 +210,19 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     };
 
     // block that executes the batch update and exception handling
-    void (^performUpdate)() = ^{
+    void (^performUpdate)(IGListIndexSetResult *) = ^(IGListIndexSetResult *result){
         @try {
             [delegate listAdapterUpdater:self willPerformBatchUpdatesWithCollectionView:collectionView];
             if (animated) {
-                [collectionView performBatchUpdates:batchUpdatesBlock completion:batchUpdatesCompletionBlock];
+                [collectionView performBatchUpdates:^{
+                    batchUpdatesBlock(result);
+                } completion:batchUpdatesCompletionBlock];
             } else {
                 [CATransaction begin];
                 [CATransaction setDisableActions:YES];
-                [collectionView performBatchUpdates:batchUpdatesBlock completion:^(BOOL finished) {
+                [collectionView performBatchUpdates:^{
+                    batchUpdatesBlock(result);
+                } completion:^(BOOL finished) {
                     batchUpdatesCompletionBlock(finished);
                     [CATransaction commit];
                 }];
@@ -238,12 +240,14 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     // temporary test to try out background diffing
     if (IGListExperimentEnabled(experiments, IGListExperimentBackgroundDiffing)) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            performDiff();
-            dispatch_async(dispatch_get_main_queue(), performUpdate);
+            IGListIndexSetResult *result = performDiff();
+            dispatch_async(dispatch_get_main_queue(), ^{
+                performUpdate(result);
+            });
         });
     } else {
-        performDiff();
-        performUpdate();
+        IGListIndexSetResult *result = performDiff();
+        performUpdate(result);
     }
 }
 
