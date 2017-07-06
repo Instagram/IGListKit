@@ -230,7 +230,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         return CGSizeZero;
     }
 
-    CGFloat height ;
+    CGFloat height = 0.0 ;
     
     for (NSInteger i = 0; i < sectionCount; i++){
         IGListSectionEntry section = _sectionData[i];
