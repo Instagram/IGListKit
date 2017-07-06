@@ -176,9 +176,17 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
         return;
     }
 
-    IGListIndexSetResult *result = IGListDiffExperiment(fromObjects, toObjects, IGListDiffEquality, self.experiments);
+    // disables multiple performBatchUpdates: from happening at the same time
+    [self beginPerformBatchUpdatesToObjects:toObjects];
 
-    void (^updateBlock)() = ^{
+    const IGListExperiment experiments = self.experiments;
+
+    IGListIndexSetResult *(^performDiff)() = ^{
+        return IGListDiffExperiment(fromObjects, toObjects, IGListDiffEquality, experiments);
+    };
+
+    // block executed in the first param block of -[UICollectionView performBatchUpdates:completion:]
+    void (^batchUpdatesBlock)(IGListIndexSetResult *result) = ^(IGListIndexSetResult *result){
         executeUpdateBlocks();
 
         self.applyingUpdateData = [self flushCollectionView:collectionView
@@ -190,7 +198,8 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
         [self performBatchUpdatesItemBlockApplied];
     };
 
-    void (^completionBlock)(BOOL) = ^(BOOL finished) {
+    // block used as the second param of -[UICollectionView performBatchUpdates:completion:]
+    void (^batchUpdatesCompletionBlock)(BOOL) = ^(BOOL finished) {
         executeCompletionBlocks(finished);
 
         [delegate listAdapterUpdater:self didPerformBatchUpdates:(id)self.applyingUpdateData collectionView:collectionView];
@@ -200,28 +209,45 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
         [self queueUpdateWithCollectionView:collectionView];
     };
 
-    // disables multiple performBatchUpdates: from happening at the same time
-    [self beginPerformBatchUpdatesToObjects:toObjects];
-
-    @try {
-        [delegate listAdapterUpdater:self willPerformBatchUpdatesWithCollectionView:collectionView];
-        if (animated) {
-            [collectionView performBatchUpdates:updateBlock completion:completionBlock];
-        } else {
-            [CATransaction begin];
-            [CATransaction setDisableActions:YES];
-            [collectionView performBatchUpdates:updateBlock completion:^(BOOL finished) {
-                completionBlock(finished);
-                [CATransaction commit];
-            }];
+    // block that executes the batch update and exception handling
+    void (^performUpdate)(IGListIndexSetResult *) = ^(IGListIndexSetResult *result){
+        @try {
+            [delegate listAdapterUpdater:self willPerformBatchUpdatesWithCollectionView:collectionView];
+            if (animated) {
+                [collectionView performBatchUpdates:^{
+                    batchUpdatesBlock(result);
+                } completion:batchUpdatesCompletionBlock];
+            } else {
+                [CATransaction begin];
+                [CATransaction setDisableActions:YES];
+                [collectionView performBatchUpdates:^{
+                    batchUpdatesBlock(result);
+                } completion:^(BOOL finished) {
+                    batchUpdatesCompletionBlock(finished);
+                    [CATransaction commit];
+                }];
+            }
+        } @catch (NSException *exception) {
+            [delegate listAdapterUpdater:self
+                  willCrashWithException:exception
+                             fromObjects:fromObjects
+                               toObjects:toObjects
+                                 updates:(id)self.applyingUpdateData];
+            @throw exception;
         }
-    } @catch (NSException *exception) {
-        [delegate listAdapterUpdater:self
-              willCrashWithException:exception
-                         fromObjects:fromObjects
-                           toObjects:toObjects
-                             updates:(id)self.applyingUpdateData];
-        @throw exception;
+    };
+
+    // temporary test to try out background diffing
+    if (IGListExperimentEnabled(experiments, IGListExperimentBackgroundDiffing)) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            IGListIndexSetResult *result = performDiff();
+            dispatch_async(dispatch_get_main_queue(), ^{
+                performUpdate(result);
+            });
+        });
+    } else {
+        IGListIndexSetResult *result = performDiff();
+        performUpdate(result);
     }
 }
 
