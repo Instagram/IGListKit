@@ -71,25 +71,33 @@ NS_SWIFT_NAME(ListCollectionViewLayout)
 @interface IGListCollectionViewLayout : UICollectionViewLayout
 
 /**
- Set this to adjust the offset of the sticky headers. Can be used to change the sticky header position as UI like the
- navigation bar is scrolled offscreen. Changing this to the height of the navigation bar will give the effect of the
- headers sticking to the nav as it is collapsed.
+ Direction in which layout will be scrollable; items will be flowed in the perpendicular direction, "newlining" when they
+ run out of space along that axis.
+ */
+@property (nonatomic, readonly) UICollectionViewScrollDirection scrollDirection;
+
+/**
+ Set this to adjust the offset of the sticky headers in the scrolling direction. Can be used to change the sticky 
+ header position as UI like the navigation bar is scrolled offscreen. In a vertically scrolling layout, changing 
+ this to the height of the navigation bar will give the effect of the headers sticking to the nav as it is collapsed.
 
  @discussion Changing the value on this method will invalidate the layout every time.
  */
-@property (nonatomic, assign) CGFloat stickyHeaderOriginYAdjustment;
+@property (nonatomic, assign) CGFloat stickyHeaderOriginOffset;
 
 /**
  Create and return a new collection view layout.
 
  @param stickyHeaders Set to `YES` to stick section headers to the top of the bounds while scrolling.
- @param topContentInset The top content inset used to offset the sticky headers. Ignored if stickyHeaders is `NO`.
+ @param scrollDirection Direction along which the collection view will be scrollable (if content size exceeds the frame size)
+ @param initialContentInset The top content inset used to offset the sticky headers. Ignored if stickyHeaders is `NO`.
  @param stretchToEdge Specifies whether to stretch width of last item to right edge when distance from last item to right edge < epsilon(1)
 
  @return A new collection view layout.
  */
 - (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
-                      topContentInset:(CGFloat)topContentInset
+                      scrollDirection:(UICollectionViewScrollDirection)scrollDirection
+                  initialContentInset:(CGFloat)initialContentInset
                         stretchToEdge:(BOOL)stretchToEdge NS_DESIGNATED_INITIALIZER;
 
 /**

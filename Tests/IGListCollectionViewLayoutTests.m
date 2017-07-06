@@ -42,7 +42,7 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 }
 
 - (void)setUpWithStickyHeaders:(BOOL)sticky topInset:(CGFloat)inset stretchToEdge:(BOOL)stretchToEdge {
-    self.layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:sticky topContentInset:inset stretchToEdge:stretchToEdge];
+    self.layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:sticky scrollDirection: UICollectionViewScrollDirectionVertical initialContentInset:inset stretchToEdge:stretchToEdge];
     self.dataSource = [IGLayoutTestDataSource new];
     self.collectionView = [[UICollectionView alloc] initWithFrame:kTestFrame collectionViewLayout:self.layout];
     self.collectionView.dataSource = self.dataSource;
@@ -171,12 +171,12 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     IGAssertEqualFrame([self headerForSection:0].frame, 0, 30, 100, 10);
     IGAssertEqualFrame([self headerForSection:1].frame, 0, 45, 100, 10);
 
-    self.layout.stickyHeaderOriginYAdjustment = -10;
+    self.layout.stickyHeaderOriginOffset = -10;
     [self.collectionView layoutIfNeeded];
     IGAssertEqualFrame([self headerForSection:0].frame, 0, 30, 100, 10);
     IGAssertEqualFrame([self headerForSection:1].frame, 0, 40, 100, 10);
 
-    self.layout.stickyHeaderOriginYAdjustment = 10;
+    self.layout.stickyHeaderOriginOffset = 10;
     [self.collectionView layoutIfNeeded];
     IGAssertEqualFrame([self headerForSection:0].frame, 0, 30, 100, 10);
     IGAssertEqualFrame([self headerForSection:1].frame, 0, 55, 100, 10);
