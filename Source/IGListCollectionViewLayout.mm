@@ -401,6 +401,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         const CGFloat paddedLengthInFixedDirection = CGSizeGetLengthInDirection(paddedCollectionViewSize, fixedDirection);
         const CGFloat headerLengthInScrollDirection =  CGSizeGetLengthInDirection(headerSize, self.scrollDirection);
         const BOOL headerExists = headerLengthInScrollDirection > 0;
+        
         // start the section accounting for the header size
         // header length in scroll direction is subtracted from the sectionBounds when calculating the header bounds after items are done
         // this bumps the first row of items over enough to make room for the header
@@ -418,7 +419,12 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
             const CGSize size = [delegate collectionView:collectionView layout:self sizeForItemAtIndexPath:indexPath];
 
-            IGAssert(CGSizeGetLengthInDirection(size, fixedDirection) <= paddedLengthInFixedDirection, @"%@ of item %zi in section %zi must be less than container %.0f accounting for section insets %@", self.scrollDirection == UICollectionViewScrollDirectionVertical ? @"Width" : @"Height", item, section, CGRectGetLengthInDirection(contentInsetAdjustedCollectionViewBounds, fixedDirection), NSStringFromUIEdgeInsets(insets));
+            IGAssert(CGSizeGetLengthInDirection(size, fixedDirection) <= paddedLengthInFixedDirection
+                     || fabs(CGSizeGetLengthInDirection(size, fixedDirection) - paddedLengthInFixedDirection) < FLT_EPSILON,
+                     @"%@ of item %zi in section %zi must be less than container %.0f accounting for section insets %@",
+                     self.scrollDirection == UICollectionViewScrollDirectionVertical ? @"Width" : @"Height",
+                     item, section, CGRectGetLengthInDirection(contentInsetAdjustedCollectionViewBounds, fixedDirection),
+                     NSStringFromUIEdgeInsets(insets));
 
             CGFloat itemLengthInFixedDirection = MIN(CGSizeGetLengthInDirection(size, fixedDirection), paddedLengthInFixedDirection);
 
@@ -445,8 +451,14 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             }
 
             const CGRect rawFrame = (self.scrollDirection == UICollectionViewScrollDirectionVertical) ?
-            CGRectMake(itemCoordInFixedDirection, itemCoordInScrollDirection + insets.top, itemLengthInFixedDirection, size.height) :
-            CGRectMake(itemCoordInScrollDirection + insets.left, itemCoordInFixedDirection, size.width, itemLengthInFixedDirection);
+                CGRectMake(itemCoordInFixedDirection,
+                           itemCoordInScrollDirection + insets.top,
+                           itemLengthInFixedDirection,
+                           size.height) :
+                CGRectMake(itemCoordInScrollDirection + insets.left,
+                           itemCoordInFixedDirection,
+                           size.width,
+                           itemLengthInFixedDirection);
             const CGRect frame = IGListRectIntegralScaled(rawFrame);
 
             sectionData[section].itemBounds[item] = frame;
