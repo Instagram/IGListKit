@@ -478,8 +478,14 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         }
 
         const CGRect headerBounds =  (self.scrollDirection == UICollectionViewScrollDirectionVertical) ?
-        CGRectMake(insets.left, CGRectGetMinY(rollingSectionBounds) - headerSize.height, paddedLengthInFixedDirection, headerSize.height) :
-        CGRectMake(CGRectGetMinX(rollingSectionBounds) - headerSize.width, insets.top, headerSize.width, paddedLengthInFixedDirection);
+            CGRectMake(insets.left,
+                       CGRectGetMinY(rollingSectionBounds) - headerSize.height,
+                       paddedLengthInFixedDirection,
+                       headerSize.height) :
+            CGRectMake(CGRectGetMinX(rollingSectionBounds) - headerSize.width,
+                       insets.top,
+                       headerSize.width,
+                       paddedLengthInFixedDirection);
 
         sectionData[section].headerBounds = headerBounds;
 
@@ -495,7 +501,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         // bump the coord for the next section with the right insets
         itemCoordInFixedDirection += UIEdgeInsetsTrailingInsetInDirection(insets, fixedDirection);
 
-        // find the furthest point in the section and add the trailing inset to find the next row's coord
+        // find the farthest point in the section and add the trailing inset to find the next row's coord
         nextRowCoordInScrollDirection = MAX(nextRowCoordInScrollDirection, CGRectGetMaxInDirection(rollingSectionBounds, self.scrollDirection) + UIEdgeInsetsTrailingInsetInDirection(insets, self.scrollDirection));
     }
 
