@@ -11,7 +11,7 @@
 
 @interface UICollectionView (IGListKit)
 /**
- A method used to configure collectionView background and disable prefetching so cells are configured as they come on screen.
+ Configure the UIAppearance of all UICollectionViews optimized for use with IGListKit.
  
  */
 - (void)ig_ConfigForIGListKit;
