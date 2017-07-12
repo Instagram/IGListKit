@@ -1480,4 +1480,45 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenUpdateQueuedDuringBatch_thatUpdateCompletesWithoutCrashing {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @4),
+                             genTestObject(@2, @4),
+                             genTestObject(@3, @4),
+                             genTestObject(@4, @4),
+                             ]];
+
+    IGTestObject *object = self.dataSource.objects[0];
+    IGTestDelegateController *sectionController = [self.adapter sectionControllerForObject:object];
+
+    XCTestExpectation *expect1 = genExpectation;
+    XCTestExpectation *expect2 = genExpectation;
+
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+        object.value = @3;
+        [batchContext deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
+
+        self.dataSource.objects = @[
+                                    genTestObject(@2, @4),
+                                    genTestObject(@4, @4),
+                                    genTestObject(@1, @3),
+                                    ];
+        [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+            XCTAssertEqual([self.collectionView numberOfSections], 3);
+            XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 4);
+            XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 4);
+            XCTAssertEqual([self.collectionView numberOfItemsInSection:2], 3);
+            [expect1 fulfill];
+        }];
+    } completion:^(BOOL finished2) {
+        XCTAssertEqual([self.collectionView numberOfSections], 4);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 4);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:2], 4);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:3], 4);
+        [expect2 fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
 @end

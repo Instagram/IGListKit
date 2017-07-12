@@ -94,6 +94,10 @@
 }
 
 static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable>> *objects) {
+    if (objects == nil) {
+        return nil;
+    }
+
     NSMutableSet *identifiers = [NSMutableSet new];
     NSMutableArray *uniqueObjects = [NSMutableArray new];
     for (id<IGListDiffable> object in objects) {
