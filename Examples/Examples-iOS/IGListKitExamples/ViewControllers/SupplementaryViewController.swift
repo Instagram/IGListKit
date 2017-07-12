@@ -20,13 +20,35 @@ final class SupplementaryViewController: UIViewController, ListAdapterDataSource
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: ListCollectionViewLayout(
+        stickyHeaders: true, topContentInset: 0.0, stretchToEdge: false))
 
     let feedItems = [
-        FeedItem(pk: 1, user: User(pk: 100, name: "Jesse", handle: "jesse_squires"), comments: ["You rock!", "Hmm you sure about that?"]),
-        FeedItem(pk: 2, user: User(pk: 101, name: "Ryan", handle: "_ryannystrom"), comments: ["lgtm", "lol", "Let's try it!"]),
-        FeedItem(pk: 3, user: User(pk: 102, name: "Ann", handle: "abaum"), comments: ["Good luck!"]),
-        FeedItem(pk: 4, user: User(pk: 103, name: "Phil", handle: "phil"), comments: ["yoooooooo", "What's the eta?"])
+        FeedItem(pk: 1, user: User(pk: 100, name: "Jesse", handle: "jesse_squires"), comments: [
+            "You rock!",
+            "Hmm you sure about that?",
+            "You rock!",
+            "Hmm you sure about that?",
+            "You rock!",
+            "Hmm you sure about that?"
+            ]),
+        FeedItem(pk: 2, user: User(pk: 101, name: "Ryan", handle: "_ryannystrom"), comments: [
+            "lgtm",
+            "lol",
+            "Let's try it!",
+            "lol",
+            "Let's try it!",
+            "Good luck!"
+            ]),
+        FeedItem(pk: 3, user: User(pk: 102, name: "Ann", handle: "abaum"), comments: [
+            "Good luck!",
+            "yoooooooo",
+            "lol"
+            ]),
+        FeedItem(pk: 4, user: User(pk: 103, name: "Phil", handle: "phil"), comments: [
+            "yoooooooo",
+            "What's the eta?"
+            ])
     ]
 
     override func viewDidLoad() {
@@ -35,7 +57,16 @@ final class SupplementaryViewController: UIViewController, ListAdapterDataSource
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let flowLayout = collectionView.collectionViewLayout as? ListCollectionViewLayout {
+            // If we are showing a navigation bar we need to change the y offset for the sticky headers as normal behaviour
+            // of the UICollectionView to keep scrolling under the navigation bar. This case the sticky headers to end up below
+            // this bar too hence this bit of calculation to determine what the correct y offset is
+            flowLayout.stickyHeaderOriginYAdjustment = self.topLayoutGuide.length
+            collectionView.collectionViewLayout = flowLayout
+        }
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
