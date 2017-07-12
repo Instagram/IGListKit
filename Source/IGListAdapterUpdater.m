@@ -15,6 +15,7 @@
 #import <IGListKit/IGListDiff.h>
 
 #import "UICollectionView+IGListBatchUpdateData.h"
+#import "IGListIndexSetResultInternal.h"
 #import "IGListMoveIndexPathInternal.h"
 #import "IGListReloadIndexPath.h"
 
@@ -167,16 +168,21 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
         }
     };
 
+    void (^reloadDataFallback)() = ^{
+        executeUpdateBlocks();
+        [self cleanStateAfterUpdates];
+        [self performBatchUpdatesItemBlockApplied];
+        [collectionView reloadData];
+        [collectionView layoutIfNeeded];
+        executeCompletionBlocks(YES);
+    };
+
     // if the collection view isn't in a visible window, skip diffing and batch updating. execute all transition blocks,
     // reload data, execute completion blocks, and get outta here
     const BOOL iOS83OrLater = (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_3);
     if (iOS83OrLater && self.allowsBackgroundReloading && collectionView.window == nil) {
         [self beginPerformBatchUpdatesToObjects:toObjects];
-        executeUpdateBlocks();
-        [self cleanStateAfterUpdates];
-        [self performBatchUpdatesItemBlockApplied];
-        [collectionView reloadData];
-        executeCompletionBlocks(YES);
+        reloadDataFallback();
         return;
     }
 
@@ -217,7 +223,9 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     void (^performUpdate)(IGListIndexSetResult *) = ^(IGListIndexSetResult *result){
         @try {
             [delegate listAdapterUpdater:self willPerformBatchUpdatesWithCollectionView:collectionView];
-            if (animated) {
+            if (result.changeCount > 100 && IGListExperimentEnabled(experiments, IGListExperimentReloadDataFallback)) {
+                reloadDataFallback();
+            } else if (animated) {
                 [collectionView performBatchUpdates:^{
                     batchUpdatesBlock(result);
                 } completion:batchUpdatesCompletionBlock];

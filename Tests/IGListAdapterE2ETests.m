@@ -1521,4 +1521,25 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenMassiveUpdate_thatUpdateApplied {
+    // init empty
+    [self setupWithObjects:@[]];
+
+    ((IGListAdapterUpdater *)self.updater).experiments = IGListExperimentReloadDataFallback;
+
+    NSMutableArray *objects = [NSMutableArray new];
+    for (NSInteger i = 0; i < 3000; i++) {
+        [objects addObject:genTestObject(@(i + 1), @4)];
+    }
+    self.dataSource.objects = objects;
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView numberOfSections], 3000);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
 @end
