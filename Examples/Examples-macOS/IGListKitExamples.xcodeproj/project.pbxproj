@@ -269,7 +269,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null && [ $(swiftlint version) == \"0.20.1\" ]; then\n    swiftlint lint --config ../.swiftlint.yml\nelse\n    echo \"warning: SwiftLint not installed or incorrect version installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "sh ../../scripts/lint.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 
