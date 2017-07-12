@@ -76,7 +76,7 @@ final class SingleSectionViewController: UIViewController, IGListAdapterDataSour
     // MARK: - IGListSingleSectionControllerDelegate
     
     func didSelect(_ sectionController: IGListSingleSectionController) {
-        let section = adapter.section(for: sectionController) + 1
+        let section = adapter.section(for: sectionController) + UInt(1)
         let alert = UIAlertController(title: "Section \(section) was selected 🎉", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
