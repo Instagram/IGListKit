@@ -84,4 +84,6 @@ void IGListSectionControllerPopThread(void) {
 
 - (void)didSelectItemAtIndex:(NSInteger)index {}
 
+- (void)didDeselectItemAtIndex:(NSInteger)index {}
+
 @end

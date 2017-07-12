@@ -9,6 +9,10 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Prevent a crash when update queued immediately after item batch update. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
 
+### Enhancements
+
+- Added `-[IGListSectionController didDeselectItemAtIndex:]` API to support default `UICollectionView` cell deselection. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+
 3.0.0
 -----
 
