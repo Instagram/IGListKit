@@ -15,6 +15,7 @@
 #import <IGListKit/IGListDiff.h>
 #import <IGListKit/IGListExperiments.h>
 
+#import "IGListIndexSetResultInternal.h"
 #import "IGListMoveIndexInternal.h"
 #import "IGListMoveIndexPathInternal.h"
 #import "IGTestObject.h"
@@ -35,33 +36,9 @@ static NSIndexSet *indexSetWithIndexes(NSArray *indexes) {
     return indexset;
 }
 
-
 static NSArray *sorted(NSArray *arr) {
     return [arr sortedArrayUsingSelector:@selector(compare:)];
 }
-
-
-@interface IGListIndexSetResult (UnitTests)
-- (NSInteger)changeCount;
-@end
-
-@implementation IGListIndexSetResult (UnitTests)
-- (NSInteger)changeCount {
-    return self.inserts.count + self.deletes.count + self.moves.count + self.updates.count;
-}
-@end
-
-
-@interface IGListIndexPathResult (UnitTests)
-- (NSInteger)changeCount;
-@end
-
-@implementation IGListIndexPathResult (UnitTests)
-- (NSInteger)changeCount {
-    return self.inserts.count + self.deletes.count + self.moves.count + self.updates.count;
-}
-@end
-
 
 @implementation IGListDiffTests
 

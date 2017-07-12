@@ -20,6 +20,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentNone = 1 << 1,
     /// Test updater diffing performed on a background queue.
     IGListExperimentBackgroundDiffing = 1 << 2,
+    /// Test fallback to reloadData when "too many" update operations.
+    IGListExperimentReloadDataFallback = 1 << 3,
 };
 
 /**
