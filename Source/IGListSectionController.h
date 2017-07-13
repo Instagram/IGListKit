@@ -82,6 +82,15 @@ NS_SWIFT_NAME(ListSectionController)
 - (void)didSelectItemAtIndex:(NSInteger)index;
 
 /**
+ Tells the section controller that the cell at the specified index path was deselected.
+
+ @param index The index of the deselected cell.
+
+ @note The default implementation does nothing. **Calling super is not required.**
+ */
+- (void)didDeselectItemAtIndex:(NSInteger)index;
+
+/**
  The view controller housing the adapter that created this section controller.
 
  @note Use this view controller to push, pop, present, or do other custom transitions. 

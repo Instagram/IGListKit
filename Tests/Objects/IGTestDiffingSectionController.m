@@ -55,4 +55,8 @@
     self.selectedViewModel = viewModel;
 }
 
+- (void)sectionController:(IGListBindingSectionController *)sectionController didDeselectItemAtIndex:(NSInteger)index viewModel:(id)viewModel {
+    self.deselectedViewModel = viewModel;
+}
+
 @end
