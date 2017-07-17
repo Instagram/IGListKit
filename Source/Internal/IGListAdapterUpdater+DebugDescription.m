@@ -51,11 +51,6 @@ static NSMutableArray *linesFromObjects(NSArray *objects) {
     }
     [debug addObject:[NSString stringWithFormat:@"State: %@", stateString]];
 
-    if (self.applyingUpdateData != nil) {
-        [debug addObject:@"Batch update data:"];
-        [debug addObjectsFromArray:IGListDebugIndentedLines([self.applyingUpdateData debugDescriptionLines])];
-    }
-
     if (self.fromObjects != nil) {
         [debug addObject:@"From objects:"];
         [debug addObjectsFromArray:IGListDebugIndentedLines(linesFromObjects(self.fromObjects))];

@@ -5,6 +5,10 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 3.1.0 (**upcoming release**)
 -----
 
+### Enhancements
+
+- Removed 'applyingUpdateData' property in favor of __block local scope var for 'IGListAdapterUpdaterInternal'. [Candance Smith](https://github.com/candance) [(#858)](https://github.com/Instagram/IGListKit/pull/858)
+
 ### Fixes
 
 - Prevent a crash when update queued immediately after item batch update. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
