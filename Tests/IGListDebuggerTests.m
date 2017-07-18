@@ -26,14 +26,6 @@
 - (void)test_whenSearchingAdapterInstances_thatCorrectCountReturned {
     UIViewController *controller = [UIViewController new];
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
-    IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
-    NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
-    updater.applyingUpdateData = [[IGListBatchUpdateData alloc] initWithInsertSections:[NSIndexSet indexSetWithIndex:1]
-                                                                        deleteSections:[NSIndexSet indexSetWithIndex:2]
-                                                                          moveSections:[NSSet setWithObject:[[IGListMoveIndex alloc] initWithFrom:3 to:4]]
-                                                                      insertIndexPaths:@[path]
-                                                                      deleteIndexPaths:@[path]
-                                                                        moveIndexPaths:@[[[IGListMoveIndexPath alloc] initWithFrom:path to:path]]];
     IGListTestAdapterDataSource *dataSource = [IGListTestAdapterDataSource new];
     dataSource.objects = @[@1, @2, @3];
     IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:0];

@@ -131,6 +131,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     void (^objectTransitionBlock)(NSArray *) = [self.objectTransitionBlock copy];
     const BOOL animated = self.queuedUpdateIsAnimated;
     IGListBatchUpdates *batchUpdates = self.batchUpdates;
+    __block IGListBatchUpdateData *applyingUpdateData = nil;
 
     // clean up all state so that new updates can be coalesced while the current update is in flight
     [self cleanStateBeforeUpdates];
@@ -160,7 +161,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     };
 
     void (^executeCompletionBlocks)(BOOL) = ^(BOOL finished) {
-        self.applyingUpdateData = nil;
+        applyingUpdateData = nil;
         self.state = IGListBatchUpdateStateIdle;
 
         for (IGListUpdatingCompletion block in completionBlocks) {
@@ -199,7 +200,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     void (^batchUpdatesBlock)(IGListIndexSetResult *result) = ^(IGListIndexSetResult *result){
         executeUpdateBlocks();
 
-        self.applyingUpdateData = [self flushCollectionView:collectionView
+        applyingUpdateData = [self flushCollectionView:collectionView
                                              withDiffResult:result
                                                batchUpdates:self.batchUpdates
                                                 fromObjects:fromObjects];
@@ -212,7 +213,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     void (^batchUpdatesCompletionBlock)(BOOL) = ^(BOOL finished) {
         executeCompletionBlocks(finished);
 
-        [delegate listAdapterUpdater:self didPerformBatchUpdates:(id)self.applyingUpdateData collectionView:collectionView];
+        [delegate listAdapterUpdater:self didPerformBatchUpdates:(id)applyingUpdateData collectionView:collectionView];
 
         // queue another update in case something changed during batch updates. this method will bail next runloop if
         // there are no changes
@@ -244,7 +245,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
                   willCrashWithException:exception
                              fromObjects:fromObjects
                                toObjects:toObjects
-                                 updates:(id)self.applyingUpdateData];
+                                 updates:(id)applyingUpdateData];
             @throw exception;
         }
     };
