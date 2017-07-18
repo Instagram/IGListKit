@@ -689,6 +689,19 @@
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 20);
 }
 
+- (void)test_whenScrollVerticallyToItemWithPositionning {
+    self.dataSource.objects = @[@1, @100, @200];
+    [self.adapter reloadDataWithCompletion:nil];
+    [self.adapter scrollToObject:@100 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 10);
+    [self.adapter scrollToObject:@100 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionTop animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 10);
+    [self.adapter scrollToObject:@100 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 460);
+    [self.adapter scrollToObject:@100 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionBottom animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 910);
+}
+
 - (void)test_whenScrollHorizontallyToItem {
     // # of items for each object == [item integerValue], so @2 has 2 items (cells)
     IGListTestAdapterHorizontalDataSource *dataSource = [[IGListTestAdapterHorizontalDataSource alloc] init];
