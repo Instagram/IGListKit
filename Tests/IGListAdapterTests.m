@@ -636,19 +636,19 @@
 }
 
 - (void)test_whenScrollVerticallyToItemInASectionWithNoCellsAndNoSupplymentaryView {
-    self.dataSource.objects = @[@1, @0, @3];
+    self.dataSource.objects = @[@1, @0, @300];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual([self.collectionView numberOfSections], 3);
     [self.adapter scrollToObject:@1 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
     [self.adapter scrollToObject:@0 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
-    [self.adapter scrollToObject:@3 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    [self.adapter scrollToObject:@300 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 10);
 }
 
 - (void)test_whenScrollVerticallyToItemInASectionWithNoCellsButAHeaderSupplymentaryView {
-    self.dataSource.objects = @[@1, @0, @3];
+    self.dataSource.objects = @[@1, @0, @300];
     [self.adapter reloadDataWithCompletion:nil];
 
     IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
@@ -668,7 +668,7 @@
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
     [self.adapter scrollToObject:@0 supplementaryKinds:@[UICollectionElementKindSectionHeader] scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionTop animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 10);
-    [self.adapter scrollToObject:@3 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    [self.adapter scrollToObject:@300 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 20);
 }
 
