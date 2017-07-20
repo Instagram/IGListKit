@@ -160,6 +160,12 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     [sectionController didSelectItemAtIndex:localIndex];
 }
 
+- (void)didDeselectItemAtIndex:(NSInteger)index {
+    IGListSectionController *sectionController = [self sectionControllerForObjectIndex:index];
+    const NSInteger localIndex = [self localIndexForSectionController:sectionController index:index];
+    [sectionController didDeselectItemAtIndex:localIndex];
+}
+
 #pragma mark - IGListCollectionContext
 
 - (CGSize)containerSize {

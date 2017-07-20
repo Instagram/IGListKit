@@ -12,5 +12,6 @@
 @interface IGTestDiffingSectionController : IGListBindingSectionController <IGListBindingSectionControllerDataSource, IGListBindingSectionControllerSelectionDelegate>
 
 @property (nonatomic, strong) id selectedViewModel;
+@property (nonatomic, strong) id deselectedViewModel;
 
 @end

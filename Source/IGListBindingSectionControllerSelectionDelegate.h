@@ -30,6 +30,20 @@ NS_SWIFT_NAME(ListBindingSectionControllerSelectionDelegate)
      didSelectItemAtIndex:(NSInteger)index
                 viewModel:(id)viewModel;
 
+/**
+ Tells the delegate that a cell at a given index was deselected.
+
+ @param sectionController The section controller the deselection occurred in.
+ @param index The index of the deselected cell.
+ @param viewModel The view model that was bound to the cell.
+
+ @note Method is `@optional` until the 4.0.0 release where it will become required.
+ */
+@optional
+- (void)sectionController:(IGListBindingSectionController *)sectionController
+   didDeselectItemAtIndex:(NSInteger)index
+                viewModel:(id)viewModel;
+
 @end
 
 NS_ASSUME_NONNULL_END
