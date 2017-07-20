@@ -15,38 +15,52 @@
 #import <IGListKit/IGListAssert.h>
 
 static CGFloat UIEdgeInsetsLeadingInsetInDirection(UIEdgeInsets insets, UICollectionViewScrollDirection direction) {
-    return direction == UICollectionViewScrollDirectionVertical ? insets.top : insets.left;
+    switch (direction) {
+        case UICollectionViewScrollDirectionVertical: return insets.top;
+        case UICollectionViewScrollDirectionHorizontal: return insets.left;
+    }
 }
 
 static CGFloat UIEdgeInsetsTrailingInsetInDirection(UIEdgeInsets insets, UICollectionViewScrollDirection direction) {
-    return direction == UICollectionViewScrollDirectionVertical ? insets.bottom : insets.right;
+    switch (direction) {
+        case UICollectionViewScrollDirectionVertical: return insets.bottom;
+        case UICollectionViewScrollDirectionHorizontal: return insets.right;
+    }
 }
 
 static CGFloat CGPointGetCoordinateInDirection(CGPoint point, UICollectionViewScrollDirection direction) {
-    return direction == UICollectionViewScrollDirectionVertical ? point.y : point.x;
-}
-
-static CGRect CGRectInset(CGRect rect, UIEdgeInsets insets) {
-    return CGRectMake(rect.origin.x + insets.left,
-                      rect.origin.y + insets.top,
-                      rect.size.width - insets.left - insets.right,
-                      rect.size.height - insets.top - insets.bottom);
+    switch (direction) {
+        case UICollectionViewScrollDirectionVertical: return point.y;
+        case UICollectionViewScrollDirectionHorizontal: return point.x;
+    }
 }
 
 static CGFloat CGRectGetLengthInDirection(CGRect rect, UICollectionViewScrollDirection direction) {
-    return direction == UICollectionViewScrollDirectionVertical ? rect.size.height : rect.size.width;
+    switch (direction) {
+        case UICollectionViewScrollDirectionVertical: return rect.size.height;
+        case UICollectionViewScrollDirectionHorizontal: return rect.size.width;
+    }
 }
 
 static CGFloat CGRectGetMaxInDirection(CGRect rect, UICollectionViewScrollDirection direction) {
-    return direction == UICollectionViewScrollDirectionVertical ? CGRectGetMaxY(rect) : CGRectGetMaxX(rect);
+    switch (direction) {
+        case UICollectionViewScrollDirectionVertical: return CGRectGetMaxY(rect);
+        case UICollectionViewScrollDirectionHorizontal: return CGRectGetMaxX(rect);
+    }
 }
 
 static CGFloat CGRectGetMinInDirection(CGRect rect, UICollectionViewScrollDirection direction) {
-    return direction == UICollectionViewScrollDirectionVertical ? CGRectGetMinY(rect) : CGRectGetMinX(rect);
+    switch (direction) {
+        case UICollectionViewScrollDirectionVertical: return CGRectGetMinY(rect);
+        case UICollectionViewScrollDirectionHorizontal: return CGRectGetMinX(rect);
+    }
 }
 
 static CGFloat CGSizeGetLengthInDirection(CGSize size, UICollectionViewScrollDirection direction) {
-    return direction == UICollectionViewScrollDirectionVertical ? size.height : size.width;
+    switch (direction) {
+        case UICollectionViewScrollDirectionVertical: return size.height;
+        case UICollectionViewScrollDirectionHorizontal: return size.width;
+    }
 }
 
 static NSIndexPath *headerIndexPathForSection(NSInteger section) {
@@ -110,7 +124,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 @interface IGListCollectionViewLayout ()
 
 @property (nonatomic, assign, readonly) BOOL stickyHeaders;
-@property (nonatomic, assign, readonly) CGFloat initialContentInset;
+@property (nonatomic, assign, readonly) CGFloat topContentInset;
 @property (nonatomic, assign, readonly) BOOL stretchToEdge;
 
 @end
@@ -134,13 +148,22 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 }
 
 - (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
+                      topContentInset:(CGFloat)topContentInset
+                        stretchToEdge:(BOOL)stretchToEdge {
+    return [self initWithStickyHeaders:stickyHeaders
+                       scrollDirection:UICollectionViewScrollDirectionVertical
+                       topContentInset:topContentInset
+                         stretchToEdge:stretchToEdge];
+}
+
+- (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
                       scrollDirection:(UICollectionViewScrollDirection)scrollDirection
-                  initialContentInset:(CGFloat)initialContentInset
+                      topContentInset:(CGFloat)topContentInset
                         stretchToEdge:(BOOL)stretchToEdge {
     if (self = [super init]) {
         _scrollDirection = scrollDirection;
         _stickyHeaders = stickyHeaders;
-        _initialContentInset = initialContentInset;
+        _topContentInset = topContentInset;
         _stretchToEdge = stretchToEdge;
         _attributesCache = [NSMutableDictionary new];
         _headerAttributesCache = [NSMutableDictionary new];
@@ -150,7 +173,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    return [self initWithStickyHeaders:NO scrollDirection:UICollectionViewScrollDirectionVertical initialContentInset:0 stretchToEdge:NO];
+    return [self initWithStickyHeaders:NO topContentInset:0 stretchToEdge:NO];
 }
 
 #pragma mark - UICollectionViewLayout
@@ -242,7 +265,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     CGRect frame = entry.headerBounds;
 
     if (self.stickyHeaders) {
-        CGFloat offset = CGPointGetCoordinateInDirection(collectionView.contentOffset, self.scrollDirection) + self.initialContentInset + self.stickyHeaderOriginOffset;
+        CGFloat offset = CGPointGetCoordinateInDirection(collectionView.contentOffset, self.scrollDirection) + self.topContentInset + self.stickyHeaderOriginOffset;
 
         if (section + 1 == _sectionData.size()) {
             offset = MAX(minOffset, offset);
@@ -376,7 +399,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
     const NSInteger sectionCount = [dataSource numberOfSectionsInCollectionView:collectionView];
     const UIEdgeInsets contentInset = collectionView.contentInset;
-    const CGRect contentInsetAdjustedCollectionViewBounds = CGRectInset(collectionView.bounds, contentInset);
+    const CGRect contentInsetAdjustedCollectionViewBounds = UIEdgeInsetsInsetRect(collectionView.bounds, contentInset);
     
     auto sectionData = std::vector<IGListSectionEntry>(sectionCount);
 
@@ -396,7 +419,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         const CGFloat lineSpacing = [delegate collectionView:collectionView layout:self minimumLineSpacingForSectionAtIndex:section];
         const CGFloat interitemSpacing = [delegate collectionView:collectionView layout:self minimumInteritemSpacingForSectionAtIndex:section];
 
-        const CGSize paddedCollectionViewSize = CGRectInset(contentInsetAdjustedCollectionViewBounds, insets).size;
+        const CGSize paddedCollectionViewSize = UIEdgeInsetsInsetRect(contentInsetAdjustedCollectionViewBounds, insets).size;
         const UICollectionViewScrollDirection fixedDirection = self.scrollDirection == UICollectionViewScrollDirectionHorizontal ? UICollectionViewScrollDirectionVertical : UICollectionViewScrollDirectionHorizontal;
         const CGFloat paddedLengthInFixedDirection = CGSizeGetLengthInDirection(paddedCollectionViewSize, fixedDirection);
         const CGFloat headerLengthInScrollDirection =  CGSizeGetLengthInDirection(headerSize, self.scrollDirection);
