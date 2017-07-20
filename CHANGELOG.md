@@ -2,19 +2,16 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
-4.0.0
------
-
-### Breaking Changes
-
-- Added horizontal scrolling direction to `IGListCollectionViewLayout` and added `scrollDirection:` to initializer; renamed some properties to reflect more-generalized behavior. [Peter Edmonston](https://github.com/edmonston)  [(#857)](https://github.com/Instagram/IGListKit/pull/857)
-
 3.1.0 (**upcoming release**)
 -----
 
 ### Fixes
 
 - Prevent a crash when update queued immediately after item batch update. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+
+### Enhancements
+
+- Added horizontal scrolling support to `IGListCollectionViewLayout`. [Peter Edmonston](https://github.com/edmonston)  [(#857)](https://github.com/Instagram/IGListKit/pull/857)
 
 3.0.0
 -----
