@@ -919,4 +919,11 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     XCTAssertNil([self.layout layoutAttributesForItemAtIndexPath:genIndexPath(0, 4)]);
 }
 
+- (void)test_whenStickyHeaderYOffsetIsChanged_thatStickyHeaderOriginOffsetIsChangedToo {
+    [self setUpWithStickyHeaders:YES topInset:0 stretchToEdge:YES];
+    self.layout.stickyHeaderYOffset = 44.0;
+    XCTAssertEqual(self.layout.stickyHeaderOriginOffset, 44.0);
+    XCTAssertEqual(self.layout.stickyHeaderYOffset, 44.0);
+}
+
 @end

@@ -84,9 +84,21 @@ NS_SWIFT_NAME(ListCollectionViewLayout)
  header position as UI like the navigation bar is scrolled offscreen. In a vertically scrolling layout, changing 
  this to the height of the navigation bar will give the effect of the headers sticking to the nav as it is collapsed.
 
- @discussion Changing the value on this method will invalidate the layout every time.
+ @note Changing the value on this method will invalidate the layout every time.
  */
 @property (nonatomic, assign) CGFloat stickyHeaderOriginOffset;
+
+/**
+ 
+ **This property is expected to be removed in IGListKit 4.0. Use `stickyHeaderOriginOffset` instead.** Set this to adjust 
+ the Y offset of the sticky headers. Can be used to change the sticky header position as UI like the navigation bar is scrolled 
+ offscreen. Changing this to the height of the navigation bar will give the effect of the headers sticking to the 
+ nav as it is collapsed.
+ 
+ @note Changing the value on this method will invalidate the layout every time.
+ */
+@property (nonatomic, assign) CGFloat stickyHeaderYOffset;
+
 
 /**
  Create and return a new collection view layout.

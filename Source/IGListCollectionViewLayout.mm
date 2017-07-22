@@ -384,6 +384,15 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     }
 }
 
+// For backwards compatibility
+- (CGFloat)stickyHeaderYOffset {
+    return _stickyHeaderOriginOffset;
+}
+
+- (void)setStickyHeaderYOffset:(CGFloat)stickyHeaderYOffset {
+    [self setStickyHeaderOriginOffset:stickyHeaderYOffset];
+}
+
 #pragma mark - Private API
 
 - (void)cacheLayout {
