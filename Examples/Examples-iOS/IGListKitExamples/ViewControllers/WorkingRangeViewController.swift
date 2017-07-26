@@ -34,6 +34,7 @@ final class WorkingRangeViewController: UIViewController, ListAdapterDataSource 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        collectionView.ig_ConfigForIGListKit()
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self

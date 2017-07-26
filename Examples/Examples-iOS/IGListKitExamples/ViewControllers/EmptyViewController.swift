@@ -39,6 +39,7 @@ final class EmptyViewController: UIViewController, ListAdapterDataSource, Remove
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        collectionView.ig_ConfigForIGListKit()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: #selector(EmptyViewController.onAdd))

@@ -60,6 +60,7 @@ final class StoryboardViewController: UIViewController, ListAdapterDataSource, S
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.ig_ConfigForIGListKit()
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }

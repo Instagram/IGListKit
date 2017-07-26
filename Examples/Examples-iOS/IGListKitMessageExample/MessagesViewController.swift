@@ -28,6 +28,7 @@ final class MessagesViewController: MSMessagesAppViewController, ListAdapterData
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        collectionView.ig_ConfigForIGListKit()
         adapter.collectionView = collectionView
         adapter.dataSource = self
 

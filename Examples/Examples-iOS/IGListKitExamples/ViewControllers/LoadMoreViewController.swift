@@ -28,6 +28,7 @@ final class LoadMoreViewController: UIViewController, ListAdapterDataSource, UIS
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.ig_ConfigForIGListKit()
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self

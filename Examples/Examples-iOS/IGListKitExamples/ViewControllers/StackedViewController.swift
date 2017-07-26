@@ -27,6 +27,7 @@ final class StackedViewController: UIViewController, ListAdapterDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.ig_ConfigForIGListKit()
         collectionView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
