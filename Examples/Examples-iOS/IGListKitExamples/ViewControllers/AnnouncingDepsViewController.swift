@@ -26,15 +26,13 @@ final class AnnouncingDepsViewController: UIViewController, ListAdapterDataSourc
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // configure our UICollectionView for use by IGListKit
+        collectionView.ig_ConfigForIGListKit();
         collectionView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
 
-        // disable prefetching so cells are configured as they come on screen
-        if #available(iOS 10.0, *) {
-            collectionView.isPrefetchingEnabled = false
-        }
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,

@@ -25,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = UINavigationController(rootViewController: DemosViewController())
         window?.makeKeyAndVisible()
 
-        UICollectionView.appearance().backgroundColor = .white
-
         return true
     }
 

@@ -28,6 +28,7 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.ig_ConfigForIGListKit()
         title = "Demo Chooser"
         collectionView.backgroundColor = .clear
         view.addSubview(collectionView)

@@ -29,6 +29,7 @@ final class SingleSectionStoryboardViewController: UIViewController, ListAdapter
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.ig_ConfigForIGListKit()
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }

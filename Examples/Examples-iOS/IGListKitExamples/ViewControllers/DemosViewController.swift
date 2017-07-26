@@ -63,6 +63,7 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.ig_ConfigForIGListKit()
         title = "Demos"
         view.addSubview(collectionView)
         adapter.collectionView = collectionView

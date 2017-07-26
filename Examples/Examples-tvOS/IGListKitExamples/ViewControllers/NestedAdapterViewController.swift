@@ -35,6 +35,7 @@ final class NestedAdapterViewController: UIViewController, ListAdapterDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        collectionView.ig_ConfigForIGListKit()
         collectionView.backgroundColor = .clear
         view.addSubview(collectionView)
         adapter.collectionView = collectionView

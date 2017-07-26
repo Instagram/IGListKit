@@ -49,6 +49,7 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        collectionView.ig_ConfigForIGListKit()
         let control = UISegmentedControl(items: segments.map { return $0.0 })
         control.selectedSegmentIndex = 0
         control.addTarget(self, action: #selector(MixedDataViewController.onControl(_:)), for: .valueChanged)

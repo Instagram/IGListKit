@@ -30,6 +30,7 @@ final class CalendarViewController: UIViewController, ListAdapterDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        collectionView.ig_ConfigForIGListKit()
         let date = Date()
         let currentMonth = Calendar.current.component(.month, from: date)
 

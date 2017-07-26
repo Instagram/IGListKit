@@ -47,6 +47,7 @@
 #import "IGListSupplementaryViewSource.h"
 #import "IGListUpdatingDelegate.h"
 #import "IGListWorkingRangeDelegate.h"
+#import "UICollectionView+IGListKit.h"
 #import "IGListAssert.h"
 #import "IGListBatchUpdateData.h"
 #import "IGListCompatibility.h"
