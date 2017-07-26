@@ -265,7 +265,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     CGRect frame = entry.headerBounds;
 
     if (self.stickyHeaders) {
-        CGFloat offset = CGPointGetCoordinateInDirection(collectionView.contentOffset, self.scrollDirection) + self.topContentInset + self.stickyHeaderOriginOffset;
+        CGFloat offset = CGPointGetCoordinateInDirection(collectionView.contentOffset, self.scrollDirection) + self.topContentInset + self.stickyHeaderYOffset;
 
         if (section + 1 == _sectionData.size()) {
             offset = MAX(minOffset, offset);
@@ -372,25 +372,16 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 #pragma mark - Public API
 
-- (void)setStickyHeaderOriginOffset:(CGFloat)stickyHeaderOriginOffset {
+- (void)setStickyHeaderYOffset:(CGFloat)stickyHeaderYOffset {
     IGAssertMainThread();
 
-    if (_stickyHeaderOriginOffset != stickyHeaderOriginOffset) {
-        _stickyHeaderOriginOffset = stickyHeaderOriginOffset;
+    if (_stickyHeaderYOffset != stickyHeaderYOffset) {
+        _stickyHeaderYOffset = stickyHeaderYOffset;
 
         IGListCollectionViewLayoutInvalidationContext *invalidationContext = [IGListCollectionViewLayoutInvalidationContext new];
         invalidationContext.ig_invalidateSupplementaryAttributes = YES;
         [self invalidateLayoutWithContext:invalidationContext];
     }
-}
-
-// For backwards compatibility
-- (CGFloat)stickyHeaderYOffset {
-    return _stickyHeaderOriginOffset;
-}
-
-- (void)setStickyHeaderYOffset:(CGFloat)stickyHeaderYOffset {
-    [self setStickyHeaderOriginOffset:stickyHeaderYOffset];
 }
 
 #pragma mark - Private API
