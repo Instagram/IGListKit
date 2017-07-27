@@ -262,6 +262,23 @@
     XCTAssertTrue([visibleSectionControllers containsObject:[self.adapter sectionControllerForObject:@4]]);
 }
 
+- (void) test_withEmptySectionPlusFooter_thatVisibleSectionControllersAreCorrect {
+    self.dataSource.objects = @[@0];
+    [self.adapter reloadDataWithCompletion:nil];
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.dequeueFromNib = YES;
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@0];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    NSArray<IGListSectionController *> *visibleSectionControllers = [self.adapter visibleSectionControllers];
+
+    XCTAssertTrue([visibleSectionControllers count] == 1);
+    XCTAssertTrue(visibleSectionControllers.firstObject.supplementaryViewSource == supplementarySource);
+}
+
 - (void)test_whenCellsExtendBeyondBounds_thatVisibleCellsExistForSectionControllers {
     self.dataSource.objects = @[@2, @3, @4, @5, @6];
     [self.adapter reloadDataWithCompletion:nil];
