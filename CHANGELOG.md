@@ -13,6 +13,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Added `-[IGListSectionController didDeselectItemAtIndex:]` API to support default `UICollectionView` cell deselection. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
 
+- Allow executing a batch update or reloadData immediately if the collection view is idle. [Ethan Jin](https://github.com/ethanjin) [(#869)](https://github.com/Instagram/IGListKit/pull/869)
+
 3.0.0
 -----
 

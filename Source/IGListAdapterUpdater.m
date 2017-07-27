@@ -380,18 +380,25 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     }
 
     __weak __typeof__(self) weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_block_t performUpdateBlock = ^{
         if (weakSelf.state != IGListBatchUpdateStateIdle
             || ![weakSelf hasChanges]) {
             return;
         }
-
+        
         if (weakSelf.hasQueuedReloadData) {
             [weakSelf performReloadDataWithCollectionView:collectionView];
         } else {
             [weakSelf performBatchUpdatesWithCollectionView:collectionView];
         }
-    });
+    };
+    
+    // directly executes the batch update or reload data if the collection view is idle
+    if ([NSThread isMainThread] && self.state == IGListBatchUpdateStateIdle) {
+        performUpdateBlock();
+    } else {
+        dispatch_async(dispatch_get_main_queue(), performUpdateBlock);
+    }
 }
 
 
