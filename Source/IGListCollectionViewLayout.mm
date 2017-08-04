@@ -230,8 +230,15 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         return CGSizeZero;
     }
 
-    const IGListSectionEntry section = _sectionData[sectionCount - 1];
-    const CGFloat height = CGRectGetMaxY(section.bounds) + section.insets.bottom;
+    CGFloat height = 0.0 ;
+    
+    for (NSInteger i = 0; i < sectionCount; i++){
+        IGListSectionEntry section = _sectionData[i];
+        CGFloat currentHeight = CGRectGetMaxY(section.bounds) + section.insets.bottom;
+        if (currentHeight > height){
+            height = currentHeight;
+        }
+    }
 
     UICollectionView *collectionView = self.collectionView;
     const UIEdgeInsets contentInset = collectionView.contentInset;

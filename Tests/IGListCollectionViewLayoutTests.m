@@ -770,4 +770,42 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     XCTAssertNil([self.layout layoutAttributesForItemAtIndexPath:genIndexPath(0, 4)]);
 }
 
+- (void)test_whenMultipleSectionsPerpendicularToRollingDirection_thatContentSize{
+    [self setUpWithStickyHeaders:NO topInset:0];
+    [self prepareWithData:@[[[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(33, 50)],
+                                                                          
+                                                                          ]],
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 90)],
+                                                                          
+                                                                          ]],
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(33, 100)],
+                                                                          
+                                                                          ]],
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 40)],
+                                                                          
+                                                                          ]]]];
+    
+    XCTAssertEqual(self.collectionView.contentSize.height, 190);
+    
+}
 @end
