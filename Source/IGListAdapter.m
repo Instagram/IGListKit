@@ -807,6 +807,16 @@
     [self.collectionView deselectItemAtIndexPath:indexPath animated:animated];
 }
 
+- (void)selectItemAtIndex:(NSInteger)index
+        sectionController:(IGListSectionController *)sectionController
+                 animated:(BOOL)animated
+            scrollPosition:(UICollectionViewScrollPosition)scrollPosition {
+    IGAssertMainThread();
+    IGParameterAssert(sectionController != nil);
+    NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
+    [self.collectionView selectItemAtIndexPath:indexPath animated:animated scrollPosition:scrollPosition];
+}
+
 - (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
                                          forSectionController:(IGListSectionController *)sectionController
                                                       atIndex:(NSInteger)index {

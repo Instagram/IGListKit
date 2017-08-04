@@ -100,6 +100,19 @@ NS_SWIFT_NAME(ListCollectionContext)
                    animated:(BOOL)animated;
 
 /**
+ Selects a cell in the collection.
+ 
+ @param index The index of the item to select.
+ @param sectionController The section controller requesting this information.
+ @param animated Pass `YES` to animate the change, `NO` otherwise.
+ @param scrollPosition An option that specifies where the item should be positioned when scrolling finishes.
+ */
+- (void)selectItemAtIndex:(NSInteger)index
+        sectionController:(IGListSectionController *)sectionController
+                 animated:(BOOL)animated
+           scrollPosition:(UICollectionViewScrollPosition)scrollPosition;
+
+/**
  Dequeues a cell from the collection view reuse pool.
 
  @param cellClass The class of the cell you want to dequeue.
