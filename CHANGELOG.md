@@ -15,6 +15,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 - Added `-[IGListSectionController didDeselectItemAtIndex:]` API to support default `UICollectionView` cell deselection. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
 - Added `-[IGListCollectionContext selectItemAtIndex:]` Select an item through IGListCollectionContext like `-[IGListCollectionContext deselectItemAtIndex:]`. [Marvin Nazari](https://github.com/MarvinNazari) (tbd)
 
+- Added horizontal scrolling support to `IGListCollectionViewLayout`. [Peter Edmonston](https://github.com/edmonston)  [(#857)](https://github.com/Instagram/IGListKit/pull/857)
+
 3.0.0
 -----
 

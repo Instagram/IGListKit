@@ -64,7 +64,7 @@ static NSString * const kHeaderIdentifier = @"header";
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(CGRectGetWidth(collectionView.bounds), self.sections[section].headerHeight);
+    return CGSizeMake(self.sections[section].headerHeight, self.sections[section].headerHeight); // Only the dimension along scrolling direction is used
 }
 
 @end
