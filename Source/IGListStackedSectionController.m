@@ -225,6 +225,14 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     [self.collectionContext deselectItemAtIndex:offsetIndex sectionController:self animated:animated];
 }
 
+- (void)selectItemAtIndex:(NSInteger)index
+        sectionController:(IGListSectionController *)sectionController
+                 animated:(BOOL)animated
+           scrollPosition:(UICollectionViewScrollPosition)scrollPosition {
+    const NSInteger offsetIndex = [self relativeIndexForSectionController:sectionController fromLocalIndex:index];
+    [self.collectionContext selectItemAtIndex:offsetIndex sectionController:self animated:animated scrollPosition:scrollPosition];
+}
+
 - (UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
                                 forSectionController:(IGListSectionController *)sectionController
                                              atIndex:(NSInteger)index {

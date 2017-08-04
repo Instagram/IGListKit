@@ -826,6 +826,20 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     XCTAssertFalse([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
 }
 
+- (void)test_whenSelectingChildSectionControllerIndex_thatCorrectCellSelected {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@1 value:@[@1, @1]]
+                             ]];
+    
+    NSIndexPath *path = [NSIndexPath indexPathForItem:1 inSection:1];
+    
+    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    IGListSectionController *section = stack.sectionControllers.lastObject;
+    [section.collectionContext selectItemAtIndex:0 sectionController:section animated:NO scrollPosition:UICollectionViewScrollPositionTop];
+    XCTAssertTrue([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
+}
+
 - (void)test_whenRemovingSection_withWorkingRange_thatChildSectionControllersReceiveEvents {
     [self setupWithObjects:@[
                              [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],

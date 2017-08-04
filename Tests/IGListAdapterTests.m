@@ -986,6 +986,15 @@
     XCTAssertFalse([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
 }
 
+- (void)test_whenSelectingThroughContext_thatCellSelected {
+    self.dataSource.objects = @[@1, @2, @3];
+    [self.adapter reloadDataWithCompletion:nil];
+    
+    NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
+    [self.adapter selectItemAtIndex:0 sectionController:[self.adapter sectionControllerForObject:@1] animated:NO scrollPosition:UICollectionViewScrollPositionTop];
+    XCTAssertTrue([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
+}
+
 - (void)test_whenScrollingToIndex_withSectionController_thatPositionCorrect {
     self.dataSource.objects = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16, @17, @18, @19];
     [self.adapter reloadDataWithCompletion:nil];
