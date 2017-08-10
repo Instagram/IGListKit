@@ -8,6 +8,7 @@
  */
 
 #import "IGListSectionMap+DebugDescription.h"
+#import "IGListBindingSectionController.h"
 
 @implementation IGListSectionMap (DebugDescription)
 
@@ -15,9 +16,13 @@
     NSMutableArray *debug = [NSMutableArray new];
 #if IGLK_DEBUG_DESCRIPTION_ENABLED
     [self enumerateUsingBlock:^(id object, IGListSectionController *sectionController, NSInteger section, BOOL *stop) {
-        [debug addObject:[NSString stringWithFormat:@"Object and section controller at section: %zi:", section]];
-        [debug addObject:[NSString stringWithFormat:@"  %@", object]];
-        [debug addObject:[NSString stringWithFormat:@"  %@", sectionController]];
+        if ([sectionController isKindOfClass:[IGListBindingSectionController class]]) {
+            [debug addObject:[sectionController debugDescription]];
+        } else {
+            [debug addObject:[NSString stringWithFormat:@"Object and section controller at section: %zi:", section]];
+            [debug addObject:[NSString stringWithFormat:@"  %@", object]];
+            [debug addObject:[NSString stringWithFormat:@"  %@", sectionController]];
+        }
     }];
 #endif // #if IGLK_DEBUG_DESCRIPTION_ENABLED
     return debug;
