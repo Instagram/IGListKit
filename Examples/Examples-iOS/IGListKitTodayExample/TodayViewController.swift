@@ -24,7 +24,10 @@ final class TodayViewController: UIViewController, NCWidgetProviding, ListAdapte
     }()
     let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-    let data = "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.".components(separatedBy: " ")
+    let data = [
+        "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, ",
+        "nisi erat porttitor ligula, eget lacinia odio sem nec elit."
+        ].joined(separator: "").components(separatedBy: " ")
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -37,9 +37,17 @@ final class SelfSizingCellsViewController: UIViewController, ListAdapterDataSour
                                  "At the end of the day", "going forward", "a new normal", "evolved", "generation X",
                                  "runway heading", "streamlined", "cloud solution", "User generated", "content",
                                  "in real-time", "multiple touchpoints", "offshoring"], type: .nib),
-        SelectionModel(options: ["Aenean lacinia bibendum nulla sed consectetur. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mattis consectetur purus sit amet fermentum.",
-                                 "Donec sed odio dui. Donec id elit non mi porta gravida at eget metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere consectetur est at lobortis. Cras justo odio, dapibus ac facilisis in, egestas eget quam.",
-                                 "Sed posuere consectetur est at lobortis. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum."], type: .fullWidth)
+        SelectionModel(options: [
+            "Aenean lacinia bibendum nulla sed consectetur. Vivamus sagittis lacus vel augue laoreet rutrum "
+            + "faucibus dolor auctor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+            + "Cras mattis consectetur purus sit amet fermentum.",
+            "Donec sed odio dui. Donec id elit non mi porta gravida at eget metus. Lorem ipsum dolor sit amet, "
+            + "consectetur adipiscing elit. Sed posuere consectetur est at lobortis. Cras justo odio, dapibus "
+            + "ac facilisis in, egestas eget quam.",
+            "Sed posuere consectetur est at lobortis. Nullam quis risus eget urna mollis ornare vel eu leo. "
+            + "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. "
+            + "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. "
+            + "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum."], type: .fullWidth)
     ]
 
     override func viewDidLoad() {
