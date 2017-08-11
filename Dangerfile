@@ -13,6 +13,11 @@ if has_source_changes && no_changelog_entry && not_declared_trivial && git.lines
   fail("Any source code changes should have an entry in CHANGELOG.md.")
 end
 
+# Import system don't support changes in .lock files https://github.com/Instagram/IGListKit/pull/368#issuecomment-269092317
+if git.modified_files.include?("*.lock")
+  fail("Please exclude changes in `.lock` files. We run `bundle install` and `pod install` internally before merge")
+end
+
 # Docs are regenerated when releasing
 has_doc_changes = !git.modified_files.grep(/docs\//).empty?
 if has_doc_changes
