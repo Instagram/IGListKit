@@ -235,8 +235,8 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
                 [collectionView performBatchUpdates:^{
                     batchUpdatesBlock(result);
                 } completion:^(BOOL finished) {
-                    batchUpdatesCompletionBlock(finished);
                     [CATransaction commit];
+                    batchUpdatesCompletionBlock(finished);
                 }];
             }
         } @catch (NSException *exception) {

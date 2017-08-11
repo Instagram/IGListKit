@@ -436,11 +436,12 @@
 
 - (NSArray<IGListSectionController *> *)visibleSectionControllers {
     IGAssertMainThread();
-    NSArray<UICollectionViewCell *> *visibleCells = [self.collectionView visibleCells];
     NSMutableSet *visibleSectionControllers = [NSMutableSet new];
-    for (UICollectionViewCell *cell in visibleCells) {
-        IGListSectionController *sectionController = [self sectionControllerForView:cell];
-        IGAssert(sectionController != nil, @"Section controller nil for cell %@", cell);
+    NSArray<UICollectionViewLayoutAttributes *> *attributes =
+    [self.collectionView.collectionViewLayout layoutAttributesForElementsInRect:self.collectionView.bounds];
+    for (UICollectionViewLayoutAttributes* attribute in attributes) {
+        IGListSectionController *sectionController = [self sectionControllerForSection:attribute.indexPath.section];
+        IGAssert(sectionController != nil, @"Section controller nil for cell in section %zd", attribute.indexPath.section);
         if (sectionController) {
             [visibleSectionControllers addObject:sectionController];
         }
@@ -815,6 +816,16 @@
     IGParameterAssert(sectionController != nil);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
     [self.collectionView deselectItemAtIndexPath:indexPath animated:animated];
+}
+
+- (void)selectItemAtIndex:(NSInteger)index
+        sectionController:(IGListSectionController *)sectionController
+                 animated:(BOOL)animated
+            scrollPosition:(UICollectionViewScrollPosition)scrollPosition {
+    IGAssertMainThread();
+    IGParameterAssert(sectionController != nil);
+    NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
+    [self.collectionView selectItemAtIndexPath:indexPath animated:animated scrollPosition:scrollPosition];
 }
 
 - (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass

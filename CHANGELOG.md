@@ -5,14 +5,23 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 3.1.0 (**upcoming release**)
 -----
 
+### Enhancements
+
+- Added debug descriptions for 'IGListBindingSectionController' when printing to lldb via `po [IGListDebugger dump]`. [Candance Smith](https://github.com/candance) [(#856)](https://github.com/Instagram/IGListKit/pull/856)
+
 ### Fixes
 
 - Prevent a crash when update queued immediately after item batch update. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+- Return correct `-[IGListAdapter visibleSectionControllers]` when section has no items, but has supplementary views. [Mani Ghasemlou](https://github.com/manicakes) [(#643)](https://github.com/Instagram/IGListKit/issues/643)
+- Call `[CATransaction commit]` before calling completion block in IGListAdapterUpdater to prevent animation issues. [Maxime Ollivier](https://github.com/maxoll) (tbd)
 - Fix `scrollToObject:supplementaryKinds:...` not scrolling when section is empty but does have supplymentary views
 
 ### Enhancements
 
 - Added `-[IGListSectionController didDeselectItemAtIndex:]` API to support default `UICollectionView` cell deselection. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+- Added `-[IGListCollectionContext selectItemAtIndex:]` Select an item through IGListCollectionContext like `-[IGListCollectionContext deselectItemAtIndex:]`. [Marvin Nazari](https://github.com/MarvinNazari) (tbd)
+
+- Added horizontal scrolling support to `IGListCollectionViewLayout`. [Peter Edmonston](https://github.com/edmonston)  [(#857)](https://github.com/Instagram/IGListKit/pull/857)
 
 3.0.0
 -----

@@ -80,6 +80,8 @@ The data should be immutable. If you return mutable objects that you will be edi
 
 To add custom, diffable models, you need to conform to the `IGListDiffable` protocol and implement `diffIdentifier()` and `isEqual(toDiffableObject:)`.
 
+> **Note:** an object's `diffIdentifier()` should never change. If an object mutates it's `diffIdentifer()` the behavior of IGListKit is undefined (and almost assuredly undesirable).
+
 For an example, consider the following model:
 
 ```swift

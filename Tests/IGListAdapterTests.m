@@ -262,6 +262,23 @@
     XCTAssertTrue([visibleSectionControllers containsObject:[self.adapter sectionControllerForObject:@4]]);
 }
 
+- (void) test_withEmptySectionPlusFooter_thatVisibleSectionControllersAreCorrect {
+    self.dataSource.objects = @[@0];
+    [self.adapter reloadDataWithCompletion:nil];
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.dequeueFromNib = YES;
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@0];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    NSArray<IGListSectionController *> *visibleSectionControllers = [self.adapter visibleSectionControllers];
+
+    XCTAssertTrue([visibleSectionControllers count] == 1);
+    XCTAssertTrue(visibleSectionControllers.firstObject.supplementaryViewSource == supplementarySource);
+}
+
 - (void)test_whenCellsExtendBeyondBounds_thatVisibleCellsExistForSectionControllers {
     self.dataSource.objects = @[@2, @3, @4, @5, @6];
     [self.adapter reloadDataWithCompletion:nil];
@@ -1004,6 +1021,15 @@
     id section = [self.adapter sectionControllerForObject:@1];
     [self.adapter deselectItemAtIndex:0 sectionController:section animated:NO];
     XCTAssertFalse([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
+}
+
+- (void)test_whenSelectingThroughContext_thatCellSelected {
+    self.dataSource.objects = @[@1, @2, @3];
+    [self.adapter reloadDataWithCompletion:nil];
+    
+    NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
+    [self.adapter selectItemAtIndex:0 sectionController:[self.adapter sectionControllerForObject:@1] animated:NO scrollPosition:UICollectionViewScrollPositionTop];
+    XCTAssertTrue([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
 }
 
 - (void)test_whenScrollingToIndex_withSectionController_thatPositionCorrect {
