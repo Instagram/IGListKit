@@ -172,21 +172,33 @@
     }
 
     UICollectionView *collectionView = self.collectionView;
-    const NSInteger numberOfItems = [collectionView numberOfItemsInSection:section];
-    if (numberOfItems == 0) {
-        return;
-    }
-
+    UICollectionViewLayout *layout = self.collectionView.collectionViewLayout;
+    
     // force layout before continuing
     // this method is typcially called before pushing a view controller
     // thus, before the layout process has actually happened
     [collectionView layoutIfNeeded];
 
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
+    
     // collect the layout attributes for the cell and supplementary views for the first index
     // this will break if there are supplementary views beyond item 0
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
-    NSArray *attributes = [self layoutAttributesForIndexPath:indexPath supplementaryKinds:supplementaryKinds];
-
+    NSArray *attributes = nil;
+    
+    const NSInteger numberOfItems = [collectionView numberOfItemsInSection:section];
+    if (numberOfItems > 0) {
+        attributes = [self layoutAttributesForIndexPath:indexPath supplementaryKinds:supplementaryKinds];
+    } else {
+        NSMutableArray *supplementaryAttributes = [NSMutableArray new];
+        for (NSString* supplementaryKind in supplementaryKinds) {
+            UICollectionViewLayoutAttributes *supplementaryAttribute = [layout layoutAttributesForSupplementaryViewOfKind:supplementaryKind atIndexPath:indexPath];
+            if (supplementaryAttribute != nil) {
+                [supplementaryAttributes addObject: supplementaryAttribute];
+            }
+        }
+        attributes = supplementaryAttributes;
+    }
+    
     CGFloat offsetMin = 0.0;
     CGFloat offsetMax = 0.0;
     for (UICollectionViewLayoutAttributes *attribute in attributes) {
@@ -714,7 +726,6 @@
         [[sectionController scrollDelegate] listAdapter:self didEndDraggingSectionController:sectionController willDecelerate:decelerate];
     }
 }
-
 
 #pragma mark - IGListCollectionContext
 
