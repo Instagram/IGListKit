@@ -179,19 +179,27 @@
     // thus, before the layout process has actually happened
     [collectionView layoutIfNeeded];
 
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
+    NSIndexPath *indexPathFirstElement = [NSIndexPath indexPathForItem:0 inSection:section];
     
     // collect the layout attributes for the cell and supplementary views for the first index
     // this will break if there are supplementary views beyond item 0
-    NSArray *attributes = nil;
+    NSMutableArray<UICollectionViewLayoutAttributes *> *attributes = nil;
     
     const NSInteger numberOfItems = [collectionView numberOfItemsInSection:section];
     if (numberOfItems > 0) {
-        attributes = [self layoutAttributesForIndexPath:indexPath supplementaryKinds:supplementaryKinds];
+        attributes = [self layoutAttributesForIndexPath:indexPathFirstElement supplementaryKinds:supplementaryKinds].mutableCopy;
+
+        if (numberOfItems > 1) {
+            NSIndexPath *indexPathLastElement = [NSIndexPath indexPathForItem:(numberOfItems - 1) inSection:section];
+            UICollectionViewLayoutAttributes *lastElementattributes = [self layoutAttributesForIndexPath:indexPathLastElement supplementaryKinds:supplementaryKinds].firstObject;
+            if (lastElementattributes != nil) {
+                [attributes addObject:lastElementattributes];
+            }
+        }
     } else {
         NSMutableArray *supplementaryAttributes = [NSMutableArray new];
         for (NSString* supplementaryKind in supplementaryKinds) {
-            UICollectionViewLayoutAttributes *supplementaryAttribute = [layout layoutAttributesForSupplementaryViewOfKind:supplementaryKind atIndexPath:indexPath];
+            UICollectionViewLayoutAttributes *supplementaryAttribute = [layout layoutAttributesForSupplementaryViewOfKind:supplementaryKind atIndexPath:indexPathFirstElement];
             if (supplementaryAttribute != nil) {
                 [supplementaryAttributes addObject: supplementaryAttribute];
             }

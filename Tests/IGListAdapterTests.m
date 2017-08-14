@@ -647,9 +647,9 @@
     // Content height minus collection view height is 110, can't scroll more than that
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 110);
     [self.adapter scrollToObject:@6 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
-    IGAssertEqualPoint([self.collectionView contentOffset], 0, 105);
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 110);
     [self.adapter scrollToObject:@6 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionBottom animated:NO];
-    IGAssertEqualPoint([self.collectionView contentOffset], 0, 60);
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 110);
 }
 
 - (void)test_whenScrollVerticallyToItemInASectionWithNoCellsAndNoSupplymentaryView {
@@ -692,6 +692,15 @@
 - (void)test_whenScrollVerticallyToItemWithPositionning {
     self.dataSource.objects = @[@1, @100, @200];
     [self.adapter reloadDataWithCompletion:nil];
+    [self.adapter scrollToObject:@1 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
+    [self.adapter scrollToObject:@1 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionTop animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
+    [self.adapter scrollToObject:@1 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
+    [self.adapter scrollToObject:@1 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionBottom animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
+
     [self.adapter scrollToObject:@100 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 10);
     [self.adapter scrollToObject:@100 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionTop animated:NO];
@@ -700,6 +709,9 @@
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 460);
     [self.adapter scrollToObject:@100 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionBottom animated:NO];
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 910);
+
+    [self.adapter scrollToObject:@200 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionBottom animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, self.collectionView.contentSize.height - self.collectionView.frame.size.height);
 }
 
 - (void)test_whenScrollHorizontallyToItem {
@@ -720,9 +732,9 @@
     // Content width minus collection view width is 110, can't scroll more than that
     IGAssertEqualPoint([self.collectionView contentOffset], 110, 0);
     [self.adapter scrollToObject:@6 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionHorizontal scrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-    IGAssertEqualPoint([self.collectionView contentOffset], 105, 0);
+    IGAssertEqualPoint([self.collectionView contentOffset], 110, 0);
     [self.adapter scrollToObject:@6 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionHorizontal scrollPosition:UICollectionViewScrollPositionRight animated:NO];
-    IGAssertEqualPoint([self.collectionView contentOffset], 60, 0);
+    IGAssertEqualPoint([self.collectionView contentOffset], 110, 0);
     self.layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     self.adapter.dataSource = self.dataSource;
 }
