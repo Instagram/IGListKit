@@ -2,7 +2,22 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
-3.1.0 (**upcoming release**)
+3.2.0 (**upcoming release**)
+-----
+
+### Enhancements
+
+- 
+
+### Fixes
+
+- ScrollToObject method : better support of ScrollPosition parameter (fixes previous failing tests). [Gulam Moledina](https://github.com/gmoledina) [(#861)](https://github.com/Instagram/IGListKit/pull/861)
+
+### Enhancements
+
+- 
+
+3.1.0
 -----
 
 ### Enhancements
