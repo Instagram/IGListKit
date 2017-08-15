@@ -46,6 +46,14 @@ NS_SWIFT_NAME(ListScrollDelegate)
  */
 - (void)listAdapter:(IGListAdapter *)listAdapter didEndDraggingSectionController:(IGListSectionController *)sectionController willDecelerate:(BOOL)decelerate;
 
+/**
+ Tells the delegate that the section controller did end decelerating on screen.
+
+ @param listAdapter The list adapter whose collection view ended decelerating.
+ @param sectionController The visible section controller that ended decelerating.
+ */
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDeceleratingSectionController:(IGListSectionController *)sectionController;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -699,6 +699,17 @@
     }
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    // forward this method to the delegate b/c this implementation will steal the message from the proxy
+    id<UIScrollViewDelegate> scrollViewDelegate = self.scrollViewDelegate;
+    if ([scrollViewDelegate respondsToSelector:@selector(scrollViewDidEndDecelerating:)]) {
+        [scrollViewDelegate scrollViewDidEndDecelerating:scrollView];
+    }
+    NSArray<IGListSectionController *> *visibleSectionControllers = [self visibleSectionControllers];
+    for (IGListSectionController *sectionController in visibleSectionControllers) {
+        [[sectionController scrollDelegate] listAdapter:self didEndDeceleratingSectionController:sectionController];
+    }
+}
 
 #pragma mark - IGListCollectionContext
 

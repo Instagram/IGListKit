@@ -402,6 +402,12 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     }
 }
 
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDeceleratingSectionController:(IGListSectionController *)sectionController {
+    for (IGListSectionController *childSectionController in self.sectionControllers) {
+        [[childSectionController scrollDelegate] listAdapter:listAdapter didEndDeceleratingSectionController:childSectionController];
+    }
+}
+
 #pragma mark - IGListWorkingRangeDelegate
 
 - (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerWillEnterWorkingRange:(IGListSectionController *)sectionController {
