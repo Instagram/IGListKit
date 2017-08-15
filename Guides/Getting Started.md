@@ -33,7 +33,7 @@ let layout = UICollectionViewFlowLayout()
 let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
 let updater = ListAdapterUpdater()
-let adapter = ListAdapter(updater: updater, viewController: self, workingRangeSize: 0)
+let adapter = ListAdapter(updater: updater, viewController: self)
 adapter.collectionView = collectionView
 ```
 
@@ -62,6 +62,12 @@ func emptyView(for listAdapter: ListAdapter) -> UIView? {
 }
 ```
 
+After you have created the data source you need to connect it to the `IGListAdapter` by setting its `dataSource` property:
+
+```swift
+adapter.dataSource = self
+```
+
 You can return an array of _any_ type of data, as long as it conforms to `IGListDiffable`.
 
 ### Immutability
@@ -73,6 +79,8 @@ The data should be immutable. If you return mutable objects that you will be edi
 `IGListKit` uses an algorithm adapted from a paper titled [A technique for isolating differences between files](http://dl.acm.org/citation.cfm?id=359467&dl=ACM&coll=DL) by Paul Heckel. This algorithm uses a technique known as the *longest common subsequence* to find a minimal diff between collections in linear time `O(n)`. It finds all **inserts**, **deletes**, **updates**, and **moves** between arrays of data.
 
 To add custom, diffable models, you need to conform to the `IGListDiffable` protocol and implement `diffIdentifier()` and `isEqual(toDiffableObject:)`.
+
+> **Note:** an object's `diffIdentifier()` should never change. If an object mutates it's `diffIdentifer()` the behavior of IGListKit is undefined (and almost assuredly undesirable).
 
 For an example, consider the following model:
 

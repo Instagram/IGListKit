@@ -5,7 +5,24 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 3.1.0 (**upcoming release**)
 -----
 
-3.0.0 
+### Enhancements
+
+- Added debug descriptions for 'IGListBindingSectionController' when printing to lldb via `po [IGListDebugger dump]`. [Candance Smith](https://github.com/candance) [(#856)](https://github.com/Instagram/IGListKit/pull/856)
+
+### Fixes
+
+- Prevent a crash when update queued immediately after item batch update. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+- Return correct `-[IGListAdapter visibleSectionControllers]` when section has no items, but has supplementary views. [Mani Ghasemlou](https://github.com/manicakes) [(#643)](https://github.com/Instagram/IGListKit/issues/643)
+- Call `[CATransaction commit]` before calling completion block in IGListAdapterUpdater to prevent animation issues. [Maxime Ollivier](https://github.com/maxoll) (tbd)
+
+### Enhancements
+
+- Added `-[IGListSectionController didDeselectItemAtIndex:]` API to support default `UICollectionView` cell deselection. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+- Added `-[IGListCollectionContext selectItemAtIndex:]` Select an item through IGListCollectionContext like `-[IGListCollectionContext deselectItemAtIndex:]`. [Marvin Nazari](https://github.com/MarvinNazari) (tbd)
+
+- Added horizontal scrolling support to `IGListCollectionViewLayout`. [Peter Edmonston](https://github.com/edmonston)  [(#857)](https://github.com/Instagram/IGListKit/pull/857)
+
+3.0.0
 -----
 
 This release closes the [3.0.0 milestone](https://github.com/Instagram/IGListKit/milestone/3).
@@ -50,7 +67,7 @@ ListDiff(oldArray: [], newArray: [], .equality)
 
 - Renamed `IGListAdapterUpdaterDelegate` method to `listAdapterUpdater:didPerformBatchUpdates:collectionView:`. [Vincent Peng](https://github.com/vincent-peng) [(#491)](https://github.com/Instagram/IGListKit/pull/491)
 
-- Moved section controller mutations to `IGListBatchContext`, provided as a parameter when calling `-perfomBatchAnimated:updates:completion` on a section controller's `collectionContext`. All updates (insert, delete, reload item/section controller) must now be done inside a batch update block. [Ryan Nystrom](https://github.com/rnystrom) [(a15ea08)](https://github.com/Instagram/IGListKit/commit/a15ea0861492c8476bc9b1b92b0d9835814091c7)
+- Moved section controller mutations to `IGListBatchContext`, provided as a parameter when calling `-performBatchAnimated:updates:completion` on a section controller's `collectionContext`. All updates (insert, delete, reload item/section controller) must now be done inside a batch update block. [Ryan Nystrom](https://github.com/rnystrom) [(a15ea08)](https://github.com/Instagram/IGListKit/commit/a15ea0861492c8476bc9b1b92b0d9835814091c7)
 
 ```objc
 // OLD

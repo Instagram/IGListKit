@@ -15,6 +15,7 @@
 #import <IGListKit/IGListDiff.h>
 
 #import "UICollectionView+IGListBatchUpdateData.h"
+#import "IGListIndexSetResultInternal.h"
 #import "IGListMoveIndexPathInternal.h"
 #import "IGListReloadIndexPath.h"
 
@@ -94,6 +95,10 @@
 }
 
 static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable>> *objects) {
+    if (objects == nil) {
+        return nil;
+    }
+
     NSMutableSet *identifiers = [NSMutableSet new];
     NSMutableArray *uniqueObjects = [NSMutableArray new];
     for (id<IGListDiffable> object in objects) {
@@ -163,22 +168,35 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
         }
     };
 
+    void (^reloadDataFallback)() = ^{
+        executeUpdateBlocks();
+        [self cleanStateAfterUpdates];
+        [self performBatchUpdatesItemBlockApplied];
+        [collectionView reloadData];
+        [collectionView layoutIfNeeded];
+        executeCompletionBlocks(YES);
+    };
+
     // if the collection view isn't in a visible window, skip diffing and batch updating. execute all transition blocks,
     // reload data, execute completion blocks, and get outta here
     const BOOL iOS83OrLater = (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_3);
     if (iOS83OrLater && self.allowsBackgroundReloading && collectionView.window == nil) {
         [self beginPerformBatchUpdatesToObjects:toObjects];
-        executeUpdateBlocks();
-        [self cleanStateAfterUpdates];
-        [self performBatchUpdatesItemBlockApplied];
-        [collectionView reloadData];
-        executeCompletionBlocks(YES);
+        reloadDataFallback();
         return;
     }
 
-    IGListIndexSetResult *result = IGListDiffExperiment(fromObjects, toObjects, IGListDiffEquality, self.experiments);
+    // disables multiple performBatchUpdates: from happening at the same time
+    [self beginPerformBatchUpdatesToObjects:toObjects];
 
-    void (^updateBlock)() = ^{
+    const IGListExperiment experiments = self.experiments;
+
+    IGListIndexSetResult *(^performDiff)() = ^{
+        return IGListDiffExperiment(fromObjects, toObjects, IGListDiffEquality, experiments);
+    };
+
+    // block executed in the first param block of -[UICollectionView performBatchUpdates:completion:]
+    void (^batchUpdatesBlock)(IGListIndexSetResult *result) = ^(IGListIndexSetResult *result){
         executeUpdateBlocks();
 
         self.applyingUpdateData = [self flushCollectionView:collectionView
@@ -190,7 +208,8 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
         [self performBatchUpdatesItemBlockApplied];
     };
 
-    void (^completionBlock)(BOOL) = ^(BOOL finished) {
+    // block used as the second param of -[UICollectionView performBatchUpdates:completion:]
+    void (^batchUpdatesCompletionBlock)(BOOL) = ^(BOOL finished) {
         executeCompletionBlocks(finished);
 
         [delegate listAdapterUpdater:self didPerformBatchUpdates:(id)self.applyingUpdateData collectionView:collectionView];
@@ -200,28 +219,47 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
         [self queueUpdateWithCollectionView:collectionView];
     };
 
-    // disables multiple performBatchUpdates: from happening at the same time
-    [self beginPerformBatchUpdatesToObjects:toObjects];
-
-    @try {
-        [delegate listAdapterUpdater:self willPerformBatchUpdatesWithCollectionView:collectionView];
-        if (animated) {
-            [collectionView performBatchUpdates:updateBlock completion:completionBlock];
-        } else {
-            [CATransaction begin];
-            [CATransaction setDisableActions:YES];
-            [collectionView performBatchUpdates:updateBlock completion:^(BOOL finished) {
-                completionBlock(finished);
-                [CATransaction commit];
-            }];
+    // block that executes the batch update and exception handling
+    void (^performUpdate)(IGListIndexSetResult *) = ^(IGListIndexSetResult *result){
+        @try {
+            [delegate listAdapterUpdater:self willPerformBatchUpdatesWithCollectionView:collectionView];
+            if (result.changeCount > 100 && IGListExperimentEnabled(experiments, IGListExperimentReloadDataFallback)) {
+                reloadDataFallback();
+            } else if (animated) {
+                [collectionView performBatchUpdates:^{
+                    batchUpdatesBlock(result);
+                } completion:batchUpdatesCompletionBlock];
+            } else {
+                [CATransaction begin];
+                [CATransaction setDisableActions:YES];
+                [collectionView performBatchUpdates:^{
+                    batchUpdatesBlock(result);
+                } completion:^(BOOL finished) {
+                    [CATransaction commit];
+                    batchUpdatesCompletionBlock(finished);
+                }];
+            }
+        } @catch (NSException *exception) {
+            [delegate listAdapterUpdater:self
+                  willCrashWithException:exception
+                             fromObjects:fromObjects
+                               toObjects:toObjects
+                                 updates:(id)self.applyingUpdateData];
+            @throw exception;
         }
-    } @catch (NSException *exception) {
-        [delegate listAdapterUpdater:self
-              willCrashWithException:exception
-                         fromObjects:fromObjects
-                           toObjects:toObjects
-                             updates:(id)self.applyingUpdateData];
-        @throw exception;
+    };
+
+    // temporary test to try out background diffing
+    if (IGListExperimentEnabled(experiments, IGListExperimentBackgroundDiffing)) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            IGListIndexSetResult *result = performDiff();
+            dispatch_async(dispatch_get_main_queue(), ^{
+                performUpdate(result);
+            });
+        });
+    } else {
+        IGListIndexSetResult *result = performDiff();
+        performUpdate(result);
     }
 }
 

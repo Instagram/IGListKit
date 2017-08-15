@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if ! which jazzy >/dev/null; then
+  echo "Jazzy not detected: You can download it from https://github.com/realm/jazzy"
+  exit
+fi
+
 # Docs by jazzy
 # https://github.com/realm/jazzy
 # ------------------------------

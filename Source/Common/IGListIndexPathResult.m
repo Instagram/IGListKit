@@ -33,7 +33,11 @@
 }
 
 - (BOOL)hasChanges {
-    return self.inserts.count || self.deletes.count || self.updates.count || self.moves.count;
+    return self.changeCount > 0;
+}
+
+- (NSInteger)changeCount {
+    return self.inserts.count + self.deletes.count + self.updates.count + self.moves.count;
 }
 
 - (IGListIndexPathResult *)resultForBatchUpdates {

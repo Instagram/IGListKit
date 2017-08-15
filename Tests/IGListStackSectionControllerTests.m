@@ -567,6 +567,31 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     XCTAssertTrue([stack2.sectionControllers[1] wasSelected]);
 }
 
+- (void)test_whenDeselectingItems_thatChildSectionControllersSelected {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@1 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@2 value:@[@1, @1]]
+                             ]];
+
+    [self.adapter collectionView:self.collectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    [self.adapter collectionView:self.collectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:1]];
+    [self.adapter collectionView:self.collectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:2]];
+
+    IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGListStackedSectionController *stack2 = [self.adapter sectionControllerForObject:self.dataSource.objects[2]];
+
+    XCTAssertTrue([stack0.sectionControllers[0] wasDeselected]);
+    XCTAssertFalse([stack0.sectionControllers[1] wasDeselected]);
+    XCTAssertFalse([stack0.sectionControllers[2] wasDeselected]);
+    XCTAssertFalse([stack1.sectionControllers[0] wasDeselected]);
+    XCTAssertTrue([stack1.sectionControllers[1] wasDeselected]);
+    XCTAssertFalse([stack1.sectionControllers[2] wasDeselected]);
+    XCTAssertFalse([stack2.sectionControllers[0] wasDeselected]);
+    XCTAssertTrue([stack2.sectionControllers[1] wasDeselected]);
+}
+
 - (void)test_whenUsingNibs_withStoryboards_thatCellsAreConfigured {
     [self setupWithObjects:@[
                              [[IGTestObject alloc] initWithKey:@0 value:@[@1, @"nib", @"storyboard"]],
@@ -799,6 +824,20 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     IGListSectionController *section = stack.sectionControllers.lastObject;
     [section.collectionContext deselectItemAtIndex:0 sectionController:section animated:NO];
     XCTAssertFalse([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
+}
+
+- (void)test_whenSelectingChildSectionControllerIndex_thatCorrectCellSelected {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@1 value:@[@1, @1]]
+                             ]];
+    
+    NSIndexPath *path = [NSIndexPath indexPathForItem:1 inSection:1];
+    
+    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    IGListSectionController *section = stack.sectionControllers.lastObject;
+    [section.collectionContext selectItemAtIndex:0 sectionController:section animated:NO scrollPosition:UICollectionViewScrollPositionTop];
+    XCTAssertTrue([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
 }
 
 - (void)test_whenRemovingSection_withWorkingRange_thatChildSectionControllersReceiveEvents {

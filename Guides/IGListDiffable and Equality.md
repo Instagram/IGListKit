@@ -32,7 +32,7 @@ Even though `IGListKit` uses the method `-isEqualToDiffableObject:`, the concept
 
 - If you override `-isEqual:` you **must** override `-hash`. Check out this [article by Mike Ash](https://www.mikeash.com/pyblog/friday-qa-2010-06-18-implementing-equality-and-hashing.html) for details.
 - Always compare the pointer first. This saves a lot of wasteful `objc_msgSend(...)` calls and value comparisons if checking the same instance.
-- When comparing object values, always check for `nil` before `-isEqual:`. For example, `[nil isEqual:nil]` unintuitively returns `NO`. Instead, do `left == right || [left isEqual:right]`.
+- When comparing object values, always check for `nil` before `-isEqual:`. For example, `[nil isEqual:nil]` counterintuitively returns `NO`. Instead, do `left == right || [left isEqual:right]`.
 - Always compare the **cheapest values first**. For example, doing `[self.array isEqual:other.array] && self.intVal == other.intVal` is extremely wasteful if the `intVal` values are different. Use lazy evaluation!
 
 As an example, if I had a `User` model with the following interface:

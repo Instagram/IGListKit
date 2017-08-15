@@ -20,26 +20,30 @@ protocol StoryboardLabelSectionControllerDelegate: class {
 }
 
 final class StoryboardLabelSectionController: ListSectionController {
-    
+
     private var object: Person?
     weak var delegate: StoryboardLabelSectionControllerDelegate?
-    
+
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: (self.object?.name.characters.count)! * 7, height: (self.object?.name.characters.count)! * 7)
     }
-    
+
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCellFromStoryboard(withIdentifier: "cell", for: self, at: index) as! StoryboardCell
+        guard let cell = collectionContext?.dequeueReusableCellFromStoryboard(withIdentifier: "cell",
+                                                                              for: self,
+                                                                              at: index) as? StoryboardCell else {
+                                                                                fatalError()
+        }
         cell.text = object?.name
         return cell
     }
-    
+
     override func didUpdate(to object: Any) {
         self.object = object as? Person
     }
-    
+
     override func didSelectItem(at index: Int) {
         delegate?.removeSectionControllerWantsRemoved(self)
     }
-    
+
 }
