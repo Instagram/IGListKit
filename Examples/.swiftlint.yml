@@ -1,5 +1,9 @@
 opt_in_rules: # some rules are only opt-in
   - empty_count
+disabled_rules:
+  - force_unwrapping
+  - comma
+  - line_length
 included:
   - IGListKitExamples
   - IGListKitMessageExample
@@ -9,7 +13,6 @@ excluded:
 force_cast: warning
 force_try: warning
 weak_delegate: error
-line_length: 140
 type_body_length:
   warning: 300
   error: 400
