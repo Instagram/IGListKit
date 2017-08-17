@@ -1319,4 +1319,14 @@
     XCTAssertThrows([self.adapter reloadDataWithCompletion:nil]);
 }
 
+- (void)test_whenPrefetchingEnabled_thatSetterDisables {
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
+    collectionView.prefetchingEnabled = YES;
+
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    adapter.collectionView = collectionView;
+
+    XCTAssertFalse(collectionView.prefetchingEnabled);
+}
+
 @end
