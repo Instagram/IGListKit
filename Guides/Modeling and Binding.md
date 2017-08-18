@@ -570,7 +570,7 @@ ActionViewModel(likes: localLikes ?? object.likes)
 **Build and run** the app, tap on the heart button, and see your likes increment!
 
 <p align="center">
-  <img src="../Resources/modeling-likes-bordered.gif" width=250  />
+  <img src="../Resources/modeling-likes.gif" width=300  />
 </p>
 
 ## Wrapping up
