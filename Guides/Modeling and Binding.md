@@ -120,6 +120,7 @@ final class Comment: ListDiffable {
 A note on the `isEqual(toDiffableObject:)` implementation: Whatever you use to derive the `diffIdentifier` can be omitted from any equality checks, since by definition the objects have already matched on their identifiers.
 
 In this case, the `username` and `text` **must be equal** by the time two objects are checked for equality.
+
 </p></details>
 
 Using the `Comment` array on a `Post` should make some sense: there are a dynamic number of comments on each post. For each comment, you want to display a cell.
@@ -335,6 +336,7 @@ func sectionController(
 ```
 
 Remember to handle `UserViewModel` and `ActionViewModel` separately!
+
 </p></details>
 
 ## Binding Models to Cells
