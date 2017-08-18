@@ -89,8 +89,9 @@ Create a new Swift file named **Comment.swift** and try writing the `Comment` mo
 If you get stuck, or just want to copy & paste, you can reveal the implementation below.
 
 <details>
-  <summary>`Comment` implementation</summary>
+  <summary>Comment implementation</summary>
   <p>
+
 ```swift
 import IGListKit
 
@@ -169,8 +170,9 @@ final class UserViewModel: ListDiffable {
 Try to make view models for the **image** and **action** cell. Remember there is only a single cell per `Post`, so you can use `UserViewModel` as a starting point for how the models should look.
 
 <details>
-  <summary>`Comment` implementation</summary>
+  <summary>View model implementations</summary>
   <p>
+
 ```swift
 import IGListKit
 
@@ -313,8 +315,9 @@ Lastly, implement the API that returns a cell for each view model. This should l
 > Remember that the cells are defined in **Main.storyboard**. You can click on each cell to view their identifiers.
 
 <details>
-  <summary>`cellForViewModel` implementation</summary>
+  <summary>"cellForViewModel:" implementation</summary>
   <p>
+
 ```swift
 func sectionController(
   _ sectionController: ListBindingSectionController<ListDiffable>,
@@ -382,8 +385,9 @@ Now do exactly the same thing for each of the other cells:
 - `ActionCell` binds `ActionViewModel`
 
 <details>
-  <summary>Cell `ListBindable` implementations</summary>
+  <summary>ListBindable implementations</summary>
   <p>
+
 ```swift
 final class ActionCell: UICollectionViewCell, ListBindable {
 
