@@ -569,6 +569,8 @@ ActionViewModel(likes: localLikes ?? object.likes)
 
 **Build and run** the app, tap on the heart button, and see your likes increment!
 
+![Likes Animation](../Resources/modeling-likes.gif)
+
 ## Wrapping up
 
 `IGListBindingSectionController` is one of the most powerful features that we've built for IGListKit because it further encourages you to design small, composable models, views, and controllers.
