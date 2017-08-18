@@ -11,7 +11,7 @@ You will learn how to:
 
 ## Getting Started
 
-You can follow along and build the example in this guide. First, you must download [this starter project](TODO). Open **ModelingAndBinding.xcworkspace** since the base project is setup with CocoaPods with `IGListKit` already added as a dependency.
+You can follow along and build the example in this guide. First, you must download [this starter project](https://github.com/rnystrom/IGListKit-Binding-Guide). Open **ModelingAndBinding-Starter/ModelingAndBinding.xcworkspace** since the base project is setup with CocoaPods with `IGListKit` already added as a dependency.
 
 Take a look at the following Instagram-inspired list element design:
 
@@ -574,6 +574,8 @@ ActionViewModel(likes: localLikes ?? object.likes)
 </p>
 
 ## Wrapping up
+
+If you got stuck at all, or just want to play around with the example, you can find the finished project [here](https://github.com/rnystrom/IGListKit-Binding-Guide) in **ModelingAndBinding/ModelingAndBinding.xcworkspace**.
 
 `IGListBindingSectionController` is one of the most powerful features that we've built for IGListKit because it further encourages you to design small, composable models, views, and controllers.
 
