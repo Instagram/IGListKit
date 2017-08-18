@@ -3,9 +3,7 @@ platform :ios, '10.0'
 
 use_frameworks!
 
-pod 'IGListKit', :git => 'https://github.com/Instagram/IGListKit.git', :branch => 'master'
-pod 'SDWebImage'
-
 target 'ModelingAndBinding' do
+  pod 'IGListKit', :path => '../../IGListKit.podspec'
+  pod 'SDWebImage', '~> 4.0.0'
 end
-
