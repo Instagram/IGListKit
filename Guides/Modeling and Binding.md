@@ -1,4 +1,4 @@
-# A Guide on Modeling and Binding
+# Modeling and Binding
 
 This guide will walk you through a practical example of taking an app spec/design and turning it into a working `IGListKit` project.
 
@@ -569,9 +569,9 @@ ActionViewModel(likes: localLikes ?? object.likes)
 
 **Build and run** the app, tap on the heart button, and see your likes increment!
 
-<center>
-![Likes Animation](../Resources/modeling-likes.gif)
-</center>
+<p align="center">
+  <img src="../Resources/modeling-likes.gif" width=375 />
+</p>
 
 ## Wrapping up
 
