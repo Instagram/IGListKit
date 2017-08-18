@@ -1,0 +1,68 @@
+{
+  "name": "IGListKit",
+  "version": "3.0.0",
+  "summary": "A data-driven UICollectionView framework.",
+  "homepage": "https://github.com/Instagram/IGListKit",
+  "documentation_url": "https://instagram.github.io/IGListKit",
+  "description": "A data-driven UICollectionView framework for building fast and flexible lists.",
+  "license": {
+    "type": "BSD"
+  },
+  "authors": "Instagram",
+  "social_media_url": "https://twitter.com/fbOpenSource",
+  "source": {
+    "git": "https://github.com/Instagram/IGListKit.git",
+    "tag": "3.0.0",
+    "branch": "stable"
+  },
+  "default_subspecs": "Default",
+  "requires_arc": true,
+  "platforms": {
+    "ios": "8.0",
+    "tvos": "9.0",
+    "osx": "10.10"
+  },
+  "ios": {
+    "frameworks": "UIKit"
+  },
+  "tvos": {
+    "frameworks": "UIKit"
+  },
+  "osx": {
+    "frameworks": "Cocoa"
+  },
+  "libraries": "c++",
+  "pod_target_xcconfig": {
+    "CLANG_CXX_LANGUAGE_STANDARD": "c++11",
+    "CLANG_CXX_LIBRARY": "libc++"
+  },
+  "subspecs": [
+    {
+      "name": "Diffing",
+      "source_files": "Source/Common/**/*.{h,m,mm}",
+      "private_header_files": "Source/Common/Internal/*.h"
+    },
+    {
+      "name": "Default",
+      "dependencies": {
+        "IGListKit/Diffing": [
+
+        ]
+      },
+      "ios": {
+        "source_files": "Source/**/*.{h,m,mm}",
+        "private_header_files": [
+          "Source/Internal/*.h",
+          "Source/Common/Internal/*.h"
+        ]
+      },
+      "tvos": {
+        "source_files": "Source/**/*.{h,m,mm}",
+        "private_header_files": [
+          "Source/Internal/*.h",
+          "Source/Common/Internal/*.h"
+        ]
+      }
+    }
+  ]
+}
