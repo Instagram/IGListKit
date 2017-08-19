@@ -723,7 +723,9 @@
     }
     NSArray<IGListSectionController *> *visibleSectionControllers = [self visibleSectionControllers];
     for (IGListSectionController *sectionController in visibleSectionControllers) {
-        [[sectionController scrollDelegate] listAdapter:self didEndDeceleratingSectionController:sectionController];
+        if ([[sectionController scrollDelegate] respondsToSelector:@selector(listAdapter:didEndDeceleratingSectionController:)]) {
+            [[sectionController scrollDelegate] listAdapter:self didEndDeceleratingSectionController:sectionController];
+        }
     }
 }
 
