@@ -306,7 +306,7 @@ func sectionController(
 }
 ```
 
-1. Just like the `object` property, the `collectionContext` should never be `nil`, but it's a weakly referenced object so must be declared as optional. Again use `fatalError()` to catch any critical failures.
+1. Just like the `object` property, the `collectionContext` should never be `nil`, but it's a weakly referenced object so must be declared as optional. Again, use `fatalError()` to catch any critical failures.
 2. Swift makes checking for types so easy! Just `switch` on the type and assign a height. In Objective-C you should use `isKindOfClass:`.
 3. Both the `UserViewModel` and `ActionViewModel` share the same height of `55`pts according to the design.
 
@@ -375,7 +375,7 @@ final class ImageCell: UICollectionViewCell, ListBindable {
 
 1. Make sure to import `IGListKit`!
 2. Have the cell conform to `ListBindable`
-3. Guard against the view model type. This will always be what `PostSectionController` decides, but guarding is a safer practive than force casting.
+3. Guard against the view model type. This will always be what `PostSectionController` pairs the cell with in `cellForViewModel:`, but guard to be safe.
 4. Use the [SDWebImage](https://github.com/rs/SDWebImage) library to set the image URL.
 
 Now do exactly the same thing for each of the other cells:
@@ -490,7 +490,7 @@ Add a new delegate variable to the `ActionCell`, beneath the outlets:
 weak var delegate: ActionCellDelegate? = nil
 ```
 
-Override `awakeFromNib()` and add a target+action to the `likeButton`:
+Override `awakeFromNib()` and add a target & action to the `likeButton`:
 
 ```swift
 override func awakeFromNib() {
@@ -533,7 +533,7 @@ func didTapHeart(cell: ActionCell) {
 }
 ```
 
-**Build and run** the app and tap on the heart button. You should see "like"s bring printed into the console.
+**Build and run** the app and tap on the heart button. You should see "like"s printing into the console.
 
 ## Local Mutations
 
