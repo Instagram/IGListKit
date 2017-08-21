@@ -5,7 +5,7 @@ This guide will walk you through a practical example of taking an app spec/desig
 You will learn how to:
 
 - Turn a design spec into a top-level model and view models
-- Use `IGListBindingSectionController` for animated, one-way cell updates
+- Use `ListBindingSectionController` for animated, one-way cell updates
 - Cell-to-controller action handling and delegation
 - Updating the UI with local data mutations
 
@@ -26,7 +26,7 @@ You can already start mentally modelling your data:
 
 Remember that `IGListKit` functions on **one model per section controller**. All of the cells in this design correlate to one top-level "post" object delivered by a server. You want to create a `Post` model that contains all of the information that the cells require.
 
-> A common mistake is to create a single model and section controller for a single cell. In this example, that will create a **very confusing** architecture since the top-level objects will contain a mix and match of user, image, and action, and comment models.
+> A common mistake is to create a single model and section controller for a single cell. In this example, that will create a **very confusing** architecture since the top-level objects will contain a mix and match of user, image, action, and comment models.
 
 ## Creating Models
 
@@ -57,9 +57,9 @@ final class Post: ListDiffable {
 ```
 
 1. It's best practice to always declare your values as `let` so they cannot be mutated again. The compiler will complain about the `Comment` model, ignore that for now.
-2. Since `IGListKit` is Objective-C compatible, your models must be `class`es which means no free initializer. It's only a little copy & paste!
+2. Since `IGListKit` is compatible with Objective-C, your models must be `class`es which means writing initializers. It's only a little copy & paste!
 
-Now add an `ListDiffable` implementation inside of `Post`:
+Now add a `ListDiffable` implementation inside of `Post`:
 
 ```swift
 // MARK: ListDiffable
@@ -76,7 +76,7 @@ func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
 ```
 
 1. Derive a **unique identifier** for each post. Since a single post should never have the same `username` and `timestamp` combo, we can start with that.
-2. A **core requirement** to using `IGListBindingSectionController` is that if two models have the same `diffIdentifier`, they **must be equal** so that the section controller can then compare view models.
+2. A **core requirement** to using `ListBindingSectionController` is that if two models have the same `diffIdentifier`, they **must be equal** so that the section controller can then compare view models.
 
 ### View Models
 
@@ -126,9 +126,9 @@ In this case, the `username` and `text` **must be equal** by the time two object
 
 Using the `Comment` array on a `Post` should make some sense: there are a dynamic number of comments on each post. For each comment, you want to display a cell.
 
-What might be a little bit of a new concept, though, is that you need to create models for the `UserCell`, `ImageCell`, _and_ `ActionCell` as well when working with `IGListBindingSectionController`.
+What might be a little bit of a new concept, though, is that you need to create models for the `UserCell`, `ImageCell`, _and_ `ActionCell` as well when working with `ListBindingSectionController`.
 
-> A binding section controller is almost like a mini-`IGListKit`. It takes an array of view models and turns them into configured cells. Get into the habit of creating a new model for each cell type withing an `IGListBindingSectionController` instance.
+> A binding section controller is almost like a mini-`IGListKit`. It takes an array of view models and turns them into configured cells. Get into the habit of creating a new model for each cell type within an `ListBindingSectionController` instance.
 
 With that in mind, let's start with the model for the `UserCell`:
 
@@ -223,7 +223,7 @@ final class ActionViewModel: ListDiffable {
 
 </p></details>
 
-## Using IGListBindingSectionController
+## Using ListBindingSectionController
 
 You now have the following view models, which can all be derived from each `Post`:
 
@@ -232,7 +232,7 @@ You now have the following view models, which can all be derived from each `Post
 - `ActionViewModel`
 - `Comment`
 
-Let's start using these models to power cells using `IGListBindingSectionController`. This controller takes a top-level model (`Post`), asks its data source for an array of diffable view models (our view models above), then binds those view models to cells (provided in the starter project).
+Let's start using these models to power cells using `ListBindingSectionController`. This controller takes a top-level model (`Post`), asks its data source for an array of diffable view models (our view models above), then binds those view models to cells (provided in the starter project).
 
 ![Binding Flow](../Resources/binding-flow.png)
 
@@ -344,9 +344,9 @@ Remember to handle `UserViewModel` and `ActionViewModel` separately!
 
 ## Binding Models to Cells
 
-Now you have `PostSectionController` setup to create view models, sizes, and cells. The last piece to using `IGListBindingSectionController` is having your cells to receive its assigned view model and configure itself. 
+Now you have `PostSectionController` setup to create view models, sizes, and cells. The last piece to using `ListBindingSectionController` is having your cells to receive its assigned view model and configure itself. 
 
-This is done by making your cells conform to `IGListBindable`. With that, `IGListBindingSectionController` will **automatically** bind view models to each cell!
+This is done by making your cells conform to `ListBindable`. With that, `ListBindingSectionController` will **automatically** bind view models to each cell!
 
 Open **ImageCell.swift** and change the implementation to look like the following:
 
@@ -557,7 +557,7 @@ func didTapHeart(cell: ActionCell) {
 ```
 
 1. Mutate the `localLikes` variable using either the previous `localLikes` or starting with `object.likes`, whichever exists. Fallback to `0` which will never happen, just satisfying the compiler.
-2. Call the `update(animated:,completion:)` API on `IGListBindingSectionController` to refresh the cells on the screen.
+2. Call the `update(animated:,completion:)` API on `ListBindingSectionController` to refresh the cells on the screen.
 
 In order to actually send the mutations to the models, you need to start using `localLikes` with the `ActionViewModel` which is given to the `ActionCell`.
 
@@ -577,7 +577,7 @@ ActionViewModel(likes: localLikes ?? object.likes)
 
 If you got stuck at all, or just want to play around with the example, you can find the finished project [here](https://github.com/rnystrom/IGListKit-Binding-Guide) in **ModelingAndBinding/ModelingAndBinding.xcworkspace**.
 
-`IGListBindingSectionController` is one of the most powerful features that we've built for IGListKit because it further encourages you to design small, composable models, views, and controllers.
+`ListBindingSectionController` is one of the most powerful features that we've built for `IGListKit` because it further encourages you to design small, composable models, views, and controllers.
 
 You can also use the section controller to handle any interactions, as well as deal with mutations, just like a controller should!
 
