@@ -49,6 +49,8 @@ NS_SWIFT_NAME(ListAdapter)
 
 /**
  The collection view used with the adapter.
+
+ @note Setting this property will automatically set isPrefetchingEnabled to `NO` for performance reasons.
  */
 @property (nonatomic, nullable, weak) UICollectionView *collectionView;
 

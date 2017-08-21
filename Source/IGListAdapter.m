@@ -96,6 +96,11 @@
 
         _collectionView = collectionView;
         _collectionView.dataSource = self;
+
+        if ([_collectionView respondsToSelector:@selector(setPrefetchingEnabled:)]) {
+            _collectionView.prefetchingEnabled = NO;
+        }
+
         [_collectionView.collectionViewLayout invalidateLayout];
 
         [self updateCollectionViewDelegate];
