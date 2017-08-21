@@ -2,21 +2,6 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
-3.2.0 (**upcoming release**)
------
-
-### Enhancements
-
-- 
-
-### Fixes
-
-- ScrollToObject method : better support of ScrollPosition parameter (fixes previous failing tests). [Gulam Moledina](https://github.com/gmoledina) [(#861)](https://github.com/Instagram/IGListKit/pull/861)
-
-### Enhancements
-
-- 
-
 3.1.0
 -----
 
@@ -31,7 +16,10 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 - Return correct `-[IGListAdapter visibleSectionControllers]` when section has no items, but has supplementary views. [Mani Ghasemlou](https://github.com/manicakes) [(#643)](https://github.com/Instagram/IGListKit/issues/643)
 
 - Call `[CATransaction commit]` before calling completion block in IGListAdapterUpdater to prevent animation issues. [Maxime Ollivier](https://github.com/maxoll) (tbd)
+
 - Fix `scrollToObject:supplementaryKinds:...` not scrolling when section is empty but does have supplymentary views
+
+- ScrollToObject method : better support of ScrollPosition parameter (fixes previous failing tests). [Gulam Moledina](https://github.com/gmoledina) [(#861)](https://github.com/Instagram/IGListKit/pull/861)
 
 ### Enhancements
 
