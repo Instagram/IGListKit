@@ -96,6 +96,11 @@
 
         _collectionView = collectionView;
         _collectionView.dataSource = self;
+
+        if ([_collectionView respondsToSelector:@selector(setPrefetchingEnabled:)]) {
+            _collectionView.prefetchingEnabled = NO;
+        }
+
         [_collectionView.collectionViewLayout invalidateLayout];
 
         [self updateCollectionViewDelegate];
@@ -173,10 +178,11 @@
 
     UICollectionView *collectionView = self.collectionView;
     UICollectionViewLayout *layout = self.collectionView.collectionViewLayout;
-    
+
     // force layout before continuing
     // this method is typcially called before pushing a view controller
     // thus, before the layout process has actually happened
+    [collectionView setNeedsLayout];
     [collectionView layoutIfNeeded];
 
     NSIndexPath *indexPathFirstElement = [NSIndexPath indexPathForItem:0 inSection:section];
@@ -206,7 +212,7 @@
         }
         attributes = supplementaryAttributes;
     }
-    
+
     CGFloat offsetMin = 0.0;
     CGFloat offsetMax = 0.0;
     for (UICollectionViewLayoutAttributes *attribute in attributes) {
@@ -292,7 +298,6 @@
 
     [collectionView setContentOffset:contentOffset animated:animated];
 }
-
 
 #pragma mark - Editing
 
@@ -734,6 +739,7 @@
         [[sectionController scrollDelegate] listAdapter:self didEndDraggingSectionController:sectionController willDecelerate:decelerate];
     }
 }
+
 
 #pragma mark - IGListCollectionContext
 
