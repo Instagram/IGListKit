@@ -381,8 +381,8 @@ final class ImageCell: UICollectionViewCell, ListBindable {
 Now do exactly the same thing for each of the other cells:
 
 - `ActionCell` binds `ActionViewModel`
-- `ActionCell` binds `ActionViewModel`
-- `ActionCell` binds `ActionViewModel`
+- `UserCell` binds `UserViewModel`
+- `CommentCell` binds `Comment`
 
 <details>
   <summary>ListBindable implementations</summary>
