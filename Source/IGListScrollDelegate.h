@@ -53,7 +53,7 @@ NS_SWIFT_NAME(ListScrollDelegate)
  @param sectionController The visible section controller that ended decelerating.
  */
 @optional
-- (void)listAdapter:(IGListAdapter *)listAdapter didEndDeceleratingSectionController:(IGListSectionController *)sectionController;
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDeceleratingSectionController:(IGListSectionController *)sectionController NS_SWIFT_NAME(listAdapter(_:didEndDecelerating:));
 
 @end
 
