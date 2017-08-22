@@ -652,6 +652,43 @@
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 60);
 }
 
+- (void)test_whenScrollVerticallyToItemInASectionWithNoCellsAndNoSupplymentaryView {
+    self.dataSource.objects = @[@1, @0, @300];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertEqual([self.collectionView numberOfSections], 3);
+    [self.adapter scrollToObject:@1 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
+    [self.adapter scrollToObject:@0 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
+    [self.adapter scrollToObject:@300 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 10);
+}
+
+- (void)test_whenScrollVerticallyToItemInASectionWithNoCellsButAHeaderSupplymentaryView {
+    self.dataSource.objects = @[@1, @0, @300];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
+
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@0];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+
+    XCTAssertEqual([self.collectionView numberOfSections], 3);
+    [self.adapter scrollToObject:@1 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
+    [self.adapter scrollToObject:@0 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
+    [self.adapter scrollToObject:@0 supplementaryKinds:@[UICollectionElementKindSectionHeader] scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionTop animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 10);
+    [self.adapter scrollToObject:@300 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 20);
+}
+
 - (void)test_whenScrollHorizontallyToItem {
     // # of items for each object == [item integerValue], so @2 has 2 items (cells)
     IGListTestAdapterHorizontalDataSource *dataSource = [[IGListTestAdapterHorizontalDataSource alloc] init];
@@ -1317,6 +1354,16 @@
 - (void)test_whenPassingNonUniqueIdentifiers_adapterShouldAssert {
     self.dataSource.objects = @[@0, @1, @2, @0];
     XCTAssertThrows([self.adapter reloadDataWithCompletion:nil]);
+}
+
+- (void)test_whenPrefetchingEnabled_thatSetterDisables {
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
+    collectionView.prefetchingEnabled = YES;
+
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    adapter.collectionView = collectionView;
+
+    XCTAssertFalse(collectionView.prefetchingEnabled);
 }
 
 @end
