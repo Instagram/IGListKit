@@ -418,8 +418,9 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 
 - (void)listAdapter:(IGListAdapter *)listAdapter didEndDeceleratingSectionController:(IGListSectionController *)sectionController {
     for (IGListSectionController *childSectionController in self.sectionControllers) {
-        if ([[childSectionController scrollDelegate] respondsToSelector:@selector(listAdapter:didEndDeceleratingSectionController:)]) {
-            [[childSectionController scrollDelegate] listAdapter:listAdapter didEndDeceleratingSectionController:childSectionController];
+        id<IGListScrollDelegate> scrollDelegate = [childSectionController scrollDelegate];
+        if ([childSectionController respondsToSelector:@selector(listAdapter:didEndDeceleratingSectionController:)]) {
+            [scrollDelegate listAdapter:listAdapter didEndDeceleratingSectionController:childSectionController];
         }
     }
 }
