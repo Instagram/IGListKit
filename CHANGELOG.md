@@ -15,7 +15,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Return correct `-[IGListAdapter visibleSectionControllers]` when section has no items, but has supplementary views. [Mani Ghasemlou](https://github.com/manicakes) [(#643)](https://github.com/Instagram/IGListKit/issues/643)
 
-- Call `[CATransaction commit]` before calling completion block in IGListAdapterUpdater to prevent animation issues. [Maxime Ollivier](https://github.com/maxoll) [(https://github.com/Instagram/IGListKit/commit/6f946b2)](https://github.com/Instagram/IGListKit/commit/6f946b2981d266f823324a366213bd214357bb6d)
+- Call `[CATransaction commit]` before calling completion block in IGListAdapterUpdater to prevent animation issues. [Maxime Ollivier](https://github.com/maxoll) [(6f946b2)](https://github.com/Instagram/IGListKit/commit/6f946b2981d266f823324a366213bd214357bb6d)
 
 - Fix `scrollToObject:supplementaryKinds:...` not scrolling when section is empty but does have supplymentary views. [Gulam Moledina](https://github.com/gmoledina) [(#808)](https://github.com/Instagram/IGListKit/pull/808)
 
