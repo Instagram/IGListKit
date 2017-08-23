@@ -11,23 +11,24 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Fixes
 
-- Prevent a crash when update queued immediately after item batch update. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+- Prevent a crash when update queued immediately after item batch update. [Ryan Nystrom](https://github.com/rnystrom) [(3dc6060)](https://github.com/Instagram/IGListKit/commit/3dc6060a385d9bfcb4fa1f61262ba74776573229)
 
 - Return correct `-[IGListAdapter visibleSectionControllers]` when section has no items, but has supplementary views. [Mani Ghasemlou](https://github.com/manicakes) [(#643)](https://github.com/Instagram/IGListKit/issues/643)
 
-- Call `[CATransaction commit]` before calling completion block in IGListAdapterUpdater to prevent animation issues. [Maxime Ollivier](https://github.com/maxoll) (tbd)
+- Call `[CATransaction commit]` before calling completion block in IGListAdapterUpdater to prevent animation issues. [Maxime Ollivier](https://github.com/maxoll) [(https://github.com/Instagram/IGListKit/commit/6f946b2)](https://github.com/Instagram/IGListKit/commit/6f946b2981d266f823324a366213bd214357bb6d)
 
-- Fix `scrollToObject:supplementaryKinds:...` not scrolling when section is empty but does have supplymentary views
+- Fix `scrollToObject:supplementaryKinds:...` not scrolling when section is empty but does have supplymentary views. [Gulam Moledina](https://github.com/gmoledina) [(#808)](https://github.com/Instagram/IGListKit/pull/808)
 
 - Better support for non-top positions in `scrollToObject:` API. [Gulam Moledina](https://github.com/gmoledina) [(#861)](https://github.com/Instagram/IGListKit/pull/861)
 
 ### Enhancements
 
-- Added `-[IGListSectionController didDeselectItemAtIndex:]` API to support default `UICollectionView` cell deselection. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+- Added `-[IGListSectionController didDeselectItemAtIndex:]` API to support default `UICollectionView` cell deselection. [Ryan Nystrom](https://github.com/rnystrom) [(6540f96)](https://github.com/Instagram/IGListKit/commit/6540f960e2e69bd4776e1e1d8c460ff812ba4c07)
 
-- Added `-[IGListCollectionContext selectItemAtIndex:]` Select an item through IGListCollectionContext like `-[IGListCollectionContext deselectItemAtIndex:]`. [Marvin Nazari](https://github.com/MarvinNazari) (tbd)
+- Added `-[IGListCollectionContext selectItemAtIndex:]` Select an item through IGListCollectionContext like `-[IGListCollectionContext deselectItemAtIndex:]`. [Marvin Nazari](https://github.com/MarvinNazari) [(#874)](https://github.com/Instagram/IGListKit/pull/874)
 
 - Added horizontal scrolling support to `IGListCollectionViewLayout`. [Peter Edmonston](https://github.com/edmonston)  [(#857)](https://github.com/Instagram/IGListKit/pull/857)
+
 - Added support for scrollViewDidEndDecelerating to `IGListAdapter`. [Phil Larson](https://github.com/plarson) [(#899)](https://github.com/Instagram/IGListKit/pull/899)
 
 - Automatically disable `[UICollectionView isPrefetchingEnabled]` when setting a collection view on an adapter. [Ryan Nystrom](https://github.com/rnystrom) [(#889)](https://github.com/Instagram/IGListKit/pull/889)
