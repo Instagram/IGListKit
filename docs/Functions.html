@@ -13,7 +13,7 @@
     <a title="Functions  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (99% documented)</p>
+        <p><a href="index.html">IGListKit Docs</a> (98% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -46,6 +46,9 @@
                 <a href="migration.html">Migration</a>
               </li>
               <li class="nav-group-task">
+                <a href="modeling-and-binding.html">Modeling and Binding</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="vision.html">VISION</a>
               </li>
               <li class="nav-group-task">
@@ -53,17 +56,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="working-with-uicollectionview.html">Working with UICollectionView</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Categories.html">Categories</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Categories.html#/c:objc(cy)NSNumber@IGListDiffable">NSNumber(IGListDiffable)</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Categories.html#/c:objc(cy)NSString@IGListDiffable">NSString(IGListDiffable)</a>
               </li>
             </ul>
           </li>
@@ -269,6 +261,11 @@
     <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="n">newArray</span><span class="p">,</span> <span class="n"><a href="Enums/IGListDiffOption.html">IGListDiffOption</a></span> <span class="n">option</span><span class="p">)</span></code></pre>
 
                         </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="kt">ListDiff</span><span class="p">(</span><span class="nv">oldArray</span><span class="p">:</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]?,</span> <span class="nv">newArray</span><span class="p">:</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]?,</span> <span class="nv">option</span><span class="p">:</span> <span class="kt"><a href="Enums/IGListDiffOption.html">IGListDiffOption</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ListIndexSetResult</span></code></pre>
+
+                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -344,6 +341,11 @@
     <span class="n">NSInteger</span> <span class="n">fromSection</span><span class="p">,</span> <span class="n">NSInteger</span> <span class="n">toSection</span><span class="p">,</span>
     <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="n">oldArray</span><span class="p">,</span>
     <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="n">newArray</span><span class="p">,</span> <span class="n"><a href="Enums/IGListDiffOption.html">IGListDiffOption</a></span> <span class="n">option</span><span class="p">)</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="kt">ListDiffPaths</span><span class="p">(</span><span class="nv">fromSection</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">toSection</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">oldArray</span><span class="p">:</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]?,</span> <span class="nv">newArray</span><span class="p">:</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]?,</span> <span class="nv">option</span><span class="p">:</span> <span class="kt"><a href="Enums/IGListDiffOption.html">IGListDiffOption</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ListIndexPathResult</span></code></pre>
 
                         </div>
                       </div>
@@ -524,6 +526,11 @@
     <span class="n"><a href="Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="n">experiments</span><span class="p">)</span></code></pre>
 
                         </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="kt">ListDiffExperiment</span><span class="p">(</span><span class="nv">oldArray</span><span class="p">:</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]?,</span> <span class="nv">newArray</span><span class="p">:</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]?,</span> <span class="nv">option</span><span class="p">:</span> <span class="kt"><a href="Enums/IGListDiffOption.html">IGListDiffOption</a></span><span class="p">,</span> <span class="nv">experiments</span><span class="p">:</span> <span class="kt"><a href="Enums/IGListExperiment.html">IGListExperiment</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ListIndexSetResult</span></code></pre>
+
+                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -619,6 +626,11 @@
     <span class="n"><a href="Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="n">experiments</span><span class="p">)</span></code></pre>
 
                         </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="kt">ListDiffPathsExperiment</span><span class="p">(</span><span class="nv">fromSection</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">toSection</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">oldArray</span><span class="p">:</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]?,</span> <span class="nv">newArray</span><span class="p">:</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]?,</span> <span class="nv">option</span><span class="p">:</span> <span class="kt"><a href="Enums/IGListDiffOption.html">IGListDiffOption</a></span><span class="p">,</span> <span class="nv">experiments</span><span class="p">:</span> <span class="kt"><a href="Enums/IGListExperiment.html">IGListExperiment</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ListIndexPathResult</span></code></pre>
+
+                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -711,8 +723,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-05-26)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-08-23)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
