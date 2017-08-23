@@ -1028,6 +1028,25 @@
     [mockScrollDelegate verify];
 }
 
+- (void)test_whenDidEndDecelerating_thatScrollViewDelegateReceivesMethod {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockCollectionDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
+    id mockScrollDelegate = [OCMockObject mockForProtocol:@protocol(UIScrollViewDelegate)];
+    self.adapter.collectionViewDelegate = mockCollectionDelegate;
+    self.adapter.scrollViewDelegate = mockScrollDelegate;
+
+    [[mockCollectionDelegate reject] scrollViewDidEndDecelerating:self.collectionView];
+    [[mockScrollDelegate expect] scrollViewDidEndDecelerating:self.collectionView];
+
+    // simulates the scrollview delegate telling the adapter that it ended decelerating
+    [self.adapter scrollViewDidEndDecelerating:self.collectionView];
+
+    [mockCollectionDelegate verify];
+    [mockScrollDelegate verify];
+}
+
 - (void)test_whenReloadingObjectsThatDontExist_thatAdapterContinues {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];
