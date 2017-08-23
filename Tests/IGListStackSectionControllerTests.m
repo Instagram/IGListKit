@@ -693,6 +693,34 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     [mockScrollDelegate verify];
 }
 
+- (void)test_whenForwardingDidEndDeceleratingEvent_thatChildSectionControllersReceiveEvent {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@2 value:@[@1, @1]]
+                             ]];
+
+    id mockScrollDelegate = [OCMockObject mockForProtocol:@protocol(IGListScrollDelegate)];
+
+    IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+
+    [stack0.sectionControllers[0] setScrollDelegate:mockScrollDelegate];
+    [stack0.sectionControllers[1] setScrollDelegate:mockScrollDelegate];
+    [stack0.sectionControllers[2] setScrollDelegate:mockScrollDelegate];
+    [stack1.sectionControllers[0] setScrollDelegate:mockScrollDelegate];
+    [stack1.sectionControllers[1] setScrollDelegate:mockScrollDelegate];
+
+    [[mockScrollDelegate expect] listAdapter:self.adapter didEndDeceleratingSectionController:stack0.sectionControllers[0]];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didEndDeceleratingSectionController:stack0.sectionControllers[1]];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didEndDeceleratingSectionController:stack0.sectionControllers[2]];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didEndDeceleratingSectionController:stack1.sectionControllers[0]];
+    [[mockScrollDelegate expect] listAdapter:self.adapter didEndDeceleratingSectionController:stack1.sectionControllers[1]];
+
+    [self.adapter scrollViewDidEndDecelerating:self.collectionView];
+
+    [mockScrollDelegate verify];
+}
+
 - (void)test_whenUsingSupplementary_withCode_thatSupplementaryViewExists {
     // updater that uses reloadData so we can rebuild all views/sizes
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new] viewController:nil];
