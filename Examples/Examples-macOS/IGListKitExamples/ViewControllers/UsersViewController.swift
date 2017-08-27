@@ -17,7 +17,7 @@ import IGListKit
 
 final class UsersViewController: NSViewController {
 
-    @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var collectionView: NSCollectionView!
 
     // MARK: Data
 
@@ -51,22 +51,37 @@ final class UsersViewController: NSViewController {
     // MARK: -
     // MARK: Diffing 
 
+    var isFirstRun = true
     var filteredUsers = [User]() {
         didSet {
-            // get the difference between the old array of Users and the new array of Users
-            let diff = ListDiff(oldArray: oldValue, newArray: filteredUsers, option: .equality)
-
-            // this difference is used here to update the table view, but it can be used
-            // to update collection views and other similar interface elements
-            // this code can also be added to an extension of NSTableView ;)
-            tableView.beginUpdates()
-            tableView.insertRows(at: diff.inserts, withAnimation: .slideDown)
-            tableView.removeRows(at: diff.deletes, withAnimation: .slideUp)
-            tableView.reloadData(forRowIndexes: diff.updates, columnIndexes: .zero)
-            diff.moves.forEach { move in
-                self.tableView.moveRow(at: move.from, to: move.to)
+            // A crash occurs when you try to use performBatchUpdates the first time
+            guard !isFirstRun else {
+                collectionView.reloadData()
+                isFirstRun = false
+                return
             }
-            tableView.endUpdates()
+            
+            // get the difference between the old array of Users and the new array of Users
+            let diff = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: oldValue, newArray: filteredUsers, option: .equality)
+            let batchUpdates = diff.forBatchUpdates()
+            let inserts = Set(batchUpdates.inserts)
+            let deletes = Set(batchUpdates.deletes)
+            let updates = Set(batchUpdates.updates)
+            let moves = Set(batchUpdates.moves)
+            
+            // this difference is used here to update the collection view, but it can be used
+            // to update collection views and other similar interface elements
+            // this code can also be added to an extension of NSCollectionView ;)
+            collectionView.animator().performBatchUpdates({
+                collectionView.deleteItems(at: deletes)
+                collectionView.insertItems(at: inserts)
+                collectionView.reloadItems(at: updates)
+                moves.forEach({ move in
+                    collectionView.moveItem(at: move.from, to: move.to)
+                })
+            }, completionHandler: { finished in
+                print("Done")
+            })
         }
     }
 
@@ -103,48 +118,46 @@ final class UsersViewController: NSViewController {
     @IBAction func search(_ sender: NSSearchField) {
         searchTerm = sender.stringValue
     }
-
-    @IBAction func delete(_ sender: Any?) {
-        guard !tableView.selectedRowIndexes.isEmpty else { return }
-
-        tableView.selectedRowIndexes.forEach({ self.delete(user: self.filteredUsers[$0]) })
-    }
-
 }
 
-extension UsersViewController: NSTableViewDataSource {
-
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return filteredUsers.count
+extension UsersViewController: UserCollectionViewCellDelegate {
+    
+    func itemDeleted(_ user: User) {
+        self.delete(user: user)
     }
-
 }
 
-extension UsersViewController: NSTableViewDelegate {
+extension UsersViewController: NSCollectionViewDelegate {
+}
 
+extension UsersViewController: NSCollectionViewDataSource {
+    
     private struct Storyboard {
-        static let cellIdentifier = "cell"
+        static let cellIdentifier = "UserCollectionViewCell"
     }
-
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard let cell = tableView.make(withIdentifier: Storyboard.cellIdentifier, owner: tableView) as? NSTableCellView else {
-            return nil
+    
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.filteredUsers.count
+    }
+    
+    @available(OSX 10.11, *)
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+        let item = collectionView.makeItem(withIdentifier: Storyboard.cellIdentifier, for: indexPath)
+        guard let cell = item as? UserCollectionViewCell else {
+            return item
         }
-
-        cell.textField?.stringValue = filteredUsers[row].name
-
+        
+        cell.delegate = self
+        cell.bindViewModel(filteredUsers[indexPath.item])
         return cell
     }
+}
 
-    @available(OSX 10.11, *)
-    func tableView(_ tableView: NSTableView, rowActionsForRow row: Int, edge: NSTableRowActionEdge) -> [NSTableViewRowAction] {
-        let delete = NSTableViewRowAction(style: .destructive, title: "Delete") { _, row in
-            guard row < self.filteredUsers.count else { return }
-
-            self.delete(user: self.filteredUsers[row])
-        }
-
-        return [delete]
+extension UsersViewController: NSCollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+        
+        let availableWidth = collectionView.bounds.width
+        return CGSize(width: availableWidth, height: 44)
     }
-
 }
