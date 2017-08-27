@@ -13,6 +13,7 @@
 #import <IGListKit/IGListDiffable.h>
 #import <IGListKit/IGListDiff.h>
 #import <IGListKit/IGListBindable.h>
+#import <IGListKit/IGListAdapterUpdater.h>
 
 typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
     IGListDiffingSectionStateIdle = 0,
@@ -29,7 +30,28 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
 
 @end
 
+static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable>> *objects) {
+    if (objects == nil) {
+        return nil;
+    }
+    
+    NSMutableSet *identifiers = [NSMutableSet new];
+    NSMutableArray *uniqueObjects = [NSMutableArray new];
+    for (id<IGListDiffable> object in objects) {
+        id diffIdentifier = [object diffIdentifier];
+        if (diffIdentifier != nil
+            && ![identifiers containsObject:diffIdentifier]) {
+            [identifiers addObject:diffIdentifier];
+            [uniqueObjects addObject:object];
+        } else {
+            IGLKLog(@"WARNING: Object %@ already appeared in objects array", object);
+        }
+    }
+    return uniqueObjects;
+}
+
 @implementation IGListBindingSectionController
+
 
 #pragma mark - Public API
 
@@ -58,7 +80,8 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
         id<IGListDiffable> object = self.object;
         IGAssert(object != nil, @"Expected IGListBindingSectionController object to be non-nil before updating.");
         
-        self.viewModels = [self.dataSource sectionController:self viewModelsForObject:object];
+        NSArray *newViewModels = [self.dataSource sectionController:self viewModelsForObject:object];
+        self.viewModels = objectsWithDuplicateIdentifiersRemoved(newViewModels);
         result = IGListDiff(oldViewModels, self.viewModels, IGListDiffEquality);
         
         [result.updates enumerateIndexesUsingBlock:^(NSUInteger oldUpdatedIndex, BOOL *stop) {
@@ -110,7 +133,8 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
     self.object = object;
 
     if (oldObject == nil) {
-        self.viewModels = [self.dataSource sectionController:self viewModelsForObject:object];
+        NSArray *newViewModels = [self.dataSource sectionController:self viewModelsForObject:object];
+        self.viewModels = objectsWithDuplicateIdentifiersRemoved(newViewModels);
     } else {
         IGAssert([oldObject isEqualToDiffableObject:object],
                  @"Unequal objects %@ and %@ will cause IGListBindingSectionController to reload the entire section",
