@@ -81,7 +81,11 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
         IGAssert(object != nil, @"Expected IGListBindingSectionController object to be non-nil before updating.");
         
         NSArray *newViewModels = [self.dataSource sectionController:self viewModelsForObject:object];
-        self.viewModels = objectsWithDuplicateIdentifiersRemoved(newViewModels);
+        NSArray *dupedViewModels = objectsWithDuplicateIdentifiersRemoved(newViewModels);
+        #ifdef DEBUG
+        IGAssert(newViewModels.count == dupedViewModels.count, @"Expected IGListBindingSectionController object to only have unique view models");
+        #endif
+        self.viewModels = dupedViewModels;
         result = IGListDiff(oldViewModels, self.viewModels, IGListDiffEquality);
         
         [result.updates enumerateIndexesUsingBlock:^(NSUInteger oldUpdatedIndex, BOOL *stop) {
@@ -133,8 +137,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     self.object = object;
 
     if (oldObject == nil) {
-        NSArray *newViewModels = [self.dataSource sectionController:self viewModelsForObject:object];
-        self.viewModels = objectsWithDuplicateIdentifiersRemoved(newViewModels);
+        self.viewModels = [self.dataSource sectionController:self viewModelsForObject:object];
     } else {
         IGAssert([oldObject isEqualToDiffableObject:object],
                  @"Unequal objects %@ and %@ will cause IGListBindingSectionController to reload the entire section",
