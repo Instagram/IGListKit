@@ -72,6 +72,11 @@ final class UsersViewController: NSViewController {
             // this difference is used here to update the collection view, but it can be used
             // to update collection views and other similar interface elements
             // this code can also be added to an extension of NSCollectionView ;)
+            
+            // Set the animation duration when updating the collection view
+            NSAnimationContext.current().duration = 0.25
+            
+            // Perform the updates to the collection view
             collectionView.animator().performBatchUpdates({
                 collectionView.deleteItems(at: deletes)
                 collectionView.insertItems(at: inserts)
@@ -79,9 +84,7 @@ final class UsersViewController: NSViewController {
                 moves.forEach({ move in
                     collectionView.moveItem(at: move.from, to: move.to)
                 })
-            }, completionHandler: { finished in
-                print("Done")
-            })
+            }, completionHandler: nil)
         }
     }
 
@@ -102,6 +105,9 @@ final class UsersViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // The view needs to be backed by a CALayer to be able to enable the collections view animations you can 
+        // enable this by selecting the view controller's view in the Interface Builder in the Core Animation section
+        // of the View Effects inspector tab, through code you can do by view.wantsLayer = true
         loadSampleUsers()
     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -728,7 +729,7 @@ CA
         <scene sceneID="Tg7-tm-pfb">
             <objects>
                 <viewController id="YHW-Gd-SIr" customClass="UsersViewController" customModule="IGListKitExamples" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="gY5-sL-9mW">
+                    <view key="view" wantsLayer="YES" id="gY5-sL-9mW">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
