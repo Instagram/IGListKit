@@ -133,8 +133,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     self.object = object;
 
     if (oldObject == nil) {
-        NSArray *newViewModels = [self.dataSource sectionController:self viewModelsForObject:object];
-        self.viewModels = objectsWithDuplicateIdentifiersRemoved(newViewModels);
+        self.viewModels = [self.dataSource sectionController:self viewModelsForObject:object];
     } else {
         IGAssert([oldObject isEqualToDiffableObject:object],
                  @"Unequal objects %@ and %@ will cause IGListBindingSectionController to reload the entire section",
