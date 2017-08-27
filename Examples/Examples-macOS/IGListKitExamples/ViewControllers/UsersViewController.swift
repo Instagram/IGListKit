@@ -81,9 +81,9 @@ final class UsersViewController: NSViewController {
                 collectionView.deleteItems(at: deletes)
                 collectionView.insertItems(at: inserts)
                 collectionView.reloadItems(at: updates)
-                moves.forEach({ move in
+                moves.forEach { move in
                     collectionView.moveItem(at: move.from, to: move.to)
-                })
+                }
             }, completionHandler: nil)
         }
     }
@@ -149,9 +149,7 @@ extension UsersViewController: NSCollectionViewDataSource {
     @available(OSX 10.11, *)
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: Storyboard.cellIdentifier, for: indexPath)
-        guard let cell = item as? UserCollectionViewCell else {
-            return item
-        }
+        guard let cell = item as? UserCollectionViewCell else { return item }
         
         cell.delegate = self
         cell.bindViewModel(filteredUsers[indexPath.item])
