@@ -96,6 +96,11 @@
 
         _collectionView = collectionView;
         _collectionView.dataSource = self;
+
+        if ([_collectionView respondsToSelector:@selector(setPrefetchingEnabled:)]) {
+            _collectionView.prefetchingEnabled = NO;
+        }
+
         [_collectionView.collectionViewLayout invalidateLayout];
 
         [self updateCollectionViewDelegate];
@@ -172,20 +177,41 @@
     }
 
     UICollectionView *collectionView = self.collectionView;
-    const NSInteger numberOfItems = [collectionView numberOfItemsInSection:section];
-    if (numberOfItems == 0) {
-        return;
-    }
+    UICollectionViewLayout *layout = self.collectionView.collectionViewLayout;
 
     // force layout before continuing
     // this method is typcially called before pushing a view controller
     // thus, before the layout process has actually happened
+    [collectionView setNeedsLayout];
     [collectionView layoutIfNeeded];
 
+    NSIndexPath *indexPathFirstElement = [NSIndexPath indexPathForItem:0 inSection:section];
+    
     // collect the layout attributes for the cell and supplementary views for the first index
     // this will break if there are supplementary views beyond item 0
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
-    NSArray *attributes = [self layoutAttributesForIndexPath:indexPath supplementaryKinds:supplementaryKinds];
+    NSMutableArray<UICollectionViewLayoutAttributes *> *attributes = nil;
+    
+    const NSInteger numberOfItems = [collectionView numberOfItemsInSection:section];
+    if (numberOfItems > 0) {
+        attributes = [self layoutAttributesForIndexPath:indexPathFirstElement supplementaryKinds:supplementaryKinds].mutableCopy;
+
+        if (numberOfItems > 1) {
+            NSIndexPath *indexPathLastElement = [NSIndexPath indexPathForItem:(numberOfItems - 1) inSection:section];
+            UICollectionViewLayoutAttributes *lastElementattributes = [self layoutAttributesForIndexPath:indexPathLastElement supplementaryKinds:supplementaryKinds].firstObject;
+            if (lastElementattributes != nil) {
+                [attributes addObject:lastElementattributes];
+            }
+        }
+    } else {
+        NSMutableArray *supplementaryAttributes = [NSMutableArray new];
+        for (NSString* supplementaryKind in supplementaryKinds) {
+            UICollectionViewLayoutAttributes *supplementaryAttribute = [layout layoutAttributesForSupplementaryViewOfKind:supplementaryKind atIndexPath:indexPathFirstElement];
+            if (supplementaryAttribute != nil) {
+                [supplementaryAttributes addObject: supplementaryAttribute];
+            }
+        }
+        attributes = supplementaryAttributes;
+    }
 
     CGFloat offsetMin = 0.0;
     CGFloat offsetMax = 0.0;
@@ -220,7 +246,7 @@
     const UIEdgeInsets contentInset = collectionView.contentInset;
     CGPoint contentOffset = collectionView.contentOffset;
     switch (scrollDirection) {
-        case UICollectionViewScrollDirectionHorizontal:
+        case UICollectionViewScrollDirectionHorizontal: {
             switch (scrollPosition) {
                 case UICollectionViewScrollPositionRight:
                     contentOffset.x = offsetMax - collectionViewWidth - contentInset.left;
@@ -238,8 +264,13 @@
                     contentOffset.x = offsetMin - contentInset.left;
                     break;
             }
+            const CGFloat maxOffsetX = collectionView.contentSize.width - collectionView.frame.size.width + collectionView.contentInset.right;
+            const CGFloat minOffsetX = -collectionView.contentInset.left;
+            contentOffset.x = MIN(contentOffset.x, maxOffsetX);
+            contentOffset.x = MAX(contentOffset.x, minOffsetX);
             break;
-        case UICollectionViewScrollDirectionVertical:
+        }
+        case UICollectionViewScrollDirectionVertical: {
             switch (scrollPosition) {
                 case UICollectionViewScrollPositionBottom:
                     contentOffset.y = offsetMax - collectionViewHeight - contentInset.top;
@@ -257,12 +288,16 @@
                     contentOffset.y = offsetMin - contentInset.top;
                     break;
             }
+            const CGFloat maxOffsetY = collectionView.contentSize.height - collectionView.frame.size.height + collectionView.contentInset.bottom;
+            const CGFloat minOffsetY = -collectionView.contentInset.top;
+            contentOffset.y = MIN(contentOffset.y, maxOffsetY);
+            contentOffset.y = MAX(contentOffset.y, minOffsetY);
             break;
+        }
     }
 
     [collectionView setContentOffset:contentOffset animated:animated];
 }
-
 
 #pragma mark - Editing
 
@@ -414,11 +449,12 @@
 
 - (NSArray<IGListSectionController *> *)visibleSectionControllers {
     IGAssertMainThread();
-    NSArray<UICollectionViewCell *> *visibleCells = [self.collectionView visibleCells];
     NSMutableSet *visibleSectionControllers = [NSMutableSet new];
-    for (UICollectionViewCell *cell in visibleCells) {
-        IGListSectionController *sectionController = [self sectionControllerForView:cell];
-        IGAssert(sectionController != nil, @"Section controller nil for cell %@", cell);
+    NSArray<UICollectionViewLayoutAttributes *> *attributes =
+    [self.collectionView.collectionViewLayout layoutAttributesForElementsInRect:self.collectionView.bounds];
+    for (UICollectionViewLayoutAttributes* attribute in attributes) {
+        IGListSectionController *sectionController = [self sectionControllerForSection:attribute.indexPath.section];
+        IGAssert(sectionController != nil, @"Section controller nil for cell in section %zd", attribute.indexPath.section);
         if (sectionController) {
             [visibleSectionControllers addObject:sectionController];
         }
@@ -704,6 +740,20 @@
     }
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    // forward this method to the delegate b/c this implementation will steal the message from the proxy
+    id<UIScrollViewDelegate> scrollViewDelegate = self.scrollViewDelegate;
+    if ([scrollViewDelegate respondsToSelector:@selector(scrollViewDidEndDecelerating:)]) {
+        [scrollViewDelegate scrollViewDidEndDecelerating:scrollView];
+    }
+    NSArray<IGListSectionController *> *visibleSectionControllers = [self visibleSectionControllers];
+    for (IGListSectionController *sectionController in visibleSectionControllers) {
+        id<IGListScrollDelegate> scrollDelegate = [sectionController scrollDelegate];
+        if ([scrollDelegate respondsToSelector:@selector(listAdapter:didEndDeceleratingSectionController:)]) {
+            [scrollDelegate listAdapter:self didEndDeceleratingSectionController:sectionController];
+        }
+    }
+}
 
 #pragma mark - IGListCollectionContext
 
@@ -794,6 +844,16 @@
     IGParameterAssert(sectionController != nil);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
     [self.collectionView deselectItemAtIndexPath:indexPath animated:animated];
+}
+
+- (void)selectItemAtIndex:(NSInteger)index
+        sectionController:(IGListSectionController *)sectionController
+                 animated:(BOOL)animated
+            scrollPosition:(UICollectionViewScrollPosition)scrollPosition {
+    IGAssertMainThread();
+    IGParameterAssert(sectionController != nil);
+    NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
+    [self.collectionView selectItemAtIndexPath:indexPath animated:animated scrollPosition:scrollPosition];
 }
 
 - (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
