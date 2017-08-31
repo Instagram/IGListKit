@@ -7,7 +7,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Fixes
 
-- Prevent a crash when `IGListBindingSectionControllerDelegate` objects do not implement the optional deselection API. [Ryan Nystrom](https://github.com/rnystrom) [(#TBD)](https://github.com/Instagram/IGListKit/pull/TBD)
+- Prevent a crash when `IGListBindingSectionControllerDelegate` objects do not implement the optional deselection API. [Ryan Nystrom](https://github.com/rnystrom) [(#921)](https://github.com/Instagram/IGListKit/pull/921)
 
 3.1.0
 -----
