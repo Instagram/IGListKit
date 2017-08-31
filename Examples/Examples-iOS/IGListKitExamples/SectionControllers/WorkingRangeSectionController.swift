@@ -87,6 +87,5 @@ final class WorkingRangeSectionController: ListSectionController, ListWorkingRan
         task?.resume()
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerDidExitWorkingRange sectionController: ListSectionController) {}
 
 }

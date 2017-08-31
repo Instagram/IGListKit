@@ -39,6 +39,6 @@ final class LabelSectionController: ListSectionController {
         self.object = String(describing: object)
     }
 
-    override func didSelectItem(at index: Int) {}
+    
 
 }
