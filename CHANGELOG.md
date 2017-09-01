@@ -2,13 +2,6 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
-3.2.0
------
-
-### Enhancements
-
-- Refactored the macOS example so that it uses `NSCollectionView` instead of `NSTableView`. [Weyert de Boer](https://github.com/weyert) [(#?)](https://github.com/Instagram/IGListKit/pull/?)
-
 3.1.1
 -----
 
