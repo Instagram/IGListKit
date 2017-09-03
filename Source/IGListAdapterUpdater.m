@@ -24,7 +24,7 @@
 
 - (instancetype)init {
     IGAssertMainThread();
-    
+
     if (self = [super init]) {
         // the default is to use animations unless NO is passed
         _queuedUpdateIsAnimated = YES;
