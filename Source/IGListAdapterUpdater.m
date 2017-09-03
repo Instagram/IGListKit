@@ -35,7 +35,6 @@
     return self;
 }
 
-
 #pragma mark - Private API
 
 - (BOOL)hasChanges {
@@ -57,7 +56,7 @@
     void (^reloadUpdates)() = self.reloadUpdates;
     IGListBatchUpdates *batchUpdates = self.batchUpdates;
     NSMutableArray *completionBlocks = [self.completionBlocks mutableCopy];
-    
+
     [self cleanStateBeforeUpdates];
     
     // item updates must not send mutations to the collection view while we are reloading
@@ -73,11 +72,11 @@
     for (IGListItemUpdateBlock itemUpdateBlock in batchUpdates.itemUpdateBlocks) {
         itemUpdateBlock();
     }
-    
+
     // add any completion blocks from item updates. added after item blocks are executed in order to capture any
     // re-entrant updates
     [completionBlocks addObjectsFromArray:batchUpdates.itemCompletionBlocks];
-    
+
     self.state = IGListBatchUpdateStateExecutedBatchUpdateBlock;
     
     [self cleanStateAfterUpdates];
@@ -132,7 +131,7 @@
         for (IGListItemUpdateBlock itemUpdateBlock in batchUpdates.itemUpdateBlocks) {
             itemUpdateBlock();
         }
-        
+
         // add any completion blocks from item updates. added after item blocks are executed in order to capture any
         // re-entrant updates
         [completionBlocks addObjectsFromArray:batchUpdates.itemCompletionBlocks];
@@ -342,7 +341,7 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     
     // remove indexpath/item changes
     self.objectTransitionBlock = nil;
-    
+
     // removes all object completion blocks. done before updates to start collecting completion blocks for coalesced
     // or re-entrant object updates
     [self.completionBlocks removeAllObjects];
@@ -446,7 +445,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     IGAssertMainThread();
     IGParameterAssert(collectionView != nil);
     IGParameterAssert(itemUpdates != nil);
-    
+
     IGListBatchUpdates *batchUpdates = self.batchUpdates;
     if (completion != nil) {
         [batchUpdates.itemCompletionBlocks addObject:completion];
