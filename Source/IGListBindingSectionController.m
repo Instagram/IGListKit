@@ -15,6 +15,8 @@
 #import <IGListKit/IGListBindable.h>
 #import <IGListKit/IGListAdapterUpdater.h>
 
+#import "IGListArrayUtilsInternal.h"
+
 typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
     IGListDiffingSectionStateIdle = 0,
     IGListDiffingSectionStateUpdateQueued,
@@ -29,26 +31,6 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
 @property (nonatomic, assign) IGListDiffingSectionState state;
 
 @end
-
-static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable>> *objects) {
-    if (objects == nil) {
-        return nil;
-    }
-    
-    NSMutableSet *identifiers = [NSMutableSet new];
-    NSMutableArray *uniqueObjects = [NSMutableArray new];
-    for (id<IGListDiffable> object in objects) {
-        id diffIdentifier = [object diffIdentifier];
-        if (diffIdentifier != nil
-            && ![identifiers containsObject:diffIdentifier]) {
-            [identifiers addObject:diffIdentifier];
-            [uniqueObjects addObject:object];
-        } else {
-            IGLKLog(@"WARNING: Object %@ already appeared in objects array", object);
-        }
-    }
-    return uniqueObjects;
-}
 
 @implementation IGListBindingSectionController
 
@@ -82,9 +64,6 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
         
         NSArray *newViewModels = [self.dataSource sectionController:self viewModelsForObject:object];
         NSArray *dupedViewModels = objectsWithDuplicateIdentifiersRemoved(newViewModels);
-        #ifdef DEBUG
-        IGAssert(newViewModels.count == dupedViewModels.count, @"Expected IGListBindingSectionController object to only have unique view models");
-        #endif
         self.viewModels = dupedViewModels;
         result = IGListDiff(oldViewModels, self.viewModels, IGListDiffEquality);
         

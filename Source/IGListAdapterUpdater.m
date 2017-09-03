@@ -19,6 +19,8 @@
 #import "IGListMoveIndexPathInternal.h"
 #import "IGListReloadIndexPath.h"
 
+#import "IGListArrayUtilsInternal.h"
+
 @implementation IGListAdapterUpdater
 
 - (instancetype)init {
@@ -92,26 +94,6 @@
     }
     
     self.state = IGListBatchUpdateStateIdle;
-}
-
-static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable>> *objects) {
-    if (objects == nil) {
-        return nil;
-    }
-    
-    NSMutableSet *identifiers = [NSMutableSet new];
-    NSMutableArray *uniqueObjects = [NSMutableArray new];
-    for (id<IGListDiffable> object in objects) {
-        id diffIdentifier = [object diffIdentifier];
-        if (diffIdentifier != nil
-            && ![identifiers containsObject:diffIdentifier]) {
-            [identifiers addObject:diffIdentifier];
-            [uniqueObjects addObject:object];
-        } else {
-            IGLKLog(@"WARNING: Object %@ already appeared in objects array", object);
-        }
-    }
-    return uniqueObjects;
 }
 
 - (void)performBatchUpdatesWithCollectionView:(UICollectionView *)collectionView {
