@@ -18,7 +18,6 @@
 #import "IGListIndexSetResultInternal.h"
 #import "IGListMoveIndexPathInternal.h"
 #import "IGListReloadIndexPath.h"
-
 #import "IGListArrayUtilsInternal.h"
 
 @implementation IGListAdapterUpdater
