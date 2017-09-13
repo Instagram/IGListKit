@@ -1552,4 +1552,58 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenInvalidatingInsideBatchUpdate_withSystemReleased_thatSystemNil_andCollectionViewDoesntCrashOnDealloc {
+    __weak id weakAdapter = nil;
+    __weak id weakCollectionView = nil;
+    __block BOOL executedItemUpdate = NO;
+    XCTestExpectation *expectation = genExpectation;
+
+    @autoreleasepool {
+        self.dataSource.objects = @[
+                                    genTestObject(@1, @"Bar"),
+                                    genTestObject(@0, @"Foo")
+                                    ];
+
+        UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
+        [self.window addSubview:collectionView];
+        IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
+        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
+        adapter.dataSource = self.dataSource;
+        adapter.collectionView = collectionView;
+        [collectionView layoutIfNeeded];
+
+        IGTestDelegateController *section = [adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+
+        __weak typeof(section) weakSection = section;
+        section.itemUpdateBlock = ^{
+            executedItemUpdate = YES;
+            [weakSection.collectionContext invalidateLayoutForSectionController:weakSection completion:nil];
+        };
+
+        self.dataSource.objects = @[
+                                    genTestObject(@1, @"Bar"),
+                                    genTestObject(@0, @"Foo")
+                                    ];
+
+        [adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+            XCTAssertNotNil(collectionView);
+            XCTAssertNotNil(adapter);
+            [collectionView removeFromSuperview];
+            [expectation fulfill];
+        }];
+
+        weakAdapter = adapter;
+        weakCollectionView = collectionView;
+
+        XCTAssertNotNil(weakAdapter);
+        XCTAssertNotNil(weakCollectionView);
+    }
+
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError * _Nullable error) {
+        XCTAssertTrue(executedItemUpdate);
+        XCTAssertNil(weakAdapter);
+        XCTAssertNil(weakCollectionView);
+    }];
+}
+
 @end

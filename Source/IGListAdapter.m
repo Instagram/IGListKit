@@ -18,6 +18,8 @@
 
 @implementation IGListAdapter {
     NSMapTable<UICollectionReusableView *, IGListSectionController *> *_viewSectionControllerMap;
+    // An array of blocks to execute once batch updates are finished
+    NSMutableArray<void (^)()> *_queuedCompletionBlocks;
 }
 
 - (void)dealloc {
@@ -702,6 +704,26 @@
     [_viewSectionControllerMap removeObjectForKey:view];
 }
 
+- (void)deferBlockBetweenBatchUpdates:(void (^)())block {
+    IGAssertMainThread();
+    if (_queuedCompletionBlocks == nil) {
+        block();
+    } else {
+        [_queuedCompletionBlocks addObject:block];
+    }
+}
+
+- (void)enterBatchUpdates {
+    _queuedCompletionBlocks = [NSMutableArray new];
+}
+
+- (void)exitBatchUpdates {
+    for (void (^block)() in _queuedCompletionBlocks) {
+        block();
+    }
+    _queuedCompletionBlocks = nil;
+}
+
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -1004,11 +1026,14 @@
     UICollectionViewLayoutInvalidationContext *context = [[[layout.class invalidationContextClass] alloc] init];
     [context invalidateItemsAtIndexPaths:indexPaths];
     
-    void (^block)() = ^{
-        [layout invalidateLayoutWithContext:context];
-    };
-    
-    [_collectionView performBatchUpdates:block completion:completion];
+    __weak __typeof__(_collectionView) weakCollectionView = _collectionView;
+
+    // do not call -[UICollectionView performBatchUpdates:completion:] while already updating. defer it until completed.
+    [self deferBlockBetweenBatchUpdates:^{
+        [weakCollectionView performBatchUpdates:^{
+            [layout invalidateLayoutWithContext:context];
+        } completion:completion];
+    }];
 }
 
 #pragma mark - IGListBatchContext
