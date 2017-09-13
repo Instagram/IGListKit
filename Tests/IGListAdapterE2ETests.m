@@ -1554,7 +1554,6 @@
 
 - (void)test_whenInvalidatingInsideBatchUpdate_withSystemReleased_thatSystemNil_andCollectionViewDoesntCrashOnDealloc {
     __weak id weakAdapter = nil;
-    __weak id weakCollectionView = nil;
     __block BOOL executedItemUpdate = NO;
     XCTestExpectation *expectation = genExpectation;
 
@@ -1593,16 +1592,12 @@
         }];
 
         weakAdapter = adapter;
-        weakCollectionView = collectionView;
-
         XCTAssertNotNil(weakAdapter);
-        XCTAssertNotNil(weakCollectionView);
     }
 
     [self waitForExpectationsWithTimeout:30 handler:^(NSError * _Nullable error) {
         XCTAssertTrue(executedItemUpdate);
         XCTAssertNil(weakAdapter);
-        XCTAssertNil(weakCollectionView);
     }];
 }
 

@@ -319,6 +319,8 @@
     NSArray *fromObjects = self.sectionMap.objects;
     NSArray *newObjects = [dataSource objectsForListAdapter:self];
 
+    [self enterBatchUpdates];
+
     __weak __typeof__(self) weakSelf = self;
     [self.updater performUpdateWithCollectionView:collectionView
                                       fromObjects:fromObjects
@@ -337,6 +339,8 @@
                                 if (completion) {
                                     completion(finished);
                                 }
+
+                                [weakSelf exitBatchUpdates];
                             }];
 }
 
@@ -986,6 +990,8 @@
     IGParameterAssert(updates != nil);
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Performing batch updates without a collection view.");
+
+    [self enterBatchUpdates];
     
     __weak __typeof__(self) weakSelf = self;
     [self.updater performUpdateWithCollectionView:collectionView animated:animated itemUpdates:^{
@@ -998,6 +1004,8 @@
         if (completion) {
             completion(finished);
         }
+
+        [weakSelf exitBatchUpdates];
     }];
 }
 
