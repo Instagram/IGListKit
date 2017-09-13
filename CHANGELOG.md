@@ -2,6 +2,16 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
+3.2.0 (upcoming release)
+-----
+
+### Fixes
+
+- Weakly reference the `UICollectionView` in coalescence so that it can be released if the rest of system is destroyed. [Ryan Nystrom](https://github.com/rnystrom) [(#tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
+
+- Avoid crash when invalidating the layout while inside `-[UICollectionView performBatchUpdates:completion:]. [Ryan Nystrom](https://github.com/rnystrom) [(#tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
+
+
 3.1.1
 -----
 
