@@ -21,6 +21,8 @@ static BOOL isInterceptedSelector(SEL sel) {
             sel == @selector(collectionView:didSelectItemAtIndexPath:) ||
             sel == @selector(collectionView:willDisplayCell:forItemAtIndexPath:) ||
             sel == @selector(collectionView:didEndDisplayingCell:forItemAtIndexPath:) ||
+            sel == @selector(collectionView:didHighlightItemAtIndexPath:) ||
+            sel == @selector(collectionView:didUnhighlightItemAtIndexPath:) ||
             // UICollectionViewDelegateFlowLayout
             sel == @selector(collectionView:layout:sizeForItemAtIndexPath:) ||
             sel == @selector(collectionView:layout:insetForSectionAtIndex:) ||

@@ -91,6 +91,24 @@ NS_SWIFT_NAME(ListSectionController)
 - (void)didDeselectItemAtIndex:(NSInteger)index;
 
 /**
+ Tells the section controller that the cell at the specified index path was highlighted.
+
+ @param index The index of the highlighted cell.
+
+ @note The default implementation does nothing. **Calling super is not required.**
+ */
+- (void)didHighlightItemAtIndex:(NSInteger)index;
+
+/**
+ Tells the section controller that the cell at the specified index path was unhighlighted.
+
+ @param index The index of the unhighlighted cell.
+
+ @note The default implementation does nothing. **Calling super is not required.**
+ */
+- (void)didUnhighlightItemAtIndex:(NSInteger)index;
+
+/**
  The view controller housing the adapter that created this section controller.
 
  @note Use this view controller to push, pop, present, or do other custom transitions. 
