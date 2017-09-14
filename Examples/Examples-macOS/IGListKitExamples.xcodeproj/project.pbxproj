@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7BF95C4D1F52732200F14EFE /* UserCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BF95C4C1F52732200F14EFE /* UserCollectionViewCell.xib */; };
+		7BF95C4F1F5273A100F14EFE /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF95C4E1F5273A100F14EFE /* UserCollectionViewCell.swift */; };
 		888609091DEF38A00019A4A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888609081DEF38A00019A4A5 /* AppDelegate.swift */; };
 		8886090B1DEF38A00019A4A5 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8886090A1DEF38A00019A4A5 /* UsersViewController.swift */; };
 		8886090D1DEF38A00019A4A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8886090C1DEF38A00019A4A5 /* Assets.xcassets */; };
@@ -22,6 +24,8 @@
 /* Begin PBXFileReference section */
 		1CAC2903BAE9D41694D58A7B /* Pods-IGListKitExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.release.xcconfig"; sourceTree = "<group>"; };
 		63F1F74ED983018C5D607DDC /* Pods_IGListKitExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BF95C4C1F52732200F14EFE /* UserCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCollectionViewCell.xib; sourceTree = "<group>"; };
+		7BF95C4E1F5273A100F14EFE /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
 		888609051DEF38A00019A4A5 /* IGListKitExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IGListKitExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		888609081DEF38A00019A4A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8886090A1DEF38A00019A4A5 /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +52,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7BF95C4B1F5272FA00F14EFE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7BF95C4C1F52732200F14EFE /* UserCollectionViewCell.xib */,
+				7BF95C4E1F5273A100F14EFE /* UserCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		888608FC1DEF38A00019A4A5 = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +86,7 @@
 				DDE3D8551E0311AF00F96BE4 /* Helpers */,
 				DDE3D84D1E030A8000F96BE4 /* Models */,
 				DDE3D84F1E030A9200F96BE4 /* Resources */,
+				7BF95C4B1F5272FA00F14EFE /* View */,
 				DDE3D84E1E030A8400F96BE4 /* ViewControllers */,
 			);
 			path = IGListKitExamples;
@@ -204,6 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDE3D8541E03117600F96BE4 /* users.json in Resources */,
+				7BF95C4D1F52732200F14EFE /* UserCollectionViewCell.xib in Resources */,
 				8886090D1DEF38A00019A4A5 /* Assets.xcassets in Resources */,
 				888609101DEF38A00019A4A5 /* Main.storyboard in Resources */,
 			);
@@ -289,6 +304,7 @@
 				DD9018681E0319E40003789D /* IndexSet+Extensions.swift in Sources */,
 				888609091DEF38A00019A4A5 /* AppDelegate.swift in Sources */,
 				DDE3D8511E030AFA00F96BE4 /* User.swift in Sources */,
+				7BF95C4F1F5273A100F14EFE /* UserCollectionViewCell.swift in Sources */,
 				DDE3D8571E0311D000F96BE4 /* UsersProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,6 +423,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = IGListKitExamples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -421,6 +438,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = IGListKitExamples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;

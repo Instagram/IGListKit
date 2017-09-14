@@ -46,14 +46,13 @@ final class SearchSectionController: ListSectionController, UISearchBarDelegate,
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        delegate?.searchSectionController(self, didChangeText: "")
+        delegate?.searchSectionController(self, didChangeText: searchBar.text!)
     }
 
     // MARK: ListScrollDelegate
 
     func listAdapter(_ listAdapter: ListAdapter, didScroll sectionController: ListSectionController) {
         if let searchBar = (collectionContext?.cellForItem(at: 0, sectionController: self) as? SearchCell)?.searchBar {
-            searchBar.text = ""
             searchBar.resignFirstResponder()
         }
     }
