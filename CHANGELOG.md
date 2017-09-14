@@ -2,7 +2,7 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
-TBD (**Upcoming release**)
+3.2.0 (**Upcoming release**)
 -----
 
 ### Fixes
