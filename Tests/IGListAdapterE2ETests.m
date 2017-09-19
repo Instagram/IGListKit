@@ -1124,6 +1124,9 @@
 
 - (void)test_whenQueuingUpdate_withSectionControllerBatchUpdate_thatSectionControllerNotRetained {
     __weak id weakSectionController = nil;
+    __weak id weakAdapter = nil;
+    __weak id weakCollectionView = nil;
+
     @autoreleasepool {
         IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
         IGTestDelegateDataSource *dataSource = [IGTestDelegateDataSource new];
@@ -1146,9 +1149,16 @@
         dataSource.objects = @[object, genTestObject(@2, @2)];
         [adapter performUpdatesAnimated:YES completion:^(BOOL finished) {}];
 
+        weakAdapter = adapter;
+        weakCollectionView = collectionView;
         weakSectionController = section;
+
+        XCTAssertNotNil(weakAdapter);
+        XCTAssertNotNil(weakCollectionView);
         XCTAssertNotNil(weakSectionController);
     }
+    XCTAssertNil(weakAdapter);
+    XCTAssertNil(weakCollectionView);
     XCTAssertNil(weakSectionController);
 }
 
