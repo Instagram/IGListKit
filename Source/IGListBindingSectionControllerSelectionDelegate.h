@@ -44,6 +44,30 @@ NS_SWIFT_NAME(ListBindingSectionControllerSelectionDelegate)
    didDeselectItemAtIndex:(NSInteger)index
                 viewModel:(id)viewModel;
 
+/**
+ Tells the delegate that a cell at a given index was highlighted.
+
+ @param sectionController The section controller the highlight occurred in.
+ @param index The index of the highlighted cell.
+ @param viewModel The view model that was bound to the cell.
+ */
+@optional
+- (void)sectionController:(IGListBindingSectionController *)sectionController
+  didHighlightItemAtIndex:(NSInteger)index
+                viewModel:(id)viewModel;
+
+/**
+ Tells the delegate that a cell at a given index was unhighlighted.
+
+ @param sectionController The section controller the unhighlight occurred in.
+ @param index The index of the unhighlighted cell.
+ @param viewModel The view model that was bound to the cell.
+ */
+@optional
+- (void)sectionController:(IGListBindingSectionController *)sectionController
+didUnhighlightItemAtIndex:(NSInteger)index
+                viewModel:(id)viewModel;
+
 @end
 
 NS_ASSUME_NONNULL_END

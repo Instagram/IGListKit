@@ -592,6 +592,56 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     XCTAssertTrue([stack2.sectionControllers[1] wasDeselected]);
 }
 
+- (void)test_whenHighlightingItems_thatChildSectionControllersSelected {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@1 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@2 value:@[@1, @1]]
+                             ]];
+
+    [self.adapter collectionView:self.collectionView didHighlightItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    [self.adapter collectionView:self.collectionView didHighlightItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:1]];
+    [self.adapter collectionView:self.collectionView didHighlightItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:2]];
+
+    IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGListStackedSectionController *stack2 = [self.adapter sectionControllerForObject:self.dataSource.objects[2]];
+
+    XCTAssertTrue([stack0.sectionControllers[0] wasHighlighted]);
+    XCTAssertFalse([stack0.sectionControllers[1] wasHighlighted]);
+    XCTAssertFalse([stack0.sectionControllers[2] wasHighlighted]);
+    XCTAssertFalse([stack1.sectionControllers[0] wasHighlighted]);
+    XCTAssertTrue([stack1.sectionControllers[1] wasHighlighted]);
+    XCTAssertFalse([stack1.sectionControllers[2] wasHighlighted]);
+    XCTAssertFalse([stack2.sectionControllers[0] wasHighlighted]);
+    XCTAssertTrue([stack2.sectionControllers[1] wasHighlighted]);
+}
+
+- (void)test_whenUnhighlightingItems_thatChildSectionControllersUnhighlighted {
+    [self setupWithObjects:@[
+                             [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@1 value:@[@1, @2, @3]],
+                             [[IGTestObject alloc] initWithKey:@2 value:@[@1, @1]]
+                             ]];
+
+    [self.adapter collectionView:self.collectionView didUnhighlightItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    [self.adapter collectionView:self.collectionView didUnhighlightItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:1]];
+    [self.adapter collectionView:self.collectionView didUnhighlightItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:2]];
+
+    IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGListStackedSectionController *stack2 = [self.adapter sectionControllerForObject:self.dataSource.objects[2]];
+
+    XCTAssertTrue([stack0.sectionControllers[0] wasUnhighlighted]);
+    XCTAssertFalse([stack0.sectionControllers[1] wasUnhighlighted]);
+    XCTAssertFalse([stack0.sectionControllers[2] wasUnhighlighted]);
+    XCTAssertFalse([stack1.sectionControllers[0] wasUnhighlighted]);
+    XCTAssertTrue([stack1.sectionControllers[1] wasUnhighlighted]);
+    XCTAssertFalse([stack1.sectionControllers[2] wasUnhighlighted]);
+    XCTAssertFalse([stack2.sectionControllers[0] wasUnhighlighted]);
+    XCTAssertTrue([stack2.sectionControllers[1] wasUnhighlighted]);
+}
+
 - (void)test_whenUsingNibs_withStoryboards_thatCellsAreConfigured {
     [self setupWithObjects:@[
                              [[IGTestObject alloc] initWithKey:@0 value:@[@1, @"nib", @"storyboard"]],

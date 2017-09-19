@@ -150,6 +150,28 @@
     [self removeMapForView:view];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    // forward this method to the delegate b/c this implementation will steal the message from the proxy
+    id<UICollectionViewDelegate> collectionViewDelegate = self.collectionViewDelegate;
+    if ([collectionViewDelegate respondsToSelector:@selector(collectionView:didHighlightItemAtIndexPath:)]) {
+        [collectionViewDelegate collectionView:collectionView didHighlightItemAtIndexPath:indexPath];
+    }
+
+    IGListSectionController * sectionController = [self sectionControllerForSection:indexPath.section];
+    [sectionController didHighlightItemAtIndex:indexPath.item];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    // forward this method to the delegate b/c this implementation will steal the message from the proxy
+    id<UICollectionViewDelegate> collectionViewDelegate = self.collectionViewDelegate;
+    if ([collectionViewDelegate respondsToSelector:@selector(collectionView:didUnhighlightItemAtIndexPath:)]) {
+        [collectionViewDelegate collectionView:collectionView didUnhighlightItemAtIndexPath:indexPath];
+    }
+
+    IGListSectionController * sectionController = [self sectionControllerForSection:indexPath.section];
+    [sectionController didUnhighlightItemAtIndex:indexPath.item];
+}
+
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
