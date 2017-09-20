@@ -23,7 +23,7 @@ IGLK_SUBCLASSING_RESTRICTED
 @property (nonatomic, strong, readonly) NSMutableArray<IGListReloadIndexPath *> *itemReloads;
 @property (nonatomic, strong, readonly) NSMutableArray<IGListMoveIndexPath *> *itemMoves;
 
-@property (nonatomic, strong, readonly) NSMutableArray<void (^)()> *itemUpdateBlocks;
+@property (nonatomic, strong, readonly) NSMutableArray<void (^)(void)> *itemUpdateBlocks;
 @property (nonatomic, strong, readonly) NSMutableArray<void (^)(BOOL)> *itemCompletionBlocks;
 
 - (BOOL)hasChanges;
