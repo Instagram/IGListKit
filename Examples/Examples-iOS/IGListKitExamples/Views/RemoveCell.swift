@@ -57,7 +57,7 @@ final class RemoveCell: UICollectionViewCell {
         button.frame = divide.remainder
     }
 
-    func onButton(_ button: UIButton) {
+    @objc func onButton(_ button: UIButton) {
         delegate?.removeCellDidTapButton(self)
     }
 

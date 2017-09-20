@@ -46,7 +46,7 @@ final class AnnouncingDepsViewController: UIViewController, ListAdapterDataSourc
         collectionView.frame = view.bounds
     }
 
-    func onAdd() {
+    @objc func onAdd() {
         announcer.increment()
     }
 

@@ -54,7 +54,7 @@ final class EmptyViewController: UIViewController, ListAdapterDataSource, Remove
         collectionView.frame = view.bounds
     }
 
-    func onAdd() {
+    @objc func onAdd() {
         data.append(tally + 1)
         tally += 1
         adapter.performUpdates(animated: true, completion: nil)

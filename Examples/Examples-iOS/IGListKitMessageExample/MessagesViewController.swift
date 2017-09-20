@@ -16,6 +16,7 @@ import UIKit
 import Messages
 import IGListKit
 
+@available(iOSApplicationExtension 10.0, *)
 final class MessagesViewController: MSMessagesAppViewController, ListAdapterDataSource {
 
     lazy var adapter: ListAdapter = {

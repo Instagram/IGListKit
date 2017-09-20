@@ -71,7 +71,7 @@ class UITestCase: XCTestCase {
                 let message = "Failed to \(appear ? "" : "not ")find element(s) after \(timeout) seconds."
                 self.recordFailure(withDescription: message,
                                    inFile: file,
-                                   atLine: line,
+                                   atLine: Int(line),
                                    expected: true)
             }
         }
