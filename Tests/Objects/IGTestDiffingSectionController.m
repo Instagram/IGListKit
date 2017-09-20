@@ -59,4 +59,12 @@
     self.deselectedViewModel = viewModel;
 }
 
+- (void)sectionController:(IGListBindingSectionController *)sectionController didHighlightItemAtIndex:(NSInteger)index viewModel:(id)viewModel {
+    self.highlightedViewModel = viewModel;
+}
+
+- (void)sectionController:(IGListBindingSectionController *)sectionController didUnhighlightItemAtIndex:(NSInteger)index viewModel:(id)viewModel {
+    self.unhighlightedViewModel = viewModel;
+}
+
 @end

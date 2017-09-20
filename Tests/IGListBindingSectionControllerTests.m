@@ -123,6 +123,24 @@
     XCTAssertEqualObjects(section.deselectedViewModel, @"seven");
 }
 
+- (void)test_whenHighlightingCell_thatCorrectViewModelHighlighted {
+    [self setupWithObjects:@[
+                             [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
+                             ]];
+    [self.adapter collectionView:self.collectionView didHighlightItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+    IGTestDiffingSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+    XCTAssertEqualObjects(section.highlightedViewModel, @"seven");
+}
+
+- (void)test_whenUnhighlightingCell_thatCorrectViewModelUnhighlighted {
+    [self setupWithObjects:@[
+                             [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
+                             ]];
+    [self.adapter collectionView:self.collectionView didUnhighlightItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+    IGTestDiffingSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+    XCTAssertEqualObjects(section.unhighlightedViewModel, @"seven");
+}
+
 - (void)test_whenDeselectingCell_withoutImplementation_thatNoOps {
     [self setupWithObjects:@[
                              [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],

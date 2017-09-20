@@ -50,4 +50,12 @@
     self.wasDeselected = YES;
 }
 
+- (void)didHighlightItemAtIndex:(NSInteger)index {
+    self.wasHighlighted = YES;
+}
+
+- (void)didUnhighlightItemAtIndex:(NSInteger)index {
+    self.wasUnhighlighted = YES;
+}
+
 @end
