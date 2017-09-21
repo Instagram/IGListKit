@@ -13,6 +13,9 @@
 #import <IGListKit/IGListDiffable.h>
 #import <IGListKit/IGListDiff.h>
 #import <IGListKit/IGListBindable.h>
+#import <IGListKit/IGListAdapterUpdater.h>
+
+#import "IGListArrayUtilsInternal.h"
 
 typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
     IGListDiffingSectionStateIdle = 0,
@@ -58,7 +61,8 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
         id<IGListDiffable> object = self.object;
         IGAssert(object != nil, @"Expected IGListBindingSectionController object to be non-nil before updating.");
         
-        self.viewModels = [self.dataSource sectionController:self viewModelsForObject:object];
+        NSArray *newViewModels = [self.dataSource sectionController:self viewModelsForObject:object];
+        self.viewModels = objectsWithDuplicateIdentifiersRemoved(newViewModels);
         result = IGListDiff(oldViewModels, self.viewModels, IGListDiffEquality);
         
         [result.updates enumerateIndexesUsingBlock:^(NSUInteger oldUpdatedIndex, BOOL *stop) {
