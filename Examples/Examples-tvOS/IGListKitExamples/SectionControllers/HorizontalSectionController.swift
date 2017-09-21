@@ -53,8 +53,6 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
         number = object as? Int
     }
 
-    override func didSelectItem(at index: Int) {}
-
     // MARK: ListAdapterDataSource
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
