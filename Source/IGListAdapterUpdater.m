@@ -18,6 +18,7 @@
 #import "IGListIndexSetResultInternal.h"
 #import "IGListMoveIndexPathInternal.h"
 #import "IGListReloadIndexPath.h"
+#import "IGListArrayUtilsInternal.h"
 
 @implementation IGListAdapterUpdater
 
@@ -33,7 +34,6 @@
     }
     return self;
 }
-
 
 #pragma mark - Private API
 
@@ -56,7 +56,7 @@
     void (^reloadUpdates)() = self.reloadUpdates;
     IGListBatchUpdates *batchUpdates = self.batchUpdates;
     NSMutableArray *completionBlocks = [self.completionBlocks mutableCopy];
-    
+
     [self cleanStateBeforeUpdates];
 
     // item updates must not send mutations to the collection view while we are reloading
@@ -72,11 +72,11 @@
     for (IGListItemUpdateBlock itemUpdateBlock in batchUpdates.itemUpdateBlocks) {
         itemUpdateBlock();
     }
-    
+
     // add any completion blocks from item updates. added after item blocks are executed in order to capture any
     // re-entrant updates
     [completionBlocks addObjectsFromArray:batchUpdates.itemCompletionBlocks];
-    
+
     self.state = IGListBatchUpdateStateExecutedBatchUpdateBlock;
 
     [self cleanStateAfterUpdates];
@@ -92,26 +92,6 @@
     }
 
     self.state = IGListBatchUpdateStateIdle;
-}
-
-static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable>> *objects) {
-    if (objects == nil) {
-        return nil;
-    }
-
-    NSMutableSet *identifiers = [NSMutableSet new];
-    NSMutableArray *uniqueObjects = [NSMutableArray new];
-    for (id<IGListDiffable> object in objects) {
-        id diffIdentifier = [object diffIdentifier];
-        if (diffIdentifier != nil
-            && ![identifiers containsObject:diffIdentifier]) {
-            [identifiers addObject:diffIdentifier];
-            [uniqueObjects addObject:object];
-        } else {
-            IGLKLog(@"WARNING: Object %@ already appeared in objects array", object);
-        }
-    }
-    return uniqueObjects;
 }
 
 - (void)performBatchUpdatesWithCollectionView:(UICollectionView *)collectionView {
@@ -151,7 +131,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
         for (IGListItemUpdateBlock itemUpdateBlock in batchUpdates.itemUpdateBlocks) {
             itemUpdateBlock();
         }
-        
+
         // add any completion blocks from item updates. added after item blocks are executed in order to capture any
         // re-entrant updates
         [completionBlocks addObjectsFromArray:batchUpdates.itemCompletionBlocks];
@@ -361,7 +341,7 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 
     // remove indexpath/item changes
     self.objectTransitionBlock = nil;
-    
+
     // removes all object completion blocks. done before updates to start collecting completion blocks for coalesced
     // or re-entrant object updates
     [self.completionBlocks removeAllObjects];
@@ -471,7 +451,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     IGAssertMainThread();
     IGParameterAssert(collectionView != nil);
     IGParameterAssert(itemUpdates != nil);
-    
+
     IGListBatchUpdates *batchUpdates = self.batchUpdates;
     if (completion != nil) {
         [batchUpdates.itemCompletionBlocks addObject:completion];
@@ -483,11 +463,11 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
         itemUpdates();
     } else {
         [batchUpdates.itemUpdateBlocks addObject:itemUpdates];
-        
+
         // disabled animations will always take priority
         // reset to YES in -cleanupState
         self.queuedUpdateIsAnimated = self.queuedUpdateIsAnimated && animated;
-        
+
         [self queueUpdateWithCollectionView:collectionView];
     }
 }
@@ -569,3 +549,4 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
 }
 
 @end
+
