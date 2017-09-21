@@ -52,6 +52,4 @@ final class CarouselSectionController: ListSectionController {
         number = object as? Int
     }
 
-    override func didSelectItem(at index: Int) {}
-
 }

@@ -95,6 +95,4 @@ final class MonthSectionController: ListBindingSectionController<ListDiffable>, 
         update(animated: true)
     }
 
-    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, didDeselectItemAt index: Int, viewModel: Any) {}
-
 }
