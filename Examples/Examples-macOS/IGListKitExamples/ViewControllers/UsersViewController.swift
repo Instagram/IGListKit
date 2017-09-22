@@ -74,7 +74,7 @@ final class UsersViewController: NSViewController {
             // this code can also be added to an extension of NSCollectionView ;)
             
             // Set the animation duration when updating the collection view
-            NSAnimationContext.current().duration = 0.25
+            NSAnimationContext.current.duration = 0.25
             
             // Perform the updates to the collection view
             collectionView.animator().performBatchUpdates({
@@ -148,7 +148,7 @@ extension UsersViewController: NSCollectionViewDataSource {
     
     @available(OSX 10.11, *)
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        let item = collectionView.makeItem(withIdentifier: Storyboard.cellIdentifier, for: indexPath)
+        let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: Storyboard.cellIdentifier), for: indexPath)
         guard let cell = item as? UserCollectionViewCell else { return item }
         
         cell.delegate = self

@@ -64,7 +64,7 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
         collectionView.frame = view.bounds
     }
 
-    func onControl(_ control: UISegmentedControl) {
+    @objc func onControl(_ control: UISegmentedControl) {
         selectedClass = segments[control.selectedSegmentIndex].1
         adapter.performUpdates(animated: true, completion: nil)
     }

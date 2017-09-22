@@ -14,8 +14,7 @@
 
 import UIKit
 
-@objc
-protocol IncrementListener: class {
+@objc protocol IncrementListener: class {
     func didIncrement(announcer: IncrementAnnouncer, value: Int)
 }
 

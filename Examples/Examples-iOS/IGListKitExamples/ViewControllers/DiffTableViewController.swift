@@ -73,7 +73,7 @@ final class DiffTableViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
 
-    func onDiff() {
+    @objc func onDiff() {
         let from = people
         let to = usingOldPeople ? newPeople : oldPeople
         usingOldPeople = !usingOldPeople
