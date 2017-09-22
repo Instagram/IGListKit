@@ -14,7 +14,7 @@
 
 import Foundation
 
-extension MutableCollection where Indices.Iterator.Element == Index {
+extension MutableCollection {
 
     /// Shuffles the contents of this collection.
     mutating func shuffle() {
@@ -27,7 +27,7 @@ extension MutableCollection where Indices.Iterator.Element == Index {
 
             let i = index(firstUnshuffled, offsetBy: d)
 
-            swap(&self[firstUnshuffled], &self[i])
+            self.swapAt(firstUnshuffled, i)
         }
     }
 
