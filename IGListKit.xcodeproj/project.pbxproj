@@ -258,6 +258,8 @@
 		29DA5CA81EA7D37000113926 /* IGListTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 29DA5CA61EA7D37000113926 /* IGListTestCase.m */; };
 		29EA6C491DB43A8000957A88 /* IGTestNibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 294369B01DB1B7AE0025F6E7 /* IGTestNibCell.xib */; };
 		64D8007E592D0292BE4FC21D /* Pods_IGListKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CC152B514785B3113DDD4A /* Pods_IGListKitTests.framework */; };
+		6A9EB3611F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9EB3601F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m */; };
+		6A9EB3621F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9EB3601F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m */; };
 		7BC0C61B1F5C401F00A06ADD /* IGListArrayUtilsInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC0C61A1F5C401F00A06ADD /* IGListArrayUtilsInternal.h */; };
 		7BC0C61C1F5C402600A06ADD /* IGListArrayUtilsInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC0C61A1F5C401F00A06ADD /* IGListArrayUtilsInternal.h */; };
 		7BC0C61D1F5C402600A06ADD /* IGListArrayUtilsInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BC0C61A1F5C401F00A06ADD /* IGListArrayUtilsInternal.h */; };
@@ -500,6 +502,8 @@
 		29DA5CAA1EA7D3FF00113926 /* IGListTestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListTestHelpers.h; sourceTree = "<group>"; };
 		4883B4E449DE18EC9C37773B /* Pods-IGListKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTests/Pods-IGListKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		68CC152B514785B3113DDD4A /* Pods_IGListKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A9EB35F1F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGTestSingleWithoutDeselectionDelegate.h; sourceTree = "<group>"; };
+		6A9EB3601F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IGTestSingleWithoutDeselectionDelegate.m; sourceTree = "<group>"; };
 		6DBA851B0E1DFDC2E7BDA472 /* Pods-IGListKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTests/Pods-IGListKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		7BC0C61A1F5C401F00A06ADD /* IGListArrayUtilsInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListArrayUtilsInternal.h; sourceTree = "<group>"; };
 		821BC4BE1DB8C95300172ED0 /* IGListSingleStoryboardItemControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListSingleStoryboardItemControllerTests.m; sourceTree = "<group>"; };
@@ -851,6 +855,8 @@
 				88144F061D870EDC007C7F66 /* IGTestSupplementarySource.m */,
 				2995409A1F588C8D00F647CF /* IGTestBindingWithoutDeselectionDelegate.h */,
 				2995409B1F588C8D00F647CF /* IGTestBindingWithoutDeselectionDelegate.m */,
+				6A9EB35F1F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.h */,
+				6A9EB3601F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -1503,6 +1509,7 @@
 				29C4748E1DDF460500AE68CE /* IGListAdapterStoryboardTests.m in Sources */,
 				885FE2411DC51B86009CE2B4 /* IGTestSingleNibItemDataSource.m in Sources */,
 				885FE2441DC51B86009CE2B4 /* IGTestStackedDataSource.m in Sources */,
+				6A9EB3621F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m in Sources */,
 				885FE2461DC51B86009CE2B4 /* IGTestSupplementarySource.m in Sources */,
 				885FE2431DC51B86009CE2B4 /* IGTestStoryboardViewController.m in Sources */,
 				885FE23A1DC51B86009CE2B4 /* IGListTestSection.m in Sources */,
@@ -1609,6 +1616,7 @@
 				29C4748C1DDF45F400AE68CE /* IGListAdapterProxyTests.m in Sources */,
 				8240C7F81DC2F3FB00B3AAE7 /* IGListTestStoryboardSection.m in Sources */,
 				26271C8A1DAE94E40073E116 /* IGTestSingleNibItemDataSource.m in Sources */,
+				6A9EB3611F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

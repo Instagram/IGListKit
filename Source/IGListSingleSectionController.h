@@ -53,6 +53,16 @@ NS_SWIFT_NAME(ListSingleSectionControllerDelegate)
 - (void)didSelectSectionController:(IGListSingleSectionController *)sectionController
                         withObject:(id)object;
 
+/**
+ Tells the delegate that the section controller was deselected.
+
+ @param sectionController The section controller that was deselected.
+ @param object The model for the given section.
+ */
+@optional
+- (void)didDeselectSectionController:(IGListSingleSectionController *)sectionController
+                          withObject:(id)object;
+
 @end
 
 /**
