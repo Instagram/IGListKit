@@ -446,7 +446,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
 
 - (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
                                animated:(BOOL)animated
-                            itemUpdates:(void (^)())itemUpdates
+                            itemUpdates:(void (^)(void))itemUpdates
                              completion:(void (^)(BOOL))completion {
     IGAssertMainThread();
     IGParameterAssert(collectionView != nil);
