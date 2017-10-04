@@ -19,7 +19,7 @@
 @implementation IGListAdapter {
     NSMapTable<UICollectionReusableView *, IGListSectionController *> *_viewSectionControllerMap;
     // An array of blocks to execute once batch updates are finished
-    NSMutableArray<void (^)()> *_queuedCompletionBlocks;
+    NSMutableArray<void (^)(void)> *_queuedCompletionBlocks;
 }
 
 - (void)dealloc {
@@ -708,7 +708,7 @@
     [_viewSectionControllerMap removeObjectForKey:view];
 }
 
-- (void)deferBlockBetweenBatchUpdates:(void (^)())block {
+- (void)deferBlockBetweenBatchUpdates:(void (^)(void))block {
     IGAssertMainThread();
     if (_queuedCompletionBlocks == nil) {
         block();
