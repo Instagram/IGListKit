@@ -58,6 +58,8 @@ NS_SWIFT_NAME(ListSingleSectionControllerDelegate)
 
  @param sectionController The section controller that was deselected.
  @param object The model for the given section.
+
+ @note Method is `@optional` until the 4.0.0 release where it will become required.
  */
 @optional
 - (void)didDeselectSectionController:(IGListSingleSectionController *)sectionController
