@@ -10,6 +10,7 @@
 #import "IGListSectionMap+DebugDescription.h"
 #import "IGListBindingSectionController.h"
 
+IGLK_LINKABLE(IGListSectionMap_DebugDescription)
 @implementation IGListSectionMap (DebugDescription)
 
 - (NSArray<NSString *> *)debugDescriptionLines {

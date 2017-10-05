@@ -10,7 +10,9 @@
 #import <UIKit/UIKit.h>
 
 #import <IGListKit/IGListAdapter.h>
+#import <IGListKit/IGListMacros.h>
 
+IGLK_LINK_REQUIRE(IGListAdapter_UICollectionView)
 @interface IGListAdapter (UICollectionView)
 <
 UICollectionViewDataSource,

@@ -8,7 +8,9 @@
  */
 
 #import <IGListKit/IGListKit.h>
+#import <IGListKit/IGListMacros.h>
 
+IGLK_LINK_REQUIRE(IGListBindingSectionController_DebugDescription)
 @interface IGListBindingSectionController (DebugDescription)
 
 - (NSArray<NSString *> *)debugDescriptionLines;

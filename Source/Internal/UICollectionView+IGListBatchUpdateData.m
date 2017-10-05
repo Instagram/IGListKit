@@ -11,6 +11,7 @@
 
 #import "IGListBatchUpdateData.h"
 
+IGLK_LINKABLE(UICollectionView_IGListBatchUpdateData)
 @implementation UICollectionView (IGListBatchUpdateData)
 
 - (void)ig_applyBatchUpdateData:(IGListBatchUpdateData *)updateData {

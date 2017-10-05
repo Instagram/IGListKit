@@ -9,8 +9,10 @@
 
 #import <Foundation/Foundation.h>
 
+#import <IGListKit/IGListMacros.h>
 #import "IGListSectionMap.h"
 
+IGLK_LINK_REQUIRE(IGListSectionMap_DebugDescription)
 @interface IGListSectionMap (DebugDescription)
 
 - (NSArray<NSString *> *)debugDescriptionLines;

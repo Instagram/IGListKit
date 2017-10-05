@@ -11,6 +11,7 @@
 
 #import <IGListKit/IGListMacros.h>
 
+IGLK_LINKABLE(UICollectionView_DebugDescription)
 @implementation UICollectionView (DebugDescription)
 
 - (NSArray<NSString *> *)debugDescriptionLines {

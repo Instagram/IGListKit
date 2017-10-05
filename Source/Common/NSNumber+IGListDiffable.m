@@ -9,6 +9,7 @@
 
 #import "NSNumber+IGListDiffable.h"
 
+IGLK_LINKABLE(NSNumber_IGListDiffable)
 @implementation NSNumber (IGListDiffable)
 
 - (id<NSObject>)diffIdentifier {

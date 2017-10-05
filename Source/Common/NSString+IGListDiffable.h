@@ -10,10 +10,12 @@
 #import <Foundation/Foundation.h>
 
 #import <IGListKit/IGListDiffable.h>
+#import <IGListKit/IGListMacros.h>
 
 /**
  This category provides default `IGListDiffable` conformance for `NSString`.
  */
+IGLK_LINK_REQUIRE(NSString_IGListDiffable)
 @interface NSString (IGListDiffable) <IGListDiffable>
 
 @end

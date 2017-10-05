@@ -24,6 +24,7 @@ static NSMutableArray *linesFromObjects(NSArray *objects) {
 }
 #endif // #if IGLK_DEBUG_DESCRIPTION_ENABLED
 
+IGLK_LINKABLE(IGListAdapterUpdater_DebugDescription)
 @implementation IGListAdapterUpdater (DebugDescription)
 
 - (NSArray<NSString *> *)debugDescriptionLines {

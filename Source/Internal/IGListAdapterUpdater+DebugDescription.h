@@ -8,7 +8,9 @@
  */
 
 #import <IGListKit/IGListKit.h>
+#import <IGListKit/IGListMacros.h>
 
+IGLK_LINK_REQUIRE(IGListAdapterUpdater_DebugDescription)
 @interface IGListAdapterUpdater (DebugDescription)
 
 - (NSArray<NSString *> *)debugDescriptionLines;
