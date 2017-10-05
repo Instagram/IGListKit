@@ -332,7 +332,6 @@
 				295D8A981E92EC96001F7C06 /* PostSectionController.h */,
 				295D8A991E92EC96001F7C06 /* PostSectionController.m */,
 				2942FF891D9F39E00015D24B /* RemoveSectionController.swift */,
-				2942FF8A1D9F39E00015D24B /* SearchSectionController.swift */,
 				296DD7541DD2150600206780 /* SelfSizingSectionController.swift */,
 				821BC4B91DB8B61200172ED0 /* StoryboardLabelSectionController.swift */,
 				2942FF8B1D9F39E00015D24B /* UserSectionController.swift */,
@@ -368,6 +367,24 @@
 		2961B38C1D68B031001C9451 /* IGListKitExamples */ = {
 			isa = PBXGroup;
 			children = (
+				D77C900C1F86732A00244628 /* Tail Loading */,
+				D77C900D1F8674C700244628 /* Search Autocomplete */,
+				D77C900E1F86762300244628 /* Mixed Data */,
+				D77C900F1F86764600244628 /* Nested Adaptor */,
+				D70E5AF21F8678A000E2EA1C /* Empty View */,
+				D70E5AF31F8678D100E2EA1C /* Single Section Controller */,
+				D70E5AF41F867A6900E2EA1C /* StoryBoard */,
+				D70E5AF61F867AD100E2EA1C /* Single Section Storyboard */,
+				D70365A91F867B2E00709680 /* Working Range */,
+				D70365AA1F867B6800709680 /* Diff Algorithm */,
+				D70365AB1F867B7400709680 /* Supplementary Views */,
+				D70365AC1F867B8300709680 /* Self-sizing cells */,
+				D70365AD1F867B8E00709680 /* Display delegate */,
+				D70365AE1F867B9600709680 /* Stacked Section Controllers */,
+				D70365AF1F867BA400709680 /* Objc Demo */,
+				D70365B01F867BAD00709680 /* Calendar (auto diffing) */,
+				D70365B11F867BB800709680 /* Dependency Injection */,
+				D70E5AF51F867A9900E2EA1C /* Shared */,
 				2961B38D1D68B031001C9451 /* AppDelegate.swift */,
 				2961B3941D68B031001C9451 /* Assets.xcassets */,
 				2961B3991D68B031001C9451 /* Info.plist */,
@@ -385,26 +402,8 @@
 		2961B3A31D68B0B5001C9451 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				29F7E2A91E9283FF00197586 /* AnnouncingDepsViewController.swift */,
-				292658561E749EDC0041B56D /* CalendarViewController.swift */,
-				2961B3A41D68B0B5001C9451 /* DemosViewController.swift */,
-				29459BFF1DBE48E200F05375 /* DiffTableViewController.swift */,
-				29D2E4AE1DD69C0E00CD255D /* DisplayViewController.swift */,
-				2991F92F1D7BC0E400B0C58F /* EmptyViewController.swift */,
 				56C05B661E49B2110026DB39 /* IGListKitExamples-Bridging-Header.h */,
-				2961B3A51D68B0B5001C9451 /* LoadMoreViewController.swift */,
-				299068271D75BFEC00A62888 /* MixedDataViewController.swift */,
-				2991F9231D7BB89F00B0C58F /* NestedAdapterViewController.swift */,
-				56C05B671E49B2120026DB39 /* ObjcDemoViewController.h */,
-				56C05B681E49B2120026DB39 /* ObjcDemoViewController.m */,
-				299B53FF1D6BD6630074A202 /* SearchViewController.swift */,
-				296DD7521DD2147500206780 /* SelfSizingCellsViewController.swift */,
-				82D91B681DBA0EF300E62758 /* SingleSectionStoryboardViewController.swift */,
-				26271C8D1DAE9D3F0073E116 /* SingleSectionViewController.swift */,
-				29D873551E0C539700A6BA95 /* StackedViewController.swift */,
-				821BC4B51DB8B3DC00172ED0 /* StoryboardViewController.swift */,
-				29C6297A1DCFD857004A5BB1 /* SupplementaryViewController.swift */,
-				2981BA381DB874BB00A987F9 /* WorkingRangeViewController.swift */,
+				2961B3A41D68B0B5001C9451 /* DemosViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -520,6 +519,152 @@
 				986FB7331DBBAD8600A65C18 /* TodayViewController.swift */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D70365A91F867B2E00709680 /* Working Range */ = {
+			isa = PBXGroup;
+			children = (
+				2981BA381DB874BB00A987F9 /* WorkingRangeViewController.swift */,
+			);
+			path = "Working Range";
+			sourceTree = "<group>";
+		};
+		D70365AA1F867B6800709680 /* Diff Algorithm */ = {
+			isa = PBXGroup;
+			children = (
+				29459BFF1DBE48E200F05375 /* DiffTableViewController.swift */,
+			);
+			path = "Diff Algorithm";
+			sourceTree = "<group>";
+		};
+		D70365AB1F867B7400709680 /* Supplementary Views */ = {
+			isa = PBXGroup;
+			children = (
+				29C6297A1DCFD857004A5BB1 /* SupplementaryViewController.swift */,
+			);
+			path = "Supplementary Views";
+			sourceTree = "<group>";
+		};
+		D70365AC1F867B8300709680 /* Self-sizing cells */ = {
+			isa = PBXGroup;
+			children = (
+				296DD7521DD2147500206780 /* SelfSizingCellsViewController.swift */,
+			);
+			path = "Self-sizing cells";
+			sourceTree = "<group>";
+		};
+		D70365AD1F867B8E00709680 /* Display delegate */ = {
+			isa = PBXGroup;
+			children = (
+				29D2E4AE1DD69C0E00CD255D /* DisplayViewController.swift */,
+			);
+			path = "Display delegate";
+			sourceTree = "<group>";
+		};
+		D70365AE1F867B9600709680 /* Stacked Section Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				29D873551E0C539700A6BA95 /* StackedViewController.swift */,
+			);
+			path = "Stacked Section Controllers";
+			sourceTree = "<group>";
+		};
+		D70365AF1F867BA400709680 /* Objc Demo */ = {
+			isa = PBXGroup;
+			children = (
+				56C05B671E49B2120026DB39 /* ObjcDemoViewController.h */,
+				56C05B681E49B2120026DB39 /* ObjcDemoViewController.m */,
+			);
+			path = "Objc Demo";
+			sourceTree = "<group>";
+		};
+		D70365B01F867BAD00709680 /* Calendar (auto diffing) */ = {
+			isa = PBXGroup;
+			children = (
+				292658561E749EDC0041B56D /* CalendarViewController.swift */,
+			);
+			path = "Calendar (auto diffing)";
+			sourceTree = "<group>";
+		};
+		D70365B11F867BB800709680 /* Dependency Injection */ = {
+			isa = PBXGroup;
+			children = (
+				29F7E2A91E9283FF00197586 /* AnnouncingDepsViewController.swift */,
+			);
+			path = "Dependency Injection";
+			sourceTree = "<group>";
+		};
+		D70E5AF21F8678A000E2EA1C /* Empty View */ = {
+			isa = PBXGroup;
+			children = (
+				2991F92F1D7BC0E400B0C58F /* EmptyViewController.swift */,
+			);
+			path = "Empty View";
+			sourceTree = "<group>";
+		};
+		D70E5AF31F8678D100E2EA1C /* Single Section Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Single Section Controller";
+			sourceTree = "<group>";
+		};
+		D70E5AF41F867A6900E2EA1C /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				821BC4B51DB8B3DC00172ED0 /* StoryboardViewController.swift */,
+			);
+			name = StoryBoard;
+			path = "Single Section Controller/StoryBoard";
+			sourceTree = "<group>";
+		};
+		D70E5AF51F867A9900E2EA1C /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				26271C8D1DAE9D3F0073E116 /* SingleSectionViewController.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		D70E5AF61F867AD100E2EA1C /* Single Section Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				82D91B681DBA0EF300E62758 /* SingleSectionStoryboardViewController.swift */,
+			);
+			path = "Single Section Storyboard";
+			sourceTree = "<group>";
+		};
+		D77C900C1F86732A00244628 /* Tail Loading */ = {
+			isa = PBXGroup;
+			children = (
+				2961B3A51D68B0B5001C9451 /* LoadMoreViewController.swift */,
+			);
+			path = "Tail Loading";
+			sourceTree = "<group>";
+		};
+		D77C900D1F8674C700244628 /* Search Autocomplete */ = {
+			isa = PBXGroup;
+			children = (
+				2942FF8A1D9F39E00015D24B /* SearchSectionController.swift */,
+				299B53FF1D6BD6630074A202 /* SearchViewController.swift */,
+			);
+			path = "Search Autocomplete";
+			sourceTree = "<group>";
+		};
+		D77C900E1F86762300244628 /* Mixed Data */ = {
+			isa = PBXGroup;
+			children = (
+				299068271D75BFEC00A62888 /* MixedDataViewController.swift */,
+			);
+			path = "Mixed Data";
+			sourceTree = "<group>";
+		};
+		D77C900F1F86764600244628 /* Nested Adaptor */ = {
+			isa = PBXGroup;
+			children = (
+				2991F9231D7BB89F00B0C58F /* NestedAdapterViewController.swift */,
+			);
+			path = "Nested Adaptor";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
