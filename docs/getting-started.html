@@ -325,7 +325,7 @@
 <p>Both <code>shayne</code> and <code>ann</code> represent the same <em>unique</em> data because they share the same <code>primaryKey</code>, but they are not <em>equal</em> because their names are different.</p>
 
 <p>To represent this in <code>IGListKit</code>&rsquo;s diffing, add and implement the <code>IGListDiffable</code> protocol:</p>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">User</span><span class="p">:</span> <span class="kt">IGListDiffable</span> <span class="p">{</span>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">User</span><span class="p">:</span> <span class="kt">ListDiffable</span> <span class="p">{</span>
   <span class="kd">func</span> <span class="nf">diffIdentifier</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSObjectProtocol</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">primaryKey</span>
   <span class="p">}</span>
