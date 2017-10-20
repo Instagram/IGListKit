@@ -19,6 +19,7 @@
 #import "IGTestDelegateDataSource.h"
 #import "IGTestObject.h"
 #import "IGListTestCase.h"
+#import "IGListAdapterUpdateTester.h"
 
 @interface IGListAdapterE2ETests : IGListTestCase
 @end
@@ -1599,6 +1600,217 @@
         XCTAssertTrue(executedItemUpdate);
         XCTAssertNil(weakAdapter);
     }];
+}
+
+- (void)test_whenAddingMultipleUpdateListeners_withPerformUpdatesAnimated_thatEventsReceived {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @1)
+                             ]];
+
+    IGListAdapterUpdateTester *listener1 = [IGListAdapterUpdateTester new];;
+    IGListAdapterUpdateTester *listener2 = [IGListAdapterUpdateTester new];;
+
+    [self.adapter addUpdateListener:listener1];
+    [self.adapter addUpdateListener:listener2];
+
+    self.dataSource.objects = @[
+                                genTestObject(@1, @1),
+                                genTestObject(@2, @1)
+                                ];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertEqual(listener1.hits, 1);
+        XCTAssertEqual(listener1.animated, YES);
+        XCTAssertEqual(listener1.type, IGListAdapterUpdateTypePerformUpdates);
+        XCTAssertEqual(listener2.hits, 1);
+        XCTAssertEqual(listener2.animated, YES);
+        XCTAssertEqual(listener2.type, IGListAdapterUpdateTypePerformUpdates);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+- (void)test_whenAddingMultipleUpdateListeners_withPerformUpdatesNotAnimated_thatEventsReceived {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @1)
+                             ]];
+
+    IGListAdapterUpdateTester *listener1 = [IGListAdapterUpdateTester new];;
+    IGListAdapterUpdateTester *listener2 = [IGListAdapterUpdateTester new];;
+
+    [self.adapter addUpdateListener:listener1];
+    [self.adapter addUpdateListener:listener2];
+
+    self.dataSource.objects = @[
+                                genTestObject(@1, @1),
+                                genTestObject(@2, @1)
+                                ];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:NO completion:^(BOOL finished) {
+        XCTAssertEqual(listener1.hits, 1);
+        XCTAssertEqual(listener1.animated, NO);
+        XCTAssertEqual(listener1.type, IGListAdapterUpdateTypePerformUpdates);
+        XCTAssertEqual(listener2.hits, 1);
+        XCTAssertEqual(listener2.animated, NO);
+        XCTAssertEqual(listener2.type, IGListAdapterUpdateTypePerformUpdates);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+- (void)test_whenAddingMultipleUpdateListeners_withReloadData_thatEventsReceived {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @1)
+                             ]];
+
+    IGListAdapterUpdateTester *listener1 = [IGListAdapterUpdateTester new];;
+    IGListAdapterUpdateTester *listener2 = [IGListAdapterUpdateTester new];;
+
+    [self.adapter addUpdateListener:listener1];
+    [self.adapter addUpdateListener:listener2];
+
+    self.dataSource.objects = @[
+                                genTestObject(@1, @1),
+                                genTestObject(@2, @1)
+                                ];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter reloadDataWithCompletion:^(BOOL finished) {
+        XCTAssertEqual(listener1.hits, 1);
+        XCTAssertEqual(listener1.animated, NO);
+        XCTAssertEqual(listener1.type, IGListAdapterUpdateTypeReloadData);
+        XCTAssertEqual(listener2.hits, 1);
+        XCTAssertEqual(listener2.animated, NO);
+        XCTAssertEqual(listener2.type, IGListAdapterUpdateTypeReloadData);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+- (void)test_whenAddingMultipleUpdateListeners_withItemUpdatesAnimated_thatEventsReceived {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @1)
+                             ]];
+
+    IGListAdapterUpdateTester *listener1 = [IGListAdapterUpdateTester new];;
+    IGListAdapterUpdateTester *listener2 = [IGListAdapterUpdateTester new];;
+
+    [self.adapter addUpdateListener:listener1];
+    [self.adapter addUpdateListener:listener2];
+
+    self.dataSource.objects = @[
+                                genTestObject(@1, @1),
+                                genTestObject(@2, @1)
+                                ];
+
+    IGListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+
+    XCTestExpectation *expectation = genExpectation;
+    [section.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext>  _Nonnull batchContext) {
+        [batchContext reloadInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:0]];
+    } completion:^(BOOL finished) {
+        XCTAssertEqual(listener1.hits, 1);
+        XCTAssertEqual(listener1.animated, YES);
+        XCTAssertEqual(listener1.type, IGListAdapterUpdateTypeItemUpdates);
+        XCTAssertEqual(listener2.hits, 1);
+        XCTAssertEqual(listener2.animated, YES);
+        XCTAssertEqual(listener2.type, IGListAdapterUpdateTypeItemUpdates);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+- (void)test_whenAddingMultipleUpdateListeners_withItemUpdatesNotAnimated_thatEventsReceived {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @1)
+                             ]];
+
+    IGListAdapterUpdateTester *listener1 = [IGListAdapterUpdateTester new];;
+    IGListAdapterUpdateTester *listener2 = [IGListAdapterUpdateTester new];;
+
+    [self.adapter addUpdateListener:listener1];
+    [self.adapter addUpdateListener:listener2];
+
+    self.dataSource.objects = @[
+                                genTestObject(@1, @1),
+                                genTestObject(@2, @1)
+                                ];
+
+    IGListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+
+    XCTestExpectation *expectation = genExpectation;
+    [section.collectionContext performBatchAnimated:NO updates:^(id<IGListBatchContext>  _Nonnull batchContext) {
+        [batchContext reloadInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:0]];
+    } completion:^(BOOL finished) {
+        XCTAssertEqual(listener1.hits, 1);
+        XCTAssertEqual(listener1.animated, NO);
+        XCTAssertEqual(listener1.type, IGListAdapterUpdateTypeItemUpdates);
+        XCTAssertEqual(listener2.hits, 1);
+        XCTAssertEqual(listener2.animated, NO);
+        XCTAssertEqual(listener2.type, IGListAdapterUpdateTypeItemUpdates);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+- (void)test_whenAddingMultipleUpdateListeners_thenRemovingListener_thatRemainingReceives {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @1)
+                             ]];
+
+    IGListAdapterUpdateTester *listener1 = [IGListAdapterUpdateTester new];;
+    IGListAdapterUpdateTester *listener2 = [IGListAdapterUpdateTester new];;
+
+    [self.adapter addUpdateListener:listener1];
+    [self.adapter addUpdateListener:listener2];
+    [self.adapter removeUpdateListener:listener2];
+
+    self.dataSource.objects = @[
+                                genTestObject(@1, @1),
+                                genTestObject(@2, @1)
+                                ];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertEqual(listener1.hits, 1);
+        XCTAssertEqual(listener1.animated, YES);
+        XCTAssertEqual(listener1.type, IGListAdapterUpdateTypePerformUpdates);
+        XCTAssertEqual(listener2.hits, 0);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+- (void)test_whenAddingUpdateListener_thenListenerReferenceHitsZero_thatListenerReleased {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @1)
+                             ]];
+
+    IGListAdapterUpdateTester *listener = [IGListAdapterUpdateTester new];
+    __weak id weakListener = listener;
+    [self.adapter addUpdateListener:listener];
+    listener = nil;
+
+    self.dataSource.objects = @[
+                                genTestObject(@1, @1),
+                                genTestObject(@2, @1)
+                                ];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertNil(weakListener);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 @end

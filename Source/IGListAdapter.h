@@ -12,6 +12,7 @@
 #import <IGListKit/IGListAdapterDataSource.h>
 #import <IGListKit/IGListAdapterDelegate.h>
 #import <IGListKit/IGListCollectionContext.h>
+#import <IGListKit/IGListAdapterUpdateListener.h>
 
 #import <IGListKit/IGListExperiments.h>
 #import <IGListKit/IGListMacros.h>
@@ -260,6 +261,10 @@ NS_SWIFT_NAME(ListAdapter)
  */
 - (CGSize)sizeForSupplementaryViewOfKind:(NSString *)elementKind
                              atIndexPath:(NSIndexPath *)indexPath;
+
+- (void)addUpdateListener:(id<IGListAdapterUpdateListener>)updateListener;
+
+- (void)removeUpdateListener:(id<IGListAdapterUpdateListener>)updateListener;
 
 /**
  :nodoc:
