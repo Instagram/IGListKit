@@ -62,8 +62,8 @@
     id <IGListAdapterDataSource> dataSource = self.dataSource;
     IGAssert(dataSource != nil, @"Found a nil dataSource when requesting canMoveItemAtIndexPath for interactive reordering");
     
-    NSInteger sectionIndex = indexPath.section;
-    NSInteger itemIndex = indexPath.item;
+    const NSInteger sectionIndex = indexPath.section;
+    const NSInteger itemIndex = indexPath.item;
     
     // for ease of implementation, first we check with the listAdapter
     if ([dataSource respondsToSelector:@selector(listAdapter:canMoveObjectInSection:atIndex:)]) {
@@ -76,10 +76,10 @@
 }
     
 - (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    NSInteger sourceItemIndex = sourceIndexPath.item;
-    NSInteger destinationItemIndex = destinationIndexPath.item;
-    NSInteger sourceSectionIndex = sourceIndexPath.section;
-    NSInteger destinationSectionIndex = destinationIndexPath.section;
+    const NSInteger sourceItemIndex = sourceIndexPath.item;
+    const NSInteger destinationItemIndex = destinationIndexPath.item;
+    const NSInteger sourceSectionIndex = sourceIndexPath.section;
+    const NSInteger destinationSectionIndex = destinationIndexPath.section;
     
     IGListSectionController *sourceSectionController = [self sectionControllerForSection:sourceSectionIndex];
     IGListSectionController *destinationSectionController = [self sectionControllerForSection:destinationSectionIndex];
@@ -101,8 +101,7 @@
             // into the beginning of a destination section rather than the end
             // so it really belongs one section before the section where it landed
             destinationSectionIndex -= 1;
-        }
-        else if (destinationItemIndex == 1 && destinationSectionIndex < sourceSectionIndex) {
+        } else if (destinationItemIndex == 1 && destinationSectionIndex < sourceSectionIndex) {
             // the "item" representing our section was dropped
             // into the end of a destination section rather than the beginning
             // so it really belongs one section before the section where it landed

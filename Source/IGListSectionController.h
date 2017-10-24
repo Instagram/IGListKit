@@ -113,7 +113,8 @@ NS_SWIFT_NAME(ListSectionController)
  
  @param index The index of the unhighlighted cell.
  
- @note Interactive reordering is supported both for items within a single section, as well as for reordering sections themselves when sections contain only one item. The default implementation returns false.
+ @note Interactive reordering is supported both for items within a single section, as well as for reordering sections
+ themselves when sections contain only one item. The default implementation returns false.
  */
 - (BOOL)canMoveItemAtIndex:(NSInteger)index;
 
