@@ -53,8 +53,10 @@ extension GridItem: ListDiffable {
 final class GridSectionController: ListSectionController {
 
     private var object: GridItem?
+    private let isReorderable: Bool
 
-    override init() {
+    required init(isReorderable: Bool = false) {
+        self.isReorderable = isReorderable
         super.init()
         self.minimumInteritemSpacing = 1
         self.minimumLineSpacing = 1
@@ -81,6 +83,10 @@ final class GridSectionController: ListSectionController {
 
     override func didUpdate(to object: Any) {
         self.object = object as? GridItem
+    }
+
+    override func canMoveItem(at index: Int) -> Bool {
+        return isReorderable
     }
 
     override func moveObject(from sourceIndex: Int, to destinationIndex: Int) {

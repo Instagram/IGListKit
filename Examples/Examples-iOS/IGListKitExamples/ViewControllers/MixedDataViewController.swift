@@ -108,20 +108,12 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         switch object {
         case is String:   return ExpandableSectionController()
-        case is GridItem: return GridSectionController()
-        default:          return UserSectionController()
+        case is GridItem: return GridSectionController(isReorderable: true)
+        default:          return UserSectionController(isReorderable: true)
         }
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
-
-    func listAdapter(_ listAdapter: ListAdapter, canMoveObjectInSection sectionIndex: Int, at index: Int) -> Bool {
-        if data[sectionIndex] as? String != nil {
-            // for testing purposes, allow moving grid items and users, but not simple strings
-            return false
-        }
-        return true
-    }
 
     func listAdapter(_ listAdapter: ListAdapter, moveSectionAt sourceIndex: Int, to destinationIndex: Int) {
         let obj = data.remove(at: sourceIndex)

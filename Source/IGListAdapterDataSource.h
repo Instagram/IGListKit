@@ -64,15 +64,6 @@ NS_SWIFT_NAME(ListAdapterDataSource)
 @optional
     
 /**
- Asks the datasource whether a list object should be movable as the result of interactive reordering.
- 
- @param listAdapter The list adapter sending this information.
- @param sectionIndex The index of the section proposed to be moved.
- @param index The index of the object proposed to be moved.
- */
-- (BOOL)listAdapter:(IGListAdapter *)listAdapter canMoveObjectInSection:(NSInteger)sectionIndex atIndex:(NSInteger)index;
-    
-/**
  Notifies the datasource that a list object should move as the result of interactive reordering.
  
  @param listAdapter The list adapter sending this information.

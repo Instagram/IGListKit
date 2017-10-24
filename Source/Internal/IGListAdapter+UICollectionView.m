@@ -59,18 +59,9 @@
 }
     
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath {
-    id <IGListAdapterDataSource> dataSource = self.dataSource;
-    IGAssert(dataSource != nil, @"Found a nil dataSource when requesting canMoveItemAtIndexPath for interactive reordering");
-    
     const NSInteger sectionIndex = indexPath.section;
     const NSInteger itemIndex = indexPath.item;
     
-    // for ease of implementation, first we check with the listAdapter
-    if ([dataSource respondsToSelector:@selector(listAdapter:canMoveObjectInSection:atIndex:)]) {
-        return [dataSource listAdapter:self canMoveObjectInSection:sectionIndex atIndex:itemIndex];
-    }
-    
-    // then we fall back to the sectionController method
     IGListSectionController *sectionController = [self sectionControllerForSection:sectionIndex];
     return [sectionController canMoveItemAtIndex:itemIndex];
 }

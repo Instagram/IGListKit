@@ -18,6 +18,12 @@ import IGListKit
 final class UserSectionController: ListSectionController {
 
     private var user: User?
+    private let isReorderable: Bool
+
+    required init(isReorderable: Bool = false) {
+        self.isReorderable = isReorderable
+        super.init()
+    }
 
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)
@@ -36,4 +42,7 @@ final class UserSectionController: ListSectionController {
         self.user = object as? User
     }
 
+    override func canMoveItem(at index: Int) -> Bool {
+        return isReorderable
+    }
 }
