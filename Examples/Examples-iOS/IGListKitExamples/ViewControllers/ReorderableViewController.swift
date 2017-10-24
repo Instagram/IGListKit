@@ -16,37 +16,39 @@ import UIKit
 import IGListKit
 
 final class ReorderableViewController: UIViewController, ListAdapterDataSource {
-    
+
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
-    
+
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
-    var data = Array(0..<20).map{ "Cell: \($0 + 1)" }
-    
+
+    var data = Array(0..<20).map {
+        "Cell: \($0 + 1)"
+    }
+
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if #available(iOS 9.0, *) {
             let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ReorderableViewController.handleLongGesture(gesture:)))
             collectionView.addGestureRecognizer(longPressGesture)
         }
-        
+
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
-    
+
     // MARK: - Interactive Reordering
-    
+
     @available(iOS 9.0, *)
     @objc func handleLongGesture(gesture: UILongPressGestureRecognizer) {
         switch gesture.state {
@@ -67,22 +69,21 @@ final class ReorderableViewController: UIViewController, ListAdapterDataSource {
             collectionView.cancelInteractiveMovement()
         }
     }
-    
+
     // MARK: - ListAdapterDataSource
-    
+
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return data as [ListDiffable]
     }
-    
+
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         return ReorderableSectionController()
     }
-    
+
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
-    
+
     func listAdapter(_ listAdapter: ListAdapter, moveSectionAt sourceIndex: Int, to destinationIndex: Int) {
         let obj = data.remove(at: sourceIndex)
         data.insert(obj, at: destinationIndex)
     }
 }
-

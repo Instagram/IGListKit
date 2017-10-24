@@ -21,18 +21,20 @@ final class GridItem: NSObject {
     let itemCount: Int
 
     var items: [String] = []
-    
+
     init(color: UIColor, itemCount: Int) {
         self.color = color
         self.itemCount = itemCount
-        
+
         super.init()
-        
+
         self.items = computeItems()
     }
 
     private func computeItems() -> [String] {
-        return [Int](1...itemCount).map{ String(describing: $0) }
+        return [Int](1...itemCount).map {
+            String(describing: $0)
+        }
     }
 }
 

@@ -54,11 +54,11 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
         control.addTarget(self, action: #selector(MixedDataViewController.onControl(_:)), for: .valueChanged)
         navigationItem.titleView = control
 
-        
         if #available(iOS 9.0, *) {
             let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ReorderableViewController.handleLongGesture(gesture:)))
             collectionView.addGestureRecognizer(longPressGesture)
         }
+
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
@@ -84,7 +84,7 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
             collectionView.cancelInteractiveMovement()
         }
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
@@ -114,15 +114,15 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
-    
+
     func listAdapter(_ listAdapter: ListAdapter, canMoveObjectInSection sectionIndex: Int, at index: Int) -> Bool {
-        if let _ = data[sectionIndex] as? String {
+        if data[sectionIndex] as? String != nil {
             // for testing purposes, allow moving grid items and users, but not simple strings
             return false
         }
         return true
     }
-    
+
     func listAdapter(_ listAdapter: ListAdapter, moveSectionAt sourceIndex: Int, to destinationIndex: Int) {
         let obj = data.remove(at: sourceIndex)
         data.insert(obj, at: destinationIndex)
