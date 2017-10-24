@@ -70,7 +70,7 @@
     const NSInteger sourceItemIndex = sourceIndexPath.item;
     const NSInteger destinationItemIndex = destinationIndexPath.item;
     const NSInteger sourceSectionIndex = sourceIndexPath.section;
-    const NSInteger destinationSectionIndex = destinationIndexPath.section;
+    NSInteger destinationSectionIndex = destinationIndexPath.section;
     
     IGListSectionController *sourceSectionController = [self sectionControllerForSection:sourceSectionIndex];
     IGListSectionController *destinationSectionController = [self sectionControllerForSection:destinationSectionIndex];
@@ -95,7 +95,7 @@
         } else if (destinationItemIndex == 1 && destinationSectionIndex < sourceSectionIndex) {
             // the "item" representing our section was dropped
             // into the end of a destination section rather than the beginning
-            // so it really belongs one section before the section where it landed
+            // so it really belongs one section after the section where it landed
             destinationSectionIndex += 1;
         }
         
