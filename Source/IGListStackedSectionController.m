@@ -368,6 +368,18 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     [self reloadData];
     [self.forwardingBatchContext reloadSectionController:self];
 }
+    
+- (void)moveSectionControllerInteractive:(nonnull IGListSectionController *)sectionController fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
+    IGFailAssert(@"Interactive reordering is not yet supported within IGListStackedSectionController in %s:", __PRETTY_FUNCTION__);
+}
+    
+- (void)moveInSectionControllerInteractive:(nonnull IGListSectionController *)sectionController fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
+    IGFailAssert(@"Interactive reordering is not yet supported within IGListStackedSectionController in %s:", __PRETTY_FUNCTION__);
+}
+    
+- (void)revertInvalidInteractiveMoveFromIndexPath:(nonnull NSIndexPath *)fromIndexPath toIndexPath:(nonnull NSIndexPath *)toIndexPath {
+    IGFailAssert(@"Interactive reordering is not yet supported within IGListStackedSectionController in %s:", __PRETTY_FUNCTION__);
+}
 
 #pragma mark - IGListDisplayDelegate
 

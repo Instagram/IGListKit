@@ -1179,4 +1179,51 @@
     [self updateBackgroundViewShouldHide:![self itemCountIsZero]];
 }
 
+- (void)moveSectionControllerInteractive:(IGListSectionController *)sectionController fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
+    IGAssertMainThread();
+    IGParameterAssert(sectionController != nil);
+    IGParameterAssert(fromIndex >= 0);
+    IGParameterAssert(toIndex >= 0);
+    UICollectionView *collectionView = self.collectionView;
+    IGAssert(collectionView != nil, @"Moving section %@ without a collection view from index %zi to index %zi.",
+             sectionController, fromIndex, toIndex);
+    
+    if (fromIndex != toIndex) {
+        id<IGListAdapterDataSource> dataSource = self.dataSource;
+        
+        // inform the datasource to update its model
+        [dataSource listAdapter:self moveSectionAtIndex:fromIndex toIndex:toIndex];
+        
+        // update our model based on that provided by the datasource
+        NSArray<id<IGListDiffable>> *updatedObjects = [dataSource objectsForListAdapter:self];
+        [self updateObjects:updatedObjects dataSource:dataSource];
+    }
+    
+    // even if from and to index are equal, we need to perform the "move"
+    // iOS interactively moves items, not sections, so we might have actually moved the item
+    // to the end of the preceeding section or beginning of the following section
+    [self.updater moveSectionInCollectionView:collectionView fromIndex:fromIndex toIndex:toIndex];
+}
+    
+- (void)moveInSectionControllerInteractive:(IGListSectionController *)sectionController fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
+    IGAssertMainThread();
+    IGParameterAssert(sectionController != nil);
+    IGParameterAssert(fromIndex >= 0);
+    IGParameterAssert(toIndex >= 0);
+    UICollectionView *collectionView = self.collectionView;
+    IGAssert(collectionView != nil, @"Moving items from %@ without a collection view from index %zi to index %zi.",
+             sectionController, fromIndex, toIndex);
+    
+    [sectionController moveObjectFromIndex:fromIndex toIndex:toIndex];
+}
+
+- (void)revertInvalidInteractiveMoveFromIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    UICollectionView *collectionView = self.collectionView;
+    IGAssert(collectionView != nil, @"Reverting move without a collection view from %@ to %@.",
+             sourceIndexPath, destinationIndexPath);
+    
+    // revert by moving back in the opposite direction
+    [self.updater moveItemInCollectionView:collectionView fromIndexPath:destinationIndexPath toIndexPath:sourceIndexPath];
+}
+    
 @end

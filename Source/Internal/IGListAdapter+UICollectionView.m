@@ -57,6 +57,69 @@
 
     return view;
 }
+    
+- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath {
+    id <IGListAdapterDataSource> dataSource = self.dataSource;
+    IGAssert(dataSource != nil, @"Found a nil dataSource when requesting canMoveItemAtIndexPath for interactive reordering");
+    
+    NSInteger sectionIndex = indexPath.section;
+    NSInteger itemIndex = indexPath.item;
+    
+    // for ease of implementation, first we check with the listAdapter
+    if ([dataSource respondsToSelector:@selector(listAdapter:canMoveObjectInSection:atIndex:)]) {
+        return [dataSource listAdapter:self canMoveObjectInSection:sectionIndex atIndex:itemIndex];
+    }
+    
+    // then we fall back to the sectionController method
+    IGListSectionController *sectionController = [self sectionControllerForSection:sectionIndex];
+    return [sectionController canMoveItemAtIndex:itemIndex];
+}
+    
+- (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    NSInteger sourceItemIndex = sourceIndexPath.item;
+    NSInteger destinationItemIndex = destinationIndexPath.item;
+    NSInteger sourceSectionIndex = sourceIndexPath.section;
+    NSInteger destinationSectionIndex = destinationIndexPath.section;
+    
+    IGListSectionController *sourceSectionController = [self sectionControllerForSection:sourceSectionIndex];
+    IGListSectionController *destinationSectionController = [self sectionControllerForSection:destinationSectionIndex];
+    
+    // this is a move within a section
+    if (sourceSectionController == destinationSectionController) {
+        [self moveInSectionControllerInteractive:sourceSectionController
+                                       fromIndex:sourceItemIndex
+                                         toIndex:destinationItemIndex];
+        return;
+    }
+    
+    // this is a reordering of sections themselves
+    if ([sourceSectionController numberOfItems] == 1
+        && [destinationSectionController numberOfItems] == 1) {
+
+        if (destinationItemIndex == 0 && destinationSectionIndex > sourceSectionIndex) {
+            // the "item" representing our section was dropped
+            // into the beginning of a destination section rather than the end
+            // so it really belongs one section before the section where it landed
+            destinationSectionIndex -= 1;
+        }
+        else if (destinationItemIndex == 1 && destinationSectionIndex < sourceSectionIndex) {
+            // the "item" representing our section was dropped
+            // into the end of a destination section rather than the beginning
+            // so it really belongs one section before the section where it landed
+            destinationSectionIndex += 1;
+        }
+        
+        // perform view changes in the collection view
+        [self moveSectionControllerInteractive:sourceSectionController
+                                     fromIndex:sourceSectionIndex
+                                       toIndex:destinationSectionIndex];
+        return;
+    }
+    
+    // otherwise this is a move of an _item_ from one section to another section
+    // this is not currently supported, so we need to revert the change as it's too late to cancel
+    [self revertInvalidInteractiveMoveFromIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+}
 
 #pragma mark - UICollectionViewDelegate
 

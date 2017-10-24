@@ -125,6 +125,17 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
                        toIndexPath:(NSIndexPath *)toIndexPath;
 
 /**
+ Tells the delegate to move a section from and to given indexes.
+ 
+ @param collectionView The collection view on which to perform the transition.
+ @param fromIndex The source index of the section to move.
+ @param toIndex The destination index of the section to move.
+ */
+- (void)moveSectionInCollectionView:(UICollectionView *)collectionView
+                          fromIndex:(NSInteger)fromIndex
+                            toIndex:(NSInteger)toIndex;
+    
+/**
  Completely reload data in the collection.
 
  @param collectionView The collection view to reload.

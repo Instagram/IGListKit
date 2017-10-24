@@ -22,7 +22,7 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
     }()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-    let data: [Any] = [
+    var data: [Any] = [
         "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.",
         GridItem(color: UIColor(red: 237/255.0, green: 73/255.0, blue: 86/255.0, alpha: 1), itemCount: 6),
         User(pk: 2, name: "Ryan Olson", handle: "ryanolsonk"),
@@ -54,11 +54,37 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
         control.addTarget(self, action: #selector(MixedDataViewController.onControl(_:)), for: .valueChanged)
         navigationItem.titleView = control
 
+        
+        if #available(iOS 9.0, *) {
+            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ReorderableViewController.handleLongGesture(gesture:)))
+            collectionView.addGestureRecognizer(longPressGesture)
+        }
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
 
+    @available(iOS 9.0, *)
+    @objc func handleLongGesture(gesture: UILongPressGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            let touchLocation = gesture.location(in: self.collectionView)
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: touchLocation) else {
+                break
+            }
+            collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
+        case .changed:
+            if let view = gesture.view {
+                let position = gesture.location(in: view)
+                collectionView.updateInteractiveMovementTargetPosition(position)
+            }
+        case .ended:
+            collectionView.endInteractiveMovement()
+        default:
+            collectionView.cancelInteractiveMovement()
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
@@ -88,4 +114,17 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
+    
+    func listAdapter(_ listAdapter: ListAdapter, canMoveObjectInSection sectionIndex: Int, at index: Int) -> Bool {
+        if let _ = data[sectionIndex] as? String {
+            // for testing purposes, allow moving grid items and users, but not simple strings
+            return false
+        }
+        return true
+    }
+    
+    func listAdapter(_ listAdapter: ListAdapter, moveSectionAt sourceIndex: Int, to destinationIndex: Int) {
+        let obj = data.remove(at: sourceIndex)
+        data.insert(obj, at: destinationIndex)
+    }
 }

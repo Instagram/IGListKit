@@ -20,11 +20,20 @@ final class GridItem: NSObject {
     let color: UIColor
     let itemCount: Int
 
+    var items: [String] = []
+    
     init(color: UIColor, itemCount: Int) {
         self.color = color
         self.itemCount = itemCount
+        
+        super.init()
+        
+        self.items = computeItems()
     }
 
+    private func computeItems() -> [String] {
+        return [Int](1...itemCount).map{ String(describing: $0) }
+    }
 }
 
 extension GridItem: ListDiffable {
@@ -63,7 +72,7 @@ final class GridSectionController: ListSectionController {
         guard let cell = collectionContext?.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as? CenterLabelCell else {
             fatalError()
         }
-        cell.text = "\(index + 1)"
+        cell.text = object?.items[index] ?? "undefined"
         cell.backgroundColor = object?.color
         return cell
     }
@@ -72,4 +81,9 @@ final class GridSectionController: ListSectionController {
         self.object = object as? GridItem
     }
 
+    override func moveObject(from sourceIndex: Int, to destinationIndex: Int) {
+        guard let object = object else { return }
+        let item = object.items.remove(at: sourceIndex)
+        object.items.insert(item, at: destinationIndex)
+    }
 }
