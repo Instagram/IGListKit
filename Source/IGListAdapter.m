@@ -1237,7 +1237,7 @@
              sourceIndexPath, destinationIndexPath);
     
     // revert by moving back in the opposite direction
-    [self.updater moveItemInCollectionView:collectionView fromIndexPath:destinationIndexPath toIndexPath:sourceIndexPath];
+    [collectionView moveItemAtIndexPath:destinationIndexPath toIndexPath:sourceIndexPath];
 }
     
 @end

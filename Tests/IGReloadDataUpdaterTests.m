@@ -11,8 +11,11 @@
 
 #import <IGListKit/IGListKit.h>
 
+#import "IGListAdapterInternal.h"
 #import "IGListTestSection.h"
 #import "IGListTestAdapterDataSource.h"
+#import "IGListTestAdapterReorderingDataSource.h"
+#import "IGTestReorderableSection.h"
 
 @interface IGReloadDataUpdaterTests : XCTestCase
 
@@ -109,6 +112,153 @@
         [batchContext moveInSectionController:section fromIndex:0 toIndex:1];
     } completion:nil];
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+}
+
+- (void)test_whenSectionIsInteractivelyReordered_thatIndexesUpdateCorrectly {
+    IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
+
+    IGListTestAdapterReorderingDataSource *dataSource = [IGListTestAdapterReorderingDataSource new];
+    dataSource.objects = @[@0, @1, @2];
+    adapter.dataSource = dataSource;
+
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
+                                                          collectionViewLayout:[UICollectionViewFlowLayout new]];
+    adapter.collectionView = collectionView;
+
+    IGTestReorderableSection *section0 = (IGTestReorderableSection *)[adapter sectionControllerForSection:0];
+    IGTestReorderableSection *section1 = (IGTestReorderableSection *)[adapter sectionControllerForSection:1];
+    IGTestReorderableSection *section2 = (IGTestReorderableSection *)[adapter sectionControllerForSection:2];
+    section0.sectionObject = [IGTestReorderableSectionObject sectionWithObjects:@[@0]];
+    section1.sectionObject = [IGTestReorderableSectionObject sectionWithObjects:@[@0]];
+    section2.sectionObject = [IGTestReorderableSectionObject sectionWithObjects:@[@0]];
+    section2.isReorderable = YES;
+    
+    [adapter performUpdatesAnimated:NO completion:nil];
+
+    NSIndexPath *fromIndexPath, *toIndexPath;
+
+    // move the last section into the first position, dropping into the end of the first section
+    fromIndexPath = [NSIndexPath indexPathForItem:0 inSection:2];
+    toIndexPath = [NSIndexPath indexPathForItem:1 inSection:0];
+    [adapter collectionView:collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+
+    XCTAssertEqual(section0, [adapter sectionControllerForSection:0]);
+    XCTAssertEqual(section2, [adapter sectionControllerForSection:1]);
+    XCTAssertEqual(section1, [adapter sectionControllerForSection:2]);
+
+    // move the last section into the first position, dropping into the start of the first section
+    fromIndexPath = [NSIndexPath indexPathForItem:0 inSection:2];
+    toIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    [adapter collectionView:collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+
+    XCTAssertEqual(section1, [adapter sectionControllerForSection:0]);
+    XCTAssertEqual(section0, [adapter sectionControllerForSection:1]);
+    XCTAssertEqual(section2, [adapter sectionControllerForSection:2]);
+
+    // move the first section into the last position, dropping into the start of the last section
+    fromIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    toIndexPath = [NSIndexPath indexPathForItem:0 inSection:2];
+    [adapter collectionView:collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+
+    XCTAssertEqual(section0, [adapter sectionControllerForSection:0]);
+    XCTAssertEqual(section1, [adapter sectionControllerForSection:1]);
+    XCTAssertEqual(section2, [adapter sectionControllerForSection:2]);
+
+    // move the first section into the last position, dropping into the end of the last section
+    fromIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    toIndexPath = [NSIndexPath indexPathForItem:1 inSection:2];
+    [adapter collectionView:collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+
+    XCTAssertEqual(section1, [adapter sectionControllerForSection:0]);
+    XCTAssertEqual(section2, [adapter sectionControllerForSection:1]);
+    XCTAssertEqual(section0, [adapter sectionControllerForSection:2]);
+}
+
+- (void)test_whenItemsInSectionAreInteractivelyReordered_thatIndexesUpdateCorrectly {
+    IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
+
+    IGListTestAdapterReorderingDataSource *dataSource = [IGListTestAdapterReorderingDataSource new];
+    dataSource.objects = @[@0];
+    adapter.dataSource = dataSource;
+
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
+                                                          collectionViewLayout:[UICollectionViewFlowLayout new]];
+    adapter.collectionView = collectionView;
+
+    NSArray *sectionObjects = @[@0, @1, @2];
+
+    IGTestReorderableSection *section = (IGTestReorderableSection *)[adapter sectionControllerForSection:0];
+    section.sectionObject = [IGTestReorderableSectionObject sectionWithObjects:sectionObjects];
+    section.isReorderable = YES;
+
+    [adapter performUpdatesAnimated:NO completion:nil];
+
+    NSIndexPath *fromIndexPath, *toIndexPath;
+
+    // move the last item into the first position
+    fromIndexPath = [NSIndexPath indexPathForItem:2 inSection:0];
+    toIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    [adapter collectionView:collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+
+    XCTAssertEqual(sectionObjects[2], section.sectionObject.objects[0]);
+    XCTAssertEqual(sectionObjects[0], section.sectionObject.objects[1]);
+    XCTAssertEqual(sectionObjects[1], section.sectionObject.objects[2]);
+
+    // move the last item into the middle position
+    fromIndexPath = [NSIndexPath indexPathForItem:2 inSection:0];
+    toIndexPath = [NSIndexPath indexPathForItem:1 inSection:0];
+    [adapter collectionView:collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+
+    XCTAssertEqual(sectionObjects[2], section.sectionObject.objects[0]);
+    XCTAssertEqual(sectionObjects[1], section.sectionObject.objects[1]);
+    XCTAssertEqual(sectionObjects[0], section.sectionObject.objects[2]);
+}
+
+- (void)test_whenItemsAreInteractivelyReorderedAcrossSections_thatIndexesRevertToOriginalState {
+    IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
+
+    IGListTestAdapterReorderingDataSource *dataSource = [IGListTestAdapterReorderingDataSource new];
+    dataSource.objects = @[@0, @1];
+    adapter.dataSource = dataSource;
+
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
+                                                          collectionViewLayout:[UICollectionViewFlowLayout new]];
+    adapter.collectionView = collectionView;
+
+    NSArray *section0Objects = @[@0, @1, @2];
+    NSArray *section1Objects = @[@3, @4, @5];
+
+    IGTestReorderableSection *section0 = (IGTestReorderableSection *)[adapter sectionControllerForSection:0];
+    section0.sectionObject = [IGTestReorderableSectionObject sectionWithObjects:section0Objects];
+    IGTestReorderableSection *section1 = (IGTestReorderableSection *)[adapter sectionControllerForSection:1];
+    section1.sectionObject = [IGTestReorderableSectionObject sectionWithObjects:section1Objects];
+    section1.isReorderable = YES;
+
+    [adapter performUpdatesAnimated:NO completion:nil];
+
+    NSIndexPath *fromIndexPath, *toIndexPath;
+
+    // move an item from section 1 to section 0 and check that they are reverted
+    fromIndexPath = [NSIndexPath indexPathForItem:0 inSection:1];
+    toIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+
+    [collectionView performBatchUpdates:^{
+        [collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+
+        [collectionView.dataSource collectionView:collectionView
+                              moveItemAtIndexPath:fromIndexPath
+                                      toIndexPath:toIndexPath];
+    } completion:nil];
+
+    XCTAssertEqual(section0Objects[0], section0.sectionObject.objects[0]);
+    XCTAssertEqual(section0Objects[1], section0.sectionObject.objects[1]);
+    XCTAssertEqual(section0Objects[2], section0.sectionObject.objects[2]);
+    XCTAssertEqual(section1Objects[0], section1.sectionObject.objects[0]);
+    XCTAssertEqual(section1Objects[1], section1.sectionObject.objects[1]);
+    XCTAssertEqual(section1Objects[2], section1.sectionObject.objects[2]);
 }
 
 @end
