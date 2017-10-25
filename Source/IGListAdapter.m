@@ -1179,7 +1179,9 @@
     [self updateBackgroundViewShouldHide:![self itemCountIsZero]];
 }
 
-- (void)moveSectionControllerInteractive:(IGListSectionController *)sectionController fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
+- (void)moveSectionControllerInteractive:(IGListSectionController *)sectionController
+                               fromIndex:(NSInteger)fromIndex
+                                 toIndex:(NSInteger)toIndex {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(fromIndex >= 0);
@@ -1190,11 +1192,20 @@
     
     if (fromIndex != toIndex) {
         id<IGListAdapterDataSource> dataSource = self.dataSource;
+
+        NSArray *previousObjects = [self.sectionMap objects];
+
+        NSMutableArray *mutObjects = [previousObjects mutableCopy];
+        id object = [previousObjects objectAtIndex:fromIndex];
+        [mutObjects removeObjectAtIndex:fromIndex];
+        [mutObjects insertObject:object atIndex:toIndex];
+
+        NSArray *objects = [mutObjects copy];
+
+        // inform the data source to update its model
+        [dataSource listAdapter:self moveObject:object from:previousObjects to:objects];
         
-        // inform the datasource to update its model
-        [dataSource listAdapter:self moveSectionAtIndex:fromIndex toIndex:toIndex];
-        
-        // update our model based on that provided by the datasource
+        // update our model based on that provided by the data source
         NSArray<id<IGListDiffable>> *updatedObjects = [dataSource objectsForListAdapter:self];
         [self updateObjects:updatedObjects dataSource:dataSource];
     }
@@ -1205,7 +1216,9 @@
     [self.updater moveSectionInCollectionView:collectionView fromIndex:fromIndex toIndex:toIndex];
 }
     
-- (void)moveInSectionControllerInteractive:(IGListSectionController *)sectionController fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
+- (void)moveInSectionControllerInteractive:(IGListSectionController *)sectionController
+                                 fromIndex:(NSInteger)fromIndex
+                                   toIndex:(NSInteger)toIndex {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(fromIndex >= 0);
@@ -1217,7 +1230,8 @@
     [sectionController moveObjectFromIndex:fromIndex toIndex:toIndex];
 }
 
-- (void)revertInvalidInteractiveMoveFromIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+- (void)revertInvalidInteractiveMoveFromIndexPath:(NSIndexPath *)sourceIndexPath
+                                      toIndexPath:(NSIndexPath *)destinationIndexPath {
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reverting move without a collection view from %@ to %@.",
              sourceIndexPath, destinationIndexPath);

@@ -64,13 +64,17 @@ NS_SWIFT_NAME(ListAdapterDataSource)
 @optional
     
 /**
- Notifies the datasource that a list object should move as the result of interactive reordering.
+ Asks the data source to move an section object as the result of interactive reordering.
  
  @param listAdapter The list adapter sending this information.
- @param sourceIndex The starting index of the object.
- @param destinationIndex The ending index of the object.
+ @param object the object that was moved
+ @param previousObjects The array of objects prior to the move.
+ @param objects The array of objects after the move.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter moveSectionAtIndex:(NSInteger)sourceIndex toIndex:(NSInteger)destinationIndex;
+- (void)listAdapter:(IGListAdapter *)listAdapter
+         moveObject:(id)object
+               from:(NSArray *)previousObjects
+                 to:(NSArray *)objects;
     
 @end
 

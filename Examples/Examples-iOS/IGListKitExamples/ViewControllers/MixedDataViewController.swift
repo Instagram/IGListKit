@@ -115,8 +115,7 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
 
-    func listAdapter(_ listAdapter: ListAdapter, moveSectionAt sourceIndex: Int, to destinationIndex: Int) {
-        let obj = data.remove(at: sourceIndex)
-        data.insert(obj, at: destinationIndex)
+    func listAdapter(_ listAdapter: ListAdapter, move object: Any, from previousObjects: [Any], to objects: [Any]) {
+        data = objects
     }
 }
