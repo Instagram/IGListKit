@@ -10,6 +10,8 @@
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
+#import <IGListKit/IGListKit.h>
+
 #import "IGListAdapterUpdaterInternal.h"
 #import "IGListTestUICollectionViewDataSource.h"
 
@@ -245,7 +247,7 @@
     __block NSInteger completionCounter = 0;
 
     XCTestExpectation *expectation1 = genExpectation;
-    void (^preUpdateBlock)() = ^{
+    void (^preUpdateBlock)(void) = ^{
         NSArray *anotherTo = @[
                                [IGSectionObject sectionWithObjects:@[]],
                                [IGSectionObject sectionWithObjects:@[]],
@@ -318,7 +320,7 @@
 }
 
 - (void)test_whenItemsMoveAndUpdate_thatCollectionViewWorks {
-    NSArray *from = @[
+    NSArray<IGSectionObject *> *from = @[
                       [IGSectionObject sectionWithObjects:@[]],
                       [IGSectionObject sectionWithObjects:@[]],
                       [IGSectionObject sectionWithObjects:@[]],
