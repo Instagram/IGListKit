@@ -19,7 +19,7 @@
 
 @property (nonatomic, assign) CGFloat height;
 
-@property (nonatomic, copy) void (^itemUpdateBlock)();
+@property (nonatomic, copy) void (^itemUpdateBlock)(void);
 @property (nonatomic, copy) void (^cellConfigureBlock)(IGTestDelegateController *);
 @property (nonatomic, assign, readonly) NSInteger updateCount;
 

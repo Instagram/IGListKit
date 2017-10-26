@@ -62,7 +62,6 @@ IGListBatchContext
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewIdentifiers;
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewNibNames;
 
-
 - (void)mapView:(__kindof UIView *)view toSectionController:(IGListSectionController *)sectionController;
 - (nullable IGListSectionController *)sectionControllerForView:(__kindof UIView *)view;
 - (void)removeMapForView:(__kindof UIView *)view;
