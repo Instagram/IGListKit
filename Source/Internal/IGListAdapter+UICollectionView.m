@@ -178,8 +178,8 @@
     IGAssert(![self.collectionViewDelegate respondsToSelector:_cmd], @"IGListAdapter is consuming method also implemented by the collectionViewDelegate: %@", NSStringFromSelector(_cmd));
     
     CGSize size = [self sizeForItemAtIndexPath:indexPath];
-    IGAssert(!isnan(size.height), @"IGListAdapter returned negative height %f for item at indexPath <%@>", size.height, indexPath);
-    IGAssert(!isnan(size.width), @"IGListAdapter returned negative width %f for item at indexPath <%@>", size.width, indexPath);
+    IGAssert(!isnan(size.height), @"IGListAdapter returned negative height = %f for item at indexPath <%@>", size.height, indexPath);
+    IGAssert(!isnan(size.width), @"IGListAdapter returned negative width = %f for item at indexPath <%@>", size.width, indexPath);
     
     return size;
 }
