@@ -111,7 +111,7 @@ Both `shayne` and `ann` represent the same *unique* data because they share the 
 To represent this in `IGListKit`'s diffing, add and implement the `IGListDiffable` protocol:
 
 ```swift
-extension User: IGListDiffable {
+extension User: ListDiffable {
   func diffIdentifier() -> NSObjectProtocol {
     return primaryKey
   }

@@ -53,7 +53,7 @@
     }
 
     id<IGListAdapterUpdaterDelegate> delegate = self.delegate;
-    void (^reloadUpdates)() = self.reloadUpdates;
+    void (^reloadUpdates)(void) = self.reloadUpdates;
     IGListBatchUpdates *batchUpdates = self.batchUpdates;
     NSMutableArray *completionBlocks = [self.completionBlocks mutableCopy];
 
@@ -115,7 +115,7 @@
     // clean up all state so that new updates can be coalesced while the current update is in flight
     [self cleanStateBeforeUpdates];
 
-    void (^executeUpdateBlocks)() = ^{
+    void (^executeUpdateBlocks)(void) = ^{
         self.state = IGListBatchUpdateStateExecutingBatchUpdateBlock;
 
         // run the update block so that the adapter can set its items. this makes sure that just before the update is
@@ -148,7 +148,7 @@
         }
     };
 
-    void (^reloadDataFallback)() = ^{
+    void (^reloadDataFallback)(void) = ^{
         executeUpdateBlocks();
         [self cleanStateAfterUpdates];
         [self performBatchUpdatesItemBlockApplied];
@@ -171,7 +171,7 @@
 
     const IGListExperiment experiments = self.experiments;
 
-    IGListIndexSetResult *(^performDiff)() = ^{
+    IGListIndexSetResult *(^performDiff)(void) = ^{
         return IGListDiffExperiment(fromObjects, toObjects, IGListDiffEquality, experiments);
     };
 
@@ -446,7 +446,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
 
 - (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
                                animated:(BOOL)animated
-                            itemUpdates:(void (^)())itemUpdates
+                            itemUpdates:(void (^)(void))itemUpdates
                              completion:(void (^)(BOOL))completion {
     IGAssertMainThread();
     IGParameterAssert(collectionView != nil);

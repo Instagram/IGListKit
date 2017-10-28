@@ -31,11 +31,11 @@ typedef void (^IGListObjectTransitionBlock)(NSArray *toObjects);
 
 /// A block that contains all of the updates.
 NS_SWIFT_NAME(ListItemUpdateBlock)
-typedef void (^IGListItemUpdateBlock)();
+typedef void (^IGListItemUpdateBlock)(void);
 
 /// A block to be called when an adapter reloads the collection view.
 NS_SWIFT_NAME(ListReloadUpdateBlock)
-typedef void (^IGListReloadUpdateBlock)();
+typedef void (^IGListReloadUpdateBlock)(void);
 
 /**
  Implement this protocol in order to handle both section and row based update events. Implementation should forward or
