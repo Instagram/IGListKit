@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		07C17786BCC6ABD68C8BFA69 /* Pods_IGListKitTodayExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DEF56A3C9C414B461D113F /* Pods_IGListKitTodayExample.framework */; };
+		13BD88281FA3C630001BA5F5 /* PrefixedLabelSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BD88271FA3C630001BA5F5 /* PrefixedLabelSectionController.swift */; };
 		13DF01681F9D9CBD0092A320 /* ReorderableSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DF01671F9D9CBD0092A320 /* ReorderableSectionController.swift */; };
 		13DF016A1F9D9F600092A320 /* ReorderableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DF01691F9D9F600092A320 /* ReorderableViewController.swift */; };
+		13DF01811FA391740092A320 /* ReorderableStackedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DF01801FA391740092A320 /* ReorderableStackedViewController.swift */; };
 		26271C8E1DAE9D3F0073E116 /* SingleSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26271C8D1DAE9D3F0073E116 /* SingleSectionViewController.swift */; };
 		26271C921DAE9EFC0073E116 /* NibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26271C911DAE9EFC0073E116 /* NibCell.xib */; };
 		26271C941DAE9F050073E116 /* NibCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26271C931DAE9F050073E116 /* NibCell.swift */; };
@@ -140,8 +142,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		13BD88271FA3C630001BA5F5 /* PrefixedLabelSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefixedLabelSectionController.swift; sourceTree = "<group>"; };
 		13DF01671F9D9CBD0092A320 /* ReorderableSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReorderableSectionController.swift; sourceTree = "<group>"; };
 		13DF01691F9D9F600092A320 /* ReorderableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReorderableViewController.swift; sourceTree = "<group>"; };
+		13DF01801FA391740092A320 /* ReorderableStackedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReorderableStackedViewController.swift; sourceTree = "<group>"; };
 		26271C8D1DAE9D3F0073E116 /* SingleSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleSectionViewController.swift; sourceTree = "<group>"; };
 		26271C911DAE9EFC0073E116 /* NibCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NibCell.xib; sourceTree = "<group>"; };
 		26271C931DAE9F050073E116 /* NibCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibCell.swift; sourceTree = "<group>"; };
@@ -335,6 +339,7 @@
 				292658631E74A2550041B56D /* MonthSectionController.swift */,
 				295D8A981E92EC96001F7C06 /* PostSectionController.h */,
 				295D8A991E92EC96001F7C06 /* PostSectionController.m */,
+				13BD88271FA3C630001BA5F5 /* PrefixedLabelSectionController.swift */,
 				2942FF891D9F39E00015D24B /* RemoveSectionController.swift */,
 				13DF01671F9D9CBD0092A320 /* ReorderableSectionController.swift */,
 				2942FF8A1D9F39E00015D24B /* SearchSectionController.swift */,
@@ -402,6 +407,7 @@
 				2991F9231D7BB89F00B0C58F /* NestedAdapterViewController.swift */,
 				56C05B671E49B2120026DB39 /* ObjcDemoViewController.h */,
 				56C05B681E49B2120026DB39 /* ObjcDemoViewController.m */,
+				13DF01801FA391740092A320 /* ReorderableStackedViewController.swift */,
 				13DF01691F9D9F600092A320 /* ReorderableViewController.swift */,
 				299B53FF1D6BD6630074A202 /* SearchViewController.swift */,
 				296DD7521DD2147500206780 /* SelfSizingCellsViewController.swift */,
@@ -860,6 +866,7 @@
 				82D91B691DBA0EF300E62758 /* SingleSectionStoryboardViewController.swift in Sources */,
 				29D2E4AF1DD69C0E00CD255D /* DisplayViewController.swift in Sources */,
 				2942FF911D9F39E00015D24B /* LabelSectionController.swift in Sources */,
+				13BD88281FA3C630001BA5F5 /* PrefixedLabelSectionController.swift in Sources */,
 				295D8A9D1E92ECDE001F7C06 /* Post.m in Sources */,
 				29F7E2AD1E92843A00197586 /* IncrementAnnouncer.swift in Sources */,
 				2981BA391DB874BB00A987F9 /* WorkingRangeViewController.swift in Sources */,
@@ -880,6 +887,7 @@
 				2942FF941D9F39E00015D24B /* UserSectionController.swift in Sources */,
 				29459C001DBE48E200F05375 /* DiffTableViewController.swift in Sources */,
 				2991F92C1D7BBE5400B0C58F /* RemoveCell.swift in Sources */,
+				13DF01811FA391740092A320 /* ReorderableStackedViewController.swift in Sources */,
 				2942FF8D1D9F39E00015D24B /* EmbeddedSectionController.swift in Sources */,
 				29C6297B1DCFD857004A5BB1 /* SupplementaryViewController.swift in Sources */,
 				296DD7551DD2150600206780 /* SelfSizingSectionController.swift in Sources */,

@@ -55,7 +55,7 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
         navigationItem.titleView = control
 
         if #available(iOS 9.0, *) {
-            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ReorderableViewController.handleLongGesture(gesture:)))
+            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(MixedDataViewController.handleLongGesture(gesture:)))
             collectionView.addGestureRecognizer(longPressGesture)
         }
 

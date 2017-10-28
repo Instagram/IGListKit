@@ -12,6 +12,7 @@
 #import <IGListKit/IGListAdapterInternal.h>
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListSectionController.h>
+#import <IGListKit/IGListSectionControllerInternal.h>
 
 @implementation IGListAdapter (UICollectionView)
 
@@ -66,7 +67,10 @@
     return [sectionController canMoveItemAtIndex:itemIndex];
 }
     
-- (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+- (void)collectionView:(UICollectionView *)collectionView
+   moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath
+           toIndexPath:(NSIndexPath *)destinationIndexPath {
+    
     const NSInteger sourceItemIndex = sourceIndexPath.item;
     const NSInteger destinationItemIndex = destinationIndexPath.item;
     const NSInteger sourceSectionIndex = sourceIndexPath.section;
@@ -77,9 +81,16 @@
     
     // this is a move within a section
     if (sourceSectionController == destinationSectionController) {
-        [self moveInSectionControllerInteractive:sourceSectionController
-                                       fromIndex:sourceItemIndex
-                                         toIndex:destinationItemIndex];
+        
+        if ([sourceSectionController canMoveItemAtIndex:sourceItemIndex toIndex:destinationItemIndex]) {
+            [self moveInSectionControllerInteractive:sourceSectionController
+                                           fromIndex:sourceItemIndex
+                                             toIndex:destinationItemIndex];
+        } else {
+            // otherwise this is a move of an _item_ from one section to another section
+            // we need to revert the change as it's too late to cancel
+            [self revertInvalidInteractiveMoveFromIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+        }
         return;
     }
     

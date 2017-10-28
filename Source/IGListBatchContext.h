@@ -92,11 +92,11 @@ NS_SWIFT_NAME(ListBatchContext)
 /**
  Reverts an move from one indexPath to another during interactive reordering.
  
- @param fromIndexPath The indexPath the item was originally in.
- @param toIndexPath The indexPath the item was moving to.
+ @param sourceIndexPath The indexPath the item was originally in.
+ @param destinationIndexPath The indexPath the item was moving to.
  */
-- (void)revertInvalidInteractiveMoveFromIndexPath:(NSIndexPath *)fromIndexPath
-                                      toIndexPath:(NSIndexPath *)toIndexPath;
+- (void)revertInvalidInteractiveMoveFromIndexPath:(NSIndexPath *)sourceIndexPath
+                                      toIndexPath:(NSIndexPath *)destinationIndexPath;
 @end
 
 NS_ASSUME_NONNULL_END
