@@ -183,15 +183,13 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     [sectionController didUnhighlightItemAtIndex:localIndex];
 }
 
-- (BOOL)canMoveItemAtIndex:(NSInteger)index
-{
+- (BOOL)canMoveItemAtIndex:(NSInteger)index {
     IGListSectionController *sectionController = [self sectionControllerForObjectIndex:index];
     const NSInteger localIndex = [self localIndexForSectionController:sectionController index:index];
     return [sectionController canMoveItemAtIndex:localIndex];
 }
 
-- (BOOL)canMoveItemAtIndex:(NSInteger)sourceItemIndex toIndex:(NSInteger)destinationItemIndex
-{
+- (BOOL)canMoveItemAtIndex:(NSInteger)sourceItemIndex toIndex:(NSInteger)destinationItemIndex {
     IGListSectionController *sourceSectionController = [self sectionControllerForObjectIndex:sourceItemIndex];
     IGListSectionController *destinationSectionController = [self sectionControllerForObjectIndex:destinationItemIndex];
 

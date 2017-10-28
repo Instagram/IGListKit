@@ -7,20 +7,27 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGListTestAdapterReorderingDataSource.h"
+#import "IGListTestAdapterStackedReorderingDataSource.h"
 
 #import <IGListKit/IGListAdapter.h>
 
 #import "IGTestReorderableSection.h"
 
-@implementation IGListTestAdapterReorderingDataSource
+@implementation IGListTestAdapterStackedReorderingDataSource
+
+- (instancetype)initWithSectionControllers:(NSArray<IGListSectionController *> *)sections {
+    if (self = [super init]) {
+        _sectionControllers = sections;
+    }
+    return self;
+}
 
 - (NSArray *)objectsForListAdapter:(IGListAdapter *)listAdapter {
     return self.objects;
 }
 
 - (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
-    return [IGTestReorderableSection new];
+    return [[IGListStackedSectionController alloc] initWithSectionControllers:self.sectionControllers];
 }
 
 - (void)listAdapter:(IGListAdapter *)listAdapter
@@ -35,3 +42,4 @@
 }
 
 @end
+

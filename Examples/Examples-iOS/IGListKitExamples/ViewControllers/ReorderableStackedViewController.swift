@@ -107,7 +107,7 @@ final class ReorderableStackedViewController: UIViewController, ListAdapterDataS
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        let sectionController = ReorderableListStackedSectionController(sectionControllers: [
+        let sectionController = ListStackedSectionController(sectionControllers: [
             PrefixedLabelSectionController(prefix: "🔤", group: 1),
             PrefixedLabelSectionController(prefix: "🔢", group: 2)
         ])
@@ -120,11 +120,5 @@ final class ReorderableStackedViewController: UIViewController, ListAdapterDataS
     func listAdapter(_ listAdapter: ListAdapter, move object: Any, from previousObjects: [Any], to objects: [Any]) {
         guard let objects = objects as? [ListDiffable] else { return }
         data = objects
-    }
-}
-
-final class ReorderableListStackedSectionController: ListStackedSectionController {
-    override func canMoveItem(at index: Int) -> Bool {
-        return true
     }
 }
