@@ -1223,9 +1223,6 @@
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(fromIndex >= 0);
     IGParameterAssert(toIndex >= 0);
-    UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Moving items from %@ without a collection view from index %zi to index %zi.",
-             sectionController, fromIndex, toIndex);
     
     [sectionController moveObjectFromIndex:fromIndex toIndex:toIndex];
 }
