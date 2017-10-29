@@ -749,10 +749,11 @@
 }
 
 - (void)exitBatchUpdates {
-    for (void (^block)(void) in _queuedCompletionBlocks) {
+    NSArray *blocks = [_queuedCompletionBlocks copy];
+    _queuedCompletionBlocks = nil;
+    for (void (^block)(void) in blocks) {
         block();
     }
-    _queuedCompletionBlocks = nil;
 }
 
 #pragma mark - UIScrollViewDelegate
