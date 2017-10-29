@@ -16,6 +16,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Fixes
 
+- Duplicate objects for initial data source setup filtered out. [Mikhail Vashlyaev](https://github.com/yemodin) [(#993](https://github.com/Instagram/IGListKit/pull/993)
+
 - Weakly reference the `UICollectionView` in coalescence so that it can be released if the rest of system is destroyed. [Ryan Nystrom](https://github.com/rnystrom) [(#tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
 
 - Fix bug with `-[IGListAdapter scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:animated:]` where the content inset of the collection view was incorrectly being applied to the final offset. [Ryan Nystrom](https://github.com/rnystrom) [(#tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
