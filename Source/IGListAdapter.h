@@ -262,8 +262,18 @@ NS_SWIFT_NAME(ListAdapter)
 - (CGSize)sizeForSupplementaryViewOfKind:(NSString *)elementKind
                              atIndexPath:(NSIndexPath *)indexPath;
 
+/**
+ Adds a listener to the list adapter.
+
+ @param updateListener The object conforming to the `IGListAdapterUpdateListener` protocol.
+ */
 - (void)addUpdateListener:(id<IGListAdapterUpdateListener>)updateListener;
 
+/**
+ Removes a listener from the list adapter.
+
+ @param updateListener The object conforming to the `IGListAdapterUpdateListener` protocol.
+ */
 - (void)removeUpdateListener:(id<IGListAdapterUpdateListener>)updateListener;
 
 /**
