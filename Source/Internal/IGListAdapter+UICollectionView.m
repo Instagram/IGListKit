@@ -13,6 +13,7 @@
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListSectionController.h>
 #import <IGListKit/IGListSectionControllerInternal.h>
+#import <IGListKit/UICollectionViewLayout+InteractiveReordering.h>
 
 @implementation IGListAdapter (UICollectionView)
 
@@ -71,10 +72,10 @@
    moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath
            toIndexPath:(NSIndexPath *)destinationIndexPath {
     
+    const NSInteger sourceSectionIndex = sourceIndexPath.section;
+    const NSInteger destinationSectionIndex = destinationIndexPath.section;
     const NSInteger sourceItemIndex = sourceIndexPath.item;
     const NSInteger destinationItemIndex = destinationIndexPath.item;
-    const NSInteger sourceSectionIndex = sourceIndexPath.section;
-    NSInteger destinationSectionIndex = destinationIndexPath.section;
     
     IGListSectionController *sourceSectionController = [self sectionControllerForSection:sourceSectionIndex];
     IGListSectionController *destinationSectionController = [self sectionControllerForSection:destinationSectionIndex];
@@ -95,21 +96,8 @@
     }
     
     // this is a reordering of sections themselves
-    if ([sourceSectionController numberOfItems] == 1
-        && [destinationSectionController numberOfItems] == 1) {
+    if ([sourceSectionController numberOfItems] == 1 && [destinationSectionController numberOfItems] == 1) {
 
-        if (destinationItemIndex == 0 && destinationSectionIndex > sourceSectionIndex) {
-            // the "item" representing our section was dropped
-            // into the beginning of a destination section rather than the end
-            // so it really belongs one section before the section where it landed
-            destinationSectionIndex -= 1;
-        } else if (destinationItemIndex == 1 && destinationSectionIndex < sourceSectionIndex) {
-            // the "item" representing our section was dropped
-            // into the end of a destination section rather than the beginning
-            // so it really belongs one section after the section where it landed
-            destinationSectionIndex += 1;
-        }
-        
         // perform view changes in the collection view
         [self moveSectionControllerInteractive:sourceSectionController
                                      fromIndex:sourceSectionIndex

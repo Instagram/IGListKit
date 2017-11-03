@@ -45,6 +45,9 @@ IGListBatchContext
 
 @property (nonatomic, strong, nullable) UIView *emptyBackgroundView;
 
+// we need to special case interactive section moves that are moved to the last position
+@property (nonatomic) BOOL isLastInteractiveMoveToLastSectionIndex;
+
 /**
  When making object updates inside a batch update block, delete operations must use the section /before/ any moves take
  place. This includes when other objects are deleted or inserted ahead of the section controller making the mutations.

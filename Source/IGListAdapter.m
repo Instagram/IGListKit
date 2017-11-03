@@ -15,6 +15,7 @@
 
 #import "IGListSectionControllerInternal.h"
 #import "IGListDebugger.h"
+#import "UICollectionViewLayout+InteractiveReordering.h"
 
 @implementation IGListAdapter {
     NSMapTable<UICollectionReusableView *, IGListSectionController *> *_viewSectionControllerMap;
@@ -105,6 +106,7 @@
             _collectionView.prefetchingEnabled = NO;
         }
 
+        [_collectionView.collectionViewLayout ig_hijackLayoutInteractiveReorderingMethodForAdapter:self];
         [_collectionView.collectionViewLayout invalidateLayout];
 
         [self updateCollectionViewDelegate];
@@ -1194,6 +1196,13 @@
         id<IGListAdapterDataSource> dataSource = self.dataSource;
 
         NSArray *previousObjects = [self.sectionMap objects];
+
+        if (self.isLastInteractiveMoveToLastSectionIndex) {
+            self.isLastInteractiveMoveToLastSectionIndex = NO;
+        }
+        else if (fromIndex < toIndex) {
+            toIndex -= 1;
+        }
 
         NSMutableArray *mutObjects = [previousObjects mutableCopy];
         id object = [previousObjects objectAtIndex:fromIndex];
