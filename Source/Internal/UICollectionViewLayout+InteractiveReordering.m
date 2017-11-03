@@ -102,7 +102,6 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
             }
             NSIndexPath *updatedTarget = [NSIndexPath indexPathForItem:destinationItemIndex
                                                              inSection:destinationSectionIndex];
-            NSLog(@"Returning updated: %@", updatedTarget);
             return updatedTarget;
         }
     }
