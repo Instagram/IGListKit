@@ -1491,9 +1491,18 @@
     XCTAssertEqual(collectionView1.dataSource, adapter2);
 }
 
-- (void)test_whenPassingNonUniqueIdentifiers_adapterShouldSkipDuplicates {
+- (void)test_whenPassingNonUniqueIdentifiers_adapterReloadShouldSkipDuplicates {
     self.dataSource.objects = @[@0, @1, @2, @0];
+    self.dataSource.objects = @[@1, @0, @2, @0];
     [self.adapter reloadDataWithCompletion:nil];
+
+    XCTAssertEqual(self.adapter.objects.count, 3);
+}
+
+- (void)test_whenPassingNonUniqueIdentifiers_adapterUpdatesShouldSkipDuplicates {
+    self.dataSource.objects = @[@0, @1, @2, @0];
+    self.dataSource.objects = @[@1, @0, @2, @0];
+    [self.adapter performUpdatesAnimated:YES completion:nil];
 
     XCTAssertEqual(self.adapter.objects.count, 3);
 }

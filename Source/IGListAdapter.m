@@ -144,7 +144,8 @@
 - (void)updateAfterPublicSettingsChange {
     id<IGListAdapterDataSource> dataSource = _dataSource;
     if (_collectionView != nil && dataSource != nil) {
-        [self updateObjects:[[dataSource objectsForListAdapter:self] copy] dataSource:dataSource];
+        NSArray *uniqueObjects = objectsWithDuplicateIdentifiersRemoved([dataSource objectsForListAdapter:self]);
+        [self updateObjects:uniqueObjects dataSource:dataSource];
     }
 }
 
@@ -320,14 +321,14 @@
     }
 
     NSArray *fromObjects = self.sectionMap.objects;
-    NSArray *newObjects = [dataSource objectsForListAdapter:self];
+    NSArray *uniqueObjects = objectsWithDuplicateIdentifiersRemoved([dataSource objectsForListAdapter:self]);
 
     [self enterBatchUpdates];
 
     __weak __typeof__(self) weakSelf = self;
     [self.updater performUpdateWithCollectionView:collectionView
                                       fromObjects:fromObjects
-                                        toObjects:newObjects
+                                        toObjects:uniqueObjects
                                          animated:animated
                             objectTransitionBlock:^(NSArray *toObjects) {
                                 // temporarily capture the item map that we are transitioning from in case
@@ -360,13 +361,13 @@
         return;
     }
 
-    NSArray *newItems = [[dataSource objectsForListAdapter:self] copy];
+    NSArray *uniqueObjects = objectsWithDuplicateIdentifiersRemoved([dataSource objectsForListAdapter:self]);
 
     __weak __typeof__(self) weakSelf = self;
     [self.updater reloadDataWithCollectionView:collectionView reloadUpdateBlock:^{
         // purge all section controllers from the item map so that they are regenerated
         [weakSelf.sectionMap reset];
-        [weakSelf updateObjects:newItems dataSource:dataSource];
+        [weakSelf updateObjects:uniqueObjects dataSource:dataSource];
     } completion:^(BOOL finished) {
         [weakSelf notifyDidUpdate:IGListAdapterUpdateTypeReloadData animated:NO];
         if (completion) {
@@ -569,8 +570,6 @@
     }
 #endif
 
-    NSArray *uniqueObjects = objectsWithDuplicateIdentifiersRemoved(objects);
-
     NSMutableArray<IGListSectionController *> *sectionControllers = [NSMutableArray new];
     NSMutableArray *validObjects = [NSMutableArray new];
 
@@ -583,7 +582,7 @@
     // for IGListSectionController subclasses after calling [super init]
     IGListSectionControllerPushThread(self.viewController, self);
 
-    for (id object in uniqueObjects) {
+    for (id object in objects) {
         // infra checks to see if a controller exists
         IGListSectionController *sectionController = [map sectionControllerForObject:object];
 
