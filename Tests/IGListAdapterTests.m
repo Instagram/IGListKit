@@ -1493,7 +1493,6 @@
 
 - (void)test_whenPassingNonUniqueIdentifiers_adapterReloadShouldSkipDuplicates {
     self.dataSource.objects = @[@0, @1, @2, @0];
-    self.dataSource.objects = @[@1, @0, @2, @0];
     [self.adapter reloadDataWithCompletion:nil];
 
     XCTAssertEqual(self.adapter.objects.count, 3);
