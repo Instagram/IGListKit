@@ -109,4 +109,10 @@
     [self.selectionDelegate didSelectSectionController:self withObject:self.item];
 }
 
+- (void)didDeselectItemAtIndex:(NSInteger)index {
+    if ([self.selectionDelegate respondsToSelector:@selector(didDeselectSectionController:withObject:)]) {
+        [self.selectionDelegate didDeselectSectionController:self withObject:self.item];
+    }
+}
+
 @end
