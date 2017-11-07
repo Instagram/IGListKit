@@ -10,9 +10,8 @@
 #import <XCTest/XCTest.h>
 
 #import <IGListKit/IGListKit.h>
-
-#import "IGListMoveIndexInternal.h"
-#import "IGListMoveIndexPathInternal.h"
+#import <IGListKit/IGListMoveIndexInternal.h>
+#import <IGListKit/IGListMoveIndexPathInternal.h>
 
 @interface IGListDiffResultTests : XCTestCase
 

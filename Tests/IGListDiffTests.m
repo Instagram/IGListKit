@@ -14,10 +14,10 @@
 
 #import <IGListKit/IGListDiff.h>
 #import <IGListKit/IGListExperiments.h>
+#import <IGListKit/IGListIndexSetResultInternal.h>
+#import <IGListKit/IGListMoveIndexInternal.h>
+#import <IGListKit/IGListMoveIndexPathInternal.h>
 
-#import "IGListIndexSetResultInternal.h"
-#import "IGListMoveIndexInternal.h"
-#import "IGListMoveIndexPathInternal.h"
 #import "IGTestObject.h"
 
 #define genIndexPath(i, s) [NSIndexPath indexPathForItem:i inSection:s]
