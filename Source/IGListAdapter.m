@@ -321,14 +321,14 @@
     }
 
     NSArray *fromObjects = self.sectionMap.objects;
-    NSArray *uniqueObjects = objectsWithDuplicateIdentifiersRemoved([dataSource objectsForListAdapter:self]);
+    NSArray *newObjects = [dataSource objectsForListAdapter:self];
 
     [self enterBatchUpdates];
 
     __weak __typeof__(self) weakSelf = self;
     [self.updater performUpdateWithCollectionView:collectionView
                                       fromObjects:fromObjects
-                                        toObjects:uniqueObjects
+                                        toObjects:newObjects
                                          animated:animated
                             objectTransitionBlock:^(NSArray *toObjects) {
                                 // temporarily capture the item map that we are transitioning from in case
