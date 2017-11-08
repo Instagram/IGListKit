@@ -50,11 +50,11 @@ final class MessagesViewController: MSMessagesAppViewController, ListAdapterData
         return data as [ListDiffable]
     }
 
-	func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: ListDiffable) -> ListSectionController {
-		return LabelSectionController()
-	}
-	
-	func emptyView(for listAdapter: ListAdapter) -> UIView? {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: ListDiffable) -> ListSectionController {
+        return LabelSectionController()
+    }
+
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }
 }

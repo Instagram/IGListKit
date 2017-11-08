@@ -32,6 +32,6 @@ final class LabelSectionController: ListSectionController {
     }
 
 	override func didUpdate(to object: ListDiffable) {
-		self.object = String(describing: object)
-	}
+        self.object = String(describing: object)
+    }
 }
