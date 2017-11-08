@@ -49,7 +49,7 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
         return cell
     }
 
-    override func didUpdate(to object: Any) {
+    override func didUpdate(to object: ListDiffable) {
         number = object as? Int
     }
 
@@ -60,7 +60,7 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
         return (0..<number).map { $0 as ListDiffable }
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: ListDiffable) -> ListSectionController {
         return CarouselSectionController()
     }
 

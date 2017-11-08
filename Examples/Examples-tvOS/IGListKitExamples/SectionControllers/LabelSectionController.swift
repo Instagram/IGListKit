@@ -35,7 +35,7 @@ final class LabelSectionController: ListSectionController {
         return cell
     }
 
-    override func didUpdate(to object: Any) {
+    override func didUpdate(to object: ListDiffable) {
         self.object = String(describing: object)
     }
 

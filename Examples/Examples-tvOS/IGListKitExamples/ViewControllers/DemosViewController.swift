@@ -46,7 +46,7 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
         return demos
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: ListDiffable) -> ListSectionController {
         return DemoSectionController()
     }
 
