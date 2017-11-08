@@ -14,6 +14,7 @@
 #import <IGListKit/IGListScrollDelegate.h>
 #import <IGListKit/IGListSupplementaryViewSource.h>
 #import <IGListKit/IGListWorkingRangeDelegate.h>
+#import <IGListKit/IGListDiffable.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -70,7 +71,7 @@ NS_SWIFT_NAME(ListSectionController)
  controller. This method will only be called when the object instance has changed, including from `nil` or a previous
  object. **Calling super is not required.**
  */
-- (void)didUpdateToObject:(id)object;
+- (void)didUpdateToObject:(id<IGListDiffable>)object;
 
 /**
  Tells the section controller that the cell at the specified index path was selected.

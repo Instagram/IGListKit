@@ -31,7 +31,7 @@ NS_SWIFT_NAME(ListBindingSectionControllerDataSource)
  @return A new array of view models.
  */
 - (NSArray<id<IGListDiffable>> *)sectionController:(IGListBindingSectionController *)sectionController
-                               viewModelsForObject:(id)object;
+                               viewModelsForObject:(id<IGListDiffable>)object;
 
 /**
  Return a dequeued cell for a given view model.

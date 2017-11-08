@@ -319,7 +319,7 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     return updateData;
 }
 
-- (void)beginPerformBatchUpdatesToObjects:(NSArray *)toObjects {
+- (void)beginPerformBatchUpdatesToObjects:(NSArray<id<IGListDiffable>> *)toObjects {
     self.pendingTransitionToObjects = toObjects;
     self.state = IGListBatchUpdateStateQueuedBatchUpdate;
 }
@@ -403,10 +403,10 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
 }
 
 - (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
-                            fromObjects:(nullable NSArray *)fromObjects
-                              toObjects:(nullable NSArray *)toObjects
+                            fromObjects:(nullable NSArray<id<IGListDiffable>> *)fromObjects
+                              toObjects:(nullable NSArray<id<IGListDiffable>> *)toObjects
                                animated:(BOOL)animated
-                  objectTransitionBlock:(void (^)(NSArray *))objectTransitionBlock
+                  objectTransitionBlock:(void (^)(NSArray<id<IGListDiffable>> *))objectTransitionBlock
                              completion:(nullable void (^)(BOOL))completion {
     IGAssertMainThread();
     IGParameterAssert(collectionView != nil);

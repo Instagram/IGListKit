@@ -146,7 +146,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     return [sectionController cellForItemAtIndex:localIndex];
 }
 
-- (void)didUpdateToObject:(id)object {
+- (void)didUpdateToObject:(id<IGListDiffable>)object {
     for (IGListSectionController *sectionController in self.sectionControllers) {
         sectionController.section = self.section;
         [sectionController didUpdateToObject:object];

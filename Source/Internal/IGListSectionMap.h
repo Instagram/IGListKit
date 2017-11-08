@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 
 #import <IGListKit/IGListMacros.h>
+#import <IGListKit/IGListDiffable.h>
 
 @class IGListSectionController;
 
@@ -30,7 +31,7 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  The objects stored in the map.
  */
-@property (nonatomic, strong, readonly) NSArray *objects;
+@property (nonatomic, strong, readonly) NSArray<id<IGListDiffable>> *objects;
 
 /**
  Update the map with objects and the section controller counterparts.
@@ -38,7 +39,7 @@ IGLK_SUBCLASSING_RESTRICTED
  @param objects The objects in the collection.
  @param sectionControllers The section controllers that map to each object.
  */
-- (void)updateWithObjects:(NSArray <id <NSObject>> *)objects sectionControllers:(NSArray <IGListSectionController *> *)sectionControllers;
+- (void)updateWithObjects:(NSArray<id<IGListDiffable>> *)objects sectionControllers:(NSArray <IGListSectionController *> *)sectionControllers;
 
 /**
  Fetch a section controller given a section.
@@ -56,7 +57,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return The object corresponding to the section.
  */
-- (nullable id)objectForSection:(NSInteger)section;
+- (nullable id<IGListDiffable>)objectForSection:(NSInteger)section;
 
 /**
  Fetch a section controller given an object. Can return nil.
@@ -65,7 +66,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return A section controller.
  */
-- (nullable id)sectionControllerForObject:(id)object;
+- (nullable id)sectionControllerForObject:(id<IGListDiffable>)object;
 
 /**
  Look up the section index for a section controller.
@@ -83,7 +84,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return The section index of the given object if it exists, NSNotFound otherwise.
  */
-- (NSInteger)sectionForObject:(id)object;
+- (NSInteger)sectionForObject:(id<IGListDiffable>)object;
 
 /**
  Remove all saved objects and section controllers.
@@ -93,14 +94,14 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  Update an object with a new instance.
  */
-- (void)updateObject:(id)object;
+- (void)updateObject:(id<IGListDiffable>)object;
 
 /**
  Applies a given block object to the entries of the section controller map.
 
  @param block A block object to operate on entries in the section controller map.
  */
-- (void)enumerateUsingBlock:(void (^)(id object, IGListSectionController *sectionController, NSInteger section, BOOL *stop))block;
+- (void)enumerateUsingBlock:(void (^)(id<IGListDiffable> object, IGListSectionController *sectionController, NSInteger section, BOOL *stop))block;
 
 /**
  :nodoc:

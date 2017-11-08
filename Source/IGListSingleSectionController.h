@@ -51,7 +51,7 @@ NS_SWIFT_NAME(ListSingleSectionControllerDelegate)
  @param object The model for the given section.
  */
 - (void)didSelectSectionController:(IGListSingleSectionController *)sectionController
-                        withObject:(id)object;
+                        withObject:(id<IGListDiffable>)object;
 
 @end
 

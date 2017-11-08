@@ -26,8 +26,8 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 
 @interface IGListAdapterUpdater ()
 
-@property (nonatomic, copy, nullable) NSArray *fromObjects;
-@property (nonatomic, copy, nullable) NSArray *toObjects;
+@property (nonatomic, copy, nullable) NSArray<id<IGListDiffable>> *fromObjects;
+@property (nonatomic, copy, nullable) NSArray<id<IGListDiffable>> *toObjects;
 @property (nonatomic, copy, nullable) NSArray *pendingTransitionToObjects;
 @property (nonatomic, strong) NSMutableArray<IGListUpdatingCompletion> *completionBlocks;
 

@@ -139,7 +139,7 @@ NS_SWIFT_NAME(ListAdapter)
 
  @param objects The objects to reload.
  */
-- (void)reloadObjects:(NSArray *)objects;
+- (void)reloadObjects:(NSArray<id <IGListDiffable>>*)objects;
 
 /**
  Query the section controller at a given section index. Constant time lookup.
@@ -168,7 +168,7 @@ NS_SWIFT_NAME(ListAdapter)
 
  @see `-[IGListAdapterDataSource listAdapter:sectionControllerForObject:]`
  */
-- (__kindof IGListSectionController * _Nullable)sectionControllerForObject:(id)object;
+- (__kindof IGListSectionController * _Nullable)sectionControllerForObject:(id<IGListDiffable>)object;
 
 /**
  Returns the object corresponding to the specified section controller in the list. Constant time lookup.
@@ -177,7 +177,7 @@ NS_SWIFT_NAME(ListAdapter)
  
  @return The object for the specified section controller, or `nil` if not found.
  */
-- (nullable id)objectForSectionController:(IGListSectionController *)sectionController;
+- (nullable id<IGListDiffable>)objectForSectionController:(IGListSectionController *)sectionController;
 
 /**
  Returns the object corresponding to a section in the list. Constant time lookup.
@@ -186,7 +186,7 @@ NS_SWIFT_NAME(ListAdapter)
 
  @return The object for the specified section, or `nil` if the section does not exist.
  */
-- (nullable id)objectAtSection:(NSInteger)section;
+- (nullable id<IGListDiffable>)objectAtSection:(NSInteger)section;
 
 /**
  Returns the section corresponding to the specified object in the list. Constant time lookup.
@@ -195,14 +195,14 @@ NS_SWIFT_NAME(ListAdapter)
 
  @return The section index of `object` if found, otherwise `NSNotFound`.
  */
-- (NSInteger)sectionForObject:(id)object;
+- (NSInteger)sectionForObject:(id<IGListDiffable>)object;
 
 /**
  Returns a copy of all the objects currently driving the adapter.
 
  @return An array of objects.
  */
-- (NSArray *)objects;
+- (NSArray<id<IGListDiffable>> *)objects;
 
 /**
  An unordered array of the currently visible section controllers.
@@ -216,7 +216,7 @@ NS_SWIFT_NAME(ListAdapter)
 
  @return An array of objects
  */
-- (NSArray *)visibleObjects;
+- (NSArray<id<IGListDiffable>> *)visibleObjects;
 
 /**
  An unordered array of the currently visible cells for a given object.
@@ -225,7 +225,7 @@ NS_SWIFT_NAME(ListAdapter)
  
  @return An array of collection view cells.
  */
-- (NSArray<UICollectionViewCell *> *)visibleCellsForObject:(id)object;
+- (NSArray<UICollectionViewCell *> *)visibleCellsForObject:(id<IGListDiffable>)object;
 
 /**
  Scrolls to the specified object in the list adapter.
@@ -236,7 +236,7 @@ NS_SWIFT_NAME(ListAdapter)
  @param scrollPosition An option that specifies where the item should be positioned when scrolling finishes.
  @param animated A flag indicating if the scrolling should be animated.
  */
-- (void)scrollToObject:(id)object
+- (void)scrollToObject:(id<IGListDiffable>)object
     supplementaryKinds:(nullable NSArray<NSString *> *)supplementaryKinds
        scrollDirection:(UICollectionViewScrollDirection)scrollDirection
         scrollPosition:(UICollectionViewScrollPosition)scrollPosition

@@ -27,7 +27,7 @@ typedef void (^IGListUpdatingCompletion)(BOOL finished);
  @param toObjects The new objects in the collection.
  */
 NS_SWIFT_NAME(ListObjectTransitionBlock)
-typedef void (^IGListObjectTransitionBlock)(NSArray *toObjects);
+typedef void (^IGListObjectTransitionBlock)(NSArray<id<IGListDiffable>> *toObjects);
 
 /// A block that contains all of the updates.
 NS_SWIFT_NAME(ListItemUpdateBlock)

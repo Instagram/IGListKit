@@ -27,7 +27,7 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
 
 @property (nonatomic, strong, readwrite) NSArray<id<IGListDiffable>> *viewModels;
 
-@property (nonatomic, strong) id object;
+@property (nonatomic, strong) id<IGListDiffable> object;
 @property (nonatomic, assign) IGListDiffingSectionState state;
 
 @end
@@ -109,7 +109,7 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
     return cell;
 }
 
-- (void)didUpdateToObject:(id)object {
+- (void)didUpdateToObject:(id<IGListDiffable>)object {
     id oldObject = self.object;
     self.object = object;
 

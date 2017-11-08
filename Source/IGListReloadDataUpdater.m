@@ -18,8 +18,8 @@
 }
 
 - (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
-                            fromObjects:(NSArray *)fromObjects
-                              toObjects:(NSArray *)toObjects
+                            fromObjects:(NSArray<id<IGListDiffable>> *)fromObjects
+                              toObjects:(NSArray<id<IGListDiffable>> *)toObjects
                                animated:(BOOL)animated
                   objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
                              completion:(IGListUpdatingCompletion)completion {

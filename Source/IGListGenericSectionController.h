@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  `didUpdateToObject:`.
  */
 NS_SWIFT_NAME(ListGenericSectionController)
-@interface IGListGenericSectionController<__covariant ObjectType> : IGListSectionController
+@interface IGListGenericSectionController<__covariant ObjectType : id<IGListDiffable>> : IGListSectionController
 
 /**
  The object mapped to this section controller. Matches the object provided in
@@ -35,7 +35,7 @@ NS_SWIFT_NAME(ListGenericSectionController)
 
  @note This `IGListSectionController` subclass sets its object in this method, so any overrides **must call super**.
  */
-- (void)didUpdateToObject:(id)object NS_REQUIRES_SUPER;
+- (void)didUpdateToObject:(id<IGListDiffable>)object NS_REQUIRES_SUPER;
 
 @end
 

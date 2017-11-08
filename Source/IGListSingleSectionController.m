@@ -101,7 +101,7 @@
     return cell;
 }
 
-- (void)didUpdateToObject:(id)object {
+- (void)didUpdateToObject:(id<IGListDiffable>)object {
     self.item = object;
 }
 

@@ -167,7 +167,7 @@
 
 #pragma mark - Scrolling
 
-- (void)scrollToObject:(id)object
+- (void)scrollToObject:(id<IGListDiffable>)object
     supplementaryKinds:(NSArray<NSString *> *)supplementaryKinds
        scrollDirection:(UICollectionViewScrollDirection)scrollDirection
         scrollPosition:(UICollectionViewScrollPosition)scrollPosition
@@ -374,7 +374,7 @@
     }];
 }
 
-- (void)reloadObjects:(NSArray *)objects {
+- (void)reloadObjects:(NSArray<id<IGListDiffable>> *)objects {
     IGAssertMainThread();
     IGParameterAssert(objects);
 
@@ -441,14 +441,14 @@
     return [self.sectionMap sectionForSectionController:sectionController];
 }
 
-- (IGListSectionController *)sectionControllerForObject:(id)object {
+- (IGListSectionController *)sectionControllerForObject:(id<IGListDiffable>)object {
     IGAssertMainThread();
     IGParameterAssert(object != nil);
 
     return [self.sectionMap sectionControllerForObject:object];
 }
 
-- (id)objectForSectionController:(IGListSectionController *)sectionController {
+- (id<IGListDiffable>)objectForSectionController:(IGListSectionController *)sectionController {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
 
@@ -456,20 +456,20 @@
     return [self.sectionMap objectForSection:section];
 }
 
-- (id)objectAtSection:(NSInteger)section {
+- (id<IGListDiffable>)objectAtSection:(NSInteger)section {
     IGAssertMainThread();
 
     return [self.sectionMap objectForSection:section];
 }
 
-- (NSInteger)sectionForObject:(id)item {
+- (NSInteger)sectionForObject:(id<IGListDiffable>)item {
     IGAssertMainThread();
     IGParameterAssert(item != nil);
 
     return [self.sectionMap sectionForObject:item];
 }
 
-- (NSArray *)objects {
+- (NSArray<id<IGListDiffable>> *)objects {
     IGAssertMainThread();
 
     return self.sectionMap.objects;
@@ -495,7 +495,7 @@
     return [visibleSectionControllers allObjects];
 }
 
-- (NSArray *)visibleObjects {
+- (NSArray<id<IGListDiffable>> *)visibleObjects {
     IGAssertMainThread();
     NSArray<UICollectionViewCell *> *visibleCells = [self.collectionView visibleCells];
     NSMutableSet *visibleObjects = [NSMutableSet new];
@@ -514,7 +514,7 @@
     return [visibleObjects allObjects];
 }
 
-- (NSArray<UICollectionViewCell *> *)visibleCellsForObject:(id)object {
+- (NSArray<UICollectionViewCell *> *)visibleCellsForObject:(id<IGListDiffable>)object {
     IGAssertMainThread();
     IGParameterAssert(object != nil);
 
@@ -559,7 +559,7 @@
 
 // this method is what updates the "source of truth"
 // this should only be called just before the collection view is updated
-- (void)updateObjects:(NSArray *)objects dataSource:(id<IGListAdapterDataSource>)dataSource {
+- (void)updateObjects:(NSArray<id<IGListDiffable>> *)objects dataSource:(id<IGListAdapterDataSource>)dataSource {
     IGParameterAssert(dataSource != nil);
 
 #if DEBUG

@@ -80,7 +80,7 @@ void IGListSectionControllerPopThread(void) {
     return nil;
 }
 
-- (void)didUpdateToObject:(id)object {}
+- (void)didUpdateToObject:(id<IGListDiffable>)object {}
 
 - (void)didSelectItemAtIndex:(NSInteger)index {}
 

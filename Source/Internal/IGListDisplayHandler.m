@@ -31,7 +31,7 @@
     return self;
 }
 
-- (id)pluckObjectForView:(UICollectionReusableView *)view {
+- (id<IGListDiffable>)pluckObjectForView:(UICollectionReusableView *)view {
     NSMapTable *viewObjectMap = self.visibleViewObjectMap;
     id object = [viewObjectMap objectForKey:view];
     [viewObjectMap removeObjectForKey:view];
@@ -41,7 +41,7 @@
 - (void)willDisplayReusableView:(UICollectionReusableView *)view
                  forListAdapter:(IGListAdapter *)listAdapter
               sectionController:(IGListSectionController *)sectionController
-                         object:(id)object
+                         object:(id<IGListDiffable>)object
                       indexPath:(NSIndexPath *)indexPath {
     IGParameterAssert(view != nil);
     IGParameterAssert(listAdapter != nil);
@@ -60,7 +60,7 @@
 - (void)didEndDisplayingReusableView:(UICollectionReusableView *)view
                       forListAdapter:(IGListAdapter *)listAdapter
                    sectionController:(IGListSectionController *)sectionController
-                              object:(id)object
+                              object:(id<IGListDiffable>)object
                            indexPath:(NSIndexPath *)indexPath {
     IGParameterAssert(view != nil);
     IGParameterAssert(listAdapter != nil);
@@ -84,7 +84,7 @@
 - (void)willDisplaySupplementaryView:(UICollectionReusableView *)view
                       forListAdapter:(IGListAdapter *)listAdapter
                    sectionController:(IGListSectionController *)sectionController
-                              object:(id)object
+                              object:(id<IGListDiffable>)object
                            indexPath:(NSIndexPath *)indexPath {
     [self willDisplayReusableView:view forListAdapter:listAdapter sectionController:sectionController object:object indexPath:indexPath];
 }
@@ -101,7 +101,7 @@
 - (void)willDisplayCell:(UICollectionViewCell *)cell
          forListAdapter:(IGListAdapter *)listAdapter
       sectionController:(IGListSectionController *)sectionController
-                 object:(id)object
+                 object:(id<IGListDiffable>)object
               indexPath:(NSIndexPath *)indexPath {
     id <IGListDisplayDelegate> displayDelegate = [sectionController displayDelegate];
     [displayDelegate listAdapter:listAdapter willDisplaySectionController:sectionController cell:cell atIndex:indexPath.item];

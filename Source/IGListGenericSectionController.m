@@ -11,7 +11,7 @@
 
 @implementation IGListGenericSectionController
 
-- (void)didUpdateToObject:(id)object {
+- (void)didUpdateToObject:(id<IGListDiffable>)object {
     _object = object;
 }
 

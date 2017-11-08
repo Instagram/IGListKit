@@ -10,6 +10,7 @@
 #import <XCTest/XCTest.h>
 
 #import <IGListKit/IGListGenericSectionController.h>
+#import <IGListKit/NSString+IGListDiffable.h>
 
 @interface IGListGenericSectionControllerTests : XCTestCase
 

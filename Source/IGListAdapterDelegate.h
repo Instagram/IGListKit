@@ -9,6 +9,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import <IGListKit/IGListDiffable.h>
+
 @class IGListAdapter;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -25,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param object The object that will display.
  @param index The index of the object in the list.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter willDisplayObject:(id)object atIndex:(NSInteger)index;
+- (void)listAdapter:(IGListAdapter *)listAdapter willDisplayObject:(id<IGListDiffable>)object atIndex:(NSInteger)index;
 
 /**
  Notifies the delegate that a list object is no longer being displayed.
@@ -34,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param object The object that ended display.
  @param index The index of the object in the list.
  */
-- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingObject:(id)object atIndex:(NSInteger)index;
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingObject:(id<IGListDiffable>)object atIndex:(NSInteger)index;
 
 @end
 

@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #import <IGListKit/IGListBatchUpdateData.h>
+#import <IGListKit/IGListDiffable.h>
 
 @class IGListAdapterUpdater;
 
@@ -136,8 +137,8 @@ NS_SWIFT_NAME(ListAdapterUpdaterDelegate)
  */
 - (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
     willCrashWithException:(NSException *)exception
-               fromObjects:(nullable NSArray *)fromObjects
-                 toObjects:(nullable NSArray *)toObjects
+               fromObjects:(nullable NSArray<id<IGListDiffable>> *)fromObjects
+                 toObjects:(nullable NSArray<id<IGListDiffable>> *)toObjects
                    updates:(IGListBatchUpdateData *)updates;
 
 @end

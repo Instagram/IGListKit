@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #import <IGListKit/IGListMacros.h>
+#import <IGListKit/IGListDiffable.h>
 
 @class IGListAdapter;
 @class IGListSectionController;
@@ -33,7 +34,7 @@ IGLK_SUBCLASSING_RESTRICTED
 - (void)willDisplayCell:(UICollectionViewCell *)cell
          forListAdapter:(IGListAdapter *)listAdapter
       sectionController:(IGListSectionController *)sectionController
-                 object:(id)object
+                 object:(id<IGListDiffable>)object
               indexPath:(NSIndexPath *)indexPath;
 
 /**
@@ -62,7 +63,7 @@ IGLK_SUBCLASSING_RESTRICTED
 - (void)willDisplaySupplementaryView:(UICollectionReusableView *)view
                       forListAdapter:(IGListAdapter *)listAdapter
                    sectionController:(IGListSectionController *)sectionController
-                              object:(id)object
+                              object:(id<IGListDiffable>)object
                            indexPath:(NSIndexPath *)indexPath;
 
 
