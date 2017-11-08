@@ -58,7 +58,7 @@ final class WorkingRangeSectionController: ListSectionController, ListWorkingRan
         return cell
     }
 
-    override func didUpdate(to object: Any) {
+    override func didUpdate(to object: ListDiffable) {
         self.height = object as? Int
     }
 

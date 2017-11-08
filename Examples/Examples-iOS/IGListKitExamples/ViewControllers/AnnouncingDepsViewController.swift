@@ -56,7 +56,7 @@ final class AnnouncingDepsViewController: UIViewController, ListAdapterDataSourc
         return data
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: ListDiffable) -> ListSectionController {
         return ListeningSectionController(announcer: announcer)
     }
 

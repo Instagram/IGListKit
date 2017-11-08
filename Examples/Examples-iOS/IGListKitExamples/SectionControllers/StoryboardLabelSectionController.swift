@@ -38,7 +38,7 @@ final class StoryboardLabelSectionController: ListSectionController {
         return cell
     }
 
-    override func didUpdate(to object: Any) {
+    override func didUpdate(to object: ListDiffable) {
         self.object = object as? Person
     }
 

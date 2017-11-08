@@ -44,7 +44,7 @@ final class StackedViewController: UIViewController, ListAdapterDataSource {
         return data as [ListDiffable]
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: ListDiffable) -> ListSectionController {
         // note that each child section controller is designed to handle an Int (or no data)
         let sectionController = ListStackedSectionController(sectionControllers: [
             WorkingRangeSectionController(),

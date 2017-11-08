@@ -39,7 +39,7 @@ final class SingleSectionStoryboardViewController: UIViewController, ListAdapter
         return data as [ListDiffable]
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: ListDiffable) -> ListSectionController {
         let configureBlock = { (item: Any, cell: UICollectionViewCell) in
             guard let cell = cell as? StoryboardCell, let number = item as? Int else { return }
             cell.text = "Cell: \(number + 1)"
@@ -59,7 +59,7 @@ final class SingleSectionStoryboardViewController: UIViewController, ListAdapter
 
     // MARK: - ListSingleSectionControllerDelegate
 
-    func didSelect(_ sectionController: ListSingleSectionController, with object: Any) {
+    func didSelect(_ sectionController: ListSingleSectionController, with object: ListDiffable) {
         let section = adapter.section(for: sectionController) + 1
         let alert = UIAlertController(title: "Section \(section) was selected \u{1F389}", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))

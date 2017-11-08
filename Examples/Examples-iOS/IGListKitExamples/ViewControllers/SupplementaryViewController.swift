@@ -47,7 +47,7 @@ final class SupplementaryViewController: UIViewController, ListAdapterDataSource
         return feedItems
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: ListDiffable) -> ListSectionController {
         return FeedItemSectionController()
     }
 

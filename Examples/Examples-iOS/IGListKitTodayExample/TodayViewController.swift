@@ -59,10 +59,10 @@ final class TodayViewController: UIViewController, NCWidgetProviding, ListAdapte
         return data as [ListDiffable]
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return LabelSectionController()
-    }
-
+	func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: ListDiffable) -> ListSectionController {
+		return LabelSectionController()
+	}
+    
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }

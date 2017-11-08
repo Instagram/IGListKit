@@ -66,7 +66,7 @@ final class EmptyViewController: UIViewController, ListAdapterDataSource, Remove
         return data as [ListDiffable]
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: ListDiffable) -> ListSectionController {
         let sectionController = RemoveSectionController()
         sectionController.delegate = self
         return sectionController

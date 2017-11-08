@@ -53,7 +53,7 @@ final class SearchViewController: UIViewController, ListAdapterDataSource, Searc
         return [searchToken] + words.filter { $0.lowercased().contains(filterString.lowercased()) }.map { $0 as ListDiffable }
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: ListDiffable) -> ListSectionController {
         if let obj = object as? NSNumber, obj == searchToken {
             let sectionController = SearchSectionController()
             sectionController.delegate = self

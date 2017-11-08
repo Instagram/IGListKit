@@ -41,7 +41,7 @@ final class FeedItemSectionController: ListSectionController, ListSupplementaryV
         return cell
     }
 
-    override func didUpdate(to object: Any) {
+    override func didUpdate(to object: ListDiffable) {
         feedItem = object as? FeedItem
     }
 

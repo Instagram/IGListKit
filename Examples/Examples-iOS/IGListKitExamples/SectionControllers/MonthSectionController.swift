@@ -27,7 +27,7 @@ final class MonthSectionController: ListBindingSectionController<ListDiffable>, 
 
     // MARK: ListBindingSectionControllerDataSource
 
-    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, viewModelsFor object: Any) -> [ListDiffable] {
+    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, viewModelsFor object: ListDiffable) -> [ListDiffable] {
         guard let month = object as? Month else { return [] }
 
         let date = Date()

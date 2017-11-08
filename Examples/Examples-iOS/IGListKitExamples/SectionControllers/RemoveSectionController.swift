@@ -41,7 +41,7 @@ final class RemoveSectionController: ListSectionController, RemoveCellDelegate {
         return cell
     }
 
-    override func didUpdate(to object: Any) {
+    override func didUpdate(to object: ListDiffable) {
         number = object as? Int
     }
 

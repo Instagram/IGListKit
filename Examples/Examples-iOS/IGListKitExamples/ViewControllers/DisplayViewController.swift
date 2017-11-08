@@ -40,7 +40,7 @@ final class DisplayViewController: UIViewController, ListAdapterDataSource {
         return [1, 2, 3, 4, 5, 6] as [NSNumber]
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: ListDiffable) -> ListSectionController {
         return DisplaySectionController()
     }
 

@@ -67,7 +67,7 @@ final class SelfSizingSectionController: ListSectionController {
         return cell
     }
 
-    override func didUpdate(to object: Any) {
+    override func didUpdate(to object: ListDiffable) {
         self.model = object as? SelectionModel
     }
 

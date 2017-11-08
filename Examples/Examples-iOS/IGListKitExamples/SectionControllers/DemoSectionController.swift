@@ -63,9 +63,9 @@ final class DemoSectionController: ListSectionController {
         return cell
     }
 
-    override func didUpdate(to object: Any) {
-        self.object = object as? DemoItem
-    }
+	override func didUpdate(to object: ListDiffable) {
+		self.object = object as? DemoItem
+	}
 
     override func didSelectItem(at index: Int) {
         if let identifier = object?.controllerIdentifier {

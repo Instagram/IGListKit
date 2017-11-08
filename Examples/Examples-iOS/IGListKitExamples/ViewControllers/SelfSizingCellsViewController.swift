@@ -60,7 +60,7 @@ final class SelfSizingCellsViewController: UIViewController, ListAdapterDataSour
         return data as [ListDiffable]
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: ListDiffable) -> ListSectionController {
         return SelfSizingSectionController()
     }
 

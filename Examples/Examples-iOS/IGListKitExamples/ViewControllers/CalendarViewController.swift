@@ -67,7 +67,7 @@ final class CalendarViewController: UIViewController, ListAdapterDataSource {
         return months
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: ListDiffable) -> ListSectionController {
         return MonthSectionController()
     }
 

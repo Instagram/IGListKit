@@ -39,7 +39,7 @@ final class EmbeddedSectionController: ListSectionController {
         return cell
     }
 
-    override func didUpdate(to object: Any) {
+    override func didUpdate(to object: ListDiffable) {
         number = object as? Int
     }
 

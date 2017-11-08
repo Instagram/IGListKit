@@ -79,7 +79,7 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
             .map { $0 as! ListDiffable }
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: ListDiffable) -> ListSectionController {
         switch object {
         case is String:   return ExpandableSectionController()
         case is GridItem: return GridSectionController()
