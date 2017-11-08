@@ -46,7 +46,7 @@ NS_SWIFT_NAME(ListAdapterDataSource)
  Section controllers are reused when objects are moved or updated. Maintaining the `-[IGListDiffable diffIdentifier]`
  guarantees this.
  */
-- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id<IGListDiffable>)object;
+- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id<IGListDiffable>)object NS_SWIFT_NAME(listAdapter(_:sectionControllerFor:));
 
 /**
  Asks the data source for a view to use as the collection view background when the list is empty.

@@ -71,7 +71,7 @@ NS_SWIFT_NAME(ListSectionController)
  controller. This method will only be called when the object instance has changed, including from `nil` or a previous
  object. **Calling super is not required.**
  */
-- (void)didUpdateToObject:(id<IGListDiffable>)object;
+- (void)didUpdateToObject:(id<IGListDiffable>)object NS_SWIFT_NAME(didUpdate(to:));
 
 /**
  Tells the section controller that the cell at the specified index path was selected.
