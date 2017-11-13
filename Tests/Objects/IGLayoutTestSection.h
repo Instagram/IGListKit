@@ -17,6 +17,7 @@
 @property (nonatomic, assign, readonly) CGFloat lineSpacing;
 @property (nonatomic, assign, readonly) CGFloat interitemSpacing;
 @property (nonatomic, assign, readonly) CGFloat headerHeight;
+@property (nonatomic, assign, readonly) CGFloat footerHeight;
 @property (nonatomic, strong, readonly) NSArray<IGLayoutTestItem *> *items;
 
 - (instancetype)initWithInsets:(UIEdgeInsets)insets

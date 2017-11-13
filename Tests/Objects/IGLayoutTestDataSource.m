@@ -67,4 +67,8 @@ static NSString * const kHeaderIdentifier = @"header";
     return CGSizeMake(self.sections[section].headerHeight, self.sections[section].headerHeight); // Only the dimension along scrolling direction is used
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    return CGSizeMake(self.sections[section].footerHeight, self.sections[section].footerHeight); // Only the dimension along scrolling direction is used
+}
+
 @end
