@@ -106,11 +106,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             attributes.zIndex = baseZIndex + attributes.indexPath.item;
             break;
         case UICollectionElementCategorySupplementaryView:
-            if ([attributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter]) {
-                attributes.zIndex = baseZIndex + maxZIndexPerSection + 1;
-            } else {
-                attributes.zIndex = baseZIndex + maxZIndexPerSection - 1;
-            }
+            attributes.zIndex = baseZIndex + maxZIndexPerSection - 1;
             break;
         case UICollectionElementCategoryDecorationView:
             attributes.zIndex = baseZIndex - 1;
