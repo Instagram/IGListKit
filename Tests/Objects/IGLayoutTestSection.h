@@ -24,6 +24,7 @@
                    lineSpacing:(CGFloat)lineSpacing
               interitemSpacing:(CGFloat)interitemSpacing
                   headerHeight:(CGFloat)headerHeight
+                  footerHeight:(CGFloat)footerHeight
                          items:(NSArray<IGLayoutTestItem *> *)items;
 
 @end

@@ -549,7 +549,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                         CGRectGetMaxY(rollingSectionBounds),
                         paddedLengthInFixedDirection,
                         footerSize.height) :
-                CGRectMake(CGRectGetMaxX(rollingSectionBounds),
+                CGRectMake(CGRectGetMaxX(rollingSectionBounds) + insets.right,
                         insets.top,
                         footerSize.width,
                         paddedLengthInFixedDirection);

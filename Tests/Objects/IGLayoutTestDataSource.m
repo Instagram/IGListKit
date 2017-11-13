@@ -14,6 +14,7 @@
 
 static NSString * const kCellIdentifier = @"cell";
 static NSString * const kHeaderIdentifier = @"header";
+static NSString * const kFooterIdentifier = @"footer";
 
 @implementation IGLayoutTestDataSource
 
@@ -23,6 +24,9 @@ static NSString * const kHeaderIdentifier = @"header";
     [collectionView registerClass:[UICollectionReusableView class]
        forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
               withReuseIdentifier:kHeaderIdentifier];
+    [collectionView registerClass:[UICollectionReusableView class]
+       forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
+              withReuseIdentifier:kFooterIdentifier];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -40,8 +44,9 @@ static NSString * const kHeaderIdentifier = @"header";
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                              withReuseIdentifier:kHeaderIdentifier
+    NSString *reuseIdentifier = [kind isEqualToString:UICollectionElementKindSectionHeader]? kHeaderIdentifier : kFooterIdentifier;
+    return [collectionView dequeueReusableSupplementaryViewOfKind:kind
+                                              withReuseIdentifier:reuseIdentifier
                                                      forIndexPath:indexPath];
 }
 
