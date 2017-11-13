@@ -106,8 +106,6 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             attributes.zIndex = baseZIndex + attributes.indexPath.item;
             break;
         case UICollectionElementCategorySupplementaryView:
-            IGAssert([attributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader],
-                     @"Only support for element kind header, not %@", attributes.representedElementKind);
             attributes.zIndex = baseZIndex + maxZIndexPerSection - 1;
             break;
         case UICollectionElementCategoryDecorationView:
