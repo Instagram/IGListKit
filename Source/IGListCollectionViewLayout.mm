@@ -63,7 +63,7 @@ static CGFloat CGSizeGetLengthInDirection(CGSize size, UICollectionViewScrollDir
     }
 }
 
-static NSIndexPath *headerIndexPathForSection(NSInteger section) {
+static NSIndexPath *indexPathForSection(NSInteger section) {
     return [NSIndexPath indexPathForItem:0 inSection:section];
 }
 
@@ -80,6 +80,9 @@ struct IGListSectionEntry {
 
     // The RESTING frame of the header view (e.g. when the header is not sticking to the top of the scroll view).
     CGRect headerBounds;
+
+    // The RESTING frame of the footer view
+    CGRect footerBounds;
 
     // An array of frames for each cell in the section.
     std::vector<CGRect> itemBounds;
@@ -131,6 +134,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 @implementation IGListCollectionViewLayout {
     std::vector<IGListSectionEntry> _sectionData;
+    NSArray *_supportedSectionElementKinds;
     NSMutableDictionary<NSIndexPath *, UICollectionViewLayoutAttributes *> *_attributesCache;
     BOOL _cachedLayoutInvalid;
 
@@ -145,6 +149,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
      -layoutAttributesForSupplementaryViewOfKind:atIndexPath:.
      */
     NSMutableDictionary<NSIndexPath *, UICollectionViewLayoutAttributes *> *_headerAttributesCache;
+    NSMutableDictionary<NSIndexPath *, UICollectionViewLayoutAttributes *> *_footerAttributesCache;
 }
 
 - (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
@@ -167,6 +172,8 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         _stretchToEdge = stretchToEdge;
         _attributesCache = [NSMutableDictionary new];
         _headerAttributesCache = [NSMutableDictionary new];
+        _footerAttributesCache = [NSMutableDictionary new];
+        _supportedSectionElementKinds = @[UICollectionElementKindSectionHeader, UICollectionElementKindSectionFooter];
         _cachedLayoutInvalid = YES;
     }
     return self;
@@ -193,15 +200,17 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
         // do not add headers if there are no items
         if (itemCount > 0) {
-            NSIndexPath *headerIndexPath = headerIndexPathForSection(section);
-            UICollectionViewLayoutAttributes *attributes = [self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                                                                                atIndexPath:headerIndexPath];
-            // do not add zero height headers or headers that are outside the rect
-            const CGRect frame = attributes.frame;
-            const CGRect intersection = CGRectIntersection(frame, rect);
-            if (!CGRectIsEmpty(intersection)
-                && CGRectGetLengthInDirection(frame, self.scrollDirection) > 0.0) {
-                [result addObject:attributes];
+            for (NSString *elementKind in _supportedSectionElementKinds) {
+                NSIndexPath *headerIndexPath = indexPathForSection(section);
+                UICollectionViewLayoutAttributes *attributes = [self layoutAttributesForSupplementaryViewOfKind:elementKind
+                                                                                                    atIndexPath:headerIndexPath];
+                // do not add zero height headers or headers that are outside the rect
+                const CGRect frame = attributes.frame;
+                const CGRect intersection = CGRectIntersection(frame, rect);
+                if (!CGRectIsEmpty(intersection)
+                        && CGRectGetLengthInDirection(frame, self.scrollDirection) > 0.0) {
+                    [result addObject:attributes];
+                }
             }
         }
 
@@ -244,10 +253,15 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     IGAssertMainThread();
-    IGParameterAssert([elementKind isEqualToString:UICollectionElementKindSectionHeader]);
     IGParameterAssert(indexPath != nil);
 
-    UICollectionViewLayoutAttributes *attributes = _headerAttributesCache[indexPath];
+    UICollectionViewLayoutAttributes *attributes;
+    if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
+        attributes = _headerAttributesCache[indexPath];
+    } else if ([elementKind isEqualToString:UICollectionElementKindSectionFooter]) {
+        attributes = _footerAttributesCache[indexPath];
+    }
+
     if (attributes != nil) {
         return attributes;
     }
@@ -262,7 +276,13 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     const IGListSectionEntry entry = _sectionData[section];
     const CGFloat minOffset = CGRectGetMinInDirection(entry.bounds, self.scrollDirection);
 
-    CGRect frame = entry.headerBounds;
+    CGRect frame = CGRectZero;
+
+    if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
+        frame = entry.headerBounds;
+    } else if ([elementKind isEqualToString:UICollectionElementKindSectionFooter]) {
+        frame = entry.footerBounds;
+    }
 
     if (self.stickyHeaders) {
         CGFloat offset = CGPointGetCoordinateInDirection(collectionView.contentOffset, self.scrollDirection) + self.topContentInset + self.stickyHeaderYOffset;
@@ -286,7 +306,12 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     attributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
     attributes.frame = frame;
     adjustZIndexForAttributes(attributes);
-    _headerAttributesCache[indexPath] = attributes;
+
+    if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
+        _headerAttributesCache[indexPath] = attributes;
+    } else if ([elementKind isEqualToString:UICollectionElementKindSectionFooter]) {
+        _footerAttributesCache[indexPath] = attributes;
+    }
     return attributes;
 }
 
@@ -331,6 +356,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
     if (context.ig_invalidateSupplementaryAttributes) {
         [_headerAttributesCache removeAllObjects];
+        [_footerAttributesCache removeAllObjects];
     }
 
     [super invalidateLayoutWithContext:context];
@@ -392,6 +418,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     // purge attribute caches so they are rebuilt
     [_attributesCache removeAllObjects];
     [_headerAttributesCache removeAllObjects];
+    [_footerAttributesCache removeAllObjects];
 
     UICollectionView *collectionView = self.collectionView;
     id<UICollectionViewDataSource> dataSource = collectionView.dataSource;
@@ -415,6 +442,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         sectionData[section].itemBounds = std::vector<CGRect>(itemCount);
 
         const CGSize headerSize = [delegate collectionView:collectionView layout:self referenceSizeForHeaderInSection:section];
+        const CGSize footerSize = [delegate collectionView:collectionView layout:self referenceSizeForFooterInSection:section];
         const UIEdgeInsets insets = [delegate collectionView:collectionView layout:self insetForSectionAtIndex:section];
         const CGFloat lineSpacing = [delegate collectionView:collectionView layout:self minimumLineSpacingForSectionAtIndex:section];
         const CGFloat interitemSpacing = [delegate collectionView:collectionView layout:self minimumInteritemSpacingForSectionAtIndex:section];
@@ -423,13 +451,15 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         const UICollectionViewScrollDirection fixedDirection = self.scrollDirection == UICollectionViewScrollDirectionHorizontal ? UICollectionViewScrollDirectionVertical : UICollectionViewScrollDirectionHorizontal;
         const CGFloat paddedLengthInFixedDirection = CGSizeGetLengthInDirection(paddedCollectionViewSize, fixedDirection);
         const CGFloat headerLengthInScrollDirection =  CGSizeGetLengthInDirection(headerSize, self.scrollDirection);
+        const CGFloat footerLengthInScrollDirection =  CGSizeGetLengthInDirection(footerSize, self.scrollDirection);
         const BOOL headerExists = headerLengthInScrollDirection > 0;
+        const BOOL footerExists = footerLengthInScrollDirection > 0;
         
         // start the section accounting for the header size
         // header length in scroll direction is subtracted from the sectionBounds when calculating the header bounds after items are done
         // this bumps the first row of items over enough to make room for the header
         itemCoordInScrollDirection += headerLengthInScrollDirection;
-        nextRowCoordInScrollDirection += headerLengthInScrollDirection;
+        nextRowCoordInScrollDirection += headerLengthInScrollDirection + footerLengthInScrollDirection;
         
         // add the leading inset in fixed direction in case the section falls on the same row as the previous
         // if the section is newlined then the coord in fixed direction is reset
@@ -511,6 +541,18 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                        paddedLengthInFixedDirection);
 
         sectionData[section].headerBounds = headerBounds;
+
+        const CGRect footerBounds = (self.scrollDirection == UICollectionViewScrollDirectionVertical) ?
+                CGRectMake(insets.left,
+                        CGRectGetMaxY(rollingSectionBounds) - headerSize.height,
+                        paddedLengthInFixedDirection,
+                        headerSize.height) :
+                CGRectMake(CGRectGetMaxX(rollingSectionBounds) - headerSize.width,
+                        insets.top,
+                        headerSize.width,
+                        paddedLengthInFixedDirection);
+
+        sectionData[section].footerBounds = footerBounds;
 
         // union the header before setting the bounds of the section
         // only do this when the header has a size, otherwise the union stretches to box empty space
