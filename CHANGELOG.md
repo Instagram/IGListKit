@@ -14,6 +14,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Updated project settings for iOS 11. [Ryan Nystrom](https://github.com/rnystrom) [(#942)](https://github.com/Instagram/IGListKit/pull/942)
 
+- Added support UICollectionElementKindSectionFooter for IGListCollectionViewLayout [(#1017)](https://github.com/Instagram/IGListKit/pull/1017)
+
 ### Fixes
 
 - Weakly reference the `UICollectionView` in coalescence so that it can be released if the rest of system is destroyed. [Ryan Nystrom](https://github.com/rnystrom) [(#tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
