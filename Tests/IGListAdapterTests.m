@@ -1527,11 +1527,9 @@
     XCTAssertEqual(collectionView1.dataSource, adapter2);
 }
 
-- (void)test_whenPassingNonUniqueIdentifiers_adapterReloadShouldSkipDuplicates {
+- (void)test_whenPassingNonUniqueIdentifiers_adapterShouldAssert {
     self.dataSource.objects = @[@0, @1, @2, @0];
-    [self.adapter reloadDataWithCompletion:nil];
-
-    XCTAssertEqual(self.adapter.objects.count, 3);
+    XCTAssertThrows([self.adapter reloadDataWithCompletion:nil]);
 }
 
 - (void)test_whenPrefetchingEnabled_thatSetterDisables {

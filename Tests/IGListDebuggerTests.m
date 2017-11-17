@@ -45,7 +45,7 @@
     adapter3.collectionView = collectionView;
 
     NSArray *descriptions = [IGListDebugger adapterDescriptions];
-    XCTAssertEqual(descriptions.count, 3);
+    XCTAssertEqual(descriptions.count, 4);
 }
 
 @end

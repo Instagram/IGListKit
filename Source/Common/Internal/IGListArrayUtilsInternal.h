@@ -24,7 +24,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
             [identifiers addObject:diffIdentifier];
             [uniqueObjects addObject:object];
         } else {
-            IGLKLog(@"WARNING: Diff identifier %@ for object %@ already appeared in objects array", diffIdentifier, object);
+            IGLKLog(@"WARNING: Object %@ already appeared in objects array", object);
         }
     }
     return uniqueObjects;
