@@ -12,6 +12,7 @@
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
+#import <IGListKit/IGListExperiments.h>
 #import <IGListKit/IGListKit.h>
 
 #import "IGListAdapterInternal.h"
@@ -262,7 +263,42 @@
     XCTAssertTrue([visibleSectionControllers containsObject:[self.adapter sectionControllerForObject:@4]]);
 }
 
+- (void)test_whenCellsExtendBeyondBounds_withFasterExperiment_thatVisibleSectionControllersAreLimited {
+    // add experiment
+    self.adapter.experiments |= IGListExperimentFasterVisibleSectionController;
+    // # of items for each object == [item integerValue], so @2 has 2 items (cells)
+    self.dataSource.objects = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertEqual([self.collectionView numberOfSections], 12);
+    NSArray *visibleSectionControllers = [self.adapter visibleSectionControllers];
+    // UIWindow is 100x100, each cell is 100x10 so should have the following section/cell count: 1 + 2 + 3 + 4 = 10 (100 tall)
+    XCTAssertEqual(visibleSectionControllers.count, 4);
+    XCTAssertTrue([visibleSectionControllers containsObject:[self.adapter sectionControllerForObject:@1]]);
+    XCTAssertTrue([visibleSectionControllers containsObject:[self.adapter sectionControllerForObject:@2]]);
+    XCTAssertTrue([visibleSectionControllers containsObject:[self.adapter sectionControllerForObject:@3]]);
+    XCTAssertTrue([visibleSectionControllers containsObject:[self.adapter sectionControllerForObject:@4]]);
+}
+
 - (void) test_withEmptySectionPlusFooter_thatVisibleSectionControllersAreCorrect {
+    self.dataSource.objects = @[@0];
+    [self.adapter reloadDataWithCompletion:nil];
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.dequeueFromNib = YES;
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@0];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    NSArray<IGListSectionController *> *visibleSectionControllers = [self.adapter visibleSectionControllers];
+
+    XCTAssertTrue([visibleSectionControllers count] == 1);
+    XCTAssertTrue(visibleSectionControllers.firstObject.supplementaryViewSource == supplementarySource);
+}
+
+- (void) test_withEmptySectionPlusFooter_withFasterExperiment_thatVisibleSectionControllersAreCorrect {
+    // add experiment
+    self.adapter.experiments |= IGListExperimentFasterVisibleSectionController;
     self.dataSource.objects = @[@0];
     [self.adapter reloadDataWithCompletion:nil];
     IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
