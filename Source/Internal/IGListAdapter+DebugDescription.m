@@ -15,6 +15,7 @@
 #import "UICollectionView+DebugDescription.h"
 #import "IGListDebuggingUtilities.h"
 
+IGLK_LINKABLE(IGListAdapter_DebugDescription)
 @implementation IGListAdapter (DebugDescription)
 
 - (NSString *)debugDescription {

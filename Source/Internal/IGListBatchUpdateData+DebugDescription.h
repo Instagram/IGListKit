@@ -8,7 +8,9 @@
  */
 
 #import <IGListKit/IGListKit.h>
+#import <IGListKit/IGListMacros.h>
 
+IGLK_LINK_REQUIRE(IGListBatchUpdateData_DebugDescription)
 @interface IGListBatchUpdateData (DebugDescription)
 
 - (NSArray<NSString *> *)debugDescriptionLines;

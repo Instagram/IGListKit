@@ -9,6 +9,7 @@
 
 #import "IGListBatchUpdateData+DebugDescription.h"
 
+IGLK_LINKABLE(IGListBatchUpdateData_DebugDescription)
 @implementation IGListBatchUpdateData (DebugDescription)
 
 - (NSArray<NSString *> *)debugDescriptionLines {

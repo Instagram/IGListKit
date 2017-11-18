@@ -13,6 +13,7 @@
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListSectionController.h>
 
+IGLK_LINKABLE(IGListAdapter_UICollectionView)
 @implementation IGListAdapter (UICollectionView)
 
 #pragma mark - UICollectionViewDataSource

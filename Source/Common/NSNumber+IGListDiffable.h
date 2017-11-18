@@ -10,10 +10,12 @@
 #import <Foundation/Foundation.h>
 
 #import <IGListKit/IGListDiffable.h>
+#import <IGListKit/IGListMacros.h>
 
 /**
  This category provides default `IGListDiffable` conformance for `NSNumber`.
  */
+IGLK_LINK_REQUIRE(NSNumber_IGListDiffable)
 @interface NSNumber (IGListDiffable) <IGListDiffable>
 
 @end

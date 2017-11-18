@@ -11,6 +11,7 @@
 
 #import "IGListDebuggingUtilities.h"
 
+IGLK_LINKABLE(IGListBindingSectionController_DebugDescription)
 @implementation IGListBindingSectionController (DebugDescription)
 
 - (NSString *)debugDescription {

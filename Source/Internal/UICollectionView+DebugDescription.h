@@ -9,6 +9,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import <IGListKit/IGListMacros.h>
+
+IGLK_LINK_REQUIRE(UICollectionView_DebugDescription)
 @interface UICollectionView (DebugDescription)
 
 - (NSArray<NSString *> *)debugDescriptionLines;

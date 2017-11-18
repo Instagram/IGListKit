@@ -9,8 +9,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import <IGListKit/IGListMacros.h>
+
 @class IGListBatchUpdateData;
 
+IGLK_LINK_REQUIRE(UICollectionView_IGListBatchUpdateData)
 @interface UICollectionView (IGListBatchUpdateData)
 
 - (void)ig_applyBatchUpdateData:(IGListBatchUpdateData *)updateData;
