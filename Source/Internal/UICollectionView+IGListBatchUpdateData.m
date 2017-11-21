@@ -9,7 +9,7 @@
 
 #import "UICollectionView+IGListBatchUpdateData.h"
 
-#import "IGListBatchUpdateData.h"
+#import <IGListKit/IGListBatchUpdateData.h>
 
 @implementation UICollectionView (IGListBatchUpdateData)
 

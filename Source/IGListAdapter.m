@@ -484,6 +484,14 @@
 
 - (NSArray<IGListSectionController *> *)visibleSectionControllers {
     IGAssertMainThread();
+    if (IGListExperimentEnabled(self.experiments, IGListExperimentFasterVisibleSectionController)) {
+        return [self visibleSectionControllersFromDisplayHandler];
+    } else {
+        return [self visibleSectionControllersFromLayoutAttributes];
+    }
+}
+
+- (NSArray<IGListSectionController *> *)visibleSectionControllersFromLayoutAttributes {
     NSMutableSet *visibleSectionControllers = [NSMutableSet new];
     NSArray<UICollectionViewLayoutAttributes *> *attributes =
     [self.collectionView.collectionViewLayout layoutAttributesForElementsInRect:self.collectionView.bounds];
@@ -495,6 +503,10 @@
         }
     }
     return [visibleSectionControllers allObjects];
+}
+
+- (NSArray<IGListSectionController *> *)visibleSectionControllersFromDisplayHandler {
+    return [[self.displayHandler visibleListSections] allObjects];
 }
 
 - (NSArray *)visibleObjects {
@@ -751,10 +763,11 @@
 }
 
 - (void)exitBatchUpdates {
-    for (void (^block)(void) in _queuedCompletionBlocks) {
+    NSArray *blocks = [_queuedCompletionBlocks copy];
+    _queuedCompletionBlocks = nil;
+    for (void (^block)(void) in blocks) {
         block();
     }
-    _queuedCompletionBlocks = nil;
 }
 
 #pragma mark - UIScrollViewDelegate

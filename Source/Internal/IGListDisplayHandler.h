@@ -22,6 +22,11 @@ IGLK_SUBCLASSING_RESTRICTED
 @interface IGListDisplayHandler : NSObject
 
 /**
+ Counted set of the currently visible section controllers.
+ */
+@property (nonatomic, strong, readonly) NSCountedSet<IGListSectionController *> *visibleListSections;
+
+/**
  Tells the handler that a cell will be displayed in the IGListAdapter.
 
  @param cell A cell that will be displayed.

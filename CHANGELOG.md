@@ -9,10 +9,11 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Added `-[IGListSectionController didHighlightItemAtIndex:]` and `-[IGListSectionController didUnhighlightItemAtIndex:]` APIs to support `UICollectionView` cell highlighting. [Kevin Delannoy](https://github.com/delannoyk) [(#933)](https://github.com/Instagram/IGListKit/pull/933)
 
-
 - Added a new listener API to be notified when `IGListAdapter` finishes updating. Add listeners via `-[IGListAdapter addUpdateListener:]` with objects conforming to the new `IGListAdapterUpdateListener` protocol. [Ryan Nystrom](https://github.com/rnystrom) [(tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
 
 - Updated project settings for iOS 11. [Ryan Nystrom](https://github.com/rnystrom) [(#942)](https://github.com/Instagram/IGListKit/pull/942)
+
+- Added experiment to make  `-[IGListAdapter visibleSectionControllers:]` a bit faster. [Maxime Ollivier](https://github.com/maxoll) (tbd)
 
 - Added support for UICollectionView's interactive reordering in iOS 9+.  Updates include `-[IGListSectionController canMoveItemAtIndex:]` to enable the behavior, `-[IGListSectionController moveObjectFromIndex:toIndex:]` called when items within a section controller were moved through reordering, `-[IGListAdapterDataSource listAdapter:moveObject:from:to]` called when section controllers themselves were reordered (only possible when all section controllers contain exactly 1 object), and `-[IGListUpdatingDelegate moveSectionInCollectionView:fromIndex:toIndex]` to enable custom updaters to conform to the reordering behavior. The update also includes two new examples `ReorderableSectionController` and `ReorderableStackedViewController` to demonstrate how to enable interactive reordering in your client app. [Jared Verdi](https://github.com/jverdi) [(#976)](https://github.com/Instagram/IGListKit/pull/976)
 
