@@ -132,7 +132,6 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 @implementation IGListCollectionViewLayout {
     std::vector<IGListSectionEntry> _sectionData;
-    NSArray *_supportedSectionElementKinds;
     NSMutableDictionary<NSIndexPath *, UICollectionViewLayoutAttributes *> *_attributesCache;
     BOOL _cachedLayoutInvalid;
 
@@ -146,8 +145,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
      6. Make sure -layoutAttributesForElementsInRect: always uses the attributes returned from
      -layoutAttributesForSupplementaryViewOfKind:atIndexPath:.
      */
-    NSMutableDictionary<NSIndexPath *, UICollectionViewLayoutAttributes *> *_headerAttributesCache;
-    NSMutableDictionary<NSIndexPath *, UICollectionViewLayoutAttributes *> *_footerAttributesCache;
+    NSMutableDictionary<NSString *, NSMutableDictionary <NSIndexPath *, UICollectionViewLayoutAttributes *> *> *_supplementaryAttributesCache;
 }
 
 - (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
@@ -169,9 +167,10 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         _topContentInset = topContentInset;
         _stretchToEdge = stretchToEdge;
         _attributesCache = [NSMutableDictionary new];
-        _headerAttributesCache = [NSMutableDictionary new];
-        _footerAttributesCache = [NSMutableDictionary new];
-        _supportedSectionElementKinds = @[UICollectionElementKindSectionHeader, UICollectionElementKindSectionFooter];
+        _supplementaryAttributesCache = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                        UICollectionElementKindSectionHeader: [NSMutableDictionary new],
+                                                                                        UICollectionElementKindSectionFooter: [NSMutableDictionary new],
+                                                                                        }];
         _cachedLayoutInvalid = YES;
     }
     return self;
@@ -198,15 +197,14 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
         // do not add headers if there are no items
         if (itemCount > 0) {
-            for (NSString *elementKind in _supportedSectionElementKinds) {
-                NSIndexPath *headerIndexPath = indexPathForSection(section);
+            for (NSString *elementKind in _supplementaryAttributesCache.allKeys) {
+                NSIndexPath *indexPath = indexPathForSection(section);
                 UICollectionViewLayoutAttributes *attributes = [self layoutAttributesForSupplementaryViewOfKind:elementKind
-                                                                                                    atIndexPath:headerIndexPath];
-                // do not add zero height headers or headers that are outside the rect
+                                                                                                    atIndexPath:indexPath];
+                // do not add zero height headers/footers or headers/footers that are outside the rect
                 const CGRect frame = attributes.frame;
                 const CGRect intersection = CGRectIntersection(frame, rect);
-                if (!CGRectIsEmpty(intersection)
-                        && CGRectGetLengthInDirection(frame, self.scrollDirection) > 0.0) {
+                if (!CGRectIsEmpty(intersection) && CGRectGetLengthInDirection(frame, self.scrollDirection) > 0.0) {
                     [result addObject:attributes];
                 }
             }
@@ -238,7 +236,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     const NSInteger section = indexPath.section;
     const NSInteger item = indexPath.item;
     if (section >= _sectionData.size()
-            || item >= _sectionData[section].itemBounds.size()) {
+        || item >= _sectionData[section].itemBounds.size()) {
         return nil;
     }
 
@@ -253,13 +251,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     IGAssertMainThread();
     IGParameterAssert(indexPath != nil);
 
-    UICollectionViewLayoutAttributes *attributes;
-    if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
-        attributes = _headerAttributesCache[indexPath];
-    } else if ([elementKind isEqualToString:UICollectionElementKindSectionFooter]) {
-        attributes = _footerAttributesCache[indexPath];
-    }
-
+    UICollectionViewLayoutAttributes *attributes = _supplementaryAttributesCache[elementKind][indexPath];
     if (attributes != nil) {
         return attributes;
     }
@@ -304,12 +296,8 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     attributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
     attributes.frame = frame;
     adjustZIndexForAttributes(attributes);
-
-    if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
-        _headerAttributesCache[indexPath] = attributes;
-    } else if ([elementKind isEqualToString:UICollectionElementKindSectionFooter]) {
-        _footerAttributesCache[indexPath] = attributes;
-    }
+    _supplementaryAttributesCache[elementKind][indexPath] = attributes;
+    
     return attributes;
 }
 
@@ -346,15 +334,14 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     }
 
     if (hasInvalidatedItemIndexPaths
-            || [context invalidateEverything]
-            || [context invalidateDataSourceCounts]
-            || context.ig_invalidateAllAttributes) {
+        || [context invalidateEverything]
+        || [context invalidateDataSourceCounts]
+        || context.ig_invalidateAllAttributes) {
         _cachedLayoutInvalid = YES;
     }
 
     if (context.ig_invalidateSupplementaryAttributes) {
-        [_headerAttributesCache removeAllObjects];
-        [_footerAttributesCache removeAllObjects];
+        [self resetSupplementaryAttributesCache];
     }
 
     [super invalidateLayoutWithContext:context];
@@ -415,8 +402,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
     // purge attribute caches so they are rebuilt
     [_attributesCache removeAllObjects];
-    [_headerAttributesCache removeAllObjects];
-    [_footerAttributesCache removeAllObjects];
+    [self resetSupplementaryAttributesCache];
 
     UICollectionView *collectionView = self.collectionView;
     id<UICollectionViewDataSource> dataSource = collectionView.dataSource;
@@ -485,7 +471,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             // define epsilon to avoid float overflow issue
             const CGFloat epsilon = 1.0;
             if (itemCoordInFixedDirection + itemLengthInFixedDirection > maxCoordinateInFixedDirection + epsilon
-                    || (item == 0 && headerExists)) {
+                || (item == 0 && headerExists)) {
                 itemCoordInScrollDirection = nextRowCoordInScrollDirection;
                 itemCoordInFixedDirection = UIEdgeInsetsLeadingInsetInDirection(insets, fixedDirection);
 
@@ -591,6 +577,12 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     }
 
     return result;
+}
+
+- (void)resetSupplementaryAttributesCache {
+    [_supplementaryAttributesCache enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSMutableDictionary<NSIndexPath *,UICollectionViewLayoutAttributes *> * _Nonnull attributesCache, BOOL * _Nonnull stop) {
+        [attributesCache removeAllObjects];
+    }];
 }
 
 @end
