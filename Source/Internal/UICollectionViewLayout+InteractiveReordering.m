@@ -61,7 +61,7 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
 }
 
 - (void)ig_hijackLayoutInteractiveReorderingMethodForAdapter:(IGListAdapter *)adapter {
-    objc_setAssociatedObject(self, kIGListAdapterKey, adapter, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, kIGListAdapterKey, adapter, OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (NSIndexPath *)ig_targetIndexPathForInteractivelyMovingItem:(NSIndexPath *)previousIndexPath
