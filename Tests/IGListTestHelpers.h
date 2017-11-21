@@ -39,6 +39,14 @@ XCTAssertEqual(CGRectGetWidth(expected), CGRectGetWidth(frame)); \
 XCTAssertEqual(CGRectGetHeight(expected), CGRectGetHeight(frame)); \
 } while(0)
 
+#define IGAssertEqualInsets(insets,t,l,b,r, ...) \
+do { \
+XCTAssertEqual(insets.top,t); \
+XCTAssertEqual(insets.left,l); \
+XCTAssertEqual(insets.bottom,b); \
+XCTAssertEqual(insets.right,r); \
+} while(0)
+
 #define IGAssertContains(collection, object) do {\
 id haystack = collection; id needle = object; \
 XCTAssertTrue([haystack containsObject:needle], @"%@ does not contain %@", haystack, needle); \
