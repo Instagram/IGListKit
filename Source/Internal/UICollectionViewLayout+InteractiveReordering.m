@@ -76,6 +76,18 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
         return originalTarget;
     }
 
+    NSIndexPath *updatedTarget = [self updatedTargetForInteractivelyMovingItem:previousIndexPath
+                                                                   toIndexPath:originalTarget
+                                                                       adapter:adapter];
+    if (updatedTarget) {
+        return updatedTarget;
+    }
+    return originalTarget;
+}
+
+- (nullable NSIndexPath *)updatedTargetForInteractivelyMovingItem:(NSIndexPath *)previousIndexPath
+                                                      toIndexPath:(NSIndexPath *)originalTarget
+                                                          adapter:(IGListAdapter *)adapter {
     const NSInteger sourceSectionIndex = previousIndexPath.section;
     NSInteger destinationSectionIndex = originalTarget.section;
     NSInteger destinationItemIndex = originalTarget.item;
@@ -106,7 +118,7 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
         }
     }
 
-    return originalTarget;
+    return nil;
 }
 
 - (UICollectionViewLayoutInvalidationContext *)ig_invalidationContextForInteractivelyMovingItems:(NSArray<NSIndexPath *> *)targetIndexPaths withTargetPosition:(CGPoint)targetPosition previousIndexPaths:(NSArray<NSIndexPath *> *)previousIndexPaths previousPosition:(CGPoint)previousPosition {

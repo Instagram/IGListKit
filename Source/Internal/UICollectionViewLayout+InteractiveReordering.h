@@ -11,8 +11,16 @@
 
 #import <IGListKit/IGListAdapter.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UICollectionViewLayout (InteractiveReordering)
 
 - (void)ig_hijackLayoutInteractiveReorderingMethodForAdapter:(IGListAdapter *)adapter;
 
+- (nullable NSIndexPath *)updatedTargetForInteractivelyMovingItem:(NSIndexPath *)previousIndexPath
+                                                      toIndexPath:(NSIndexPath *)originalTarget
+                                                          adapter:(IGListAdapter *)adapter;
+
 @end
+
+NS_ASSUME_NONNULL_END

@@ -116,16 +116,15 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                                          [[IGTestObject alloc] initWithKey:@"1" value:@"1"]];
     [self setupWithObjects:objects numSections:2];
 
-    IGListAdapter *adapter = self.adapter;
-    IGListStackedSectionController *stack = [adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     IGTestReorderableSection *section = (IGTestReorderableSection *)stack.sectionControllers[0];
     section.isReorderable = isReorderable;
 
-    [adapter performUpdatesAnimated:NO completion:nil];
+    [self.adapter performUpdatesAnimated:NO completion:nil];
 
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
 
-    BOOL canMove = [adapter collectionView:self.collectionView canMoveItemAtIndexPath:indexPath];
+    BOOL canMove = [self.adapter collectionView:self.collectionView canMoveItemAtIndexPath:indexPath];
     XCTAssertTrue(canMove);
 }
 
@@ -134,12 +133,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
     [self setupWithObjects:objects numSections:3];
 
-    IGListAdapter *adapter = self.adapter;
-    UICollectionView *collectionView = self.collectionView;
+    [self.adapter performUpdatesAnimated:NO completion:nil];
 
-    [adapter performUpdatesAnimated:NO completion:nil];
-
-    IGListStackedSectionController *stack = [adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     IGTestReorderableSection *section0 = (IGTestReorderableSection *)stack.sectionControllers[0];
     section0.isReorderable = YES;
     IGTestReorderableSection *section1 = (IGTestReorderableSection *)stack.sectionControllers[1];
@@ -152,8 +148,8 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 
-    [adapter performBatchAnimated:NO updates:^(id<IGListBatchContext> _Nonnull batchContext) {
-        [adapter collectionView:collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+    [self.adapter performBatchAnimated:NO updates:^(id<IGListBatchContext> _Nonnull batchContext) {
+        [self.adapter collectionView:self.collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
     } completion:^(BOOL finished) {
         XCTAssertEqual([stack sectionControllerForObjectIndex:0], section2);
         XCTAssertEqual([stack sectionControllerForObjectIndex:1], section0);
@@ -172,12 +168,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
     [self setupWithObjects:objects numSections:1];
 
-    IGListAdapter *adapter = self.adapter;
-    UICollectionView *collectionView = self.collectionView;
+    [self.adapter performUpdatesAnimated:NO completion:nil];
 
-    [adapter performUpdatesAnimated:NO completion:nil];
-
-    IGListStackedSectionController *stack = [adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     IGTestReorderableSection *section = (IGTestReorderableSection *)stack.sectionControllers[0];
     section.isReorderable = YES;
 
@@ -187,8 +180,8 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 
-    [adapter performBatchAnimated:NO updates:^(id<IGListBatchContext> _Nonnull batchContext) {
-        [adapter collectionView:collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+    [self.adapter performBatchAnimated:NO updates:^(id<IGListBatchContext> _Nonnull batchContext) {
+        [self.adapter collectionView:self.collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
     } completion:^(BOOL finished) {
         XCTAssertEqual(section.sectionObject.objects[0], objects[2]);
         XCTAssertEqual(section.sectionObject.objects[1], objects[0]);
@@ -214,8 +207,6 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     IGTestReorderableSection *section1 = [[IGTestReorderableSection alloc] initWithSectionObject:section1Object];
     section1.isReorderable = YES;
 
-    UICollectionView *collectionView = self.collectionView;
-
     IGListTestAdapterStackedReorderingDataSource *dataSource =
     [[IGListTestAdapterStackedReorderingDataSource alloc] initWithSectionControllers:@[section0, section1]];
 
@@ -223,11 +214,11 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                                                      viewController:nil
                                                    workingRangeSize:1];
 
-    adapter.collectionView = collectionView;
+    adapter.collectionView = self.collectionView;
     dataSource.objects = [objects0 arrayByAddingObjectsFromArray:objects1];
     adapter.dataSource = dataSource;
     adapter.moveDelegate = dataSource;
-    [collectionView layoutIfNeeded];
+    [self.collectionView layoutIfNeeded];
 
     [adapter performUpdatesAnimated:NO completion:nil];
 
@@ -243,12 +234,12 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     NSArray *originalSection0Objects = [section0.sectionObject.objects copy];
     NSArray *originalSection1Objects = [section1.sectionObject.objects copy];
 
-    [collectionView performBatchUpdates:^{
-        [collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+    [self.collectionView performBatchUpdates:^{
+        [self.collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
 
-        [collectionView.dataSource collectionView:collectionView
-                              moveItemAtIndexPath:fromIndexPath
-                                      toIndexPath:toIndexPath];
+        [self.collectionView.dataSource collectionView:self.collectionView
+                                   moveItemAtIndexPath:fromIndexPath
+                                           toIndexPath:toIndexPath];
 
     } completion:^(BOOL finished) {
         XCTAssertEqual(section0.sectionObject.objects[0], originalSection0Objects[0]);
