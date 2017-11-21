@@ -16,7 +16,6 @@
 
 @interface IGListDisplayHandler ()
 
-@property (nonatomic, strong) NSCountedSet *visibleListSections;
 @property (nonatomic, strong) NSMapTable *visibleViewObjectMap;
 
 @end
