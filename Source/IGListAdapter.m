@@ -832,7 +832,8 @@
 }
 
 - (CGSize)insetContainerSize {
-    return UIEdgeInsetsInsetRect(self.collectionView.bounds, self.containerInset).size;
+    UICollectionView *collectionView = self.collectionView;
+    return UIEdgeInsetsInsetRect(collectionView.bounds, collectionView.ig_contentInset).size;
 }
 
 - (CGSize)containerSizeForSectionController:(IGListSectionController *)sectionController {
