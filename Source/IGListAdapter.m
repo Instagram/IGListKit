@@ -250,7 +250,7 @@
     const CGFloat offsetMid = (offsetMin + offsetMax) / 2.0;
     const CGFloat collectionViewWidth = collectionView.bounds.size.width;
     const CGFloat collectionViewHeight = collectionView.bounds.size.height;
-    const UIEdgeInsets contentInset = collectionView.IG_contentInsets;
+    const UIEdgeInsets contentInset = collectionView.ig_contentInset;
     CGPoint contentOffset = collectionView.contentOffset;
     switch (scrollDirection) {
         case UICollectionViewScrollDirectionHorizontal: {
@@ -828,7 +828,7 @@
 }
 
 - (UIEdgeInsets)containerInset {
-    return self.collectionView.IG_contentInsets;
+    return self.collectionView.ig_contentInset;
 }
 
 - (CGSize)insetContainerSize {

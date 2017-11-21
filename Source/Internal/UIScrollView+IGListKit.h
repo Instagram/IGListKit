@@ -11,6 +11,6 @@
 
 @interface UIScrollView (IGListKit)
 
-- (UIEdgeInsets) IG_contentInsets;
+- (UIEdgeInsets) ig_contentInset;
 
 @end

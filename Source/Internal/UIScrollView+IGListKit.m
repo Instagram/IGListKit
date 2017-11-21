@@ -11,7 +11,7 @@
 
 @implementation UIScrollView (IGListKit)
 
-- (UIEdgeInsets) IG_contentInsets
+- (UIEdgeInsets) ig_contentInset
 {
 #ifdef __IPHONE_11_0
     if (@available(iOS 11,*)) {
