@@ -84,6 +84,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     self.dataSource.objects = objects;
     self.adapter.collectionView = self.collectionView;
     self.adapter.dataSource = self.dataSource;
+    self.adapter.moveDelegate = self.dataSource;
     [self.collectionView layoutIfNeeded];
 }
 
@@ -225,6 +226,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     adapter.collectionView = collectionView;
     dataSource.objects = [objects0 arrayByAddingObjectsFromArray:objects1];
     adapter.dataSource = dataSource;
+    adapter.moveDelegate = dataSource;
     [collectionView layoutIfNeeded];
 
     [adapter performUpdatesAnimated:NO completion:nil];

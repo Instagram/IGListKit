@@ -40,7 +40,7 @@ extension LabelsItem: ListDiffable {
     }
 }
 
-final class ReorderableStackedViewController: UIViewController, ListAdapterDataSource {
+final class ReorderableStackedViewController: UIViewController, ListAdapterDataSource, ListAdapterMoveDelegate {
 
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
@@ -70,6 +70,7 @@ final class ReorderableStackedViewController: UIViewController, ListAdapterDataS
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
+        adapter.moveDelegate = self
     }
 
     override func viewDidLayoutSubviews() {
@@ -116,6 +117,8 @@ final class ReorderableStackedViewController: UIViewController, ListAdapterDataS
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
+
+    // MARK: - ListAdapterMoveDelegate
 
     func listAdapter(_ listAdapter: ListAdapter, move object: Any, from previousObjects: [Any], to objects: [Any]) {
         guard let objects = objects as? [ListDiffable] else { return }

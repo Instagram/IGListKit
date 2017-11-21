@@ -130,13 +130,12 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
 }
 
 - (UICollectionViewLayoutInvalidationContext *)ig_cleanupInvalidationContext:(UICollectionViewLayoutInvalidationContext *)originalContext {
-
     IGListAdapter *adapter = (IGListAdapter *)objc_getAssociatedObject(self, kIGListAdapterKey);
-    if (adapter == nil) {
+    if (adapter == nil || !self.collectionView) {
         return originalContext;
     }
 
-    NSInteger numSections = [adapter numberOfSectionsInCollectionView:self.collectionView];
+    NSInteger numSections = [adapter numberOfSectionsInCollectionView:(UICollectionView * _Nonnull)self.collectionView];
 
     // protect against invalidating an index path that no longer exists
     // (like item 1 in the last section after interactively reordering an item to the end of a list of 1 item sections)

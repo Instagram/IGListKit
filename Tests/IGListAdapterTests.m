@@ -1551,6 +1551,7 @@
     IGListTestAdapterReorderingDataSource *dataSource = [IGListTestAdapterReorderingDataSource new];
     dataSource.objects = @[@0, @1, @2];
     adapter.dataSource = dataSource;
+    adapter.moveDelegate = dataSource;
 
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
                                                           collectionViewLayout:[UICollectionViewFlowLayout new]];
@@ -1573,6 +1574,7 @@
     IGListTestAdapterReorderingDataSource *dataSource = [IGListTestAdapterReorderingDataSource new];
     dataSource.objects = @[@0, @1, @2];
     adapter.dataSource = dataSource;
+    adapter.moveDelegate = dataSource;
 
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
                                                           collectionViewLayout:[UICollectionViewFlowLayout new]];
@@ -1594,6 +1596,7 @@
     IGListTestAdapterReorderingDataSource *dataSource = [IGListTestAdapterReorderingDataSource new];
     dataSource.objects = @[@0, @1, @2];
     adapter.dataSource = dataSource;
+    adapter.moveDelegate = dataSource;
 
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
                                                           collectionViewLayout:[UICollectionViewFlowLayout new]];
@@ -1654,6 +1657,7 @@
     IGListTestAdapterReorderingDataSource *dataSource = [IGListTestAdapterReorderingDataSource new];
     dataSource.objects = @[@0];
     adapter.dataSource = dataSource;
+    adapter.moveDelegate = dataSource;
 
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
                                                           collectionViewLayout:[UICollectionViewFlowLayout new]];
@@ -1695,6 +1699,7 @@
     IGListTestAdapterReorderingDataSource *dataSource = [IGListTestAdapterReorderingDataSource new];
     dataSource.objects = @[@0, @1];
     adapter.dataSource = dataSource;
+    adapter.moveDelegate = dataSource;
 
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
                                                           collectionViewLayout:[UICollectionViewFlowLayout new]];

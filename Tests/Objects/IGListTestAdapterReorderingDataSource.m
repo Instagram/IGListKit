@@ -23,15 +23,17 @@
     return [IGTestReorderableSection new];
 }
 
+- (nullable UIView *)emptyViewForListAdapter:(nonnull IGListAdapter *)listAdapter {
+    return self.backgroundView;
+}
+
+#pragma mark - IGListAdapterMoveDelegate
+
 - (void)listAdapter:(IGListAdapter *)listAdapter
          moveObject:(id)object
                from:(NSArray *)previousObjects
                  to:(NSArray *)objects {
     self.objects = objects;
-}
-
-- (nullable UIView *)emptyViewForListAdapter:(nonnull IGListAdapter *)listAdapter {
-    return self.backgroundView;
 }
 
 @end

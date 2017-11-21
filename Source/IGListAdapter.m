@@ -1204,6 +1204,7 @@
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Moving section %@ without a collection view from index %zi to index %zi.",
              sectionController, fromIndex, toIndex);
+    IGAssert(self.moveDelegate != nil, @"Moving section %@ without a moveDelegate set", sectionController);
     
     if (fromIndex != toIndex) {
         id<IGListAdapterDataSource> dataSource = self.dataSource;
@@ -1225,7 +1226,7 @@
         NSArray *objects = [mutObjects copy];
 
         // inform the data source to update its model
-        [dataSource listAdapter:self moveObject:object from:previousObjects to:objects];
+        [self.moveDelegate listAdapter:self moveObject:object from:previousObjects to:objects];
         
         // update our model based on that provided by the data source
         NSArray<id<IGListDiffable>> *updatedObjects = [dataSource objectsForListAdapter:self];

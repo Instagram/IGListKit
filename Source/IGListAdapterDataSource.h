@@ -61,21 +61,6 @@ NS_SWIFT_NAME(ListAdapterDataSource)
  */
 - (nullable UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter;
     
-@optional
-    
-/**
- Asks the data source to move an section object as the result of interactive reordering.
- 
- @param listAdapter The list adapter sending this information.
- @param object the object that was moved
- @param previousObjects The array of objects prior to the move.
- @param objects The array of objects after the move.
- */
-- (void)listAdapter:(IGListAdapter *)listAdapter
-         moveObject:(id)object
-               from:(NSArray *)previousObjects
-                 to:(NSArray *)objects;
-    
 @end
 
 NS_ASSUME_NONNULL_END

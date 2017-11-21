@@ -10,12 +10,13 @@
 #import <Foundation/Foundation.h>
 
 #import <IGListKit/IGListAdapterDataSource.h>
+#import <IGListKit/IGListAdapterMoveDelegate.h>
 #import <IGListKit/IGListSectionController.h>
 
 #import "IGListTestCase.h"
 #import "IGTestObject.h"
 
-@interface IGListTestAdapterStackedReorderingDataSource : NSObject <IGListTestCaseDataSource>
+@interface IGListTestAdapterStackedReorderingDataSource : NSObject <IGListTestCaseDataSource, IGListAdapterMoveDelegate>
 
 // array of numbers which is then passed to -[IGTestReorderableSection setItems:]
 @property (nonatomic, strong) NSArray<IGTestObject *> *objects;

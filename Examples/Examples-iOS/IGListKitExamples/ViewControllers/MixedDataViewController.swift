@@ -15,7 +15,7 @@
 import UIKit
 import IGListKit
 
-final class MixedDataViewController: UIViewController, ListAdapterDataSource {
+final class MixedDataViewController: UIViewController, ListAdapterDataSource, ListAdapterMoveDelegate {
 
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
@@ -62,6 +62,7 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
+        adapter.moveDelegate = self
     }
 
     @available(iOS 9.0, *)
@@ -115,6 +116,8 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
 
+    // MARK: - ListAdapterMoveDelegate
+    
     func listAdapter(_ listAdapter: ListAdapter, move object: Any, from previousObjects: [Any], to objects: [Any]) {
         data = objects
     }

@@ -11,6 +11,7 @@
 
 #import <IGListKit/IGListAdapterDataSource.h>
 #import <IGListKit/IGListAdapterDelegate.h>
+#import <IGListKit/IGListAdapterMoveDelegate.h>
 #import <IGListKit/IGListCollectionContext.h>
 #import <IGListKit/IGListAdapterUpdateListener.h>
 
@@ -76,6 +77,11 @@ NS_SWIFT_NAME(ListAdapter)
  The object that receives `UIScrollViewDelegate` events.
  */
 @property (nonatomic, nullable, weak) id <UIScrollViewDelegate> scrollViewDelegate;
+
+/**
+ The object that receives `IGListAdapterMoveDelegate` events resulting from interactive reordering of sections.
+ */
+@property (nonatomic, nullable, weak) id <IGListAdapterMoveDelegate> moveDelegate;
 
 /**
  The updater for the adapter.
