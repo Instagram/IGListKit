@@ -37,18 +37,26 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     return [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:genIndexPath(section, 0)];
 }
 
+- (UICollectionReusableView *)footerForSection:(NSInteger)section {
+    return [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:genIndexPath(section, 0)];
+}
+
 - (void)setUpWithStickyHeaders:(BOOL)sticky topInset:(CGFloat)inset {
     [self setUpWithStickyHeaders:sticky topInset:inset stretchToEdge:NO];
 }
 
-- (void)setUpWithStickyHeaders:(BOOL)sticky topInset:(CGFloat)inset stretchToEdge:(BOOL)stretchToEdge {
-    [self setUpWithStickyHeaders:sticky scrollDirection:UICollectionViewScrollDirectionVertical topInset:inset stretchToEdge:stretchToEdge];
+- (void)setUpWithStickyHeaders:(BOOL)sticky topInset:(CGFloat)inset testFrame:(CGRect)testFrame {
+    [self setUpWithStickyHeaders:sticky scrollDirection:UICollectionViewScrollDirectionVertical topInset:inset stretchToEdge:NO testFrame:testFrame];
 }
 
-- (void)setUpWithStickyHeaders:(BOOL)sticky scrollDirection:(UICollectionViewScrollDirection)scrollDirection topInset:(CGFloat)inset stretchToEdge:(BOOL)stretchToEdge {
+- (void)setUpWithStickyHeaders:(BOOL)sticky topInset:(CGFloat)inset stretchToEdge:(BOOL)stretchToEdge {
+    [self setUpWithStickyHeaders:sticky scrollDirection:UICollectionViewScrollDirectionVertical topInset:inset stretchToEdge:stretchToEdge testFrame:kTestFrame];
+}
+
+- (void)setUpWithStickyHeaders:(BOOL)sticky scrollDirection:(UICollectionViewScrollDirection)scrollDirection topInset:(CGFloat)inset stretchToEdge:(BOOL)stretchToEdge testFrame:(CGRect)testFrame {
     self.layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:sticky scrollDirection:scrollDirection topContentInset:inset stretchToEdge:stretchToEdge];
     self.dataSource = [IGLayoutTestDataSource new];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:kTestFrame collectionViewLayout:self.layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:testFrame collectionViewLayout:self.layout];
     self.collectionView.dataSource = self.dataSource;
     self.collectionView.delegate = self.dataSource;
     [self.dataSource configCollectionView:self.collectionView];
@@ -86,22 +94,25 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     const UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 5, 5);
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:insets
-                                                            lineSpacing:lineSpacing
-                                                       interitemSpacing:0
-                                                           headerHeight:headerHeight
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){85,10}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){85,20}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:insets
-                                                            lineSpacing:lineSpacing
-                                                       interitemSpacing:0
-                                                           headerHeight:headerHeight
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){85,30}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:insets
+                                            lineSpacing:lineSpacing
+                                       interitemSpacing:0
+                                           headerHeight:headerHeight
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 10}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 20}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:insets
+                                            lineSpacing:lineSpacing
+                                       interitemSpacing:0
+                                           headerHeight:headerHeight
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 30}],
+                                                  ]],
+    ]];
+
     XCTAssertEqual(self.collectionView.contentSize.height, 120);
     IGAssertEqualFrame([self headerForSection:0].frame, 10, 10, 85, 10);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 10, 20, 85, 10);
@@ -110,30 +121,106 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     IGAssertEqualFrame([self cellForSection:1 item:0].frame, 10, 85, 85, 30);
 }
 
--(void)test_whenLayingOutCellsHorizontally_withHeaderHeight_withLineSpacing_withInsets_thatFramesCorrect {
-    [self setUpWithStickyHeaders:NO scrollDirection:UICollectionViewScrollDirectionHorizontal topInset:0 stretchToEdge:NO];
+- (void)test_whenLayingOutCellsVertically_withFooterHeight_withLineSpacing_withInsets_thatFramesCorrect {
+    [self setUpWithStickyHeaders:NO topInset:0 testFrame:CGRectMake(0, 0, 100, 150)];
+
+    const CGFloat footerHeight = 10;
+    const CGFloat lineSpacing = 10;
+    const UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 5, 5);
+
+    [self prepareWithData:@[
+            [[IGLayoutTestSection alloc] initWithInsets:insets
+                                            lineSpacing:lineSpacing
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:footerHeight
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 10}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 20}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:insets
+                                            lineSpacing:lineSpacing
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:footerHeight
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 30}],
+                                                  ]],
+    ]];
+
+    XCTAssertEqual(self.collectionView.contentSize.height, 120);
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 10, 10, 85, 10);
+    IGAssertEqualFrame([self cellForSection:0 item:1].frame, 10, 30, 85, 20);
+    IGAssertEqualFrame([self footerForSection:0].frame, 10, 50, 85, 10);
+    IGAssertEqualFrame([self cellForSection:1 item:0].frame, 10, 75, 85, 30);
+    IGAssertEqualFrame([self footerForSection:1].frame, 10, 105, 85, 10);
+}
+
+- (void)test_whenLayingOutCellsVertically_withHeaderHeight_withFooterHeight_withLineSpacing_withInsets_thatFramesCorrect {
+    [self setUpWithStickyHeaders:NO topInset:0 testFrame:CGRectMake(0, 0, 100, 150)];
+
+    const CGFloat headerHeight = 10;
+    const CGFloat footerHeight = 10;
+    const CGFloat lineSpacing = 10;
+    const UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 5, 5);
+
+    [self prepareWithData:@[
+            [[IGLayoutTestSection alloc] initWithInsets:insets
+                                            lineSpacing:lineSpacing
+                                       interitemSpacing:0
+                                           headerHeight:headerHeight
+                                           footerHeight:footerHeight
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 10}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 20}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:insets
+                                            lineSpacing:lineSpacing
+                                       interitemSpacing:0
+                                           headerHeight:headerHeight
+                                           footerHeight:footerHeight
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 30}],
+                                                  ]],
+    ]];
+
+    XCTAssertEqual(self.collectionView.contentSize.height, 140);
+    IGAssertEqualFrame([self headerForSection:0].frame, 10, 10, 85, 10);
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 10, 20, 85, 10);
+    IGAssertEqualFrame([self cellForSection:0 item:1].frame, 10, 40, 85, 20);
+    IGAssertEqualFrame([self footerForSection:0].frame, 10, 60, 85, 10);
+    IGAssertEqualFrame([self headerForSection:1].frame, 10, 85, 85, 10);
+    IGAssertEqualFrame([self cellForSection:1 item:0].frame, 10, 95, 85, 30);
+    IGAssertEqualFrame([self footerForSection:1].frame, 10, 125, 85, 10);
+}
+
+- (void)test_whenLayingOutCellsHorizontally_withHeaderHeight_withLineSpacing_withInsets_thatFramesCorrect {
+    [self setUpWithStickyHeaders:NO scrollDirection:UICollectionViewScrollDirectionHorizontal topInset:0 stretchToEdge:NO testFrame:kTestFrame];
     
     const CGFloat headerHeight = 10;
     const CGFloat lineSpacing = 10;
     const UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 5, 5);
-    
+
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:insets
-                                                            lineSpacing:lineSpacing
-                                                       interitemSpacing:0
-                                                           headerHeight:headerHeight
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){45,10}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){45,20}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:insets
-                                                            lineSpacing:lineSpacing
-                                                       interitemSpacing:0
-                                                           headerHeight:headerHeight
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){45,30}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:insets
+                                            lineSpacing:lineSpacing
+                                       interitemSpacing:0
+                                           headerHeight:headerHeight
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {45, 10}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {45, 20}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:insets
+                                            lineSpacing:lineSpacing
+                                       interitemSpacing:0
+                                           headerHeight:headerHeight
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {45, 30}],
+                                                  ]],
+    ]];
+
     XCTAssertEqual(self.collectionView.contentSize.width, 140);
     IGAssertEqualFrame([self headerForSection:0].frame, 10, 10, 10, 85);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 20, 10, 45, 10);
@@ -142,29 +229,65 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     IGAssertEqualFrame([self cellForSection:1 item:0].frame, 90, 10, 45, 30);
 }
 
+- (void)test_whenLayingOutCellsHorizontally_withFooterHeight_withLineSpacing_withInsets_thatFramesCorrect {
+    [self setUpWithStickyHeaders:NO scrollDirection:UICollectionViewScrollDirectionHorizontal topInset:0 stretchToEdge:NO testFrame:kTestFrame];
+
+    const CGFloat footerHeight = 10;
+    const CGFloat lineSpacing = 10;
+    const UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 5, 5);
+
+    [self prepareWithData:@[
+            [[IGLayoutTestSection alloc] initWithInsets:insets
+                                            lineSpacing:lineSpacing
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:footerHeight
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {45, 10}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {45, 20}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:insets
+                                            lineSpacing:lineSpacing
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:footerHeight
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {45, 30}],
+                                                  ]],
+    ]];
+
+    XCTAssertEqual(self.collectionView.contentSize.width, 75);
+    IGAssertEqualFrame([self footerForSection:0].frame, 60, 10, 10, 85);
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 10, 10, 45, 10);
+    IGAssertEqualFrame([self cellForSection:0 item:1].frame, 10, 20, 45, 20);
+    IGAssertEqualFrame([self footerForSection:1].frame, 60, 10, 10, 85);
+    IGAssertEqualFrame([self cellForSection:1 item:0].frame, 10, 55, 45, 30);
+}
 
 - (void)test_whenUsingStickyHeaders_withSimulatedScrolling_thatYPositionsAdjusted {
     [self setUpWithStickyHeaders:YES topInset:10];
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:10
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){100,20}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){100,20}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:10
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){100,30}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){100,30}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){100,30}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:10
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {100, 20}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {100, 20}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:10
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {100, 30}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {100, 30}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {100, 30}],
+                                                  ]],
+    ]];
 
     // scroll header 0 halfway
     self.collectionView.contentOffset = CGPointMake(0, 5);
@@ -180,27 +303,29 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 }
 
 - (void)test_whenUsingStickyHeaders_withSimulatedHorizontalScrolling_thatXPositionsAdjusted {
-    [self setUpWithStickyHeaders:YES scrollDirection:UICollectionViewScrollDirectionHorizontal topInset:10 stretchToEdge:NO];
-    
+    [self setUpWithStickyHeaders:YES scrollDirection:UICollectionViewScrollDirectionHorizontal topInset:10 stretchToEdge:NO testFrame:kTestFrame];
+
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:10
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){20,100}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){20,100}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:10
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){30,100}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){30,100}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){30,100}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:10
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {20, 100}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {20, 100}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:10
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {30, 100}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {30, 100}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {30, 100}],
+                                                  ]],
+    ]];
     
     // scroll header 0 halfway
     self.collectionView.contentOffset = CGPointMake(5, 0);
@@ -219,24 +344,26 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     [self setUpWithStickyHeaders:YES topInset:10];
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:10
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){100,10}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){100,20}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:10
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){100,30}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){100,40}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){100,50}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:10
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {100, 10}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {100, 20}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:10
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {100, 30}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {100, 40}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {100, 50}],
+                                                  ]],
+    ]];
 
     // scroll header 0 off and 1 up
     self.collectionView.contentOffset = CGPointMake(0, 35);
@@ -259,23 +386,26 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     [self setUpWithStickyHeaders:NO topInset:0];
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+    ]];
+
     XCTAssertEqual(self.collectionView.contentSize.height, 66);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
     IGAssertEqualFrame([self cellForSection:0 item:1].frame, 33, 0, 33, 33);
@@ -287,16 +417,18 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     [self setUpWithStickyHeaders:NO topInset:0];
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0.5
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0.5
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+    ]];
+
     XCTAssertEqual(self.collectionView.contentSize.height, 33);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
     const CGRect rect = IGListRectIntegralScaled(CGRectMake(33.5, 0, 33, 33));
@@ -305,19 +437,21 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 }
 
 - (void)test_whenItemsLargerThanContainerHeight_withHorizontalScrolling_with5PointItemSpacing_with0Insets_with10PointLineSpacing_thatItemsBumpToNewColumn {
-    [self setUpWithStickyHeaders:NO scrollDirection:UICollectionViewScrollDirectionHorizontal topInset:0 stretchToEdge:NO];
-    
+    [self setUpWithStickyHeaders:NO scrollDirection:UICollectionViewScrollDirectionHorizontal topInset:0 stretchToEdge:NO testFrame:kTestFrame];
+
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:10
-                                                       interitemSpacing:5
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:10
+                                       interitemSpacing:5
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+    ]];
+
     XCTAssertEqual(self.collectionView.contentSize.width, 76);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
     IGAssertEqualFrame([self cellForSection:0 item:1].frame, 0, 38, 33, 33);
@@ -328,28 +462,32 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     [self setUpWithStickyHeaders:NO topInset:0];
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+    ]];
+
     XCTAssertEqual(self.collectionView.contentSize.height, 33);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
     IGAssertEqualFrame([self cellForSection:1 item:0].frame, 33, 0, 33, 33);
@@ -357,31 +495,32 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 }
 
 - (void)test_whenSectionsSmallerThanContainerHeight_withHorizontalScrolling_with0ItemSpacing_with0Insets_with0LineSpacing_thatSectionsFitSameColumn {
-    [self setUpWithStickyHeaders:NO scrollDirection:UICollectionViewScrollDirectionHorizontal topInset:0 stretchToEdge:NO];
-    
+    [self setUpWithStickyHeaders:NO scrollDirection:UICollectionViewScrollDirectionHorizontal topInset:0 stretchToEdge:NO testFrame:kTestFrame];
+
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+    ]];
+
     XCTAssertEqual(self.collectionView.contentSize.width, 33);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
     IGAssertEqualFrame([self cellForSection:1 item:0].frame, 0, 33, 33, 33);
@@ -392,28 +531,32 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     [self setUpWithStickyHeaders:NO topInset:0];
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0.5
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0.5
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0.5
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0.5
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0.5
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0.5
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+    ]];
+
     XCTAssertEqual(self.collectionView.contentSize.height, 33);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
     const CGRect rect = IGListRectIntegralScaled(CGRectMake(33.5, 0, 33, 33));
@@ -425,35 +568,40 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     [self setUpWithStickyHeaders:NO topInset:0];
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsMake(10, 10, 10, 10)
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){13,50}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsMake(10, 10, 10, 10)
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {13, 50}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+    ]];
+
     XCTAssertEqual(self.collectionView.contentSize.height, 103);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
     IGAssertEqualFrame([self cellForSection:1 item:0].frame, 43, 10, 13, 50);
@@ -465,21 +613,24 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     [self setUpWithStickyHeaders:NO topInset:0];
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsMake(10, 10, 5, 5)
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){85,50}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsMake(10, 10, 5, 5)
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 50}],
+                                                  ]],
+    ]];
+
     XCTAssertEqual(self.collectionView.contentSize.height, 98);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
     IGAssertEqualFrame([self cellForSection:1 item:0].frame, 10, 43, 85, 50);
@@ -489,45 +640,51 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     [self setUpWithStickyHeaders:NO topInset:0];
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:10
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:10
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+    ]];
+
     XCTAssertEqual(self.collectionView.contentSize.height, 76);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
     IGAssertEqualFrame([self cellForSection:1 item:0].frame, 0, 43, 33, 33);
 }
 
 - (void)test_whenSectionsSmallerThanHeight_withHorizontalScrolling_withSectionHeader_thatHeaderCausesNewline {
-    [self setUpWithStickyHeaders:NO scrollDirection:UICollectionViewScrollDirectionHorizontal topInset:0 stretchToEdge:NO];
-    
+    [self setUpWithStickyHeaders:NO scrollDirection:UICollectionViewScrollDirectionHorizontal topInset:0 stretchToEdge:NO testFrame:kTestFrame];
+
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:10
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:10
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+    ]];
+
     XCTAssertEqual(self.collectionView.contentSize.width, 76);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
     IGAssertEqualFrame([self cellForSection:1 item:0].frame, 43, 0, 33, 33);
@@ -544,76 +701,80 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     self.collectionView.frame = CGRectMake(0, 0, 100, 400);
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:insets
-                                                            lineSpacing:lineSpacing
-                                                       interitemSpacing:0
-                                                           headerHeight:headerHeight
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){85,10}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){85,20}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:insets
-                                                            lineSpacing:lineSpacing
-                                                       interitemSpacing:0
-                                                           headerHeight:headerHeight
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){85,30}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:insets
-                                                            lineSpacing:lineSpacing
-                                                       interitemSpacing:0
-                                                           headerHeight:headerHeight
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){85,60}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:insets
-                                                            lineSpacing:lineSpacing
-                                                       interitemSpacing:0
-                                                           headerHeight:headerHeight
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){85,40}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:insets lineSpacing:lineSpacing
+                                       interitemSpacing:0
+                                           headerHeight:headerHeight
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 10}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 20}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:insets lineSpacing:lineSpacing
+                                       interitemSpacing:0
+                                           headerHeight:headerHeight
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 30}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:insets lineSpacing:lineSpacing
+                                       interitemSpacing:0
+                                           headerHeight:headerHeight
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 60}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:insets lineSpacing:lineSpacing
+                                       interitemSpacing:0
+                                           headerHeight:headerHeight
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 40}],
+                                                  ]],
+    ]];
 
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 
     [self.collectionView performBatchUpdates:^{
         self.dataSource.sections = @[
-                                     [[IGLayoutTestSection alloc] initWithInsets:insets
-                                                                     lineSpacing:lineSpacing
-                                                                interitemSpacing:0
-                                                                    headerHeight:headerHeight
-                                                                           items:@[
-                                                                                   [[IGLayoutTestItem alloc] initWithSize:(CGSize){85,30}], // reloaded
-                                                                                   // deleted
-                                                                                   ]],
-                                     // moved from section 3 to 1
-                                     [[IGLayoutTestSection alloc] initWithInsets:insets
-                                                                     lineSpacing:lineSpacing
-                                                                interitemSpacing:0
-                                                                    headerHeight:headerHeight
-                                                                           items:@[
-                                                                                   [[IGLayoutTestItem alloc] initWithSize:(CGSize){85,40}],
-                                                                                   ]],
-                                     // deleted section 2
-                                     [[IGLayoutTestSection alloc] initWithInsets:insets
-                                                                     lineSpacing:lineSpacing
-                                                                interitemSpacing:0
-                                                                    headerHeight:headerHeight
-                                                                           items:@[
-                                                                                   [[IGLayoutTestItem alloc] initWithSize:(CGSize){85,30}],
-                                                                                   [[IGLayoutTestItem alloc] initWithSize:(CGSize){85,10}], // inserted
-                                                                                   ]],
-                                     // inserted
-                                     [[IGLayoutTestSection alloc] initWithInsets:insets
-                                                                     lineSpacing:lineSpacing
-                                                                interitemSpacing:0
-                                                                    headerHeight:headerHeight
-                                                                           items:@[
-                                                                                   [[IGLayoutTestItem alloc] initWithSize:(CGSize){85,10}],
-                                                                                   [[IGLayoutTestItem alloc] initWithSize:(CGSize){85,20}],
-                                                                                   ]],
-                                     ];
+                [[IGLayoutTestSection alloc] initWithInsets:insets
+                                                lineSpacing:lineSpacing
+                                           interitemSpacing:0
+                                               headerHeight:headerHeight
+                                               footerHeight:0
+                                                      items:@[
+                                                              [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 30}], // reloaded
+                                                              // deleted
+                                                      ]],
+                // moved from section 3 to 1
+                [[IGLayoutTestSection alloc] initWithInsets:insets
+                                                lineSpacing:lineSpacing
+                                           interitemSpacing:0
+                                               headerHeight:headerHeight
+                                               footerHeight:0
+                                                      items:@[
+                                                              [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 40}],
+                                                      ]],
+                // deleted section 2
+                [[IGLayoutTestSection alloc] initWithInsets:insets
+                                                lineSpacing:lineSpacing
+                                           interitemSpacing:0
+                                               headerHeight:headerHeight
+                                               footerHeight:0
+                                                      items:@[
+                                                              [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 30}],
+                                                              [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 10}], // inserted
+                                                      ]],
+                // inserted
+                [[IGLayoutTestSection alloc] initWithInsets:insets
+                                                lineSpacing:lineSpacing
+                                           interitemSpacing:0
+                                               headerHeight:headerHeight
+                                               footerHeight:0
+                                                      items:@[
+                                                              [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 10}],
+                                                              [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 20}],
+                                                      ]],
+        ];
 
         [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:2]];
         [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:3]];
@@ -652,16 +813,17 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 
     NSMutableArray *items = [NSMutableArray new];
     for (NSInteger i = 0; i < 1000; i++) {
-        [items addObject:[[IGLayoutTestItem alloc] initWithSize:(CGSize){100,20}]];
+        [items addObject:[[IGLayoutTestItem alloc] initWithSize:(CGSize) {100, 20}]];
     }
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:items]
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:items]
+    ]];
 
     XCTAssertEqual([self.layout layoutAttributesForElementsInRect:CGRectMake(0, 500, 100, 100)].count, 5);
     XCTAssertEqual([self.layout layoutAttributesForElementsInRect:CGRectMake(0, 0, 100, 1000)].count, 50);
@@ -677,10 +839,11 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
                                                         lineSpacing:0
                                                    interitemSpacing:0
                                                        headerHeight:0
+                                                       footerHeight:0
                                                               items:@[
-                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize){50, 100}],
-                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize){50, 10}],
-                                                                      ]]];
+                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize) {50, 100}],
+                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize) {50, 10}],
+                                                              ]]];
     }
     [self prepareWithData:data];
     
@@ -704,11 +867,12 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
                                                         lineSpacing:0
                                                    interitemSpacing:0
                                                        headerHeight:0
+                                                       footerHeight:0
                                                               items:@[
-                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize){30, 100}],
-                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize){30, 10}],
-                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize){30, 10}],
-                                                                      ]]];
+                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize) {30, 100}],
+                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize) {30, 10}],
+                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize) {30, 10}],
+                                                              ]]];
     }
     [self prepareWithData:data];
     
@@ -731,28 +895,31 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     [self setUpWithStickyHeaders:NO topInset:0];
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){33,33}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {33, 33}],
+                                                  ]],
+    ]];
 
     XCTAssertEqual(self.collectionView.contentSize.height, 33);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
@@ -774,15 +941,17 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     self.collectionView.contentInset = UIEdgeInsetsMake(0, 30, 0, 30);
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:10
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){40,10}],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize){40,20}],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:10
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {40, 10}],
+                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {40, 20}],
+                                                  ]],
+    ]];
+
     XCTAssertEqual(self.collectionView.contentSize.height, 40);
     IGAssertEqualFrame([self headerForSection:0].frame, 0, 0, 40, 10);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 10, 40, 10);
@@ -794,16 +963,17 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 
     const CGSize size = CGSizeMake(33, 33);
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:size],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:size],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:size],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:size],
+                                                          [[IGLayoutTestItem alloc] initWithSize:size],
+                                                          [[IGLayoutTestItem alloc] initWithSize:size],
+                                                  ]],
+    ]];
 
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
     IGAssertEqualFrame([self cellForSection:0 item:1].frame, 33, 0, 33, 33);
@@ -814,15 +984,16 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     [self setUpWithStickyHeaders:NO topInset:0 stretchToEdge:YES];
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(33, 33)],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 33)],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(33, 33)],
+                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 33)],
+                                                  ]],
+    ]];
 
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
     IGAssertEqualFrame([self cellForSection:0 item:1].frame, 33, 0, 65, 33);
@@ -832,15 +1003,16 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     [self setUpWithStickyHeaders:NO topInset:0];
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 50)],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(51, 50)],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 50)],
+                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(51, 50)],
+                                                  ]],
+    ]];
 
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 50, 50);
     IGAssertEqualFrame([self cellForSection:0 item:1].frame, 50, 0, 51, 50);
@@ -850,15 +1022,16 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     [self setUpWithStickyHeaders:NO topInset:0];
 
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 50)],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(52, 50)],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 50)],
+                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(52, 50)],
+                                                  ]],
+    ]];
 
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 50, 50);
     IGAssertEqualFrame([self cellForSection:0 item:1].frame, 0, 50, 52, 50);
@@ -874,9 +1047,10 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
                                                         lineSpacing:0
                                                    interitemSpacing:0
                                                        headerHeight:0
+                                                       footerHeight:0
                                                               items:@[
-                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize){136, 136}],
-                                                                      ]]];
+                                                                      [[IGLayoutTestItem alloc] initWithSize:(CGSize) {136, 136}],
+                                                              ]]];
     }
     [self prepareWithData:data];
 
@@ -891,31 +1065,37 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 
 - (void)test_whenQueryingAttributes_withSectionOOB_thatReturnsNil {
     [self setUpWithStickyHeaders:NO topInset:0 stretchToEdge:YES];
+
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(33, 33)],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 33)],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(33, 33)],
+                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 33)],
+                                                  ]],
+    ]];
+
     XCTAssertNil([self.layout layoutAttributesForItemAtIndexPath:genIndexPath(4, 0)]);
 }
 
 - (void)test_whenQueryingAttributes_withItemOOB_thatReturnsNil {
     [self setUpWithStickyHeaders:NO topInset:0 stretchToEdge:YES];
+
     [self prepareWithData:@[
-                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                                            lineSpacing:0
-                                                       interitemSpacing:0
-                                                           headerHeight:0
-                                                                  items:@[
-                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(33, 33)],
-                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 33)],
-                                                                          ]],
-                            ]];
+            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                            lineSpacing:0
+                                       interitemSpacing:0
+                                           headerHeight:0
+                                           footerHeight:0
+                                                  items:@[
+                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(33, 33)],
+                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(65, 33)],
+                                                  ]],
+    ]];
+
     XCTAssertNil([self.layout layoutAttributesForItemAtIndexPath:genIndexPath(0, 4)]);
 }
 
