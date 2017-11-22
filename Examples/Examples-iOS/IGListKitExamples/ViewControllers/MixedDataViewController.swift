@@ -62,7 +62,9 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource, Li
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
-        adapter.moveDelegate = self
+        if #available(iOS 9.0, *) {
+            adapter.moveDelegate = self
+        }
     }
 
     @available(iOS 9.0, *)

@@ -40,7 +40,9 @@ final class ReorderableViewController: UIViewController, ListAdapterDataSource, 
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
-        adapter.moveDelegate = self
+        if #available(iOS 9.0, *) {
+            adapter.moveDelegate = self
+        }
     }
 
     override func viewDidLayoutSubviews() {
