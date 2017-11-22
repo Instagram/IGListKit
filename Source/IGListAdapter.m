@@ -1196,7 +1196,7 @@
 
 - (void)moveSectionControllerInteractive:(IGListSectionController *)sectionController
                                fromIndex:(NSInteger)fromIndex
-                                 toIndex:(NSInteger)toIndex {
+                                 toIndex:(NSInteger)toIndex NS_AVAILABLE_IOS(9_0) {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(fromIndex >= 0);
@@ -1241,7 +1241,7 @@
     
 - (void)moveInSectionControllerInteractive:(IGListSectionController *)sectionController
                                  fromIndex:(NSInteger)fromIndex
-                                   toIndex:(NSInteger)toIndex {
+                                   toIndex:(NSInteger)toIndex NS_AVAILABLE_IOS(9_0) {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(fromIndex >= 0);
@@ -1251,7 +1251,7 @@
 }
 
 - (void)revertInvalidInteractiveMoveFromIndexPath:(NSIndexPath *)sourceIndexPath
-                                      toIndexPath:(NSIndexPath *)destinationIndexPath {
+                                      toIndexPath:(NSIndexPath *)destinationIndexPath NS_AVAILABLE_IOS(9_0) {
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reverting move without a collection view from %@ to %@.",
              sourceIndexPath, destinationIndexPath);

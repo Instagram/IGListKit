@@ -76,7 +76,7 @@ NS_SWIFT_NAME(ListBatchContext)
  */
 - (void)moveSectionControllerInteractive:(IGListSectionController *)sectionController
                                fromIndex:(NSInteger)fromIndex
-                                 toIndex:(NSInteger)toIndex;
+                                 toIndex:(NSInteger)toIndex NS_AVAILABLE_IOS(9_0);
 
 /**
  Moves an object within a section controller from one index to another during interactive reordering.
@@ -87,7 +87,7 @@ NS_SWIFT_NAME(ListBatchContext)
  */
 - (void)moveInSectionControllerInteractive:(IGListSectionController *)sectionController
                                  fromIndex:(NSInteger)fromIndex
-                                   toIndex:(NSInteger)toIndex;
+                                   toIndex:(NSInteger)toIndex NS_AVAILABLE_IOS(9_0);
     
 /**
  Reverts an move from one indexPath to another during interactive reordering.
@@ -96,7 +96,7 @@ NS_SWIFT_NAME(ListBatchContext)
  @param destinationIndexPath The indexPath the item was moving to.
  */
 - (void)revertInvalidInteractiveMoveFromIndexPath:(NSIndexPath *)sourceIndexPath
-                                      toIndexPath:(NSIndexPath *)destinationIndexPath;
+                                      toIndexPath:(NSIndexPath *)destinationIndexPath NS_AVAILABLE_IOS(9_0);
 @end
 
 NS_ASSUME_NONNULL_END

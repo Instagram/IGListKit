@@ -417,7 +417,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     
 - (void)moveSectionControllerInteractive:(nonnull IGListSectionController *)sectionController
                                fromIndex:(NSInteger)fromIndex
-                                 toIndex:(NSInteger)toIndex {
+                                 toIndex:(NSInteger)toIndex NS_AVAILABLE_IOS(9_0) {
 
     NSMutableArray<__kindof IGListSectionController *> *mutSections = [[self.sectionControllers array] mutableCopy];
     IGListSectionController *section = [mutSections objectAtIndex:fromIndex];
@@ -430,7 +430,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     
 - (void)moveInSectionControllerInteractive:(nonnull IGListSectionController *)sectionController
                                  fromIndex:(NSInteger)fromIndex
-                                   toIndex:(NSInteger)toIndex {
+                                   toIndex:(NSInteger)toIndex NS_AVAILABLE_IOS(9_0) {
 
     const NSInteger localFromIndex = [self localIndexForSectionController:sectionController index:fromIndex];
     const NSInteger localToIndex = [self localIndexForSectionController:sectionController index:toIndex];
@@ -441,7 +441,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 }
     
 - (void)revertInvalidInteractiveMoveFromIndexPath:(nonnull NSIndexPath *)sourceIndexPath
-                                      toIndexPath:(nonnull NSIndexPath *)destinationIndexPath {
+                                      toIndexPath:(nonnull NSIndexPath *)destinationIndexPath NS_AVAILABLE_IOS(9_0) {
     IGFailAssert(@"Invalid interactive movement shouldn't be possible within IGListStackedSectionController. \
                  It is handled in IGListAdapter. %s:",
                  __PRETTY_FUNCTION__);

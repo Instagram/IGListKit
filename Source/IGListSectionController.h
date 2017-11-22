@@ -126,7 +126,7 @@ NS_SWIFT_NAME(ListSectionController)
  
  @note this method must be implemented if interactive reordering is enabled.
  */
-- (void)moveObjectFromIndex:(NSInteger)sourceIndex toIndex:(NSInteger)destinationIndex;
+- (void)moveObjectFromIndex:(NSInteger)sourceIndex toIndex:(NSInteger)destinationIndex NS_AVAILABLE_IOS(9_0);
     
 /**
  The view controller housing the adapter that created this section controller.
