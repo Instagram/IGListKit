@@ -60,7 +60,7 @@ NS_SWIFT_NAME(ListAdapterDataSource)
  adding the background view and maintaining its visibility.
  */
 - (nullable UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter;
-    
+
 @end
 
 NS_ASSUME_NONNULL_END

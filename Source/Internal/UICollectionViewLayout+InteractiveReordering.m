@@ -103,7 +103,7 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
             // the "item" representing our section was dropped
             // into the end of a destination section rather than the beginning
             // so it really belongs one section after the section where it landed
-            if (destinationSectionIndex < [[adapter objects] count]-1) {
+            if (destinationSectionIndex < [[adapter objects] count] - 1) {
                 destinationSectionIndex += 1;
                 destinationItemIndex = 0;
             }
@@ -147,7 +147,7 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
         return originalContext;
     }
 
-    NSInteger numSections = [adapter numberOfSectionsInCollectionView:(UICollectionView * _Nonnull)self.collectionView];
+    const NSInteger numSections = [adapter numberOfSectionsInCollectionView:(UICollectionView * _Nonnull)self.collectionView];
 
     // protect against invalidating an index path that no longer exists
     // (like item 1 in the last section after interactively reordering an item to the end of a list of 1 item sections)
@@ -158,7 +158,7 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
                          ^BOOL(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                              if (obj.section == numSections-1) {
                                  IGListSectionController *section = [adapter sectionControllerForSection:obj.section];
-                                 return obj.item > [section numberOfItems]-1;
+                                 return obj.item > [section numberOfItems] - 1;
                              }
                              return NO;
                          }];
