@@ -15,12 +15,14 @@
                    lineSpacing:(CGFloat)lineSpacing
               interitemSpacing:(CGFloat)interitemSpacing
                   headerHeight:(CGFloat)headerHeight
+                  footerHeight:(CGFloat)footerHeight
                          items:(NSArray<IGLayoutTestItem *> *)items {
     if (self = [super init]) {
         _insets = insets;
         _lineSpacing = lineSpacing;
         _interitemSpacing = interitemSpacing;
         _headerHeight = headerHeight;
+        _footerHeight = footerHeight;
         _items = [items copy];
     }
     return self;
