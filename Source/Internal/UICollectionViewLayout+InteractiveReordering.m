@@ -171,7 +171,7 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
             if ([originalContext isKindOfClass:[UICollectionViewFlowLayoutInvalidationContext class]]) {
                 // UICollectionViewFlowLayout has a special invalidation context subclass
                 UICollectionViewFlowLayoutInvalidationContext *flowModifiedContext =
-                [UICollectionViewFlowLayoutInvalidationContext new];
+                [[self.class invalidationContextClass] new];
 
                 flowModifiedContext.invalidateFlowLayoutDelegateMetrics =
                 [(UICollectionViewFlowLayoutInvalidationContext *)originalContext invalidateFlowLayoutDelegateMetrics];
