@@ -180,7 +180,7 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
                 modifiedContext = flowModifiedContext;
             }
             else {
-                modifiedContext = [UICollectionViewLayoutInvalidationContext new];
+                modifiedContext = [[self.class invalidationContextClass] new];
             }
 
             [modifiedContext invalidateItemsAtIndexPaths:invalidatedItemIndexPaths];
