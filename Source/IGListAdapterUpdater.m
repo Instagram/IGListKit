@@ -524,7 +524,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
                             toIndex:(NSInteger)toIndex {
     IGAssertMainThread();
     IGParameterAssert(collectionView != nil);
-    
+
     // iOS expects interactive reordering to be movement of items not sections
     // after moving a single-item section controller,
     // you end up with two items in the section for the drop location,
@@ -532,7 +532,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     // so, we have to reload data rather than doing a section move
 
     [collectionView reloadData];
-    
+
     // It seems that reloadData called during UICollectionView's moveItemAtIndexPath
     // delegate call does not reload all cells as intended
     // So, we further reload all visible sections to make sure none of our cells
