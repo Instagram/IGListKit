@@ -530,8 +530,8 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     // you end up with two items in the section for the drop location,
     // and zero items in the section originating at the drag location
     // so, we have to reload data rather than doing a section move
-    
-    [self performReloadDataWithCollectionView:collectionView];
+
+    [collectionView reloadData];
     
     // It seems that reloadData called during UICollectionView's moveItemAtIndexPath
     // delegate call does not reload all cells as intended
