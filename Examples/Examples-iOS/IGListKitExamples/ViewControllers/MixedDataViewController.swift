@@ -15,14 +15,14 @@
 import UIKit
 import IGListKit
 
-final class MixedDataViewController: UIViewController, ListAdapterDataSource {
+final class MixedDataViewController: UIViewController, ListAdapterDataSource, ListAdapterMoveDelegate {
 
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-    let data: [Any] = [
+    var data: [Any] = [
         "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.",
         GridItem(color: UIColor(red: 237/255.0, green: 73/255.0, blue: 86/255.0, alpha: 1), itemCount: 6),
         User(pk: 2, name: "Ryan Olson", handle: "ryanolsonk"),
@@ -54,9 +54,38 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
         control.addTarget(self, action: #selector(MixedDataViewController.onControl(_:)), for: .valueChanged)
         navigationItem.titleView = control
 
+        if #available(iOS 9.0, *) {
+            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(MixedDataViewController.handleLongGesture(gesture:)))
+            collectionView.addGestureRecognizer(longPressGesture)
+        }
+
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
+        if #available(iOS 9.0, *) {
+            adapter.moveDelegate = self
+        }
+    }
+
+    @available(iOS 9.0, *)
+    @objc func handleLongGesture(gesture: UILongPressGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            let touchLocation = gesture.location(in: self.collectionView)
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: touchLocation) else {
+                break
+            }
+            collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
+        case .changed:
+            if let view = gesture.view {
+                let position = gesture.location(in: view)
+                collectionView.updateInteractiveMovementTargetPosition(position)
+            }
+        case .ended:
+            collectionView.endInteractiveMovement()
+        default:
+            collectionView.cancelInteractiveMovement()
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -82,10 +111,16 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource {
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         switch object {
         case is String:   return ExpandableSectionController()
-        case is GridItem: return GridSectionController()
-        default:          return UserSectionController()
+        case is GridItem: return GridSectionController(isReorderable: true)
+        default:          return UserSectionController(isReorderable: true)
         }
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
+
+    // MARK: - ListAdapterMoveDelegate
+    
+    func listAdapter(_ listAdapter: ListAdapter, move object: Any, from previousObjects: [Any], to objects: [Any]) {
+        data = objects
+    }
 }

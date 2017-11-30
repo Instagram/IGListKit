@@ -1,9 +1,9 @@
 /**
  Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
-
+ 
  The examples provided by Facebook are for non-commercial testing and evaluation
  purposes only. Facebook reserves all rights not expressly granted.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -15,34 +15,27 @@
 import UIKit
 import IGListKit
 
-final class UserSectionController: ListSectionController {
+final class ReorderableSectionController: ListSectionController {
 
-    private var user: User?
-    private let isReorderable: Bool
-
-    required init(isReorderable: Bool = false) {
-        self.isReorderable = isReorderable
-        super.init()
-    }
+    private var object: String?
 
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: DetailLabelCell.self, for: self, at: index) as? DetailLabelCell else {
+        guard let cell = collectionContext?.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as? LabelCell else {
             fatalError()
         }
-        cell.title = user?.name
-        cell.detail = "@" + (user?.handle ?? "")
+        cell.text = object
         return cell
     }
 
     override func didUpdate(to object: Any) {
-        self.user = object as? User
+        self.object = String(describing: object)
     }
 
     override func canMoveItem(at index: Int) -> Bool {
-        return isReorderable
+        return true
     }
 }

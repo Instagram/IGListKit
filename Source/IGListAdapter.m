@@ -16,6 +16,7 @@
 #import "IGListSectionControllerInternal.h"
 #import "IGListDebugger.h"
 #import "IGListArrayUtilsInternal.h"
+#import "UICollectionViewLayout+InteractiveReordering.h"
 
 @implementation IGListAdapter {
     NSMapTable<UICollectionReusableView *, IGListSectionController *> *_viewSectionControllerMap;
@@ -106,6 +107,7 @@
             _collectionView.prefetchingEnabled = NO;
         }
 
+        [_collectionView.collectionViewLayout ig_hijackLayoutInteractiveReorderingMethodForAdapter:self];
         [_collectionView.collectionViewLayout invalidateLayout];
 
         [self updateCollectionViewDelegate];
@@ -1191,4 +1193,70 @@
     [self updateBackgroundViewShouldHide:![self itemCountIsZero]];
 }
 
+- (void)moveSectionControllerInteractive:(IGListSectionController *)sectionController
+                               fromIndex:(NSInteger)fromIndex
+                                 toIndex:(NSInteger)toIndex NS_AVAILABLE_IOS(9_0) {
+    IGAssertMainThread();
+    IGParameterAssert(sectionController != nil);
+    IGParameterAssert(fromIndex >= 0);
+    IGParameterAssert(toIndex >= 0);
+    UICollectionView *collectionView = self.collectionView;
+    IGAssert(collectionView != nil, @"Moving section %@ without a collection view from index %zi to index %zi.",
+             sectionController, fromIndex, toIndex);
+    IGAssert(self.moveDelegate != nil, @"Moving section %@ without a moveDelegate set", sectionController);
+    
+    if (fromIndex != toIndex) {
+        id<IGListAdapterDataSource> dataSource = self.dataSource;
+
+        NSArray *previousObjects = [self.sectionMap objects];
+
+        if (self.isLastInteractiveMoveToLastSectionIndex) {
+            self.isLastInteractiveMoveToLastSectionIndex = NO;
+        }
+        else if (fromIndex < toIndex) {
+            toIndex -= 1;
+        }
+
+        NSMutableArray *mutObjects = [previousObjects mutableCopy];
+        id object = [previousObjects objectAtIndex:fromIndex];
+        [mutObjects removeObjectAtIndex:fromIndex];
+        [mutObjects insertObject:object atIndex:toIndex];
+
+        NSArray *objects = [mutObjects copy];
+
+        // inform the data source to update its model
+        [self.moveDelegate listAdapter:self moveObject:object from:previousObjects to:objects];
+        
+        // update our model based on that provided by the data source
+        NSArray<id<IGListDiffable>> *updatedObjects = [dataSource objectsForListAdapter:self];
+        [self updateObjects:updatedObjects dataSource:dataSource];
+    }
+    
+    // even if from and to index are equal, we need to perform the "move"
+    // iOS interactively moves items, not sections, so we might have actually moved the item
+    // to the end of the preceeding section or beginning of the following section
+    [self.updater moveSectionInCollectionView:collectionView fromIndex:fromIndex toIndex:toIndex];
+}
+    
+- (void)moveInSectionControllerInteractive:(IGListSectionController *)sectionController
+                                 fromIndex:(NSInteger)fromIndex
+                                   toIndex:(NSInteger)toIndex NS_AVAILABLE_IOS(9_0) {
+    IGAssertMainThread();
+    IGParameterAssert(sectionController != nil);
+    IGParameterAssert(fromIndex >= 0);
+    IGParameterAssert(toIndex >= 0);
+    
+    [sectionController moveObjectFromIndex:fromIndex toIndex:toIndex];
+}
+
+- (void)revertInvalidInteractiveMoveFromIndexPath:(NSIndexPath *)sourceIndexPath
+                                      toIndexPath:(NSIndexPath *)destinationIndexPath NS_AVAILABLE_IOS(9_0) {
+    UICollectionView *collectionView = self.collectionView;
+    IGAssert(collectionView != nil, @"Reverting move without a collection view from %@ to %@.",
+             sourceIndexPath, destinationIndexPath);
+    
+    // revert by moving back in the opposite direction
+    [collectionView moveItemAtIndexPath:destinationIndexPath toIndexPath:sourceIndexPath];
+}
+    
 @end

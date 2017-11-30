@@ -135,7 +135,12 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 }
 
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
-    IGListSectionController *sectionController = [self sectionControllerForObjectIndex:index];
+    // during interactive reordering, its possible for an item to be moved into a section beyond the last section
+    // in that case, just return the size of the current last item in the section
+    const NSInteger maxIndex = [self numberOfItems]-1;
+    const NSInteger effectiveIndex = MIN(index, maxIndex);
+
+    IGListSectionController *sectionController = [self sectionControllerForObjectIndex:effectiveIndex];
     const NSInteger localIndex = [self localIndexForSectionController:sectionController index:index];
     return [sectionController sizeForItemAtIndex:localIndex];
 }
@@ -176,6 +181,47 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     IGListSectionController *sectionController = [self sectionControllerForObjectIndex:index];
     const NSInteger localIndex = [self localIndexForSectionController:sectionController index:index];
     [sectionController didUnhighlightItemAtIndex:localIndex];
+}
+
+- (BOOL)canMoveItemAtIndex:(NSInteger)index {
+    IGListSectionController *sectionController = [self sectionControllerForObjectIndex:index];
+    const NSInteger localIndex = [self localIndexForSectionController:sectionController index:index];
+    return [sectionController canMoveItemAtIndex:localIndex];
+}
+
+- (BOOL)canMoveItemAtIndex:(NSInteger)sourceItemIndex toIndex:(NSInteger)destinationItemIndex {
+    IGListSectionController *sourceSectionController = [self sectionControllerForObjectIndex:sourceItemIndex];
+    IGListSectionController *destinationSectionController = [self sectionControllerForObjectIndex:destinationItemIndex];
+
+    BOOL isSameSection = (sourceSectionController == destinationSectionController);
+
+    BOOL allSectionsAreSingleItem = YES;
+    for (IGListSectionController *section in self.sectionControllers) {
+        if ([section numberOfItems] != 1) {
+            allSectionsAreSingleItem = NO;
+            break;
+        }
+    }
+
+    return isSameSection || allSectionsAreSingleItem;
+}
+
+- (void)moveObjectFromIndex:(NSInteger)sourceIndex toIndex:(NSInteger)destinationIndex {
+    IGListSectionController *sourceSection = [self sectionControllerForObjectIndex:sourceIndex];
+    IGListSectionController *destinationSection = [self sectionControllerForObjectIndex:destinationIndex];
+
+    __weak __typeof__(self) weakSelf = self;
+    [self performBatchAnimated:YES updates:^(id<IGListBatchContext>  _Nonnull batchContext) {
+        if (sourceSection == destinationSection) {
+            // this is a move within a sub-section
+            [weakSelf moveInSectionControllerInteractive:sourceSection fromIndex:sourceIndex toIndex:destinationIndex];
+        }
+        else {
+            // this is a reordering of sub-sections themselves
+            // canMoveItemAtIndex:toIndex: ensures that all sub-sections have only 1 item
+            [weakSelf moveSectionControllerInteractive:sourceSection fromIndex:sourceIndex toIndex:destinationIndex];
+        }
+    } completion:nil];
 }
 
 #pragma mark - IGListCollectionContext
@@ -367,6 +413,38 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
 - (void)reloadSectionController:(IGListSectionController *)sectionController {
     [self reloadData];
     [self.forwardingBatchContext reloadSectionController:self];
+}
+    
+- (void)moveSectionControllerInteractive:(nonnull IGListSectionController *)sectionController
+                               fromIndex:(NSInteger)fromIndex
+                                 toIndex:(NSInteger)toIndex NS_AVAILABLE_IOS(9_0) {
+
+    NSMutableArray<__kindof IGListSectionController *> *mutSections = [[self.sectionControllers array] mutableCopy];
+    IGListSectionController *section = [mutSections objectAtIndex:fromIndex];
+    [mutSections removeObjectAtIndex:fromIndex];
+    [mutSections insertObject:section atIndex:toIndex];
+    _sectionControllers = [NSOrderedSet orderedSetWithArray:[mutSections copy]];
+
+    [self reloadData];
+}
+    
+- (void)moveInSectionControllerInteractive:(nonnull IGListSectionController *)sectionController
+                                 fromIndex:(NSInteger)fromIndex
+                                   toIndex:(NSInteger)toIndex NS_AVAILABLE_IOS(9_0) {
+
+    const NSInteger localFromIndex = [self localIndexForSectionController:sectionController index:fromIndex];
+    const NSInteger localToIndex = [self localIndexForSectionController:sectionController index:toIndex];
+
+    [self.forwardingBatchContext moveInSectionControllerInteractive:sectionController
+                                                          fromIndex:localFromIndex
+                                                            toIndex:localToIndex];
+}
+    
+- (void)revertInvalidInteractiveMoveFromIndexPath:(nonnull NSIndexPath *)sourceIndexPath
+                                      toIndexPath:(nonnull NSIndexPath *)destinationIndexPath NS_AVAILABLE_IOS(9_0) {
+    IGFailAssert(@"Invalid interactive movement shouldn't be possible within IGListStackedSectionController. \
+                 It is handled in IGListAdapter. %s:",
+                 __PRETTY_FUNCTION__);
 }
 
 #pragma mark - IGListDisplayDelegate
