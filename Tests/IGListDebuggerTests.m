@@ -24,6 +24,9 @@
 @implementation IGListDebuggerTests
 
 - (void)test_whenSearchingAdapterInstances_thatCorrectCountReturned {
+    // purge any leftover tracking
+    [IGListDebugger clear];
+
     UIViewController *controller = [UIViewController new];
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
     IGListAdapterUpdater *updater = [IGListAdapterUpdater new];

@@ -29,6 +29,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Duplicate view models in `IGListBindingSectionController` gets filtered out. [Weyert de Boer](https://github.com/weyert) [(#916)](https://github.com/Instagram/IGListKit/pull/916)
 
+- Check object type on lookup to prevent crossing types if different objects collide with their identifiers. [Ryan Nystrom](https://github.com/rnystrom) [(#tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
+
 3.1.1
 -----
 

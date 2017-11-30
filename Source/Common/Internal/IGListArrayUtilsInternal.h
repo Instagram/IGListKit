@@ -10,21 +10,24 @@
 #ifndef IGListArrayUtilsInternal_h
 #define IGListArrayUtilsInternal_h
 
+#import <IGListKit/IGListAssert.h>
+
 static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable>> *objects) {
     if (objects == nil) {
         return nil;
     }
     
-    NSMutableSet *identifiers = [NSMutableSet new];
+    NSMapTable *identifierMap = [NSMapTable strongToStrongObjectsMapTable];
     NSMutableArray *uniqueObjects = [NSMutableArray new];
     for (id<IGListDiffable> object in objects) {
         id diffIdentifier = [object diffIdentifier];
+        id previousObject = [identifierMap objectForKey:diffIdentifier];
         if (diffIdentifier != nil
-            && ![identifiers containsObject:diffIdentifier]) {
-            [identifiers addObject:diffIdentifier];
+            && previousObject == nil) {
+            [identifierMap setObject:object forKey:diffIdentifier];
             [uniqueObjects addObject:object];
         } else {
-            IGLKLog(@"WARNING: Diff identifier %@ for object %@ already appeared in objects array", diffIdentifier, object);
+            IGFailAssert(@"Duplicate identifier %@ for object %@ with object %@", diffIdentifier, object, previousObject);
         }
     }
     return uniqueObjects;

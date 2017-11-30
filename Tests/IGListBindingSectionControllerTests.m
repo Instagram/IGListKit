@@ -109,7 +109,7 @@
     [self setupWithObjects:@[
                              [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
                              ]];
-    [self.adapter reloadObjects:@[[[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@"four", @4, @"seven", @7, @"seven", @10]]]];
+    [self.adapter reloadObjects:@[[[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@"four", @4, @"seven", @7, @10]]]];
 
     IGTestNumberBindableCell *cell00 = [self cellAtSection:0 item:0];
     IGTestStringBindableCell *cell01 = [self cellAtSection:0 item:1];
