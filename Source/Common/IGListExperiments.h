@@ -22,6 +22,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentBackgroundDiffing = 1 << 2,
     /// Test fallback to reloadData when "too many" update operations.
     IGListExperimentReloadDataFallback = 1 << 3,
+    /// Test a faster way to return visible section controllers.
+    IGListExperimentFasterVisibleSectionController = 1 << 4,
 };
 
 /**

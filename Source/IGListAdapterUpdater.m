@@ -263,8 +263,8 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
             [inserts addIndex:to];
         } else {
             IGAssert([result.deletes containsIndex:idx],
-                     @"Reloaded section %zi was not found in deletes with from: %zi, to: %zi, deletes: %@",
-                     idx, from, to, deletes);
+                     @"Reloaded section %zi was not found in deletes with from: %zi, to: %zi, deletes: %@, fromClass: %@",
+                     idx, from, to, deletes, [(id)fromObjects[idx] class]);
         }
     }];
 }
@@ -384,9 +384,10 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 #pragma mark - IGListUpdatingDelegate
 
 static BOOL IGListIsEqual(const void *a, const void *b, NSUInteger (*size)(const void *item)) {
-    const id<IGListDiffable> left = (__bridge id<IGListDiffable>)a;
-    const id<IGListDiffable> right = (__bridge id<IGListDiffable>)b;
-    return [[left diffIdentifier] isEqual:[right diffIdentifier]];
+    const id<IGListDiffable, NSObject> left = (__bridge id<IGListDiffable, NSObject>)a;
+    const id<IGListDiffable, NSObject> right = (__bridge id<IGListDiffable, NSObject>)b;
+    return [left class] == [right class]
+    && [[left diffIdentifier] isEqual:[right diffIdentifier]];
 }
 
 // since the diffing algo used in this updater keys items based on their -diffIdentifier, we must use a map table that

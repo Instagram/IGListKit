@@ -65,7 +65,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
 
-    IGListSectionController *controller = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:objects.firstObject];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
 
@@ -78,6 +78,5 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
     XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
 }
-
 
 @end

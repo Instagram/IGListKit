@@ -33,6 +33,10 @@ static NSHashTable<IGListAdapter *> *livingAdaptersTable = nil;
     return descriptions;
 }
 
++ (void)clear {
+    [livingAdaptersTable removeAllObjects];
+}
+
 + (NSString *)dump {
     return [[self adapterDescriptions] componentsJoinedByString:@"\n"];
 }

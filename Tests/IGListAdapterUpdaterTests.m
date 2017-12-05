@@ -14,6 +14,7 @@
 
 #import "IGListAdapterUpdaterInternal.h"
 #import "IGListTestUICollectionViewDataSource.h"
+#import "IGTestObject.h"
 
 #define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
 #define waitExpectation [self waitForExpectationsWithTimeout:30 handler:nil]
@@ -508,7 +509,7 @@
     [mockDelegate verify];
 }
 
-- (void)test_ {
+- (void)test_whenReloadBatchedWithUpdate_thatCompletionBlockStillExecuted {
     IGSectionObject *object = [IGSectionObject sectionWithObjects:@[@0, @1, @2]];
     self.dataSource.sections = @[object];
 
@@ -538,7 +539,7 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
-- (void)test_2 {
+- (void)test_whenNotInViewHierarchy_thatUpdatesStillExecuteBlocks {
     [self.collectionView removeFromSuperview];
 
     IGSectionObject *object = [IGSectionObject sectionWithObjects:@[@0, @1, @2]];
@@ -577,6 +578,23 @@
     }];
 
     [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+- (void)test_whenObjectIdentifiersCollide_withDifferentTypes_thatLookupReturnsNil {
+    id testObject = [[IGTestObject alloc] initWithKey:@"foo" value:@"bar"];
+    id collision = @"foo";
+    XCTAssertEqual(collision, [testObject diffIdentifier]);
+
+    IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
+
+    // mimic internal map setup in IGListAdapter
+    NSPointerFunctions *keyFunctions = [updater objectLookupPointerFunctions];
+    NSPointerFunctions *valueFunctions = [NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsStrongMemory];
+    NSMapTable *table = [[NSMapTable alloc] initWithKeyPointerFunctions:keyFunctions valuePointerFunctions:valueFunctions capacity:0];
+
+    [table setObject:@1 forKey:testObject];
+    XCTAssertNotNil([table objectForKey:testObject]);
+    XCTAssertNil([table objectForKey:collision]);
 }
 
 @end

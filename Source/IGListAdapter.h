@@ -131,6 +131,9 @@ NS_SWIFT_NAME(ListAdapter)
  Perform an immediate reload of the data in the data source, discarding the old objects.
 
  @param completion The block to execute when the reload completes.
+
+ @warning Do not use this method to update without animations as it can be very expensive to teardown and rebuild all
+ section controllers. Use `-[IGListAdapter performUpdatesAnimated:completion]` instead.
  */
 - (void)reloadDataWithCompletion:(nullable IGListUpdaterCompletion)completion;
 

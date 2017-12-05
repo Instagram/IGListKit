@@ -20,6 +20,8 @@ IGLK_SUBCLASSING_RESTRICTED
 
 + (NSArray<NSString *> *)adapterDescriptions;
 
++ (void)clear;
+
 + (NSString *)dump;
 
 - (instancetype)init NS_UNAVAILABLE;

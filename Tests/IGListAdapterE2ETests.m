@@ -959,33 +959,6 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
-- (void)test_whenBatchUpdating_withDuplicateIdentifiers_thatHaveDifferentValues_thatCollectionViewWorks {
-    [self setupWithObjects:@[
-                             // using string values IGTestDelegateController always returns 1 cell
-                             genTestObject(@1, @"a"),
-                             genTestObject(@2, @"a"),
-                             genTestObject(@3, @"a"),
-                             genTestObject(@4, @"b"), // problem item w/ key 4, value "b"
-                             ]];
-
-    self.dataSource.objects = @[
-                                genTestObject(@1, @"a"),
-                                genTestObject(@5, @"a"),
-                                genTestObject(@6, @"a"),
-                                genTestObject(@7, @"a"),
-                                genTestObject(@4, @"a"), // key 4 but value "a", so this needs reloaded
-                                genTestObject(@8, @"a"),
-                                genTestObject(@4, @"b"), // key 4 but value didn't change
-                                ];
-    XCTestExpectation *expectation = genExpectation;
-
-    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
-        [expectation fulfill];
-    }];
-
-    [self waitForExpectationsWithTimeout:30 handler:nil];
-}
-
 - (void)test_whenPerformingUpdates_withWorkingRange_thatAccessingCellDoesntCrash {
     [self setupWithObjects:@[
                              genTestObject(@1, @1),

@@ -9,14 +9,21 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Added `-[IGListSectionController didHighlightItemAtIndex:]` and `-[IGListSectionController didUnhighlightItemAtIndex:]` APIs to support `UICollectionView` cell highlighting. [Kevin Delannoy](https://github.com/delannoyk) [(#933)](https://github.com/Instagram/IGListKit/pull/933)
 
-
 - Added a new listener API to be notified when `IGListAdapter` finishes updating. Add listeners via `-[IGListAdapter addUpdateListener:]` with objects conforming to the new `IGListAdapterUpdateListener` protocol. [Ryan Nystrom](https://github.com/rnystrom) [(tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
 
 - Updated project settings for iOS 11. [Ryan Nystrom](https://github.com/rnystrom) [(#942)](https://github.com/Instagram/IGListKit/pull/942)
 
+
 - Added type information in places that were declared as `id` but took an `id<IGListDiffable>`. [Paddy O'Brien](https://github.com/tapi) [(#1011)](https://github.com/Instagram/IGListKit/pull/1011)
 
+- Added support UICollectionElementKindSectionFooter for IGListCollectionViewLayout [(#1017)](https://github.com/Instagram/IGListKit/pull/1017)
+
+- Added experiment to make  `-[IGListAdapter visibleSectionControllers:]` a bit faster. [Maxime Ollivier](https://github.com/maxoll) (tbd)
+
+
 ### Fixes
+
+- Duplicate objects for initial data source setup filtered out. [Mikhail Vashlyaev](https://github.com/yemodin) [(#993](https://github.com/Instagram/IGListKit/pull/993)
 
 - Weakly reference the `UICollectionView` in coalescence so that it can be released if the rest of system is destroyed. [Ryan Nystrom](https://github.com/rnystrom) [(#tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
 
@@ -25,6 +32,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 - Avoid crash when invalidating the layout while inside `-[UICollectionView performBatchUpdates:completion:]. [Ryan Nystrom](https://github.com/rnystrom) [(#tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
 
 - Duplicate view models in `IGListBindingSectionController` gets filtered out. [Weyert de Boer](https://github.com/weyert) [(#916)](https://github.com/Instagram/IGListKit/pull/916)
+
+- Check object type on lookup to prevent crossing types if different objects collide with their identifiers. [Ryan Nystrom](https://github.com/rnystrom) [(#tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
 
 3.1.1
 -----
