@@ -27,6 +27,7 @@
 #import "IGListAdapter.h"
 #import "IGListAdapterDataSource.h"
 #import "IGListAdapterDelegate.h"
+#import "IGListAdapterUpdateListener.h"
 #import "IGListAdapterUpdater.h"
 #import "IGListAdapterUpdaterDelegate.h"
 #import "IGListBatchContext.h"

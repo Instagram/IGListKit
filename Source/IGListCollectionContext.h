@@ -33,6 +33,11 @@ NS_SWIFT_NAME(ListCollectionContext)
 @property (nonatomic, readonly) UIEdgeInsets containerInset;
 
 /**
+ The adjusted content insets of the collection view. Equivalent to containerInset under iOS 11.
+ */
+@property (nonatomic, readonly) UIEdgeInsets adjustedContainerInset;
+
+/**
  The size of the collection view with content insets applied.
  */
 @property (nonatomic, readonly) CGSize insetContainerSize;
