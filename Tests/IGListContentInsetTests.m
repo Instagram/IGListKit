@@ -59,8 +59,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {320.0, 480.0}};
     self.collectionView = nil;
 }
 
-- (void) testCollectionViewContentInset
-{
+- (void) testCollectionViewContentInset {
     const UIEdgeInsets inset = UIEdgeInsetsMake(10, 0, 10, 0);
     self.collectionView.contentInset = inset;
     IGAssertEqualInsets(self.collectionView.ig_contentInset, inset.top, inset.left, inset.bottom, inset.right);
@@ -70,18 +69,15 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {320.0, 480.0}};
 
 #pragma mark - IGListAdapterDataSource
 
-- (NSArray<id <IGListDiffable>> *)objectsForListAdapter:(IGListAdapter *)listAdapter
-{
+- (NSArray<id <IGListDiffable>> *)objectsForListAdapter:(IGListAdapter *)listAdapter {
     return @[];
 }
 
-- (IGListSectionController *) listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object
-{
+- (IGListSectionController *) listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
     return nil;
 }
 
-- (UIView *) emptyViewForListAdapter:(IGListAdapter *)listAdapter
-{
+- (UIView *) emptyViewForListAdapter:(IGListAdapter *)listAdapter {
     return nil;
 }
 
