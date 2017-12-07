@@ -65,7 +65,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {320.0, 480.0}};
     self.collectionView.contentInset = inset;
     IGAssertEqualInsets(self.collectionView.ig_contentInset, inset.top, inset.left, inset.bottom, inset.right);
     id<IGListCollectionContext> context = self.adapter;
-    IGAssertEqualInsets(context.containerInset, inset.top, inset.left, inset.bottom, inset.right);
+    IGAssertEqualInsets(context.adjustedContainerInset, inset.top, inset.left, inset.bottom, inset.right);
 }
 
 #pragma mark - IGListAdapterDataSource

@@ -828,6 +828,10 @@
 }
 
 - (UIEdgeInsets)containerInset {
+    return self.collectionView.contentInset;
+}
+
+- (UIEdgeInsets)adjustedContainerInset {
     return self.collectionView.ig_contentInset;
 }
 
