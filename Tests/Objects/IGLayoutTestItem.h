@@ -9,6 +9,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define genLayoutTestItem(s) [[IGLayoutTestItem alloc] initWithSize:s]
+
 @interface IGLayoutTestItem : NSObject
 
 @property (nonatomic, assign, readonly) CGSize size;
