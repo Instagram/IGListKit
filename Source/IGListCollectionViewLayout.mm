@@ -87,6 +87,15 @@ struct IGListSectionEntry {
     // An array of frames for each cell in the section.
     std::vector<CGRect> itemBounds;
 
+    // last item distance in scroll direction, used for partial invalidation
+    CGFloat lastItemCoordInScrollDirection;
+
+    // last item distance in fixed direction, used for partial invalidation
+    CGFloat lastItemCoordInFixedDirection;
+
+    // last next row distance in scroll direction, used for partial invalidation
+    CGFloat lastNextRowCoordInScrollDirection;
+
     // Returns YES when the section has visible content (header and/or items).
     BOOL isValid() {
         return !CGSizeEqualToSize(bounds.size, CGSizeZero);
@@ -133,7 +142,9 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 @implementation IGListCollectionViewLayout {
     std::vector<IGListSectionEntry> _sectionData;
     NSMutableDictionary<NSIndexPath *, UICollectionViewLayoutAttributes *> *_attributesCache;
-    BOOL _cachedLayoutInvalid;
+
+    // invalidate starting at this section
+    NSInteger _minimumInvalidatedSection;
 
     /**
      The workflow for getting sticky headers working:
@@ -171,7 +182,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                                                                                         UICollectionElementKindSectionHeader: [NSMutableDictionary new],
                                                                                         UICollectionElementKindSectionFooter: [NSMutableDictionary new],
                                                                                         }];
-        _cachedLayoutInvalid = YES;
+        _minimumInvalidatedSection = NSNotFound;
     }
     return self;
 }
@@ -337,7 +348,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         || [context invalidateEverything]
         || [context invalidateDataSourceCounts]
         || context.ig_invalidateAllAttributes) {
-        _cachedLayoutInvalid = YES;
+        _minimumInvalidatedSection = 0; // invalidates all
     }
 
     if (context.ig_invalidateSupplementaryAttributes) {
@@ -376,9 +387,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 }
 
 - (void)prepareLayout {
-    if (_cachedLayoutInvalid) {
-        [self cacheLayout];
-    }
+    [self calculateLayoutIfNeeded];
 }
 
 #pragma mark - Public API
@@ -397,8 +406,10 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 #pragma mark - Private API
 
-- (void)cacheLayout {
-    _cachedLayoutInvalid = NO;
+- (void)calculateLayoutIfNeeded {
+    if (_minimumInvalidatedSection == NSNotFound) {
+        return;
+    }
 
     // purge attribute caches so they are rebuilt
     [_attributesCache removeAllObjects];
@@ -412,7 +423,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     const UIEdgeInsets contentInset = collectionView.contentInset;
     const CGRect contentInsetAdjustedCollectionViewBounds = UIEdgeInsetsInsetRect(collectionView.bounds, contentInset);
 
-    auto sectionData = std::vector<IGListSectionEntry>(sectionCount);
+    _sectionData.resize(sectionCount);
 
     CGFloat itemCoordInScrollDirection = 0.0;
     CGFloat itemCoordInFixedDirection = 0.0;
@@ -421,9 +432,18 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     // union item frames and optionally the header to find a bounding box of the entire section
     CGRect rollingSectionBounds;
 
-    for (NSInteger section = 0; section < sectionCount; section++) {
+    // populate last valid section information
+    const NSInteger lastValidSection = _minimumInvalidatedSection - 1;
+    if (lastValidSection >= 0 && lastValidSection < sectionCount) {
+        itemCoordInScrollDirection = _sectionData[lastValidSection].lastItemCoordInScrollDirection;
+        itemCoordInFixedDirection = _sectionData[lastValidSection].lastItemCoordInFixedDirection;
+        nextRowCoordInScrollDirection = _sectionData[lastValidSection].lastNextRowCoordInScrollDirection;
+        rollingSectionBounds = _sectionData[lastValidSection].bounds;
+    }
+
+    for (NSInteger section = _minimumInvalidatedSection; section < sectionCount; section++) {
         const NSInteger itemCount = [dataSource collectionView:collectionView numberOfItemsInSection:section];
-        sectionData[section].itemBounds = std::vector<CGRect>(itemCount);
+        _sectionData[section].itemBounds = std::vector<CGRect>(itemCount);
 
         const CGSize headerSize = [delegate collectionView:collectionView layout:self referenceSizeForHeaderInSection:section];
         const CGSize footerSize = [delegate collectionView:collectionView layout:self referenceSizeForFooterInSection:section];
@@ -498,7 +518,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                             itemLengthInFixedDirection);
             const CGRect frame = IGListRectIntegralScaled(rawFrame);
 
-            sectionData[section].itemBounds[item] = frame;
+            _sectionData[section].itemBounds[item] = frame;
 
             // track the max size of the row to find the coord of the next row, adjust for leading inset while iterating items
             nextRowCoordInScrollDirection = MAX(CGRectGetMaxInDirection(frame, self.scrollDirection) - UIEdgeInsetsLeadingInsetInDirection(insets, self.scrollDirection), nextRowCoordInScrollDirection);
@@ -524,7 +544,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                         headerSize.width,
                         paddedLengthInFixedDirection);
 
-        sectionData[section].headerBounds = headerBounds;
+        _sectionData[section].headerBounds = headerBounds;
 
         const CGRect footerBounds = (self.scrollDirection == UICollectionViewScrollDirectionVertical) ?
                 CGRectMake(insets.left,
@@ -536,7 +556,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                         footerSize.width,
                         paddedLengthInFixedDirection);
 
-        sectionData[section].footerBounds = footerBounds;
+        _sectionData[section].footerBounds = footerBounds;
 
         // union the header before setting the bounds of the section
         // only do this when the header has a size, otherwise the union stretches to box empty space
@@ -547,17 +567,22 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             rollingSectionBounds = CGRectUnion(rollingSectionBounds, footerBounds);
         }
 
-        sectionData[section].bounds = rollingSectionBounds;
-        sectionData[section].insets = insets;
+        _sectionData[section].bounds = rollingSectionBounds;
+        _sectionData[section].insets = insets;
 
         // bump the coord for the next section with the right insets
         itemCoordInFixedDirection += UIEdgeInsetsTrailingInsetInDirection(insets, fixedDirection);
 
         // find the farthest point in the section and add the trailing inset to find the next row's coord
         nextRowCoordInScrollDirection = MAX(nextRowCoordInScrollDirection, CGRectGetMaxInDirection(rollingSectionBounds, self.scrollDirection) + UIEdgeInsetsTrailingInsetInDirection(insets, self.scrollDirection));
+
+        // keep track of coordinates for partial invalidation
+        _sectionData[section].lastItemCoordInScrollDirection = itemCoordInScrollDirection;
+        _sectionData[section].lastItemCoordInFixedDirection = itemCoordInFixedDirection;
+        _sectionData[section].lastNextRowCoordInScrollDirection = nextRowCoordInScrollDirection;
     }
 
-    _sectionData = sectionData;
+    _minimumInvalidatedSection = NSNotFound;
 }
 
 - (NSRange)rangeOfSectionsInRect:(CGRect)rect {
