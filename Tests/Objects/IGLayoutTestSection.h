@@ -31,4 +31,7 @@
                   footerHeight:(CGFloat)footerHeight
                          items:(NSArray<IGLayoutTestItem *> *)items NS_DESIGNATED_INITIALIZER;
 
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
+
 @end
