@@ -67,6 +67,18 @@ static NSIndexPath *indexPathForSection(NSInteger section) {
     return [NSIndexPath indexPathForItem:0 inSection:section];
 }
 
+static NSInteger IGListMergeMinimumInvalidatedSection(NSInteger section, NSInteger otherSection) {
+    if (section == NSNotFound && otherSection == NSNotFound) {
+        return NSNotFound;
+    } else if (section == NSNotFound) {
+        return otherSection;
+    } else if (otherSection == NSNotFound) {
+        return section;
+    }
+
+    return MIN(section, otherSection);
+}
+
 struct IGListSectionEntry {
     /**
      Represents the minimum-bounding box of every element in the section. This includes all item frames as well as the
@@ -346,9 +358,12 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
     if (hasInvalidatedItemIndexPaths
         || [context invalidateEverything]
-        || [context invalidateDataSourceCounts]
         || context.ig_invalidateAllAttributes) {
-        _minimumInvalidatedSection = 0; // invalidates all
+        // invalidates all
+        _minimumInvalidatedSection = 0;
+    } else if ([context invalidateDataSourceCounts] && _minimumInvalidatedSection == NSNotFound) {
+        // invalidate all if count changed and we don't have information on the minimum invalidated section
+        _minimumInvalidatedSection = 0;
     }
 
     if (context.ig_invalidateSupplementaryAttributes) {
@@ -608,6 +623,12 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     [_supplementaryAttributesCache enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSMutableDictionary<NSIndexPath *,UICollectionViewLayoutAttributes *> * _Nonnull attributesCache, BOOL * _Nonnull stop) {
         [attributesCache removeAllObjects];
     }];
+}
+
+#pragma mark - Minimum Invalidated Section
+
+- (void)didModifySection:(NSInteger)modifiedSection {
+    _minimumInvalidatedSection = IGListMergeMinimumInvalidatedSection(_minimumInvalidatedSection, modifiedSection);
 }
 
 @end
