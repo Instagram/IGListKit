@@ -17,6 +17,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Added experiment to make  `-[IGListAdapter visibleSectionControllers:]` a bit faster. [Maxime Ollivier](https://github.com/maxoll) (tbd)
 
+- Added support `-[UIScrollView adjustedContentInset]` for iOS 11. [Guoyin Li](https://github.com/yiplee) [(#1020)](https://github.com/Instagram/IGListKit/pull/1020)
+
 ### Fixes
 
 - Duplicate objects for initial data source setup filtered out. [Mikhail Vashlyaev](https://github.com/yemodin) [(#993](https://github.com/Instagram/IGListKit/pull/993)

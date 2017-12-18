@@ -9,6 +9,7 @@
 
 #import "IGListCollectionViewLayout.h"
 #import "IGListCollectionViewLayoutInternal.h"
+#import "UIScrollView+IGListKit.h"
 
 #import <vector>
 
@@ -335,8 +336,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
     const IGListSectionEntry section = _sectionData[sectionCount - 1];
     UICollectionView *collectionView = self.collectionView;
-    const UIEdgeInsets contentInset = collectionView.contentInset;
-
+    const UIEdgeInsets contentInset = collectionView.ig_contentInset;
     switch (self.scrollDirection) {
         case UICollectionViewScrollDirectionVertical: {
             const CGFloat height = CGRectGetMaxY(section.bounds) + section.insets.bottom;
@@ -435,7 +435,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     id<UICollectionViewDelegateFlowLayout> delegate = (id<UICollectionViewDelegateFlowLayout>)collectionView.delegate;
 
     const NSInteger sectionCount = [dataSource numberOfSectionsInCollectionView:collectionView];
-    const UIEdgeInsets contentInset = collectionView.contentInset;
+    const UIEdgeInsets contentInset = collectionView.ig_contentInset;
     const CGRect contentInsetAdjustedCollectionViewBounds = UIEdgeInsetsInsetRect(collectionView.bounds, contentInset);
 
     _sectionData.resize(sectionCount);

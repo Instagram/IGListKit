@@ -188,6 +188,10 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     return [self.collectionContext containerInset];
 }
 
+- (UIEdgeInsets)adjustedContainerInset {
+    return [self.collectionContext adjustedContainerInset];
+}
+
 - (CGSize)insetContainerSize {
     return [self.collectionContext insetContainerSize];
 }
