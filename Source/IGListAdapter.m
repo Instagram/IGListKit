@@ -103,7 +103,7 @@
         _collectionView = collectionView;
         _collectionView.dataSource = self;
 
-        if ([_collectionView respondsToSelector:@selector(setPrefetchingEnabled:)]) {
+        if (@available(iOS 10.0, tvOS 10, *)) {
             _collectionView.prefetchingEnabled = NO;
         }
 
