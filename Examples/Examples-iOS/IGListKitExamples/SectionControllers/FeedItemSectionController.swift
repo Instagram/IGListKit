@@ -79,7 +79,7 @@ final class FeedItemSectionController: ListSectionController, ListSupplementaryV
         view.name = feedItem.user.name
         return view
     }
-    
+
     private func userFooterView(atIndex index: Int) -> UICollectionReusableView {
         guard let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter,
                                                                              for: self,
@@ -88,7 +88,7 @@ final class FeedItemSectionController: ListSectionController, ListSupplementaryV
                                                                              at: index) as? UserFooterView else {
                                                                                 fatalError()
         }
-        
+
         view.commentsCount = "\(feedItem.comments.count)"
         return view
     }
