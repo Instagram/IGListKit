@@ -15,9 +15,9 @@
 import UIKit
 
 final class UserFooterView: UICollectionViewCell {
-    
+
     @IBOutlet private weak var commentsCountLabel: UILabel!
-    
+
     var commentsCount: String? {
         get {
             return commentsCountLabel.text
@@ -26,5 +26,4 @@ final class UserFooterView: UICollectionViewCell {
             commentsCountLabel.text = newValue
         }
     }
-    
 }

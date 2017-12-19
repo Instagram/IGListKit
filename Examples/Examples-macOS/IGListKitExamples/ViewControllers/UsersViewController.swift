@@ -34,7 +34,7 @@ final class UsersViewController: NSViewController {
     }
 
     private func computeFilteredUsers() {
-        guard !searchTerm.characters.isEmpty else {
+        guard !searchTerm.isEmpty else {
             filteredUsers = users
             return
         }
@@ -60,7 +60,7 @@ final class UsersViewController: NSViewController {
                 isFirstRun = false
                 return
             }
-            
+
             // get the difference between the old array of Users and the new array of Users
             let diff = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: oldValue, newArray: filteredUsers, option: .equality)
             let batchUpdates = diff.forBatchUpdates()
@@ -68,14 +68,14 @@ final class UsersViewController: NSViewController {
             let deletes = Set(batchUpdates.deletes)
             let updates = Set(batchUpdates.updates)
             let moves = Set(batchUpdates.moves)
-            
+
             // this difference is used here to update the collection view, but it can be used
             // to update collection views and other similar interface elements
             // this code can also be added to an extension of NSCollectionView ;)
-            
+
             // Set the animation duration when updating the collection view
             NSAnimationContext.current.duration = 0.25
-            
+
             // Perform the updates to the collection view
             collectionView.animator().performBatchUpdates({
                 collectionView.deleteItems(at: deletes)
@@ -127,7 +127,7 @@ final class UsersViewController: NSViewController {
 }
 
 extension UsersViewController: UserCollectionViewCellDelegate {
-    
+
     func itemDeleted(_ user: User) {
         self.delete(user: user)
     }
@@ -137,20 +137,20 @@ extension UsersViewController: NSCollectionViewDelegate {
 }
 
 extension UsersViewController: NSCollectionViewDataSource {
-    
+
     private struct Storyboard {
         static let cellIdentifier = "UserCollectionViewCell"
     }
-    
+
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.filteredUsers.count
     }
-    
+
     @available(OSX 10.11, *)
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: Storyboard.cellIdentifier), for: indexPath)
         guard let cell = item as? UserCollectionViewCell else { return item }
-        
+
         cell.delegate = self
         cell.bindViewModel(filteredUsers[indexPath.item])
         return cell
@@ -158,9 +158,9 @@ extension UsersViewController: NSCollectionViewDataSource {
 }
 
 extension UsersViewController: NSCollectionViewDelegateFlowLayout {
-    
+
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-        
+
         let availableWidth = collectionView.bounds.width
         return CGSize(width: availableWidth, height: 44)
     }
