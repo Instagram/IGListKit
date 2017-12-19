@@ -34,7 +34,7 @@ ios_pods_not_updated = !git.modified_files.include?("Examples/Examples-iOS/Podfi
 macos_pods_not_updated = !git.modified_files.include?("Examples/Examples-macOS/Podfile.lock")
 tvos_pods_not_updated = !git.modified_files.include?("Examples/Examples-tvOS/Podfile.lock")
 if (added_source_files || deleted_source_files) && (ios_pods_not_updated || macos_pods_not_updated || tvos_pods_not_updated)
-  warn("Adding or removing library source files requires updating the examples. Please run ./Examples/pod_setup.sh and commit the changes.")
+  warn("Adding or removing library source files requires updating the examples. Please run `./scripts/pod_setup.sh` from the root directory and commit the changes.")
 end
 
 swiftlint.config_file = '.swiftlint_CI.yml'
