@@ -35,6 +35,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Check object type on lookup to prevent crossing types if different objects collide with their identifiers. [Ryan Nystrom](https://github.com/rnystrom) [(#tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
 
+- Testing a fix that removes duplicate item-level updates. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+
 3.1.1
 -----
 
