@@ -190,9 +190,10 @@
 
     // block used as the second param of -[UICollectionView performBatchUpdates:completion:]
     void (^batchUpdatesCompletionBlock)(BOOL) = ^(BOOL finished) {
+        IGListBatchUpdateData *oldApplyingUpdateData = self.applyingUpdateData;
         executeCompletionBlocks(finished);
 
-        [delegate listAdapterUpdater:self didPerformBatchUpdates:(id)self.applyingUpdateData collectionView:collectionView];
+        [delegate listAdapterUpdater:self didPerformBatchUpdates:oldApplyingUpdateData collectionView:collectionView];
 
         // queue another update in case something changed during batch updates. this method will bail next runloop if
         // there are no changes
