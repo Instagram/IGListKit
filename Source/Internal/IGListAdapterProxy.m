@@ -12,30 +12,34 @@
 #import <IGListKit/IGListAssert.h>
 
 /**
- Define messages that you want the IGListAdapter object to intercept. Pattern copied from
- https://github.com/facebook/AsyncDisplayKit/blob/7b112a2dcd0391ddf3671f9dcb63521f554b78bd/AsyncDisplayKit/ASCollectionView.mm#L34-L53
+ Define messages that you want the IGListAdapter object to intercept.
  */
 static BOOL isInterceptedSelector(SEL sel) {
-    return (
-            // UICollectionViewDelegate
-            sel == @selector(collectionView:didSelectItemAtIndexPath:) ||
-            sel == @selector(collectionView:willDisplayCell:forItemAtIndexPath:) ||
-            sel == @selector(collectionView:didEndDisplayingCell:forItemAtIndexPath:) ||
-            sel == @selector(collectionView:didHighlightItemAtIndexPath:) ||
-            sel == @selector(collectionView:didUnhighlightItemAtIndexPath:) ||
-            // UICollectionViewDelegateFlowLayout
-            sel == @selector(collectionView:layout:sizeForItemAtIndexPath:) ||
-            sel == @selector(collectionView:layout:insetForSectionAtIndex:) ||
-            sel == @selector(collectionView:layout:minimumInteritemSpacingForSectionAtIndex:) ||
-            sel == @selector(collectionView:layout:minimumLineSpacingForSectionAtIndex:) ||
-            sel == @selector(collectionView:layout:referenceSizeForFooterInSection:) ||
-            sel == @selector(collectionView:layout:referenceSizeForHeaderInSection:) ||
-            // UIScrollViewDelegate
-            sel == @selector(scrollViewDidScroll:) ||
-            sel == @selector(scrollViewWillBeginDragging:) ||
-            sel == @selector(scrollViewDidEndDragging:willDecelerate:) ||
-            sel == @selector(scrollViewDidEndDecelerating:)
-            );
+    static NSSet<NSString *> *sels;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sels = [NSSet setWithObjects:
+                // UICollectionViewDelegate
+                NSStringFromSelector(@selector(collectionView:didSelectItemAtIndexPath:)),
+                NSStringFromSelector(@selector(collectionView:willDisplayCell:forItemAtIndexPath:)),
+                NSStringFromSelector(@selector(collectionView:didEndDisplayingCell:forItemAtIndexPath:)),
+                NSStringFromSelector(@selector(collectionView:didHighlightItemAtIndexPath:)),
+                NSStringFromSelector(@selector(collectionView:didUnhighlightItemAtIndexPath:)),
+                // UICollectionViewDelegateFlowLayout
+                NSStringFromSelector(@selector(collectionView:layout:sizeForItemAtIndexPath:)),
+                NSStringFromSelector(@selector(collectionView:layout:insetForSectionAtIndex:)),
+                NSStringFromSelector(@selector(collectionView:layout:minimumInteritemSpacingForSectionAtIndex:)),
+                NSStringFromSelector(@selector(collectionView:layout:minimumLineSpacingForSectionAtIndex:)),
+                NSStringFromSelector(@selector(collectionView:layout:referenceSizeForFooterInSection:)),
+                NSStringFromSelector(@selector(collectionView:layout:referenceSizeForHeaderInSection:)),
+                // UIScrollViewDelegate
+                NSStringFromSelector(@selector(scrollViewDidScroll:)),
+                NSStringFromSelector(@selector(scrollViewWillBeginDragging:)),
+                NSStringFromSelector(@selector(scrollViewDidEndDragging:willDecelerate:)),
+                NSStringFromSelector(@selector(scrollViewDidEndDecelerating:)),
+                nil];
+    });
+    return [sels containsObject:NSStringFromSelector(sel)];
 }
 
 @interface IGListAdapterProxy () {
