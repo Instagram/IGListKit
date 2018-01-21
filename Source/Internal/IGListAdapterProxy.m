@@ -12,13 +12,14 @@
 #import <IGListKit/IGListAssert.h>
 
 /**
- Define messages that you want the IGListAdapter object to intercept.
+ Define messages that you want the IGListAdapter object to intercept. Pattern copied from
+ https://github.com/facebook/AsyncDisplayKit/blob/7b112a2dcd0391ddf3671f9dcb63521f554b78bd/AsyncDisplayKit/ASCollectionView.mm#L34-L53
  */
 static BOOL isInterceptedSelector(SEL sel) {
-    static NSSet<NSString *> *sels;
+    static NSSet<NSString *> *selectors;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sels = [NSSet setWithObjects:
+        selectors = [NSSet setWithObjects:
                 // UICollectionViewDelegate
                 NSStringFromSelector(@selector(collectionView:didSelectItemAtIndexPath:)),
                 NSStringFromSelector(@selector(collectionView:willDisplayCell:forItemAtIndexPath:)),
@@ -39,7 +40,7 @@ static BOOL isInterceptedSelector(SEL sel) {
                 NSStringFromSelector(@selector(scrollViewDidEndDecelerating:)),
                 nil];
     });
-    return [sels containsObject:NSStringFromSelector(sel)];
+    return [selectors containsObject:NSStringFromSelector(sel)];
 }
 
 @interface IGListAdapterProxy () {
