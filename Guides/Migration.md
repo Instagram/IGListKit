@@ -46,7 +46,7 @@ Start using `IGListCollectionViewLayout` instead of `IGListGridCollectionViewLay
 - `scrollDirection` is not yet supported. If you need horizontal scrolling, please use `UICollectionViewFlowLayout` or file an issue.
 - Set `minimumLineSpacing` on your [section controllers](https://github.com/Instagram/IGListKit/blob/master/Source/IGListSectionController.h#L59-L64) instead of the layout
 - Set `minimumInteritemSpacing` on your [section controllers](https://github.com/Instagram/IGListKit/blob/master/Source/IGListSectionController.h#L66-L71) instead of the layout
-- Return the size of your cells in [sizeForItemAtIndex:](https://github.com/Instagram/IGListKit/blob/master/Source/IGListSectionType.h#L43-L54) instead of setting it on the layout.
+- Return the size of your cells in [sizeForItemAtIndex:](https://github.com/Instagram/IGListKit/blob/master/Source/IGListSectionController.h#L48) instead of setting it on the layout.
 
 ### Item mutations must be wrapped in `-[IGListCollectionContext performBatchAnimated:completion:]`
 
