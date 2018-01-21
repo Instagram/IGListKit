@@ -43,6 +43,7 @@ before_install:
 
 script:
 - set -o pipefail
+- xcodebuild -version -sdk
 
 - if [ $CHECK_MARKDOWN == "YES" ]; then
       npm install -g markdown-link-check;

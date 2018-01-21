@@ -46,7 +46,7 @@ We use the open source version `master` branch in the Instagram app.
 
 ## Requirements
 
-- Xcode 8.0+
+- Xcode 9.0+
 - iOS 8.0+
 - tvOS 9.0+
 - macOS 10.10+ *(diffing algorithm components only)*
@@ -73,6 +73,12 @@ github "Instagram/IGListKit" ~> 3.0
 > For advanced usage, see our [Installation Guide](https://instagram.github.io/IGListKit/installation.html).
 
 ## Getting Started
+
+```bash
+$ git clone https://github.com/Instagram/IGListKit.git
+$ cd IGListKit/
+$ ./scripts/setup.sh
+```
 
 - Our [Getting Started guide](https://instagram.github.io/IGListKit/getting-started.html)
 - Ray Wenderlich's [IGListKit Tutorial: Better UICollectionViews](https://www.raywenderlich.com/147162/iglistkit-tutorial-better-uicollectionviews)
