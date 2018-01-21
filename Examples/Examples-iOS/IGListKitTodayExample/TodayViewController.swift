@@ -12,9 +12,9 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
-import NotificationCenter
 import IGListKit
+import NotificationCenter
+import UIKit
 
 @available(iOSApplicationExtension 10.0, *)
 final class TodayViewController: UIViewController, NCWidgetProviding, ListAdapterDataSource {

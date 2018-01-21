@@ -12,8 +12,8 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
 final class EmbeddedSectionController: ListSectionController {
 
@@ -35,7 +35,7 @@ final class EmbeddedSectionController: ListSectionController {
         }
         let value = number ?? 0
         cell.text = "\(value + 1)"
-        cell.backgroundColor = UIColor(red: 237/255.0, green: 73/255.0, blue: 86/255.0, alpha: 1)
+        cell.backgroundColor = UIColor(red: 237 / 255.0, green: 73 / 255.0, blue: 86 / 255.0, alpha: 1)
         return cell
     }
 

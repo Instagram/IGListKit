@@ -12,8 +12,8 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
 final class SelfSizingCellsViewController: UIViewController, ListAdapterDataSource {
 
@@ -24,7 +24,7 @@ final class SelfSizingCellsViewController: UIViewController, ListAdapterDataSour
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = CGSize(width: 100, height: 40)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = UIColor(red: 0.831372549, green: 0.945098039, blue: 0.964705882, alpha: 1)
+        collectionView.backgroundColor = UIColor(red: 0.831_372_549, green: 0.945_098_039, blue: 0.964_705_882, alpha: 1)
         return collectionView
     }()
 
