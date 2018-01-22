@@ -12,8 +12,8 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
 final class SingleSectionStoryboardViewController: UIViewController, ListAdapterDataSource, ListSingleSectionControllerDelegate {
 
@@ -49,8 +49,8 @@ final class SingleSectionStoryboardViewController: UIViewController, ListAdapter
             return CGSize(width: context.containerSize.width, height: 44)
         }
         let sectionController = ListSingleSectionController(storyboardCellIdentifier: "cell",
-                                                              configureBlock: configureBlock,
-                                                              sizeBlock: sizeBlock)
+                                                            configureBlock: configureBlock,
+                                                            sizeBlock: sizeBlock)
         sectionController.selectionDelegate = self
         return sectionController
     }

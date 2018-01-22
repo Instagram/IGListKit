@@ -1,9 +1,9 @@
 /**
  Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
-
+ 
  The examples provided by Facebook are for non-commercial testing and evaluation
  purposes only. Facebook reserves all rights not expressly granted.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -12,8 +12,8 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
 func spinnerSectionController() -> ListSingleSectionController {
     let configureBlock = { (item: Any, cell: UICollectionViewCell) in
@@ -27,8 +27,8 @@ func spinnerSectionController() -> ListSingleSectionController {
     }
 
     return ListSingleSectionController(cellClass: SpinnerCell.self,
-                                         configureBlock: configureBlock,
-                                         sizeBlock: sizeBlock)
+                                       configureBlock: configureBlock,
+                                       sizeBlock: sizeBlock)
 }
 
 final class SpinnerCell: UICollectionViewCell {
