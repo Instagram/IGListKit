@@ -190,9 +190,10 @@
 
     // block used as the second param of -[UICollectionView performBatchUpdates:completion:]
     void (^batchUpdatesCompletionBlock)(BOOL) = ^(BOOL finished) {
+        IGListBatchUpdateData *oldApplyingUpdateData = self.applyingUpdateData;
         executeCompletionBlocks(finished);
 
-        [delegate listAdapterUpdater:self didPerformBatchUpdates:(id)self.applyingUpdateData collectionView:collectionView];
+        [delegate listAdapterUpdater:self didPerformBatchUpdates:oldApplyingUpdateData collectionView:collectionView];
 
         // queue another update in case something changed during batch updates. this method will bail next runloop if
         // there are no changes
@@ -308,6 +309,11 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     }
     [itemDeletes addObjectsFromArray:[reloadDeletePaths allObjects]];
     [itemInserts addObjectsFromArray:[reloadInsertPaths allObjects]];
+
+    if (IGListExperimentEnabled(self.experiments, IGListExperimentDedupeItemUpdates)) {
+        itemDeletes = [[[NSSet setWithArray:itemDeletes] allObjects] mutableCopy];
+        itemInserts = [[[NSSet setWithArray:itemInserts] allObjects] mutableCopy];
+    }
 
     IGListBatchUpdateData *updateData = [[IGListBatchUpdateData alloc] initWithInsertSections:inserts
                                                                                deleteSections:deletes

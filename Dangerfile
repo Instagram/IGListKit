@@ -37,5 +37,6 @@ if (added_source_files || deleted_source_files) && (ios_pods_not_updated || maco
   warn("Adding or removing library source files requires updating the examples. Please run `./scripts/pod_setup.sh` from the root directory and commit the changes.")
 end
 
+swiftlint.verbose = true
 swiftlint.config_file = '.swiftlint_CI.yml'
-swiftlint.lint_files
+swiftlint.lint_files(inline_mode: true)

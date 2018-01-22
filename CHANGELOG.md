@@ -9,6 +9,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Added `-[IGListSectionController didHighlightItemAtIndex:]` and `-[IGListSectionController didUnhighlightItemAtIndex:]` APIs to support `UICollectionView` cell highlighting. [Kevin Delannoy](https://github.com/delannoyk) [(#933)](https://github.com/Instagram/IGListKit/pull/933)
 
+- Added `-didDeselectSectionController:withObject:` to `IGListSingleSectionControllerDelegate` [Darren Clark](https://github.com/darrenclark) [(#954)](https://github.com/Instagram/IGListKit/pull/954)
+
 - Added a new listener API to be notified when `IGListAdapter` finishes updating. Add listeners via `-[IGListAdapter addUpdateListener:]` with objects conforming to the new `IGListAdapterUpdateListener` protocol. [Ryan Nystrom](https://github.com/rnystrom) [(tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
 
 - Updated project settings for iOS 11. [Ryan Nystrom](https://github.com/rnystrom) [(#942)](https://github.com/Instagram/IGListKit/pull/942)
@@ -16,6 +18,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 - Added support UICollectionElementKindSectionFooter for IGListCollectionViewLayout [(#1017)](https://github.com/Instagram/IGListKit/pull/1017)
 
 - Added experiment to make  `-[IGListAdapter visibleSectionControllers:]` a bit faster. [Maxime Ollivier](https://github.com/maxoll) (tbd)
+
+- Added support `-[UIScrollView adjustedContentInset]` for iOS 11. [Guoyin Li](https://github.com/yiplee) [(#1020)](https://github.com/Instagram/IGListKit/pull/1020)
 
 ### Fixes
 
@@ -30,6 +34,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 - Duplicate view models in `IGListBindingSectionController` gets filtered out. [Weyert de Boer](https://github.com/weyert) [(#916)](https://github.com/Instagram/IGListKit/pull/916)
 
 - Check object type on lookup to prevent crossing types if different objects collide with their identifiers. [Ryan Nystrom](https://github.com/rnystrom) [(#tbd)](https://github.com/Instagram/IGListKit/pull/tbd)
+
+- Testing a fix that removes duplicate item-level updates. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
 
 3.1.1
 -----

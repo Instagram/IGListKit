@@ -1786,4 +1786,23 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenInsertingItemTwice_withDedupeExperiment_thatSecondInsertGetsDropped {
+    ((IGListAdapterUpdater*)self.updater).experiments = IGListExperimentDedupeItemUpdates;
+
+    IGTestObject *object = genTestObject(@1, @1);
+    [self setupWithObjects:@[object]];
+
+    IGTestDelegateController *controller = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+    XCTestExpectation *expectation = genExpectation;
+    [controller.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext>  _Nonnull batchContext) {
+        object.value = @2;
+        [batchContext insertInSectionController:controller atIndexes:[NSIndexSet indexSetWithIndex:0]];
+        [batchContext insertInSectionController:controller atIndexes:[NSIndexSet indexSetWithIndex:0]];
+    } completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
 @end

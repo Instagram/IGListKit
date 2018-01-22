@@ -9,12 +9,8 @@
 
 #import <UIKit/UIKit.h>
 
-#define genLayoutTestItem(s) [[IGLayoutTestItem alloc] initWithSize:s]
+@interface UIScrollView (IGListKit)
 
-@interface IGLayoutTestItem : NSObject
-
-@property (nonatomic, assign, readonly) CGSize size;
-
-- (instancetype)initWithSize:(CGSize)size;
+- (UIEdgeInsets) ig_contentInset;
 
 @end

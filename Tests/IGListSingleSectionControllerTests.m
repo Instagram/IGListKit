@@ -14,6 +14,7 @@
 #import "IGTestCell.h"
 #import "IGTestSingleItemDataSource.h"
 #import "IGListTestCase.h"
+#import "IGTestSingleWithoutDeselectionDelegate.h"
 
 @interface IGListSingleSectionControllerTests : IGListTestCase
 
@@ -99,6 +100,33 @@
     [[mockDelegate expect] didSelectSectionController:section withObject:self.dataSource.objects.firstObject];
     [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     [mockDelegate verify];
+}
+
+- (void)test_whenDeselected_thatDelegateReceivesEvent {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @"a")
+                             ]];
+    IGListSingleSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListSingleSectionControllerDelegate)];
+    section.selectionDelegate = mockDelegate;
+    [[mockDelegate expect] didDeselectSectionController:section withObject:self.dataSource.objects.firstObject];
+    [self.adapter collectionView:self.collectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    [mockDelegate verify];
+}
+
+- (void)test_whenDeselected_withoutImplementation_thatNoOps {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @"a")
+                             ]];
+    IGListSingleSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+    IGTestSingleWithoutDeselectionDelegate *delegate = [IGTestSingleWithoutDeselectionDelegate new];
+    section.selectionDelegate = delegate;
+
+    [self.adapter collectionView:self.collectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    XCTAssertFalse(delegate.selected);
+
+    [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    XCTAssertTrue(delegate.selected);
 }
 
 @end

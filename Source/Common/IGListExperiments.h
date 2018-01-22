@@ -24,6 +24,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentReloadDataFallback = 1 << 3,
     /// Test a faster way to return visible section controllers.
     IGListExperimentFasterVisibleSectionController = 1 << 4,
+    /// Test deduping item-level updates.
+    IGListExperimentDedupeItemUpdates = 1 << 5,
 };
 
 /**

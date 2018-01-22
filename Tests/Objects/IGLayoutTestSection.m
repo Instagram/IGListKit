@@ -11,6 +11,15 @@
 
 @implementation IGLayoutTestSection
 
+- (instancetype)initWithItems:(NSArray<IGLayoutTestItem *> *)items {
+    return [self initWithInsets:UIEdgeInsetsZero
+                    lineSpacing:0
+               interitemSpacing:0
+                   headerHeight:0
+                   footerHeight:0
+                          items:items];
+}
+
 - (instancetype)initWithInsets:(UIEdgeInsets)insets
                    lineSpacing:(CGFloat)lineSpacing
               interitemSpacing:(CGFloat)interitemSpacing

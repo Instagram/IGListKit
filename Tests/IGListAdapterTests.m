@@ -18,6 +18,7 @@
 #import "IGListAdapterInternal.h"
 #import "IGListTestAdapterDataSource.h"
 #import "IGListTestAdapterHorizontalDataSource.h"
+#import "IGListTestOffsettingLayout.h"
 #import "IGListTestSection.h"
 #import "IGTestSupplementarySource.h"
 #import "IGTestNibSupplementaryView.h"
@@ -1325,6 +1326,42 @@
     const CGSize size = [self.adapter sizeForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     XCTAssertEqual(size.width, 0.0);
     XCTAssertEqual(size.height, 0.0);
+}
+
+- (void)test_whenSectionControllerReturnsNANHeight_thatAssertionFires {
+    self.adapter.collectionView.collectionViewLayout = [IGListTestOffsettingLayout new];
+    self.dataSource.objects = @[@1];
+    [self.adapter reloadDataWithCompletion:nil];
+    
+    IGListTestSection *section = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    section.size = CGSizeMake(NAN, 1);
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    XCTAssertThrows([self.adapter collectionView:self.collectionView layout:self.collectionView.collectionViewLayout sizeForItemAtIndexPath:indexPath]);
+}
+
+- (void)test_whenSectionControllerReturnsNANWidth_thatAssertionFires {
+    self.adapter.collectionView.collectionViewLayout = [IGListTestOffsettingLayout new];
+    self.dataSource.objects = @[@1];
+    [self.adapter reloadDataWithCompletion:nil];
+    
+    IGListTestSection *section = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    section.size = CGSizeMake(1, NAN);
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    XCTAssertThrows([self.adapter collectionView:self.collectionView layout:self.collectionView.collectionViewLayout sizeForItemAtIndexPath:indexPath]);
+}
+
+- (void)test_whenSectionControllerReturnsNANWidthNANHeight_thatAssertionFires {
+    self.adapter.collectionView.collectionViewLayout = [IGListTestOffsettingLayout new];
+    self.dataSource.objects = @[@1];
+    [self.adapter reloadDataWithCompletion:nil];
+    
+    IGListTestSection *section = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    section.size = CGSizeMake(NAN, NAN);
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    XCTAssertThrows([self.adapter collectionView:self.collectionView layout:self.collectionView.collectionViewLayout sizeForItemAtIndexPath:indexPath]);
 }
 
 - (void)test_whenSupplementarySourceReturnsNegativeSize_thatAdapterReturnsZero {
