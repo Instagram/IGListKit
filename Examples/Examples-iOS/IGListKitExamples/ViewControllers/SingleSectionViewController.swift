@@ -12,8 +12,8 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
 final class SingleSectionViewController: UIViewController, ListAdapterDataSource, ListSingleSectionControllerDelegate {
 
@@ -57,9 +57,9 @@ final class SingleSectionViewController: UIViewController, ListAdapterDataSource
             return CGSize(width: context.containerSize.width, height: 44)
         }
         let sectionController = ListSingleSectionController(nibName: NibCell.nibName,
-                                                              bundle: nil,
-                                                              configureBlock: configureBlock,
-                                                              sizeBlock: sizeBlock)
+                                                            bundle: nil,
+                                                            configureBlock: configureBlock,
+                                                            sizeBlock: sizeBlock)
         sectionController.selectionDelegate = self
 
         return sectionController
@@ -71,9 +71,10 @@ final class SingleSectionViewController: UIViewController, ListAdapterDataSource
 
     func didSelect(_ sectionController: ListSingleSectionController, with object: Any) {
         let section = adapter.section(for: sectionController) + 1
-        let alert = UIAlertController(title: "Section \(section) was selected \u{1F389}",
-                                      message: "Cell Object: " + String(describing: object),
-                                      preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: "Section \(section) was selected \u{1F389}",
+            message: "Cell Object: " + String(describing: object),
+            preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }

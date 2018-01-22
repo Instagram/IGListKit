@@ -12,8 +12,8 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
 final class MonthSectionController: ListBindingSectionController<ListDiffable>, ListBindingSectionControllerDataSource, ListBindingSectionControllerSelectionDelegate {
 
@@ -65,7 +65,7 @@ final class MonthSectionController: ListBindingSectionController<ListDiffable>, 
         } else {
             cellClass = LabelCell.self
         }
-        guard let cell =  collectionContext?.dequeueReusableCell(of: cellClass, for: self, at: index) as? UICollectionViewCell & ListBindable
+        guard let cell = collectionContext?.dequeueReusableCell(of: cellClass, for: self, at: index) as? UICollectionViewCell & ListBindable
             else { fatalError() }
         return cell
     }

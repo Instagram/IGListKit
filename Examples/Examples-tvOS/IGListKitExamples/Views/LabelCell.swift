@@ -42,7 +42,7 @@ final class LabelCell: UICollectionViewCell {
 
     lazy var separator: CALayer = {
         let layer = CALayer()
-        layer.backgroundColor = UIColor(red: 200/255.0, green: 199/255.0, blue: 204/255.0, alpha: 1).cgColor
+        layer.backgroundColor = UIColor(red: 200 / 255.0, green: 199 / 255.0, blue: 204 / 255.0, alpha: 1).cgColor
         self.contentView.layer.addSublayer(layer)
         return layer
     }()

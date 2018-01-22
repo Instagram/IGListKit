@@ -1,9 +1,9 @@
 /**
  Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
-
+ 
  The examples provided by Facebook are for non-commercial testing and evaluation
  purposes only. Facebook reserves all rights not expressly granted.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -12,8 +12,8 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
 final class SelfSizingSectionController: ListSectionController {
 
@@ -40,26 +40,26 @@ final class SelfSizingSectionController: ListSectionController {
         switch model.type {
         case .none:
             guard let manualCell = collectionContext?.dequeueReusableCell(of: ManuallySelfSizingCell.self,
-                                                                    for: self,
-                                                                    at: index) as? ManuallySelfSizingCell else {
-                                                                        fatalError()
+                                                                          for: self,
+                                                                          at: index) as? ManuallySelfSizingCell else {
+                                                                            fatalError()
             }
             manualCell.text = text
             cell = manualCell
         case .fullWidth:
             guard let manualCell = collectionContext?.dequeueReusableCell(of: FullWidthSelfSizingCell.self,
-                                                                    for: self,
-                                                                    at: index) as? FullWidthSelfSizingCell else {
-                                                                        fatalError()
+                                                                          for: self,
+                                                                          at: index) as? FullWidthSelfSizingCell else {
+                                                                            fatalError()
             }
             manualCell.text = text
             cell = manualCell
         case .nib:
             guard let nibCell = collectionContext?.dequeueReusableCell(withNibName: "NibSelfSizingCell",
-                                                                 bundle: nil,
-                                                                 for: self,
-                                                                 at: index) as? NibSelfSizingCell else {
-                                                                    fatalError()
+                                                                       bundle: nil,
+                                                                       for: self,
+                                                                       at: index) as? NibSelfSizingCell else {
+                                                                        fatalError()
             }
             nibCell.contentLabel.text = text
             cell = nibCell

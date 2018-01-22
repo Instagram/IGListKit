@@ -1,9 +1,9 @@
 /**
  Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
-
+ 
  The examples provided by Facebook are for non-commercial testing and evaluation
  purposes only. Facebook reserves all rights not expressly granted.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -12,8 +12,8 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
 final class HorizontalSectionController: ListSectionController, ListAdapterDataSource {
 
@@ -21,7 +21,7 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
 
     lazy var adapter: ListAdapter = {
         let adapter = ListAdapter(updater: ListAdapterUpdater(),
-                                    viewController: self.viewController)
+                                  viewController: self.viewController)
         adapter.dataSource = self
         return adapter
     }()
@@ -32,9 +32,9 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
         guard let cell = collectionContext?.dequeueReusableCell(of: EmbeddedCollectionViewCell.self,
-                                                          for: self,
-                                                          at: index) as? EmbeddedCollectionViewCell else {
-                                                            fatalError()
+                                                                for: self,
+                                                                at: index) as? EmbeddedCollectionViewCell else {
+                                                                    fatalError()
         }
         adapter.collectionView = cell.collectionView
         return cell

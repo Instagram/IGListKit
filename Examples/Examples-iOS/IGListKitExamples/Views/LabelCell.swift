@@ -12,8 +12,8 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
 final class LabelCell: UICollectionViewCell {
 
@@ -42,7 +42,7 @@ final class LabelCell: UICollectionViewCell {
 
     let separator: CALayer = {
         let layer = CALayer()
-        layer.backgroundColor = UIColor(red: 200/255.0, green: 199/255.0, blue: 204/255.0, alpha: 1).cgColor
+        layer.backgroundColor = UIColor(red: 200 / 255.0, green: 199 / 255.0, blue: 204 / 255.0, alpha: 1).cgColor
         return layer
     }()
 
