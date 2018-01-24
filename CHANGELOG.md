@@ -21,6 +21,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Added support `-[UIScrollView adjustedContentInset]` for iOS 11. [Guoyin Li](https://github.com/yiplee) [(#1020)](https://github.com/Instagram/IGListKit/pull/1020)
 
+- Reordered position of intercepted selector in `IGListAdapterProxy`'s `isInterceptedSelector` method to reduce overall consumption of compare. [zhongwuzw](https://github.com/zhongwu) [(#1055)](https://github.com/Instagram/IGListKit/pull/1055)
+
 ### Fixes
 
 - Duplicate objects for initial data source setup filtered out. [Mikhail Vashlyaev](https://github.com/yemodin) [(#993](https://github.com/Instagram/IGListKit/pull/993)
