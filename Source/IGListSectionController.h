@@ -14,6 +14,7 @@
 #import <IGListKit/IGListScrollDelegate.h>
 #import <IGListKit/IGListSupplementaryViewSource.h>
 #import <IGListKit/IGListWorkingRangeDelegate.h>
+#import <IGListKit/IGListTransitionDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -199,6 +200,15 @@ NS_SWIFT_NAME(ListSectionController)
  @note You may wish to return `self` if your section controller implements this protocol.
  */
 @property (nonatomic, weak, nullable) id <IGListScrollDelegate> scrollDelegate;
+
+/**
+ An object that handles transition events for the section controller. Can be `nil`.
+
+ @return An object that conforms to `IGListTransitionDelegat` or `nil`.
+
+ @note You may wish to return `self` if your section controller implements this protocol.
+ */
+@property (nonatomic, weak, nullable) id<IGListTransitionDelegate> transitionDelegate;
 
 @end
 

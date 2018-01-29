@@ -10,6 +10,7 @@
 #import "IGListAdapterProxy.h"
 
 #import <IGListKit/IGListAssert.h>
+#import "IGListCollectionViewDelegateLayout.h"
 
 /**
  Define messages that you want the IGListAdapter object to intercept. Pattern copied from
@@ -34,7 +35,10 @@ static BOOL isInterceptedSelector(SEL sel) {
             sel == @selector(scrollViewDidScroll:) ||
             sel == @selector(scrollViewWillBeginDragging:) ||
             sel == @selector(scrollViewDidEndDragging:willDecelerate:) ||
-            sel == @selector(scrollViewDidEndDecelerating:)
+            sel == @selector(scrollViewDidEndDecelerating:) ||
+            // IGListCollectionViewDelegateLayout
+            sel == @selector(collectionView:layout:customizedInitialLayoutAttributes:atIndexPath:) ||
+            sel == @selector(collectionView:layout:customizedFinalLayoutAttributes:atIndexPath:)
             );
 }
 

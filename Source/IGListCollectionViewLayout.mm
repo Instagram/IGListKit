@@ -14,6 +14,7 @@
 #import <vector>
 
 #import <IGListKit/IGListAssert.h>
+#import <IGListKit/IGListCollectionViewDelegateLayout.h>
 
 static CGFloat UIEdgeInsetsLeadingInsetInDirection(UIEdgeInsets insets, UICollectionViewScrollDirection direction) {
     switch (direction) {
@@ -205,6 +206,30 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 }
 
 #pragma mark - UICollectionViewLayout
+
+- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
+    UICollectionViewLayoutAttributes *attributes = [super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
+    id<IGListCollectionViewDelegateLayout> delegate = (id<IGListCollectionViewDelegateLayout>)self.collectionView.delegate;
+    if ([delegate respondsToSelector:@selector(collectionView:layout:customizedInitialLayoutAttributes:atIndexPath:)]) {
+        return [delegate collectionView:self.collectionView
+                                 layout:self
+      customizedInitialLayoutAttributes:attributes
+                            atIndexPath:itemIndexPath];
+    }
+    return attributes;
+}
+
+- (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath{
+    UICollectionViewLayoutAttributes *attributes = [super finalLayoutAttributesForDisappearingItemAtIndexPath:itemIndexPath];
+    id<IGListCollectionViewDelegateLayout> delegate = (id<IGListCollectionViewDelegateLayout>)self.collectionView.delegate;
+    if ([delegate respondsToSelector:@selector(collectionView:layout:customizedFinalLayoutAttributes:atIndexPath:)]) {
+        return [delegate collectionView:self.collectionView
+                                 layout:self
+        customizedFinalLayoutAttributes:attributes
+                            atIndexPath:itemIndexPath];
+    }
+    return attributes;
+}
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
     IGAssertMainThread();

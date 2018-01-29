@@ -211,4 +211,34 @@
     return [self sizeForSupplementaryViewOfKind:UICollectionElementKindSectionFooter atIndexPath:indexPath];
 }
 
+#pragma mark - IGListCollectionViewDelegateLayout
+
+- (UICollectionViewLayoutAttributes *)collectionView:(UICollectionView *)collectionView
+                                              layout:(UICollectionViewLayout*)collectionViewLayout
+                   customizedInitialLayoutAttributes:(UICollectionViewLayoutAttributes *)attributes
+                                         atIndexPath:(NSIndexPath *)indexPath {
+    IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
+    if (sectionController.transitionDelegate) {
+        return [sectionController.transitionDelegate listAdapter:self
+                               customizedInitialLayoutAttributes:attributes
+                                               sectionController:sectionController
+                                                         atIndex:indexPath.item];
+    }
+    return attributes;
+}
+
+- (UICollectionViewLayoutAttributes *)collectionView:(UICollectionView *)collectionView
+                                              layout:(UICollectionViewLayout*)collectionViewLayout
+                     customizedFinalLayoutAttributes:(UICollectionViewLayoutAttributes *)attributes
+                                         atIndexPath:(NSIndexPath *)indexPath {
+    IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
+    if (sectionController.transitionDelegate) {
+        return [sectionController.transitionDelegate listAdapter:self
+                                 customizedFinalLayoutAttributes:attributes
+                                               sectionController:sectionController
+                                                         atIndex:indexPath.item];
+    }
+    return attributes;
+}
+
 @end
