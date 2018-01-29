@@ -1,6 +1,8 @@
 #!/bin/bash
 
-VERSION="0.24.2"
+VERSION="0.24.0"
+
+brew switch swiftlint $VERSION
 
 if which swiftlint >/dev/null && [ $(swiftlint version) == $VERSION ]; then
     swiftlint lint --config ../.swiftlint.yml
