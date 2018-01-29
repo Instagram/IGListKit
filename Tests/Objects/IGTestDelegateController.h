@@ -13,7 +13,7 @@
 
 @class IGTestObject;
 
-@interface IGTestDelegateController : IGListSectionController <IGListDisplayDelegate, IGListWorkingRangeDelegate>
+@interface IGTestDelegateController : IGListSectionController <IGListDisplayDelegate, IGListWorkingRangeDelegate, IGListTransitionDelegate>
 
 @property (nonatomic, strong) IGTestObject *item;
 
@@ -27,5 +27,8 @@
 @property (nonatomic, assign) NSInteger didEndDisplayCount;
 @property (nonatomic, strong) NSCountedSet *willDisplayCellIndexes;
 @property (nonatomic, strong) NSCountedSet *didEndDisplayCellIndexes;
+
+@property (nonatomic, assign) CGPoint initialAttributesOffset;
+@property (nonatomic, assign) CGPoint finalAttributesOffset;
 
 @end

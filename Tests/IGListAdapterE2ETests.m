@@ -20,6 +20,7 @@
 #import "IGTestObject.h"
 #import "IGListTestCase.h"
 #import "IGListAdapterUpdateTester.h"
+#import "IGListTestHelpers.h"
 
 @interface IGListAdapterE2ETests : IGListTestCase
 @end
@@ -1803,6 +1804,34 @@
     }];
 
     [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+- (void)test_whenModifyingInitialAndFinalAttribute_thatLayoutIsCorrect {
+    // set up the custom layout
+    IGListCollectionViewLayout *layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:NO topContentInset:0 stretchToEdge:YES];
+    self.collectionView.collectionViewLayout = layout;
+
+    IGTestObject *object = genTestObject(@1, @2);
+    [self setupWithObjects:@ [object]];
+
+    // set up the section controller
+    IGTestDelegateController *sectionController = [self.adapter sectionControllerForObject:object];
+    sectionController.transitionDelegate = sectionController;
+
+    CGPoint offset = CGPointMake(10, 10);
+    NSIndexPath *indexPath = genIndexPath(0, 0);
+    UICollectionViewLayoutAttributes *attribute = [layout layoutAttributesForItemAtIndexPath:indexPath];
+
+    // set up the custom initial attribute transformation
+    sectionController.initialAttributesOffset = offset;
+    UICollectionViewLayoutAttributes *initialAttribute = [layout initialLayoutAttributesForAppearingItemAtIndexPath:indexPath];
+
+    // set up the custom final attribute transformation
+    sectionController.finalAttributesOffset = offset;
+    UICollectionViewLayoutAttributes *finalAttribute = [layout finalLayoutAttributesForDisappearingItemAtIndexPath:indexPath];
+
+    IGAssertEqualPoint(initialAttribute.center, attribute.center.x + offset.x, attribute.center.y + offset.y);
+    IGAssertEqualPoint(finalAttribute.center, attribute.center.x + offset.x ,attribute.center.y + offset.y);
 }
 
 @end

@@ -91,4 +91,22 @@
 
 - (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerDidExitWorkingRange:(IGListSectionController *)sectionController {}
 
+#pragma mark - IGListTransitionDelegate
+
+- (UICollectionViewLayoutAttributes *)listAdapter:(IGListAdapter *)listAdapter
+                customizedInitialLayoutAttributes:(UICollectionViewLayoutAttributes *)attributes
+                                sectionController:(IGListSectionController *)sectionController
+                                          atIndex:(NSInteger)index {
+    attributes.center = CGPointMake(attributes.center.x + _initialAttributesOffset.x, attributes.center.y + _initialAttributesOffset.y);
+    return attributes;
+}
+
+- (UICollectionViewLayoutAttributes *)listAdapter:(IGListAdapter *)listAdapter
+                  customizedFinalLayoutAttributes:(UICollectionViewLayoutAttributes *)attributes
+                                sectionController:(IGListSectionController *)sectionController
+                                          atIndex:(NSInteger)index {
+    attributes.center = CGPointMake(attributes.center.x + _finalAttributesOffset.x, attributes.center.y + _finalAttributesOffset.y);
+    return attributes;
+}
+
 @end
