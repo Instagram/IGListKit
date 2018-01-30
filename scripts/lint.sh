@@ -4,7 +4,7 @@ VERSION="0.24.2"
 FOUND=$(swiftlint version)
 
 if which swiftlint >/dev/null; then
-    swiftlint lint --config ./.swiftlint.yml
+    swiftlint lint --config ../.swiftlint.yml
 else
     echo "
     Error: SwiftLint not installed!
