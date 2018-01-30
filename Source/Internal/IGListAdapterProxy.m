@@ -18,10 +18,15 @@
  */
 static BOOL isInterceptedSelector(SEL sel) {
     return (
+            // UIScrollViewDelegate
+            sel == @selector(scrollViewDidScroll:) ||
+            sel == @selector(scrollViewWillBeginDragging:) ||
+            sel == @selector(scrollViewDidEndDragging:willDecelerate:) ||
+            sel == @selector(scrollViewDidEndDecelerating:) ||
             // UICollectionViewDelegate
-            sel == @selector(collectionView:didSelectItemAtIndexPath:) ||
             sel == @selector(collectionView:willDisplayCell:forItemAtIndexPath:) ||
             sel == @selector(collectionView:didEndDisplayingCell:forItemAtIndexPath:) ||
+            sel == @selector(collectionView:didSelectItemAtIndexPath:) ||
             sel == @selector(collectionView:didHighlightItemAtIndexPath:) ||
             sel == @selector(collectionView:didUnhighlightItemAtIndexPath:) ||
             // UICollectionViewDelegateFlowLayout
@@ -30,6 +35,7 @@ static BOOL isInterceptedSelector(SEL sel) {
             sel == @selector(collectionView:layout:minimumInteritemSpacingForSectionAtIndex:) ||
             sel == @selector(collectionView:layout:minimumLineSpacingForSectionAtIndex:) ||
             sel == @selector(collectionView:layout:referenceSizeForFooterInSection:) ||
+            sel == @selector(collectionView:layout:referenceSizeForHeaderInSection:) ||
             sel == @selector(collectionView:layout:referenceSizeForHeaderInSection:) ||
             // UIScrollViewDelegate
             sel == @selector(scrollViewDidScroll:) ||

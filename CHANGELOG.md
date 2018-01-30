@@ -23,6 +23,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Added new `transitionDelegate` API to give `IGListSectionController`s control to customize initial and final `UICollectionViewLayoutAttribute`s. Includes automatic integration with `IGListCollectionViewLayout`. Sue Suhan Ma [(26924ec)](https://github.com/Instagram/IGListKit/commit/26924ec3b665d37aeed7e28887e4221a7f3501b1)
 
+- Reordered position of intercepted selector in `IGListAdapterProxy`'s `isInterceptedSelector` method to reduce overall consumption of compare. [zhongwuzw](https://github.com/zhongwu) [(#1055)](https://github.com/Instagram/IGListKit/pull/1055)
+
 ### Fixes
 
 - Duplicate objects for initial data source setup filtered out. [Mikhail Vashlyaev](https://github.com/yemodin) [(#993](https://github.com/Instagram/IGListKit/pull/993)
