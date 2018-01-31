@@ -10,7 +10,7 @@
 #import <XCTest/XCTest.h>
 
 #import <IGListKit/IGListBatchUpdateData.h>
-#import <IGListKit/IGListMoveIndexPathInternal.h>
+#import "IGListMoveIndexPathInternal.h"
 
 // IGListMoveIndexInternal.h
 @interface IGListMoveIndex (Private)

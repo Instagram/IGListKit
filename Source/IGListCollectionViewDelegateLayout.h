@@ -7,6 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+#import <UIKit/UIKit.h>
+
 /**
  Conform to `IGListCollectionViewDelegateLayout` to provide customized layout information for a collection view.
  */
