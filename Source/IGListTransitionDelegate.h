@@ -10,7 +10,7 @@
 /**
  Conform to `IGListTransitionDelegate` to provide customized layout information for a collection view.
  */
-@protocol IGListTransitionDelegate
+@protocol IGListTransitionDelegate <NSObject>
 
 /**
  Asks the delegate to customize and return the starting layout information for an item being inserted into the collection view.
