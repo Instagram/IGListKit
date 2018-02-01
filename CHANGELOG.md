@@ -15,7 +15,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Updated project settings for iOS 11. [Ryan Nystrom](https://github.com/rnystrom) [(#942)](https://github.com/Instagram/IGListKit/pull/942)
 
-- Added support UICollectionElementKindSectionFooter for IGListCollectionViewLayout [(#1017)](https://github.com/Instagram/IGListKit/pull/1017)
+- Added support UICollectionElementKindSectionFooter for IGListCollectionViewLayout. [Igor Vasilenko](https://github.com/vasilenkoigor) [(#1017)](https://github.com/Instagram/IGListKit/pull/1017)
 
 - Added experiment to make  `-[IGListAdapter visibleSectionControllers:]` a bit faster. [Maxime Ollivier](https://github.com/maxoll) [(82a2a2e)](https://github.com/Instagram/IGListKit/commit/82a2a2ee18bb6272744fd14c64c8ff2da3a620a6)
 

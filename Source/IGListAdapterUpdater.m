@@ -222,6 +222,7 @@
             }
         } @catch (NSException *exception) {
             [delegate listAdapterUpdater:self
+                          collectionView:collectionView
                   willCrashWithException:exception
                              fromObjects:fromObjects
                                toObjects:toObjects
