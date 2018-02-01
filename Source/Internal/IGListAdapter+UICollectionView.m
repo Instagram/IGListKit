@@ -218,13 +218,10 @@
                    customizedInitialLayoutAttributes:(UICollectionViewLayoutAttributes *)attributes
                                          atIndexPath:(NSIndexPath *)indexPath {
     IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
-    if (sectionController.transitionDelegate) {
-        return [sectionController.transitionDelegate listAdapter:self
-                               customizedInitialLayoutAttributes:attributes
-                                               sectionController:sectionController
-                                                         atIndex:indexPath.item];
-    }
-    return attributes;
+    return [sectionController.transitionDelegate listAdapter:self
+                           customizedInitialLayoutAttributes:attributes
+                                           sectionController:sectionController
+                                                     atIndex:indexPath.item];
 }
 
 - (UICollectionViewLayoutAttributes *)collectionView:(UICollectionView *)collectionView
@@ -232,13 +229,10 @@
                      customizedFinalLayoutAttributes:(UICollectionViewLayoutAttributes *)attributes
                                          atIndexPath:(NSIndexPath *)indexPath {
     IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
-    if (sectionController.transitionDelegate) {
-        return [sectionController.transitionDelegate listAdapter:self
-                                 customizedFinalLayoutAttributes:attributes
-                                               sectionController:sectionController
-                                                         atIndex:indexPath.item];
-    }
-    return attributes;
+    return [sectionController.transitionDelegate listAdapter:self
+                             customizedFinalLayoutAttributes:attributes
+                                           sectionController:sectionController
+                                                     atIndex:indexPath.item];
 }
 
 @end
