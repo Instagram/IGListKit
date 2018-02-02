@@ -25,6 +25,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Reordered position of intercepted selector in `IGListAdapterProxy`'s `isInterceptedSelector` method to reduce overall consumption of compare. [zhongwuzw](https://github.com/zhongwu) [(#1055)](https://github.com/Instagram/IGListKit/pull/1055)
 
+- Made IGListTransitionDelegate inherited from NSObject. [Igor Vasilenko](https://github.com/vasilenkoigor) [(#1075)](https://github.com/Instagram/IGListKit/pull/1075)
+
 ### Fixes
 
 - Duplicate objects for initial data source setup filtered out. [Mikhail Vashlyaev](https://github.com/yemodin) [(#993](https://github.com/Instagram/IGListKit/pull/993)
