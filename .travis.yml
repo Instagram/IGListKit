@@ -40,10 +40,9 @@ env:
    - DESTINATION="arch=x86_64" SDK="$MACOS_SDK" SCHEME="$MACOS_SCHEME" RUN_TESTS="YES" RUN_UI_TESTS="NO" BUILD_EXAMPLE="YES" POD_LINT="NO"
 
 before_install:
-  - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
-  - gem install bundler --no-rdoc --no-ri --no-document --quiet
-  - bundle install
-  - ruby scripts/generate_ci_yaml.rb
+  # - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
+  # - gem install bundler --no-rdoc --no-ri --no-document --quiet
+  # - bundle install
   - brew update
   - brew outdated swiftlint || brew upgrade swiftlint
 
