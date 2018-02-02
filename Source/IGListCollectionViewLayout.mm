@@ -470,7 +470,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     CGFloat nextRowCoordInScrollDirection = 0.0;
 
     // union item frames and optionally the header to find a bounding box of the entire section
-    CGRect rollingSectionBounds;
+    CGRect rollingSectionBounds = CGRectZero;
 
     // populate last valid section information
     const NSInteger lastValidSection = _minimumInvalidatedSection - 1;
@@ -577,7 +577,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             }
         }
 
-        const CGRect headerBounds =  (self.scrollDirection == UICollectionViewScrollDirectionVertical) ?
+        const CGRect headerBounds = (self.scrollDirection == UICollectionViewScrollDirectionVertical) ?
                 CGRectMake(insets.left,
                         CGRectGetMinY(rollingSectionBounds) - headerSize.height,
                         paddedLengthInFixedDirection,

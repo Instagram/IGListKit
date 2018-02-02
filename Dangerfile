@@ -38,5 +38,5 @@ if (added_source_files || deleted_source_files) && (ios_pods_not_updated || maco
 end
 
 swiftlint.verbose = true
-swiftlint.config_file = '.swiftlint_CI.yml'
+swiftlint.config_file = './Examples/.swiftlint.yml'
 swiftlint.lint_files(inline_mode: true)
