@@ -1,3 +1,11 @@
+included:
+  - IGListKitExamples
+  - IGListKitMessageExample
+  - IGListKitTodayExample
+
+excluded:
+  - Pods
+
 opt_in_rules:
   - empty_count
   - number_separator
@@ -11,14 +19,6 @@ disabled_rules:
   - comma
   - line_length
   - force_cast
-
-included:
-  - IGListKitExamples
-  - IGListKitMessageExample
-  - IGListKitTodayExample
-
-excluded:
-  - Pods
 
 force_cast: warning
 force_try: warning
