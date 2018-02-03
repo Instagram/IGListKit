@@ -7,6 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+import UIKit
+
 public extension ListAdapter {
 
     public func value(for sectionController: ListSectionController) -> ListSwiftDiffable? {
