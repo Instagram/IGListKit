@@ -30,6 +30,14 @@ Pod::Spec.new do |s|
     cs.tvos.private_header_files = ['Source/Internal/*.h', 'Source/Common/Internal/*.h']
   end
 
+  s.subspec 'Swift' do |cs|
+    cs.dependency 'IGListKit/Default'
+
+    cs.ios.source_files = 'Swift/**/*.{swift}'
+    
+    cs.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+  end
+
   s.default_subspec = 'Default'
   s.requires_arc = true
 
