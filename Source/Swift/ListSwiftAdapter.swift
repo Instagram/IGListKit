@@ -7,6 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+import UIKit
+
 public final class ListSwiftAdapter: NSObject {
 
     public weak var dataSource: ListSwiftAdapterDataSource? {
