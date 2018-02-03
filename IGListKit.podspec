@@ -33,7 +33,8 @@ Pod::Spec.new do |s|
   s.subspec 'Swift' do |cs|
     cs.dependency 'IGListKit/Default'
 
-    cs.source_files = 'Swift/*'
+    cs.ios.source_files = 'Swift/**/*.{swift}'
+    cs.tvos.source_files = 'Swift/**/*.{swift}'
 
     cs.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
   end
