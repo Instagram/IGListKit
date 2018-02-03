@@ -7,18 +7,18 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-final class ListSwiftAdapter: NSObject {
+public final class ListSwiftAdapter: NSObject {
 
-    weak var dataSource: ListSwiftAdapterDataSource? {
+    public weak var dataSource: ListSwiftAdapterDataSource? {
         didSet {
             adapter.dataSource = self
         }
     }
-    weak var emptyViewSource: ListSwiftAdapterEmptyViewSource?
+    public weak var emptyViewSource: ListSwiftAdapterEmptyViewSource?
 
-    let adapter: ListAdapter
+    public let adapter: ListAdapter
 
-    init(updater: ListUpdatingDelegate = ListAdapterUpdater(),
+    public init(updater: ListUpdatingDelegate = ListAdapterUpdater(),
          viewController: UIViewController? = nil,
          workingRangeSize: Int = 0
         ) {
@@ -27,6 +27,6 @@ final class ListSwiftAdapter: NSObject {
 
     // MARK: ListAdapterDataSource
 
-    fileprivate var map = [Int: (ListSwiftDiffable) -> (ListSectionController)]()
+    internal var map = [Int: (ListSwiftDiffable) -> (ListSectionController)]()
 
 }

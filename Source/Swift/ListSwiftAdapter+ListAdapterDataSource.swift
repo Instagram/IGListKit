@@ -9,7 +9,7 @@
 
 extension ListSwiftAdapter: ListAdapterDataSource {
 
-    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+    public func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         guard let dataSource = self.dataSource else { return [] }
 
         return dataSource.values(adapter: self).map {
@@ -20,7 +20,7 @@ extension ListSwiftAdapter: ListAdapterDataSource {
         }
     }
 
-    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+    public func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         guard let box = object as? ListDiffableBox else { fatalError() }
         let hash = box.functionLookupHash
         guard let function = map[hash] else { fatalError() }
@@ -31,7 +31,7 @@ extension ListSwiftAdapter: ListAdapterDataSource {
         return function(box.value)
     }
 
-    func emptyView(for listAdapter: ListAdapter) -> UIView? {
+    public func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return emptyViewSource?.emptyView(adapter: self)
     }
 
