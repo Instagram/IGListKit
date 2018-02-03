@@ -7,6 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+import Foundation
+
 public protocol ListSwiftEquatable {
     func isEqual(to object: ListSwiftEquatable) -> Bool
 }
