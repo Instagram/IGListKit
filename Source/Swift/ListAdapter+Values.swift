@@ -7,9 +7,9 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-extension ListAdapter {
+public extension ListAdapter {
 
-    func value(for sectionController: ListSectionController) -> ListSwiftDiffable? {
+    public func value(for sectionController: ListSectionController) -> ListSwiftDiffable? {
         if let box = object(for: sectionController) {
             guard let box = box as? ListDiffableBox else { fatalError() }
             return box.value
@@ -17,15 +17,15 @@ extension ListAdapter {
         return nil
     }
 
-    func sectionController(for value: ListSwiftDiffable) -> ListSectionController? {
+    public func sectionController(for value: ListSwiftDiffable) -> ListSectionController? {
         return sectionController(for: value.boxed)
     }
 
-    func section(for value: ListSwiftDiffable) -> Int {
+    public func section(for value: ListSwiftDiffable) -> Int {
         return section(for: value.boxed)
     }
 
-    func value(at section: Int) -> ListSwiftDiffable? {
+    public func value(at section: Int) -> ListSwiftDiffable? {
         if let box = object(atSection: section) {
             guard let box = box as? ListDiffableBox else { fatalError() }
             return box.value
@@ -33,11 +33,11 @@ extension ListAdapter {
         return nil
     }
 
-    func visibleCells(for value: ListSwiftDiffable) -> [UICollectionViewCell] {
+    public func visibleCells(for value: ListSwiftDiffable) -> [UICollectionViewCell] {
         return visibleCells(for: value.boxed)
     }
 
-    func scroll(
+    public func scroll(
         to value: ListSwiftDiffable,
         supplementaryKinds: [String]? = nil,
         scrollDirection: UICollectionViewScrollDirection = .vertical,
@@ -53,12 +53,12 @@ extension ListAdapter {
         )
     }
 
-    var values: [ListSwiftDiffable] {
+    public var values: [ListSwiftDiffable] {
         guard let objects = self.objects() as? [ListDiffableBox] else { fatalError() }
         return objects.map { $0.value }
     }
 
-    var visibleValues: [ListSwiftDiffable] {
+    public var visibleValues: [ListSwiftDiffable] {
         guard let visibleObjects = self.visibleObjects() as? [ListDiffableBox] else { fatalError() }
         return visibleObjects.map { $0.value }
     }

@@ -7,4 +7,4 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-protocol ListSwiftDiffable: ListSwiftIdentifiable, ListSwiftEquatable { }
+public protocol ListSwiftDiffable: ListSwiftIdentifiable, ListSwiftEquatable { }

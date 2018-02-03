@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-extension ListSwiftDiffable {
+internal extension ListSwiftDiffable {
 
     var boxed: ListDiffable {
         return ListDiffableBox(value: self)

@@ -7,6 +7,6 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-protocol ListSwiftIdentifiable {
+public protocol ListSwiftIdentifiable {
     var identifier: Int { get }
 }

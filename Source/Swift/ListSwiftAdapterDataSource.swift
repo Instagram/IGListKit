@@ -7,6 +7,6 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-protocol ListSwiftAdapterDataSource: class {
+public protocol ListSwiftAdapterDataSource: class {
     func values(adapter: ListSwiftAdapter) -> [ (ListSwiftDiffable, (ListSwiftDiffable) -> (ListSectionController)) ]
 }

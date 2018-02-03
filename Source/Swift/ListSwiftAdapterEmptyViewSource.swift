@@ -7,6 +7,6 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-protocol ListSwiftAdapterEmptyViewSource: class {
+public protocol ListSwiftAdapterEmptyViewSource: class {
     func emptyView(adapter: ListSwiftAdapter) -> UIView?
 }
