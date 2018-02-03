@@ -12,8 +12,8 @@ import UIKit
 open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionController {
 
     public struct Context {
-        let collection: ListCollectionContext
-        let value: T
+        public let collection: ListCollectionContext
+        public let value: T
     }
 
     public private(set) var value: T?
