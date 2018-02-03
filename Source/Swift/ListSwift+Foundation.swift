@@ -7,13 +7,13 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-extension Hashable {
+public extension Hashable {
     var identifier: Int {
         return hashValue
     }
 }
 
-extension Equatable {
+public extension Equatable {
     func isEqual(to object: ListSwiftEquatable) -> Bool {
         guard let object = object as? Self else { return false }
         return self == object

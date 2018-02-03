@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-final class ListDiffableBox: ListDiffable {
+internal final class ListDiffableBox: ListDiffable {
 
     internal let value: ListSwiftDiffable
 

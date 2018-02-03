@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-extension ListDiffable {
+internal extension ListDiffable {
 
     var functionLookupHash: Int {
         return ObjectIdentifier(self).hashValue
