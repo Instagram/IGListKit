@@ -15,9 +15,9 @@ extension ListSwiftAdapter: ListAdapterDataSource {
         guard let dataSource = self.dataSource else { return [] }
 
         return dataSource.values(adapter: self).map {
-            let box = $0.0.boxed
+            let box = $0.value.boxed
             // side effect: store the function for use in listAdapter(:, sectionControllerFor object:)
-            map[box.functionLookupHash] = $0.1
+            map[box.functionLookupHash] = $0.constructor
             return box
         }
     }
@@ -30,7 +30,7 @@ extension ListSwiftAdapter: ListAdapterDataSource {
         // pluck the function from the map so any objects retained in the closure are released upon execution
         map.removeValue(forKey: hash)
 
-        return function(box.value)
+        return function()
     }
 
     public func emptyView(for listAdapter: ListAdapter) -> UIView? {
