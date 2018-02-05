@@ -9,6 +9,18 @@
 
 import UIKit
 
+/**
+ Conform to this protocol to return a `UIView` when a `ListSwiftAdapter` has no content to display.
+ */
 public protocol ListSwiftAdapterEmptyViewSource: class {
+
+    /**
+     Return a `UIView` to display for empty content.
+
+     @param adapter The adapter that is empty.
+
+     @return An optional `UIView`. You should configure this view for display in this method. The view is sized to the
+     bounds of the containing `UICollectionView`.
+     */
     func emptyView(adapter: ListSwiftAdapter) -> UIView?
 }
