@@ -9,15 +9,31 @@
 
 import Foundation
 
+/**
+ Automatically conform `Hashable` structures to the identification part of `ListSwiftDiffable`.
+ */
 public extension Hashable {
+
+    /**
+     :nodoc:
+     */
     var identifier: String {
         return "\(hashValue)"
     }
+
 }
 
+/**
+ Automatically conform `Hashable` structures to the identification part of `ListSwiftDiffable`.
+ */
 public extension Equatable {
+
+    /**
+     :nodoc:
+     */
     func isEqual(to object: ListSwiftDiffable) -> Bool {
         guard let object = object as? Self else { return false }
         return self == object
     }
+    
 }

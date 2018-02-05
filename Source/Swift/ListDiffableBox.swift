@@ -9,25 +9,46 @@
 
 import Foundation
 
-internal final class ListDiffableBox: ListDiffable {
+/**
+ Wrap a `ListSwiftDiffable` conforming value so that it conforms to `ListDiffable` and can be used with other IGListKit
+ systems.
 
-    internal let value: ListSwiftDiffable
+ @note Wrapped values can be a Swift `class` or `struct`.
+ */
+public final class ListDiffableBox: ListDiffable {
 
-    init(value: ListSwiftDiffable) {
+    /**
+     The boxed value.
+     */
+    public let value: ListSwiftDiffable
+
+    /**
+     Initialize a new `ListDiffableBox` object.
+
+     @param value The value to be boxed.
+     */
+    public init(value: ListSwiftDiffable) {
         self.value = value
     }
 
     // MARK: ListDiffable
 
-    func diffIdentifier() -> NSObjectProtocol {
+    /**
+     :nodoc:
+     */
+    public func diffIdentifier() -> NSObjectProtocol {
         // namespace the identifier with the value type to further prevent collisions
         return "\(value.self)\(value.identifier)" as NSObjectProtocol
     }
 
-    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+    /**
+     :nodoc:
+     */
+    public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         if self === object { return true }
         guard let object = object as? ListDiffableBox else { return false }
         return value.isEqual(to: object.value)
     }
 
 }
+

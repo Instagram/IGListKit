@@ -7,26 +7,36 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-public class ValuePair {
-    public static func pair<T>(_ value: T, _ constructor: @escaping () -> ListSwiftSectionController<T>) -> ValuePair {
-        return ValuePair(value, constructor: constructor)
-    }
-
-    public let value: ListSwiftDiffable
-    public let constructor: () -> ListSectionController
-
-    public init<T>(_ value: T, constructor: @escaping () -> ListSwiftSectionController<T>) {
-        self.value = value
-        self.constructor = constructor
-    }
-}
-
-public extension Optional where Wrapped == ValuePair {
-    public static func pair<T>(_ value: T, _ constructor: @escaping () -> ListSwiftSectionController<T>) -> ValuePair? {
-        return ValuePair.pair(value, constructor)
-    }
-}
-
+/**
+ Conform to this protocol and return value and `ListSectionController`-constructor pairs to display data in a
+ `ListSwiftAdapter`.
+ */
 public protocol ListSwiftAdapterDataSource: class {
-    func values(adapter: ListSwiftAdapter) -> [ValuePair]
+
+    /**
+     Return a list of value and `ListSectionController`-constructor pairs.
+     
+     @param adpater The adapter requesting the data.
+     
+     @return An array of value and `ListSectionController`-constructor pairs.
+
+     @note `ListSwiftPair` uses "type-erasure" to enforce the same type betweeen the `value` and
+     `ListSwiftSectionController` returned in the `constructor` closure. It is recommended that you map and type your
+     data. You can also use the abbreviated `.pair(_,_)` method on `ListSwiftPair` to shorten your implementation.
+
+     For example:
+
+     ```
+     func values(adapter: ListSwiftAdapter) -> [ValuePair] {
+       return values.flatMap({
+         if let value = $0 as? Person {
+           return .pair(value, { PersonSectionController() })
+         }
+         return nil
+       })
+     }
+     ```
+     */
+    func values(adapter: ListSwiftAdapter) -> [ListSwiftPair]
+
 }
