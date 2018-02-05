@@ -7,6 +7,26 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+public class ValuePair {
+    public static func pair<T>(_ value: T, _ constructor: @escaping () -> ListSwiftSectionController<T>) -> ValuePair {
+        return ValuePair(value, constructor: constructor)
+    }
+
+    public let value: ListSwiftDiffable
+    public let constructor: () -> ListSectionController
+
+    public init<T>(_ value: T, constructor: @escaping () -> ListSwiftSectionController<T>) {
+        self.value = value
+        self.constructor = constructor
+    }
+}
+
+public extension Optional where Wrapped == ValuePair {
+    public static func pair<T>(_ value: T, _ constructor: @escaping () -> ListSwiftSectionController<T>) -> ValuePair? {
+        return ValuePair.pair(value, constructor)
+    }
+}
+
 public protocol ListSwiftAdapterDataSource: class {
-    func values(adapter: ListSwiftAdapter) -> [ (ListSwiftDiffable, (ListSwiftDiffable) -> (ListSectionController)) ]
+    func values(adapter: ListSwiftAdapter) -> [ValuePair]
 }
