@@ -6,7 +6,13 @@ This will automatically implement `hash`, `isEqual:` and `description`, as well 
 
 In `/remodel-plugin`, you can find the source files to build the `IGListDiffable` plugin locally.
 
-### Installation (copy source files)
+### 1. Remodel installation (if you don't have it yet)
+
+Please follow the installation instructions on https://github.com/facebook/remodel.
+
+tl;dr: Either clone the original repository, or use an npm installation. In the latter case you can run `which remodel-gen` to find out the path of your installation.
+
+### 2. Plugin installation (copy source files)
 
 Copy the following files & folders within `/remodel-plugin` into your local remodel checkout:
 
@@ -14,13 +20,13 @@ Copy the following files & folders within `/remodel-plugin` into your local remo
 1. `/src/__tests__/plugins/iglistdiffable-test.ts` - unit tests
 1. `/features/iglistdiffable.feature` - integration tests
 
-### Build plugin:
+### 3. Build plugin:
 
 Once you copied them over, you have to compile the typescript files into javascript. Do do so run this command from the remodel directory:
 
 - `./bin/build`
 
-### Run tests (optional)
+### 4. Run tests (optional)
 
 To run the unit/integration tests, you can run the following commands:
 
@@ -29,7 +35,7 @@ To run the unit/integration tests, you can run the following commands:
 
 This is especially useful if you plan to change/extend the plugin in any way.
 
-### Use the plugin
+### 5. Use the plugin
 
 Now you are ready to generate your `IGListDiffable` conforming models! To generate a model, create a new `.value` file. Here's an example:
 
@@ -135,4 +141,4 @@ and
 
 ### Documentation
 
-Please see the main remodel repository for additional documentation: [https://github.com/facebook/remodel](https://github.com/facebook/remodel)
+Please see the main remodel repository for additional documentation: https://github.com/facebook/remodel
