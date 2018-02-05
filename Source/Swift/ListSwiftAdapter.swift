@@ -29,6 +29,6 @@ public final class ListSwiftAdapter: NSObject {
 
     // MARK: ListAdapterDataSource
 
-    internal var map = [Int: (ListSwiftDiffable) -> (ListSectionController)]()
+    internal var map = [Int: () -> (ListSectionController)]()
 
 }
