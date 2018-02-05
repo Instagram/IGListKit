@@ -621,13 +621,13 @@
         }
 
         [sectionControllers addObject:sectionController];
-
-#if DEBUG
-        IGAssert([NSSet setWithArray:sectionControllers].count == sectionControllers.count,
-                 @"Section controllers array is not filled with unique objects; section controllers are being reused");
-#endif
         [validObjects addObject:object];
     }
+    
+#if DEBUG
+    IGAssert([NSSet setWithArray:sectionControllers].count == sectionControllers.count,
+             @"Section controllers array is not filled with unique objects; section controllers are being reused");
+#endif
 
     // clear the view controller and collection context
     IGListSectionControllerPopThread();
