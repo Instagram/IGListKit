@@ -10,13 +10,13 @@
 import Foundation
 
 public extension Hashable {
-    var identifier: Int {
-        return hashValue
+    var identifier: String {
+        return "\(hashValue)"
     }
 }
 
 public extension Equatable {
-    func isEqual(to object: ListSwiftEquatable) -> Bool {
+    func isEqual(to object: ListSwiftDiffable) -> Bool {
         guard let object = object as? Self else { return false }
         return self == object
     }

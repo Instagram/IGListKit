@@ -20,7 +20,8 @@ internal final class ListDiffableBox: ListDiffable {
     // MARK: ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
-        return value.identifier as NSObjectProtocol
+        // namespace the identifier with the value type to further prevent collisions
+        return "\(value.self)\(value.identifier)" as NSObjectProtocol
     }
 
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
