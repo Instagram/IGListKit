@@ -7,4 +7,10 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-public protocol ListSwiftDiffable: ListSwiftIdentifiable, ListSwiftEquatable { }
+public protocol ListSwiftDiffable {
+
+    var identifier: String { get }
+
+    func isEqual(to object: ListSwiftDiffable) -> Bool
+
+}
