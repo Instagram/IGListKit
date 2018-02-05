@@ -9,26 +9,92 @@
 
 import UIKit
 
-public final class ListSwiftAdapter: NSObject {
+/**
+ This object provides a streamlined bridge between Swift and `ListAdapter`. When using IGListKit in Swift, create a
+ `ListSwiftAdapter` and assign its `dataSource`. You may still interact directly with the `ListAdapter` through the
+ public `listAdapter` reference.
+ */
+public final class ListSwiftAdapter: NSObject, ListAdapterDataSource {
 
+    /**
+     The Swift-bridge data source to interact with the adapter using `ListSwiftDiffable` values.
+     */
     public weak var dataSource: ListSwiftAdapterDataSource? {
         didSet {
-            adapter.dataSource = self
+            listAdapter.dataSource = self
         }
     }
+
+    /**
+     Assign to display views when the data source has no data to display.
+     */
     public weak var emptyViewSource: ListSwiftAdapterEmptyViewSource?
 
-    public let adapter: ListAdapter
+    /**
+     The underlying `ListAdapter` powering the list.
+     */
+    public let listAdapter: ListAdapter
 
-    public init(updater: ListUpdatingDelegate = ListAdapterUpdater(),
-         viewController: UIViewController? = nil,
-         workingRangeSize: Int = 0
+    /**
+     Create a new `ListSwiftAdapter` object.
+
+     @param updater An object that manages updates to the collection view.
+     @param viewController The view controller that will house the adapter.
+     @param workingRangeSize The number of objects before and after the viewport to consider within the working range.
+
+     @return A new adapter object.
+
+     @note You must attach a `ListSwiftAdapterDataSource` before anything can be displayed.
+     */
+    public init(
+        updater: ListUpdatingDelegate = ListAdapterUpdater(),
+        viewController: UIViewController? = nil,
+        workingRangeSize: Int = 0
         ) {
-        adapter = ListAdapter(updater: updater, viewController: viewController, workingRangeSize: workingRangeSize)
+        listAdapter = ListAdapter(
+            updater: updater,
+            viewController: viewController,
+            workingRangeSize: workingRangeSize
+        )
     }
 
     // MARK: ListAdapterDataSource
 
     internal var map = [Int: () -> (ListSectionController)]()
+
+    /**
+     :nodoc:
+     */
+    public func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        guard let dataSource = self.dataSource else { return [] }
+
+        return dataSource.values(adapter: self).map {
+            let box = $0.value.boxed
+            // side effect: store the function for use in listAdapter(:, sectionControllerFor object:)
+            map[box.functionLookupHash] = $0.constructor
+            return box
+        }
+    }
+
+    /**
+     :nodoc:
+     */
+    public func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+        guard let box = object as? ListDiffableBox else { fatalError() }
+        let hash = box.functionLookupHash
+        guard let function = map[hash] else { fatalError() }
+
+        // pluck the function from the map so any objects retained in the closure are released upon execution
+        map.removeValue(forKey: hash)
+
+        return function()
+    }
+
+    /**
+     :nodoc:
+     */
+    public func emptyView(for listAdapter: ListAdapter) -> UIView? {
+        return emptyViewSource?.emptyView(adapter: self)
+    }
 
 }

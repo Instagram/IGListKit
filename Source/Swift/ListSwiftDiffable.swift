@@ -7,10 +7,26 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+/**
+ Conform a Swift `struct` or `class` so that it can be diffed and used with IGListKit.
+ */
 public protocol ListSwiftDiffable {
 
+    /**
+     Return a `String` that uniquely identifies the instance.
+
+     @note These identifiers are namespaced to the object type to avoid colliding identifiers between different value
+     types.
+     */
     var identifier: String { get }
 
-    func isEqual(to object: ListSwiftDiffable) -> Bool
+    /**
+     Indicate if the value is equal to another value.
+
+     @param object The value to compare against.
+
+     @return `true` if the two instances are equal in value. Otherwise `false`.
+     */
+    func isEqual(to value: ListSwiftDiffable) -> Bool
 
 }

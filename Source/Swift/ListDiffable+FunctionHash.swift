@@ -9,8 +9,14 @@
 
 import Foundation
 
+/**
+ :nodoc:
+ */
 internal extension ListDiffable {
 
+    /**
+     :nodoc:
+     */
     var functionLookupHash: Int {
         return ObjectIdentifier(self).hashValue
     }
