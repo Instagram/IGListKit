@@ -6,13 +6,15 @@ This will automatically implement `hash`, `isEqual:` and `description`, as well 
 
 In `/remodel-plugin`, you can find the source files to build the `IGListDiffable` plugin locally.
 
-### 1. Remodel installation (if you don't have it yet)
+## Installation
 
-Please follow the installation instructions on https://github.com/facebook/remodel.
+### 1. Remodel installation
+
+Please follow the [installation instructions](https://github.com/facebook/remodel) in the main remodel repository.
 
 tl;dr: Either clone the original repository, or use an npm installation. In the latter case you can run `which remodel-gen` to find out the path of your installation.
 
-### 2. Plugin installation (copy source files)
+### 2. Plugin installation
 
 Copy the following files & folders within `/remodel-plugin` into your local remodel checkout:
 
@@ -139,6 +141,6 @@ and
 @end
 ```
 
-### Documentation
+## Documentation
 
-Please see the main remodel repository for additional documentation: https://github.com/facebook/remodel
+Please see the main remodel repository for [additional documentation](https://github.com/facebook/remodel)
