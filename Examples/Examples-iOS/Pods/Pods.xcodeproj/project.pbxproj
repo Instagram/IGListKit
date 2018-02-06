@@ -499,9 +499,9 @@
 		2816B4C23FC52ADE9F73C37F72652FD0 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				1EBDBB4238A68D79AF367FABE2670D55 /* Pods-IGListKitExamples */,
-				8F7A3DF8D470AB3D415AAA6D8CCC3498 /* Pods-IGListKitMessageExample */,
-				3EE9680535CB73BCFDE6DD41E95799B5 /* Pods-IGListKitTodayExample */,
+				B4D5C8C4A56D9CD6F98058CE317F94FD /* Pods-IGListKitExamples */,
+				758B3C0E78DC28A6F5EFF26B1CD112CF /* Pods-IGListKitMessageExample */,
+				C60FF9DA221E0F192D5CE16FA6D17976 /* Pods-IGListKitTodayExample */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
@@ -517,18 +517,9 @@
 		3EE9680535CB73BCFDE6DD41E95799B5 /* Pods-IGListKitTodayExample */ = {
 			isa = PBXGroup;
 			children = (
-				7ACA5B41E2D11D0ECE0F0A2D8B3370D5 /* Info.plist */,
-				1B2E0BC65B098972E1E94F970F834DA0 /* Pods-IGListKitTodayExample.modulemap */,
-				9507E646FDB2D9764FC70560DD8DBEF2 /* Pods-IGListKitTodayExample-acknowledgements.markdown */,
-				C6A8BD108D2490E4BA19FA93AD18A83C /* Pods-IGListKitTodayExample-acknowledgements.plist */,
-				60C3700A55A1751BE6C71BAEBADD7E7A /* Pods-IGListKitTodayExample-dummy.m */,
-				EF77CF1069D312C499D2898F20FB8DC1 /* Pods-IGListKitTodayExample-resources.sh */,
-				3709B01F4A8953783FFACB86C3D0CE15 /* Pods-IGListKitTodayExample-umbrella.h */,
-				5EC090A99FE4CA3786E651AF9C907913 /* Pods-IGListKitTodayExample.debug.xcconfig */,
-				922574DF06D0AD5E3964986609327D1F /* Pods-IGListKitTodayExample.release.xcconfig */,
+				B9B7058FF4B473B4052559ECFB69AC66 /* Internal */,
 			);
-			name = "Pods-IGListKitTodayExample";
-			path = "Target Support Files/Pods-IGListKitTodayExample";
+			name = Diffing;
 			sourceTree = "<group>";
 		};
 		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
@@ -635,20 +626,22 @@
 			sourceTree = "<group>";
 		};
 		8F7A3DF8D470AB3D415AAA6D8CCC3498 /* Pods-IGListKitMessageExample */ = {
+
 			isa = PBXGroup;
 			children = (
-				270C1C7FCBA7F319FD7A0398BC18710F /* Info.plist */,
-				47B8147DC6434174D9E3054DA3CB4484 /* Pods-IGListKitMessageExample.modulemap */,
-				20D642EAE3662BDC17956017E6D622E8 /* Pods-IGListKitMessageExample-acknowledgements.markdown */,
-				7200C49C89FA68816227219403B87DBE /* Pods-IGListKitMessageExample-acknowledgements.plist */,
-				B2806858B5ED353CF2D8B37BFAE4171C /* Pods-IGListKitMessageExample-dummy.m */,
-				B66E6B5AEB9406EAEFA9710E6E9962F2 /* Pods-IGListKitMessageExample-resources.sh */,
-				5566AE25970A51436D6E32AE60BE5E87 /* Pods-IGListKitMessageExample-umbrella.h */,
-				4F9A8086AF09CCA586431BFEE5DE2CA3 /* Pods-IGListKitMessageExample.debug.xcconfig */,
-				65A1389E308E5581D73D099A74A15628 /* Pods-IGListKitMessageExample.release.xcconfig */,
+				F1B62D309E6239DEF7C498A1B2603C84 /* Info.plist */,
+				F2531A6A0225DA2C0E94C10F15DA544F /* Pods-IGListKitExamples.modulemap */,
+				52F267A83870DB37C8E1A5CA5C2B1DCF /* Pods-IGListKitExamples-acknowledgements.markdown */,
+				88D9023B5FAADB09606AB0CE9E26BD6F /* Pods-IGListKitExamples-acknowledgements.plist */,
+				5B45EFF65851DF61A8DF2E40A406E75D /* Pods-IGListKitExamples-dummy.m */,
+				BCE928342B94B655A7447D9622CD402B /* Pods-IGListKitExamples-frameworks.sh */,
+				ACC13F029CADA8C300E6F1E2297DD718 /* Pods-IGListKitExamples-resources.sh */,
+				5E343E072BEC669E32CECBAE23FC2F75 /* Pods-IGListKitExamples-umbrella.h */,
+				1C14C83BBFDA96F364A6C58EA79CF965 /* Pods-IGListKitExamples.debug.xcconfig */,
+				2A30E740BCB57D410CB22DC18EBA696F /* Pods-IGListKitExamples.release.xcconfig */,
 			);
-			name = "Pods-IGListKitMessageExample";
-			path = "Target Support Files/Pods-IGListKitMessageExample";
+			name = "Pods-IGListKitExamples";
+			path = "Target Support Files/Pods-IGListKitExamples";
 			sourceTree = "<group>";
 		};
 		91EBBBCCE7332761AEC6D7BFE900A95D /* Common */ = {
@@ -869,6 +862,49 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		D8224EA71CFED4DD306869D93348BF1B /* IGListKit */ = {
+			isa = PBXGroup;
+			children = (
+				72D92374AD2503CE5374C5EA52BC843A /* Default */,
+				30728F041609EA1001E68D5CC0A1B467 /* Diffing */,
+				8A4E03712175935D5C6035F7211581EE /* Pod */,
+				F829096249707259F89F83175F767490 /* Support Files */,
+			);
+			name = IGListKit;
+			path = ../../..;
+			sourceTree = "<group>";
+		};
+		E30E31D4B552B194D2E8B147EF3C5C66 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				54467F831C5DF1D964893B7A656B9EA7 /* IGListAssert.h */,
+				1A6984E3271BFDA4F765352D3E2FDE63 /* IGListBatchUpdateData.h */,
+				EE9601A7C4756E9DF523E6C0D86CA2D7 /* IGListBatchUpdateData.mm */,
+				13C1AB8929909B459A5ADD36472EC110 /* IGListCompatibility.h */,
+				9A0E2782364EBF49199E7C0FE788FA1A /* IGListDiff.h */,
+				5E868A38ABDA0A0A7FFB75916D33577D /* IGListDiff.mm */,
+				523F2A2FF137FDC92F32A090383A5F81 /* IGListDiffable.h */,
+				D492AD65066731169CE208273421611C /* IGListDiffKit.h */,
+				FEE7A35E2E950F4C89B46010BE01AB39 /* IGListExperiments.h */,
+				F874D43B6C25A0D40EE21C79C80E02DB /* IGListIndexPathResult.h */,
+				8C606B9616127E23E58DCC720E3F9D59 /* IGListIndexPathResult.m */,
+				DC3B63295AA81DC3167B22AA6C8C0244 /* IGListIndexSetResult.h */,
+				74ECE247E33B4047C82D36522614DB89 /* IGListIndexSetResult.m */,
+				4FCE452AAC9A9DB1C2CF834568CA143B /* IGListMacros.h */,
+				95BD33DA5435D25DFE0D840080C1FC26 /* IGListMoveIndex.h */,
+				A51D49BF8E81174C06416D0C432BD14B /* IGListMoveIndex.m */,
+				DEDFFF9EF917185184E2BDF444183695 /* IGListMoveIndexPath.h */,
+				C7605D475CD9345449B574A169C851DB /* IGListMoveIndexPath.m */,
+				34C758943089C659513C73F54D4F3A34 /* NSNumber+IGListDiffable.h */,
+				80F20D997B3C8A555C44456AE5818C03 /* NSNumber+IGListDiffable.m */,
+				F2C6C66F73D443124D9FF6014E7A5969 /* NSString+IGListDiffable.h */,
+				87A8819CDBC0930F7586E6BB9C6B1ABE /* NSString+IGListDiffable.m */,
+				3460B70E050F6D92BEDE6CFCA3493C68 /* Internal */,
+			);
+			name = Common;
+			path = Source/Common;
+			sourceTree = "<group>";
+		};
 		E9B519F33FEE7EBE6135312248250815 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1061,8 +1097,8 @@
 		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1178,7 +1214,7 @@
 /* Begin XCBuildConfiguration section */
 		0356DEEA4A5D3A3633515CBF9165686C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4F9A8086AF09CCA586431BFEE5DE2CA3 /* Pods-IGListKitMessageExample.debug.xcconfig */;
+			baseConfigurationReference = 37AE643185902422FD0EDBD56273A12B /* Pods-IGListKitMessageExample.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1211,7 +1247,7 @@
 		};
 		2FEA230AE692DB783B0769BB46E59370 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E1915F3ED5785508E2E252B0D5CD0AB9 /* Pods-IGListKitExamples.debug.xcconfig */;
+			baseConfigurationReference = 1C14C83BBFDA96F364A6C58EA79CF965 /* Pods-IGListKitExamples.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1243,7 +1279,7 @@
 		};
 		5E2E856B5151770BEE165A445A4E4F2D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65A1389E308E5581D73D099A74A15628 /* Pods-IGListKitMessageExample.release.xcconfig */;
+			baseConfigurationReference = E36FFF4A4C5BA51943FD374E1DC15DEF /* Pods-IGListKitMessageExample.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1308,7 +1344,7 @@
 		};
 		63BC912AE41CA64CBFB558FE4A6D0516 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 568FA20FCC9D77DF4FF3A77159CB66AA /* Pods-IGListKitExamples.release.xcconfig */;
+			baseConfigurationReference = 2A30E740BCB57D410CB22DC18EBA696F /* Pods-IGListKitExamples.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1341,7 +1377,7 @@
 		};
 		9615E98D60F5F3B8859156B4FEACF551 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5EC090A99FE4CA3786E651AF9C907913 /* Pods-IGListKitTodayExample.debug.xcconfig */;
+			baseConfigurationReference = 6B0CA2A995E354D4738D0BC1A25C66DE /* Pods-IGListKitTodayExample.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1372,7 +1408,41 @@
 			};
 			name = Debug;
 		};
-		B254DAA6CF0CE39F4A3D11B90A7E059A /* Release */ = {
+		C3518A20C07D64B51F384A7F181DB043 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6C7FEA8019E84297FFDFC441049281BC /* Pods-IGListKitTodayExample.release.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-IGListKitTodayExample/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-IGListKitTodayExample/Pods-IGListKitTodayExample.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_IGListKitTodayExample;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		C3E37FB098AE76440E29106ADBF00CEB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1382,10 +1452,12 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1393,6 +1465,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1403,13 +1476,16 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
 					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1419,10 +1495,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
@@ -1493,7 +1571,7 @@
 			};
 			name = Release;
 		};
-		E4B68EE12B21C47CB798D9B1ECA6D7A7 /* Debug */ = {
+		DA03565BE765DB55C6448FB363A44481 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1503,10 +1581,12 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1514,6 +1594,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1524,16 +1605,13 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_DEBUG=1",
-					"DEBUG=1",
+					"POD_CONFIGURATION_RELEASE=1",
 					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1543,15 +1621,45 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SYMROOT = "${SRCROOT}/../build";
 			};
-			name = Debug;
+			name = Release;
+		};
+		DADD88FAAFD3CDCCC57585886BA9E0AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC07733EEF0C1C87D4CF79972A2AD2DD /* IGListKit.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/IGListKit/IGListKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/IGListKit/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/IGListKit/IGListKit.modulemap";
+				PRODUCT_NAME = IGListKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1577,8 +1685,8 @@
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E4B68EE12B21C47CB798D9B1ECA6D7A7 /* Debug */,
-				B254DAA6CF0CE39F4A3D11B90A7E059A /* Release */,
+				C3E37FB098AE76440E29106ADBF00CEB /* Debug */,
+				DA03565BE765DB55C6448FB363A44481 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
