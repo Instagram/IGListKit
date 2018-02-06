@@ -18,13 +18,35 @@ tl;dr: Either clone the original repository, or use an npm installation. In the 
 
 Copy the following files & folders within `/remodel-plugin` into your local remodel checkout:
 
-1. `/src/plugins/iglistdiffable.ts` - the actual plugin
-1. `/src/__tests__/plugins/iglistdiffable-test.ts` - unit tests
-1. `/features/iglistdiffable.feature` - integration tests
+- `/src/plugins/iglistdiffable.ts` - the actual plugin
+- `/src/__tests__/plugins/iglistdiffable-test.ts` - unit tests
+- `/features/iglistdiffable.feature` - integration tests
+
+And then register the new plugin with the system:
+
+- Edit `/remodel/src/value-object-default-config.ts` and add `iglistdiffable` to the list of basePlugins:
+
+```
+// value-object-default-config.ts
+basePlugins: List.of(
+    'assert-nullability',
+    'assume-nonnull',
+    'builder',
+    'coding',
+    'copying',
+    'description',
+    'equality',
+    'fetch-status',
+    'immutable-properties',
+    'init-new-unavailable',
+    'use-cpp',
+    'iglistdiffable'
+  )
+```
 
 ### 3. Build plugin:
 
-Once you copied them over, you have to compile the typescript files into javascript. Do do so run this command from the remodel directory:
+Once you copied them over and registered the plugin, you have to compile the typescript files into javascript. Do do so run this command from the remodel directory:
 
 - `./bin/build`
 
@@ -43,7 +65,6 @@ Now you are ready to generate your `IGListDiffable` conforming models! To genera
 
 ```
 // PersonModel.value
-
 PersonModel includes(IGListDiffable) {
   NSString *firstName
   NSString *lastName
