@@ -55,6 +55,8 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
                  controllerClass: StackedViewController.self),
         DemoItem(name: "Objc Demo",
                  controllerClass: ObjcDemoViewController.self),
+        DemoItem(name: "Objc Generated Model Demo",
+                 controllerClass: ObjcGeneratedModelDemoViewController.self),
         DemoItem(name: "Calendar (auto diffing)",
                  controllerClass: CalendarViewController.self),
         DemoItem(name: "Dependency Injection",

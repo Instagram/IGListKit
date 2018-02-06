@@ -12,5 +12,8 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#import "ObjcDemoViewController.h"
-#import "ObjcGeneratedModelDemoViewController.h"
+#import <UIKit/UIKit.h>
+
+@interface ObjcGeneratedModelDemoViewController : UIViewController
+
+@end
