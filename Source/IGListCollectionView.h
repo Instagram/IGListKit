@@ -39,6 +39,9 @@ NS_SWIFT_NAME(ListCollectionView)
  */
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)collectionViewLayout NS_UNAVAILABLE;
 
+/**
+ :nodoc:
+ */
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 
 @end

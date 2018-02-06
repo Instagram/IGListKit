@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>IGListWorkingRangeDelegate Protocol Reference</title>
+    <title>IGListCollectionViewDelegateLayout Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/objc/Protocol/IGListWorkingRangeDelegate" class="dashAnchor"></a>
-    <a title="IGListWorkingRangeDelegate Protocol Reference"></a>
+    <a name="//apple_ref/objc/Protocol/IGListCollectionViewDelegateLayout" class="dashAnchor"></a>
+    <a title="IGListCollectionViewDelegateLayout Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">IGListKit Docs</a> (98% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">IGListKit Reference</a>
         <img id="carat" src="../img/carat.png" />
-        IGListWorkingRangeDelegate Protocol Reference
+        IGListCollectionViewDelegateLayout Protocol Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -245,17 +245,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>IGListWorkingRangeDelegate</h1>
+            <h1>IGListCollectionViewDelegateLayout</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight objective_c"><code><span class="k">@protocol</span> <span class="nc">IGListWorkingRangeDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+                  <pre class="highlight objective_c"><code><span class="k">@protocol</span>
+    <span class="nc">IGListCollectionViewDelegateLayout</span> <span class="o">&lt;</span><span class="n">UICollectionViewDelegateFlowLayout</span><span class="o">&gt;</span></code></pre>
 
                 </div>
               </div>
-            <p>Implement this protocol to receive working range events for a list.</p>
-
-<p>The working range is a range <em>near</em> the viewport in which you can begin preparing content for display. For example,
-you could begin decoding images, or warming text caches.</p>
+            <p>Conform to <code>IGListCollectionViewDelegateLayout</code> to provide customized layout information for a collection view.</p>
 
           </section>
           <section class="section task-group-section">
@@ -264,9 +262,9 @@ you could begin decoding images, or warming text caches.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerWillEnterWorkingRange:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapter:sectionControllerWillEnterWorkingRange:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerWillEnterWorkingRange:">-listAdapter:sectionControllerWillEnterWorkingRange:</a>
+                    <a name="/c:objc(pl)IGListCollectionViewDelegateLayout(im)collectionView:layout:customizedInitialLayoutAttributes:atIndexPath:"></a>
+                    <a name="//apple_ref/objc/Method/-collectionView:layout:customizedInitialLayoutAttributes:atIndexPath:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionViewDelegateLayout(im)collectionView:layout:customizedInitialLayoutAttributes:atIndexPath:">-collectionView:layout:customizedInitialLayoutAttributes:atIndexPath:</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -274,21 +272,23 @@ you could begin decoding images, or warming text caches.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that an section controller will enter the working range.</p>
+                        <p>Asks the delegate to customize and return the starting layout information for an item being inserted into the collection view.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
-    <span class="nf">sectionControllerWillEnterWorkingRange</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">UICollectionViewLayoutAttributes</span> <span class="o">*</span><span class="p">)</span>
+                   <span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span>
+                           <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span>
+<span class="nf">customizedInitialLayoutAttributes</span><span class="p">:(</span><span class="n">UICollectionViewLayoutAttributes</span> <span class="o">*</span><span class="p">)</span><span class="nv">attributes</span>
+                      <span class="nf">atIndexPath</span><span class="p">:(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="p">,</span> <span class="n">sectionControllerWillEnterWorkingRange</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">collectionView</span><span class="p">(</span><span class="n">_</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="o">!</span><span class="p">,</span> <span class="n">layout</span> <span class="nv">collectionViewLayout</span><span class="p">:</span> <span class="kt">UICollectionViewLayout</span><span class="o">!</span><span class="p">,</span> <span class="n">customizedInitialLayoutAttributes</span> <span class="nv">attributes</span><span class="p">:</span> <span class="kt">UICollectionViewLayoutAttributes</span><span class="o">!</span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionViewLayoutAttributes</span><span class="o">!</span></code></pre>
 
                         </div>
                       </div>
@@ -299,24 +299,48 @@ you could begin decoding images, or warming text caches.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>listAdapter</em>
+                                <em>collectionView</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The adapter controlling the list.</p>
+                                  <p>The collection view to perform the transition on.</p>
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <code>
-                                <em>sectionController</em>
+                                <em>collectionViewLayout</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The section controller entering the range.</p>
+                                  <p>The layout to use with the collection view.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>attributes</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The starting layout information for an item being inserted into the collection view.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index path of the item being inserted.</p>
                                 </div>
                               </td>
                             </tr>
@@ -329,9 +353,9 @@ you could begin decoding images, or warming text caches.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerDidExitWorkingRange:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapter:sectionControllerDidExitWorkingRange:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerDidExitWorkingRange:">-listAdapter:sectionControllerDidExitWorkingRange:</a>
+                    <a name="/c:objc(pl)IGListCollectionViewDelegateLayout(im)collectionView:layout:customizedFinalLayoutAttributes:atIndexPath:"></a>
+                    <a name="//apple_ref/objc/Method/-collectionView:layout:customizedFinalLayoutAttributes:atIndexPath:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionViewDelegateLayout(im)collectionView:layout:customizedFinalLayoutAttributes:atIndexPath:">-collectionView:layout:customizedFinalLayoutAttributes:atIndexPath:</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -339,21 +363,23 @@ you could begin decoding images, or warming text caches.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that an section controller exited the working range.</p>
+                        <p>Asks the delegate to customize and return the final layout information for an item that is about to be removed from the collection view.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
-    <span class="nf">sectionControllerDidExitWorkingRange</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">UICollectionViewLayoutAttributes</span> <span class="o">*</span><span class="p">)</span>
+                 <span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span>
+                         <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span>
+<span class="nf">customizedFinalLayoutAttributes</span><span class="p">:(</span><span class="n">UICollectionViewLayoutAttributes</span> <span class="o">*</span><span class="p">)</span><span class="nv">attributes</span>
+                    <span class="nf">atIndexPath</span><span class="p">:(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="p">,</span> <span class="n">sectionControllerDidExitWorkingRange</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">collectionView</span><span class="p">(</span><span class="n">_</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="o">!</span><span class="p">,</span> <span class="n">layout</span> <span class="nv">collectionViewLayout</span><span class="p">:</span> <span class="kt">UICollectionViewLayout</span><span class="o">!</span><span class="p">,</span> <span class="n">customizedFinalLayoutAttributes</span> <span class="nv">attributes</span><span class="p">:</span> <span class="kt">UICollectionViewLayoutAttributes</span><span class="o">!</span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionViewLayoutAttributes</span><span class="o">!</span></code></pre>
 
                         </div>
                       </div>
@@ -364,24 +390,48 @@ you could begin decoding images, or warming text caches.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>listAdapter</em>
+                                <em>collectionView</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The adapter controlling the list.</p>
+                                  <p>The collection view to perform the transition on.</p>
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <code>
-                                <em>sectionController</em>
+                                <em>collectionViewLayout</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The section controller that exited the range.</p>
+                                  <p>The layout to use with the collection view.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>attributes</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The final layout information for an item that is about to be removed from the collection view.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index path of the item being deleted.</p>
                                 </div>
                               </td>
                             </tr>

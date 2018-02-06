@@ -76,6 +76,9 @@
                 <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
               </li>
               <li class="nav-group-task">
@@ -119,8 +122,11 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Enums.html">Enums</a>
+            <a href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/IGListAdapterUpdateType.html">IGListAdapterUpdateType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IGListDiffOption.html">IGListDiffOption</a>
               </li>
@@ -137,6 +143,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
@@ -157,6 +166,9 @@
                 <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListDiffable.html">IGListDiffable</a>
               </li>
               <li class="nav-group-task">
@@ -170,6 +182,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
@@ -233,7 +248,7 @@
             <h1>IGListBatchContext</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListBatchContext</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+                  <pre class="highlight objective_c"><code><span class="k">@protocol</span> <span class="nc">IGListBatchContext</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
 
                 </div>
               </div>
@@ -264,14 +279,14 @@ reload everything within the section.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadInSectionController</span><span class="p">:</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadInSectionController</span><span class="p">:</span>
             <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span>
                         <span class="nf">atIndexes</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexes</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">reload</span><span class="p">(</span><span class="k">in</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexes</span><span class="p">:</span> <span class="kt">IndexSet</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reload</span><span class="p">(</span><span class="k">in</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexes</span><span class="p">:</span> <span class="kt">IndexSet</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -329,14 +344,14 @@ reload everything within the section.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">insertInSectionController</span><span class="p">:</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">insertInSectionController</span><span class="p">:</span>
             <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span>
                         <span class="nf">atIndexes</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexes</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">insert</span><span class="p">(</span><span class="k">in</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexes</span><span class="p">:</span> <span class="kt">IndexSet</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">insert</span><span class="p">(</span><span class="k">in</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexes</span><span class="p">:</span> <span class="kt">IndexSet</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -394,14 +409,14 @@ reload everything within the section.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">deleteInSectionController</span><span class="p">:</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">deleteInSectionController</span><span class="p">:</span>
             <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span>
                         <span class="nf">atIndexes</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexes</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">delete</span><span class="p">(</span><span class="k">in</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexes</span><span class="p">:</span> <span class="kt">IndexSet</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">delete</span><span class="p">(</span><span class="k">in</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexes</span><span class="p">:</span> <span class="kt">IndexSet</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -459,7 +474,7 @@ reload everything within the section.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">moveInSectionController</span><span class="p">:</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">moveInSectionController</span><span class="p">:</span>
             <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span>
                       <span class="nf">fromIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">fromIndex</span>
                         <span class="nf">toIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">toIndex</span><span class="p">;</span></code></pre>
@@ -467,7 +482,7 @@ reload everything within the section.</p>
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">move</span><span class="p">(</span><span class="k">in</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">,</span> <span class="n">from</span> <span class="nv">fromIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">to</span> <span class="nv">toIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">move</span><span class="p">(</span><span class="k">in</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">,</span> <span class="n">from</span> <span class="nv">fromIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">to</span> <span class="nv">toIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -537,13 +552,13 @@ reload everything within the section.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadSectionController</span><span class="p">:</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadSectionController</span><span class="p">:</span>
     <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">reload</span><span class="p">(</span><span class="n">_</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reload</span><span class="p">(</span><span class="n">_</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -574,8 +589,8 @@ reload everything within the section.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-08-31)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-02-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

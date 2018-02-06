@@ -75,6 +75,9 @@
                 <a href="Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
               </li>
               <li class="nav-group-task">
@@ -118,8 +121,11 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Enums.html">Enums</a>
+            <a href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/IGListAdapterUpdateType.html">IGListAdapterUpdateType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Enums/IGListDiffOption.html">IGListDiffOption</a>
               </li>
@@ -136,6 +142,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
@@ -156,6 +165,9 @@
                 <a href="Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
+                <a href="Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/IGListDiffable.html">IGListDiffable</a>
               </li>
               <li class="nav-group-task">
@@ -169,6 +181,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
@@ -286,7 +301,7 @@ This would only happen if your objects provide <em>non-unique</em> diff identifi
 <h4 id='does-code-iglistkit-code-work-with-code-uitableview-code' class='heading'>Does <code>IGListKit</code> work with <code>UITableView</code>?</h4>
 
 <p>No, but you can install the <a href="https://instagram.github.io/IGListKit/installation.html">diffing subspec via CocoaPods</a>.</p>
-<h4 id='what-39-s-the-purpose-of-code-iglistcollectionview-code' class='heading'>What&rsquo;s the purpose of <code>IGListCollectionView</code>?</h4>
+<h4 id='what-39-s-the-purpose-of-code-iglistcollectionview-code' class='heading'>What&rsquo;s the purpose of <code><a href="Classes/IGListCollectionView.html">IGListCollectionView</a></code>?</h4>
 
 <p>Historically, we used this subclass to gain compile-time safety to prevent disallowed methods from being called on <code>UICollectionView</code>, because <code>IGListKit</code> handles model and view updates. However, it has since been removed. See discussion at <a href="https://github.com/Instagram/IGListKit/issues/409">#409</a>.</p>
 <h4 id='how-can-i-manage-cell-selection-and-deselection' class='heading'>How can I manage cell selection and deselection?</h4>
@@ -336,13 +351,13 @@ This would only happen if your objects provide <em>non-unique</em> diff identifi
 <p><code>IGListKit</code> <em>does</em> still use <code>UICollectionView</code>&lsquo;s cell reuse, so you shouldn&rsquo;t be concerned about performance.</p>
 <h4 id='why-does-code-uicollectionviewflowlayout-code-put-everything-in-a-new-row' class='heading'>Why does <code>UICollectionViewFlowLayout</code> put everything in a new row?</h4>
 
-<p><code>UICollectionViewFlowLayout</code> has its limitations, and it&rsquo;s not well designed to support sections on the same <q>line</q>. Instead you should use <a href="https://github.com/Instagram/IGListKit/blob/master/Source/IGListCollectionViewLayout.h"><code>IGListCollectionViewLayout</code></a>.</p>
+<p><code>UICollectionViewFlowLayout</code> has its limitations, and it&rsquo;s not well designed to support sections on the same <q>line</q>. Instead you should use <a href="https://github.com/Instagram/IGListKit/blob/master/Source/IGListCollectionViewLayout.h"><code><a href="Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a></code></a>.</p>
 <h4 id='what-if-i-just-want-a-section-controller-and-don-39-t-need-the-object' class='heading'>What if I just want a section controller and don&rsquo;t need the object?</h4>
 
 <p>Feel free to use a static string or number as your model. You can use this object as a <q>key</q> to find your section controller. Take a look at our <a href="https://github.com/Instagram/IGListKit/blob/master/Examples/Examples-iOS/IGListKitExamples/ViewControllers/SearchViewController.swift#L34">example</a> of this.</p>
 <h4 id='how-do-i-make-my-cells-diff-and-animate' class='heading'>How do I make my cells diff and animate?</h4>
 
-<p>Use <a href="https://github.com/Instagram/IGListKit/blob/master/Source/IGListBindingSectionController.h"><code>IGListBindingSectionController</code></a> to automatically diff and animate your cells.</p>
+<p>Use <a href="https://github.com/Instagram/IGListKit/blob/master/Source/IGListBindingSectionController.h"><code><a href="Classes/IGListBindingSectionController.html">IGListBindingSectionController</a></code></a> to automatically diff and animate your cells.</p>
 <h4 id='how-can-i-power-and-update-the-number-of-items-in-a-section-controller-with-a-dynamic-array' class='heading'>How can I power and update the number of items in a section controller with a dynamic array?</h4>
 
 <p>We recommend creating a model that owns an array to the items that power <code>numberOfItems</code>. Checkout our <a href="https://github.com/Instagram/IGListKit/blob/master/Examples/Examples-iOS/IGListKitExamples/SectionControllers/PostSectionController.m#L32">Post example</a> that has dynamic comment cells. Just be sure to check when your array changes:</p>
@@ -365,8 +380,8 @@ This would only happen if your objects provide <em>non-unique</em> diff identifi
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-08-31)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-02-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

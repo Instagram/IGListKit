@@ -76,6 +76,9 @@
                 <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
               </li>
               <li class="nav-group-task">
@@ -119,8 +122,11 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Enums.html">Enums</a>
+            <a href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/IGListAdapterUpdateType.html">IGListAdapterUpdateType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IGListDiffOption.html">IGListDiffOption</a>
               </li>
@@ -137,6 +143,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
@@ -157,6 +166,9 @@
                 <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListDiffable.html">IGListDiffable</a>
               </li>
               <li class="nav-group-task">
@@ -170,6 +182,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
@@ -233,7 +248,7 @@
             <h1>IGListAdapter</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code>
+                  <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListAdapter</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                 </div>
@@ -269,12 +284,12 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">UIViewController</span> <span class="o">*</span><span class="n">viewController</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">UIViewController</span> <span class="o">*</span><span class="n">viewController</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -306,12 +321,12 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="n">collectionView</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="n">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -338,13 +353,13 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterDataSource.html">IGListAdapterDataSource</a></span><span class="o">&gt;</span>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterDataSource.html">IGListAdapterDataSource</a></span><span class="o">&gt;</span>
     <span class="n">dataSource</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">dataSource</span><span class="p">:</span> <span class="kt">ListAdapterDataSource</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">dataSource</span><span class="p">:</span> <span class="kt">ListAdapterDataSource</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -371,12 +386,12 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a></span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a></span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -408,13 +423,13 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">UICollectionViewDelegate</span><span class="o">&gt;</span>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">UICollectionViewDelegate</span><span class="o">&gt;</span>
     <span class="n">collectionViewDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">collectionViewDelegate</span><span class="p">:</span> <span class="kt">UICollectionViewDelegate</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">collectionViewDelegate</span><span class="p">:</span> <span class="kt">UICollectionViewDelegate</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -441,13 +456,13 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">UIScrollViewDelegate</span><span class="o">&gt;</span>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">UIScrollViewDelegate</span><span class="o">&gt;</span>
     <span class="n">scrollViewDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">scrollViewDelegate</span><span class="p">:</span> <span class="kt">UIScrollViewDelegate</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">scrollViewDelegate</span><span class="p">:</span> <span class="kt">UIScrollViewDelegate</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -474,7 +489,7 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
     <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a></span><span class="o">&gt;</span> <span class="n">_Nonnull</span> <span class="n">updater</span><span class="p">;</span></code></pre>
 
                         </div>
@@ -502,12 +517,12 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="n">experiments</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="n">experiments</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">experiments</span><span class="p">:</span> <span class="kt"><a href="../Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">experiments</span><span class="p">:</span> <span class="kt"><a href="../Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -544,7 +559,7 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
  <span class="nf">initWithUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a></span><span class="o">&gt;</span><span class="p">)</span><span class="nv">updater</span>
   <span class="nf">viewController</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="nv">viewController</span>
 <span class="nf">workingRangeSize</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">workingRangeSize</span><span class="p">;</span></code></pre>
@@ -621,7 +636,7 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
 <span class="nf">initWithUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a></span><span class="o">&gt;</span><span class="p">)</span><span class="nv">updater</span>
  <span class="nf">viewController</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="nv">viewController</span><span class="p">;</span></code></pre>
 
@@ -686,13 +701,13 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">performUpdatesAnimated</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">performUpdatesAnimated</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span>
                     <span class="nf">completion</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a></span><span class="p">)</span><span class="nv">completion</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">performUpdates</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">ListUpdaterCompletion</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">performUpdates</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">ListUpdaterCompletion</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -744,18 +759,24 @@ the range is updated as objects enter and exit the working range.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Perform an immediate reload of the data in the data source, discarding the old objects.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>Do not use this method to update without animations as it can be very expensive to teardown and rebuild all
+section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion]</code> instead.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadDataWithCompletion</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a></span><span class="p">)</span><span class="nv">completion</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadDataWithCompletion</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a></span><span class="p">)</span><span class="nv">completion</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">reloadData</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kt">ListUpdaterCompletion</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reloadData</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kt">ListUpdaterCompletion</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -801,12 +822,12 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadObjects</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nv">objects</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadObjects</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nv">objects</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">reloadObjects</span><span class="p">(</span><span class="n">_</span> <span class="nv">objects</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">])</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reloadObjects</span><span class="p">(</span><span class="n">_</span> <span class="nv">objects</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">])</span></code></pre>
 
                         </div>
                       </div>
@@ -852,13 +873,13 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nf">sectionControllerForSection</span><span class="p">:</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nf">sectionControllerForSection</span><span class="p">:</span>
     <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">sectionController</span><span class="p">(</span><span class="n">forSection</span> <span class="nv">section</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sectionController</span><span class="p">(</span><span class="n">forSection</span> <span class="nv">section</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -908,13 +929,13 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">sectionForSectionController</span><span class="p">:</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">sectionForSectionController</span><span class="p">:</span>
     <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">section</span><span class="p">(</span><span class="k">for</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">section</span><span class="p">(</span><span class="k">for</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
 
                         </div>
                       </div>
@@ -969,13 +990,13 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">__kindof</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="n">_Nullable</span><span class="p">)</span><span class="nf">sectionControllerForObject</span><span class="p">:</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">__kindof</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="n">_Nullable</span><span class="p">)</span><span class="nf">sectionControllerForObject</span><span class="p">:</span>
     <span class="p">(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">sectionController</span><span class="p">(</span><span class="k">for</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sectionController</span><span class="p">(</span><span class="k">for</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -1025,13 +1046,13 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">id</span><span class="p">)</span><span class="nf">objectForSectionController</span><span class="p">:</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">id</span><span class="p">)</span><span class="nf">objectForSectionController</span><span class="p">:</span>
     <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">object</span><span class="p">(</span><span class="k">for</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">object</span><span class="p">(</span><span class="k">for</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -1081,12 +1102,12 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">id</span><span class="p">)</span><span class="nf">objectAtSection</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">id</span><span class="p">)</span><span class="nf">objectAtSection</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">object</span><span class="p">(</span><span class="n">atSection</span> <span class="nv">section</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">object</span><span class="p">(</span><span class="n">atSection</span> <span class="nv">section</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -1136,12 +1157,12 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">sectionForObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">sectionForObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">section</span><span class="p">(</span><span class="k">for</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">section</span><span class="p">(</span><span class="k">for</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
 
                         </div>
                       </div>
@@ -1191,12 +1212,12 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="n">objects</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="n">objects</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">objects</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Any</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">objects</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Any</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -1227,12 +1248,12 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="n">visibleSectionControllers</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="n">visibleSectionControllers</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">visibleSectionControllers</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">visibleSectionControllers</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -1263,12 +1284,12 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="n">visibleObjects</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="n">visibleObjects</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">visibleObjects</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Any</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">visibleObjects</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Any</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -1299,13 +1320,13 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">UICollectionViewCell</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nf">visibleCellsForObject</span><span class="p">:</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">UICollectionViewCell</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nf">visibleCellsForObject</span><span class="p">:</span>
     <span class="p">(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">visibleCells</span><span class="p">(</span><span class="k">for</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UICollectionViewCell</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">visibleCells</span><span class="p">(</span><span class="k">for</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UICollectionViewCell</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -1355,7 +1376,7 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">scrollToObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">object</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">scrollToObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">object</span>
     <span class="nf">supplementaryKinds</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSString</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">supplementaryKinds</span>
        <span class="nf">scrollDirection</span><span class="p">:(</span><span class="n">UICollectionViewScrollDirection</span><span class="p">)</span><span class="nv">scrollDirection</span>
         <span class="nf">scrollPosition</span><span class="p">:(</span><span class="n">UICollectionViewScrollPosition</span><span class="p">)</span><span class="nv">scrollPosition</span>
@@ -1364,7 +1385,7 @@ the range is updated as objects enter and exit the working range.</p>
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">scroll</span><span class="p">(</span><span class="n">to</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">supplementaryKinds</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?,</span> <span class="nv">scrollDirection</span><span class="p">:</span> <span class="kt">UICollectionViewScrollDirection</span><span class="p">,</span> <span class="nv">scrollPosition</span><span class="p">:</span> <span class="kt">UICollectionViewScrollPosition</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">scroll</span><span class="p">(</span><span class="n">to</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">supplementaryKinds</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?,</span> <span class="nv">scrollDirection</span><span class="p">:</span> <span class="kt">UICollectionViewScrollDirection</span><span class="p">,</span> <span class="nv">scrollPosition</span><span class="p">:</span> <span class="kt">UICollectionViewScrollPosition</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1458,12 +1479,12 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">CGSize</span><span class="p">)</span><span class="nf">sizeForItemAtIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">CGSize</span><span class="p">)</span><span class="nf">sizeForItemAtIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">sizeForItem</span><span class="p">(</span><span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sizeForItem</span><span class="p">(</span><span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span></code></pre>
 
                         </div>
                       </div>
@@ -1513,13 +1534,13 @@ the range is updated as objects enter and exit the working range.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">CGSize</span><span class="p">)</span><span class="nf">sizeForSupplementaryViewOfKind</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">elementKind</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">CGSize</span><span class="p">)</span><span class="nf">sizeForSupplementaryViewOfKind</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">elementKind</span>
                              <span class="nf">atIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">sizeForSupplementaryView</span><span class="p">(</span><span class="n">ofKind</span> <span class="nv">elementKind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sizeForSupplementaryView</span><span class="p">(</span><span class="n">ofKind</span> <span class="nv">elementKind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span></code></pre>
 
                         </div>
                       </div>
@@ -1561,13 +1582,122 @@ the range is updated as objects enter and exit the working range.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListAdapter(im)addUpdateListener:"></a>
+                    <a name="//apple_ref/objc/Method/-addUpdateListener:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)addUpdateListener:">-addUpdateListener:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds a listener to the list adapter.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Listeners are held weakly so there is no need to call <code><a href="../Classes/IGListAdapter.html#/c:objc(cs)IGListAdapter(im)removeUpdateListener:">-[IGListAdapter removeUpdateListener:]</a></code> on <code>dealloc</code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addUpdateListener</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a></span><span class="o">&gt;</span><span class="p">)</span><span class="nv">updateListener</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="n">_</span> <span class="nv">updateListener</span><span class="p">:</span> <span class="kt">ListAdapterUpdateListener</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>updateListener</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object conforming to the <code><a href="../Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a></code> protocol.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListAdapter(im)removeUpdateListener:"></a>
+                    <a name="//apple_ref/objc/Method/-removeUpdateListener:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)removeUpdateListener:">-removeUpdateListener:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes a listener from the list adapter.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">removeUpdateListener</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a></span><span class="o">&gt;</span><span class="p">)</span><span class="nv">updateListener</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">remove</span><span class="p">(</span><span class="n">_</span> <span class="nv">updateListener</span><span class="p">:</span> <span class="kt">ListAdapterUpdateListener</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>updateListener</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object conforming to the <code><a href="../Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a></code> protocol.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-08-31)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-02-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

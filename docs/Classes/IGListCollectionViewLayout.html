@@ -76,6 +76,9 @@
                 <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
               </li>
               <li class="nav-group-task">
@@ -119,8 +122,11 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Enums.html">Enums</a>
+            <a href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/IGListAdapterUpdateType.html">IGListAdapterUpdateType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IGListDiffOption.html">IGListDiffOption</a>
               </li>
@@ -137,6 +143,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
@@ -157,6 +166,9 @@
                 <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListDiffable.html">IGListDiffable</a>
               </li>
               <li class="nav-group-task">
@@ -170,6 +182,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
@@ -233,7 +248,7 @@
             <h1>IGListCollectionViewLayout</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code>
+                  <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListCollectionViewLayout</span> <span class="p">:</span> <span class="nc">UICollectionViewLayout</span></code></pre>
 
                 </div>
@@ -250,11 +265,11 @@ care must be taken not to stall the main thread in sizing delegate methods.</p>
 </ul>
 
 <p>All UICollectionViewDelegateFlowLayout methods are required and used by this layout:</p>
-<pre class="highlight plaintext"><code>- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
+<pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">CGSize</span><span class="p">)</span><span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span> <span class="nf">sizeForItemAtIndexPath</span><span class="p">:(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">UIEdgeInsets</span><span class="p">)</span><span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span> <span class="nf">insetForSectionAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span> <span class="nf">minimumLineSpacingForSectionAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span> <span class="nf">minimumInteritemSpacingForSectionAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">CGSize</span><span class="p">)</span><span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span> <span class="nf">referenceSizeForHeaderInSection</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span>
 </code></pre>
 
 <p>In a vertically scrolling layout, sections and items are put into the same horizontal row until the max-x position
@@ -262,25 +277,25 @@ of an item extends beyond the width of the collection view. When that happens, t
 The y position of that row is determined by the maximum height (including section insets) of the section/item of the previous row.</p>
 
 <p>Ex. of a section (2,0) with a large width causing a newline.</p>
-<pre class="highlight plaintext"><code>|[ 0,0 ][ 1,0 ]         |
-|[         2,0         ]|
+<pre class="highlight objective_c"><code><span class="o">|</span><span class="p">[</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span> <span class="p">][</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span> <span class="p">]</span>         <span class="o">|</span>
+<span class="o">|</span><span class="p">[</span>         <span class="mi">2</span><span class="p">,</span><span class="mi">0</span>         <span class="p">]</span><span class="o">|</span>
 </code></pre>
 
 <p>A section with a non-zero height header will always cause that section to newline. Headers are always stretched to the
 width of the collection view, pinched with the section insets.</p>
 
 <p>Ex. of a section (2,0) with a header inset on the left/right.</p>
-<pre class="highlight plaintext"><code>|[ 0,0 ][ 1,0 ]         |
-| &gt;======header=======&lt; |
-| [ 2,0 ]               |
+<pre class="highlight objective_c"><code><span class="o">|</span><span class="p">[</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span> <span class="p">][</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span> <span class="p">]</span>         <span class="o">|</span>
+<span class="o">|</span> <span class="o">&gt;======</span><span class="n">header</span><span class="o">=======&lt;</span> <span class="o">|</span>
+<span class="o">|</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span><span class="mi">0</span> <span class="p">]</span>               <span class="o">|</span>
 </code></pre>
 
 <p>Section insets apply to items in the section no matter if they begin on a new row or are on the same row as a previous
 section.</p>
 
 <p>Ex. of a section (2) with multiple items and a left inset.</p>
-<pre class="highlight plaintext"><code>|[ 0,0 ][ 1,0 ] &gt;[ 2,0 ]|
-| &gt;[ 2,1 ][ 2,2 ][ 2,3 ]|
+<pre class="highlight objective_c"><code><span class="o">|</span><span class="p">[</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span> <span class="p">][</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span> <span class="p">]</span> <span class="o">&gt;</span><span class="p">[</span> <span class="mi">2</span><span class="p">,</span><span class="mi">0</span> <span class="p">]</span><span class="o">|</span>
+<span class="o">|</span> <span class="o">&gt;</span><span class="p">[</span> <span class="mi">2</span><span class="p">,</span><span class="mi">1</span> <span class="p">][</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span> <span class="p">][</span> <span class="mi">2</span><span class="p">,</span><span class="mi">3</span> <span class="p">]</span><span class="o">|</span>
 </code></pre>
 
 <p>Interitem spacing applies to items and sections within the same row. Line spacing only applies to items within the same
@@ -316,12 +331,12 @@ run out of space along that axis or when a non-zero header is found.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UICollectionViewScrollDirection</span> <span class="n">scrollDirection</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UICollectionViewScrollDirection</span> <span class="n">scrollDirection</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">scrollDirection</span><span class="p">:</span> <span class="kt">UICollectionViewScrollDirection</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">scrollDirection</span><span class="p">:</span> <span class="kt">UICollectionViewScrollDirection</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -355,14 +370,73 @@ this to the height of the navigation bar will give the effect of the headers sti
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGFloat</span> <span class="n">stickyHeaderYOffset</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGFloat</span> <span class="n">stickyHeaderYOffset</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">stickyHeaderYOffset</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">stickyHeaderYOffset</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListCollectionViewLayout(im)didModifySection:"></a>
+                    <a name="//apple_ref/objc/Method/-didModifySection:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListCollectionViewLayout(im)didModifySection:">-didModifySection:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Notify the layout that a specific section was modified before invalidation. Used to optimize layout re-calculation.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>When updating a collection view (ex: calling <code>-insertSections</code>), <code>-invalidateLayoutWithContext</code> gets called on
+the layout object. However, the invalidation context doesn&rsquo;t provide details on which index paths are being modified,
+which typically forces a full layout re-calculation. We can use this method to keep track of which section actually
+needs to be updated on the following <code>-invalidateLayoutWithContext</code>. See <code><a href="../Classes/IGListCollectionView.html">IGListCollectionView</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didModifySection</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">modifiedSection</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">didModifySection</span><span class="p">(</span><span class="n">_</span> <span class="nv">modifiedSection</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>modifiedSection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The section that was modified.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -387,7 +461,7 @@ this to the height of the navigation bar will give the effect of the headers sti
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
 <span class="nf">initWithStickyHeaders</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">stickyHeaders</span>
       <span class="nf">scrollDirection</span><span class="p">:(</span><span class="n">UICollectionViewScrollDirection</span><span class="p">)</span><span class="nv">scrollDirection</span>
       <span class="nf">topContentInset</span><span class="p">:(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">topContentInset</span>
@@ -396,7 +470,7 @@ this to the height of the navigation bar will give the effect of the headers sti
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="nv">stickyHeaders</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">scrollDirection</span><span class="p">:</span> <span class="kt">UICollectionViewScrollDirection</span><span class="p">,</span> <span class="nv">topContentInset</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span> <span class="nv">stretchToEdge</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">stickyHeaders</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">scrollDirection</span><span class="p">:</span> <span class="kt">UICollectionViewScrollDirection</span><span class="p">,</span> <span class="nv">topContentInset</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span> <span class="nv">stretchToEdge</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -482,14 +556,14 @@ this to the height of the navigation bar will give the effect of the headers sti
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithStickyHeaders</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">stickyHeaders</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithStickyHeaders</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">stickyHeaders</span>
                               <span class="nf">topContentInset</span><span class="p">:(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">topContentInset</span>
                                 <span class="nf">stretchToEdge</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">stretchToEdge</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">stickyHeaders</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">topContentInset</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span> <span class="nv">stretchToEdge</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">stickyHeaders</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">topContentInset</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span> <span class="nv">stretchToEdge</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -548,8 +622,8 @@ this to the height of the navigation bar will give the effect of the headers sti
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-08-31)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-02-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

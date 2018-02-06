@@ -75,6 +75,9 @@
                 <a href="Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
               </li>
               <li class="nav-group-task">
@@ -118,8 +121,11 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Enums.html">Enums</a>
+            <a href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/IGListAdapterUpdateType.html">IGListAdapterUpdateType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Enums/IGListDiffOption.html">IGListDiffOption</a>
               </li>
@@ -136,6 +142,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
@@ -156,6 +165,9 @@
                 <a href="Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
+                <a href="Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/IGListDiffable.html">IGListDiffable</a>
               </li>
               <li class="nav-group-task">
@@ -169,6 +181,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
@@ -232,17 +247,17 @@
             
             <h1 id='iglistdiffable-and-equality' class='heading'>IGListDiffable and Equality</h1>
 
-<p>This guide explains the <code>IGListDiffable</code> protocol and how to write good <code>-isEqual:</code> methods. </p>
+<p>This guide explains the <code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code> protocol and how to write good <code>-isEqual:</code> methods. </p>
 <h2 id='background' class='heading'>Background</h2>
 
-<p>The <a href="https://instagram.github.io/IGListKit/Protocols/IGListDiffable.html"><code>IGListDiffable</code> protocol</a> requires clients to implement two methods, <code>-diffIdentifier</code> and <code>-isEqualToDiffableObject:</code>.</p>
+<p>The <a href="https://instagram.github.io/IGListKit/Protocols/IGListDiffable.html"><code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code> protocol</a> requires clients to implement two methods, <code>-diffIdentifier</code> and <code>-isEqualToDiffableObject:</code>.</p>
 
 <p>The method <code>-isEqualToDiffableObject:</code> should perform the same type of check as <code>-isEqual:</code>, but without impacting performance characteristics, like in Objective-C containers such as <code>NSDictionary</code> and <code>NSSet</code>.</p>
 
 <p>Why are both of these methods required for diffing? The point of having the two methods has to do with <strong>identity</strong> and <strong>equality</strong>, where the diff identifier uniquely identifies data (common scenario is primary key in databases). Equality comes into play when comparing the values of two uniquely identical objects (driving reloading).</p>
 
 <p>See also: <a href="https://github.com/Instagram/IGListKit/issues/509">#509</a></p>
-<h2 id='code-iglistdiffable-code-bare-minimum' class='heading'><code>IGListDiffable</code> bare minimum</h2>
+<h2 id='code-iglistdiffable-code-bare-minimum' class='heading'><code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code> bare minimum</h2>
 
 <p>The quickest way to get started with diffable models is use the <em>object itself</em> as the identifier, and use the superclass&rsquo;s <code>-[NSObject isEqual:]</code> implementation for equality:</p>
 <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="n">diffIdentifier</span> <span class="p">{</span>
@@ -298,13 +313,13 @@
 
 <span class="k">@end</span>
 </code></pre>
-<h2 id='using-both-code-iglistdiffable-code-and-code-isequal-code' class='heading'>Using both <code>IGListDiffable</code> and <code>-isEqual:</code></h2>
+<h2 id='using-both-code-iglistdiffable-code-and-code-isequal-code' class='heading'>Using both <code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code> and <code>-isEqual:</code></h2>
 
 <p>Making your objects work universally with Objective-C containers and <code>IGListKit</code> is easy once you&rsquo;ve implemented <code>-isEqual:</code> and <code>-hash</code>.</p>
 <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">User</span> <span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span>
 
-<span class="c1">// properties...
-</span>
+<span class="c1">// properties...</span>
+
 <span class="k">@end</span>
 
 <span class="k">@implementation</span> <span class="nc">User</span>
@@ -323,8 +338,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-08-31)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-02-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

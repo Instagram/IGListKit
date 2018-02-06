@@ -75,6 +75,9 @@
                 <a href="Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
               </li>
               <li class="nav-group-task">
@@ -118,8 +121,11 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Enums.html">Enums</a>
+            <a href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/IGListAdapterUpdateType.html">IGListAdapterUpdateType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Enums/IGListDiffOption.html">IGListDiffOption</a>
               </li>
@@ -136,6 +142,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
@@ -156,6 +165,9 @@
                 <a href="Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
+                <a href="Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/IGListDiffable.html">IGListDiffable</a>
               </li>
               <li class="nav-group-task">
@@ -169,6 +181,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
@@ -245,7 +260,7 @@
 <p>There are further discussions on this topic at <a href="https://github.com/Instagram/IGListKit/issues/460">#460</a>, <a href="https://github.com/Instagram/IGListKit/issues/461">#461</a>, <a href="https://github.com/Instagram/IGListKit/issues/407">#407</a>.</p>
 <h2 id='basic-setup' class='heading'>Basic Setup</h2>
 
-<p>The basic setup for Core Data and <code>IGListKit</code> is the same as the normal setup that is found in the <a href="https://instagram.github.io/IGListKit/getting-started.html">Getting Started Guide</a>. The main difference will be in the setup of the model used in the <code>IGListAdapterDataSource</code>.</p>
+<p>The basic setup for Core Data and <code>IGListKit</code> is the same as the normal setup that is found in the <a href="https://instagram.github.io/IGListKit/getting-started.html">Getting Started Guide</a>. The main difference will be in the setup of the model used in the <code><a href="Protocols/IGListAdapterDataSource.html">IGListAdapterDataSource</a></code>.</p>
 <h2 id='working-with-view-model' class='heading'>Working with view model</h2>
 <h3 id='creating-a-view-model' class='heading'>Creating a view model</h3>
 
@@ -276,7 +291,7 @@
 <span class="p">}</span>
 </code></pre>
 
-<p>The <code>IGListDiffable</code> protocol is implemented on the <code>ViewModel</code> layer:</p>
+<p>The <code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code> protocol is implemented on the <code>ViewModel</code> layer:</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UserViewModel</span><span class="p">:</span> <span class="kt">ListDiffable</span> <span class="p">{</span>
 
     <span class="kd">public</span> <span class="kd">func</span> <span class="nf">diffIdentifier</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSObjectProtocol</span> <span class="p">{</span>
@@ -356,7 +371,7 @@
 </code></pre>
 <h3 id='configure-the-datasource' class='heading'>Configure the datasource</h3>
 
-<p>The data source retrieves ViewModels and configures the <code>IGListSectionController</code> with them:</p>
+<p>The data source retrieves ViewModels and configures the <code><a href="Classes/IGListSectionController.html">IGListSectionController</a></code> with them:</p>
 <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">objects</span><span class="p">(</span><span class="k">for</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">ListAdapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]</span> <span class="p">{</span>
     <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="n">userProvider</span><span class="o">.</span><span class="nf">getUsers</span><span class="p">()</span>
 <span class="p">}</span>
@@ -373,8 +388,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-08-31)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-02-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

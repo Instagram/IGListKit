@@ -76,6 +76,9 @@
                 <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
               </li>
               <li class="nav-group-task">
@@ -119,8 +122,11 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Enums.html">Enums</a>
+            <a href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/IGListAdapterUpdateType.html">IGListAdapterUpdateType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IGListDiffOption.html">IGListDiffOption</a>
               </li>
@@ -137,6 +143,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
@@ -157,6 +166,9 @@
                 <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListDiffable.html">IGListDiffable</a>
               </li>
               <li class="nav-group-task">
@@ -170,6 +182,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
@@ -233,7 +248,7 @@
             <h1>IGListSingleSectionController</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code>
+                  <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListSingleSectionController</span> <span class="p">:</span> <span class="nc"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span></code></pre>
 
                 </div>
@@ -272,7 +287,7 @@ simpler architecture.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
 <span class="nf">initWithCellClass</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">Class</span><span class="p">)</span><span class="nv">cellClass</span>
    <span class="nf">configureBlock</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a></span><span class="p">)</span><span class="nv">configureBlock</span>
         <span class="nf">sizeBlock</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a></span><span class="p">)</span><span class="nv">sizeBlock</span><span class="p">;</span></code></pre>
@@ -280,7 +295,7 @@ simpler architecture.</p>
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="nv">cellClass</span><span class="p">:</span> <span class="kt">AnyClass</span><span class="p">,</span> <span class="nv">configureBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListSingleSectionCellConfigureBlock</span><span class="p">,</span> <span class="nv">sizeBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListSingleSectionCellSizeBlock</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">cellClass</span><span class="p">:</span> <span class="kt">AnyClass</span><span class="p">,</span> <span class="nv">configureBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListSingleSectionCellConfigureBlock</span><span class="p">,</span> <span class="nv">sizeBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListSingleSectionCellSizeBlock</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -360,7 +375,7 @@ simpler architecture.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
 <span class="nf">initWithNibName</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">nibName</span>
          <span class="nf">bundle</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSBundle</span> <span class="o">*</span><span class="p">)</span><span class="nv">bundle</span>
  <span class="nf">configureBlock</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a></span><span class="p">)</span><span class="nv">configureBlock</span>
@@ -369,7 +384,7 @@ simpler architecture.</p>
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="nv">nibName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">bundle</span><span class="p">:</span> <span class="kt">Bundle</span><span class="p">?,</span> <span class="nv">configureBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListSingleSectionCellConfigureBlock</span><span class="p">,</span> <span class="nv">sizeBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListSingleSectionCellSizeBlock</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">nibName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">bundle</span><span class="p">:</span> <span class="kt">Bundle</span><span class="p">?,</span> <span class="nv">configureBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListSingleSectionCellConfigureBlock</span><span class="p">,</span> <span class="nv">sizeBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListSingleSectionCellSizeBlock</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -461,7 +476,7 @@ simpler architecture.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
 <span class="nf">initWithStoryboardCellIdentifier</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">identifier</span>
                   <span class="nf">configureBlock</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a></span><span class="p">)</span>
                                      <span class="n">configureBlock</span>
@@ -471,7 +486,7 @@ simpler architecture.</p>
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="n">storyboardCellIdentifier</span> <span class="nv">identifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">configureBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListSingleSectionCellConfigureBlock</span><span class="p">,</span> <span class="nv">sizeBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListSingleSectionCellSizeBlock</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="n">storyboardCellIdentifier</span> <span class="nv">identifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">configureBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListSingleSectionCellConfigureBlock</span><span class="p">,</span> <span class="nv">sizeBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListSingleSectionCellSizeBlock</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -545,14 +560,14 @@ simpler architecture.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
     <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a></span><span class="o">&gt;</span>
         <span class="n">selectionDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">selectionDelegate</span><span class="p">:</span> <span class="kt">ListSingleSectionControllerDelegate</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">selectionDelegate</span><span class="p">:</span> <span class="kt">ListSingleSectionControllerDelegate</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -564,8 +579,8 @@ simpler architecture.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-08-31)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-02-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

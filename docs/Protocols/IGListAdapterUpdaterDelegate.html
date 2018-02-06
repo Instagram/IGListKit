@@ -76,6 +76,9 @@
                 <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
               </li>
               <li class="nav-group-task">
@@ -119,8 +122,11 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Enums.html">Enums</a>
+            <a href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/IGListAdapterUpdateType.html">IGListAdapterUpdateType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/IGListDiffOption.html">IGListDiffOption</a>
               </li>
@@ -137,6 +143,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
@@ -157,6 +166,9 @@
                 <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListDiffable.html">IGListDiffable</a>
               </li>
               <li class="nav-group-task">
@@ -170,6 +182,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
@@ -233,7 +248,7 @@
             <h1>IGListAdapterUpdaterDelegate</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">IGListAdapterUpdaterDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+                  <pre class="highlight objective_c"><code><span class="k">@protocol</span> <span class="nc">IGListAdapterUpdaterDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
 
                 </div>
               </div>
@@ -263,14 +278,14 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
     <span class="nf">willPerformBatchUpdatesWithCollectionView</span><span class="p">:</span>
         <span class="p">(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willPerformBatchUpdatesWith</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willPerformBatchUpdatesWith</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -333,14 +348,14 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
     <span class="nf">didPerformBatchUpdates</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">updates</span>
             <span class="nf">collectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">didPerformBatchUpdates</span> <span class="nv">updates</span><span class="p">:</span> <span class="kt">ListBatchUpdateData</span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">didPerformBatchUpdates</span> <span class="nv">updates</span><span class="p">:</span> <span class="kt">ListBatchUpdateData</span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -415,14 +430,14 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
       <span class="nf">willInsertIndexPaths</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPaths</span>
             <span class="nf">collectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willInsert</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="p">[</span><span class="kt">IndexPath</span><span class="p">],</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willInsert</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="p">[</span><span class="kt">IndexPath</span><span class="p">],</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -497,14 +512,14 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
       <span class="nf">willDeleteIndexPaths</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPaths</span>
             <span class="nf">collectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willDelete</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="p">[</span><span class="kt">IndexPath</span><span class="p">],</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willDelete</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="p">[</span><span class="kt">IndexPath</span><span class="p">],</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -579,7 +594,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
      <span class="nf">willMoveFromIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">fromIndexPath</span>
                <span class="nf">toIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">toIndexPath</span>
             <span class="nf">collectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
@@ -587,7 +602,7 @@
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willMoveFrom</span> <span class="nv">fromIndexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">,</span> <span class="n">to</span> <span class="nv">toIndexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willMoveFrom</span> <span class="nv">fromIndexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">,</span> <span class="n">to</span> <span class="nv">toIndexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -674,14 +689,14 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
       <span class="nf">willReloadIndexPaths</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSIndexPath</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPaths</span>
             <span class="nf">collectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willReload</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="p">[</span><span class="kt">IndexPath</span><span class="p">],</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willReload</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="p">[</span><span class="kt">IndexPath</span><span class="p">],</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -756,14 +771,14 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
         <span class="nf">willReloadSections</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">sections</span>
             <span class="nf">collectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willReloadSections</span> <span class="nv">sections</span><span class="p">:</span> <span class="kt">IndexSet</span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willReloadSections</span> <span class="nv">sections</span><span class="p">:</span> <span class="kt">IndexSet</span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -833,13 +848,13 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
     <span class="nf">willReloadDataWithCollectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willReloadDataWith</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willReloadDataWith</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -897,13 +912,13 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
     <span class="nf">didReloadDataWithCollectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">didReloadDataWith</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">didReloadDataWith</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -944,9 +959,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willCrashWithException:fromObjects:toObjects:updates:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapterUpdater:willCrashWithException:fromObjects:toObjects:updates:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willCrashWithException:fromObjects:toObjects:updates:">-listAdapterUpdater:willCrashWithException:fromObjects:toObjects:updates:</a>
+                    <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:collectionView:willCrashWithException:fromObjects:toObjects:updates:"></a>
+                    <a name="//apple_ref/objc/Method/-listAdapterUpdater:collectionView:willCrashWithException:fromObjects:toObjects:updates:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:collectionView:willCrashWithException:fromObjects:toObjects:updates:">-listAdapterUpdater:collectionView:willCrashWithException:fromObjects:toObjects:updates:</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -961,7 +976,8 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
+            <span class="nf">collectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span>
     <span class="nf">willCrashWithException</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSException</span> <span class="o">*</span><span class="p">)</span><span class="nv">exception</span>
                <span class="nf">fromObjects</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nv">fromObjects</span>
                  <span class="nf">toObjects</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nv">toObjects</span>
@@ -970,7 +986,7 @@
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willCrashWith</span> <span class="nv">exception</span><span class="p">:</span> <span class="kt">NSException</span><span class="p">,</span> <span class="n">from</span> <span class="nv">fromObjects</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">]?,</span> <span class="n">to</span> <span class="nv">toObjects</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">]?,</span> <span class="nv">updates</span><span class="p">:</span> <span class="kt">ListBatchUpdateData</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="n">willCrashWith</span> <span class="nv">exception</span><span class="p">:</span> <span class="kt">NSException</span><span class="p">,</span> <span class="n">from</span> <span class="nv">fromObjects</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">]?,</span> <span class="n">to</span> <span class="nv">toObjects</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">]?,</span> <span class="nv">updates</span><span class="p">:</span> <span class="kt">ListBatchUpdateData</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -987,6 +1003,18 @@
                               <td>
                                 <div>
                                   <p>The adapter updater owning the transition.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collectionView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The collection view being updated.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1049,8 +1077,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-08-31)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-02-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

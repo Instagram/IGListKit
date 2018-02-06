@@ -75,6 +75,9 @@
                 <a href="Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
               </li>
               <li class="nav-group-task">
@@ -118,8 +121,11 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Enums.html">Enums</a>
+            <a href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/IGListAdapterUpdateType.html">IGListAdapterUpdateType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Enums/IGListDiffOption.html">IGListDiffOption</a>
               </li>
@@ -136,6 +142,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
@@ -156,6 +165,9 @@
                 <a href="Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
+                <a href="Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/IGListDiffable.html">IGListDiffable</a>
               </li>
               <li class="nav-group-task">
@@ -169,6 +181,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
@@ -262,13 +277,13 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code>
+                          <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListAdapter</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ListAdapter</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListAdapter</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                         </div>
                       </div>
@@ -308,13 +323,13 @@ for calculating UI updates when <code><a href="Classes/IGListAdapter.html">IGLis
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code>
+                          <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListAdapterUpdater</span> <span class="p">:</span> <span class="nc">NSObject</span> <span class="o">&lt;</span><span class="n"><a href="Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ListAdapterUpdater</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">ListUpdatingDelegate</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListAdapterUpdater</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">ListUpdatingDelegate</span></code></pre>
 
                         </div>
                       </div>
@@ -348,13 +363,13 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code>
+                          <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListBatchUpdateData</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ListBatchUpdateData</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListBatchUpdateData</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                         </div>
                       </div>
@@ -386,15 +401,15 @@ objects. That is, any objects with matching <code>-diffIdentifier</code>s should
 can create new view models via the data source, create a diff, and update the specific cells that have changed.</p>
 
 <p>In Objective-C, your <code>-isEqualToDiffableObject:</code> can simply be:</p>
-<pre class="highlight plaintext"><code>- (BOOL)isEqualToDiffableObject:(id)object {
-  return YES;
-}
+<pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">isEqualToDiffableObject</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">object</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre>
 
 <p>In Swift:</p>
-<pre class="highlight plaintext"><code>func isEqual(toDiffableObject object: IGListDiffable?) -&gt; Bool {
-  return true
-}
+<pre class="highlight objective_c"><code><span class="n">func</span> <span class="n">isEqual</span><span class="p">(</span><span class="n">toDiffableObject</span> <span class="n">object</span><span class="o">:</span> <span class="n">IGListDiffable</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="n">Bool</span> <span class="err">{</span>
+  <span class="k">return</span> <span class="nb">true</span>
+<span class="err">}</span>
 </code></pre>
 
 <p>Only when <code>-diffIdentifier</code>s match is object equality compared, so you can assume the class is the same, and the
@@ -406,10 +421,56 @@ instance has already been checked.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code>
+                          <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListBindingSectionController</span> <span class="o">&lt;</span> <span class="n">__covariant</span> <span class="n">ObjectType</span>
     <span class="o">:</span> <span class="n">id</span> <span class="o">&lt;</span><span class="n"><a href="Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;</span>
 <span class="o">&gt;</span> <span class="o">:</span> <span class="n"><a href="Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="k">@end</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListCollectionView"></a>
+                    <a name="//apple_ref/objc/Class/IGListCollectionView" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This <code>UICollectionView</code> subclass allows for partial layout invalidation using <code><a href="Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a></code>.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    When updating a collection view (ex: calling <code>-insertSections</code>), <code>-invalidateLayoutWithContext</code> gets called on
+the layout object. However, the invalidation context doesn&rsquo;t provide details on which index paths are being modified,
+which typically forces a full layout re-calculation. <code>IGListCollectionView</code> gives <code><a href="Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a></code> the
+missing information to re-calculate only the modified layout attributes.
+
+</div>
+
+                        <a href="Classes/IGListCollectionView.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code>
+<span class="k">@interface</span> <span class="nc">IGListCollectionView</span> <span class="p">:</span> <span class="nc">UICollectionView</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListCollectionView</span> <span class="p">:</span> <span class="kt">UICollectionView</span></code></pre>
 
                         </div>
                       </div>
@@ -445,11 +506,11 @@ care must be taken not to stall the main thread in sizing delegate methods.</p>
 </ul>
 
 <p>All UICollectionViewDelegateFlowLayout methods are required and used by this layout:</p>
-<pre class="highlight plaintext"><code>- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
+<pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">CGSize</span><span class="p">)</span><span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span> <span class="nf">sizeForItemAtIndexPath</span><span class="p">:(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">UIEdgeInsets</span><span class="p">)</span><span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span> <span class="nf">insetForSectionAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span> <span class="nf">minimumLineSpacingForSectionAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span> <span class="nf">minimumInteritemSpacingForSectionAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">CGSize</span><span class="p">)</span><span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span> <span class="nf">referenceSizeForHeaderInSection</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span>
 </code></pre>
 
 <p>In a vertically scrolling layout, sections and items are put into the same horizontal row until the max-x position
@@ -457,25 +518,25 @@ of an item extends beyond the width of the collection view. When that happens, t
 The y position of that row is determined by the maximum height (including section insets) of the section/item of the previous row.</p>
 
 <p>Ex. of a section (2,0) with a large width causing a newline.</p>
-<pre class="highlight plaintext"><code>|[ 0,0 ][ 1,0 ]         |
-|[         2,0         ]|
+<pre class="highlight objective_c"><code><span class="o">|</span><span class="p">[</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span> <span class="p">][</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span> <span class="p">]</span>         <span class="o">|</span>
+<span class="o">|</span><span class="p">[</span>         <span class="mi">2</span><span class="p">,</span><span class="mi">0</span>         <span class="p">]</span><span class="o">|</span>
 </code></pre>
 
 <p>A section with a non-zero height header will always cause that section to newline. Headers are always stretched to the
 width of the collection view, pinched with the section insets.</p>
 
 <p>Ex. of a section (2,0) with a header inset on the left/right.</p>
-<pre class="highlight plaintext"><code>|[ 0,0 ][ 1,0 ]         |
-| &gt;======header=======&lt; |
-| [ 2,0 ]               |
+<pre class="highlight objective_c"><code><span class="o">|</span><span class="p">[</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span> <span class="p">][</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span> <span class="p">]</span>         <span class="o">|</span>
+<span class="o">|</span> <span class="o">&gt;======</span><span class="n">header</span><span class="o">=======&lt;</span> <span class="o">|</span>
+<span class="o">|</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span><span class="mi">0</span> <span class="p">]</span>               <span class="o">|</span>
 </code></pre>
 
 <p>Section insets apply to items in the section no matter if they begin on a new row or are on the same row as a previous
 section.</p>
 
 <p>Ex. of a section (2) with multiple items and a left inset.</p>
-<pre class="highlight plaintext"><code>|[ 0,0 ][ 1,0 ] &gt;[ 2,0 ]|
-| &gt;[ 2,1 ][ 2,2 ][ 2,3 ]|
+<pre class="highlight objective_c"><code><span class="o">|</span><span class="p">[</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span> <span class="p">][</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span> <span class="p">]</span> <span class="o">&gt;</span><span class="p">[</span> <span class="mi">2</span><span class="p">,</span><span class="mi">0</span> <span class="p">]</span><span class="o">|</span>
+<span class="o">|</span> <span class="o">&gt;</span><span class="p">[</span> <span class="mi">2</span><span class="p">,</span><span class="mi">1</span> <span class="p">][</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span> <span class="p">][</span> <span class="mi">2</span><span class="p">,</span><span class="mi">3</span> <span class="p">]</span><span class="o">|</span>
 </code></pre>
 
 <p>Interitem spacing applies to items and sections within the same row. Line spacing only applies to items within the same
@@ -492,13 +553,13 @@ next column. Headers, if used, are stretched to the height of the collection vie
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code>
+                          <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListCollectionViewLayout</span> <span class="p">:</span> <span class="nc">UICollectionViewLayout</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ListCollectionViewLayout</span> <span class="p">:</span> <span class="kt">UICollectionViewLayout</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListCollectionViewLayout</span> <span class="p">:</span> <span class="kt">UICollectionViewLayout</span></code></pre>
 
                         </div>
                       </div>
@@ -531,13 +592,13 @@ next column. Headers, if used, are stretched to the height of the collection vie
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code>
+                          <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListGenericSectionController</span> <span class="o">&lt;</span><span class="n">__covariant</span> <span class="n">ObjectType</span><span class="o">&gt;</span> <span class="o">:</span> <span class="n"><a href="Classes/IGListSectionController.html">IGListSectionController</a></span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ListGenericSectionController</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListGenericSectionController</span><span class="o">&lt;</span><span class="kt">ObjectType</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ListSectionController</span> <span class="k">where</span> <span class="kt">ObjectType</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
 
                         </div>
                       </div>
@@ -569,13 +630,13 @@ next column. Headers, if used, are stretched to the height of the collection vie
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code>
+                          <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListIndexPathResult</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ListIndexPathResult</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListIndexPathResult</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                         </div>
                       </div>
@@ -607,13 +668,13 @@ next column. Headers, if used, are stretched to the height of the collection vie
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code>
+                          <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListIndexSetResult</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ListIndexSetResult</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListIndexSetResult</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                         </div>
                       </div>
@@ -645,13 +706,13 @@ next column. Headers, if used, are stretched to the height of the collection vie
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code>
+                          <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListMoveIndex</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ListMoveIndex</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListMoveIndex</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                         </div>
                       </div>
@@ -683,13 +744,13 @@ next column. Headers, if used, are stretched to the height of the collection vie
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code>
+                          <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListMoveIndexPath</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ListMoveIndexPath</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListMoveIndexPath</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                         </div>
                       </div>
@@ -726,13 +787,13 @@ It is an out-of-box updater for <code><a href="Classes/IGListAdapter.html">IGLis
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code>
+                          <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListReloadDataUpdater</span> <span class="p">:</span> <span class="nc">NSObject</span> <span class="o">&lt;</span><span class="n"><a href="Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ListReloadDataUpdater</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">ListUpdatingDelegate</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListReloadDataUpdater</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">ListUpdatingDelegate</span></code></pre>
 
                         </div>
                       </div>
@@ -764,13 +825,13 @@ It is an out-of-box updater for <code><a href="Classes/IGListAdapter.html">IGLis
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code>
+                          <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListSectionController</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ListSectionController</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListSectionController</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                         </div>
                       </div>
@@ -804,13 +865,13 @@ simpler architecture.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code>
+                          <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListSingleSectionController</span> <span class="p">:</span> <span class="nc"><a href="Classes/IGListSectionController.html">IGListSectionController</a></span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ListSingleSectionController</span> <span class="p">:</span> <span class="kt">ListSectionController</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListSingleSectionController</span> <span class="p">:</span> <span class="kt">ListSectionController</span></code></pre>
 
                         </div>
                       </div>
@@ -849,13 +910,13 @@ huge class.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight"><code>
+                          <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListStackedSectionController</span> <span class="p">:</span> <span class="nc"><a href="Classes/IGListSectionController.html">IGListSectionController</a></span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ListStackedSectionController</span> <span class="p">:</span> <span class="kt">ListSectionController</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListStackedSectionController</span> <span class="p">:</span> <span class="kt">ListSectionController</span></code></pre>
 
                         </div>
                       </div>
@@ -867,8 +928,8 @@ huge class.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-08-31)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-02-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
