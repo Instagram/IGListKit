@@ -75,6 +75,9 @@
                 <a href="Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
               </li>
               <li class="nav-group-task">
@@ -118,8 +121,11 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Enums.html">Enums</a>
+            <a href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/IGListAdapterUpdateType.html">IGListAdapterUpdateType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Enums/IGListDiffOption.html">IGListDiffOption</a>
               </li>
@@ -136,6 +142,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
@@ -156,6 +165,9 @@
                 <a href="Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
               </li>
               <li class="nav-group-task">
+                <a href="Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/IGListDiffable.html">IGListDiffable</a>
               </li>
               <li class="nav-group-task">
@@ -169,6 +181,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
@@ -235,12 +250,12 @@
 <p>This guide provides details on how to work with <a href="https://developer.apple.com/reference/uikit/uicollectionview"><code>UICollectionView</code></a> and <code>IGListKit</code>.</p>
 <h2 id='background' class='heading'>Background</h2>
 
-<p>Early versions of <code>IGListKit</code> (2.x and prior) shipped with a subclass of <code>UICollectionView</code> called <a href="https://github.com/Instagram/IGListKit/blob/2.1.0/Source/IGListCollectionView.h"><code>IGListCollectionView</code></a>. The class contained <em>no</em> special functionality and was merely used to enforce compile-time restrictions to prevent users from calling certain methods directly on <code>UICollectionView</code>. Beginning with 3.0, <code>IGListCollectionView</code> <a href="https://github.com/Instagram/IGListKit/commit/2284ce389708f62d99f48ff2ec15644f1ec59537">was removed</a> for a number of reasons.</p>
+<p>Early versions of <code>IGListKit</code> (2.x and prior) shipped with a subclass of <code>UICollectionView</code> called <a href="https://github.com/Instagram/IGListKit/blob/2.1.0/Source/IGListCollectionView.h"><code><a href="Classes/IGListCollectionView.html">IGListCollectionView</a></code></a>. The class contained <em>no</em> special functionality and was merely used to enforce compile-time restrictions to prevent users from calling certain methods directly on <code>UICollectionView</code>. Beginning with 3.0, <code><a href="Classes/IGListCollectionView.html">IGListCollectionView</a></code> <a href="https://github.com/Instagram/IGListKit/commit/2284ce389708f62d99f48ff2ec15644f1ec59537">was removed</a> for a number of reasons.</p>
 
 <p>For further discussion see <a href="https://github.com/Instagram/IGListKit/issues/240">#240</a> and <a href="https://github.com/Instagram/IGListKit/issues/409">#409</a>.</p>
 <h2 id='methods-to-avoid' class='heading'>Methods to avoid</h2>
 
-<p>One of the primary purposes of <code>IGListKit</code> is to perform optimal batch updates for <code>UICollectionView</code>. Thus, clients <strong>should never</strong> call any APIs on <code>UICollectionView</code> that involved reloading, inserting, deleting, or otherwise updating cells and index paths. Instead, use the APIs provided by <a href="https://instagram.github.io/IGListKit/Classes/IGListAdapter.html"><code>IGListAdapter</code></a>. You should also avoid setting the <a href="https://developer.apple.com/reference/uikit/uicollectionview/1618033-delegate"><code>delegate</code></a> and <a href="https://developer.apple.com/reference/uikit/uicollectionview/1618091-datasource"><code>dataSource</code></a> of the collection view, as this is also the responsibility of <code>IGListAdapter</code>.</p>
+<p>One of the primary purposes of <code>IGListKit</code> is to perform optimal batch updates for <code>UICollectionView</code>. Thus, clients <strong>should never</strong> call any APIs on <code>UICollectionView</code> that involved reloading, inserting, deleting, or otherwise updating cells and index paths. Instead, use the APIs provided by <a href="https://instagram.github.io/IGListKit/Classes/IGListAdapter.html"><code><a href="Classes/IGListAdapter.html">IGListAdapter</a></code></a>. You should also avoid setting the <a href="https://developer.apple.com/reference/uikit/uicollectionview/1618033-delegate"><code>delegate</code></a> and <a href="https://developer.apple.com/reference/uikit/uicollectionview/1618091-datasource"><code>dataSource</code></a> of the collection view, as this is also the responsibility of <code><a href="Classes/IGListAdapter.html">IGListAdapter</a></code>.</p>
 
 <p>Avoid calling the following methods:</p>
 <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">performBatchUpdates</span><span class="p">:(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="kt">void</span><span class="p">))</span><span class="nv">updates</span>
@@ -287,8 +302,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2017-08-31)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-02-06)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

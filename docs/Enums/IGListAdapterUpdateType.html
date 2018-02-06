@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>IGListWorkingRangeDelegate Protocol Reference</title>
+    <title>IGListAdapterUpdateType Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/objc/Protocol/IGListWorkingRangeDelegate" class="dashAnchor"></a>
-    <a title="IGListWorkingRangeDelegate Protocol Reference"></a>
+    <a name="//apple_ref/objc/Enum/IGListAdapterUpdateType" class="dashAnchor"></a>
+    <a title="IGListAdapterUpdateType Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">IGListKit Docs</a> (98% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">IGListKit Reference</a>
         <img id="carat" src="../img/carat.png" />
-        IGListWorkingRangeDelegate Protocol Reference
+        IGListAdapterUpdateType Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -245,17 +245,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>IGListWorkingRangeDelegate</h1>
+            <h1>IGListAdapterUpdateType</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight objective_c"><code><span class="k">@protocol</span> <span class="nc">IGListWorkingRangeDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+                  <pre class="highlight objective_c"><code><span class="k">enum</span> <span class="n">IGListAdapterUpdateType</span> <span class="p">{}</span></code></pre>
 
                 </div>
               </div>
-            <p>Implement this protocol to receive working range events for a list.</p>
-
-<p>The working range is a range <em>near</em> the viewport in which you can begin preparing content for display. For example,
-you could begin decoding images, or warming text caches.</p>
+            <p>The type of update that was performed by an <code><a href="../Classes/IGListAdapter.html">IGListAdapter</a></code>.</p>
 
           </section>
           <section class="section task-group-section">
@@ -264,9 +261,9 @@ you could begin decoding images, or warming text caches.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerWillEnterWorkingRange:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapter:sectionControllerWillEnterWorkingRange:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerWillEnterWorkingRange:">-listAdapter:sectionControllerWillEnterWorkingRange:</a>
+                    <a name="/c:@E@IGListAdapterUpdateType@IGListAdapterUpdateTypePerformUpdates"></a>
+                    <a name="//apple_ref/objc/Case/IGListAdapterUpdateTypePerformUpdates" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@E@IGListAdapterUpdateType@IGListAdapterUpdateTypePerformUpdates">IGListAdapterUpdateTypePerformUpdates</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -274,54 +271,21 @@ you could begin decoding images, or warming text caches.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that an section controller will enter the working range.</p>
+                        <p><code><a href="../Classes/IGListAdapter.html#/c:objc(cs)IGListAdapter(im)performUpdatesAnimated:completion:">-[IGListAdapter performUpdatesAnimated:completion:]</a></code> was executed.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
-    <span class="nf">sectionControllerWillEnterWorkingRange</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="n">IGListAdapterUpdateTypePerformUpdates</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="p">,</span> <span class="n">sectionControllerWillEnterWorkingRange</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">performUpdates</span> <span class="o">=</span> <span class="mi">0</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>listAdapter</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The adapter controlling the list.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>sectionController</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The section controller entering the range.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>
@@ -329,9 +293,9 @@ you could begin decoding images, or warming text caches.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerDidExitWorkingRange:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapter:sectionControllerDidExitWorkingRange:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerDidExitWorkingRange:">-listAdapter:sectionControllerDidExitWorkingRange:</a>
+                    <a name="/c:@E@IGListAdapterUpdateType@IGListAdapterUpdateTypeReloadData"></a>
+                    <a name="//apple_ref/objc/Case/IGListAdapterUpdateTypeReloadData" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@E@IGListAdapterUpdateType@IGListAdapterUpdateTypeReloadData">IGListAdapterUpdateTypeReloadData</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -339,54 +303,53 @@ you could begin decoding images, or warming text caches.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that an section controller exited the working range.</p>
+                        <p><code><a href="../Classes/IGListAdapter.html#/c:objc(cs)IGListAdapter(im)reloadDataWithCompletion:">-[IGListAdapter reloadDataWithCompletion:]</a></code> was executed.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
-    <span class="nf">sectionControllerDidExitWorkingRange</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="n">IGListAdapterUpdateTypeReloadData</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="p">,</span> <span class="n">sectionControllerDidExitWorkingRange</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">reloadData</span> <span class="o">=</span> <span class="mi">1</span></code></pre>
 
                         </div>
                       </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>listAdapter</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The adapter controlling the list.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>sectionController</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The section controller that exited the range.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@E@IGListAdapterUpdateType@IGListAdapterUpdateTypeItemUpdates"></a>
+                    <a name="//apple_ref/objc/Case/IGListAdapterUpdateTypeItemUpdates" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@E@IGListAdapterUpdateType@IGListAdapterUpdateTypeItemUpdates">IGListAdapterUpdateTypeItemUpdates</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code><a href="../Protocols/IGListCollectionContext.html#/c:objc(pl)IGListCollectionContext(im)performBatchAnimated:updates:completion:">-[IGListCollectionContext performBatchAnimated:updates:completion:]</a></code> was executed by an <code><a href="../Classes/IGListSectionController.html">IGListSectionController</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="n">IGListAdapterUpdateTypeItemUpdates</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">itemUpdates</span> <span class="o">=</span> <span class="mi">2</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
