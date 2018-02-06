@@ -32,6 +32,9 @@ typedef NS_ENUM(NSInteger, IGListAdapterUpdateType) {
     IGListAdapterUpdateTypeItemUpdates,
 };
 
+/**
+ Conform to this protocol to receive events about `IGListAdapter` updates.
+ */
 NS_SWIFT_NAME(ListAdapterUpdateListener)
 @protocol IGListAdapterUpdateListener <NSObject>
 

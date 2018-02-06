@@ -53,6 +53,8 @@ NS_SWIFT_NAME(ListSingleSectionControllerDelegate)
 - (void)didSelectSectionController:(IGListSingleSectionController *)sectionController
                         withObject:(id)object;
 
+@optional
+
 /**
  Tells the delegate that the section controller was deselected.
 
@@ -61,7 +63,6 @@ NS_SWIFT_NAME(ListSingleSectionControllerDelegate)
 
  @note Method is `@optional` until the 4.0.0 release where it will become required.
  */
-@optional
 - (void)didDeselectSectionController:(IGListSingleSectionController *)sectionController
                           withObject:(id)object;
 

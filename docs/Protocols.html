@@ -13,7 +13,7 @@
     <a title="Protocols  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (95% documented)</p>
+        <p><a href="index.html">IGListKit Docs</a> (98% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -338,7 +338,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Conform to this protocol to receive events about <code><a href="Classes/IGListAdapter.html">IGListAdapter</a></code> updates.</p>
 
                         <a href="Protocols/IGListAdapterUpdateListener.html" class="slightly-smaller">See more</a>
                       </div>
@@ -346,24 +346,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@protocol</span> <span class="nc">IGListAdapterUpdateListener</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
-
-<span class="cm">/**
- Notifies a listener that the listAdapter was updated.
-
- @param listAdapter The `IGListAdapter` that updated.
- @param update The type of update executed.
- @param animated A flag indicating if the update was animated. Always `NO` for `IGListAdapterUpdateTypeReloadData`.
-
- @note This event is sent before the completion block in `-[IGListAdapter performUpdatesAnimated:completion:]` and
- `-[IGListAdapter reloadDataWithCompletion:]` is executed. This event is also delivered when an
- `IGListSectionController` updates via `-[IGListCollectionContext performBatchAnimated:updates:completion:]`.
- */</span>
-<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">listAdapter</span><span class="o">:</span><span class="p">(</span><span class="n"><a href="Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="n">listAdapter</span>
-    <span class="n">didFinishUpdate</span><span class="o">:</span><span class="p">(</span><span class="n"><a href="Enums/IGListAdapterUpdateType.html">IGListAdapterUpdateType</a></span><span class="p">)</span><span class="n">update</span>
-           <span class="n">animated</span><span class="o">:</span><span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">animated</span><span class="p">;</span>
-
-<span class="k">@end</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@protocol</span> <span class="nc">IGListAdapterUpdateListener</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                         <div class="language">
