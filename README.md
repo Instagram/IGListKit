@@ -49,7 +49,7 @@ We use the open source version `master` branch in the Instagram app.
 - Xcode 9.0+
 - iOS 8.0+
 - tvOS 9.0+
-- macOS 10.10+ *(diffing algorithm components only)*
+- macOS 10.11+ *(diffing algorithm components only)*
 - Interoperability with Swift 3.0+
 
 ## Installation
