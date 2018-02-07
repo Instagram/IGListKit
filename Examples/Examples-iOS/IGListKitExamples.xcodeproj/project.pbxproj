@@ -98,6 +98,11 @@
 		CBA8F64BE2F00E8B3DEFF6ED /* Pods_IGListKitExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7316EF8201F89655D39E53 /* Pods_IGListKitExamples.framework */; };
 		FF73FF9C1FBA4B4400F2AB06 /* UserFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF73FF9B1FBA4B4400F2AB06 /* UserFooterView.swift */; };
 		FF73FF9E1FBA4B5500F2AB06 /* UserFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF73FF9D1FBA4B5500F2AB06 /* UserFooterView.xib */; };
+		EB0289A2202A11E0007E17D5 /* PersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB02899F202A11DF007E17D5 /* PersonModel.m */; };
+		EB0289A3202A11E0007E17D5 /* PersonModel.value in Resources */ = {isa = PBXBuildFile; fileRef = EB0289A0202A11DF007E17D5 /* PersonModel.value */; };
+		EB0289A6202A14E1007E17D5 /* ObjcGeneratedModelDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0289A5202A14E1007E17D5 /* ObjcGeneratedModelDemoViewController.m */; };
+		EB0289A9202A1507007E17D5 /* PersonSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0289A8202A1507007E17D5 /* PersonSectionController.m */; };
+		EB0289AC202A1705007E17D5 /* PersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0289AA202A1705007E17D5 /* PersonCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -243,6 +248,15 @@
 		B7B1FA2EFFA5E994FEE587DE /* Pods_IGListKitMessageExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitMessageExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B87895B5B9CB6A17AF47F4C9 /* Pods-IGListKitTodayExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTodayExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTodayExample/Pods-IGListKitTodayExample.release.xcconfig"; sourceTree = "<group>"; };
 		C544C2903D822EF8E4E91142 /* Pods-IGListKitExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.release.xcconfig"; sourceTree = "<group>"; };
+		EB02899F202A11DF007E17D5 /* PersonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonModel.m; sourceTree = "<group>"; };
+		EB0289A0202A11DF007E17D5 /* PersonModel.value */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PersonModel.value; sourceTree = "<group>"; };
+		EB0289A1202A11DF007E17D5 /* PersonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonModel.h; sourceTree = "<group>"; };
+		EB0289A4202A14E1007E17D5 /* ObjcGeneratedModelDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjcGeneratedModelDemoViewController.h; sourceTree = "<group>"; };
+		EB0289A5202A14E1007E17D5 /* ObjcGeneratedModelDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjcGeneratedModelDemoViewController.m; sourceTree = "<group>"; };
+		EB0289A7202A1507007E17D5 /* PersonSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonSectionController.h; sourceTree = "<group>"; };
+		EB0289A8202A1507007E17D5 /* PersonSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonSectionController.m; sourceTree = "<group>"; };
+		EB0289AA202A1705007E17D5 /* PersonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCell.m; sourceTree = "<group>"; };
+		EB0289AB202A1705007E17D5 /* PersonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCell.h; sourceTree = "<group>"; };
 		F59714C01F184FD73C2AE02F /* Pods-IGListKitMessageExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitMessageExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitMessageExample/Pods-IGListKitMessageExample.debug.xcconfig"; sourceTree = "<group>"; };
 		FE7316EF8201F89655D39E53 /* Pods_IGListKitExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF73FF9B1FBA4B4400F2AB06 /* UserFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFooterView.swift; sourceTree = "<group>"; };
@@ -333,6 +347,8 @@
 				2942FF881D9F39E00015D24B /* LabelSectionController.swift */,
 				29F7E2AE1E92858500197586 /* ListeningSectionController.swift */,
 				292658631E74A2550041B56D /* MonthSectionController.swift */,
+				EB0289A7202A1507007E17D5 /* PersonSectionController.h */,
+				EB0289A8202A1507007E17D5 /* PersonSectionController.m */,
 				295D8A981E92EC96001F7C06 /* PostSectionController.h */,
 				295D8A991E92EC96001F7C06 /* PostSectionController.m */,
 				2942FF891D9F39E00015D24B /* RemoveSectionController.swift */,
@@ -401,6 +417,8 @@
 				2991F9231D7BB89F00B0C58F /* NestedAdapterViewController.swift */,
 				56C05B671E49B2120026DB39 /* ObjcDemoViewController.h */,
 				56C05B681E49B2120026DB39 /* ObjcDemoViewController.m */,
+				EB0289A4202A14E1007E17D5 /* ObjcGeneratedModelDemoViewController.h */,
+				EB0289A5202A14E1007E17D5 /* ObjcGeneratedModelDemoViewController.m */,
 				299B53FF1D6BD6630074A202 /* SearchViewController.swift */,
 				296DD7521DD2147500206780 /* SelfSizingCellsViewController.swift */,
 				82D91B681DBA0EF300E62758 /* SingleSectionStoryboardViewController.swift */,
@@ -433,6 +451,8 @@
 				26271C911DAE9EFC0073E116 /* NibCell.xib */,
 				296DD7581DD2174200206780 /* NibSelfSizingCell.swift */,
 				296DD75A1DD217C000206780 /* NibSelfSizingCell.xib */,
+				EB0289AB202A1705007E17D5 /* PersonCell.h */,
+				EB0289AA202A1705007E17D5 /* PersonCell.m */,
 				56C05B761E49B3A50026DB39 /* PhotoCell.h */,
 				56C05B771E49B3A50026DB39 /* PhotoCell.m */,
 				2991F92B1D7BBE5400B0C58F /* RemoveCell.swift */,
@@ -458,6 +478,7 @@
 				295D8A9C1E92ECDE001F7C06 /* Post.m */,
 				296DD75C1DD21ADA00206780 /* SelectionModel.swift */,
 				2991F91D1D7BB30C00B0C58F /* User.swift */,
+				EB02899E202A11DF007E17D5 /* RemodelGeneratedModels */,
 				2926585C1E74A0360041B56D /* ViewModels */,
 			);
 			path = Models;
@@ -526,6 +547,16 @@
 				986FB7331DBBAD8600A65C18 /* TodayViewController.swift */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		EB02899E202A11DF007E17D5 /* RemodelGeneratedModels */ = {
+			isa = PBXGroup;
+			children = (
+				EB0289A0202A11DF007E17D5 /* PersonModel.value */,
+				EB0289A1202A11DF007E17D5 /* PersonModel.h */,
+				EB02899F202A11DF007E17D5 /* PersonModel.m */,
+			);
+			path = RemodelGeneratedModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -675,6 +706,7 @@
 				FF73FF9E1FBA4B5500F2AB06 /* UserFooterView.xib in Resources */,
 				2961B3981D68B031001C9451 /* LaunchScreen.storyboard in Resources */,
 				26271C921DAE9EFC0073E116 /* NibCell.xib in Resources */,
+				EB0289A3202A11E0007E17D5 /* PersonModel.value in Resources */,
 				2961B3951D68B031001C9451 /* Assets.xcassets in Resources */,
 				98B4DBF41DC2937A002BA58A /* Demo.storyboard in Resources */,
 			);
@@ -857,6 +889,7 @@
 				2942FF931D9F39E00015D24B /* SearchSectionController.swift in Sources */,
 				297546FA1DD25384002A6F89 /* FullWidthSelfSizingCell.swift in Sources */,
 				292658681E74AE8A0041B56D /* MonthTitleViewModel.swift in Sources */,
+				EB0289AC202A1705007E17D5 /* PersonCell.m in Sources */,
 				29D873561E0C539700A6BA95 /* StackedViewController.swift in Sources */,
 				82D91B691DBA0EF300E62758 /* SingleSectionStoryboardViewController.swift in Sources */,
 				29D2E4AF1DD69C0E00CD255D /* DisplayViewController.swift in Sources */,
@@ -872,9 +905,11 @@
 				29628F141D91905A0026B15A /* DetailLabelCell.swift in Sources */,
 				56C05B751E49B33C0026DB39 /* InteractiveCell.m in Sources */,
 				2991F9301D7BC0E400B0C58F /* EmptyViewController.swift in Sources */,
+				EB0289A9202A1507007E17D5 /* PersonSectionController.m in Sources */,
 				29F7E2AF1E92858500197586 /* ListeningSectionController.swift in Sources */,
 				FF73FF9C1FBA4B4400F2AB06 /* UserFooterView.swift in Sources */,
 				29D2E4AD1DD69B6000CD255D /* DisplaySectionController.swift in Sources */,
+				EB0289A6202A14E1007E17D5 /* ObjcGeneratedModelDemoViewController.m in Sources */,
 				2991F91E1D7BB30C00B0C58F /* User.swift in Sources */,
 				2991F9241D7BB89F00B0C58F /* NestedAdapterViewController.swift in Sources */,
 				2961B38E1D68B031001C9451 /* AppDelegate.swift in Sources */,
@@ -894,6 +929,7 @@
 				2942FF901D9F39E00015D24B /* HorizontalSectionController.swift in Sources */,
 				292658641E74A2550041B56D /* MonthSectionController.swift in Sources */,
 				2981BA371DB869FF00A987F9 /* WorkingRangeSectionController.swift in Sources */,
+				EB0289A2202A11E0007E17D5 /* PersonModel.m in Sources */,
 				292658601E74A19F0041B56D /* DayViewModel.swift in Sources */,
 				2961B3AB1D68B0B5001C9451 /* DemosViewController.swift in Sources */,
 				296DD75D1DD21ADA00206780 /* SelectionModel.swift in Sources */,
