@@ -12,5 +12,10 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#import "ObjcDemoViewController.h"
-#import "ObjcGeneratedModelDemoViewController.h"
+#import <UIKit/UIKit.h>
+
+@class PersonModel;
+
+@interface PersonCell : UICollectionViewCell
+@property (nonatomic, copy) PersonModel *person;
+@end
