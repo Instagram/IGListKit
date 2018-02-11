@@ -7,6 +7,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Enhancements
 
+- Pass scrollViewWillEndDragging delegation through in IGListAdapter. [#1097](https://github.com/Instagram/IGListKit/pull/1097)
+
 ### Fixes
 
 3.2.0
