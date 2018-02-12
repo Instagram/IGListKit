@@ -25,4 +25,9 @@ FOUNDATION_EXTERN void IGListSectionControllerPopThread(void);
 
 @property (nonatomic, assign, readwrite) BOOL isLastSection;
 
+/*
+ Provides a way for specialized section controllers (like the stacked section controller) to reject invalid moves
+ */
+- (BOOL)canMoveItemAtIndex:(NSInteger)sourceItemIndex toIndex:(NSInteger)destinationItemIndex;
+
 @end

@@ -85,6 +85,13 @@
 		0D52F0AE1F1ADA1600460F79 /* IGListAdapter+DebugDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D52F0AC1F1ADA1600460F79 /* IGListAdapter+DebugDescription.m */; };
 		0D52F0B41F1AE81800460F79 /* IGListBindingSectionController+DebugDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D52F0B31F1AE81800460F79 /* IGListBindingSectionController+DebugDescription.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0D52F0B61F1AE8BD00460F79 /* IGListBindingSectionController+DebugDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D52F0B51F1AE8BD00460F79 /* IGListBindingSectionController+DebugDescription.m */; };
+		13DF01731FA0FD400092A320 /* IGListTestAdapterReorderingDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 13DF01721FA0FD400092A320 /* IGListTestAdapterReorderingDataSource.m */; };
+		13DF01741FA0FD400092A320 /* IGListTestAdapterReorderingDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 13DF01721FA0FD400092A320 /* IGListTestAdapterReorderingDataSource.m */; };
+		13DF01771FA1000E0092A320 /* IGTestReorderableSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 13DF01761FA1000E0092A320 /* IGTestReorderableSection.m */; };
+		13DF01781FA1000E0092A320 /* IGTestReorderableSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 13DF01761FA1000E0092A320 /* IGTestReorderableSection.m */; };
+		13E1028C1FA4019000123403 /* IGListTestAdapterStackedReorderingDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E1028B1FA4019000123403 /* IGListTestAdapterStackedReorderingDataSource.m */; };
+		13E1028D1FA4019000123403 /* IGListTestAdapterStackedReorderingDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E1028B1FA4019000123403 /* IGListTestAdapterStackedReorderingDataSource.m */; };
+		13E102941FA414C400123403 /* IGListReorderableStackSectionControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E102921FA414C400123403 /* IGListReorderableStackSectionControllerTests.m */; };
 		1F2984CA1E8039EC005FA211 /* IGListCollectionViewLayoutInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 917E89871E800EE70015F934 /* IGListCollectionViewLayoutInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		262373C2015556E71A70FA30 /* Pods_IGListKit_tvOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E980179F5E885E417EB20D55 /* Pods_IGListKit_tvOSTests.framework */; };
 		26271C8A1DAE94E40073E116 /* IGTestSingleNibItemDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 26271C891DAE94E40073E116 /* IGTestSingleNibItemDataSource.m */; };
@@ -112,6 +119,12 @@
 		292658711E75E2440041B56D /* IGListBatchUpdateState.h in Headers */ = {isa = PBXBuildFile; fileRef = 297278C31E6B59D50099D8EA /* IGListBatchUpdateState.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		292807391E82CE240077A81C /* IGListBatchContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 292807381E82CE240077A81C /* IGListBatchContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2928073A1E82CE2E0077A81C /* IGListBatchContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 292807381E82CE240077A81C /* IGListBatchContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		293841AE202B4F5C00484901 /* IGListAdapterMoveDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 293841AD202B4F5C00484901 /* IGListAdapterMoveDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		293841B1202B4F7200484901 /* UICollectionViewLayout+InteractiveReordering.h in Headers */ = {isa = PBXBuildFile; fileRef = 293841AF202B4F7200484901 /* UICollectionViewLayout+InteractiveReordering.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		293841B2202B4F7200484901 /* UICollectionViewLayout+InteractiveReordering.m in Sources */ = {isa = PBXBuildFile; fileRef = 293841B0202B4F7200484901 /* UICollectionViewLayout+InteractiveReordering.m */; };
+		293841B3202B4F7F00484901 /* IGListAdapterMoveDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 293841AD202B4F5C00484901 /* IGListAdapterMoveDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		293841B4202B4F8C00484901 /* UICollectionViewLayout+InteractiveReordering.m in Sources */ = {isa = PBXBuildFile; fileRef = 293841B0202B4F7200484901 /* UICollectionViewLayout+InteractiveReordering.m */; };
+		293841B5202B4F9000484901 /* UICollectionViewLayout+InteractiveReordering.h in Headers */ = {isa = PBXBuildFile; fileRef = 293841AF202B4F7200484901 /* UICollectionViewLayout+InteractiveReordering.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		294652B01EA927440063BDD9 /* IGListAdapterUpdater+DebugDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 290DF3631E930D25009FE456 /* IGListAdapterUpdater+DebugDescription.m */; };
 		294652B11EA927440063BDD9 /* IGListBatchUpdateData+DebugDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 290DF35F1E930D05009FE456 /* IGListBatchUpdateData+DebugDescription.m */; };
 		294652B21EA927440063BDD9 /* IGListDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 290DF3531E930C89009FE456 /* IGListDebugger.m */; };
@@ -436,6 +449,13 @@
 		0D52F0AC1F1ADA1600460F79 /* IGListAdapter+DebugDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IGListAdapter+DebugDescription.m"; sourceTree = "<group>"; };
 		0D52F0B31F1AE81800460F79 /* IGListBindingSectionController+DebugDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IGListBindingSectionController+DebugDescription.h"; sourceTree = "<group>"; };
 		0D52F0B51F1AE8BD00460F79 /* IGListBindingSectionController+DebugDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IGListBindingSectionController+DebugDescription.m"; sourceTree = "<group>"; };
+		13DF01711FA0FD400092A320 /* IGListTestAdapterReorderingDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGListTestAdapterReorderingDataSource.h; sourceTree = "<group>"; };
+		13DF01721FA0FD400092A320 /* IGListTestAdapterReorderingDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IGListTestAdapterReorderingDataSource.m; sourceTree = "<group>"; };
+		13DF01751FA1000E0092A320 /* IGTestReorderableSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGTestReorderableSection.h; sourceTree = "<group>"; };
+		13DF01761FA1000E0092A320 /* IGTestReorderableSection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IGTestReorderableSection.m; sourceTree = "<group>"; };
+		13E1028A1FA4019000123403 /* IGListTestAdapterStackedReorderingDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGListTestAdapterStackedReorderingDataSource.h; sourceTree = "<group>"; };
+		13E1028B1FA4019000123403 /* IGListTestAdapterStackedReorderingDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IGListTestAdapterStackedReorderingDataSource.m; sourceTree = "<group>"; };
+		13E102921FA414C400123403 /* IGListReorderableStackSectionControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IGListReorderableStackSectionControllerTests.m; sourceTree = "<group>"; };
 		1AB7195278D0BBB5DA88D36F /* Pods_IGListKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D6BFC11D5380CB8311E1029 /* Pods-IGListKit-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKit-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKit-tvOSTests/Pods-IGListKit-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		26271C881DAE94E40073E116 /* IGTestSingleNibItemDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGTestSingleNibItemDataSource.h; sourceTree = "<group>"; };
@@ -460,6 +480,9 @@
 		2926586B1E75E01A0041B56D /* IGListBindingSectionControllerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListBindingSectionControllerDataSource.h; sourceTree = "<group>"; };
 		2926586E1E75E0830041B56D /* IGListBindingSectionControllerSelectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListBindingSectionControllerSelectionDelegate.h; sourceTree = "<group>"; };
 		292807381E82CE240077A81C /* IGListBatchContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListBatchContext.h; sourceTree = "<group>"; };
+		293841AD202B4F5C00484901 /* IGListAdapterMoveDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListAdapterMoveDelegate.h; sourceTree = "<group>"; };
+		293841AF202B4F7200484901 /* UICollectionViewLayout+InteractiveReordering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewLayout+InteractiveReordering.h"; sourceTree = "<group>"; };
+		293841B0202B4F7200484901 /* UICollectionViewLayout+InteractiveReordering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewLayout+InteractiveReordering.m"; sourceTree = "<group>"; };
 		294369B01DB1B7AE0025F6E7 /* IGTestNibCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IGTestNibCell.xib; sourceTree = "<group>"; };
 		294AC6311DDE4C19002FCE5D /* IGListDiffResultTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListDiffResultTests.m; sourceTree = "<group>"; };
 		294CDE5E1F98E3A6002CF6E4 /* IGListAdapterUpdateListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListAdapterUpdateListener.h; sourceTree = "<group>"; };
@@ -669,6 +692,7 @@
 				0B3B929B1E08D7F5008390ED /* IGListAdapter.m */,
 				0B3B929C1E08D7F5008390ED /* IGListAdapterDataSource.h */,
 				0B3B929D1E08D7F5008390ED /* IGListAdapterDelegate.h */,
+				293841AD202B4F5C00484901 /* IGListAdapterMoveDelegate.h */,
 				294CDE5E1F98E3A6002CF6E4 /* IGListAdapterUpdateListener.h */,
 				0B3B929E1E08D7F5008390ED /* IGListAdapterUpdater.h */,
 				0B3B929F1E08D7F5008390ED /* IGListAdapterUpdater.m */,
@@ -749,6 +773,8 @@
 				290DF3571E930CE2009FE456 /* UICollectionView+DebugDescription.m */,
 				0B3B92C21E08D7F5008390ED /* UICollectionView+IGListBatchUpdateData.h */,
 				0B3B92C31E08D7F5008390ED /* UICollectionView+IGListBatchUpdateData.m */,
+				293841AF202B4F7200484901 /* UICollectionViewLayout+InteractiveReordering.h */,
+				293841B0202B4F7200484901 /* UICollectionViewLayout+InteractiveReordering.m */,
 				E8B5C7391FC431D400C26914 /* UIScrollView+IGListKit.h */,
 				E8B5C73A1FC431D400C26914 /* UIScrollView+IGListKit.m */,
 			);
@@ -841,6 +867,10 @@
 				88144EF21D870EDC007C7F66 /* IGListTestAdapterDataSource.m */,
 				8285404E1DE40D2D00118B94 /* IGListTestAdapterHorizontalDataSource.h */,
 				8285404F1DE40D2D00118B94 /* IGListTestAdapterHorizontalDataSource.m */,
+				13DF01711FA0FD400092A320 /* IGListTestAdapterReorderingDataSource.h */,
+				13DF01721FA0FD400092A320 /* IGListTestAdapterReorderingDataSource.m */,
+				13E1028A1FA4019000123403 /* IGListTestAdapterStackedReorderingDataSource.h */,
+				13E1028B1FA4019000123403 /* IGListTestAdapterStackedReorderingDataSource.m */,
 				8240C7F91DC2F6CF00B3AAE7 /* IGListTestAdapterStoryboardDataSource.h */,
 				8240C7FA1DC2F6CF00B3AAE7 /* IGListTestAdapterStoryboardDataSource.m */,
 				82914C591E6E2DEC0066C2F8 /* IGListTestContainerSizeSection.h */,
@@ -875,6 +905,8 @@
 				298DD9E11E3ADE4300F76F50 /* IGTestNumberBindableCell.m */,
 				88144EFF1D870EDC007C7F66 /* IGTestObject.h */,
 				88144F001D870EDC007C7F66 /* IGTestObject.m */,
+				13DF01751FA1000E0092A320 /* IGTestReorderableSection.h */,
+				13DF01761FA1000E0092A320 /* IGTestReorderableSection.m */,
 				88144F011D870EDC007C7F66 /* IGTestSingleItemDataSource.h */,
 				88144F021D870EDC007C7F66 /* IGTestSingleItemDataSource.m */,
 				26271C881DAE94E40073E116 /* IGTestSingleNibItemDataSource.h */,
@@ -946,6 +978,7 @@
 				88144EE91D870EDC007C7F66 /* IGListDisplayHandlerTests.m */,
 				29DA5CA21EA7C72400113926 /* IGListGenericSectionControllerTests.m */,
 				88144EEB1D870EDC007C7F66 /* IGListKitTests-Bridging-Header.h */,
+				13E102921FA414C400123403 /* IGListReorderableStackSectionControllerTests.m */,
 				829D7BA81DD1816400549816 /* IGListSectionMapTests.m */,
 				26271C8B1DAE96740073E116 /* IGListSingleNibItemControllerTests.m */,
 				88144EED1D870EDC007C7F66 /* IGListSingleSectionControllerTests.m */,
@@ -977,6 +1010,7 @@
 				0B3B933F1E08D7F5008390ED /* IGListStackedSectionControllerInternal.h in Headers */,
 				0B3B93171E08D7F5008390ED /* IGListSectionController.h in Headers */,
 				0B3B93451E08D7F5008390ED /* UICollectionView+IGListBatchUpdateData.h in Headers */,
+				293841B3202B4F7F00484901 /* IGListAdapterMoveDelegate.h in Headers */,
 				29C481742024167B0093D4BC /* IGListCollectionViewDelegateLayout.h in Headers */,
 				2926586D1E75E01A0041B56D /* IGListBindingSectionControllerDataSource.h in Headers */,
 				29C4817C2024174F0093D4BC /* IGListBindingSectionController+DebugDescription.h in Headers */,
@@ -1003,6 +1037,7 @@
 				0B3B92DB1E08D7F5008390ED /* IGListKit.h in Headers */,
 				29C4817D2024174F0093D4BC /* UIScrollView+IGListKit.h in Headers */,
 				29C4817B2024174F0093D4BC /* IGListAdapter+DebugDescription.h in Headers */,
+				293841B5202B4F9000484901 /* UICollectionViewLayout+InteractiveReordering.h in Headers */,
 				0B3B93031E08D7F5008390ED /* IGListAdapterUpdaterDelegate.h in Headers */,
 				294652B91EA927750063BDD9 /* IGListDebugger.h in Headers */,
 				294652B71EA927750063BDD9 /* IGListAdapterUpdater+DebugDescription.h in Headers */,
@@ -1056,6 +1091,7 @@
 				0B3B93161E08D7F5008390ED /* IGListSectionController.h in Headers */,
 				0B3B93441E08D7F5008390ED /* UICollectionView+IGListBatchUpdateData.h in Headers */,
 				294CDE5F1F98E3A7002CF6E4 /* IGListAdapterUpdateListener.h in Headers */,
+				293841B1202B4F7200484901 /* UICollectionViewLayout+InteractiveReordering.h in Headers */,
 				290DF3741E931B57009FE456 /* IGListDebuggingUtilities.h in Headers */,
 				29DAA7A1201FBD880029277A /* NSNumber+IGListDiffable.h in Headers */,
 				0B3B93341E08D7F5008390ED /* IGListDisplayHandler.h in Headers */,
@@ -1106,6 +1142,7 @@
 				0B3B92FE1E08D7F5008390ED /* IGListAdapterUpdater.h in Headers */,
 				29DAA7A8201FBD9B0029277A /* IGListTransitionDelegate.h in Headers */,
 				0B3B93141E08D7F5008390ED /* IGListScrollDelegate.h in Headers */,
+				293841AE202B4F5C00484901 /* IGListAdapterMoveDelegate.h in Headers */,
 				0D52F0B41F1AE81800460F79 /* IGListBindingSectionController+DebugDescription.h in Headers */,
 				290DF3581E930CE2009FE456 /* UICollectionView+DebugDescription.h in Headers */,
 				0B3B93261E08D7F5008390ED /* IGListUpdatingDelegate.h in Headers */,
@@ -1507,6 +1544,7 @@
 				0B3B92F91E08D7F5008390ED /* IGListAdapter.m in Sources */,
 				29C4816A202414780093D4BC /* NSNumber+IGListDiffable.m in Sources */,
 				0B3B93191E08D7F5008390ED /* IGListSectionController.m in Sources */,
+				293841B4202B4F8C00484901 /* UICollectionViewLayout+InteractiveReordering.m in Sources */,
 				0B3B93131E08D7F5008390ED /* IGListReloadDataUpdater.m in Sources */,
 				0B3B93231E08D7F5008390ED /* IGListStackedSectionController.m in Sources */,
 				294652B41EA927440063BDD9 /* UICollectionView+DebugDescription.m in Sources */,
@@ -1525,6 +1563,7 @@
 				298DDA3B1E3B16F800F76F50 /* IGLayoutTestDataSource.m in Sources */,
 				29C474901DDF460500AE68CE /* IGListSectionMapTests.m in Sources */,
 				29C579321DE0DA8A003A149B /* IGTestStoryboardSupplementarySource.m in Sources */,
+				13E102941FA414C400123403 /* IGListReorderableStackSectionControllerTests.m in Sources */,
 				298DDA131E3AE3F100F76F50 /* IGTestDiffingDataSource.m in Sources */,
 				29C5792F1DE0DA8A003A149B /* IGListTestAdapterStoryboardDataSource.m in Sources */,
 				885FE23B1DC51B86009CE2B4 /* IGListTestUICollectionViewDataSource.m in Sources */,
@@ -1532,7 +1571,9 @@
 				298DDA251E3B15EE00F76F50 /* IGListCollectionViewLayoutTests.m in Sources */,
 				885FE22B1DC51B76009CE2B4 /* IGListAdapterE2ETests.m in Sources */,
 				885FE2331DC51B76009CE2B4 /* IGListSingleSectionControllerTests.m in Sources */,
+				13DF01741FA0FD400092A320 /* IGListTestAdapterReorderingDataSource.m in Sources */,
 				29C579311DE0DA8A003A149B /* IGTestNibSupplementaryView.m in Sources */,
+				13DF01781FA1000E0092A320 /* IGTestReorderableSection.m in Sources */,
 				885FE23C1DC51B86009CE2B4 /* IGTestCell.m in Sources */,
 				298DDA001E3AE28000F76F50 /* IGTestDiffingObject.m in Sources */,
 				29C579331DE0DA8A003A149B /* IGTestStoryboardSupplementaryView.m in Sources */,
@@ -1570,6 +1611,7 @@
 				6A9EB3621F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m in Sources */,
 				885FE2461DC51B86009CE2B4 /* IGTestSupplementarySource.m in Sources */,
 				885FE2431DC51B86009CE2B4 /* IGTestStoryboardViewController.m in Sources */,
+				13E1028D1FA4019000123403 /* IGListTestAdapterStackedReorderingDataSource.m in Sources */,
 				885FE23A1DC51B86009CE2B4 /* IGListTestSection.m in Sources */,
 				29C579301DE0DA8A003A149B /* IGListTestStoryboardSection.m in Sources */,
 				885FE23E1DC51B86009CE2B4 /* IGTestDelegateDataSource.m in Sources */,
@@ -1610,6 +1652,7 @@
 				0B3B933C1E08D7F5008390ED /* IGListSectionMap.m in Sources */,
 				0B3B92F81E08D7F5008390ED /* IGListAdapter.m in Sources */,
 				0B3B93181E08D7F5008390ED /* IGListSectionController.m in Sources */,
+				293841B2202B4F7200484901 /* UICollectionViewLayout+InteractiveReordering.m in Sources */,
 				290DF3611E930D05009FE456 /* IGListBatchUpdateData+DebugDescription.m in Sources */,
 				0B3B93121E08D7F5008390ED /* IGListReloadDataUpdater.m in Sources */,
 				29DAA790201FBD880029277A /* IGListBatchUpdateData.mm in Sources */,
@@ -1624,6 +1667,7 @@
 			files = (
 				298DDA391E3B168F00F76F50 /* IGLayoutTestItem.m in Sources */,
 				88144F1C1D870EDC007C7F66 /* IGTestStackedDataSource.m in Sources */,
+				13DF01731FA0FD400092A320 /* IGListTestAdapterReorderingDataSource.m in Sources */,
 				88144F181D870EDC007C7F66 /* IGTestDelegateController.m in Sources */,
 				290DF3771E9323E6009FE456 /* IGListDebuggerTests.m in Sources */,
 				298DDA3A1E3B16F600F76F50 /* IGLayoutTestDataSource.m in Sources */,
@@ -1652,8 +1696,10 @@
 				2995409E1F588C9400F647CF /* IGTestBindingWithoutDeselectionDelegate.m in Sources */,
 				88144F0A1D870EDC007C7F66 /* IGListBatchUpdateDataTests.m in Sources */,
 				26271C8C1DAE96740073E116 /* IGListSingleNibItemControllerTests.m in Sources */,
+				13E1028C1FA4019000123403 /* IGListTestAdapterStackedReorderingDataSource.m in Sources */,
 				29DA5CA31EA7C72400113926 /* IGListGenericSectionControllerTests.m in Sources */,
 				2997D4971DF5FC0B005A5DD2 /* IGReloadDataUpdaterTests.m in Sources */,
+				13DF01771FA1000E0092A320 /* IGTestReorderableSection.m in Sources */,
 				829D7BAA1DD1819000549816 /* IGListSectionMapTests.m in Sources */,
 				29C5792E1DE0DA89003A149B /* IGTestNibSupplementaryView.m in Sources */,
 				88144F101D870EDC007C7F66 /* IGListSingleSectionControllerTests.m in Sources */,

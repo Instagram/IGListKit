@@ -89,5 +89,17 @@ void IGListSectionControllerPopThread(void) {
 - (void)didHighlightItemAtIndex:(NSInteger)index {}
 
 - (void)didUnhighlightItemAtIndex:(NSInteger)index {}
+    
+- (BOOL)canMoveItemAtIndex:(NSInteger)index {
+    return NO;
+}
+
+- (BOOL)canMoveItemAtIndex:(NSInteger)sourceItemIndex toIndex:(NSInteger)destinationItemIndex {
+    return [self canMoveItemAtIndex:sourceItemIndex];
+}
+    
+- (void)moveObjectFromIndex:(NSInteger)sourceIndex toIndex:(NSInteger)destinationIndex {
+    IGFailAssert(@"Section controller %@ must override %s if interactive reordering is enabled.", self, __PRETTY_FUNCTION__);
+}
 
 @end

@@ -12,6 +12,8 @@
 #import <IGListKit/IGListAdapterInternal.h>
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListSectionController.h>
+#import <IGListKit/IGListSectionControllerInternal.h>
+#import <IGListKit/UICollectionViewLayout+InteractiveReordering.h>
 
 @implementation IGListAdapter (UICollectionView)
 
@@ -56,6 +58,58 @@
     [self mapView:view toSectionController:sectionController];
 
     return view;
+}
+    
+- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath {
+    const NSInteger sectionIndex = indexPath.section;
+    const NSInteger itemIndex = indexPath.item;
+    
+    IGListSectionController *sectionController = [self sectionControllerForSection:sectionIndex];
+    return [sectionController canMoveItemAtIndex:itemIndex];
+}
+    
+- (void)collectionView:(UICollectionView *)collectionView
+   moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath
+           toIndexPath:(NSIndexPath *)destinationIndexPath {
+
+    if (@available(iOS 9.0, *)) {
+        const NSInteger sourceSectionIndex = sourceIndexPath.section;
+        const NSInteger destinationSectionIndex = destinationIndexPath.section;
+        const NSInteger sourceItemIndex = sourceIndexPath.item;
+        const NSInteger destinationItemIndex = destinationIndexPath.item;
+
+        IGListSectionController *sourceSectionController = [self sectionControllerForSection:sourceSectionIndex];
+        IGListSectionController *destinationSectionController = [self sectionControllerForSection:destinationSectionIndex];
+
+        // this is a move within a section
+        if (sourceSectionController == destinationSectionController) {
+
+            if ([sourceSectionController canMoveItemAtIndex:sourceItemIndex toIndex:destinationItemIndex]) {
+                [self moveInSectionControllerInteractive:sourceSectionController
+                                               fromIndex:sourceItemIndex
+                                                 toIndex:destinationItemIndex];
+            } else {
+                // otherwise this is a move of an _item_ from one section to another section
+                // we need to revert the change as it's too late to cancel
+                [self revertInvalidInteractiveMoveFromIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+            }
+            return;
+        }
+
+        // this is a reordering of sections themselves
+        if ([sourceSectionController numberOfItems] == 1 && [destinationSectionController numberOfItems] == 1) {
+
+            // perform view changes in the collection view
+            [self moveSectionControllerInteractive:sourceSectionController
+                                         fromIndex:sourceSectionIndex
+                                           toIndex:destinationSectionIndex];
+            return;
+        }
+
+        // otherwise this is a move of an _item_ from one section to another section
+        // this is not currently supported, so we need to revert the change as it's too late to cancel
+        [self revertInvalidInteractiveMoveFromIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+    }
 }
 
 #pragma mark - UICollectionViewDelegate

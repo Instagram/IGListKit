@@ -526,6 +526,46 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
         [collectionView reloadItemsAtIndexPaths:@[fromIndexPath]];
     }
 }
+    
+- (void)moveSectionInCollectionView:(UICollectionView *)collectionView
+                          fromIndex:(NSInteger)fromIndex
+                            toIndex:(NSInteger)toIndex {
+    IGAssertMainThread();
+    IGParameterAssert(collectionView != nil);
+
+    // iOS expects interactive reordering to be movement of items not sections
+    // after moving a single-item section controller,
+    // you end up with two items in the section for the drop location,
+    // and zero items in the section originating at the drag location
+    // so, we have to reload data rather than doing a section move
+
+    [collectionView reloadData];
+
+    // It seems that reloadData called during UICollectionView's moveItemAtIndexPath
+    // delegate call does not reload all cells as intended
+    // So, we further reload all visible sections to make sure none of our cells
+    // are left with data that's out of sync with our dataSource
+    
+    id<IGListAdapterUpdaterDelegate> delegate = self.delegate;
+    
+    NSMutableIndexSet *visibleSections = [NSMutableIndexSet new];
+    NSArray *visibleIndexPaths = [collectionView indexPathsForVisibleItems];
+    for (NSIndexPath *visibleIndexPath in visibleIndexPaths) {
+        [visibleSections addIndex:visibleIndexPath.section];
+    }
+    
+    [delegate listAdapterUpdater:self willReloadSections:visibleSections collectionView:collectionView];
+    
+    // prevent double-animation from reloadData + reloadSections
+    
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    [collectionView performBatchUpdates:^{
+        [collectionView reloadSections:visibleSections];
+    } completion:^(BOOL finished) {
+        [CATransaction commit];
+    }];
+}
 
 - (void)reloadDataWithCollectionView:(UICollectionView *)collectionView
                    reloadUpdateBlock:(IGListReloadUpdateBlock)reloadUpdateBlock

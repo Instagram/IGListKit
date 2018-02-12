@@ -60,6 +60,10 @@
 - (void)reloadItemsInCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray<NSIndexPath *> *)indexPaths {
     [self synchronousReloadDataWithCollectionView:collectionView];
 }
+    
+- (void)moveSectionInCollectionView:(UICollectionView *)collectionView fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
+    [self synchronousReloadDataWithCollectionView:collectionView];
+}
 
 - (void)reloadDataWithCollectionView:(UICollectionView *)collectionView reloadUpdateBlock:(IGListReloadUpdateBlock)reloadUpdateBlock completion:(IGListUpdatingCompletion)completion {
     reloadUpdateBlock();
