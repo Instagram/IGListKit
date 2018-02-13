@@ -47,7 +47,7 @@ struct IGListRecord {
     }
 };
 
-static id<NSObject> IGListTableKey(id<IGListDiffable> object) {
+static id<NSObject> IGListTableKey(__unsafe_unretained id<IGListDiffable> object) {
     id<NSObject> key = [object diffIdentifier];
     NSCAssert(key != nil, @"Cannot use a nil key for the diffIdentifier of object %@", object);
     return key;
@@ -65,7 +65,7 @@ struct IGListHashID {
     }
 };
 
-static void addIndexToMap(BOOL useIndexPaths, NSInteger section, NSInteger index, id<IGListDiffable> object, NSMapTable *map) {
+static void addIndexToMap(BOOL useIndexPaths, NSInteger section, NSInteger index, __unsafe_unretained id<IGListDiffable> object, __unsafe_unretained NSMapTable *map) {
     id value;
     if (useIndexPaths) {
         value = [NSIndexPath indexPathForItem:index inSection:section];
@@ -75,7 +75,7 @@ static void addIndexToMap(BOOL useIndexPaths, NSInteger section, NSInteger index
     [map setObject:value forKey:[object diffIdentifier]];
 }
 
-static void addIndexToCollection(BOOL useIndexPaths, id collection, NSInteger section, NSInteger index) {
+static void addIndexToCollection(BOOL useIndexPaths, __unsafe_unretained id collection, NSInteger section, NSInteger index) {
     if (useIndexPaths) {
         NSIndexPath *path = [NSIndexPath indexPathForItem:index inSection:section];
         [collection addObject:path];
