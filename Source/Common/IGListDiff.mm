@@ -65,6 +65,16 @@ struct IGListHashID {
     }
 };
 
+static void addIndexToMap(BOOL useIndexPaths, NSInteger section, NSInteger index, id<IGListDiffable> object, NSMapTable *map) {
+    id value;
+    if (useIndexPaths) {
+        value = [NSIndexPath indexPathForItem:index inSection:section];
+    } else {
+        value = @(index);
+    }
+    [map setObject:value forKey:[object diffIdentifier]];
+}
+
 static id IGListDiffing(BOOL returnIndexPaths,
                         NSInteger fromSection,
                         NSInteger toSection,
@@ -181,15 +191,6 @@ static id IGListDiffing(BOOL returnIndexPaths,
 
     NSMapTable *oldMap = [NSMapTable strongToStrongObjectsMapTable];
     NSMapTable *newMap = [NSMapTable strongToStrongObjectsMapTable];
-    void (^addIndexToMap)(NSInteger, NSInteger, NSArray *, NSMapTable *) = ^(NSInteger section, NSInteger index, NSArray *array, NSMapTable *map) {
-        id value;
-        if (returnIndexPaths) {
-            value = [NSIndexPath indexPathForItem:index inSection:section];
-        } else {
-            value = @(index);
-        }
-        [map setObject:value forKey:[array[index] diffIdentifier]];
-    };
 
     // track offsets from deleted items to calculate where items have moved
     vector<NSInteger> deleteOffsets(oldCount), insertOffsets(newCount);
@@ -206,7 +207,7 @@ static id IGListDiffing(BOOL returnIndexPaths,
             runningOffset++;
         }
 
-        addIndexToMap(fromSection, i, oldArray, oldMap);
+        addIndexToMap(returnIndexPaths, fromSection, i, oldArray[i], oldMap);
     }
 
     // reset and track offsets from inserted items to calculate where items have moved
@@ -243,7 +244,7 @@ static id IGListDiffing(BOOL returnIndexPaths,
             }
         }
 
-        addIndexToMap(toSection, i, newArray, newMap);
+        addIndexToMap(returnIndexPaths, toSection, i, newArray[i], newMap);
     }
 
     NSCAssert((oldCount + [mInserts count] - [mDeletes count]) == newCount,
