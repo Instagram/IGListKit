@@ -9,10 +9,228 @@
 
 import UIKit
 
+public protocol ListSwiftBindable {
+    func bind(value: ListSwiftDiffable)
+}
+
+public struct BindingData {
+    let value: ListSwiftDiffable
+    let cellType: (UICollectionViewCell & ListSwiftBindable).Type
+    let size: (ListCollectionContext, Int) -> CGSize
+}
+
+open class ListSwiftSectionController<T: ListSwiftIdentifiable>: ListSectionController {
+
+    public struct Context<T> {
+        public let value: T
+        public let collectionContext: ListCollectionContext
+        public let index: Int
+    }
+
+    public func bindingData<T: ListSwiftDiffable>(
+        _ value: T,
+        cellType: (UICollectionViewCell & ListSwiftBindable).Type,
+        size: @escaping (Context<T>) -> CGSize
+        ) -> BindingData {
+        return BindingData(value: value, cellType: cellType, size: { (context, index) -> CGSize in
+            return size(Context(value: value, collectionContext: context, index: index))
+        })
+    }
+
+    private enum State: Int {
+        case idle
+        case queued
+        case applied
+    }
+    private var state: State = .idle
+
+    public private(set) var data = [BindingData]()
+    public private(set) var identifiableValue: T?
+
+    open func createViewModelData(value: T) -> [BindingData] {
+        return []
+    }
+
+    public final func update(animated: Bool = true, completion: (() -> Void)? = nil) {
+        guard state == .idle else {
+            completion?()
+            return
+        }
+        state = .queued
+
+        collectionContext?.performBatch(animated: animated, updates: { [weak self] (batchContext) in
+            guard let strongSelf = self,
+                let value = strongSelf.identifiableValue
+                else { return }
+
+            let fromBoxed = strongSelf.data.map { $0.value.boxed }
+            let to = strongSelf.createViewModelData(value: value)
+            let toBoxed = to.map { $0.value.boxed }
+            let result = ListDiff(
+                oldArray: fromBoxed,
+                newArray: toBoxed,
+                option: .equality
+            )
+
+            for (i, update) in result.updates.enumerated() {
+                let identifier = fromBoxed[i].diffIdentifier()
+                let toIndex = result.newIndex(forIdentifier: identifier)
+                if toIndex != NSNotFound,
+                    let cell = strongSelf.collectionContext?.cellForItem(at: i, sectionController: strongSelf) as? ListSwiftBindable {
+                    cell.bind(value: to[toIndex].value)
+                }
+            }
+
+            batchContext.delete(in: strongSelf, at: result.deletes)
+            batchContext.insert(in: strongSelf, at: result.inserts)
+
+            for move in result.moves {
+                batchContext.move(in: strongSelf, from: move.from, to: move.to)
+            }
+
+            strongSelf.state = .applied
+        }, completion: { [weak self] _ in
+            self?.state = .idle
+            completion?()
+        })
+    }
+
+    // MARK: ListSectionController Overrides
+
+    public final override func numberOfItems() -> Int {
+        return data.count
+    }
+
+    public final override func sizeForItem(at index: Int) -> CGSize {
+        guard let collectionContext = self.collectionContext else { return .zero }
+        return data[index].size(collectionContext, index)
+    }
+
+    public final override func cellForItem(at index: Int) -> UICollectionViewCell {
+        guard let cell = collectionContext?.dequeueReusableCell(of: data[index].cellType, for: self, at: index) as? UICollectionViewCell & ListSwiftBindable
+            else { fatalError() }
+        cell.bind(value: data[index].value)
+        return cell
+    }
+
+    public final override func didUpdate(to object: Any) {
+        guard let box = object as? ListIdentifiableBox,
+            let value = box.value as? T
+            else { return }
+
+        let oldIdentifiableValue = identifiableValue
+        identifiableValue = value
+
+        if oldIdentifiableValue == nil {
+            data = createViewModelData(value: value)
+        } else {
+            update()
+        }
+    }
+
+}
+
+//public class ListSwiftBindingData {
+//
+////    internal class BindingDataContext {
+////        let _value: ListSwiftDiffable
+////        init(value: ListSwiftDiffable) {
+////            self._value = value
+////        }
+////    }
+//
+//    public class Context {
+//        let value: ListSwiftDiffable
+//        init<T: ListSwiftDiffable>(value: T) {
+//            self.value = value
+//        }
+//    }
+//
+//    public typealias CellDequeueFunction<T> = (T) -> UICollectionViewCell & ListBindable
+//    public typealias SizeFunction<T> = (T) -> CGSize
+//
+////    public static func pair<T: ListSwiftDiffable>(_ value: T, _ cell: @escaping CellDequeueFunction, _ size: @escaping SizeFunction) -> ListSwiftBindingData {
+////        return ListSwiftBindingData(value, cell: cell, size: size)
+////    }
+//
+//    public let value: ListSwiftDiffable
+//    public let cell: (ListSwiftDiffable) -> UICollectionViewCell & ListBindable
+//    public let size: (ListSwiftDiffable) -> CGSize
+//
+//    public init<T: ListSwiftDiffable>(
+//        _ value: T,
+//        cell: @escaping (ListSwiftDiffable) -> UICollectionViewCell & ListBindable,
+//        size: @escaping (ListSwiftDiffable) -> CGSize
+//        ) {
+//        self.value = value
+////        self.cell = cell as! (ListSwiftDiffable) -> UICollectionViewCell & ListBindable
+////        self.size = size as! (ListSwiftDiffable) -> CGSize
+//        self.cell = cell
+//        self.size = size
+//    }
+//
+//}
+//
+//public protocol ListSwiftBindingSectionControllerDataSource: class {
+//    func viewModels(sectionController: ListSectionController) -> [ListSwiftBindingData]
+//}
+//
+///**
+// - return a single element w/ 3 things:
+//   - diffable value
+//   - cell gen function
+//   - size gen function
+// */
+//
+//open class ListSwiftBindingSectionController<T: ListSwiftIdentifiable>: ListBindingSectionController<ListIdentifiableBox>, ListBindingSectionControllerDataSource {
+//
+//    public func bindingData<T: ListSwiftDiffable>(
+//        _ value: T,
+//        cell: @escaping (T, ListCollectionContext) -> UICollectionViewCell & ListBindable,
+//        size: @escaping (T, ListCollectionContext) -> CGSize
+//        ) -> ListSwiftBindingData {
+//        return ListSwiftBindingData(value, cell: { value in
+//            guard let collectionContext = self.collectionContext else { fatalError() }
+//            return cell(value as! T, collectionContext)
+//        }, size: { value in
+//            guard let collectionContext = self.collectionContext else { fatalError() }
+//            return size(value as! T, collectionContext)
+//        })
+//    }
+//
+//    internal var viewModelData = [ListSwiftBindingData]()
+//
+//    public weak var swiftDataSource: ListSwiftBindingSectionControllerDataSource?
+//
+//    public override init() {
+//        super.init()
+//        dataSource = self
+//    }
+//
+//    // MARK: ListBindingSectionControllerDataSource
+//
+//    public func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, viewModelsFor object: Any) -> [ListDiffable] {
+//        guard let swiftDataSource = self.swiftDataSource else { return [] }
+//
+//        // only queried when something has changed. rebuild all data.
+//        viewModelData = swiftDataSource.viewModels(sectionController: self)
+//        return viewModelData.map { $0.value.boxed }
+//    }
+//
+//    public func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, cellForViewModel viewModel: Any, at index: Int) -> UICollectionViewCell & ListBindable {
+//        return viewModelData[index].cell(viewModelData[index].value)
+//    }
+//
+//    public func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, sizeForViewModel viewModel: Any, at index: Int) -> CGSize {
+//        return viewModelData[index].size(viewModelData[index].value)
+//    }
+//
+//}
+
 /**
  Subclass this class to create section controllers for use with `ListSwiftAdapter`.
  */
-open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionController {
+open class OLDListSwiftSectionController<T: ListSwiftDiffable>: ListSectionController {
 
     /**
      A context object used as a parameter in overridable methods.

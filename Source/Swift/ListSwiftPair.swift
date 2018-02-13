@@ -9,6 +9,8 @@
 
 import Foundation
 
+public typealias ListSwiftPairConstructor<T: ListSwiftIdentifiable> = () -> ListSwiftSectionController<T>
+
 /**
  Query a value for a given section controller.
 
@@ -18,15 +20,15 @@ import Foundation
  */
 public class ListSwiftPair {
 
-    public static func pair<T>(_ value: T, _ constructor: @escaping () -> ListSwiftSectionController<T>) -> ListSwiftPair {
+    public static func pair<T>(_ value: T, _ constructor: @escaping ListSwiftPairConstructor<T>) -> ListSwiftPair {
         return ListSwiftPair(value, constructor: constructor)
     }
 
-    public let value: ListSwiftDiffable
+    public let value: ListSwiftIdentifiable
 
     public let constructor: () -> ListSectionController
 
-    public init<T>(_ value: T, constructor: @escaping () -> ListSwiftSectionController<T>) {
+    public init<T>(_ value: T, constructor: @escaping ListSwiftPairConstructor<T>) {
         self.value = value
         self.constructor = constructor
     }
@@ -41,7 +43,7 @@ public class ListSwiftPair {
  @return The unboxed value, if found.
  */
 public extension Optional where Wrapped == ListSwiftPair {
-    public static func pair<T>(_ value: T, _ constructor: @escaping () -> ListSwiftSectionController<T>) -> ListSwiftPair? {
+    public static func pair<T>(_ value: T, _ constructor: @escaping ListSwiftPairConstructor<T>) -> ListSwiftPair? {
         return ListSwiftPair.pair(value, constructor)
     }
 }
