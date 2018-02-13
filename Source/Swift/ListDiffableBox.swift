@@ -9,6 +9,24 @@
 
 import Foundation
 
+public final class ListIdentifiableBox: ListDiffable {
+
+    public let value: ListSwiftIdentifiable
+
+    init(value: ListSwiftIdentifiable) {
+        self.value = value
+    }
+
+    public func diffIdentifier() -> NSObjectProtocol {
+        return value.identifier as NSObjectProtocol
+    }
+
+    public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        return true
+    }
+
+}
+
 /**
  Wrap a `ListSwiftDiffable` conforming value so that it conforms to `ListDiffable` and can be used with other IGListKit
  systems.

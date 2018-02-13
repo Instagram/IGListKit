@@ -35,6 +35,11 @@ public final class ListSwiftAdapter: NSObject, ListAdapterDataSource {
      */
     public let listAdapter: ListAdapter
 
+    public var collectionView: UICollectionView? {
+        get { return listAdapter.collectionView }
+        set { listAdapter.collectionView = newValue }
+    }
+
     /**
      Create a new `ListSwiftAdapter` object.
 
@@ -69,7 +74,8 @@ public final class ListSwiftAdapter: NSObject, ListAdapterDataSource {
         guard let dataSource = self.dataSource else { return [] }
 
         return dataSource.values(adapter: self).map {
-            let box = $0.value.boxed
+//            let box = $0.value.boxed
+            let box = ListIdentifiableBox(value: $0.value)
             // side effect: store the function for use in listAdapter(:, sectionControllerFor object:)
             map[box.functionLookupHash] = $0.constructor
             return box
@@ -80,7 +86,7 @@ public final class ListSwiftAdapter: NSObject, ListAdapterDataSource {
      :nodoc:
      */
     public func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        guard let box = object as? ListDiffableBox else { fatalError() }
+        guard let box = object as? ListIdentifiableBox else { fatalError() }
         let hash = box.functionLookupHash
         guard let function = map[hash] else { fatalError() }
 
