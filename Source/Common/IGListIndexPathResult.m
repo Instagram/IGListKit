@@ -22,12 +22,12 @@
                 oldIndexPathMap:(NSMapTable<id<NSObject>, NSIndexPath *> *)oldIndexPathMap
                 newIndexPathMap:(NSMapTable<id<NSObject>, NSIndexPath *> *)newIndexPathMap {
     if (self = [super init]) {
-        _inserts = [inserts copy];
-        _deletes = [deletes copy];
-        _updates = [updates copy];
-        _moves = [moves copy];
-        _oldIndexPathMap = [oldIndexPathMap copy];
-        _newIndexPathMap = [newIndexPathMap copy];
+        _inserts = inserts;
+        _deletes = deletes;
+        _updates = updates;
+        _moves = moves;
+        _oldIndexPathMap = oldIndexPathMap;
+        _newIndexPathMap = newIndexPathMap;
     }
     return self;
 }
