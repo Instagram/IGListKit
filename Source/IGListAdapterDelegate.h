@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Conform to `IGListAdapterDelegate` to receive display events for objects in a list.
  */
+NS_SWIFT_NAME(ListAdapterDelegate)
 @protocol IGListAdapterDelegate <NSObject>
 
 /**
