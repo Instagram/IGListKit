@@ -2,6 +2,13 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
+4.0.0 (upcoming release)
+-----
+
+### Breaking Changes
+
+- Added Swift annotation name to `IGListAdapterDelegate` which remove `IG` prefixe. The new name is Swift clients is `ListAdapterDelegate`. [Andrea Antonioni](https://github.com/andreaantonioni)[(tbd)](tbd)
+
 3.3.0 (upcoming release)
 -----
 
