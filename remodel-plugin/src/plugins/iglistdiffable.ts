@@ -221,6 +221,9 @@ export function createPlugin():ObjectSpec.Plugin {
     },
     nullability: function(objectType:ObjectSpec.Type):Maybe.Maybe<ObjC.ClassNullability> {
       return Maybe.Nothing<ObjC.ClassNullability>();
-    }
+    },
+    subclassingRestricted: function(objectType:ObjectSpec.Type):boolean {
+      return false;
+    },
   };
 }

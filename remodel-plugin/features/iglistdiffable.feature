@@ -13,9 +13,9 @@ Feature: Outputting Value Objects implementing IGListDiffable
     When I run `../../bin/generate project`
     Then the file "project/values/Test.h" should contain:
       """
-      #import <IGListKit/IGListDiffable.h>
       #import <Foundation/Foundation.h>
       #import <CoreGraphics/CGGeometry.h>
+      #import <IGListKit/IGListDiffable.h>
 
       @interface Test : NSObject <IGListDiffable, NSCopying>
 
@@ -45,7 +45,7 @@ Feature: Outputting Value Objects implementing IGListDiffable
         return self;
       }
 
-      - (id)copyWithZone:(NSZone *)zone
+      - (id)copyWithZone:(nullable NSZone *)zone
       {
         return self;
       }
@@ -109,9 +109,9 @@ Feature: Outputting Value Objects implementing IGListDiffable
     When I run `../../bin/generate project`
     Then the file "project/values/Test.h" should contain:
       """
-      #import <IGListKit/IGListDiffable.h>
       #import <Foundation/Foundation.h>
       #import <CoreGraphics/CGGeometry.h>
+      #import <IGListKit/IGListDiffable.h>
 
       @interface Test : NSObject <IGListDiffable, NSCopying>
 
@@ -139,7 +139,7 @@ Feature: Outputting Value Objects implementing IGListDiffable
         return self;
       }
 
-      - (id)copyWithZone:(NSZone *)zone
+      - (id)copyWithZone:(nullable NSZone *)zone
       {
         return self;
       }
@@ -201,9 +201,9 @@ Feature: Outputting Value Objects implementing IGListDiffable
     When I run `../../bin/generate project`
     Then the file "project/values/Test.h" should contain:
       """
-      #import <IGListKit/IGListDiffable.h>
       #import <Foundation/Foundation.h>
       #import <CoreGraphics/CGGeometry.h>
+      #import <IGListKit/IGListDiffable.h>
 
       @interface Test : NSObject <IGListDiffable, NSCopying>
 
@@ -231,7 +231,7 @@ Feature: Outputting Value Objects implementing IGListDiffable
         return self;
       }
 
-      - (id)copyWithZone:(NSZone *)zone
+      - (id)copyWithZone:(nullable NSZone *)zone
       {
         return self;
       }
