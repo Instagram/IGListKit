@@ -319,27 +319,28 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
     if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
         frame = entry.headerBounds;
+        
+
+        if (self.stickyHeaders) {
+            CGFloat offset = CGPointGetCoordinateInDirection(collectionView.contentOffset, self.scrollDirection) + self.topContentInset + self.stickyHeaderYOffset;
+
+            if (section + 1 == _sectionData.size()) {
+                offset = MAX(minOffset, offset);
+            } else {
+                const CGFloat maxOffset = CGRectGetMinInDirection(_sectionData[section + 1].bounds, self.scrollDirection) - CGRectGetLengthInDirection(frame, self.scrollDirection);
+                offset = MIN(MAX(minOffset, offset), maxOffset);
+            }
+            switch (self.scrollDirection) {
+                case UICollectionViewScrollDirectionVertical:
+                    frame.origin.y = offset;
+                    break;
+                case UICollectionViewScrollDirectionHorizontal:
+                    frame.origin.x = offset;
+                    break;
+            }
+        }
     } else if ([elementKind isEqualToString:UICollectionElementKindSectionFooter]) {
         frame = entry.footerBounds;
-    }
-
-    if (self.stickyHeaders) {
-        CGFloat offset = CGPointGetCoordinateInDirection(collectionView.contentOffset, self.scrollDirection) + self.topContentInset + self.stickyHeaderYOffset;
-
-        if (section + 1 == _sectionData.size()) {
-            offset = MAX(minOffset, offset);
-        } else {
-            const CGFloat maxOffset = CGRectGetMinInDirection(_sectionData[section + 1].bounds, self.scrollDirection) - CGRectGetLengthInDirection(frame, self.scrollDirection);
-            offset = MIN(MAX(minOffset, offset), maxOffset);
-        }
-        switch (self.scrollDirection) {
-            case UICollectionViewScrollDirectionVertical:
-                frame.origin.y = offset;
-                break;
-            case UICollectionViewScrollDirectionHorizontal:
-                frame.origin.x = offset;
-                break;
-        }
     }
 
     attributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
