@@ -296,5 +296,24 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenUpdating_withMutableArrayObject_thatViewModelsDontMutate {
+    NSArray *objects = @[
+                             @"foo",
+                             @"bar"
+                             ];
+    NSMutableArray *initObjects = [NSMutableArray arrayWithArray:objects];
+    
+    [self setupWithObjects:@[
+                             [[IGTestDiffingObject alloc] initWithKey:@1 objects:initObjects]
+                             ]];
+    
+    IGTestDiffingSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+    
+    NSArray *oldModels = [section.viewModels copy];
+    [initObjects removeAllObjects];
+    
+    XCTAssertEqual(oldModels, section.viewModels);
+}
+
 @end
 
