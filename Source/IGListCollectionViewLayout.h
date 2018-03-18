@@ -129,6 +129,21 @@ NS_SWIFT_NAME(ListCollectionViewLayout)
                         stretchToEdge:(BOOL)stretchToEdge;
 
 /**
+ Create and return a new vertically scrolling collection view layout.
+ 
+ @param stickyHeaders Set to `YES` to stick section headers to the top of the bounds while scrolling.
+ @param showHeaderWhenEmpty Set to `YES` to show sticky header when a section had no item
+ @param topContentInset The top content inset used to offset the sticky headers. Ignored if stickyHeaders is `NO`.
+ @param stretchToEdge Specifies whether to stretch width of last item to right edge when distance from last item to right edge < epsilon(1)
+ 
+ @return A new collection view layout.
+ */
+- (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
+                  showHeaderWhenEmpty:(BOOL)showHeaderWhenEmpty
+                      topContentInset:(CGFloat)topContentInset
+                        stretchToEdge:(BOOL)stretchToEdge;
+
+/**
  :nodoc:
  */
 - (instancetype)init NS_UNAVAILABLE;

@@ -150,6 +150,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 @property (nonatomic, assign, readonly) BOOL stickyHeaders;
 @property (nonatomic, assign, readonly) CGFloat topContentInset;
 @property (nonatomic, assign, readonly) BOOL stretchToEdge;
+@property (nonatomic, assign, readonly) BOOL showHeaderWhenEmpty;
 
 @end
 
@@ -174,10 +175,22 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 }
 
 - (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
+                  showHeaderWhenEmpty:(BOOL)showHeaderWhenEmpty
+                      topContentInset:(CGFloat)topContentInset
+                        stretchToEdge:(BOOL)stretchToEdge {
+    _showHeaderWhenEmpty = showHeaderWhenEmpty;
+    
+    return [self initWithStickyHeaders:stickyHeaders
+                       scrollDirection:UICollectionViewScrollDirectionVertical
+                       topContentInset:topContentInset
+                         stretchToEdge:stretchToEdge];
+}
+
+- (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
                       topContentInset:(CGFloat)topContentInset
                         stretchToEdge:(BOOL)stretchToEdge {
     return [self initWithStickyHeaders:stickyHeaders
-                       scrollDirection:UICollectionViewScrollDirectionVertical
+                   showHeaderWhenEmpty:NO
                        topContentInset:topContentInset
                          stretchToEdge:stretchToEdge];
 }
@@ -245,7 +258,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         const NSInteger itemCount = _sectionData[section].itemBounds.size();
 
         // do not add headers if there are no items
-//        if (itemCount > 0) {
+        if (itemCount > 0 || self.showHeaderWhenEmpty) {
             for (NSString *elementKind in _supplementaryAttributesCache.allKeys) {
                 NSIndexPath *indexPath = indexPathForSection(section);
                 UICollectionViewLayoutAttributes *attributes = [self layoutAttributesForSupplementaryViewOfKind:elementKind
@@ -257,7 +270,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                     [result addObject:attributes];
                 }
             }
-//        }
+        }
 
         // add all cells within the rect, return early if it starts iterating outside
         for (NSInteger item = 0; item < itemCount; item++) {
@@ -593,7 +606,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         if (itemCount == 0) {
             rollingSectionBounds = headerBounds;
         }
-
+        
         const CGRect footerBounds = (self.scrollDirection == UICollectionViewScrollDirectionVertical) ?
                 CGRectMake(insets.left,
                         CGRectGetMaxY(rollingSectionBounds),
