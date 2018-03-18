@@ -245,7 +245,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         const NSInteger itemCount = _sectionData[section].itemBounds.size();
 
         // do not add headers if there are no items
-        if (itemCount > 0) {
+//        if (itemCount > 0) {
             for (NSString *elementKind in _supplementaryAttributesCache.allKeys) {
                 NSIndexPath *indexPath = indexPathForSection(section);
                 UICollectionViewLayoutAttributes *attributes = [self layoutAttributesForSupplementaryViewOfKind:elementKind
@@ -257,7 +257,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                     [result addObject:attributes];
                 }
             }
-        }
+//        }
 
         // add all cells within the rect, return early if it starts iterating outside
         for (NSInteger item = 0; item < itemCount; item++) {
@@ -577,18 +577,22 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                 rollingSectionBounds = CGRectUnion(rollingSectionBounds, frame);
             }
         }
-
+       
         const CGRect headerBounds = (self.scrollDirection == UICollectionViewScrollDirectionVertical) ?
                 CGRectMake(insets.left,
-                        CGRectGetMinY(rollingSectionBounds) - headerSize.height,
+                        (itemCount == 0) ? CGRectGetMaxY(rollingSectionBounds) : CGRectGetMinY(rollingSectionBounds) - headerSize.height,
                         paddedLengthInFixedDirection,
                         headerSize.height) :
-                CGRectMake(CGRectGetMinX(rollingSectionBounds) - headerSize.width,
+                CGRectMake((itemCount == 0) ? CGRectGetMaxX(rollingSectionBounds) : CGRectGetMinX(rollingSectionBounds) - headerSize.width,
                         insets.top,
                         headerSize.width,
                         paddedLengthInFixedDirection);
 
         _sectionData[section].headerBounds = headerBounds;
+        
+        if (itemCount == 0) {
+            rollingSectionBounds = headerBounds;
+        }
 
         const CGRect footerBounds = (self.scrollDirection == UICollectionViewScrollDirectionVertical) ?
                 CGRectMake(insets.left,
