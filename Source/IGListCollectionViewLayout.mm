@@ -289,7 +289,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         return nil;
     }
 
-    attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+    attributes = [[[self class] layoutAttributesClass] layoutAttributesForCellWithIndexPath:indexPath];
     attributes.frame = _sectionData[indexPath.section].itemBounds[indexPath.item];
     adjustZIndexForAttributes(attributes);
     _attributesCache[indexPath] = attributes;
