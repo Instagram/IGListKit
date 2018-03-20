@@ -11,6 +11,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - 5x improvement to diffing performance when result is only inserts or deletes. [Ryan Nystrom](https://github.com/rnystrom) [(tbd)](tbd)
 
+- Updated IGListCollectionViewLayout to rely on layoutAttributesClass instead of vanilla `UICollectionViewLayoutAttributes` [Cole Potrocky](https://github.com/SirensOfTitan) [#1135](https://github.com/instagram/IGListKit/pull/1135)
+
 ### Fixes
 - Copy objects when retrieving from datasource to prevent modification of models in binding section controller. [Kashish Goel](https://github.com/kashishgoel) [(#1109)](https://github.com/Instagram/IGListKit/pull/1109)
 
