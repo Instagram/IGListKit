@@ -12,7 +12,7 @@ import Foundation
 /**
  Automatically conform `Hashable` structures to the identification part of `ListSwiftDiffable`.
  */
-public extension Hashable {
+public extension ListSwiftIdentifiable where Self: Hashable {
 
     /**
      :nodoc:
@@ -24,9 +24,9 @@ public extension Hashable {
 }
 
 /**
- Automatically conform `Hashable` structures to the identification part of `ListSwiftDiffable`.
+ Automatically conform `Equatable` structures to the equality part of `ListSwiftDiffable`.
  */
-public extension Equatable {
+public extension ListSwiftEquatable where Self: Equatable {
 
     /**
      :nodoc:
