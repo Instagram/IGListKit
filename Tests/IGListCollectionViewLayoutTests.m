@@ -131,16 +131,29 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
                                                        interitemSpacing:0
                                                            headerHeight:10
                                                            footerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 10}]
+                                                                          ]],
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:20
+                                                           footerHeight:0
                                                                   items:nil],
                             [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
                                                             lineSpacing:0
                                                        interitemSpacing:0
                                                            headerHeight:20
                                                            footerHeight:0
-                                                                  items:nil]]];
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 10}],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 20}],
+                                                                          ]]
+                            ]];
     
-    IGAssertEqualFrame([self headerForSection:0].frame, 0, 0, 0, 0);
+    IGAssertEqualFrame([self headerForSection:0].frame, 0, 0, 100, 10);
     IGAssertEqualFrame([self headerForSection:1].frame, 0, 0, 0, 0);
+    IGAssertEqualFrame([self headerForSection:2].frame, 0, 20, 100, 20);
 }
 
 - (void)test_whenLayingOutCellsVertically_withHeaderHeight_withLineSpacing_withInsets_thatFramesCorrect {
