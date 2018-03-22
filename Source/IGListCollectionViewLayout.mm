@@ -492,6 +492,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     for (NSInteger section = _minimumInvalidatedSection; section < sectionCount; section++) {
         const NSInteger itemCount = [dataSource collectionView:collectionView numberOfItemsInSection:section];
         const BOOL itemsEmpty = itemCount == 0;
+        const BOOL hideHeaderWhenItemsEmpty = itemsEmpty && !self.showHeaderWhenEmpty;
         _sectionData[section].itemBounds = std::vector<CGRect>(itemCount);
 
         const CGSize headerSize = [delegate collectionView:collectionView layout:self referenceSizeForHeaderInSection:section];
@@ -503,8 +504,8 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         const CGSize paddedCollectionViewSize = UIEdgeInsetsInsetRect(contentInsetAdjustedCollectionViewBounds, insets).size;
         const UICollectionViewScrollDirection fixedDirection = self.scrollDirection == UICollectionViewScrollDirectionHorizontal ? UICollectionViewScrollDirectionVertical : UICollectionViewScrollDirectionHorizontal;
         const CGFloat paddedLengthInFixedDirection = CGSizeGetLengthInDirection(paddedCollectionViewSize, fixedDirection);
-        const CGFloat headerLengthInScrollDirection =  CGSizeGetLengthInDirection(headerSize, self.scrollDirection);
-        const CGFloat footerLengthInScrollDirection =  CGSizeGetLengthInDirection(footerSize, self.scrollDirection);
+        const CGFloat headerLengthInScrollDirection = hideHeaderWhenItemsEmpty ? 0 : CGSizeGetLengthInDirection(headerSize, self.scrollDirection);
+        const CGFloat footerLengthInScrollDirection = hideHeaderWhenItemsEmpty ? 0 : CGSizeGetLengthInDirection(footerSize, self.scrollDirection);
         const BOOL headerExists = headerLengthInScrollDirection > 0;
         const BOOL footerExists = footerLengthInScrollDirection > 0;
 
@@ -587,31 +588,31 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         }
        
         const CGRect headerBounds = (self.scrollDirection == UICollectionViewScrollDirectionVertical) ?
-                CGRectMake(insets.left,
-                        (itemsEmpty && self.showHeaderWhenEmpty) ? CGRectGetMaxY(rollingSectionBounds) : CGRectGetMinY(rollingSectionBounds) - headerSize.height,
-                        paddedLengthInFixedDirection,
-                        headerSize.height) :
-                CGRectMake((itemsEmpty && self.showHeaderWhenEmpty) ? CGRectGetMaxX(rollingSectionBounds) : CGRectGetMinX(rollingSectionBounds) - headerSize.width,
-                        insets.top,
-                        headerSize.width,
-                        paddedLengthInFixedDirection);
-
+        CGRectMake(insets.left,
+                   (itemsEmpty) ? CGRectGetMaxY(rollingSectionBounds) : CGRectGetMinY(rollingSectionBounds) - headerSize.height,
+                   paddedLengthInFixedDirection,
+                   hideHeaderWhenItemsEmpty ? 0 : headerSize.height) :
+        CGRectMake((itemsEmpty) ? CGRectGetMaxX(rollingSectionBounds) : CGRectGetMinX(rollingSectionBounds) - headerSize.width,
+                   insets.top,
+                   hideHeaderWhenItemsEmpty ? 0 : headerSize.width,
+                   paddedLengthInFixedDirection);
+        
         _sectionData[section].headerBounds = headerBounds;
         
-        if (itemsEmpty && self.showHeaderWhenEmpty) {
+        if (itemsEmpty) {
             rollingSectionBounds = headerBounds;
         }
         
         const CGRect footerBounds = (self.scrollDirection == UICollectionViewScrollDirectionVertical) ?
-                CGRectMake(insets.left,
-                        CGRectGetMaxY(rollingSectionBounds),
-                        paddedLengthInFixedDirection,
-                        footerSize.height) :
-                CGRectMake(CGRectGetMaxX(rollingSectionBounds) + insets.right,
-                        insets.top,
-                        footerSize.width,
-                        paddedLengthInFixedDirection);
-
+        CGRectMake(insets.left,
+                   CGRectGetMaxY(rollingSectionBounds),
+                   paddedLengthInFixedDirection,
+                   hideHeaderWhenItemsEmpty ? 0 : footerSize.height) :
+        CGRectMake(CGRectGetMaxX(rollingSectionBounds) + insets.right,
+                   insets.top,
+                   hideHeaderWhenItemsEmpty ? 0 : footerSize.width,
+                   paddedLengthInFixedDirection);
+        
         _sectionData[section].footerBounds = footerBounds;
 
         // union the header before setting the bounds of the section
