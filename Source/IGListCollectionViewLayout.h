@@ -89,6 +89,13 @@ NS_SWIFT_NAME(ListCollectionViewLayout)
 @property (nonatomic, assign) CGFloat stickyHeaderYOffset;
 
 /**
+ Set this to `YES` to show sticky header when a section had no item.
+ 
+ @note Changing the value on this method will invalidate the layout every time.
+ */
+@property (nonatomic, assign) BOOL showHeaderWhenEmpty;
+
+/**
  Notify the layout that a specific section was modified before invalidation. Used to optimize layout re-calculation.
 
  @note When updating a collection view (ex: calling `-insertSections`), `-invalidateLayoutWithContext` gets called on
@@ -125,21 +132,6 @@ NS_SWIFT_NAME(ListCollectionViewLayout)
  @return A new collection view layout.
  */
 - (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
-                      topContentInset:(CGFloat)topContentInset
-                        stretchToEdge:(BOOL)stretchToEdge;
-
-/**
- Create and return a new vertically scrolling collection view layout.
- 
- @param stickyHeaders Set to `YES` to stick section headers to the top of the bounds while scrolling.
- @param showHeaderWhenEmpty Set to `YES` to show sticky header when a section had no item
- @param topContentInset The top content inset used to offset the sticky headers. Ignored if stickyHeaders is `NO`.
- @param stretchToEdge Specifies whether to stretch width of last item to right edge when distance from last item to right edge < epsilon(1)
- 
- @return A new collection view layout.
- */
-- (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
-                  showHeaderWhenEmpty:(BOOL)showHeaderWhenEmpty
                       topContentInset:(CGFloat)topContentInset
                         stretchToEdge:(BOOL)stretchToEdge;
 

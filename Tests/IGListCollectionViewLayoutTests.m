@@ -42,7 +42,8 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 }
 
 - (void)setUpWithStickyHeaders:(BOOL)sticky showHeaderWhenEmpty:(BOOL)showHeaderWhenEmpty {
-    self.layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:YES showHeaderWhenEmpty:showHeaderWhenEmpty topContentInset:0 stretchToEdge:NO];
+    self.layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:YES topContentInset:0 stretchToEdge:NO];
+    self.layout.showHeaderWhenEmpty = showHeaderWhenEmpty;
     [self setUpCollectionViewAndDataSource:kTestFrame];
 }
 
@@ -141,7 +142,6 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     IGAssertEqualFrame([self headerForSection:0].frame, 0, 0, 0, 0);
     IGAssertEqualFrame([self headerForSection:1].frame, 0, 0, 0, 0);
 }
-
 
 - (void)test_whenLayingOutCellsVertically_withHeaderHeight_withLineSpacing_withInsets_thatFramesCorrect {
     [self setUpWithStickyHeaders:NO topInset:0];
