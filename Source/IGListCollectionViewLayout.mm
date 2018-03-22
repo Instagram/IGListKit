@@ -174,22 +174,10 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 }
 
 - (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
-                  showHeaderWhenEmpty:(BOOL)showHeaderWhenEmpty
                       topContentInset:(CGFloat)topContentInset
                         stretchToEdge:(BOOL)stretchToEdge {
-    _showHeaderWhenEmpty = showHeaderWhenEmpty;
-    
     return [self initWithStickyHeaders:stickyHeaders
                        scrollDirection:UICollectionViewScrollDirectionVertical
-                       topContentInset:topContentInset
-                         stretchToEdge:stretchToEdge];
-}
-
-- (instancetype)initWithStickyHeaders:(BOOL)stickyHeaders
-                      topContentInset:(CGFloat)topContentInset
-                        stretchToEdge:(BOOL)stretchToEdge {
-    return [self initWithStickyHeaders:stickyHeaders
-                   showHeaderWhenEmpty:NO
                        topContentInset:topContentInset
                          stretchToEdge:stretchToEdge];
 }
@@ -449,8 +437,6 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     
     if (_showHeaderWhenEmpty != showHeaderWhenEmpty) {
         _showHeaderWhenEmpty = showHeaderWhenEmpty;
-        
-        [self invalidateSupplementaryAttributes];
     }
 }
 
@@ -460,17 +446,13 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     if (_stickyHeaderYOffset != stickyHeaderYOffset) {
         _stickyHeaderYOffset = stickyHeaderYOffset;
 
-        [self invalidateSupplementaryAttributes];
+        IGListCollectionViewLayoutInvalidationContext *invalidationContext = [IGListCollectionViewLayoutInvalidationContext new];
+        invalidationContext.ig_invalidateSupplementaryAttributes = YES;
+        [self invalidateLayoutWithContext:invalidationContext];
     }
 }
 
 #pragma mark - Private API
-
-- (void)invalidateSupplementaryAttributes {
-    IGListCollectionViewLayoutInvalidationContext *invalidationContext = [IGListCollectionViewLayoutInvalidationContext new];
-    invalidationContext.ig_invalidateSupplementaryAttributes = YES;
-    [self invalidateLayoutWithContext:invalidationContext];
-}
 
 - (void)calculateLayoutIfNeeded {
     if (_minimumInvalidatedSection == NSNotFound) {
@@ -606,17 +588,17 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
        
         const CGRect headerBounds = (self.scrollDirection == UICollectionViewScrollDirectionVertical) ?
                 CGRectMake(insets.left,
-                        itemsEmpty ? CGRectGetMaxY(rollingSectionBounds) : CGRectGetMinY(rollingSectionBounds) - headerSize.height,
+                        (itemsEmpty && self.showHeaderWhenEmpty) ? CGRectGetMaxY(rollingSectionBounds) : CGRectGetMinY(rollingSectionBounds) - headerSize.height,
                         paddedLengthInFixedDirection,
                         headerSize.height) :
-                CGRectMake(itemsEmpty ? CGRectGetMaxX(rollingSectionBounds) : CGRectGetMinX(rollingSectionBounds) - headerSize.width,
+                CGRectMake((itemsEmpty && self.showHeaderWhenEmpty) ? CGRectGetMaxX(rollingSectionBounds) : CGRectGetMinX(rollingSectionBounds) - headerSize.width,
                         insets.top,
                         headerSize.width,
                         paddedLengthInFixedDirection);
 
         _sectionData[section].headerBounds = headerBounds;
         
-        if (itemsEmpty) {
+        if (itemsEmpty && self.showHeaderWhenEmpty) {
             rollingSectionBounds = headerBounds;
         }
         
