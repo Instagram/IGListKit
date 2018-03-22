@@ -432,14 +432,6 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 #pragma mark - Public API
 
-- (void)setShowHeaderWhenEmpty:(BOOL)showHeaderWhenEmpty {
-    IGAssertMainThread();
-    
-    if (_showHeaderWhenEmpty != showHeaderWhenEmpty) {
-        _showHeaderWhenEmpty = showHeaderWhenEmpty;
-    }
-}
-
 - (void)setStickyHeaderYOffset:(CGFloat)stickyHeaderYOffset {
     IGAssertMainThread();
 
