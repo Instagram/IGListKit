@@ -13,9 +13,11 @@ public protocol ListSwiftBindable {
     func bind(value: ListSwiftDiffable)
 }
 
+public typealias ListSwiftBindableCell = UICollectionViewCell & ListSwiftBindable
+
 public struct BindingData {
     let value: ListSwiftDiffable
-    let cellType: (UICollectionViewCell & ListSwiftBindable).Type
+    let cellType: ListSwiftBindableCell.Type
     let size: (ListCollectionContext, Int) -> CGSize
 }
 
@@ -29,7 +31,7 @@ open class ListSwiftSectionController<T: ListSwiftIdentifiable>: ListSectionCont
 
     public func bindingData<T: ListSwiftDiffable>(
         _ value: T,
-        cellType: (UICollectionViewCell & ListSwiftBindable).Type,
+        cellType: ListSwiftBindableCell.Type,
         size: @escaping (Context<T>) -> CGSize
         ) -> BindingData {
         return BindingData(value: value, cellType: cellType, size: { (context, index) -> CGSize in
@@ -72,7 +74,7 @@ open class ListSwiftSectionController<T: ListSwiftIdentifiable>: ListSectionCont
                 option: .equality
             )
 
-            for (i, update) in result.updates.enumerated() {
+            for (i, _) in result.updates.enumerated() {
                 let identifier = fromBoxed[i].diffIdentifier()
                 let toIndex = result.newIndex(forIdentifier: identifier)
                 if toIndex != NSNotFound,
@@ -107,7 +109,7 @@ open class ListSwiftSectionController<T: ListSwiftIdentifiable>: ListSectionCont
     }
 
     public final override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: data[index].cellType, for: self, at: index) as? UICollectionViewCell & ListSwiftBindable
+        guard let cell = collectionContext?.dequeueReusableCell(of: data[index].cellType, for: self, at: index) as? ListSwiftBindableCell
             else { fatalError() }
         cell.bind(value: data[index].value)
         return cell
