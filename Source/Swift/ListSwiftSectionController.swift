@@ -14,11 +14,26 @@ public protocol ListSwiftBindable {
 }
 
 public typealias ListSwiftBindableCell = UICollectionViewCell & ListSwiftBindable
+public typealias ListSwiftBindableCellWithSize = ListSwiftBindableCell & ListSwiftSizeProviding
 
 public struct BindingData {
     let value: ListSwiftDiffable
     let cellType: ListSwiftBindableCell.Type
     let size: (ListCollectionContext, Int) -> CGSize
+    
+    init(value: ListSwiftDiffable, cellType: ListSwiftBindableCellWithSize.Type) {
+        self.value = value
+        self.cellType = cellType
+        self.size = { context, _ in
+            cellType.sizeFor(context: context, value: value)
+        }
+    }
+    
+    init(value: ListSwiftDiffable, cellType: ListSwiftBindableCell.Type, size: @escaping (ListCollectionContext, Int) -> CGSize) {
+        self.value = value
+        self.cellType = cellType
+        self.size = size
+    }
 }
 
 open class ListSwiftSectionController<T: ListSwiftIdentifiable>: ListSectionController {

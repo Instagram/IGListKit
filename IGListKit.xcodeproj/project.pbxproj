@@ -381,6 +381,8 @@
 		88DF89891E010F6500B1B9B4 /* IGListDiffSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE61D870EDC007C7F66 /* IGListDiffSwiftTests.swift */; };
 		88DF898A1E010F7000B1B9B4 /* IGListDiffTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE81D870EDC007C7F66 /* IGListDiffTests.m */; };
 		917E89881E800EE70015F934 /* IGListCollectionViewLayoutInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 917E89871E800EE70015F934 /* IGListCollectionViewLayoutInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A93EF3D42063BE6900078507 /* ListSwiftSizeProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93EF3D32063BE6900078507 /* ListSwiftSizeProviding.swift */; };
+		A93EF3D52063C0E200078507 /* ListSwiftSizeProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93EF3D32063BE6900078507 /* ListSwiftSizeProviding.swift */; };
 		DA5F484B1E8E9D7000DAE6DA /* IGListAdapter+UICollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = DA5F48491E8E9D7000DAE6DA /* IGListAdapter+UICollectionView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		DA5F484C1E8E9D7000DAE6DA /* IGListAdapter+UICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5F484A1E8E9D7000DAE6DA /* IGListAdapter+UICollectionView.m */; };
 		DAA83ACF1E8ECE06000F6810 /* IGListAdapter+UICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5F484A1E8E9D7000DAE6DA /* IGListAdapter+UICollectionView.m */; };
@@ -633,6 +635,7 @@
 		88DF897C1E010E6A00B1B9B4 /* IGListKit-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IGListKit-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		917E89871E800EE70015F934 /* IGListCollectionViewLayoutInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListCollectionViewLayoutInternal.h; sourceTree = "<group>"; };
 		9574C58371B7A46F62E9AC24 /* Pods-IGListKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTests/Pods-IGListKitTests.release.xcconfig"; sourceTree = "<group>"; };
+		A93EF3D32063BE6900078507 /* ListSwiftSizeProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSwiftSizeProviding.swift; sourceTree = "<group>"; };
 		CA8726D7FF3608E20E9F7EC6 /* Pods-IGListKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTests/Pods-IGListKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DA5F48491E8E9D7000DAE6DA /* IGListAdapter+UICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IGListAdapter+UICollectionView.h"; sourceTree = "<group>"; };
 		DA5F484A1E8E9D7000DAE6DA /* IGListAdapter+UICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IGListAdapter+UICollectionView.m"; sourceTree = "<group>"; };
@@ -813,6 +816,7 @@
 				2961838220260F3400E6A851 /* ListSwiftDiffable+Boxed.swift */,
 				2988E2BE2029001300EED104 /* ListSwiftPair.swift */,
 				2961837D20260F3400E6A851 /* ListSwiftSectionController.swift */,
+				A93EF3D32063BE6900078507 /* ListSwiftSizeProviding.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -1557,6 +1561,7 @@
 				29C4816B202414780093D4BC /* NSString+IGListDiffable.m in Sources */,
 				2961839C20260F8300E6A851 /* ListSwiftDiffable+Boxed.swift in Sources */,
 				2961839A20260F8300E6A851 /* ListSwift+Foundation.swift in Sources */,
+				A93EF3D52063C0E200078507 /* ListSwiftSizeProviding.swift in Sources */,
 				0B3B93371E08D7F5008390ED /* IGListDisplayHandler.m in Sources */,
 				0B3B93471E08D7F5008390ED /* UICollectionView+IGListBatchUpdateData.m in Sources */,
 				DAA83ACF1E8ECE06000F6810 /* IGListAdapter+UICollectionView.m in Sources */,
@@ -1671,6 +1676,7 @@
 				0B3B931E1E08D7F5008390ED /* IGListSingleSectionController.m in Sources */,
 				2961838F20260F3400E6A851 /* ListSwiftDiffable+Boxed.swift in Sources */,
 				2961838D20260F3400E6A851 /* ListSwift+Foundation.swift in Sources */,
+				A93EF3D42063BE6900078507 /* ListSwiftSizeProviding.swift in Sources */,
 				296AC95F1EA518D3005137E2 /* IGListReloadIndexPath.m in Sources */,
 				0B3B93361E08D7F5008390ED /* IGListDisplayHandler.m in Sources */,
 				0B3B93461E08D7F5008390ED /* UICollectionView+IGListBatchUpdateData.m in Sources */,
