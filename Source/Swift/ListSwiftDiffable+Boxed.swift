@@ -7,7 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-internal extension ListSwiftDiffable {
+// Not very clean, but it's not possible to write extensions on a composed Protocols.
+internal extension ListSwiftIdentifiable where Self: ListSwiftEquatable {
 
     var boxed: ListDiffable {
         return ListDiffableBox(value: self)
