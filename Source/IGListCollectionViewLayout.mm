@@ -579,12 +579,12 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             }
         }
        
-        const CGRect headerBounds = (self.scrollDirection == UICollectionViewScrollDirectionVertical) ?
+        const CGRect headerBounds = self.scrollDirection == UICollectionViewScrollDirectionVertical ?
         CGRectMake(insets.left,
-                   (itemsEmpty) ? CGRectGetMaxY(rollingSectionBounds) : CGRectGetMinY(rollingSectionBounds) - headerSize.height,
+                   itemsEmpty ? CGRectGetMaxY(rollingSectionBounds) : CGRectGetMinY(rollingSectionBounds) - headerSize.height,
                    paddedLengthInFixedDirection,
                    hideHeaderWhenItemsEmpty ? 0 : headerSize.height) :
-        CGRectMake((itemsEmpty) ? CGRectGetMaxX(rollingSectionBounds) : CGRectGetMinX(rollingSectionBounds) - headerSize.width,
+        CGRectMake(itemsEmpty ? CGRectGetMaxX(rollingSectionBounds) : CGRectGetMinX(rollingSectionBounds) - headerSize.width,
                    insets.top,
                    hideHeaderWhenItemsEmpty ? 0 : headerSize.width,
                    paddedLengthInFixedDirection);
