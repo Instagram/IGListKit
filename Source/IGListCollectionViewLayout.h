@@ -89,7 +89,7 @@ NS_SWIFT_NAME(ListCollectionViewLayout)
 @property (nonatomic, assign) CGFloat stickyHeaderYOffset;
 
 /**
- Set this to `YES` to show sticky header when a section had no item.
+ Set this to `YES` to show sticky header when a section had no item. Default is `NO`.
 */
 @property (nonatomic, assign) BOOL showHeaderWhenEmpty;
 
