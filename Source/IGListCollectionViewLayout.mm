@@ -519,10 +519,10 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
             IGAssert(CGSizeGetLengthInDirection(size, fixedDirection) <= paddedLengthInFixedDirection
                      || fabs(CGSizeGetLengthInDirection(size, fixedDirection) - paddedLengthInFixedDirection) < FLT_EPSILON,
-                     @"%@ of item %zi in section %zi (%.0f pt) must be less than or equal to container (%.0f pt) accounting for section insets %@",
+                     @"%@ of item %li in section %li (%.0f pt) must be less than or equal to container (%.0f pt) accounting for section insets %@",
                      self.scrollDirection == UICollectionViewScrollDirectionVertical ? @"Width" : @"Height",
-                     item,
-                     section,
+                     (long)item,
+                     (long)section,
                      CGSizeGetLengthInDirection(size, fixedDirection),
                      CGRectGetLengthInDirection(contentInsetAdjustedCollectionViewBounds, fixedDirection),
                      NSStringFromUIEdgeInsets(insets));

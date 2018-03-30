@@ -75,11 +75,11 @@ final class DiffTableViewController: UITableViewController {
 
     @objc func onDiff() {
         let from = people
-        let to = usingOldPeople ? newPeople : oldPeople
+        let toPeople = usingOldPeople ? newPeople : oldPeople
         usingOldPeople = !usingOldPeople
-        people = to
+        people = toPeople
 
-        let result = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: from, newArray: to, option: .equality).forBatchUpdates()
+        let result = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: from, newArray: toPeople, option: .equality).forBatchUpdates()
 
         tableView.beginUpdates()
         tableView.deleteRows(at: result.deletes, with: .fade)

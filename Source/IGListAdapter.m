@@ -500,7 +500,7 @@
     [self.collectionView.collectionViewLayout layoutAttributesForElementsInRect:self.collectionView.bounds];
     for (UICollectionViewLayoutAttributes* attribute in attributes) {
         IGListSectionController *sectionController = [self sectionControllerForSection:attribute.indexPath.section];
-        IGAssert(sectionController != nil, @"Section controller nil for cell in section %zd", attribute.indexPath.section);
+        IGAssert(sectionController != nil, @"Section controller nil for cell in section %ld", (long)attribute.indexPath.section);
         if (sectionController) {
             [visibleSectionControllers addObject:sectionController];
         }
@@ -522,7 +522,7 @@
         if (sectionController != nil) {
             const NSInteger section = [self sectionForSectionController:sectionController];
             id object = [self objectAtSection:section];
-            IGAssert(object != nil, @"Object not found for section controller %@ at section %zi", sectionController, section);
+            IGAssert(object != nil, @"Object not found for section controller %@ at section %li", sectionController, (long)section);
             if (object != nil) {
                 [visibleObjects addObject:object];
             }
@@ -936,7 +936,7 @@
     IGParameterAssert(cellClass != nil);
     IGParameterAssert(index >= 0);
     UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Dequeueing cell of class %@ from section controller %@ without a collection view at index %zi", NSStringFromClass(cellClass), sectionController, index);
+    IGAssert(collectionView != nil, @"Dequeueing cell of class %@ from section controller %@ without a collection view at index %li", NSStringFromClass(cellClass), sectionController, (long)index);
     NSString *identifier = IGListReusableViewIdentifier(cellClass, nil, nil);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
     if (![self.registeredCellClasses containsObject:cellClass]) {
@@ -967,7 +967,7 @@
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(index >= 0);
     UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Dequeueing cell with nib name %@ and bundle %@ from section controller %@ without a collection view at index %zi.", nibName, bundle, sectionController, index);
+    IGAssert(collectionView != nil, @"Dequeueing cell with nib name %@ and bundle %@ from section controller %@ without a collection view at index %li.", nibName, bundle, sectionController, (long)index);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
     if (![self.registeredNibNames containsObject:nibName]) {
         [self.registeredNibNames addObject:nibName];
@@ -987,7 +987,7 @@
     IGParameterAssert(viewClass != nil);
     IGParameterAssert(index >= 0);
     UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Dequeueing cell of class %@ from section controller %@ without a collection view at index %zi with supplementary view %@", NSStringFromClass(viewClass), sectionController, index, elementKind);
+    IGAssert(collectionView != nil, @"Dequeueing cell of class %@ from section controller %@ without a collection view at index %li with supplementary view %@", NSStringFromClass(viewClass), sectionController, (long)index, elementKind);
     NSString *identifier = IGListReusableViewIdentifier(viewClass, nil, elementKind);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
     if (![self.registeredSupplementaryViewIdentifiers containsObject:identifier]) {
@@ -1007,7 +1007,7 @@
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(index >= 0);
     UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Dequeueing Supplementary View from storyboard of kind %@ with identifier %@ for section controller %@ without a collection view at index %zi", elementKind, identifier, sectionController, index);
+    IGAssert(collectionView != nil, @"Dequeueing Supplementary View from storyboard of kind %@ with identifier %@ for section controller %@ without a collection view at index %li", elementKind, identifier, sectionController, (long)index);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
     return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
 }
@@ -1168,8 +1168,8 @@
     IGParameterAssert(fromIndex >= 0);
     IGParameterAssert(toIndex >= 0);
     UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Moving items from %@ without a collection view from index %zi to index %zi.",
-             sectionController, fromIndex, toIndex);
+    IGAssert(collectionView != nil, @"Moving items from %@ without a collection view from index %li to index %li.",
+             sectionController, (long)fromIndex, (long)toIndex);
 
     NSIndexPath *fromIndexPath = [self indexPathForSectionController:sectionController index:fromIndex usePreviousIfInUpdateBlock:YES];
     NSIndexPath *toIndexPath = [self indexPathForSectionController:sectionController index:toIndex usePreviousIfInUpdateBlock:NO];
@@ -1206,8 +1206,8 @@
     IGParameterAssert(fromIndex >= 0);
     IGParameterAssert(toIndex >= 0);
     UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Moving section %@ without a collection view from index %zi to index %zi.",
-             sectionController, fromIndex, toIndex);
+    IGAssert(collectionView != nil, @"Moving section %@ without a collection view from index %li to index %li.",
+             sectionController, (long)fromIndex, (long)toIndex);
     IGAssert(self.moveDelegate != nil, @"Moving section %@ without a moveDelegate set", sectionController);
     
     if (fromIndex != toIndex) {

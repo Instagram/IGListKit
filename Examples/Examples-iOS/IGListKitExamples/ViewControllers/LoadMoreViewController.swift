@@ -52,7 +52,7 @@ final class LoadMoreViewController: UIViewController, ListAdapterDataSource, UIS
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        if let obj = object as? String, obj == spinToken {
+        if let object = object as? String, object == spinToken {
             return spinnerSectionController()
         } else {
             return LabelSectionController()

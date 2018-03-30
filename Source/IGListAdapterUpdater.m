@@ -265,8 +265,8 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
             [inserts addIndex:to];
         } else {
             IGAssert([result.deletes containsIndex:idx],
-                     @"Reloaded section %zi was not found in deletes with from: %zi, to: %zi, deletes: %@, fromClass: %@",
-                     idx, from, to, deletes, [(id)fromObjects[idx] class]);
+                     @"Reloaded section %lu was not found in deletes with from: %li, to: %li, deletes: %@, fromClass: %@",
+                     (unsigned long)idx, (long)from, (long)to, deletes, [(id)fromObjects[idx] class]);
         }
     }];
 }
