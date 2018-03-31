@@ -22,7 +22,7 @@ extension MutableCollection {
         guard tCount > 1 else { return }
 
         for (firstUnshuffled, unshuffledCount) in zip(indices, stride(from: tCount, to: 1, by: -1)) {
-            let distance: Int = numericCast(arc4random_uniform(numericCast(unshuffledCount)))
+            let distance: IndexDistance = numericCast(arc4random_uniform(numericCast(unshuffledCount)))
             guard distance != 0 else { continue }
 
             let tIndex = index(firstUnshuffled, offsetBy: distance)

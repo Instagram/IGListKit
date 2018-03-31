@@ -30,7 +30,7 @@ final class UsersProvider {
             throw UsersError.invalidData
         }
 
-        self.users = dicts.enumerated().compactMap { index, dict in
+        self.users = dicts.enumerated().flatMap { index, dict in
             guard let name = dict["name"] else { return nil }
 
             return User(pk: index, name: name.capitalized)
