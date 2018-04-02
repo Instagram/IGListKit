@@ -23,7 +23,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Fixes
 
-- Fixed build errors with xCode 9.3 and Swift 4.1 [Andrey YAstrebov](https://github.com/ayastrebov) [(#1142)](https://github.com/Instagram/IGListKit/pull/1142)
+- Fixed build errors with Xcode 9.3 and Swift 4.1 [Andrey YAstrebov](https://github.com/ayastrebov) [(#1142)](https://github.com/Instagram/IGListKit/pull/1142)
 
 
 3.2.0
