@@ -24,7 +24,7 @@
                   objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
                              completion:(IGListUpdatingCompletion)completion {
     objectTransitionBlock(toObjects);
-    [self synchronousReloadDataWithCollectionView:collectionView];
+    [self _synchronousReloadDataWithCollectionView:collectionView];
     if (completion) {
         completion(YES);
     }
@@ -35,49 +35,49 @@
                             itemUpdates:(IGListItemUpdateBlock)itemUpdates
                              completion:(IGListUpdatingCompletion)completion {
     itemUpdates();
-    [self synchronousReloadDataWithCollectionView:collectionView];
+    [self _synchronousReloadDataWithCollectionView:collectionView];
     if (completion) {
         completion(YES);
     }
 }
 
 - (void)insertItemsIntoCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self synchronousReloadDataWithCollectionView:collectionView];
+    [self _synchronousReloadDataWithCollectionView:collectionView];
 }
 
 - (void)deleteItemsFromCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self synchronousReloadDataWithCollectionView:collectionView];
+    [self _synchronousReloadDataWithCollectionView:collectionView];
 }
 
 - (void)moveItemInCollectionView:(UICollectionView *)collectionView fromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-    [self synchronousReloadDataWithCollectionView:collectionView];
+    [self _synchronousReloadDataWithCollectionView:collectionView];
 }
 
 - (void)reloadItemInCollectionView:(UICollectionView *)collectionView fromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-    [self synchronousReloadDataWithCollectionView:collectionView];
+    [self _synchronousReloadDataWithCollectionView:collectionView];
 }
 
-- (void)reloadItemsInCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self synchronousReloadDataWithCollectionView:collectionView];
+- (void)_reloadItemsInCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray<NSIndexPath *> *)indexPaths {
+    [self _synchronousReloadDataWithCollectionView:collectionView];
 }
     
 - (void)moveSectionInCollectionView:(UICollectionView *)collectionView fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
-    [self synchronousReloadDataWithCollectionView:collectionView];
+    [self _synchronousReloadDataWithCollectionView:collectionView];
 }
 
 - (void)reloadDataWithCollectionView:(UICollectionView *)collectionView reloadUpdateBlock:(IGListReloadUpdateBlock)reloadUpdateBlock completion:(IGListUpdatingCompletion)completion {
     reloadUpdateBlock();
-    [self synchronousReloadDataWithCollectionView:collectionView];
+    [self _synchronousReloadDataWithCollectionView:collectionView];
     if (completion) {
         completion(YES);
     }
 }
 
 - (void)reloadCollectionView:(UICollectionView *)collectionView sections:(NSIndexSet *)sections {
-    [self synchronousReloadDataWithCollectionView:collectionView];
+    [self _synchronousReloadDataWithCollectionView:collectionView];
 }
 
-- (void)synchronousReloadDataWithCollectionView:(UICollectionView *)collectionView {
+- (void)_synchronousReloadDataWithCollectionView:(UICollectionView *)collectionView {
     [collectionView reloadData];
     [collectionView layoutIfNeeded];
 }

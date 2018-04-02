@@ -82,7 +82,7 @@ typedef std::unordered_set<_IGListWorkingRangeHandlerIndexPath, _IGListWorkingRa
         .hash = indexPath.hash
     });
 
-    [self updateWorkingRangesWithListAdapter:listAdapter];
+    [self _updateWorkingRangesWithListAdapter:listAdapter];
 }
 
 - (void)didEndDisplayingItemAtIndexPath:(NSIndexPath *)indexPath
@@ -96,12 +96,12 @@ typedef std::unordered_set<_IGListWorkingRangeHandlerIndexPath, _IGListWorkingRa
         .hash = indexPath.hash
     });
 
-    [self updateWorkingRangesWithListAdapter:listAdapter];
+    [self _updateWorkingRangesWithListAdapter:listAdapter];
 }
 
 #pragma mark - Working Ranges
 
-- (void)updateWorkingRangesWithListAdapter:(IGListAdapter *)listAdapter {
+- (void)_updateWorkingRangesWithListAdapter:(IGListAdapter *)listAdapter {
     IGAssertMainThread();
     // This method is optimized C++ to improve straight-line speed of these operations. Change at your peril.
 
