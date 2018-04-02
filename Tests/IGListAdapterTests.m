@@ -139,18 +139,23 @@
 }
 
 - (void)test_whenQueryingReusableIdentifier_thatIdentifierEqualsClassName {
-    NSString *identifier = IGListReusableViewIdentifier(UICollectionViewCell.class, nil, nil);
+    NSString *identifier = IGListReusableViewIdentifier(UICollectionViewCell.class, nil, nil, nil);
     XCTAssertEqualObjects(identifier, @"UICollectionViewCell");
 }
 
+- (void)test_whenQueryingReusableIdentifierWithGivenIdentifier_tahtIdentifierEqualsGivenIdentifierAndClassName {
+    NSString *identifier = IGListReusableViewIdentifier(UICollectionViewCell.class, nil, nil, @"MyCoolID");
+    XCTAssertEqualObjects(identifier, @"MyCoolIDUICollectionViewCell");
+}
+
 - (void)test_whenQueryingReusableIdentifier_thatIdentifierEqualsClassNameAndSupplimentaryKind {
-    NSString *identifier = IGListReusableViewIdentifier(UICollectionViewCell.class, nil, UICollectionElementKindSectionFooter);
+    NSString *identifier = IGListReusableViewIdentifier(UICollectionViewCell.class, nil, UICollectionElementKindSectionFooter, nil);
     XCTAssertEqualObjects(identifier, @"UICollectionElementKindSectionFooterUICollectionViewCell");
 }
 
 - (void)test_whenQueryingReusableIdentifier_thatIdentifierEqualsClassNameAndNibName {
     NSString *nibName = @"IGNibName";
-    NSString *identifier = IGListReusableViewIdentifier(UICollectionViewCell.class, nibName, nil);
+    NSString *identifier = IGListReusableViewIdentifier(UICollectionViewCell.class, nibName, nil, nil);
     XCTAssertEqualObjects(identifier, @"IGNibNameUICollectionViewCell");
 }
 
