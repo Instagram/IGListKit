@@ -274,6 +274,72 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenUpdating_withViewModelDeletionsMovesAndReloads_thatCellUpdatedAndInstanceSame {
+  NSArray *startingSection0 = @[
+                                @"0",
+                                @"1",
+                                [[IGTestObject alloc] initWithKey:@0 value:@"2"]
+                                ];
+  NSArray *startingSection1 = @[
+                                @"a",
+                                @"b",
+                                [[IGTestObject alloc] initWithKey:@1 value:@"c"],
+                                [[IGTestObject alloc] initWithKey:@2 value:@"d"],
+                                ];
+  [self setupWithObjects:@[
+                           [[IGTestDiffingObject alloc] initWithKey:@0 objects:startingSection0],
+                           [[IGTestDiffingObject alloc] initWithKey:@1 objects:startingSection1]
+                           ]];
+
+  XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
+  XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 4);
+
+  IGTestStringBindableCell *cell10 = [self cellAtSection:1 item:0];
+  IGTestStringBindableCell *cell11 = [self cellAtSection:1 item:1];
+  IGTestCell *cell12 = [self cellAtSection:1 item:2];
+  IGTestCell *cell13 = [self cellAtSection:1 item:3];
+
+  XCTAssertEqualObjects(cell10.label.text, @"a");
+  XCTAssertEqualObjects(cell11.label.text, @"b");
+  XCTAssertEqualObjects(cell12.label.text, @"c");
+  XCTAssertEqualObjects(cell13.label.text, @"d");
+
+  // Moves:
+  // - Delete section 0.
+  // - Modify section 1 in several ways:
+  NSArray *newSection1 = @[
+                           [[IGTestObject alloc] initWithKey:@1 value:@"e"], // Index: 2 -> 0, Value: "c" -> "e"
+                           @"b",  // No change.
+                           @"a",  // Index: 0 -> 2
+                           [[IGTestObject alloc] initWithKey:@2 value:@"f"],  // Value: "d" -> "f"
+                           ];
+  self.dataSource.objects = @[
+                              [[IGTestDiffingObject alloc] initWithKey:@1 objects:newSection1]
+                              ];
+
+  XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+  [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+    IGTestCell *batchedCell00 = [self cellAtSection:0 item:0];
+    IGTestStringBindableCell *batchedCell01 = [self cellAtSection:0 item:1];
+    IGTestStringBindableCell *batchedCell02 = [self cellAtSection:0 item:2];
+    IGTestCell *batchedCell03 = [self cellAtSection:0 item:3];
+
+    XCTAssertEqualObjects(batchedCell00.label.text, @"e");
+    XCTAssertEqualObjects(batchedCell01.label.text, @"b");
+    XCTAssertEqualObjects(batchedCell02.label.text, @"a");
+    XCTAssertEqualObjects(batchedCell03.label.text, @"f");
+
+    XCTAssertEqual(cell10, batchedCell02);
+    XCTAssertEqual(cell11, batchedCell01);
+    XCTAssertEqual(cell12, batchedCell00);
+    XCTAssertEqual(cell13, batchedCell03);
+
+    [expectation fulfill];
+  }];
+
+  [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
 - (void)test_whenUpdatingManually_with2Updates_thatBothCompletionBlocksCalled {
     [self setupWithObjects:@[
                              [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
