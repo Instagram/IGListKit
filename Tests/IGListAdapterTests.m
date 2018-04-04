@@ -1337,42 +1337,6 @@
     XCTAssertEqual(size.height, 0.0);
 }
 
-- (void)test_whenSectionControllerReturnsNANHeight_thatAssertionFires {
-    self.adapter.collectionView.collectionViewLayout = [IGListTestOffsettingLayout new];
-    self.dataSource.objects = @[@1];
-    [self.adapter reloadDataWithCompletion:nil];
-    
-    IGListTestSection *section = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
-    section.size = CGSizeMake(NAN, 1);
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
-    XCTAssertThrows([self.adapter collectionView:self.collectionView layout:self.collectionView.collectionViewLayout sizeForItemAtIndexPath:indexPath]);
-}
-
-- (void)test_whenSectionControllerReturnsNANWidth_thatAssertionFires {
-    self.adapter.collectionView.collectionViewLayout = [IGListTestOffsettingLayout new];
-    self.dataSource.objects = @[@1];
-    [self.adapter reloadDataWithCompletion:nil];
-    
-    IGListTestSection *section = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
-    section.size = CGSizeMake(1, NAN);
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
-    XCTAssertThrows([self.adapter collectionView:self.collectionView layout:self.collectionView.collectionViewLayout sizeForItemAtIndexPath:indexPath]);
-}
-
-- (void)test_whenSectionControllerReturnsNANWidthNANHeight_thatAssertionFires {
-    self.adapter.collectionView.collectionViewLayout = [IGListTestOffsettingLayout new];
-    self.dataSource.objects = @[@1];
-    [self.adapter reloadDataWithCompletion:nil];
-    
-    IGListTestSection *section = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
-    section.size = CGSizeMake(NAN, NAN);
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
-    XCTAssertThrows([self.adapter collectionView:self.collectionView layout:self.collectionView.collectionViewLayout sizeForItemAtIndexPath:indexPath]);
-}
-
 - (void)test_whenSupplementarySourceReturnsNegativeSize_thatAdapterReturnsZero {
     self.dataSource.objects = @[@1];
     [self.adapter reloadDataWithCompletion:nil];
@@ -1571,11 +1535,6 @@
     XCTAssertEqual(collectionView2.dataSource, adapter1);
     XCTAssertEqual(adapter2.collectionView, collectionView1);
     XCTAssertEqual(collectionView1.dataSource, adapter2);
-}
-
-- (void)test_whenPassingNonUniqueIdentifiers_adapterReloadShouldThrow {
-    self.dataSource.objects = @[@0, @1, @2, @0];
-    XCTAssertThrows([self.adapter reloadDataWithCompletion:nil]);
 }
 
 - (void)test_whenPrefetchingEnabled_thatSetterDisables {
