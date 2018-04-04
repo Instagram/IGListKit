@@ -197,7 +197,7 @@ static id IGListDiffing(BOOL returnIndexPaths,
         IGListEntry *entry = newResultsArray[i].entry;
 
         // grab and pop the top original index. if the item was inserted this will be NSNotFound
-        NSCAssert(!entry->oldIndexes.empty(), @"Old indexes is empty while iterating new item %zi. Should have NSNotFound", i);
+        NSCAssert(!entry->oldIndexes.empty(), @"Old indexes is empty while iterating new item %li. Should have NSNotFound", (long)i);
         const NSInteger originalIndex = entry->oldIndexes.top();
         entry->oldIndexes.pop();
 
@@ -300,8 +300,8 @@ static id IGListDiffing(BOOL returnIndexPaths,
     }
 
     NSCAssert((oldCount + [mInserts count] - [mDeletes count]) == newCount,
-              @"Sanity check failed applying %zi inserts and %zi deletes to old count %zi equaling new count %zi",
-              oldCount, [mInserts count], [mDeletes count], newCount);
+              @"Sanity check failed applying %li inserts and %lu deletes to old count %lu equaling new count %li",
+              (long)oldCount, (unsigned long)[mInserts count], (unsigned long)[mDeletes count], (long)newCount);
 
     if (returnIndexPaths) {
         return [[IGListIndexPathResult alloc] initWithInserts:mInserts

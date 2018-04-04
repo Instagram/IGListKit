@@ -49,7 +49,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@ %p; from: %zi; to: %zi;>", NSStringFromClass(self.class), self, self.from, self.to];
+    return [NSString stringWithFormat:@"<%@ %p; from: %li; to: %li;>", NSStringFromClass(self.class), self, (long)self.from, (long)self.to];
 }
 
 @end

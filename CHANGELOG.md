@@ -20,6 +20,14 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - `-[IGListSectionController didSelectItemAtIndex:]` is now called when a `scrollViewDelegate` or `collectionViewDelegate` is set. [Ryan Nystrom](https://github.com/rnystrom) [(#1108)](https://github.com/Instagram/IGListKit/pull/1108)
 
+3.2.1
+-----
+
+### Fixes
+
+- Fixed build errors with Xcode 9.3 and Swift 4.1 [Andrey YAstrebov](https://github.com/ayastrebov) [(#1142)](https://github.com/Instagram/IGListKit/pull/1142)
+
+
 3.2.0
 -----
 

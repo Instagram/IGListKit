@@ -128,9 +128,9 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@ %p; deleteSections: %zi; insertSections: %zi; moveSections: %zi; deleteIndexPaths: %zi; insertIndexPaths: %zi;>",
-            NSStringFromClass(self.class), self, self.deleteSections.count, self.insertSections.count, self.moveSections.count,
-            self.deleteIndexPaths.count, self.insertIndexPaths.count];
+    return [NSString stringWithFormat:@"<%@ %p; deleteSections: %zi; insertSections: %zi; moveSections: %zi; deleteIndexPaths: %lu; insertIndexPaths: %zi;>",
+            NSStringFromClass(self.class), self, (unsigned long)self.deleteSections.count, (unsigned long)self.insertSections.count, (unsigned long)self.moveSections.count,
+            (unsigned long)self.deleteIndexPaths.count, (unsigned long)self.insertIndexPaths.count];
 }
 
 @end

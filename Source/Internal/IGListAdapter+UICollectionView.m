@@ -25,10 +25,10 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     IGListSectionController * sectionController = [self sectionControllerForSection:section];
-    IGAssert(sectionController != nil, @"Nil section controller for section %zi for item %@. Check your -diffIdentifier and -isEqual: implementations.",
-            section, [self.sectionMap objectForSection:section]);
+    IGAssert(sectionController != nil, @"Nil section controller for section %li for item %@. Check your -diffIdentifier and -isEqual: implementations.",
+             (long)section, [self.sectionMap objectForSection:section]);
     const NSInteger numberOfItems = [sectionController numberOfItems];
-    IGAssert(numberOfItems >= 0, @"Cannot return negative number of items %zi for section controller %@.", numberOfItems, sectionController);
+    IGAssert(numberOfItems >= 0, @"Cannot return negative number of items %li for section controller %@.", (long)numberOfItems, sectionController);
     return numberOfItems;
 }
 

@@ -18,16 +18,16 @@ extension MutableCollection {
 
     /// Shuffles the contents of this collection.
     mutating func shuffle() {
-        let c = count
-        guard c > 1 else { return }
+        let tCount = count
+        guard tCount > 1 else { return }
 
-        for (firstUnshuffled, unshuffledCount) in zip(indices, stride(from: c, to: 1, by: -1)) {
-            let d: IndexDistance = numericCast(arc4random_uniform(numericCast(unshuffledCount)))
-            guard d != 0 else { continue }
+        for (firstUnshuffled, unshuffledCount) in zip(indices, stride(from: tCount, to: 1, by: -1)) {
+            let distance: IndexDistance = numericCast(arc4random_uniform(numericCast(unshuffledCount)))
+            guard distance != 0 else { continue }
 
-            let i = index(firstUnshuffled, offsetBy: d)
+            let tIndex = index(firstUnshuffled, offsetBy: distance)
 
-            self.swapAt(firstUnshuffled, i)
+            self.swapAt(firstUnshuffled, tIndex)
         }
     }
 

@@ -24,11 +24,11 @@ final class WorkingRangeViewController: UIViewController, ListAdapterDataSource 
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let data: [Int] = {
-        var set = Set<Int>() // only use unique values
-        while set.count < 20 {
-            set.insert( Int(arc4random_uniform(200)) + 200 )
+        var dataSet = Set<Int>() // only use unique values
+        while dataSet.count < 20 {
+            dataSet.insert( Int(arc4random_uniform(200)) + 200 )
         }
-        return Array(set)
+        return Array(dataSet)
     }()
 
     override func viewDidLoad() {
