@@ -236,7 +236,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
     NSMutableArray *result = [NSMutableArray new];
 
-    const NSRange range = [self rangeOfSectionsInRect:rect];
+    const NSRange range = [self _rangeOfSectionsInRect:rect];
     if (range.location == NSNotFound) {
         return nil;
     }
@@ -393,7 +393,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     }
 
     if (context.ig_invalidateSupplementaryAttributes) {
-        [self resetSupplementaryAttributesCache];
+        [self _resetSupplementaryAttributesCache];
     }
 
     [super invalidateLayoutWithContext:context];
@@ -428,7 +428,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 }
 
 - (void)prepareLayout {
-    [self calculateLayoutIfNeeded];
+    [self _calculateLayoutIfNeeded];
 }
 
 #pragma mark - Public API
@@ -447,14 +447,14 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 #pragma mark - Private API
 
-- (void)calculateLayoutIfNeeded {
+- (void)_calculateLayoutIfNeeded {
     if (_minimumInvalidatedSection == NSNotFound) {
         return;
     }
 
     // purge attribute caches so they are rebuilt
     [_attributesCache removeAllObjects];
-    [self resetSupplementaryAttributesCache];
+    [self _resetSupplementaryAttributesCache];
 
     UICollectionView *collectionView = self.collectionView;
     id<UICollectionViewDataSource> dataSource = collectionView.dataSource;
@@ -629,7 +629,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     _minimumInvalidatedSection = NSNotFound;
 }
 
-- (NSRange)rangeOfSectionsInRect:(CGRect)rect {
+- (NSRange)_rangeOfSectionsInRect:(CGRect)rect {
     NSRange result = NSMakeRange(NSNotFound, 0);
 
     const NSInteger sectionCount = _sectionData.size();
@@ -648,7 +648,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     return result;
 }
 
-- (void)resetSupplementaryAttributesCache {
+- (void)_resetSupplementaryAttributesCache {
     [_supplementaryAttributesCache enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSMutableDictionary<NSIndexPath *,UICollectionViewLayoutAttributes *> * _Nonnull attributesCache, BOOL * _Nonnull stop) {
         [attributesCache removeAllObjects];
     }];
