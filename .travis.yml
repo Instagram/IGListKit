@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode9.2
+osx_image: xcode9.3beta
 gemfile: Gemfile
 
 branches:
@@ -20,9 +20,9 @@ env:
    - TVOS_SCHEME="IGListKit-tvOS"
    - MACOS_SCHEME="IGListKit-macOS"
 
-   - IOS_SDK=iphonesimulator11.2
+   - IOS_SDK=iphonesimulator11.3
    - MACOS_SDK=macosx10.13
-   - TVOS_SDK=appletvsimulator11.2
+   - TVOS_SDK=appletvsimulator11.3
 
    - IOS_EXAMPLE_WORKSPACE="Examples/Examples-iOS/IGListKitExamples.xcworkspace"
    - TVOS_EXAMPLE_WORKSPACE="Examples/Examples-tvOS/IGListKitExamples.xcworkspace"
