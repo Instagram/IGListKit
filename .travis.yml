@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode9.2
+osx_image: xcode9.3beta
 gemfile: Gemfile
 
 branches:
@@ -20,9 +20,9 @@ env:
    - TVOS_SCHEME="IGListKit-tvOS"
    - MACOS_SCHEME="IGListKit-macOS"
 
-   - IOS_SDK=iphonesimulator11.2
+   - IOS_SDK=iphonesimulator11.3
    - MACOS_SDK=macosx10.13
-   - TVOS_SDK=appletvsimulator11.2
+   - TVOS_SDK=appletvsimulator11.3
 
    - IOS_EXAMPLE_WORKSPACE="Examples/Examples-iOS/IGListKitExamples.xcworkspace"
    - TVOS_EXAMPLE_WORKSPACE="Examples/Examples-tvOS/IGListKitExamples.xcworkspace"
@@ -32,10 +32,10 @@ env:
    matrix:
    - DESTINATION="OS=9.3,name=iPad Air 2"  SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="NO" RUN_UI_TESTS="NO"  BUILD_EXAMPLE="YES" POD_LINT="YES"
    - DESTINATION="OS=10.3.1,name=iPhone 7" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="YES" RUN_UI_TESTS="NO"  BUILD_EXAMPLE="YES" POD_LINT="NO"
-   - DESTINATION="OS=11.2,name=iPhone X"   SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="YES" RUN_UI_TESTS="YES" BUILD_EXAMPLE="YES" POD_LINT="NO"
+   - DESTINATION="OS=11.3,name=iPhone X"   SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="YES" RUN_UI_TESTS="YES" BUILD_EXAMPLE="YES" POD_LINT="NO"
 
    - DESTINATION="OS=10.2,name=Apple TV 1080p" SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME" RUN_TESTS="NO" RUN_UI_TESTS="NO" BUILD_EXAMPLE="YES" POD_LINT="NO"
-   - DESTINATION="OS=11.2,name=Apple TV 4K"    SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME" RUN_TESTS="NO" RUN_UI_TESTS="NO" BUILD_EXAMPLE="YES" POD_LINT="NO"
+   - DESTINATION="OS=11.3,name=Apple TV 4K"    SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME" RUN_TESTS="NO" RUN_UI_TESTS="NO" BUILD_EXAMPLE="YES" POD_LINT="NO"
 
    - DESTINATION="arch=x86_64" SDK="$MACOS_SDK" SCHEME="$MACOS_SCHEME" RUN_TESTS="YES" RUN_UI_TESTS="NO" BUILD_EXAMPLE="YES" POD_LINT="NO"
 

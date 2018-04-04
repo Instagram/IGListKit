@@ -19,7 +19,7 @@
         if ([sectionController isKindOfClass:[IGListBindingSectionController class]]) {
             [debug addObject:[sectionController debugDescription]];
         } else {
-            [debug addObject:[NSString stringWithFormat:@"Object and section controller at section: %zi:", section]];
+            [debug addObject:[NSString stringWithFormat:@"Object and section controller at section: %li:", (long)section]];
             [debug addObject:[NSString stringWithFormat:@"  %@", object]];
             [debug addObject:[NSString stringWithFormat:@"  %@", sectionController]];
         }
