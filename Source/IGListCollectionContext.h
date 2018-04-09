@@ -121,6 +121,23 @@ NS_SWIFT_NAME(ListCollectionContext)
  Dequeues a cell from the collection view reuse pool.
 
  @param cellClass The class of the cell you want to dequeue.
+ @param reuseIdentifier A reuse identifier for the specified cell. This parameter may be `nil`.
+ @param sectionController The section controller requesting this information.
+ @param index The index of the cell.
+
+ @return A cell dequeued from the reuse pool or a newly created one.
+
+ @note This method uses a string representation of the cell class as the identifier.
+ */
+- (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
+                                          withReuseIdentifier:(nullable NSString *)reuseIdentifier
+                                         forSectionController:(IGListSectionController *)sectionController
+                                                      atIndex:(NSInteger)index;
+
+/**
+ Dequeues a cell from the collection view reuse pool.
+
+ @param cellClass The class of the cell you want to dequeue.
  @param sectionController The section controller requesting this information.
  @param index The index of the cell.
 
