@@ -89,6 +89,11 @@ NS_SWIFT_NAME(ListCollectionViewLayout)
 @property (nonatomic, assign) CGFloat stickyHeaderYOffset;
 
 /**
+ Set this to `YES` to show sticky header when a section had no item. Default is `NO`.
+*/
+@property (nonatomic, assign) BOOL showHeaderWhenEmpty;
+
+/**
  Notify the layout that a specific section was modified before invalidation. Used to optimize layout re-calculation.
 
  @note When updating a collection view (ex: calling `-insertSections`), `-invalidateLayoutWithContext` gets called on
