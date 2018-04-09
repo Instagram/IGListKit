@@ -18,6 +18,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Fixed footer is sticky when `stickyHeader` is `true` [aelam](https://github.com/aelam) [(#1094)](https://github.com/Instagram/IGListKit/pull/1094)
 
+- Updated IGListCollectionViewLayout to rely on layoutAttributesClass instead of vanilla `UICollectionViewLayoutAttributes` [Cole Potrocky](https://github.com/SirensOfTitan) [#1135](https://github.com/instagram/IGListKit/pull/1135)
+
 - `-[IGListSectionController didSelectItemAtIndex:]` is now called when a `scrollViewDelegate` or `collectionViewDelegate` is set. [Ryan Nystrom](https://github.com/rnystrom) [(#1108)](https://github.com/Instagram/IGListKit/pull/1108)
 
 3.2.0
