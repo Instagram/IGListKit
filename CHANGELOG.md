@@ -27,6 +27,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - `-[IGListSectionController didSelectItemAtIndex:]` is now called when a `scrollViewDelegate` or `collectionViewDelegate` is set. [Ryan Nystrom](https://github.com/rnystrom) [(#1108)](https://github.com/Instagram/IGListKit/pull/1108)
 
+- Fixed binding section controllers failing to update their cells when the section changes. [Chrisna Aing](https://github.com/ccrazy88)
+
 3.2.0
 -----
 
