@@ -41,6 +41,12 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     return [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:genIndexPath(section, 0)];
 }
 
+- (void)setUpWithStickyHeaders:(BOOL)sticky showHeaderWhenEmpty:(BOOL)showHeaderWhenEmpty {
+    self.layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:YES topContentInset:0 stretchToEdge:NO];
+    self.layout.showHeaderWhenEmpty = showHeaderWhenEmpty;
+    [self setUpCollectionViewAndDataSource:kTestFrame];
+}
+
 - (void)setUpWithStickyHeaders:(BOOL)sticky topInset:(CGFloat)inset {
     [self setUpWithStickyHeaders:sticky topInset:inset stretchToEdge:NO];
 }
@@ -55,6 +61,10 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 
 - (void)setUpWithStickyHeaders:(BOOL)sticky scrollDirection:(UICollectionViewScrollDirection)scrollDirection topInset:(CGFloat)inset stretchToEdge:(BOOL)stretchToEdge testFrame:(CGRect)testFrame {
     self.layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:sticky scrollDirection:scrollDirection topContentInset:inset stretchToEdge:stretchToEdge];
+    [self setUpCollectionViewAndDataSource:testFrame];
+}
+
+- (void)setUpCollectionViewAndDataSource:(CGRect)testFrame {
     self.dataSource = [IGLayoutTestDataSource new];
     self.collectionView = [[UICollectionView alloc] initWithFrame:testFrame collectionViewLayout:self.layout];
     self.collectionView.dataSource = self.dataSource;
@@ -84,6 +94,66 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     // check so that nil messaging doesn't default size to 0
     XCTAssertEqual(self.layout.collectionView, self.collectionView);
     XCTAssertTrue(CGSizeEqualToSize(CGSizeZero, self.collectionView.contentSize));
+}
+
+- (void)test_whenSectionDataIsEmpty_thatStickyHeaderStillShow {
+    [self setUpWithStickyHeaders:YES showHeaderWhenEmpty:YES];
+    
+    [self prepareWithData:@[[[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:10
+                                                           footerHeight:0
+                                                                  items:nil],
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:20
+                                                           footerHeight:0
+                                                                  items:nil],
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:30
+                                                           footerHeight:0
+                                                                  items:nil]]];
+    
+    IGAssertEqualFrame([self headerForSection:0].frame, 0, 0, 100, 10);
+    IGAssertEqualFrame([self headerForSection:1].frame, 0, 10, 100, 20);
+    IGAssertEqualFrame([self headerForSection:2].frame, 0, 30, 100, 30);
+}
+
+- (void)test_whenSectionDataIsEmpty_thatStickyHeaderShouldBeHidden {
+    [self setUpWithStickyHeaders:YES showHeaderWhenEmpty:NO];
+    
+    [self prepareWithData:@[[[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:10
+                                                           footerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 10}]
+                                                                          ]],
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:20
+                                                           footerHeight:0
+                                                                  items:nil],
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:20
+                                                           footerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 10}],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 20}],
+                                                                          ]]
+                            ]];
+    
+    IGAssertEqualFrame([self headerForSection:0].frame, 0, 0, 100, 10);
+    IGAssertEqualFrame([self headerForSection:1].frame, 0, 0, 0, 0);
+    IGAssertEqualFrame([self headerForSection:2].frame, 0, 20, 100, 20);
 }
 
 - (void)test_whenLayingOutCellsVertically_withHeaderHeight_withLineSpacing_withInsets_thatFramesCorrect {
