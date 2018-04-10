@@ -50,6 +50,11 @@ NS_SWIFT_NAME(ListAdapterUpdater)
 @property (nonatomic, assign) BOOL allowsBackgroundReloading;
 
 /**
+ Time, in seconds, to wait and coalesce batch updates. Default is 0.
+ */
+@property (nonatomic, assign) NSTimeInterval coalescanceTime;
+
+/**
  A bitmask of experiments to conduct on the updater.
  */
 @property (nonatomic, assign) IGListExperiment experiments;
