@@ -94,6 +94,123 @@ static NSArray<NSIndexPath *> *indexPathsAndPopulateMap(__unsafe_unretained NSAr
     return paths;
 }
 
+// Calculates longest increasing indexes set using O(n log n) complexity algorithm
+static NSIndexSet *longestIncreasingIndexes(const vector<IGListRecord> &newResultsArray)
+{
+    NSUInteger count = newResultsArray.size();
+    vector<NSUInteger> prevIndexes(count);
+    vector<NSUInteger> indexes(count + 1);
+
+    NSUInteger length = 0;
+    for (NSUInteger i = 0; i < count; i++) {
+        // Binary search for the largest positive j ≤ length
+        // such that X[M[j]] < X[i]
+        NSUInteger lo = 1;
+        NSUInteger hi = length;
+        while (lo <= hi) {
+            auto mid = lo + (hi - lo) / 2;
+            if (newResultsArray[indexes[mid]].index < newResultsArray[i].index) {
+                lo = mid + 1;
+            } else {
+                hi = mid - 1;
+            }
+        }
+
+        // After searching, lo is 1 greater than the
+        // length of the longest prefix of X[i]
+        auto newLength = lo;
+
+        // The predecessor of X[i] is the last index of
+        // the subsequence of length newLength-1
+        prevIndexes[i] = indexes[newLength - 1];
+        indexes[newLength] = i;
+
+        if (newLength > length) {
+            // If we found a subsequence longer than any we've
+            // found yet, update L
+            length = newLength;
+        }
+    }
+
+    // Reconstruct the longest increasing indexes
+    NSMutableIndexSet *result = [NSMutableIndexSet new];
+    auto k = indexes[length];
+    for (NSUInteger i = 0; i < length; i++) {
+        NSUInteger index = newResultsArray[k].index;
+
+        // Ignore inserted entries
+        if (index != NSNotFound) {
+            [result addIndex:index];
+        }
+        k = prevIndexes[k];
+    }
+    return result;
+}
+
+static BOOL mapContainsMoves(const unordered_map<NSUInteger, NSUInteger> &movesMap, NSUInteger fromIndex, NSUInteger toIndex)
+{
+    auto iter = movesMap.find(fromIndex);
+    return iter != movesMap.end() && iter->second == toIndex;
+}
+
+
+class IGListMoveChecker {
+public:
+    virtual bool isMove(const NSInteger oldIndex,
+                        const NSInteger newIndex,
+                        const NSInteger insertOffset,
+                        const NSInteger deleteOffset) {
+
+        return (oldIndex - deleteOffset + insertOffset) != newIndex;
+    }
+
+    virtual ~IGListMoveChecker() {}
+};
+
+class IGListOptimalMoveChecker : public IGListMoveChecker {
+
+    NSIndexSet *longestIncreasingSequence;
+
+    // track previously made moves
+    unordered_map<NSUInteger, NSUInteger> moves;
+
+    // track offsets for previously made moves to identify unnecessary moves
+    NSInteger movesOffset = 0;
+public:
+  IGListOptimalMoveChecker(const vector<IGListRecord> &newResultsArray)
+      : longestIncreasingSequence(
+            // Calculate longest increasing indexes, identifying entries which do not require any moves
+            longestIncreasingIndexes(newResultsArray))
+  {}
+
+    virtual bool isMove(const NSInteger oldIndex,
+                        const NSInteger newIndex,
+                        const NSInteger insertOffset,
+                        const NSInteger deleteOffset) override {
+
+        auto oldIndexNoDeletes = oldIndex - deleteOffset;
+        auto oldCorrectedIndex = oldIndexNoDeletes + insertOffset;
+
+        // 1. if the indexes match, ignore the index, else
+        // 2. if the index requires no move and is not swap move, ignore the index, else
+        // 3. if the index matches old index with moves offset, ignore the index, else
+        if (oldCorrectedIndex != newIndex
+            && (![longestIncreasingSequence containsIndex:oldIndex] || mapContainsMoves(moves, newIndex + deleteOffset - insertOffset, oldIndexNoDeletes))
+            && ((oldCorrectedIndex + movesOffset) != newIndex)) {
+
+            // store move for later checks
+            moves[oldIndex] = newIndex;
+
+            // track offset caused by the move
+            movesOffset++;
+
+            return true;
+        }
+
+        return false;
+    }
+};
+
 static id IGListDiffing(BOOL returnIndexPaths,
                         NSInteger fromSection,
                         NSInteger toSection,
@@ -262,6 +379,13 @@ static id IGListDiffing(BOOL returnIndexPaths,
         addIndexToMap(returnIndexPaths, fromSection, i, oldArray[i], oldMap);
     }
 
+
+    aligned_union<0, IGListMoveChecker, IGListOptimalMoveChecker>::type moveCheckerBuf;
+
+    IGListMoveChecker *moveChecker = IGListExperimentEnabled(experiments, IGListExperimentOptimizedMoves)
+                                         ? new (&moveCheckerBuf) IGListOptimalMoveChecker(newResultsArray)
+                                         : new (&moveCheckerBuf) IGListMoveChecker();
+
     // reset and track offsets from inserted items to calculate where items have moved
     runningOffset = 0;
 
@@ -280,10 +404,12 @@ static id IGListDiffing(BOOL returnIndexPaths,
             }
 
             // calculate the offset and determine if there was a move
-            // if the indexes match, ignore the index
             const NSInteger insertOffset = insertOffsets[i];
             const NSInteger deleteOffset = deleteOffsets[oldIndex];
-            if ((oldIndex - deleteOffset + insertOffset) != i) {
+
+            if (moveChecker->isMove(oldIndex, i, insertOffset, deleteOffset)) {
+
+                // add move from old index to new index
                 id move;
                 if (returnIndexPaths) {
                     NSIndexPath *from = [NSIndexPath indexPathForItem:oldIndex inSection:fromSection];
@@ -298,6 +424,8 @@ static id IGListDiffing(BOOL returnIndexPaths,
 
         addIndexToMap(returnIndexPaths, toSection, i, newArray[i], newMap);
     }
+
+    moveChecker->~IGListMoveChecker();
 
     NSCAssert((oldCount + [mInserts count] - [mDeletes count]) == newCount,
               @"Sanity check failed applying %li inserts and %lu deletes to old count %lu equaling new count %li",
