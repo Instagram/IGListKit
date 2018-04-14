@@ -26,6 +26,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentFasterVisibleSectionController = 1 << 4,
     /// Test deduping item-level updates.
     IGListExperimentDedupeItemUpdates = 1 << 5,
+    /// Test optimized moves to minimal required number
+    IGListExperimentOptimizedMoves = 1 << 6,
 };
 
 /**

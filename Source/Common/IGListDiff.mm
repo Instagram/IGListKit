@@ -94,6 +94,105 @@ static NSArray<NSIndexPath *> *indexPathsAndPopulateMap(__unsafe_unretained NSAr
     return paths;
 }
 
+// Calculates indexes which require no explicit moves based on a longest increasing indexes set using O(n log n) complexity algorithm
+static NSIndexSet *autoMovedIndexes(const vector<IGListRecord> &newResultsArray, NSIndexSet *untouchedIndexes)
+{
+    NSUInteger count = newResultsArray.size();
+    vector<NSUInteger> prevIndexes(count);
+    vector<NSUInteger> indexes(count + 1);
+
+    NSUInteger length = 0;
+    for (NSUInteger i = 0; i < count; i++) {
+        // Binary search for the largest positive j ≤ length
+        // such that X[M[j]] < X[i]
+        NSUInteger lo = 1;
+        NSUInteger hi = length;
+        NSInteger currentIndex = newResultsArray[i].index;
+
+        NSUInteger nextUntouched = [untouchedIndexes indexGreaterThanIndex:i];
+
+        if (nextUntouched != NSNotFound && currentIndex > nextUntouched) {
+            continue;
+        }
+
+        NSUInteger prevUntouched = [untouchedIndexes indexLessThanIndex:i];
+
+        if (prevUntouched != NSNotFound && currentIndex < prevUntouched) {
+            continue;
+        }
+
+        while (lo <= hi) {
+            auto mid = lo + (hi - lo) / 2;
+            NSInteger prevIndex = newResultsArray[indexes[mid]].index;
+            if (prevIndex < currentIndex && (prevUntouched == NSNotFound || prevIndex > prevUntouched)) {
+                lo = mid + 1;
+            } else {
+                hi = mid - 1;
+            }
+        }
+
+        // After searching, lo is 1 greater than the
+        // length of the longest prefix of X[i]
+        auto newLength = lo;
+
+        // The predecessor of X[i] is the last index of
+        // the subsequence of length newLength-1
+        prevIndexes[i] = indexes[newLength - 1];
+        indexes[newLength] = i;
+
+        if (newLength > length) {
+            // If we found a subsequence longer than any we've
+            // found yet, update L
+            length = newLength;
+        }
+    }
+
+    // Reconstruct the longest increasing indexes
+    NSMutableIndexSet *result = [NSMutableIndexSet new];
+    auto k = indexes[length];
+    for (NSUInteger i = 0; i < length; i++) {
+        NSUInteger index = newResultsArray[k].index;
+
+        // Ignore inserted entries
+        if (index != NSNotFound) {
+            [result addIndex:index];
+        }
+        k = prevIndexes[k];
+    }
+    return result;
+}
+
+class IGListMoveChecker {
+public:
+    virtual bool isMove(const NSInteger oldIndex,
+                        const NSInteger newIndex,
+                        const NSInteger insertOffset,
+                        const NSInteger deleteOffset) {
+
+        return (oldIndex - deleteOffset + insertOffset) != newIndex;
+    }
+
+    virtual ~IGListMoveChecker() {}
+};
+
+class IGListOptimalMoveChecker : public IGListMoveChecker
+{
+    NSIndexSet *_autoMovedIndexes;
+
+public:
+    IGListOptimalMoveChecker(const vector<IGListRecord> &newResultsArray, NSIndexSet *untouchedIndexes)
+    : _autoMovedIndexes(autoMovedIndexes(newResultsArray, untouchedIndexes))
+    {}
+
+    virtual bool isMove(const NSInteger oldIndex,
+                        const NSInteger newIndex,
+                        const NSInteger insertOffset,
+                        const NSInteger deleteOffset) {
+
+        return (oldIndex != newIndex) && ![_autoMovedIndexes containsIndex:oldIndex];
+    }
+};
+
 static id IGListDiffing(BOOL returnIndexPaths,
                         NSInteger fromSection,
                         NSInteger toSection,
@@ -245,8 +344,10 @@ static id IGListDiffing(BOOL returnIndexPaths,
     }
 
     // track offsets from deleted items to calculate where items have moved
-    vector<NSInteger> deleteOffsets(oldCount), insertOffsets(newCount);
+    vector<NSInteger> deleteOffsets(oldCount);
     NSInteger runningOffset = 0;
+
+    auto untouchedIndexes = [NSMutableIndexSet new];
 
     // iterate old array records checking for deletes
     // incremement offset for each delete
@@ -257,22 +358,30 @@ static id IGListDiffing(BOOL returnIndexPaths,
         if (record.index == NSNotFound) {
             addIndexToCollection(returnIndexPaths, mDeletes, fromSection, i);
             runningOffset++;
+        } else if (record.index == i) {
+            [untouchedIndexes addIndex:record.index];
         }
 
         addIndexToMap(returnIndexPaths, fromSection, i, oldArray[i], oldMap);
     }
 
-    // reset and track offsets from inserted items to calculate where items have moved
-    runningOffset = 0;
+
+    aligned_union<0, IGListMoveChecker, IGListOptimalMoveChecker>::type moveCheckerBuf;
+
+    IGListMoveChecker *moveChecker = IGListExperimentEnabled(experiments, IGListExperimentOptimizedMoves)
+                                         ? new (&moveCheckerBuf) IGListOptimalMoveChecker(newResultsArray, untouchedIndexes)
+                                         : new (&moveCheckerBuf) IGListMoveChecker();
+
+    // offset incremented for each insert
+    NSInteger insertOffset = 0;
 
     for (NSInteger i = 0; i < newCount; i++) {
-        insertOffsets[i] = runningOffset;
         const IGListRecord record = newResultsArray[i];
         const NSInteger oldIndex = record.index;
         // add to inserts if the opposing index is NSNotFound
         if (record.index == NSNotFound) {
             addIndexToCollection(returnIndexPaths, mInserts, toSection, i);
-            runningOffset++;
+            insertOffset++;
         } else {
             // note that an entry can be updated /and/ moved
             if (record.entry->updated) {
@@ -280,10 +389,11 @@ static id IGListDiffing(BOOL returnIndexPaths,
             }
 
             // calculate the offset and determine if there was a move
-            // if the indexes match, ignore the index
-            const NSInteger insertOffset = insertOffsets[i];
             const NSInteger deleteOffset = deleteOffsets[oldIndex];
-            if ((oldIndex - deleteOffset + insertOffset) != i) {
+
+            if (moveChecker->isMove(oldIndex, i, insertOffset, deleteOffset)) {
+
+                // add move from old index to new index
                 id move;
                 if (returnIndexPaths) {
                     NSIndexPath *from = [NSIndexPath indexPathForItem:oldIndex inSection:fromSection];
@@ -298,6 +408,8 @@ static id IGListDiffing(BOOL returnIndexPaths,
 
         addIndexToMap(returnIndexPaths, toSection, i, newArray[i], newMap);
     }
+
+    moveChecker->~IGListMoveChecker();
 
     NSCAssert((oldCount + [mInserts count] - [mDeletes count]) == newCount,
               @"Sanity check failed applying %li inserts and %lu deletes to old count %lu equaling new count %li",
