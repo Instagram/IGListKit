@@ -74,7 +74,6 @@ public final class ListSwiftAdapter: NSObject, ListAdapterDataSource {
         guard let dataSource = self.dataSource else { return [] }
 
         return dataSource.values(adapter: self).map {
-//            let box = $0.value.boxed
             let box = ListIdentifiableBox(value: $0.value)
             // side effect: store the function for use in listAdapter(:, sectionControllerFor object:)
             map[box.functionLookupHash] = $0.constructor
