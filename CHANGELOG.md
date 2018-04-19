@@ -2,7 +2,10 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
-3.3.0 (upcoming release)
+4.0.0 (upcoming release)
+-----
+
+3.3.0
 -----
 
 ### Enhancements
@@ -11,11 +14,11 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Add support for UICollectionView's interactive reordering in iOS 9+.  Updates include `-[IGListSectionController canMoveItemAtIndex:]` to enable the behavior, `-[IGListSectionController moveObjectFromIndex:toIndex:]` called when items within a section controller were moved through reordering, `-[IGListAdapterDataSource listAdapter:moveObject:from:to]` called when section controllers themselves were reordered (only possible when all section controllers contain exactly 1 object), and `-[IGListUpdatingDelegate moveSectionInCollectionView:fromIndex:toIndex]` to enable custom updaters to conform to the reordering behavior. The update also includes two new examples `ReorderableSectionController` and `ReorderableStackedViewController` to demonstrate how to enable interactive reordering in your client app. [Jared Verdi](https://github.com/jverdi) [(#976)](https://github.com/Instagram/IGListKit/pull/976)
 
-- 5x improvement to diffing performance when result is only inserts or deletes. [Ryan Nystrom](https://github.com/rnystrom) [(tbd)](tbd)
+- 5x improvement to diffing performance when result is only inserts or deletes. [Ryan Nystrom](https://github.com/rnystrom) [(afd2d29)](https://github.com/Instagram/IGListKit/commit/afd2d29eecfac2231d2bcf815c76e844c98d838e)
 
 - Can always show sticky header although section data is empty.  [Marcus Wu](https://github.com/marcuswu0814) [(#1129)](https://github.com/Instagram/IGListKit/pull/1129)
 
-- Added `-[IGListCollectionContext dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:]` to allow for registering cells of the same class with different reuse identifiers. [Jeremy Lawrence](https://github.com/Ziewvater) (tbd)
+- Added `-[IGListCollectionContext dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:]` to allow for registering cells of the same class with different reuse identifiers. [Jeremy Lawrence](https://github.com/Ziewvater) [(f47753e)](https://github.com/Instagram/IGListKit/commit/f47753e3615431f3b079eb3b7900469f9ffdce5b)
 
 ### Fixes
 
