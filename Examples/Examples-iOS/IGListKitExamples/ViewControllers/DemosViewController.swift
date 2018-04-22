@@ -87,7 +87,34 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return DemoSectionController()
+        return IGListAnonSectionController(numberOfItems: { (IGListAnonSectionController) -> Int in
+return 1
+        }, sizeForItemAtIndex: { (index: Int, anonSection: IGListAnonSectionController) -> CGSize in
+            return CGSize(width: anonSection.collectionContext!.containerSize.width, height: 55)
+        }, cellForItemAtIndex: { (index: Int, anonSection: IGListAnonSectionController) -> UICollectionViewCell in
+            guard let cell = anonSection.collectionContext?.dequeueReusableCell(of: LabelCell.self, for: anonSection, at: index) as? LabelCell else {
+                fatalError()
+            }
+
+            cell.text = (anonSection.object as? DemoItem)?.name
+            return cell
+        }, configureOptionalBlocks: { (configureOptionalBlocks: IGListAnonSectionControllerOptionalBlocks) in
+            configureOptionalBlocks.didSelectItemAtIndexBlock = { (_: Int, anonSection: IGListAnonSectionController?) -> Void in
+                if let item = anonSection?.object as? DemoItem {
+                    if let identifier = item.controllerIdentifier {
+                        let storyboard = UIStoryboard(name: "Demo", bundle: nil)
+                        let controller = storyboard.instantiateViewController(withIdentifier: identifier)
+                        controller.title = item.name
+                        self.navigationController?.pushViewController(controller, animated: true)
+                    } else {
+                        let controller = item.controllerClass.init()
+                        controller.title = item.name
+                        self.navigationController?.pushViewController(controller, animated: true)
+                    }
+                }
+            }
+        })
+
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? {

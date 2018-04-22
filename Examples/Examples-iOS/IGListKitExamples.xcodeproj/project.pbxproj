@@ -100,13 +100,13 @@
 		98B4DBF41DC2937A002BA58A /* Demo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98B4DBF31DC2937A002BA58A /* Demo.storyboard */; };
 		C82AE9741251907F18F77350 /* Pods_IGListKitMessageExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7B1FA2EFFA5E994FEE587DE /* Pods_IGListKitMessageExample.framework */; };
 		CBA8F64BE2F00E8B3DEFF6ED /* Pods_IGListKitExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7316EF8201F89655D39E53 /* Pods_IGListKitExamples.framework */; };
-		FF73FF9C1FBA4B4400F2AB06 /* UserFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF73FF9B1FBA4B4400F2AB06 /* UserFooterView.swift */; };
-		FF73FF9E1FBA4B5500F2AB06 /* UserFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF73FF9D1FBA4B5500F2AB06 /* UserFooterView.xib */; };
 		EB0289A2202A11E0007E17D5 /* PersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB02899F202A11DF007E17D5 /* PersonModel.m */; };
 		EB0289A3202A11E0007E17D5 /* PersonModel.value in Resources */ = {isa = PBXBuildFile; fileRef = EB0289A0202A11DF007E17D5 /* PersonModel.value */; };
 		EB0289A6202A14E1007E17D5 /* ObjcGeneratedModelDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0289A5202A14E1007E17D5 /* ObjcGeneratedModelDemoViewController.m */; };
 		EB0289A9202A1507007E17D5 /* PersonSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0289A8202A1507007E17D5 /* PersonSectionController.m */; };
 		EB0289AC202A1705007E17D5 /* PersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0289AA202A1705007E17D5 /* PersonCell.m */; };
+		FF73FF9C1FBA4B4400F2AB06 /* UserFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF73FF9B1FBA4B4400F2AB06 /* UserFooterView.swift */; };
+		FF73FF9E1FBA4B5500F2AB06 /* UserFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF73FF9D1FBA4B5500F2AB06 /* UserFooterView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -584,7 +584,6 @@
 				2961B3881D68B031001C9451 /* Resources */,
 				986FB7231DBBA60900A65C18 /* Embed App Extensions */,
 				985349E4AB771563497C83A5 /* [CP] Embed Pods Frameworks */,
-				2D1AF351F51018BFEBE531C5 /* [CP] Copy Pods Resources */,
 				DC1296C41EC38A0B0043990F /* SwiftLint */,
 			);
 			buildRules = (
@@ -624,7 +623,6 @@
 				986FB70D1DBBA60900A65C18 /* Sources */,
 				986FB70E1DBBA60900A65C18 /* Frameworks */,
 				986FB70F1DBBA60900A65C18 /* Resources */,
-				1BAB27ACF75FBB22C3CB1D29 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -643,7 +641,6 @@
 				986FB72B1DBBAD8600A65C18 /* Sources */,
 				986FB72C1DBBAD8600A65C18 /* Frameworks */,
 				986FB72D1DBBAD8600A65C18 /* Resources */,
-				DEB8B682C7C0C2DA4D507589 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -749,36 +746,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1BAB27ACF75FBB22C3CB1D29 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IGListKitMessageExample/Pods-IGListKitMessageExample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2D1AF351F51018BFEBE531C5 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		4172ED38D5A87860A4F43390 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -864,21 +831,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../../scripts/lint.sh\n";
-		};
-		DEB8B682C7C0C2DA4D507589 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IGListKitTodayExample/Pods-IGListKitTodayExample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
