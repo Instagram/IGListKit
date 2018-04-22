@@ -31,8 +31,6 @@
 #import "IGListAdapterUpdateListener.h"
 #import "IGListAdapterUpdater.h"
 #import "IGListAdapterUpdaterDelegate.h"
-#import "IGListAnonSectionController.h"
-#import "IGListAnonSectionControllerOptionalBlocks.h"
 #import "IGListBatchContext.h"
 #import "IGListBindable.h"
 #import "IGListBindingSectionController.h"
