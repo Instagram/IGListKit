@@ -35,6 +35,9 @@
                 <a href="../best-practices-and-faq.html">Best Practices and FAQ</a>
               </li>
               <li class="nav-group-task">
+                <a href="../generating-your-models.html">Generating your models</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../getting-started.html">Getting Started</a>
               </li>
               <li class="nav-group-task">
@@ -143,6 +146,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterMoveDelegate.html">IGListAdapterMoveDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
@@ -860,6 +866,106 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(im)dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:"></a>
+                    <a name="//apple_ref/objc/Method/-dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:">-dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Dequeues a cell from the collection view reuse pool.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This method uses a string representation of the cell class as the identifier.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">__kindof</span> <span class="n">UICollectionViewCell</span> <span class="o">*</span><span class="p">)</span>
+<span class="nf">dequeueReusableCellOfClass</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">Class</span><span class="p">)</span><span class="nv">cellClass</span>
+       <span class="nf">withReuseIdentifier</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">reuseIdentifier</span>
+      <span class="nf">forSectionController</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span>
+                   <span class="nf">atIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">index</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">dequeueReusableCell</span><span class="p">(</span><span class="n">of</span> <span class="nv">cellClass</span><span class="p">:</span> <span class="kt">AnyClass</span><span class="p">,</span> <span class="n">withReuseIdentifier</span> <span class="nv">reuseIdentifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="k">for</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">,</span> <span class="n">at</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionViewCell</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cellClass</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The class of the cell you want to dequeue.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reuseIdentifier</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A reuse identifier for the specified cell. This parameter may be <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sectionController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The section controller requesting this information.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the cell.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A cell dequeued from the reuse pool or a newly created one.</p>
                       </div>
                     </section>
                   </div>
@@ -1724,7 +1830,7 @@ synchronously, so you should make sure that your data source changes only when n
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-02-06)</p>
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-04-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
