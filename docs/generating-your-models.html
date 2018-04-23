@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Guides  Reference</title>
+    <title>Generating your models  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,7 +10,7 @@
     
   </head>
   <body>
-    <a title="Guides  Reference"></a>
+    <a title="Generating your models  Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="index.html">IGListKit Docs</a> (98% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="index.html">IGListKit Reference</a>
         <img id="carat" src="img/carat.png" />
-        Guides  Reference
+        Generating your models  Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -250,11 +250,168 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Guides</h1>
-            <p>The following guides are available globally.</p>
+            
+            <h1 id='generating-your-iglistdiffable-models' class='heading'>Generating your IGListDiffable models</h1>
 
-          </section>
-          <section class="section task-group-section">
+<p>With the <code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code> plugin for <a href="https://github.com/facebook/remodel">remodel by facebook</a>, you can automatically generate models conforming to the <code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code>.</p>
+
+<p>This will automatically implement <code>hash</code>, <code>isEqual:</code> and <code>description</code>, as well as <code>diffIdentifier</code> and <code>isEqualToDiffableObject:</code> for you. Remodel is also capable to generate additional code, like conforming to <code>NSCoding</code> or additional Builder classes for your model object. It will make creating and updating models much easier, faster and safer.</p>
+
+<p>In <code>/remodel-plugin</code>, you can find the source files to build the <code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code> plugin locally.</p>
+<h2 id='installation' class='heading'>Installation</h2>
+<h3 id='1-remodel-installation' class='heading'>1. Remodel installation</h3>
+
+<p>Please follow the <a href="https://github.com/facebook/remodel">installation instructions</a> in the main remodel repository.</p>
+
+<p>tl;dr: Either clone the original repository, or use an npm installation. In the latter case you can run <code>which remodel-gen</code> to find out the path of your installation.</p>
+<h3 id='2-plugin-installation' class='heading'>2. Plugin installation</h3>
+
+<p>Copy the following files &amp; folders within <code>/remodel-plugin</code> into your local remodel checkout:</p>
+
+<ul>
+<li><code>/src/plugins/iglistdiffable.ts</code> - the actual plugin</li>
+<li><code>/src/__tests__/plugins/iglistdiffable-test.ts</code> - unit tests</li>
+<li><code>/features/iglistdiffable.feature</code> - integration tests</li>
+</ul>
+
+<p>And then register the new plugin with the system:</p>
+
+<ul>
+<li>Edit <code>/remodel/src/value-object-default-config.ts</code> and add <code>iglistdiffable</code> to the list of basePlugins:</li>
+</ul>
+<pre class="highlight plaintext"><code>// value-object-default-config.ts
+basePlugins: List.of(
+    'assert-nullability',
+    'assume-nonnull',
+    'builder',
+    'coding',
+    'copying',
+    'description',
+    'equality',
+    'fetch-status',
+    'immutable-properties',
+    'init-new-unavailable',
+    'use-cpp',
+    'iglistdiffable'
+  )
+</code></pre>
+<h3 id='3-build-plugin' class='heading'>3. Build plugin:</h3>
+
+<p>Once you copied them over and registered the plugin, you have to compile the typescript files into javascript. Do do so run this command from the remodel directory:</p>
+
+<ul>
+<li><code>./bin/build</code></li>
+</ul>
+<h3 id='4-run-tests-optional' class='heading'>4. Run tests (optional)</h3>
+
+<p>To run the unit/integration tests, you can run the following commands:</p>
+
+<ul>
+<li><code>./bin/runUnitTests</code></li>
+<li><code>./bin/runAcceptanceTests</code></li>
+</ul>
+
+<p>This is especially useful if you plan to change/extend the plugin in any way.</p>
+<h3 id='5-use-the-plugin' class='heading'>5. Use the plugin</h3>
+
+<p>Now you are ready to generate your <code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code> conforming models! To generate a model, create a new <code>.value</code> file. Here&rsquo;s an example:</p>
+<pre class="highlight plaintext"><code>// PersonModel.value
+PersonModel includes(IGListDiffable) {
+  NSString *firstName
+  NSString *lastName
+  %diffIdentifier
+  NSString *uniqueId
+}
+</code></pre>
+
+<p>To generate your Objective-C models, run the generation tool like this:</p>
+
+<p><code>./bin/generate path/to/your/PersonModel.value</code></p>
+
+<p>This will generate the following Objective-C files in the same directory:</p>
+<pre class="highlight plaintext"><code>// PersonModel.h
+@interface PersonModel : NSObject &lt;IGListDiffable, NSCopying&gt;
+
+@property (nonatomic, readonly, copy) NSString *firstName;
+@property (nonatomic, readonly, copy) NSString *lastName;
+@property (nonatomic, readonly, copy) NSString *uniqueId;
+
+- (instancetype)initWithFirstName:(NSString *)firstName lastName:(NSString *)lastName uniqueId:(NSString *)uniqueId;
+
+@end
+</code></pre>
+
+<p>and</p>
+<pre class="highlight plaintext"><code>// PersonModel.m
+@implementation PersonModel
+
+- (instancetype)initWithFirstName:(NSString *)firstName lastName:(NSString *)lastName uniqueId:(NSString *)uniqueId
+{
+  if ((self = [super init])) {
+    _firstName = [firstName copy];
+    _lastName = [lastName copy];
+    _uniqueId = [uniqueId copy];
+  }
+
+  return self;
+}
+
+- (id&lt;NSObject&gt;)diffIdentifier
+{
+  return _uniqueId;
+}
+
+- (BOOL)isEqualToDiffableObject:(nullable id)object
+{
+  return [self isEqual:object];
+}
+
+- (BOOL)isEqual:(PersonModel *)object
+{
+  if (self == object) {
+    return YES;
+  } else if (self == nil || object == nil || ![object isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return
+    (_firstName == object-&gt;_firstName ? YES : [_firstName isEqual:object-&gt;_firstName]) &amp;&amp;
+    (_lastName == object-&gt;_lastName ? YES : [_lastName isEqual:object-&gt;_lastName]) &amp;&amp;
+    (_uniqueId == object-&gt;_uniqueId ? YES : [_uniqueId isEqual:object-&gt;_uniqueId]);
+}
+
+- (id)copyWithZone:(nullable NSZone *)zone
+{
+  return self;
+}
+
+- (NSString *)description
+{
+  return [NSString stringWithFormat:@"%@ - \n\t firstName: %@; \n\t lastName: %@; \n\t uniqueId: %@; \n", [super description], _firstName, _lastName, _uniqueId];
+}
+
+- (NSUInteger)hash
+{
+  NSUInteger subhashes[] = {[_firstName hash], [_lastName hash], [_uniqueId hash]};
+  NSUInteger result = subhashes[0];
+  for (int ii = 1; ii &lt; 3; ++ii) {
+    unsigned long long base = (((unsigned long long)result) &lt;&lt; 32 | subhashes[ii]);
+    base = (~base) + (base &lt;&lt; 18);
+    base ^= (base &gt;&gt; 31);
+    base *=  21;
+    base ^= (base &gt;&gt; 11);
+    base += (base &lt;&lt; 6);
+    base ^= (base &gt;&gt; 22);
+    result = base;
+  }
+  return result;
+}
+
+@end
+</code></pre>
+<h2 id='documentation' class='heading'>Documentation</h2>
+
+<p>Please see the main remodel repository for <a href="https://github.com/facebook/remodel">additional documentation</a></p>
+
           </section>
         </section>
         <section id="footer">
