@@ -37,6 +37,10 @@ typedef void (^IGListItemUpdateBlock)(void);
 NS_SWIFT_NAME(ListReloadUpdateBlock)
 typedef void (^IGListReloadUpdateBlock)(void);
 
+/// A block that returns an array of objects to transition to.
+NS_SWIFT_NAME(ListToObjectBlock)
+typedef NSArray * _Nullable (^IGListToObjectBlock)(void);
+
 /**
  Implement this protocol in order to handle both section and row based update events. Implementation should forward or
  coalesce these events to a backing store or collection.
@@ -63,7 +67,7 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
 
  @param collectionView The collection view to perform the transition on.
  @param fromObjects The previous objects in the collection view. Objects must conform to `IGListDiffable`.
- @param toObjects The new objects in collection view. Objects must conform to `IGListDiffable`.
+ @param toObjectsBlock A block returning the new objects in the collection view. Objects must conform to `IGListDiffable`.
  @param animated A flag indicating if the transition should be animated.
  @param objectTransitionBlock A block that must be called when the adapter applies changes to the collection view.
  @param completion A completion block to execute when the update is finished.
@@ -77,7 +81,7 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
  */
 - (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
                             fromObjects:(nullable NSArray<id <IGListDiffable>> *)fromObjects
-                              toObjects:(nullable NSArray<id <IGListDiffable>> *)toObjects
+                         toObjectsBlock:(nullable IGListToObjectBlock)toObjectsBlock
                                animated:(BOOL)animated
                   objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
                              completion:(nullable IGListUpdatingCompletion)completion;

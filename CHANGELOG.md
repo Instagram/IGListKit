@@ -5,6 +5,10 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 4.0.0 (upcoming release)
 -----
 
+### Enhancements
+
+- Experimental performance improvement from deferring `-[IGListAdapterDataSource objectsForListAdapter:]` calls until just before diffing. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+
 3.3.0
 -----
 

@@ -61,9 +61,9 @@ static NSMutableArray *linesFromObjects(NSArray *objects) {
         [debug addObjectsFromArray:IGListDebugIndentedLines(linesFromObjects(self.fromObjects))];
     }
 
-    if (self.toObjects != nil) {
+    if (self.toObjectsBlock != nil) {
         [debug addObject:@"To objects:"];
-        [debug addObjectsFromArray:IGListDebugIndentedLines(linesFromObjects(self.toObjects))];
+        [debug addObjectsFromArray:IGListDebugIndentedLines(linesFromObjects(self.toObjectsBlock()))];
     }
 
     if (self.pendingTransitionToObjects != nil) {

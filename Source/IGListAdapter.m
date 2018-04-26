@@ -324,14 +324,28 @@
     }
 
     NSArray *fromObjects = self.sectionMap.objects;
-    NSArray *newObjects = [dataSource objectsForListAdapter:self];
+
+    IGListToObjectBlock toObjectsBlock;
+    __weak __typeof__(self) weakSelf = self;
+    if (IGListExperimentEnabled(self.experiments, IGListExperimentDeferredToObjectCreation)) {
+        toObjectsBlock = ^NSArray *{
+            __typeof__(self) strongSelf = weakSelf;
+            if (strongSelf == nil) {
+                return nil;
+            }
+            return [dataSource objectsForListAdapter:strongSelf];
+        };
+    } else {
+        NSArray *newObjects = [dataSource objectsForListAdapter:self];
+        toObjectsBlock = ^NSArray *{
+            return newObjects;
+        };
+    }
 
     [self _enterBatchUpdates];
-
-    __weak __typeof__(self) weakSelf = self;
     [self.updater performUpdateWithCollectionView:collectionView
                                       fromObjects:fromObjects
-                                        toObjects:newObjects
+                                   toObjectsBlock:toObjectsBlock
                                          animated:animated
                             objectTransitionBlock:^(NSArray *toObjects) {
                                 // temporarily capture the item map that we are transitioning from in case
