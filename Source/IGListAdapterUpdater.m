@@ -41,7 +41,7 @@
     return self.hasQueuedReloadData
     || [self.batchUpdates hasChanges]
     || self.fromObjects != nil
-    || self.toObjects != nil;
+    || self.toObjectsBlock != nil;
 }
 
 - (void)performReloadDataWithCollectionView:(UICollectionView *)collectionView {
@@ -106,11 +106,24 @@
     // create local variables so we can immediately clean our state but pass these items into the batch update block
     id<IGListAdapterUpdaterDelegate> delegate = self.delegate;
     NSArray *fromObjects = [self.fromObjects copy];
-    NSArray *toObjects = objectsWithDuplicateIdentifiersRemoved(self.toObjects);
+    IGListToObjectBlock toObjectsBlock = [self.toObjectsBlock copy];
     NSMutableArray *completionBlocks = [self.completionBlocks mutableCopy];
     void (^objectTransitionBlock)(NSArray *) = [self.objectTransitionBlock copy];
     const BOOL animated = self.queuedUpdateIsAnimated;
     IGListBatchUpdates *batchUpdates = self.batchUpdates;
+
+    NSArray *toObjects = nil;
+    if (toObjectsBlock != nil) {
+        toObjects = objectsWithDuplicateIdentifiersRemoved(toObjectsBlock());
+    }
+#ifdef DEBUG
+    for (id obj in toObjects) {
+        IGAssert([obj conformsToProtocol:@protocol(IGListDiffable)],
+                 @"In order to use IGListAdapterUpdater, object %@ must conform to IGListDiffable", obj);
+        IGAssert([obj diffIdentifier] != nil,
+                 @"Cannot have a nil diffIdentifier for object %@", obj);
+    }
+#endif
 
     // clean up all state so that new updates can be coalesced while the current update is in flight
     [self cleanStateBeforeUpdates];
@@ -340,7 +353,7 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 
     // destroy to/from transition items
     self.fromObjects = nil;
-    self.toObjects = nil;
+    self.toObjectsBlock = nil;
 
     // destroy reloadData state
     self.reloadUpdates = nil;
@@ -408,11 +421,11 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
 }
 
 - (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
-                            fromObjects:(nullable NSArray *)fromObjects
-                              toObjects:(nullable NSArray *)toObjects
+                            fromObjects:(NSArray *)fromObjects
+                         toObjectsBlock:(IGListToObjectBlock)toObjectsBlock
                                animated:(BOOL)animated
-                  objectTransitionBlock:(void (^)(NSArray *))objectTransitionBlock
-                             completion:(nullable void (^)(BOOL))completion {
+                  objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
+                             completion:(IGListUpdatingCompletion)completion {
     IGAssertMainThread();
     IGParameterAssert(collectionView != nil);
     IGParameterAssert(objectTransitionBlock != nil);
@@ -423,20 +436,11 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     // if performBatchUpdates: hasn't applied the update block, then data source hasn't transitioned its state. if an
     // update is queued in between then we must use the pending toObjects
     self.fromObjects = self.fromObjects ?: self.pendingTransitionToObjects ?: fromObjects;
-    self.toObjects = toObjects;
+    self.toObjectsBlock = toObjectsBlock;
 
     // disabled animations will always take priority
     // reset to YES in -cleanupState
     self.queuedUpdateIsAnimated = self.queuedUpdateIsAnimated && animated;
-
-#ifdef DEBUG
-    for (id obj in toObjects) {
-        IGAssert([obj conformsToProtocol:@protocol(IGListDiffable)],
-                 @"In order to use IGListAdapterUpdater, object %@ must conform to IGListDiffable", obj);
-        IGAssert([obj diffIdentifier] != nil,
-                 @"Cannot have a nil diffIdentifier for object %@", obj);
-    }
-#endif
 
     // always use the last update block, even though this should always do the exact same thing
     self.objectTransitionBlock = objectTransitionBlock;

@@ -19,11 +19,14 @@
 
 - (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
                             fromObjects:(NSArray *)fromObjects
-                              toObjects:(NSArray *)toObjects
+                         toObjectsBlock:(IGListToObjectBlock)toObjectsBlock
                                animated:(BOOL)animated
                   objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
                              completion:(IGListUpdatingCompletion)completion {
-    objectTransitionBlock(toObjects);
+    if (toObjectsBlock != nil) {
+        NSArray *toObjects = toObjectsBlock() ?: @[];
+        objectTransitionBlock(toObjects);
+    }
     [self _synchronousReloadDataWithCollectionView:collectionView];
     if (completion) {
         completion(YES);
