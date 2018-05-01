@@ -5,9 +5,14 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 4.0.0 (upcoming release)
 -----
 
+3.4.0
+-----
+
 ### Enhancements
 
-- Experimental performance improvement from deferring `-[IGListAdapterDataSource objectsForListAdapter:]` calls until just before diffing. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+- Relicensed IGListKit to MIT. [Ryan Nystrom](https://github.com/rnystrom) [(000bc36)](https://github.com/Instagram/IGListKit/commit/000bc3691909f50649a5dfb098a5f2102c86385b)
+
+- Experimental performance improvement from deferring `-[IGListAdapterDataSource objectsForListAdapter:]` calls until just before diffing. [Ryan Nystrom](https://github.com/rnystrom) [(3059c5e)](https://github.com/Instagram/IGListKit/commit/3059c5e6f5aeac73f112375d032677ae5f38342a)
 
 3.3.0
 -----
