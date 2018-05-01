@@ -219,6 +219,9 @@
                 <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -314,9 +317,9 @@ objects are looked up by pointer, or more traditionally, with <code>-hash</code>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListUpdatingDelegate(im)performUpdateWithCollectionView:fromObjects:toObjects:animated:objectTransitionBlock:completion:"></a>
-                    <a name="//apple_ref/objc/Method/-performUpdateWithCollectionView:fromObjects:toObjects:animated:objectTransitionBlock:completion:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)performUpdateWithCollectionView:fromObjects:toObjects:animated:objectTransitionBlock:completion:">-performUpdateWithCollectionView:fromObjects:toObjects:animated:objectTransitionBlock:completion:</a>
+                    <a name="/c:objc(pl)IGListUpdatingDelegate(im)performUpdateWithCollectionView:fromObjects:toObjectsBlock:animated:objectTransitionBlock:completion:"></a>
+                    <a name="//apple_ref/objc/Method/-performUpdateWithCollectionView:fromObjects:toObjectsBlock:animated:objectTransitionBlock:completion:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)performUpdateWithCollectionView:fromObjects:toObjectsBlock:animated:objectTransitionBlock:completion:">-performUpdateWithCollectionView:fromObjects:toObjectsBlock:animated:objectTransitionBlock:completion:</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -345,8 +348,7 @@ that the updater is applying.</p>
 <span class="nf">performUpdateWithCollectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span>
                     <span class="nf">fromObjects</span><span class="p">:</span>
                         <span class="p">(</span><span class="n">nullable</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">fromObjects</span>
-                      <span class="nf">toObjects</span><span class="p">:</span>
-                          <span class="p">(</span><span class="n">nullable</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">toObjects</span>
+                 <span class="nf">toObjectsBlock</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a></span><span class="p">)</span><span class="nv">toObjectsBlock</span>
                        <span class="nf">animated</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span>
           <span class="nf">objectTransitionBlock</span><span class="p">:</span>
               <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a></span><span class="p">)</span><span class="nv">objectTransitionBlock</span>
@@ -385,12 +387,12 @@ that the updater is applying.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>toObjects</em>
+                                <em>toObjectsBlock</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The new objects in collection view. Objects must conform to <code><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></code>.</p>
+                                  <p>A block returning the new objects in the collection view. Objects must conform to <code><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1042,7 +1044,7 @@ destination of the reload to perform a safe transition.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-04-21)</p>
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-05-01)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
