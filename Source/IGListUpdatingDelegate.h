@@ -39,6 +39,10 @@ typedef void (^IGListReloadUpdateBlock)(void);
 NS_SWIFT_NAME(ListToObjectBlock)
 typedef NSArray * _Nullable (^IGListToObjectBlock)(void);
 
+/// A block that returns an array of objects to transition to.
+NS_SWIFT_NAME(ListCollectionViewBlock)
+typedef UICollectionView * _Nullable (^IGListCollectionViewBlock)(void);
+
 /**
  Implement this protocol in order to handle both section and row based update events. Implementation should forward or
  coalesce these events to a backing store or collection.
@@ -63,7 +67,7 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
 /**
  Tells the delegate to perform a section transition from an old array of objects to a new one.
 
- @param collectionView The collection view to perform the transition on.
+ @param collectionViewBlock The collection view to perform the transition on.
  @param fromObjects The previous objects in the collection view. Objects must conform to `IGListDiffable`.
  @param toObjectsBlock A block returning the new objects in the collection view. Objects must conform to `IGListDiffable`.
  @param animated A flag indicating if the transition should be animated.
@@ -77,7 +81,7 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
  The `objectTransitionBlock` block should be called prior to making any `UICollectionView` updates, passing in the `toObjects`
  that the updater is applying.
  */
-- (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
+- (void)performUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
                             fromObjects:(nullable NSArray<id <IGListDiffable>> *)fromObjects
                          toObjectsBlock:(nullable IGListToObjectBlock)toObjectsBlock
                                animated:(BOOL)animated
@@ -140,11 +144,11 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
 /**
  Completely reload data in the collection.
 
- @param collectionView The collection view to reload.
+ @param collectionViewBlock The collection view to reload.
  @param reloadUpdateBlock A block that must be called when the adapter reloads the collection view.
  @param completion A completion block to execute when the reload is finished.
  */
-- (void)reloadDataWithCollectionView:(UICollectionView *)collectionView
+- (void)reloadDataWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
                    reloadUpdateBlock:(IGListReloadUpdateBlock)reloadUpdateBlock
                           completion:(nullable IGListUpdatingCompletion)completion;
 
@@ -159,12 +163,12 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
 /**
  Perform an item update block in the collection view.
 
- @param collectionView The collection view to update.
+ @param collectionViewBlock The collection view to update.
  @param animated A flag indicating if the transition should be animated.
  @param itemUpdates A block containing all of the updates.
  @param completion A completion block to execute when the update is finished.
  */
-- (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
+- (void)performUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
                                animated:(BOOL)animated
                             itemUpdates:(IGListItemUpdateBlock)itemUpdates
                              completion:(nullable IGListUpdatingCompletion)completion;

@@ -99,6 +99,8 @@
         _registeredSupplementaryViewIdentifiers = [NSMutableSet new];
         _registeredSupplementaryViewNibNames = [NSMutableSet new];
 
+        const BOOL previouslyHadCollectionView = _collectionView != nil;
+
         _collectionView = collectionView;
         _collectionView.dataSource = self;
 
@@ -110,7 +112,10 @@
         [_collectionView.collectionViewLayout invalidateLayout];
 
         [self _updateCollectionViewDelegate];
-        [self _updateAfterPublicSettingsChange];
+
+        if (!previouslyHadCollectionView) {
+            [self _updateAfterPublicSettingsChange];
+        }
     }
 }
 
@@ -147,6 +152,9 @@
     if (_collectionView != nil && dataSource != nil) {
         NSArray *uniqueObjects = objectsWithDuplicateIdentifiersRemoved([dataSource objectsForListAdapter:self]);
         [self _updateObjects:uniqueObjects dataSource:dataSource];
+
+//        [_collectionView reloadData];
+//        [_collectionView layoutIfNeeded];
     }
 }
 
@@ -341,7 +349,7 @@
     }
 
     [self _enterBatchUpdates];
-    [self.updater performUpdateWithCollectionView:collectionView
+    [self.updater performUpdateWithCollectionViewBlock:^UICollectionView *{ return weakSelf.collectionView; }
                                       fromObjects:fromObjects
                                    toObjectsBlock:toObjectsBlock
                                          animated:animated
@@ -379,7 +387,8 @@
     NSArray *uniqueObjects = objectsWithDuplicateIdentifiersRemoved([dataSource objectsForListAdapter:self]);
 
     __weak __typeof__(self) weakSelf = self;
-    [self.updater reloadDataWithCollectionView:collectionView reloadUpdateBlock:^{
+    [self.updater reloadDataWithCollectionViewBlock:^UICollectionView *{ return weakSelf.collectionView; }
+                                  reloadUpdateBlock:^{
         // purge all section controllers from the item map so that they are regenerated
         [weakSelf.sectionMap reset];
         [weakSelf _updateObjects:uniqueObjects dataSource:dataSource];
@@ -1059,7 +1068,7 @@
     [self _enterBatchUpdates];
     
     __weak __typeof__(self) weakSelf = self;
-    [self.updater performUpdateWithCollectionView:collectionView animated:animated itemUpdates:^{
+    [self.updater performUpdateWithCollectionViewBlock:^UICollectionView *{ return weakSelf.collectionView; } animated:animated itemUpdates:^{
         weakSelf.isInUpdateBlock = YES;
         // the adapter acts as the batch context with its API stripped to just the IGListBatchContext protocol
         updates(weakSelf);
