@@ -15,15 +15,22 @@ import UIKit
 
 //public typealias ListSwiftBindableCell = UICollectionViewCell & ListSwiftBindable
 
-public enum ListCellType {
-    case `class`(UICollectionViewCell.Type)
-    case storyboard(String, Bundle?)
-    case nib(String, Bundle?)
+public enum ListCellType<T: UICollectionViewCell> {
+    case `class`(T.Type)
+    case storyboard(T.Type, String, Bundle?)
+    case nib(T.Type, String, Bundle?)
 }
 
 public struct ListBinder {
+
+    enum CellType {
+        case cellClass(UICollectionViewCell.Type)
+        case storyboard(String, Bundle?)
+        case nib(String, Bundle?)
+    }
+
     let value: ListSwiftDiffable
-    let cellType: ListCellType
+    let cellType: CellType
     let size: (ListCollectionContext, Int) -> CGSize
     let configure: (UICollectionViewCell, ListCollectionContext, Int) -> Void
     let didSelect: (ListCollectionContext, Int) -> Void
@@ -40,19 +47,26 @@ open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionControll
         public let index: Int
     }
 
-    public func binder<U: ListSwiftDiffable, CellType: UICollectionViewCell>(
-        _ value: U,
-        cellType: ListCellType,
-        size: @escaping (Context<U>) -> CGSize,
-        configure: ((CellType, Context<U>) -> Void)? = nil,
-        didSelect: ((Context<U>) -> Void)? = nil,
-        didDeselect: ((Context<U>) -> Void)? = nil,
-        didHighlight: ((Context<U>) -> Void)? = nil,
-        didUnhighlight: ((Context<U>) -> Void)? = nil
+    public func binder<ValueType: ListSwiftDiffable, CellType: UICollectionViewCell>(
+        _ value: ValueType,
+        cellType: ListCellType<CellType>,
+        size: @escaping (Context<ValueType>) -> CGSize,
+        configure: ((CellType, Context<ValueType>) -> Void)? = nil,
+        didSelect: ((Context<ValueType>) -> Void)? = nil,
+        didDeselect: ((Context<ValueType>) -> Void)? = nil,
+        didHighlight: ((Context<ValueType>) -> Void)? = nil,
+        didUnhighlight: ((Context<ValueType>) -> Void)? = nil
         ) -> ListBinder {
+        let nestedCellType: ListBinder.CellType
+        switch cellType {
+        case let .class(type): nestedCellType = .cellClass(type)
+        case let .storyboard(_, type, bundle): nestedCellType = .storyboard(type, bundle)
+        case let .nib(_, type, bundle): nestedCellType = .nib(type, bundle)
+        }
+
         return ListBinder(
             value: value,
-            cellType: cellType,
+            cellType: nestedCellType,
             size: { (context, index) -> CGSize in
                 return size(Context(value: value, collection: context, index: index))
         },
@@ -171,7 +185,7 @@ open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionControll
         let binder = binders[index]
         let rawCell: UICollectionViewCell?
         switch binder.cellType {
-        case .class(let type):
+        case let .cellClass(type):
             rawCell = collectionContext.dequeueReusableCell(of: type, for: self, at: index)
         case let .nib(type, bundle):
             rawCell = collectionContext.dequeueReusableCell(withNibName: type, bundle: bundle, for: self, at: index)
