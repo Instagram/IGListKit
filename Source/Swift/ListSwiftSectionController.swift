@@ -9,12 +9,6 @@
 
 import UIKit
 
-//public protocol ListSwiftBindable {
-//    func bind(value: ListSwiftDiffable)
-//}
-
-//public typealias ListSwiftBindableCell = UICollectionViewCell & ListSwiftBindable
-
 public enum ListCellType<T: UICollectionViewCell> {
     case `class`(T.Type)
     case storyboard(T.Type, String, Bundle?)
