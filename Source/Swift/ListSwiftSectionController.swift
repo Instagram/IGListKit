@@ -85,15 +85,15 @@ open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionControll
         )
     }
 
-    private enum State: Int {
+    internal enum State: Int {
         case idle
         case queued
         case applied
     }
-    private var state: State = .idle
+    internal var state: State = .idle
 
-    public private(set) var binders = [ListBinder]()
-    public private(set) var value: T?
+    public internal(set) var binders = [ListBinder]()
+    public internal(set) var value: T?
 
     open func createBinders(from value: T) -> [ListBinder] {
         return []

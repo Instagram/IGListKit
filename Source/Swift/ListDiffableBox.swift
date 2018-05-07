@@ -15,19 +15,19 @@ import Foundation
 
  @note Wrapped values can be a Swift `class` or `struct`.
  */
-public final class ListDiffableBox: ListDiffable {
+internal final class ListDiffableBox: ListDiffable {
 
     /**
      The boxed value.
      */
-    public let value: ListSwiftDiffable
+    let value: ListSwiftDiffable
 
     /**
      Initialize a new `ListDiffableBox` object.
 
      @param value The value to be boxed.
      */
-    public init(value: ListSwiftDiffable) {
+    init(value: ListSwiftDiffable) {
         self.value = value
     }
 
@@ -36,7 +36,7 @@ public final class ListDiffableBox: ListDiffable {
     /**
      :nodoc:
      */
-    public func diffIdentifier() -> NSObjectProtocol {
+    func diffIdentifier() -> NSObjectProtocol {
         // namespace the identifier with the value type to help prevent collisions
         return "\(value.self)\(value.identifier)" as NSObjectProtocol
     }
@@ -44,7 +44,7 @@ public final class ListDiffableBox: ListDiffable {
     /**
      :nodoc:
      */
-    public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         // always true since objects are updated with ListSwiftSectionController which handles updates at the cell level
         return true
     }
