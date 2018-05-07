@@ -9,24 +9,6 @@
 
 import Foundation
 
-public final class ListIdentifiableBox: ListDiffable {
-
-    public let value: ListSwiftIdentifiable
-
-    init(value: ListSwiftIdentifiable) {
-        self.value = value
-    }
-
-    public func diffIdentifier() -> NSObjectProtocol {
-        return value.identifier as NSObjectProtocol
-    }
-
-    public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        return true
-    }
-
-}
-
 /**
  Wrap a `ListSwiftDiffable` conforming value so that it conforms to `ListDiffable` and can be used with other IGListKit
  systems.
@@ -55,7 +37,7 @@ public final class ListDiffableBox: ListDiffable {
      :nodoc:
      */
     public func diffIdentifier() -> NSObjectProtocol {
-        // namespace the identifier with the value type to further prevent collisions
+        // namespace the identifier with the value type to help prevent collisions
         return "\(value.self)\(value.identifier)" as NSObjectProtocol
     }
 
@@ -63,9 +45,8 @@ public final class ListDiffableBox: ListDiffable {
      :nodoc:
      */
     public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        if self === object { return true }
-        guard let object = object as? ListDiffableBox else { return false }
-        return value.isEqual(to: object.value)
+        // always true since objects are updated with ListSwiftSectionController which handles updates at the cell level
+        return true
     }
 
 }

@@ -16,28 +16,3 @@ public protocol ListSwiftEquatable {
 }
 
 public typealias ListSwiftDiffable = ListSwiftIdentifiable & ListSwiftEquatable
-
-///**
-// Conform a Swift `struct` or `class` so that it can be diffed and used with IGListKit.
-// */
-//public protocol ListSwiftDiffable: ListSwiftIdentifiable, ListSwiftEquatable {
-//
-//    /**
-//     Return a `String` that uniquely identifies the instance.
-//
-//     @note These identifiers are namespaced to the object type to avoid colliding identifiers between different value
-//     types.
-//     */
-////    var identifier: String { get }
-//
-//    /**
-//     Indicate if the value is equal to another value.
-//
-//     @param object The value to compare against.
-//
-//     @return `true` if the two instances are equal in value. Otherwise `false`.
-//     */
-////    func isEqual(to value: ListSwiftDiffable) -> Bool
-//
-//}
-

@@ -23,7 +23,9 @@ public extension ListAdapter {
      */
     public func value(for sectionController: ListSectionController) -> ListSwiftDiffable? {
         if let box = object(for: sectionController) {
-            guard let box = box as? ListDiffableBox else { fatalError() }
+            guard let box = box as? ListDiffableBox else {
+                fatalError("All objects used with the IGListKit+Swift extension should be boxed")
+            }
             return box.value
         }
         return nil
@@ -61,7 +63,9 @@ public extension ListAdapter {
      */
     public func value(at section: Int) -> ListSwiftDiffable? {
         if let box = object(atSection: section) {
-            guard let box = box as? ListDiffableBox else { fatalError() }
+            guard let box = box as? ListDiffableBox else {
+                fatalError("All objects used with the IGListKit+Swift extension should be boxed")
+            }
             return box.value
         }
         return nil
@@ -109,7 +113,9 @@ public extension ListAdapter {
      @return All unboxed values in the `IGListAdapter`.
      */
     public var values: [ListSwiftDiffable] {
-        guard let objects = self.objects() as? [ListDiffableBox] else { fatalError() }
+        guard let objects = self.objects() as? [ListDiffableBox] else {
+            fatalError("All objects used with the IGListKit+Swift extension should be boxed")
+        }
         return objects.map { $0.value }
     }
 
@@ -119,7 +125,9 @@ public extension ListAdapter {
      @return All visible, unboxed values in the `IGListAdapter`.
      */
     public var visibleValues: [ListSwiftDiffable] {
-        guard let visibleObjects = self.visibleObjects() as? [ListDiffableBox] else { fatalError() }
+        guard let visibleObjects = self.visibleObjects() as? [ListDiffableBox] else {
+            fatalError("All objects used with the IGListKit+Swift extension should be boxed")
+        }
         return visibleObjects.map { $0.value }
     }
 

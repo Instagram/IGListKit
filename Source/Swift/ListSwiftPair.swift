@@ -9,7 +9,7 @@
 
 import Foundation
 
-public typealias ListSwiftPairConstructor<T: ListSwiftIdentifiable> = () -> ListSwiftSectionController<T>
+public typealias ListSwiftPairConstructor<T: ListSwiftDiffable> = () -> ListSwiftSectionController<T>
 
 /**
  Query a value for a given section controller.
@@ -24,7 +24,7 @@ public class ListSwiftPair {
         return ListSwiftPair(value, constructor: constructor)
     }
 
-    public let value: ListSwiftIdentifiable
+    public let value: ListSwiftDiffable
 
     public let constructor: () -> ListSectionController
 

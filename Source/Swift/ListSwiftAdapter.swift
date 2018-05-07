@@ -74,7 +74,7 @@ public final class ListSwiftAdapter: NSObject, ListAdapterDataSource {
         guard let dataSource = self.dataSource else { return [] }
 
         return dataSource.values(adapter: self).map {
-            let box = ListIdentifiableBox(value: $0.value)
+            let box = ListDiffableBox(value: $0.value)
             // side effect: store the function for use in listAdapter(:, sectionControllerFor object:)
             map[box.functionLookupHash] = $0.constructor
             return box
@@ -85,9 +85,13 @@ public final class ListSwiftAdapter: NSObject, ListAdapterDataSource {
      :nodoc:
      */
     public func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        guard let box = object as? ListIdentifiableBox else { fatalError() }
+        guard let box = object as? ListDiffableBox else {
+            fatalError("Must only use boxes with IGListKit+Swift.")
+        }
         let hash = box.functionLookupHash
-        guard let function = map[hash] else { fatalError() }
+        guard let function = map[hash] else {
+            fatalError("Must have set a pairing function with boxed value \(box.value)")
+        }
 
         // pluck the function from the map so any objects retained in the closure are released upon execution
         map.removeValue(forKey: hash)
