@@ -64,7 +64,7 @@ This is especially useful if you plan to change/extend the plugin in any way.
 Now you are ready to generate your `IGListDiffable` conforming models! To generate a model, create a new `.value` file. Here's an example:
 
 ```
-// PersonModel.value
+# PersonModel.value
 PersonModel includes(IGListDiffable) {
   NSString *firstName
   NSString *lastName
