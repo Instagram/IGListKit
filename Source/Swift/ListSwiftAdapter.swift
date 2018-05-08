@@ -35,9 +35,19 @@ public final class ListSwiftAdapter: NSObject, ListAdapterDataSource {
      */
     public let listAdapter: ListAdapter
 
+    /**
+     TODO
+     */
     public var collectionView: UICollectionView? {
         get { return listAdapter.collectionView }
         set { listAdapter.collectionView = newValue }
+    }
+
+    /**
+     TODO
+     */
+    public func sectionController<U: ListSwiftDiffable, T: ListSwiftSectionController<U>>(for value: U) -> T? {
+        return listAdapter.sectionController(for: value) as? T
     }
 
     /**

@@ -25,31 +25,59 @@ public struct ListBinder {
 
     let value: ListSwiftDiffable
     let cellType: CellType
-    let size: (ListCollectionContext, Int) -> CGSize
-    let configure: (UICollectionViewCell, ListCollectionContext, Int) -> Void
-    let didSelect: (ListCollectionContext, Int) -> Void
-    let didDeselect: (ListCollectionContext, Int) -> Void
-    let didHighlight: (ListCollectionContext, Int) -> Void
-    let didUnhighlight: (ListCollectionContext, Int) -> Void
+    let size: (ListSectionController, ListCollectionContext, Int) -> CGSize
+    let configure: (UICollectionViewCell, ListSectionController, ListCollectionContext, Int) -> Void
+    let didSelect: (ListSectionController, ListCollectionContext, Int) -> Void
+    let didDeselect: (ListSectionController, ListCollectionContext, Int) -> Void
+    let didHighlight: (ListSectionController, ListCollectionContext, Int) -> Void
+    let didUnhighlight: (ListSectionController, ListCollectionContext, Int) -> Void
 }
 
 open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionController {
 
-    public struct Context<T> {
-        public let value: T
+    public struct Context<ValueType, CellType> {
+
+        public let value: ValueType
         public let collection: ListCollectionContext
         public let index: Int
+
+        fileprivate let sectionController: ListSectionController
+
+        public var cell: CellType? {
+            return collection.cellForItem(at: index, sectionController: sectionController) as? CellType
+        }
+
+        public func deselect(animated: Bool = true) {
+            collection.deselectItem(
+                at: index,
+                sectionController: sectionController,
+                animated: animated
+            )
+        }
+
+        public func select(
+            animated: Bool = true,
+            scrollPosition: UICollectionViewScrollPosition = .centeredVertically
+            ) {
+            collection.selectItem(
+                at: index,
+                sectionController: sectionController,
+                animated: animated,
+                scrollPosition: scrollPosition
+            )
+        }
+        
     }
 
     public func binder<ValueType: ListSwiftDiffable, CellType: UICollectionViewCell>(
         _ value: ValueType,
         cellType: ListCellType<CellType>,
-        size: @escaping (Context<ValueType>) -> CGSize,
-        configure: ((CellType, Context<ValueType>) -> Void)? = nil,
-        didSelect: ((Context<ValueType>) -> Void)? = nil,
-        didDeselect: ((Context<ValueType>) -> Void)? = nil,
-        didHighlight: ((Context<ValueType>) -> Void)? = nil,
-        didUnhighlight: ((Context<ValueType>) -> Void)? = nil
+        size: @escaping (Context<ValueType, CellType>) -> CGSize,
+        configure: ((CellType, Context<ValueType, CellType>) -> Void)? = nil,
+        didSelect: ((Context<ValueType, CellType>) -> Void)? = nil,
+        didDeselect: ((Context<ValueType, CellType>) -> Void)? = nil,
+        didHighlight: ((Context<ValueType, CellType>) -> Void)? = nil,
+        didUnhighlight: ((Context<ValueType, CellType>) -> Void)? = nil
         ) -> ListBinder {
         let nestedCellType: ListBinder.CellType
         switch cellType {
@@ -61,28 +89,27 @@ open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionControll
         return ListBinder(
             value: value,
             cellType: nestedCellType,
-            size: { (context, index) -> CGSize in
-                return size(Context(value: value, collection: context, index: index))
+            size: { (sc, context, index) -> CGSize in
+                return size(Context(value: value, collection: context, index: index, sectionController: sc))
         },
-            configure: { (cell, context, index) -> Void in
+            configure: { (cell, sc, context, index) -> Void in
                 guard let typedCell = cell as? CellType else {
                     fatalError("Critical cell mapping failure. Expected \(CellType.self) but received \(cell).")
                 }
-                configure?(typedCell, Context(value: value, collection: context, index: index))
+                configure?(typedCell, Context(value: value, collection: context, index: index, sectionController: sc))
         },
-            didSelect: { (context, index) -> Void in
-                didSelect?(Context(value: value, collection: context, index: index))
+            didSelect: { (sc, context, index) -> Void in
+                didSelect?(Context(value: value, collection: context, index: index, sectionController: sc))
         },
-            didDeselect: { (context, index) -> Void in
-                didDeselect?(Context(value: value, collection: context, index: index))
+            didDeselect: { (sc, context, index) -> Void in
+                didDeselect?(Context(value: value, collection: context, index: index, sectionController: sc))
         },
-            didHighlight: { (context, index) -> Void in
-                didHighlight?(Context(value: value, collection: context, index: index))
+            didHighlight: { (sc, context, index) -> Void in
+                didHighlight?(Context(value: value, collection: context, index: index, sectionController: sc))
         },
-            didUnhighlight: { (context, index) -> Void in
-                didUnhighlight?(Context(value: value, collection: context, index: index))
-        }
-        )
+            didUnhighlight: { (sc, context, index) -> Void in
+                didUnhighlight?(Context(value: value, collection: context, index: index, sectionController: sc))
+        })
     }
 
     internal enum State: Int {
@@ -133,7 +160,7 @@ open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionControll
                 let toIndex = result.newIndex(forIdentifier: identifier)
                 if toIndex != NSNotFound,
                     let cell = strongSelf.collectionContext?.cellForItem(at: i, sectionController: strongSelf) {
-                    to[toIndex].configure(cell, collectionContext, toIndex)
+                    to[toIndex].configure(cell, strongSelf, collectionContext, toIndex)
                 }
             }
 
@@ -165,7 +192,7 @@ open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionControll
      */
     public final override func sizeForItem(at index: Int) -> CGSize {
         guard let collectionContext = self.collectionContext else { return .zero }
-        return binders[index].size(collectionContext, index)
+        return binders[index].size(self, collectionContext, index)
     }
 
     /**
@@ -191,7 +218,7 @@ open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionControll
             fatalError("Cell is nil for type \(binder.cellType)")
         }
 
-        binder.configure(cell, collectionContext, index)
+        binder.configure(cell, self, collectionContext, index)
         return cell
     }
 
@@ -220,7 +247,7 @@ open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionControll
         guard let collectionContext = self.collectionContext else {
             fatalError("Must have a collectionContext when selection occurs.")
         }
-        binders[index].didSelect(collectionContext, index)
+        binders[index].didSelect(self, collectionContext, index)
     }
 
     /**
@@ -230,7 +257,7 @@ open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionControll
         guard let collectionContext = self.collectionContext else {
             fatalError("Must have a collectionContext when deselection occurs.")
         }
-        binders[index].didDeselect(collectionContext, index)
+        binders[index].didDeselect(self, collectionContext, index)
     }
 
     /**
@@ -240,7 +267,7 @@ open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionControll
         guard let collectionContext = self.collectionContext else {
             fatalError("Must have a collectionContext when highlighting occurs.")
         }
-        binders[index].didHighlight(collectionContext, index)
+        binders[index].didHighlight(self, collectionContext, index)
     }
 
     /**
@@ -250,7 +277,7 @@ open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionControll
         guard let collectionContext = self.collectionContext else {
             fatalError("Must have a collectionContext when unhighlighting occurs.")
         }
-        binders[index].didUnhighlight(collectionContext, index)
+        binders[index].didUnhighlight(self, collectionContext, index)
     }
 
 }
