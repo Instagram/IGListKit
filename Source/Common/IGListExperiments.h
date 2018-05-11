@@ -26,6 +26,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentDedupeItemUpdates = 1 << 5,
     /// Test deferring object creation until just before diffing.
     IGListExperimentDeferredToObjectCreation = 1 << 6,
+    /// Test getting collection view at update time.
+    IGListExperimentGetCollectionViewAtUpdate = 1 << 7,
 };
 
 /**

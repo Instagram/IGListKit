@@ -1832,4 +1832,53 @@
     IGAssertEqualPoint(finalAttribute.center, attribute.center.x + offset.x ,attribute.center.y + offset.y);
 }
 
+- (void)test_whenSwappingCollectionViewsAfterUpdate_thatUpdatePerformedOnTheCorrectCollectionView {
+    // BEGIN: setup of FIRST adapter+dataSource+collectionView
+    IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    adapter1.experiments |= IGListExperimentGetCollectionViewAtUpdate;
+
+    UICollectionView *collectionView1 = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
+    [self.window addSubview:collectionView1];
+    adapter1.collectionView = collectionView1;
+
+    IGTestDelegateDataSource *dataSource1 = [IGTestDelegateDataSource new];
+    dataSource1.objects = @[
+                            genTestObject(@1, @1),
+                            genTestObject(@2, @1)
+                            ];
+    adapter1.dataSource = dataSource1;
+    // END: setup of FIRST adapter+dataSource+collectionView
+
+    // BEGIN: setup of SECOND adapter+dataSource+collectionView
+    IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    adapter2.experiments |= IGListExperimentGetCollectionViewAtUpdate;
+
+    UICollectionView *collectionView2 = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
+    [self.window addSubview:collectionView2];
+    adapter2.collectionView = collectionView2;
+
+    IGTestDelegateDataSource *dataSource2 = [IGTestDelegateDataSource new];
+    dataSource2.objects = @[
+                            genTestObject(@3, @1)
+                            ];
+    adapter2.dataSource = dataSource2;
+    // END: setup of SECOND adapter+dataSource+collectionView
+
+    // delete the last-most section from the FIRST dataSource
+    dataSource1.objects = @[
+                            genTestObject(@1, @1)
+                            ];
+
+    XCTestExpectation *expectation = genExpectation;
+    [adapter1 performUpdatesAnimated:YES completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+
+    // simulate a collectionView swap (e.g. cell reuse) immediately after an async update is queued
+    adapter1.collectionView = collectionView2;
+    adapter2.collectionView = collectionView1;
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
 @end
