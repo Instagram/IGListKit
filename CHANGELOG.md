@@ -5,6 +5,12 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 4.0.0 (upcoming release)
 -----
 
+### Enhancements
+
+### Fixes
+
+- Experimental fix to get the `UICollectionView` for batch updating immediately before applying the update. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+
 3.4.0
 -----
 
