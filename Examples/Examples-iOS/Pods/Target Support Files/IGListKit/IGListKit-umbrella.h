@@ -37,6 +37,7 @@
 #import "IGListBindingSectionControllerDataSource.h"
 #import "IGListBindingSectionControllerSelectionDelegate.h"
 #import "IGListCollectionContext.h"
+#import "IGListCollectionScrollingTraits.h"
 #import "IGListCollectionView.h"
 #import "IGListCollectionViewDelegateLayout.h"
 #import "IGListCollectionViewLayout.h"

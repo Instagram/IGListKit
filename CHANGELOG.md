@@ -7,6 +7,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Enhancements
 
+- Added `IGListCollectionScrollingTraits` for exposing `UICollectionView` scrolling traits to section controllers via `IGListCollectionContext`. [Adam Stern](https://github.com/adamastern) (tbd)
+
 ### Fixes
 
 - Experimental fix to get the `UICollectionView` for batch updating immediately before applying the update. [Ryan Nystrom](https://github.com/rnystrom) (tbd)

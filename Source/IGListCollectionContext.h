@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 
 #import <IGListKit/IGListBatchContext.h>
+#import <IGListKit/IGListCollectionScrollingTraits.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,6 +40,11 @@ NS_SWIFT_NAME(ListCollectionContext)
  The size of the collection view with content insets applied.
  */
 @property (nonatomic, readonly) CGSize insetContainerSize;
+
+/**
+ The current scrolling traits of the underlying collection view.
+ */
+@property (nonatomic, readonly) IGListCollectionScrollingTraits scrollingTraits;
 
 /**
  Returns size of the collection view relative to the section controller.

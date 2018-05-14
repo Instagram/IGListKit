@@ -240,6 +240,10 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     return [self.collectionContext insetContainerSize];
 }
 
+- (IGListCollectionScrollingTraits)scrollingTraits {
+    return [self.collectionContext scrollingTraits];
+}
+
 - (CGSize)containerSizeForSectionController:(IGListSectionController *)sectionController {
     const UIEdgeInsets inset = sectionController.inset;
     return CGSizeMake(self.containerSize.width - inset.left - inset.right,
