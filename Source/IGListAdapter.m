@@ -872,6 +872,15 @@
     return UIEdgeInsetsInsetRect(collectionView.bounds, collectionView.ig_contentInset).size;
 }
 
+- (IGListCollectionScrollingTraits)scrollingTraits {
+    UICollectionView *collectionView = self.collectionView;
+    return (IGListCollectionScrollingTraits) {
+        .isTracking = collectionView.isTracking,
+        .isDragging = collectionView.isDragging,
+        .isDecelerating = collectionView.isDecelerating,
+    };
+}
+
 - (CGSize)containerSizeForSectionController:(IGListSectionController *)sectionController {
     const UIEdgeInsets inset = sectionController.inset;
     return CGSizeMake(self.containerSize.width - inset.left - inset.right,

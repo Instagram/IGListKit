@@ -15,6 +15,7 @@
 
 #import "IGListAdapterInternal.h"
 #import "IGListDisplayHandler.h"
+#import "IGListSectionControllerInternal.h"
 #import "IGListStackedSectionControllerInternal.h"
 #import "IGListTestSection.h"
 #import "IGListTestContainerSizeSection.h"
@@ -177,6 +178,35 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     const CGSize size = [section1.collectionContext insetContainerSize];
     XCTAssertEqual(size.width, 94);
     XCTAssertEqual(size.height, 96);
+}
+
+- (void)test_whenQueryingScrollingTraits_thatMatchesCollectionView {
+    id mockCollectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    adapter.collectionView = mockCollectionView;
+
+    IGListSectionController *section = [IGListSectionController new];
+    IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section]];
+    stack.collectionContext = adapter;
+
+    XCTAssertFalse(section.collectionContext.scrollingTraits.isTracking);
+    XCTAssertFalse(section.collectionContext.scrollingTraits.isDragging);
+    XCTAssertFalse(section.collectionContext.scrollingTraits.isDecelerating);
+
+    [[[mockCollectionView stub] andReturnValue:@YES] isTracking];
+    XCTAssertTrue(section.collectionContext.scrollingTraits.isTracking);
+    XCTAssertFalse(section.collectionContext.scrollingTraits.isDragging);
+    XCTAssertFalse(section.collectionContext.scrollingTraits.isDecelerating);
+
+    [[[mockCollectionView stub] andReturnValue:@YES] isDragging];
+    XCTAssertTrue(section.collectionContext.scrollingTraits.isTracking);
+    XCTAssertTrue(section.collectionContext.scrollingTraits.isDragging);
+    XCTAssertFalse(section.collectionContext.scrollingTraits.isDecelerating);
+
+    [[[mockCollectionView stub] andReturnValue:@YES] isDecelerating];
+    XCTAssertTrue(section.collectionContext.scrollingTraits.isTracking);
+    XCTAssertTrue(section.collectionContext.scrollingTraits.isDragging);
+    XCTAssertTrue(section.collectionContext.scrollingTraits.isDecelerating);
 }
 
 - (void)test_whenQueryingCellIndex_thatIndexIsRelativeToSectionController {
