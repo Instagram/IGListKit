@@ -1881,4 +1881,96 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenCollectionViewBecomesNilDuringPerformUpdates_thatStateCleanedCorrectly {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @1)
+                             ]];
+    self.adapter.experiments |= IGListExperimentGetCollectionViewAtUpdate;
+
+    // perform update on listAdapter
+    XCTestExpectation *expectation1 = genExpectation;
+    [self.adapter performUpdatesAnimated:NO completion:^(BOOL finished) {
+        [expectation1 fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+
+    // update the underlying contents before performing another update
+    self.dataSource.objects = @[
+                                genTestObject(@1, @1),
+                                genTestObject(@2, @1)
+                                ];
+
+    // perform update, but set the listAdapter's collectionView to nil during the update
+    XCTestExpectation *expectation2 = genExpectation;
+    [self.adapter performUpdatesAnimated:NO completion:^(BOOL finished) {
+        [expectation2 fulfill];
+    }];
+    self.adapter.collectionView = nil;
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+
+    // add a new collectionView to the listAdapter
+    UICollectionView *collectionView2 = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
+    [self.window addSubview:collectionView2];
+    self.adapter.collectionView = collectionView2;
+
+    // update the underlying contents before performing update
+    self.dataSource.objects = @[
+                                genTestObject(@1, @1),
+                                genTestObject(@2, @1),
+                                genTestObject(@3, @1)
+                                ];
+
+    // perform update on listAdapter (now with a non-nil collectionView)
+    XCTestExpectation *expectation3 = genExpectation;
+    [self.adapter performUpdatesAnimated:NO completion:^(BOOL finished) {
+        [expectation3 fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+- (void)test_whenCollectionViewBecomesNilDuringReloadData_thatStateCleanedCorrectly {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @1)
+                             ]];
+    self.adapter.experiments |= IGListExperimentGetCollectionViewAtUpdate;
+
+    // reload data on listAdapter
+    XCTestExpectation *expectation1 = genExpectation;
+    [self.adapter reloadDataWithCompletion:^(BOOL finished) {
+        [expectation1 fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+
+    // update the underlying contents before reloading again
+    self.dataSource.objects = @[
+                                genTestObject(@1, @1),
+                                genTestObject(@2, @1)
+                                ];
+
+    // reload data, but set the listAdapter's collectionView to nil during the update
+    XCTestExpectation *expectation2 = genExpectation;
+    [self.adapter reloadDataWithCompletion:^(BOOL finished) {
+        [expectation2 fulfill];
+    }];
+    self.adapter.collectionView = nil;
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+
+    // add a new collectionView to the listAdapter
+    UICollectionView *collectionView2 = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
+    [self.window addSubview:collectionView2];
+    self.adapter.collectionView = collectionView2;
+    self.dataSource.objects = @[
+                                genTestObject(@1, @1),
+                                genTestObject(@2, @1),
+                                genTestObject(@3, @1)
+                                ];
+
+    // reload data on listAdapter (now with a non-nil collectionView)
+    XCTestExpectation *expectation3 = genExpectation;
+    [self.adapter reloadDataWithCompletion:^(BOOL finished) {
+        [expectation3 fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
 @end
