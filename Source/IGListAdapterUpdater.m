@@ -44,19 +44,29 @@
 
 - (void)performReloadDataWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock {
     IGAssertMainThread();
-
-    // bail early if the collection view has been deallocated in the time since the update was queued
-    UICollectionView *collectionView = collectionViewBlock();
-    if (collectionView == nil) {
-        return;
-    }
-
+    
     id<IGListAdapterUpdaterDelegate> delegate = self.delegate;
     void (^reloadUpdates)(void) = self.reloadUpdates;
     IGListBatchUpdates *batchUpdates = self.batchUpdates;
     NSMutableArray *completionBlocks = [self.completionBlocks mutableCopy];
 
     [self cleanStateBeforeUpdates];
+
+    void (^executeCompletionBlocks)(BOOL) = ^(BOOL finished) {
+        for (IGListUpdatingCompletion block in completionBlocks) {
+            block(finished);
+        }
+
+        self.state = IGListBatchUpdateStateIdle;
+    };
+
+    // bail early if the collection view has been deallocated in the time since the update was queued
+    UICollectionView *collectionView = collectionViewBlock();
+    if (collectionView == nil) {
+        [self _cleanStateAfterUpdates];
+        executeCompletionBlocks(NO);
+        return;
+    }
 
     // item updates must not send mutations to the collection view while we are reloading
     self.state = IGListBatchUpdateStateExecutingBatchUpdateBlock;
@@ -86,22 +96,12 @@
     [collectionView layoutIfNeeded];
     [delegate listAdapterUpdater:self didReloadDataWithCollectionView:collectionView];
 
-    for (IGListUpdatingCompletion block in completionBlocks) {
-        block(YES);
-    }
-
-    self.state = IGListBatchUpdateStateIdle;
+    executeCompletionBlocks(YES);
 }
 
 - (void)performBatchUpdatesWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock {
     IGAssertMainThread();
     IGAssert(self.state == IGListBatchUpdateStateIdle, @"Should not call batch updates when state isn't idle");
-
-    // bail early if the collection view has been deallocated in the time since the update was queued
-    UICollectionView *collectionView = collectionViewBlock();
-    if (collectionView == nil) {
-        return;
-    }
 
     // create local variables so we can immediately clean our state but pass these items into the batch update block
     id<IGListAdapterUpdaterDelegate> delegate = self.delegate;
@@ -111,6 +111,26 @@
     void (^objectTransitionBlock)(NSArray *) = [self.objectTransitionBlock copy];
     const BOOL animated = self.queuedUpdateIsAnimated;
     IGListBatchUpdates *batchUpdates = self.batchUpdates;
+
+    // clean up all state so that new updates can be coalesced while the current update is in flight
+    [self cleanStateBeforeUpdates];
+
+    void (^executeCompletionBlocks)(BOOL) = ^(BOOL finished) {
+        self.applyingUpdateData = nil;
+        self.state = IGListBatchUpdateStateIdle;
+
+        for (IGListUpdatingCompletion block in completionBlocks) {
+            block(finished);
+        }
+    };
+
+    // bail early if the collection view has been deallocated in the time since the update was queued
+    UICollectionView *collectionView = collectionViewBlock();
+    if (collectionView == nil) {
+        [self _cleanStateAfterUpdates];
+        executeCompletionBlocks(NO);
+        return;
+    }
 
     NSArray *toObjects = nil;
     if (toObjectsBlock != nil) {
@@ -124,9 +144,6 @@
                  @"Cannot have a nil diffIdentifier for object %@", obj);
     }
 #endif
-
-    // clean up all state so that new updates can be coalesced while the current update is in flight
-    [self cleanStateBeforeUpdates];
 
     void (^executeUpdateBlocks)(void) = ^{
         self.state = IGListBatchUpdateStateExecutingBatchUpdateBlock;
@@ -150,15 +167,6 @@
         [completionBlocks addObjectsFromArray:batchUpdates.itemCompletionBlocks];
 
         self.state = IGListBatchUpdateStateExecutedBatchUpdateBlock;
-    };
-
-    void (^executeCompletionBlocks)(BOOL) = ^(BOOL finished) {
-        self.applyingUpdateData = nil;
-        self.state = IGListBatchUpdateStateIdle;
-
-        for (IGListUpdatingCompletion block in completionBlocks) {
-            block(finished);
-        }
     };
 
     void (^reloadDataFallback)(void) = ^{
