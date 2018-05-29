@@ -46,7 +46,7 @@ public final class ListSwiftAdapter: NSObject, ListAdapterDataSource {
     /**
      TODO
      */
-    public func sectionController<U: ListSwiftDiffable, T: ListSwiftSectionController<U>>(for value: U) -> T? {
+    public func sectionController<T>(for value: ListSwiftDiffable) -> T? {
         return listAdapter.sectionController(for: value) as? T
     }
 
