@@ -16,6 +16,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - `[IGListAdapterUpdater performBatchUpdatesWithCollectionViewBlock:]` and `[IGListAdapterUpdater performReloadDataWithCollectionViewBlock:]` clean state and run completion blocks if their `UICollectionView` is nil. [Brandon Darin](https://github.com/jbd1030) (tbd)
 
+- Fix usage of `reuseIdentifier` on `-[IGListCollectionContext dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:]` which not include identifier on registered classes. [Chandra](https://github.com/chandratjioe) [(#1190)](https://github.com/Instagram/IGListKit/pull/1190)
+
 3.4.0
 -----
 
