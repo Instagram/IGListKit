@@ -16,6 +16,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - `[IGListAdapterUpdater performBatchUpdatesWithCollectionViewBlock:]` and `[IGListAdapterUpdater performReloadDataWithCollectionViewBlock:]` clean state and run completion blocks if their `UICollectionView` is nil. [Brandon Darin](https://github.com/jbd1030) (tbd)
 
+- Ensuring view models with duplicate diff identifiers are removed when view models are first requested by `IGListBindingSectionController` [Adam Stern](https://github.com/adamastern) (tbd)
+
 3.4.0
 -----
 
