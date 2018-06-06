@@ -73,6 +73,19 @@
     XCTAssertEqualObjects(cell12.textField.text, @"42");
 }
 
+- (void)test_withDuplicateDiffIdentifiers_thatDuplicatesAreRemoved {
+    [self setupWithObjects:@[
+                             [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @7]],
+                             ]];
+
+    XCTAssertEqual([self.collectionView numberOfSections], 1);
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 1);
+
+    IGTestNumberBindableCell *cell00 = [self cellAtSection:0 item:0];
+
+    XCTAssertEqualObjects(cell00.textField.text, @"7");
+}
+
 - (void)test_whenUpdating_withAddedModels_thatCellsCorrectAndConfigured {
     [self setupWithObjects:@[
                              [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
@@ -362,21 +375,24 @@
 
 - (void)test_whenUpdating_withMutableArrayObject_thatViewModelsDontMutate {
     NSArray *objects = @[
-                             @"foo",
-                             @"bar"
-                             ];
+                         @"foo",
+                         @"bar"
+                         ];
+
     NSMutableArray *initObjects = [NSMutableArray arrayWithArray:objects];
-    
+
     [self setupWithObjects:@[
                              [[IGTestDiffingObject alloc] initWithKey:@1 objects:initObjects]
                              ]];
     
     IGTestDiffingSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
-    
-    NSArray *oldModels = [section.viewModels copy];
+
+    XCTAssertNotEqual(initObjects, section.viewModels);
+    XCTAssertEqualObjects(initObjects, section.viewModels);
+
     [initObjects removeAllObjects];
     
-    XCTAssertEqual(oldModels, section.viewModels);
+    XCTAssertNotEqualObjects(initObjects, section.viewModels);
 }
 
 @end
