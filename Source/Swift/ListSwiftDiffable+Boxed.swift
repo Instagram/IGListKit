@@ -8,10 +8,14 @@
  */
 
 // Not very clean, but it's not possible to write extensions on a composed Protocols.
-internal extension ListSwiftIdentifiable where Self: ListSwiftEquatable {
+internal extension ListSwiftDiffable {
 
-    var boxed: ListDiffable {
-        return ListDiffableBox(value: self)
+    var sectionBox: ListDiffable {
+        return ListDiffableBox(value: self, boxesSectionValue: true)
+    }
+
+    var viewModelBox: ListDiffable {
+        return ListDiffableBox(value: self, boxesSectionValue: false)
     }
 
 }

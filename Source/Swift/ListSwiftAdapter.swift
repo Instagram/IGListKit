@@ -84,7 +84,7 @@ public final class ListSwiftAdapter: NSObject, ListAdapterDataSource {
         guard let dataSource = self.dataSource else { return [] }
 
         return dataSource.values(adapter: self).map {
-            let box = ListDiffableBox(value: $0.value)
+            let box = $0.value.sectionBox
             // side effect: store the function for use in listAdapter(:, sectionControllerFor object:)
             map[box.functionLookupHash] = $0.constructor
             return box

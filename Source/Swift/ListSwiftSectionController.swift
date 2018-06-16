@@ -146,9 +146,9 @@ open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionControll
                 let value = strongSelf.value
                 else { return }
 
-            let fromBoxed = strongSelf.binders.map { $0.value.boxed }
+            let fromBoxed = strongSelf.binders.map { $0.value.viewModelBox }
             let to = strongSelf.createBinders(from: value)
-            let toBoxed = to.map { $0.value.boxed }
+            let toBoxed = to.map { $0.value.viewModelBox }
             let result = ListDiff(
                 oldArray: fromBoxed,
                 newArray: toBoxed,

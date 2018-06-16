@@ -39,7 +39,7 @@ public extension ListAdapter {
      @return The `ListSectionController`, if the value is a member of the `IGListAdapter`.
      */
     public func sectionController(for value: ListSwiftDiffable) -> ListSectionController? {
-        return sectionController(for: value.boxed)
+        return sectionController(for: value.sectionBox)
     }
 
     /**
@@ -50,7 +50,7 @@ public extension ListAdapter {
      @return The section, if the value is a member of the adapter.
      */
     public func section(for value: ListSwiftDiffable) -> Int? {
-        let section = self.section(for: value.boxed)
+        let section = self.section(for: value.sectionBox)
         return section == NSNotFound ? nil : section
     }
 
@@ -79,7 +79,7 @@ public extension ListAdapter {
      @return All currently visible cells in the `UICollectionView`. Array is empty if no cells are visible.
      */
     public func visibleCells(for value: ListSwiftDiffable) -> [UICollectionViewCell] {
-        return visibleCells(for: value.boxed)
+        return visibleCells(for: value.sectionBox)
     }
 
     /**
@@ -99,7 +99,7 @@ public extension ListAdapter {
         animated: Bool = true
         ) {
         scroll(
-            to: value.boxed,
+            to: value.sectionBox,
             supplementaryKinds: supplementaryKinds,
             scrollDirection: scrollDirection,
             scrollPosition: scrollPosition,

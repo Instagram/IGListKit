@@ -23,12 +23,21 @@ internal final class ListDiffableBox: ListDiffable {
     let value: ListSwiftDiffable
 
     /**
+     */
+    let boxesSectionValue: Bool
+
+    private let _diffIdentifier: NSObjectProtocol
+
+    /**
      Initialize a new `ListDiffableBox` object.
 
      @param value The value to be boxed.
      */
-    init(value: ListSwiftDiffable) {
+    init(value: ListSwiftDiffable, boxesSectionValue: Bool) {
         self.value = value
+        self.boxesSectionValue = boxesSectionValue
+        // namespace the identifier with the value type to help prevent collisions
+        self._diffIdentifier = "\(type(of: value))\(value.identifier)" as NSObjectProtocol
     }
 
     // MARK: ListDiffable
@@ -37,16 +46,18 @@ internal final class ListDiffableBox: ListDiffable {
      :nodoc:
      */
     func diffIdentifier() -> NSObjectProtocol {
-        // namespace the identifier with the value type to help prevent collisions
-        return "\(type(of: value))\(value.identifier)" as NSObjectProtocol
+        return _diffIdentifier
     }
 
     /**
      :nodoc:
      */
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        // always true since objects are updated with ListSwiftSectionController which handles updates at the cell level
-        return true
+        // always true when using section models since ListSwiftSectionController handles updates at the cell level
+        guard boxesSectionValue == false,
+            let box = object as? ListDiffableBox
+            else { return true }
+        return value.isEqual(to: box.value)
     }
 
 }
