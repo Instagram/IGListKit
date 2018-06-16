@@ -38,7 +38,7 @@ internal final class ListDiffableBox: ListDiffable {
      */
     func diffIdentifier() -> NSObjectProtocol {
         // namespace the identifier with the value type to help prevent collisions
-        return "\(value.self)\(value.identifier)" as NSObjectProtocol
+        return "\(type(of: value))\(value.identifier)" as NSObjectProtocol
     }
 
     /**

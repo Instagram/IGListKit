@@ -11,7 +11,7 @@ import UIKit
 
 public enum ListCellType<T: UICollectionViewCell> {
     case `class`(T.Type)
-    case storyboard(T.Type, String, Bundle?)
+    case storyboard(T.Type, String)
     case nib(T.Type, String, Bundle?)
 }
 
@@ -19,7 +19,7 @@ public struct ListBinder {
 
     enum CellType {
         case cellClass(UICollectionViewCell.Type)
-        case storyboard(String, Bundle?)
+        case storyboard(String)
         case nib(String, Bundle?)
     }
 
@@ -82,7 +82,7 @@ open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionControll
         let nestedCellType: ListBinder.CellType
         switch cellType {
         case let .class(type): nestedCellType = .cellClass(type)
-        case let .storyboard(_, type, bundle): nestedCellType = .storyboard(type, bundle)
+        case let .storyboard(_, type): nestedCellType = .storyboard(type)
         case let .nib(_, type, bundle): nestedCellType = .nib(type, bundle)
         }
 
@@ -210,7 +210,7 @@ open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionControll
             rawCell = collectionContext.dequeueReusableCell(of: type, for: self, at: index)
         case let .nib(type, bundle):
             rawCell = collectionContext.dequeueReusableCell(withNibName: type, bundle: bundle, for: self, at: index)
-        case let .storyboard(type, bundle):
+        case let .storyboard(type):
             rawCell = collectionContext.dequeueReusableCellFromStoryboard(withIdentifier: type, for: self, at: index)
         }
 
