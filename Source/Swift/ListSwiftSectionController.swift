@@ -155,6 +155,8 @@ open class ListSwiftSectionController<T: ListSwiftDiffable>: ListSectionControll
                 option: .equality
             )
 
+            strongSelf.binders = to
+
             for (i, _) in result.updates.enumerated() {
                 let identifier = fromBoxed[i].diffIdentifier()
                 let toIndex = result.newIndex(forIdentifier: identifier)
