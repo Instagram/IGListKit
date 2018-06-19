@@ -58,10 +58,6 @@
     [self _synchronousReloadDataWithCollectionView:collectionView];
 }
 
-- (void)_reloadItemsInCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self _synchronousReloadDataWithCollectionView:collectionView];
-}
-    
 - (void)moveSectionInCollectionView:(UICollectionView *)collectionView fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
     [self _synchronousReloadDataWithCollectionView:collectionView];
 }
