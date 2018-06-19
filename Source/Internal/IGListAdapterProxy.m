@@ -71,7 +71,7 @@ static BOOL isInterceptedSelector(SEL sel) {
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector {
-    return isInterceptedSelector(aSelector)
+    return (isInterceptedSelector(aSelector) && _interceptor)
     || [_collectionViewTarget respondsToSelector:aSelector]
     || [_scrollViewTarget respondsToSelector:aSelector];
 }
