@@ -79,4 +79,21 @@
     [(id)proxy scrollViewDidZoom:scrollView];
 }
 
+- (void)test_whenCallingIsKindOfClass_thatCallIsForwardedToDelegatesAndInterceptor {
+    id mockAdapter = [OCMockObject mockForClass:[IGListAdapter class]];
+
+    id mockCollectionViewDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
+    Class expectedCollectionViewDelegate = [UICollectionView class];
+    [[[mockCollectionViewDelegate stub] andReturnValue:@YES] isKindOfClass:expectedCollectionViewDelegate];
+
+    id mockScrollViewDelegate = [OCMockObject mockForProtocol:@protocol(UIScrollViewDelegate)];
+    Class expectedScrollViewDelegate = [UICollectionView class];
+    [[[mockCollectionViewDelegate stub] andReturnValue:@YES] isKindOfClass:expectedScrollViewDelegate];
+
+    IGListAdapterProxy *proxy = [[IGListAdapterProxy alloc] initWithCollectionViewTarget:mockCollectionViewDelegate scrollViewTarget:mockScrollViewDelegate interceptor:mockAdapter];
+
+    XCTAssertTrue([proxy isKindOfClass:expectedCollectionViewDelegate]);
+    XCTAssertTrue([proxy isKindOfClass:expectedScrollViewDelegate]);
+}
+
 @end

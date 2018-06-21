@@ -50,7 +50,7 @@ static BOOL isInterceptedSelector(SEL sel) {
 @interface IGListAdapterProxy () {
     __weak id _collectionViewTarget;
     __weak id _scrollViewTarget;
-    __weak IGListAdapter *_interceptor;
+    __weak id _interceptor;
 }
 
 @end
@@ -74,6 +74,12 @@ static BOOL isInterceptedSelector(SEL sel) {
     return isInterceptedSelector(aSelector)
     || [_collectionViewTarget respondsToSelector:aSelector]
     || [_scrollViewTarget respondsToSelector:aSelector];
+}
+
+- (BOOL)isKindOfClass:(Class)aClass {
+    return [_interceptor isKindOfClass:aClass]
+    || [_collectionViewTarget isKindOfClass:aClass]
+    || [_scrollViewTarget isKindOfClass:aClass];
 }
 
 - (id)forwardingTargetForSelector:(SEL)aSelector {
