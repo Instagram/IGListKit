@@ -79,7 +79,7 @@
     [(id)proxy scrollViewDidZoom:scrollView];
 }
 
-- (void)test_whenCallingIsKindOfClass_thatCallIsForwardedToDelegatesAndInterceptor {
+- (void)test_whenCallingIsKindOfClass_thatCallIsForwardedToDelegates {
     id mockAdapter = [OCMockObject mockForClass:[IGListAdapter class]];
 
     id mockCollectionViewDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
