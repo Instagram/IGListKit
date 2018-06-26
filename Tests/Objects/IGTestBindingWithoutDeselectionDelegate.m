@@ -9,8 +9,26 @@
 
 @implementation IGTestBindingWithoutDeselectionDelegate
 
-- (void)sectionController:(IGListBindingSectionController *)sectionController didSelectItemAtIndex:(NSInteger)index viewModel:(id)viewModel {
+- (void)sectionController:(IGListBindingSectionController *)sectionController
+     didSelectItemAtIndex:(NSInteger)index
+                viewModel:(id)viewModel {
     self.selected = YES;
+}
+
+- (void)sectionController:(IGListBindingSectionController *)sectionController
+   didDeselectItemAtIndex:(NSInteger)index
+                viewModel:(id)viewModel; {
+}
+
+- (void)sectionController:(nonnull IGListBindingSectionController *)sectionController
+  didHighlightItemAtIndex:(NSInteger)index
+                viewModel:(nonnull id)viewModel {
+}
+
+
+- (void)sectionController:(nonnull IGListBindingSectionController *)sectionController
+didUnhighlightItemAtIndex:(NSInteger)index
+                viewModel:(nonnull id)viewModel {
 }
 
 @end
