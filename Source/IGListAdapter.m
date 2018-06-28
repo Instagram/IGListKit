@@ -1080,8 +1080,7 @@
 - (void)performBatchAnimated:(BOOL)animated updates:(void (^)(id<IGListBatchContext>))updates completion:(void (^)(BOOL))completion {
     IGAssertMainThread();
     IGParameterAssert(updates != nil);
-    UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Performing batch updates without a collection view.");
+    IGAssert(self.collectionView != nil, @"Performing batch updates without a collection view.");
 
     [self _enterBatchUpdates];
 
