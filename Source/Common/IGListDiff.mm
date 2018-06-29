@@ -87,7 +87,7 @@ static NSArray<NSIndexPath *> *indexPathsAndPopulateMap(__unsafe_unretained NSAr
     [array enumerateObjectsUsingBlock:^(id<IGListDiffable> obj, NSUInteger idx, BOOL *stop) {
         NSIndexPath *path = [NSIndexPath indexPathForItem:idx inSection:section];
         [paths addObject:path];
-        [map setObject:paths forKey:[obj diffIdentifier]];
+        [map setObject:path forKey:[obj diffIdentifier]];
     }];
     return paths;
 }
