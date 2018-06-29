@@ -21,6 +21,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Ensuring view models with duplicate diff identifiers are removed when view models are first requested by `IGListBindingSectionController` [Adam Stern](https://github.com/adamastern) (tbd)
 
+- Forward [IGListAdapterProxy isKindOfClass:] calls to its interceptor and delegates. [Robbie Kirk](https://github.com/jgheab) [(#1196)](https://github.com/Instagram/IGListKit/pull/1196)
+
 3.4.0
 -----
 
