@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>IGListDiffable and Equality  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="IGListDiffable and Equality  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">IGListKit Docs</a> (98% documented)</p>
+        <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">IGListKit Reference</a>
+        <img id="carat" src="img/carat.png" />
+        IGListDiffable and Equality  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Guides.html">Guides</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="best-practices-and-faq.html">Best Practices and FAQ</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="generating-your-models.html">Generating your models</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="getting-started.html">Getting Started</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="iglistdiffable-and-equality.html">IGListDiffable and Equality</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="installation.html">Installation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="modeling-and-binding.html">Modeling and Binding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="vision.html">VISION</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="working-with-core-data.html">Working with Core Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="working-with-uicollectionview.html">Working with UICollectionView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/IGListAdapter.html">IGListAdapter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListIndexSetResult.html">IGListIndexSetResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListMoveIndex.html">IGListMoveIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListMoveIndexPath.html">IGListMoveIndexPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes.html#/c:objc(cs)IGListReloadDataUpdater">IGListReloadDataUpdater</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListSectionController.html">IGListSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListSingleSectionController.html">IGListSingleSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListStackedSectionController.html">IGListStackedSectionController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Constants.html">Constants</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Constants.html#/c:@IGListKitVersionNumber">IGListKitVersionNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Constants.html#/c:@IGListKitVersionString">IGListKitVersionString</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/IGListAdapterUpdateType.html">IGListAdapterUpdateType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/IGListDiffOption.html">IGListDiffOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/IGListExperiment.html">IGListExperiment</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterDataSource.html">IGListAdapterDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterMoveDelegate.html">IGListAdapterMoveDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBatchContext.html">IGListBatchContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBindable.html">IGListBindable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListDiffable.html">IGListDiffable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListWorkingRangeDelegate.html">IGListWorkingRangeDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Type Definitions.html">Type Definitions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/c:@F@IGListDiff">IGListDiff</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h1 id='iglistdiffable-and-equality' class='heading'>IGListDiffable and Equality</h1>
+
+<p>This guide explains the <code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code> protocol and how to write good <code>-isEqual:</code> methods. </p>
+<h2 id='background' class='heading'>Background</h2>
+
+<p>The <a href="https://instagram.github.io/IGListKit/Protocols/IGListDiffable.html"><code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code> protocol</a> requires clients to implement two methods, <code>-diffIdentifier</code> and <code>-isEqualToDiffableObject:</code>.</p>
+
+<p>The method <code>-isEqualToDiffableObject:</code> should perform the same type of check as <code>-isEqual:</code>, but without impacting performance characteristics, like in Objective-C containers such as <code>NSDictionary</code> and <code>NSSet</code>.</p>
+
+<p>Why are both of these methods required for diffing? The point of having the two methods has to do with <strong>identity</strong> and <strong>equality</strong>, where the diff identifier uniquely identifies data (common scenario is primary key in databases). Equality comes into play when comparing the values of two uniquely identical objects (driving reloading).</p>
+
+<p>See also: <a href="https://github.com/Instagram/IGListKit/issues/509">#509</a></p>
+<h2 id='code-iglistdiffable-code-bare-minimum' class='heading'><code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code> bare minimum</h2>
+
+<p>The quickest way to get started with diffable models is use the <em>object itself</em> as the identifier, and use the superclass&rsquo;s <code>-[NSObject isEqual:]</code> implementation for equality:</p>
+<pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="n">diffIdentifier</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">isEqualToDiffableObject</span><span class="o">:</span><span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span><span class="p">)</span><span class="n">object</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">[</span><span class="n">self</span> <span class="nf">isEqual</span><span class="p">:</span><span class="n">object</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre>
+<h2 id='writing-better-equality-methods' class='heading'>Writing better Equality methods</h2>
+
+<p>Even though <code>IGListKit</code> uses the method <code>-isEqualToDiffableObject:</code>, the concepts of writing a good equality check apply in general. Here are the basics to writing good <code>-isEqual:</code> and <code>-hash</code> functions. Note this is all Objective-C but applies to Swift also.</p>
+
+<ul>
+<li>If you override <code>-isEqual:</code> you <strong>must</strong> override <code>-hash</code>. Check out this <a href="https://www.mikeash.com/pyblog/friday-qa-2010-06-18-implementing-equality-and-hashing.html">article by Mike Ash</a> for details.</li>
+<li>Always compare the pointer first. This saves a lot of wasteful <code>objc_msgSend(...)</code> calls and value comparisons if checking the same instance.</li>
+<li>When comparing object values, always check for <code>nil</code> before <code>-isEqual:</code>. For example, <code>[nil isEqual:nil]</code> counterintuitively returns <code>NO</code>. Instead, do <code>left == right || [left isEqual:right]</code>.</li>
+<li>Always compare the <strong>cheapest values first</strong>. For example, doing <code>[self.array isEqual:other.array] &amp;&amp; self.intVal == other.intVal</code> is extremely wasteful if the <code>intVal</code> values are different. Use lazy evaluation!</li>
+</ul>
+
+<p>As an example, if I had a <code>User</code> model with the following interface:</p>
+<pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">User</span> <span class="p">:</span> <span class="nc">NSObject</span>
+
+<span class="k">@property</span> <span class="n">NSInteger</span> <span class="n">identifier</span><span class="p">;</span>
+<span class="k">@property</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+<span class="k">@property</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">posts</span><span class="p">;</span>
+
+<span class="k">@end</span>
+</code></pre>
+
+<p>You would implement its equality methods like so:</p>
+<pre class="highlight objective_c"><code><span class="k">@implementation</span> <span class="nc">User</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="n">hash</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">identifier</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">isEqual</span><span class="o">:</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="n">object</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">==</span> <span class="n">object</span><span class="p">)</span> <span class="p">{</span> 
+      <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">object</span> <span class="nf">isKindOfClass</span><span class="p">:[</span><span class="n">User</span> <span class="nf">class</span><span class="p">]])</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nb">NO</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="n">User</span> <span class="o">*</span><span class="n">right</span> <span class="o">=</span> <span class="n">object</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">identifier</span> <span class="o">==</span> <span class="n">right</span><span class="p">.</span><span class="n">identifier</span> 
+      <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">right</span><span class="p">.</span><span class="n">name</span> <span class="o">||</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="nf">isEqual</span><span class="p">:</span><span class="n">right</span><span class="p">.</span><span class="n">name</span><span class="p">])</span>
+      <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">posts</span> <span class="o">==</span> <span class="n">right</span><span class="p">.</span><span class="n">posts</span> <span class="o">||</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">posts</span> <span class="nf">isEqualToArray</span><span class="p">:</span><span class="n">right</span><span class="p">.</span><span class="n">posts</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="k">@end</span>
+</code></pre>
+<h2 id='using-both-code-iglistdiffable-code-and-code-isequal-code' class='heading'>Using both <code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code> and <code>-isEqual:</code></h2>
+
+<p>Making your objects work universally with Objective-C containers and <code>IGListKit</code> is easy once you&rsquo;ve implemented <code>-isEqual:</code> and <code>-hash</code>.</p>
+<pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">User</span> <span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span>
+
+<span class="c1">// properties...</span>
+
+<span class="k">@end</span>
+
+<span class="k">@implementation</span> <span class="nc">User</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="n">diffIdentifier</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="err">@</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">identifier</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">isEqualToDiffableObject</span><span class="o">:</span><span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span><span class="p">)</span><span class="n">object</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">self</span> <span class="nf">isEqual</span><span class="p">:</span><span class="n">object</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="k">@end</span>
+</code></pre>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-05-01)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

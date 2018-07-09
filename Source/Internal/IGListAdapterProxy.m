@@ -1,15 +1,14 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import "IGListAdapterProxy.h"
 
 #import <IGListKit/IGListAssert.h>
+#import "IGListCollectionViewDelegateLayout.h"
 
 /**
  Define messages that you want the IGListAdapter object to intercept. Pattern copied from
@@ -17,10 +16,18 @@
  */
 static BOOL isInterceptedSelector(SEL sel) {
     return (
+            // UIScrollViewDelegate
+            sel == @selector(scrollViewDidScroll:) ||
+            sel == @selector(scrollViewWillBeginDragging:) ||
+            sel == @selector(scrollViewDidEndDragging:willDecelerate:) ||
+            sel == @selector(scrollViewDidEndDecelerating:) ||
             // UICollectionViewDelegate
-            sel == @selector(collectionView:didSelectItemAtIndexPath:) ||
             sel == @selector(collectionView:willDisplayCell:forItemAtIndexPath:) ||
             sel == @selector(collectionView:didEndDisplayingCell:forItemAtIndexPath:) ||
+            sel == @selector(collectionView:didSelectItemAtIndexPath:) ||
+            sel == @selector(collectionView:didDeselectItemAtIndexPath:) ||
+            sel == @selector(collectionView:didHighlightItemAtIndexPath:) ||
+            sel == @selector(collectionView:didUnhighlightItemAtIndexPath:) ||
             // UICollectionViewDelegateFlowLayout
             sel == @selector(collectionView:layout:sizeForItemAtIndexPath:) ||
             sel == @selector(collectionView:layout:insetForSectionAtIndex:) ||
@@ -28,10 +35,15 @@ static BOOL isInterceptedSelector(SEL sel) {
             sel == @selector(collectionView:layout:minimumLineSpacingForSectionAtIndex:) ||
             sel == @selector(collectionView:layout:referenceSizeForFooterInSection:) ||
             sel == @selector(collectionView:layout:referenceSizeForHeaderInSection:) ||
+            sel == @selector(collectionView:layout:referenceSizeForHeaderInSection:) ||
             // UIScrollViewDelegate
             sel == @selector(scrollViewDidScroll:) ||
             sel == @selector(scrollViewWillBeginDragging:) ||
-            sel == @selector(scrollViewDidEndDragging:willDecelerate:)
+            sel == @selector(scrollViewDidEndDragging:willDecelerate:) ||
+            sel == @selector(scrollViewDidEndDecelerating:) ||
+            // IGListCollectionViewDelegateLayout
+            sel == @selector(collectionView:layout:customizedInitialLayoutAttributes:atIndexPath:) ||
+            sel == @selector(collectionView:layout:customizedFinalLayoutAttributes:atIndexPath:)
             );
 }
 

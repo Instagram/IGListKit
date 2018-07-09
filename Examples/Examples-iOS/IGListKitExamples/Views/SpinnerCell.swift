@@ -1,9 +1,9 @@
 /**
  Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
-
+ 
  The examples provided by Facebook are for non-commercial testing and evaluation
  purposes only. Facebook reserves all rights not expressly granted.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -12,26 +12,26 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
-func spinnerSectionController() -> IGListSingleSectionController {
+func spinnerSectionController() -> ListSingleSectionController {
     let configureBlock = { (item: Any, cell: UICollectionViewCell) in
         guard let cell = cell as? SpinnerCell else { return }
         cell.activityIndicator.startAnimating()
     }
-    
-    let sizeBlock = { (item: Any, context: IGListCollectionContext?) -> CGSize in
+
+    let sizeBlock = { (item: Any, context: ListCollectionContext?) -> CGSize in
         guard let context = context else { return .zero }
         return CGSize(width: context.containerSize.width, height: 100)
     }
-    
-    return IGListSingleSectionController(cellClass: SpinnerCell.self,
-                                         configureBlock: configureBlock,
-                                         sizeBlock: sizeBlock)
+
+    return ListSingleSectionController(cellClass: SpinnerCell.self,
+                                       configureBlock: configureBlock,
+                                       sizeBlock: sizeBlock)
 }
 
-class SpinnerCell: UICollectionViewCell {
+final class SpinnerCell: UICollectionViewCell {
 
     lazy var activityIndicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(activityIndicatorStyle: .gray)
@@ -44,5 +44,5 @@ class SpinnerCell: UICollectionViewCell {
         let bounds = contentView.bounds
         activityIndicator.center = CGPoint(x: bounds.midX, y: bounds.midY)
     }
-    
+
 }

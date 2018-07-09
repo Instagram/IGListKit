@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Working with Core Data  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="Working with Core Data  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">IGListKit Docs</a> (98% documented)</p>
+        <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">IGListKit Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Working with Core Data  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Guides.html">Guides</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="best-practices-and-faq.html">Best Practices and FAQ</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="generating-your-models.html">Generating your models</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="getting-started.html">Getting Started</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="iglistdiffable-and-equality.html">IGListDiffable and Equality</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="installation.html">Installation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="modeling-and-binding.html">Modeling and Binding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="vision.html">VISION</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="working-with-core-data.html">Working with Core Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="working-with-uicollectionview.html">Working with UICollectionView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/IGListAdapter.html">IGListAdapter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListIndexSetResult.html">IGListIndexSetResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListMoveIndex.html">IGListMoveIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListMoveIndexPath.html">IGListMoveIndexPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes.html#/c:objc(cs)IGListReloadDataUpdater">IGListReloadDataUpdater</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListSectionController.html">IGListSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListSingleSectionController.html">IGListSingleSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListStackedSectionController.html">IGListStackedSectionController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Constants.html">Constants</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Constants.html#/c:@IGListKitVersionNumber">IGListKitVersionNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Constants.html#/c:@IGListKitVersionString">IGListKitVersionString</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/IGListAdapterUpdateType.html">IGListAdapterUpdateType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/IGListDiffOption.html">IGListDiffOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/IGListExperiment.html">IGListExperiment</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterDataSource.html">IGListAdapterDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterMoveDelegate.html">IGListAdapterMoveDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBatchContext.html">IGListBatchContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBindable.html">IGListBindable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListDiffable.html">IGListDiffable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListWorkingRangeDelegate.html">IGListWorkingRangeDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Type Definitions.html">Type Definitions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/c:@F@IGListDiff">IGListDiff</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h1 id='working-with-core-data' class='heading'>Working with Core Data</h1>
+
+<p>This guide provides details on how to work with <a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreData/index.html">Core Data</a> and <code>IGListKit</code>.</p>
+<h2 id='background' class='heading'>Background</h2>
+
+<p>The main difference in the setup and architecture of a Core Data and <code>IGListKit</code> application is the configuration of the model layer. Core Data operates with a mutable model layer, where objects are always passed by reference and the same instance is modified when an object is edited.</p>
+
+<p><code>IGListKit</code> requires an immutable model in order to correctly calculate the diffing between model snapshots and to correctly animate the <code>UICollectionView</code>.</p>
+
+<p>In order to satisfy these prerequisites, Core Data <code>NSManagedObject</code>s should not be used directly as <code>ListDiffable</code> objects. Instead, a view model (or some sort of token object) should be used to mimic (or act as a placeholder for) the data that will be displayed in the collection view.</p>
+<h2 id='further-discussion' class='heading'>Further discussion</h2>
+
+<p>There are further discussions on this topic at <a href="https://github.com/Instagram/IGListKit/issues/460">#460</a>, <a href="https://github.com/Instagram/IGListKit/issues/461">#461</a>, <a href="https://github.com/Instagram/IGListKit/issues/407">#407</a>.</p>
+<h2 id='basic-setup' class='heading'>Basic Setup</h2>
+
+<p>The basic setup for Core Data and <code>IGListKit</code> is the same as the normal setup that is found in the <a href="https://instagram.github.io/IGListKit/getting-started.html">Getting Started Guide</a>. The main difference will be in the setup of the model used in the <code><a href="Protocols/IGListAdapterDataSource.html">IGListAdapterDataSource</a></code>.</p>
+<h2 id='working-with-view-model' class='heading'>Working with view model</h2>
+<h3 id='creating-a-view-model' class='heading'>Creating a view model</h3>
+
+<p>Suppose the Core Data model consist of:</p>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">User</span> <span class="p">{</span>
+    <span class="kd">@NSManaged</span> <span class="k">var</span> <span class="nv">firstName</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="kd">@NSManaged</span> <span class="k">var</span> <span class="nv">lastName</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="kd">@NSManaged</span> <span class="k">var</span> <span class="nv">address</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="kd">@NSManaged</span> <span class="k">var</span> <span class="nv">someVariableNotNeededInUI</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>A <code>ViewModel</code> object will contain only the necessary information needed to build UI. The properties of the <code>ViewModel</code> will be immutable:</p>
+<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">UserViewModel</span><span class="p">:</span> <span class="kt">NSObject</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">firstName</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">let</span> <span class="nv">lastName</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">let</span> <span class="nv">address</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>We recommend writing a helper method to translate Core Data objects into <code>ViewModel</code> objects:</p>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UserViewModel</span> <span class="p">{</span>
+    <span class="kd">static</span> <span class="kd">func</span> <span class="nf">fromCoreData</span><span class="p">(</span><span class="nv">user</span><span class="p">:</span> <span class="kt">User</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UserViewModel</span> <span class="p">{</span>
+        <span class="c1">// - Note: For avoiding Core Data threading violation, the following code should be wrapped in a</span>
+        <span class="c1">// user.managedObjectContext?.performAndWait {}</span>
+        <span class="k">return</span> <span class="kt">UserViewModel</span><span class="p">(</span><span class="nv">firstName</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">firstName</span><span class="p">,</span> <span class="nv">lastName</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">lastName</span><span class="p">,</span> <span class="nv">address</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">lastName</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>The <code><a href="Protocols/IGListDiffable.html">IGListDiffable</a></code> protocol is implemented on the <code>ViewModel</code> layer:</p>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UserViewModel</span><span class="p">:</span> <span class="kt">ListDiffable</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">diffIdentifier</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSObjectProtocol</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kt">NSString</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="n">firstName</span> <span class="o">+</span> <span class="n">lastName</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="n">toDiffableObject</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">ListDiffable</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">toObject</span> <span class="o">=</span> <span class="n">object</span> <span class="k">as?</span> <span class="kt">UserViewModel</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">false</span> <span class="p">}</span>
+
+        <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="n">firstName</span> <span class="o">==</span> <span class="n">toObject</span><span class="o">.</span><span class="n">firstName</span>
+            <span class="o">&amp;&amp;</span> <span class="k">self</span><span class="o">.</span><span class="n">lastName</span> <span class="o">==</span> <span class="n">toObject</span><span class="o">.</span><span class="n">lastName</span>
+            <span class="o">&amp;&amp;</span> <span class="k">self</span><span class="o">.</span><span class="n">address</span> <span class="o">==</span> <span class="n">toObject</span><span class="o">.</span><span class="n">address</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h2 id='setting-up-the-view-model-in-the-adapter-data-source' class='heading'>Setting up the view model in the adapter data source</h2>
+
+<p>Steps to configure the <code>UICollectionView</code> with the <code>ViewModel</code>:</p>
+
+<ul>
+<li>Retrieve Core Data objects</li>
+<li>Transform Core Data objects into ViewModel objects and return them</li>
+<li>Track changes to Core Data objects and update the datasource with them</li>
+</ul>
+<h3 id='retrieve-core-data-objects' class='heading'>Retrieve Core Data objects</h3>
+
+<p>The way objects are retrieved from Core Data is depends on the project. </p>
+
+<p>Example: Suppose there is a delegate <code>Provider</code> class with the role of fetching Core Data objects and checking for updates. It can use an <code>NSFetchedResultsController</code> to leverage on the Core Data framework and rely on automatic notifications for updates.</p>
+<pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">UserProvider</span><span class="p">:</span> <span class="kt">NSObject</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">userFetchResultController</span><span class="p">:</span> <span class="kt">NSFetchedResultsController</span><span class="o">&lt;</span><span class="kt">User</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">fetchRequest</span><span class="p">:</span> <span class="kt">NSFetchRequest</span><span class="o">&lt;</span><span class="kt">User</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt">NSFetchRequest</span><span class="p">(</span><span class="nv">entityName</span><span class="p">:</span> <span class="s">"User"</span><span class="p">)</span>
+
+        <span class="c1">// sort descriptors and predicates </span>
+        <span class="c1">// ...</span>
+
+        <span class="k">let</span> <span class="nv">fetchResultController</span> <span class="o">=</span> <span class="kt">NSFetchedResultsController</span><span class="p">(</span>
+           <span class="nv">fetchRequest</span><span class="p">:</span> <span class="n">tripsFetchRequest</span><span class="p">,</span>
+           <span class="nv">managedObjectContext</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">coreDataStack</span><span class="o">.</span><span class="n">mainQueueManagedObjectContext</span><span class="p">,</span>
+           <span class="nv">sectionNameKeyPath</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span>
+           <span class="nv">cacheName</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+
+        <span class="c1">// Set delegate to track CoreData changes</span>
+        <span class="n">fetchResultController</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span>
+
+        <span class="k">return</span> <span class="n">fetchResultController</span>
+    <span class="p">}()</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">coreDataStack</span><span class="p">:</span> <span class="kt">CoreDataStack</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">coreDataStack</span> <span class="o">=</span> <span class="n">coreDataStack</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">init</span><span class="p">()</span>
+        <span class="k">do</span> <span class="p">{</span>
+            <span class="k">try</span> <span class="n">userFetchResultController</span><span class="o">.</span><span class="nf">performFetch</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">{</span>
+            <span class="nf">fatalError</span><span class="p">(</span><span class="s">"Cannot Fetch! </span><span class="se">\(</span><span class="n">error</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='transform-core-data-objects-into-view-models' class='heading'>Transform Core Data objects into view models</h3>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getUsers</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UserViewModel</span><span class="p">]?</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">users</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">userFetchResultController</span><span class="o">.</span><span class="n">fetchedObjects</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">nil</span> <span class="p">}</span>
+    <span class="c1">// Here we transform and return ViewModel objects!</span>
+    <span class="k">return</span> <span class="n">users</span><span class="o">.</span><span class="n">flatMap</span> <span class="p">{</span> <span class="kt">UserViewModel</span><span class="o">.</span><span class="nf">fromCoreData</span><span class="p">(</span><span class="nv">user</span><span class="p">:</span> <span class="nv">$0</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='track-changes-to-core-data' class='heading'>Track changes to Core Data</h3>
+
+<p>The <code>Provider</code> will track changes to the Core Data model by listening to the <code>NSFetchedResultsController</code> methods and inform the application about this changes via KVO, notifications, delegation, etc.</p>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UserProvider</span><span class="p">:</span> <span class="kt">NSFetchedResultsControllerDelegate</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">controllerDidChangeContent</span><span class="p">(</span><span class="n">_</span> <span class="nv">controller</span><span class="p">:</span> <span class="kt">NSFetchedResultsController</span><span class="o">&lt;</span><span class="kt">NSFetchRequestResult</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">delegate</span><span class="p">?</span><span class="o">.</span><span class="nf">performUpdatesForCoreDataChange</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='configure-the-datasource' class='heading'>Configure the datasource</h3>
+
+<p>The data source retrieves ViewModels and configures the <code><a href="Classes/IGListSectionController.html">IGListSectionController</a></code> with them:</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">objects</span><span class="p">(</span><span class="k">for</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">ListAdapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="n">userProvider</span><span class="o">.</span><span class="nf">getUsers</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='reacting-to-core-data-changes-in-ui' class='heading'>Reacting to Core Data changes in UI</h3>
+
+<p>The <code>UIViewController</code> containing the <code>UICollectionView</code>, will react to the <code>NSFetchedResultController</code> messages by updating the UI:</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">performUpdatesForCoreDataChange</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Updating contents of collection view</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">adapter</span><span class="o">.</span><span class="nf">performUpdates</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="n">animated</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-05-01)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

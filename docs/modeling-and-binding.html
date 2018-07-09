@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Modeling and Binding  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="Modeling and Binding  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">IGListKit Docs</a> (98% documented)</p>
+        <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">IGListKit Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Modeling and Binding  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Guides.html">Guides</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="best-practices-and-faq.html">Best Practices and FAQ</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="generating-your-models.html">Generating your models</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="getting-started.html">Getting Started</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="iglistdiffable-and-equality.html">IGListDiffable and Equality</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="installation.html">Installation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="modeling-and-binding.html">Modeling and Binding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="vision.html">VISION</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="working-with-core-data.html">Working with Core Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="working-with-uicollectionview.html">Working with UICollectionView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/IGListAdapter.html">IGListAdapter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListIndexSetResult.html">IGListIndexSetResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListMoveIndex.html">IGListMoveIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListMoveIndexPath.html">IGListMoveIndexPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes.html#/c:objc(cs)IGListReloadDataUpdater">IGListReloadDataUpdater</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListSectionController.html">IGListSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListSingleSectionController.html">IGListSingleSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListStackedSectionController.html">IGListStackedSectionController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Constants.html">Constants</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Constants.html#/c:@IGListKitVersionNumber">IGListKitVersionNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Constants.html#/c:@IGListKitVersionString">IGListKitVersionString</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/IGListAdapterUpdateType.html">IGListAdapterUpdateType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/IGListDiffOption.html">IGListDiffOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/IGListExperiment.html">IGListExperiment</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterDataSource.html">IGListAdapterDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterMoveDelegate.html">IGListAdapterMoveDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBatchContext.html">IGListBatchContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBindable.html">IGListBindable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListDiffable.html">IGListDiffable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListWorkingRangeDelegate.html">IGListWorkingRangeDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Type Definitions.html">Type Definitions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/c:@F@IGListDiff">IGListDiff</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h1 id='modeling-and-binding' class='heading'>Modeling and Binding</h1>
+
+<p>This guide will walk you through a practical example of taking an app spec/design and turning it into a working <code>IGListKit</code> project.</p>
+
+<p>You will learn how to:</p>
+
+<ul>
+<li>Turn a design spec into a top-level model and view models</li>
+<li>Use <code>ListBindingSectionController</code> for animated, one-way cell updates</li>
+<li>Cell-to-controller action handling and delegation</li>
+<li>Updating the UI with local data mutations</li>
+</ul>
+<h2 id='getting-started' class='heading'>Getting Started</h2>
+
+<p>You can follow along and build the example in this guide. First, you must download <a href="https://github.com/rnystrom/IGListKit-Binding-Guide">this starter project</a>. Open <strong>ModelingAndBinding-Starter/ModelingAndBinding.xcworkspace</strong> since the base project is setup with CocoaPods with <code>IGListKit</code> already added as a dependency.</p>
+
+<p>Take a look at the following Instagram-inspired list element design:</p>
+
+<p><img src="../Resources/modeling-design.png" alt="Design Specs"></p>
+
+<p>You can already start mentally modelling your data:</p>
+
+<ul>
+<li>The top cell has a <strong>username</strong> and <strong>timestamp</strong> label</li>
+<li>The image cell will need some sort of image <code>URL</code></li>
+<li>An action cell with <strong>like count</strong>. There will also need to be some sort of action handling when someone taps the heart</li>
+<li>Then there are a <em>dynamic</em> number of comment cells that contain a <strong>username</strong> and <strong>comment</strong></li>
+</ul>
+
+<p>Remember that <code>IGListKit</code> functions on <strong>one model per section controller</strong>. All of the cells in this design correlate to one top-level <q>post</q> object delivered by a server. You want to create a <code>Post</code> model that contains all of the information that the cells require.</p>
+
+<blockquote>
+<p>A common mistake is to create a single model and section controller for a single cell. In this example, that will create a <strong>very confusing</strong> architecture since the top-level objects will contain a mix and match of user, image, action, and comment models.</p>
+</blockquote>
+<h2 id='creating-models' class='heading'>Creating Models</h2>
+
+<p>Create a new file named <strong>Post.swift</strong> in the starter project:</p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">IGListKit</span>
+
+<span class="kd">final</span> <span class="kd">class</span> <span class="kt">Post</span><span class="p">:</span> <span class="kt">ListDiffable</span> <span class="p">{</span>
+
+  <span class="c1">// 1</span>
+  <span class="k">let</span> <span class="nv">username</span><span class="p">:</span> <span class="kt">String</span>
+  <span class="k">let</span> <span class="nv">timestamp</span><span class="p">:</span> <span class="kt">String</span>
+  <span class="k">let</span> <span class="nv">imageURL</span><span class="p">:</span> <span class="kt">URL</span>
+  <span class="k">let</span> <span class="nv">likes</span><span class="p">:</span> <span class="kt">Int</span>
+  <span class="k">let</span> <span class="nv">comments</span><span class="p">:</span> <span class="p">[</span><span class="kt">Comment</span><span class="p">]</span>
+
+  <span class="c1">// 2</span>
+  <span class="nf">init</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">timestamp</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">imageURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">likes</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">comments</span><span class="p">:</span> <span class="p">[</span><span class="kt">Comment</span><span class="p">])</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">timestamp</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">imageURL</span> <span class="o">=</span> <span class="n">imageURL</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">likes</span> <span class="o">=</span> <span class="n">likes</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="n">comments</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre>
+<li>It&rsquo;s best practice to always declare your values as <code>let</code> so they cannot be mutated again. The compiler will complain about the <code>Comment</code> model, ignore that for now.</li>
+<div class="aside aside-since">
+    <p class="aside-title">Since</p>
+    Since <code>IGListKit</code> is compatible with Objective-C, your models must be <code>class</code>es which means writing initializers. It&rsquo;s only a little copy &amp; paste!
+
+</div>
+
+<p>Now add a <code>ListDiffable</code> implementation inside of <code>Post</code>:</p>
+<pre class="highlight swift"><code><span class="c1">// MARK: ListDiffable</span>
+
+<span class="kd">func</span> <span class="nf">diffIdentifier</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSObjectProtocol</span> <span class="p">{</span>
+  <span class="c1">// 1</span>
+  <span class="nf">return</span> <span class="p">(</span><span class="n">username</span> <span class="o">+</span> <span class="n">timestamp</span><span class="p">)</span> <span class="k">as</span> <span class="kt">NSObjectProtocol</span>
+<span class="p">}</span>
+
+<span class="c1">// 2</span>
+<span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="n">toDiffableObject</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">ListDiffable</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+</code></pre>
+
+<ol>
+<li>Derive a <strong>unique identifier</strong> for each post. Since a single post should never have the same <code>username</code> and <code>timestamp</code> combo, we can start with that.</li>
+<li>A <strong>core requirement</strong> to using <code>ListBindingSectionController</code> is that if two models have the same <code>diffIdentifier</code>, they <strong>must be equal</strong> so that the section controller can then compare view models.</li>
+</ol>
+<h3 id='view-models' class='heading'>View Models</h3>
+
+<p>Create a new Swift file named <strong>Comment.swift</strong> and try writing the <code>Comment</code> model yourself:</p>
+
+<ul>
+<li><code>username</code> of type <code>String</code></li>
+<li><code>text</code> of type <code>String</code></li>
+<li>You will be diffing this model eventually, so add a <code>ListDiffable</code> implementation</li>
+</ul>
+
+<p>If you get stuck, or just want to copy &amp; paste, you can reveal the implementation below.</p>
+
+<details>
+  <summary>Comment implementation</summary>
+  <p>
+
+&ldquo;`swift
+import IGListKit
+
+final class Comment: ListDiffable {
+
+    let username: String
+    let text: String
+
+    init(username: String, text: String) {
+        self.username = username
+        self.text = text
+    }
+
+    // MARK: ListDiffable
+
+    func diffIdentifier() -> NSObjectProtocol {
+        return (username + text) as NSObjectProtocol
+    }
+
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        return true
+    }
+
+}
+&rdquo;`
+
+A note on the `isEqual(toDiffableObject:)` implementation: Whatever you use to derive the `diffIdentifier` can be omitted from any equality checks, since by definition the objects have already matched on their identifiers.
+
+In this case, the `username` and `text` **must be equal** by the time two objects are checked for equality.
+
+</p></details>
+
+<p>Using the <code>Comment</code> array on a <code>Post</code> should make some sense: there are a dynamic number of comments on each post. For each comment, you want to display a cell.</p>
+
+<p>What might be a little bit of a new concept, though, is that you need to create models for the <code>UserCell</code>, <code>ImageCell</code>, <em>and</em> <code>ActionCell</code> as well when working with <code>ListBindingSectionController</code>.</p>
+
+<blockquote>
+<p>A binding section controller is almost like a mini-<code>IGListKit</code>. It takes an array of view models and turns them into configured cells. Get into the habit of creating a new model for each cell type within an <code>ListBindingSectionController</code> instance.</p>
+</blockquote>
+
+<p>With that in mind, let&rsquo;s start with the model for the <code>UserCell</code>:</p>
+
+<p>Create a new Swift file called <strong>UserViewModel.swift</strong>:</p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">IGListKit</span>
+
+<span class="kd">final</span> <span class="kd">class</span> <span class="kt">UserViewModel</span><span class="p">:</span> <span class="kt">ListDiffable</span> <span class="p">{</span>
+
+  <span class="k">let</span> <span class="nv">username</span><span class="p">:</span> <span class="kt">String</span>
+  <span class="k">let</span> <span class="nv">timestamp</span><span class="p">:</span> <span class="kt">String</span>
+
+  <span class="nf">init</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">timestamp</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">timestamp</span>
+  <span class="p">}</span>
+
+  <span class="c1">// MARK: ListDiffable</span>
+
+  <span class="kd">func</span> <span class="nf">diffIdentifier</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSObjectProtocol</span> <span class="p">{</span>
+    <span class="c1">// 1</span>
+    <span class="k">return</span> <span class="s">"user"</span> <span class="k">as</span> <span class="kt">NSObjectProtocol</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="n">toDiffableObject</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">ListDiffable</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+    <span class="c1">// 2</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">object</span> <span class="o">=</span> <span class="n">object</span> <span class="k">as?</span> <span class="kt">UserViewModel</span> <span class="k">else</span>  <span class="p">{</span> <span class="k">return</span> <span class="kc">false</span> <span class="p">}</span>
+    <span class="k">return</span> <span class="n">username</span> <span class="o">==</span> <span class="n">object</span><span class="o">.</span><span class="n">username</span>
+    <span class="o">&amp;&amp;</span> <span class="n">timestamp</span> <span class="o">==</span> <span class="n">object</span><span class="o">.</span><span class="n">timestamp</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre>
+<div class="aside aside-since">
+    <p class="aside-title">Since</p>
+    Since there will only be <strong>one <code>UserViewModel</code> per <code>Post</code></strong>, you can hardcode an identifier. This will enforce only a single model &amp; cell being used.
+
+</div>
+<li>It&rsquo;s important to write a good equality method for these view models. Anytime something changes, forcing the models to not be equal, the cell will be refreshed.</li>
+
+<p>Try to make view models for the <strong>image</strong> and <strong>action</strong> cell. Remember there is only a single cell per <code>Post</code>, so you can use <code>UserViewModel</code> as a starting point for how the models should look.</p>
+
+<details>
+  <summary>View model implementations</summary>
+  <p>
+
+&ldquo;`swift
+import IGListKit
+
+final class ImageViewModel: ListDiffable {
+
+  let url: URL
+
+  init(url: URL) {
+    self.url = url
+  }
+
+  // MARK: ListDiffable
+
+  func diffIdentifier() -> NSObjectProtocol {
+    return &quot;image&rdquo; as NSObjectProtocol
+  }
+
+  func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+    guard let object = object as? ImageViewModel else { return false }
+    return url == object.url
+  }
+
+}
+
+final class ActionViewModel: ListDiffable {
+
+  let likes: Int
+
+  init(likes: Int) {
+    self.likes = likes
+  }
+
+  // MARK: ListDiffable
+
+  func diffIdentifier() -> NSObjectProtocol {
+    return &ldquo;action&rdquo; as NSObjectProtocol
+  }
+
+  func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+    guard let object = object as? ActionViewModel else { return false }
+    return likes == object.likes
+  }
+  
+}
+&ldquo;`
+
+> You could try getting away with using generics since these models look so similar, but we&rsquo;ve found that using **simple** models makes long-term maintenance more manageable.
+
+</p></details>
+<h2 id='using-listbindingsectioncontroller' class='heading'>Using ListBindingSectionController</h2>
+
+<p>You now have the following view models, which can all be derived from each <code>Post</code>:</p>
+
+<ul>
+<li><code>UserViewModel</code></li>
+<li><code>ImageViewModel</code></li>
+<li><code>ActionViewModel</code></li>
+<li><code>Comment</code></li>
+</ul>
+
+<p>Let&rsquo;s start using these models to power cells using <code>ListBindingSectionController</code>. This controller takes a top-level model (<code>Post</code>), asks its data source for an array of diffable view models (our view models above), then binds those view models to cells (provided in the starter project).</p>
+
+<p><img src="../Resources/binding-flow.png" alt="Binding Flow"></p>
+
+<p>Create <strong>PostSectionController.swift</strong> and add the following code:</p>
+<pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">PostSectionController</span><span class="p">:</span> <span class="kt">ListBindingSectionController</span><span class="o">&lt;</span><span class="kt">Post</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="kt">ListBindingSectionControllerDataSource</span> <span class="p">{</span>
+
+  <span class="k">override</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">init</span><span class="p">()</span>
+    <span class="n">dataSource</span> <span class="o">=</span> <span class="k">self</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre>
+
+<p>Notice that you are subclassing <code>ListBindingSectionController&lt;Post&gt;</code>. This declares your section controller as receiving a <code>Post</code> model. That way you don&rsquo;t have to do any special casting of your model.</p>
+
+<p>There are 3 methods that are required to satisfy the data source protocol:</p>
+
+<ul>
+<li>Return an array of view models given the top-level model (<code>Post</code>)</li>
+<li>Return a size for a given view model</li>
+<li>Return a cell for a given view model</li>
+</ul>
+
+<p>First take care of the <code>Post</code>-to-view-models transformation:</p>
+<pre class="highlight swift"><code><span class="c1">// MARK: ListBindingSectionControllerDataSource</span>
+
+<span class="kd">func</span> <span class="nf">sectionController</span><span class="p">(</span>
+  <span class="n">_</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt">ListBindingSectionController</span><span class="o">&lt;</span><span class="kt">ListDiffable</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">viewModelsFor</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span>
+  <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]</span> <span class="p">{</span>
+    <span class="c1">// 1</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">object</span> <span class="o">=</span> <span class="n">object</span> <span class="k">as?</span> <span class="kt">Post</span> <span class="k">else</span> <span class="p">{</span> <span class="nf">fatalError</span><span class="p">()</span> <span class="p">}</span>
+    <span class="c1">// 2</span>
+    <span class="k">let</span> <span class="nv">results</span><span class="p">:</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="kt">UserViewModel</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="n">object</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="nv">timestamp</span><span class="p">:</span> <span class="n">object</span><span class="o">.</span><span class="n">timestamp</span><span class="p">),</span>
+      <span class="kt">ImageViewModel</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="n">object</span><span class="o">.</span><span class="n">imageURL</span><span class="p">),</span>
+      <span class="kt">ActionViewModel</span><span class="p">(</span><span class="nv">likes</span><span class="p">:</span> <span class="n">object</span><span class="o">.</span><span class="n">likes</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="c1">// 3</span>
+    <span class="k">return</span> <span class="n">results</span> <span class="o">+</span> <span class="n">object</span><span class="o">.</span><span class="n">comments</span>
+<span class="p">}</span>
+</code></pre>
+
+<ol>
+<li>The <code>object</code> property <strong>must</strong> be optional because it will not exist upon section controller initialization. However, it should never be nil at this point, nor should the <code>object: Any</code> parameter be anything but the section controller type. This is a limitation of Objective-C generics and protocols, so doing a <code>fatalError()</code> here is appropriate.</li>
+<li>Create your array of view models by <em>decomposing</em> the <code>Post</code> model into smaller models.</li>
+<li>You can even append dynamic models that are delivered from the server.</li>
+</ol>
+
+<p>Next add the required API to return a size for each view model:</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sectionController</span><span class="p">(</span>
+  <span class="n">_</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt">ListBindingSectionController</span><span class="o">&lt;</span><span class="kt">ListDiffable</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">sizeForViewModel</span> <span class="nv">viewModel</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span>
+  <span class="n">at</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span>
+  <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span> <span class="p">{</span>
+  <span class="c1">// 1</span>
+  <span class="k">guard</span> <span class="k">let</span> <span class="nv">width</span> <span class="o">=</span> <span class="n">collectionContext</span><span class="p">?</span><span class="o">.</span><span class="n">containerSize</span><span class="o">.</span><span class="n">width</span> <span class="k">else</span> <span class="p">{</span> <span class="nf">fatalError</span><span class="p">()</span> <span class="p">}</span>
+  <span class="c1">// 2</span>
+  <span class="k">let</span> <span class="nv">height</span><span class="p">:</span> <span class="kt">CGFloat</span>
+  <span class="k">switch</span> <span class="n">viewModel</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="k">is</span> <span class="kt">ImageViewModel</span><span class="p">:</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">250</span>
+  <span class="k">case</span> <span class="k">is</span> <span class="kt">Comment</span><span class="p">:</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">35</span>
+  <span class="c1">// 3</span>
+  <span class="k">default</span><span class="p">:</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">55</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="n">height</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<ol>
+<li>Just like the <code>object</code> property, the <code>collectionContext</code> should never be <code>nil</code>, but it&rsquo;s a weakly referenced object so must be declared as optional. Again, use <code>fatalError()</code> to catch any critical failures.</li>
+<li>Swift makes checking for types so easy! Just <code>switch</code> on the type and assign a height. In Objective-C you should use <code>isKindOfClass:</code>.</li>
+<li>Both the <code>UserViewModel</code> and <code>ActionViewModel</code> share the same height of <code>55</code>pts according to the design.</li>
+</ol>
+
+<p>Lastly, implement the API that returns a cell for each view model. This should look similar to the size API above. Give it a try yourself.</p>
+
+<blockquote>
+<p>Remember that the cells are defined in <strong>Main.storyboard</strong>. You can click on each cell to view their identifiers.</p>
+</blockquote>
+
+<details>
+  <summary>&quot;cellForViewModel:&rdquo; implementation</summary>
+  <p>
+
+&ldquo;`swift
+func sectionController(
+  _ sectionController: ListBindingSectionController<ListDiffable>,
+  cellForViewModel viewModel: Any,
+  at index: Int
+  ) -> UICollectionViewCell {
+  let identifier: String
+  switch viewModel {
+  case is ImageViewModel: identifier = &quot;image&rdquo;
+  case is Comment: identifier = &ldquo;comment&rdquo;
+  case is UserViewModel: identifier = &ldquo;user&rdquo;
+  default: identifier = &ldquo;action&rdquo;
+  }
+  guard let cell = collectionContext?
+    .dequeueReusableCellFromStoryboard(withIdentifier: identifier, for: self, at: index)
+    else { fatalError() }
+  return cell
+}
+&ldquo;`
+
+Remember to handle `UserViewModel` and `ActionViewModel` separately!
+
+</p></details>
+<h2 id='binding-models-to-cells' class='heading'>Binding Models to Cells</h2>
+
+<p>Now you have <code>PostSectionController</code> setup to create view models, sizes, and cells. The last piece to using <code>ListBindingSectionController</code> is having your cells to receive its assigned view model and configure itself. </p>
+
+<p>This is done by making your cells conform to <code>ListBindable</code>. With that, <code>ListBindingSectionController</code> will <strong>automatically</strong> bind view models to each cell!</p>
+
+<p>Open <strong>ImageCell.swift</strong> and change the implementation to look like the following:</p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">UIKit</span>
+<span class="kd">import</span> <span class="kt">SDWebImage</span>
+<span class="c1">// 1</span>
+<span class="kd">import</span> <span class="kt">IGListKit</span>
+
+<span class="c1">// 2</span>
+<span class="kd">final</span> <span class="kd">class</span> <span class="kt">ImageCell</span><span class="p">:</span> <span class="kt">UICollectionViewCell</span><span class="p">,</span> <span class="kt">ListBindable</span> <span class="p">{</span>
+
+  <span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">imageView</span><span class="p">:</span> <span class="kt">UIImageView</span><span class="o">!</span>
+
+  <span class="c1">// MARK: ListBindable</span>
+
+  <span class="kd">func</span> <span class="nf">bindViewModel</span><span class="p">(</span><span class="n">_</span> <span class="nv">viewModel</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 3</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">viewModel</span> <span class="o">=</span> <span class="n">viewModel</span> <span class="k">as?</span> <span class="kt">ImageViewModel</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+    <span class="c1">// 4</span>
+    <span class="n">imageView</span><span class="o">.</span><span class="nf">sd_setImage</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="n">viewModel</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre>
+
+<ol>
+<li>Make sure to import <code>IGListKit</code>!</li>
+<li>Have the cell conform to <code>ListBindable</code></li>
+<li>Guard against the view model type. This will always be what <code>PostSectionController</code> pairs the cell with in <code>cellForViewModel:</code>, but guard to be safe.</li>
+<li>Use the <a href="https://github.com/rs/SDWebImage">SDWebImage</a> library to set the image URL.</li>
+</ol>
+
+<p>Now do exactly the same thing for each of the other cells:</p>
+
+<ul>
+<li><code>ActionCell</code> binds <code>ActionViewModel</code></li>
+<li><code>UserCell</code> binds <code>UserViewModel</code></li>
+<li><code>CommentCell</code> binds <code>Comment</code></li>
+</ul>
+
+<details>
+  <summary>ListBindable implementations</summary>
+  <p>
+
+&rdquo;`swift
+final class ActionCell: UICollectionViewCell, ListBindable {
+
+  @IBOutlet weak var likesLabel: UILabel!
+  @IBOutlet weak var likeButton: UIButton!
+
+  // MARK: ListBindable
+
+  func bindViewModel(_ viewModel: Any) {
+    guard let viewModel = viewModel as? ActionViewModel else { return }
+    likesLabel.text = &ldquo;\(viewModel.likes)&rdquo;
+  }
+
+}
+
+final class UserCell: UICollectionViewCell, ListBindable {
+
+  @IBOutlet weak var usernameLabel: UILabel!
+  @IBOutlet weak var dateLabel: UILabel!
+
+  // MARK: ListBindable
+
+  func bindViewModel(_ viewModel: Any) {
+    guard let viewModel = viewModel as? UserViewModel else { return }
+    usernameLabel.text = viewModel.username
+    dateLabel.text = viewModel.timestamp
+  }
+
+}
+
+final class CommentCell: UICollectionViewCell, ListBindable {
+
+  @IBOutlet weak var usernameLabel: UILabel!
+  @IBOutlet weak var commentLabel: UILabel!
+
+  // MARK: ListBindable
+
+  func bindViewModel(_ viewModel: Any) {
+    guard let viewModel = viewModel as? Comment else { return }
+    usernameLabel.text = viewModel.username
+    commentLabel.text = viewModel.text
+  }
+
+}
+&ldquo;`
+</p></details>
+<h2 id='displaying-in-the-view-controller' class='heading'>Displaying in the View Controller</h2>
+
+<p>The very last step is getting the <code>PostSectionController</code> displaying in the app&rsquo;s list.</p>
+
+<p>Go back to <strong>ViewController.swift</strong> and add the following to <code>viewDidLoad()</code>, <strong>before</strong> setting the <code>dataSource</code> or <code>collectionView</code>:</p>
+<pre class="highlight swift"><code><span class="n">data</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="kt">Post</span><span class="p">(</span>
+  <span class="nv">username</span><span class="p">:</span> <span class="s">"@janedoe"</span><span class="p">,</span>
+  <span class="nv">timestamp</span><span class="p">:</span> <span class="s">"15min"</span><span class="p">,</span>
+  <span class="nv">imageURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"https://placekitten.com/g/375/250"</span><span class="p">)</span><span class="o">!</span><span class="p">,</span>
+  <span class="nv">likes</span><span class="p">:</span> <span class="mi">384</span><span class="p">,</span>
+  <span class="nv">comments</span><span class="p">:</span> <span class="p">[</span>
+    <span class="kt">Comment</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="s">"@ryan"</span><span class="p">,</span> <span class="nv">text</span><span class="p">:</span> <span class="s">"this is beautiful!"</span><span class="p">),</span>
+    <span class="kt">Comment</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="s">"@jsq"</span><span class="p">,</span> <span class="nv">text</span><span class="p">:</span> <span class="s">"😱"</span><span class="p">),</span>
+    <span class="kt">Comment</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="s">"@caitlin"</span><span class="p">,</span> <span class="nv">text</span><span class="p">:</span> <span class="s">"#blessed"</span><span class="p">),</span>
+  <span class="p">]</span>
+<span class="p">))</span>
+</code></pre>
+
+<p>Lastly, update <code>listAdapter(_, sectionControllerFor object:)</code>:</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span>
+  <span class="n">_</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">ListAdapter</span><span class="p">,</span>
+  <span class="n">sectionControllerFor</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span>
+  <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ListSectionController</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kt">PostSectionController</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre>
+
+<blockquote>
+<p>Normally you&rsquo;d want to check the type of <code>object</code>, but since you&rsquo;re only using <code>Post</code> at this point, it&rsquo;s safe to simply return a new <code>PostSectionController</code>.</p>
+</blockquote>
+
+<p><strong>Build and run</strong> the sample app to see your post show up!</p>
+
+<p><img src="../Resources/modeling-working.png" alt="Working in the Simulator"></p>
+<h2 id='handling-cell-actions' class='heading'>Handling Cell Actions</h2>
+
+<p>This design should respond to tapping the heart icon on the <code>ActionCell</code>. In order to do that, you need to handle taps on the <code>UIButton</code>, then forward the event to the <code>PostSectionController</code>:</p>
+
+<p>Open <strong>ActionCell.swift</strong> and add the following protocol:</p>
+<pre class="highlight swift"><code><span class="kd">protocol</span> <span class="kt">ActionCellDelegate</span><span class="p">:</span> <span class="kd">class</span> <span class="p">{</span>
+  <span class="kd">func</span> <span class="nf">didTapHeart</span><span class="p">(</span><span class="nv">cell</span><span class="p">:</span> <span class="kt">ActionCell</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Add a new delegate variable to the <code>ActionCell</code>, beneath the outlets:</p>
+<pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt">ActionCellDelegate</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+</code></pre>
+
+<p>Override <code>awakeFromNib()</code> and add a target &amp; action to the <code>likeButton</code>:</p>
+<pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">awakeFromNib</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">super</span><span class="o">.</span><span class="nf">awakeFromNib</span><span class="p">()</span>
+  <span class="n">likeButton</span><span class="o">.</span><span class="nf">addTarget</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="kd">#selector(</span><span class="nf">ActionCell.onHeart</span><span class="kd">)</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">touchUpInside</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>The last thing you need to do in <strong>ActionCell.swift</strong> is add an implementation for <code>onHeart()</code>:</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">onHeart</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">delegate</span><span class="p">?</span><span class="o">.</span><span class="nf">didTapHeart</span><span class="p">(</span><span class="nv">cell</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>This will forward the button tap outside of the cell and to the delegate.</p>
+
+<p>Open <strong>PostSectionController.swift</strong> and update the <code>cellForViewModel:</code> method. Add the following at the end of the method, just after the <code>guard</code> and right before you return the <code>cell</code>:</p>
+<pre class="highlight swift"><code><span class="k">if</span> <span class="k">let</span> <span class="nv">cell</span> <span class="o">=</span> <span class="n">cell</span> <span class="k">as?</span> <span class="kt">ActionCell</span> <span class="p">{</span>
+  <span class="n">cell</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>The compiler will immediately complain. Satisfy the compiler but adding an empty implementation to <code>PostSectionController</code>:</p>
+<pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">PostSectionController</span><span class="p">:</span> <span class="kt">ListBindingSectionController</span><span class="o">&lt;</span><span class="kt">Post</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="kt">ListBindingSectionControllerDataSource</span><span class="p">,</span>
+<span class="kt">ActionCellDelegate</span> <span class="p">{</span>
+
+<span class="c1">//...</span>
+
+<span class="c1">// MARK: ActionCellDelegate</span>
+
+<span class="kd">func</span> <span class="nf">didTapHeart</span><span class="p">(</span><span class="nv">cell</span><span class="p">:</span> <span class="kt">ActionCell</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">print</span><span class="p">(</span><span class="s">"like"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<p><strong>Build and run</strong> the app and tap on the heart button. You should see <q>like</q>s printing into the console.</p>
+<h2 id='local-mutations' class='heading'>Local Mutations</h2>
+
+<p>Every time someone taps the heart button, you need to add a new like to the <code>Post</code>. However, all of your models are declared with <code>let</code> because immutable models are a much safer design. But if everything is immutable, how do we mutate the like count?</p>
+
+<p>The <code>PostSectionController</code> is the <em>perfect</em> place to handle and store mutations. Open <strong>PostSectionController.swift</strong> and add the following variable:</p>
+<pre class="highlight swift"><code><span class="k">var</span> <span class="nv">localLikes</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+</code></pre>
+
+<p>Go back to the <code>didTapHeart(cell:)</code> delegate method and change the implementation to the following:</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">didTapHeart</span><span class="p">(</span><span class="nv">cell</span><span class="p">:</span> <span class="kt">ActionCell</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 1</span>
+  <span class="n">localLikes</span> <span class="o">=</span> <span class="p">(</span><span class="n">localLikes</span> <span class="p">??</span> <span class="n">object</span><span class="p">?</span><span class="o">.</span><span class="n">likes</span> <span class="p">??</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="c1">// 2</span>
+  <span class="nf">update</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<ol>
+<li>Mutate the <code>localLikes</code> variable using either the previous <code>localLikes</code> or starting with <code>object.likes</code>, whichever exists. Fallback to <code>0</code> which will never happen, just satisfying the compiler.</li>
+<li>Call the <code>update(animated:,completion:)</code> API on <code>ListBindingSectionController</code> to refresh the cells on the screen.</li>
+</ol>
+
+<p>In order to actually send the mutations to the models, you need to start using <code>localLikes</code> with the <code>ActionViewModel</code> which is given to the <code>ActionCell</code>.</p>
+
+<p>Still in <strong>PostSectionController.swift</strong>, find the <code>cellForViewModel:</code> API and change the <code>ActionViewModel</code> initialization to the following:</p>
+<pre class="highlight swift"><code><span class="kt">ActionViewModel</span><span class="p">(</span><span class="nv">likes</span><span class="p">:</span> <span class="n">localLikes</span> <span class="p">??</span> <span class="n">object</span><span class="o">.</span><span class="n">likes</span><span class="p">)</span>
+</code></pre>
+
+<p><strong>Build and run</strong> the app, tap on the heart button, and see your likes increment!</p>
+
+<p align="center">
+  <img src="../Resources/modeling-likes.gif" width=300  />
+</p>
+<h2 id='wrapping-up' class='heading'>Wrapping up</h2>
+
+<p>If you got stuck at all, or just want to play around with the example, you can find the finished project <a href="https://github.com/rnystrom/IGListKit-Binding-Guide">here</a> in <strong>ModelingAndBinding/ModelingAndBinding.xcworkspace</strong>.</p>
+
+<p><code>ListBindingSectionController</code> is one of the most powerful features that we&rsquo;ve built for <code>IGListKit</code> because it further encourages you to design small, composable models, views, and controllers.</p>
+
+<p>You can also use the section controller to handle any interactions, as well as deal with mutations, just like a controller should!</p>
+
+<p>If you have suggestions for other topics you&rsquo;d like to see, or want to offer a correction, please create a <a href="https://github.com/Instagram/IGListKit/issues/new">new issue</a>!</p>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-05-01)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

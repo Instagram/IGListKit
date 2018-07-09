@@ -9,6 +9,8 @@
 
 #import "IGTestCell.h"
 
+#import "IGTestObject.h"
+
 @implementation IGTestCell
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -17,6 +19,11 @@
         [self.contentView addSubview:_label];
     }
     return self;
+}
+
+- (void)bindViewModel:(id)viewModel {
+    IGTestObject *object = viewModel;
+    self.label.text = [object.value description];
 }
 
 @end

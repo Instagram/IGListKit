@@ -37,10 +37,10 @@
     self.list = [[IGListTestSection alloc] init];
     self.object = [[NSObject alloc] init];
     self.displayHandler = [[IGListDisplayHandler alloc] init];
-    IGListCollectionView *collectionView = [OCMockObject niceMockForClass:[IGListCollectionView class]];
+    UICollectionView *collectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     self.mockAdapterDataSource = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterDataSource)];
     IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
-    self.adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:0];
+    self.adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
     self.adapter.collectionView = collectionView;
     self.adapter.dataSource = self.mockAdapterDataSource;
     self.mockDisplayDelegate = [OCMockObject mockForProtocol:@protocol(IGListDisplayDelegate)];
@@ -176,7 +176,6 @@
     [self.mockAdapterDelegate verify];
 }
 
-
 - (void)test_whenCellInserted_withDisplayedCellExistingAtPath_thatDisplayHandlerReceivesCorrectParams {
     // simulate first cell appearing in the collection view
     NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
@@ -197,6 +196,53 @@
     [self.displayHandler willDisplayCell:anotherCell forListAdapter:self.adapter sectionController:anotherList object:anotherObject indexPath:path];
 
     [self.mockDisplayDelegate verify];
+}
+
+- (void)test_whenWillDisplaySupplementaryView_withCellDisplayedAfter_thatDisplayHandlerReceivesOneEvent {
+    NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
+    UICollectionReusableView *view = [UICollectionReusableView new];
+    UICollectionViewCell *cell = [UICollectionViewCell new];
+
+    self.list.displayDelegate = self.mockDisplayDelegate;
+    self.adapter.delegate = self.mockAdapterDelegate;
+
+    [[self.mockDisplayDelegate expect] listAdapter:self.adapter willDisplaySectionController:self.list];
+    [[self.mockAdapterDelegate expect] listAdapter:self.adapter willDisplayObject:self.object atIndex:path.section];
+
+    [self.displayHandler willDisplaySupplementaryView:view forListAdapter:self.adapter sectionController:self.list object:self.object indexPath:path];
+    
+    [self.mockDisplayDelegate verify];
+    [self.mockAdapterDelegate verify];
+
+    [[self.mockDisplayDelegate expect] listAdapter:self.adapter willDisplaySectionController:self.list cell:cell atIndex:path.item];
+    [[self.mockAdapterDelegate reject] listAdapter:self.adapter willDisplayObject:self.object atIndex:path.item];
+    [[self.mockDisplayDelegate reject] listAdapter:self.adapter willDisplaySectionController:self.list];
+
+    [self.displayHandler willDisplayCell:cell forListAdapter:self.adapter sectionController:self.list object:self.object indexPath:path];
+}
+
+- (void)test_whenEndDisplayingSupplementaryView_withEndDisplayingTwice_thatDisplayHandlerReceivesOneEvent {
+    NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
+    UICollectionReusableView *view = [UICollectionReusableView new];
+
+    [self.displayHandler willDisplaySupplementaryView:view forListAdapter:self.adapter sectionController:self.list object:self.object indexPath:path];
+
+    [[self.mockDisplayDelegate expect] listAdapter:self.adapter didEndDisplayingSectionController:self.list];
+    [[self.mockAdapterDelegate expect] listAdapter:self.adapter didEndDisplayingObject:self.object atIndex:path.section];
+
+    [[self.mockDisplayDelegate reject] listAdapter:self.adapter didEndDisplayingSectionController:self.list];
+    [[self.mockDisplayDelegate reject] listAdapter:self.adapter didEndDisplayingSectionController:self.list cell:[OCMArg any] atIndex:path.item];
+    [[self.mockAdapterDelegate reject] listAdapter:self.adapter didEndDisplayingObject:self.object atIndex:path.section];
+
+    self.list.displayDelegate = self.mockDisplayDelegate;
+    self.adapter.delegate = self.mockAdapterDelegate;
+    //first call
+    [self.displayHandler didEndDisplayingSupplementaryView:view forListAdapter:self.adapter sectionController:self.list indexPath:path];
+    //second call
+    [self.displayHandler didEndDisplayingSupplementaryView:view forListAdapter:self.adapter sectionController:self.list indexPath:path];
+
+    [self.mockDisplayDelegate verify];
+    [self.mockAdapterDelegate verify];
 }
 
 @end

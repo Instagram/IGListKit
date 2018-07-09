@@ -30,8 +30,9 @@
 - (id)initWithObject:(NSObject *)anObject
 {
     NSParameterAssert(anObject != nil);
-    [self assertClassIsSupported:[anObject class]];
-	[super initWithClass:[anObject class]];
+    Class const class = [self classToSubclassForObject:anObject];
+    [self assertClassIsSupported:class];
+	[super initWithClass:class];
 	realObject = [anObject retain];
     [self prepareObjectForInstanceMethodMocking];
 	return self;
@@ -69,6 +70,21 @@
         [[NSException exceptionWithName:NSInvalidArgumentException reason:reason userInfo:nil] raise];
 }
 
+- (Class)classToSubclassForObject:(id)object
+{
+    /* object_getClass() gives us the actual class backing the object, whereas [object class]
+     * is sometimes overridden, by KVO or CoreData, for example, to return a subclass.
+     *
+     * With KVO, if we replace and subclass the actual class, as returned by object_getClass(),
+     * we lose notifications. So, in that case only, we return the class reported by the class 
+     * method.
+     */
+
+    if([object observationInfo] != NULL)
+        return [object class];
+
+    return object_getClass(object);
+}
 
 #pragma mark  Extending/overriding superclass behaviour
 

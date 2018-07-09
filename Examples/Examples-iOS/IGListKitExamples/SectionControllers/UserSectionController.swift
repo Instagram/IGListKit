@@ -12,32 +12,37 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
-final class UserSectionController: IGListSectionController, IGListSectionType {
+final class UserSectionController: ListSectionController {
 
-    var user: User?
+    private var user: User?
+    private let isReorderable: Bool
 
-    func numberOfItems() -> Int {
-        return 1
+    required init(isReorderable: Bool = false) {
+        self.isReorderable = isReorderable
+        super.init()
     }
 
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: DetailLabelCell.self, for: self, at: index) as! DetailLabelCell
-        cell.titleLabel.text = user?.name
-        cell.detailLabel.text = "@" + (user?.handle ?? "")
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
+        guard let cell = collectionContext?.dequeueReusableCell(of: DetailLabelCell.self, for: self, at: index) as? DetailLabelCell else {
+            fatalError()
+        }
+        cell.title = user?.name
+        cell.detail = "@" + (user?.handle ?? "")
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         self.user = object as? User
     }
 
-    func didSelectItem(at index: Int) {}
-
+    override func canMoveItem(at index: Int) -> Bool {
+        return isReorderable
+    }
 }

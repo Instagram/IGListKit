@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <collectionViewItem id="xP0-v7-EFE" customClass="UserCollectionViewCell" customModule="IGListKitExamples" customModuleProvider="target">
+            <connections>
+                <outlet property="textField" destination="Ypj-SS-m9s" id="BMD-zR-IB8"/>
+                <outlet property="view" destination="NIs-9L-IO1" id="eUJ-SQ-WOE"/>
+            </connections>
+        </collectionViewItem>
+        <customView id="NIs-9L-IO1">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="47"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="zDT-HW-k24" userLabel="Content View">
+                    <rect key="frame" x="5" y="5" width="470" height="37"/>
+                    <subviews>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ypj-SS-m9s">
+                            <rect key="frame" x="8" y="10" width="454" height="17"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="User Name" id="EMD-h2-FhR">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OMr-G1-CjN">
+                            <rect key="frame" x="381" y="1" width="80" height="32"/>
+                            <buttonCell key="cell" type="push" title="Delete" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FAm-Ie-kke">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="deleteButtonClicked:" target="xP0-v7-EFE" id="qoH-AN-ZwB"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Ypj-SS-m9s" firstAttribute="leading" secondItem="zDT-HW-k24" secondAttribute="leading" constant="10" id="Ihp-O8-Efo"/>
+                        <constraint firstAttribute="trailing" secondItem="OMr-G1-CjN" secondAttribute="trailing" constant="15" id="KAP-rQ-1IY"/>
+                        <constraint firstItem="OMr-G1-CjN" firstAttribute="centerY" secondItem="zDT-HW-k24" secondAttribute="centerY" id="OpF-yx-eVP"/>
+                        <constraint firstItem="Ypj-SS-m9s" firstAttribute="top" secondItem="zDT-HW-k24" secondAttribute="top" constant="10" id="fgx-2W-GAC"/>
+                        <constraint firstAttribute="bottom" secondItem="Ypj-SS-m9s" secondAttribute="bottom" constant="10" id="l0W-g6-GHk"/>
+                        <constraint firstAttribute="trailing" secondItem="Ypj-SS-m9s" secondAttribute="trailing" constant="10" id="ngw-Cc-XUB"/>
+                    </constraints>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="zDT-HW-k24" firstAttribute="leading" secondItem="NIs-9L-IO1" secondAttribute="leading" constant="5" id="Osd-B8-bXz"/>
+                <constraint firstItem="zDT-HW-k24" firstAttribute="top" secondItem="NIs-9L-IO1" secondAttribute="top" constant="5" id="UWq-nv-EsM"/>
+                <constraint firstAttribute="bottom" secondItem="zDT-HW-k24" secondAttribute="bottom" constant="5" id="rt6-4r-5RK"/>
+                <constraint firstAttribute="trailing" secondItem="zDT-HW-k24" secondAttribute="trailing" constant="5" id="tQO-4a-4WN"/>
+            </constraints>
+        </customView>
+        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" id="MA2-Td-T4f">
+            <rect key="frame" x="0.0" y="0.0" width="38" height="17"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="Mhd-Im-KQa">
+                <font key="font" metaFont="system"/>
+                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+            </textFieldCell>
+        </textField>
+    </objects>
+</document>

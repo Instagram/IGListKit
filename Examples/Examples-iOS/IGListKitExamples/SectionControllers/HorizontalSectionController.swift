@@ -1,9 +1,9 @@
 /**
  Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
-
+ 
  The examples provided by Facebook are for non-commercial testing and evaluation
  purposes only. Facebook reserves all rights not expressly granted.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -12,53 +12,50 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
-final class HorizontalSectionController: IGListSectionController, IGListSectionType, IGListAdapterDataSource {
+final class HorizontalSectionController: ListSectionController, ListAdapterDataSource {
 
-    var number: Int?
+    private var number: Int?
 
-    lazy var adapter: IGListAdapter = {
-        let adapter = IGListAdapter(updater: IGListAdapterUpdater(),
-                                    viewController: self.viewController,
-                                    workingRangeSize: 0)
+    lazy var adapter: ListAdapter = {
+        let adapter = ListAdapter(updater: ListAdapterUpdater(),
+                                  viewController: self.viewController)
         adapter.dataSource = self
         return adapter
     }()
 
-    func numberOfItems() -> Int {
-        return 1
-    }
-
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 100)
     }
 
-    func cellForItem(at index: Int) -> UICollectionViewCell {
-        let cell = collectionContext!.dequeueReusableCell(of: EmbeddedCollectionViewCell.self, for: self, at: index) as! EmbeddedCollectionViewCell
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
+        guard let cell = collectionContext?.dequeueReusableCell(of: EmbeddedCollectionViewCell.self,
+                                                                for: self,
+                                                                at: index) as? EmbeddedCollectionViewCell else {
+                                                                    fatalError()
+        }
         adapter.collectionView = cell.collectionView
         return cell
     }
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         number = object as? Int
     }
 
-    func didSelectItem(at index: Int) {}
+    // MARK: ListAdapterDataSource
 
-    //MARK: IGListAdapterDataSource
-
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         guard let number = number else { return [] }
-        return (0..<number).map { $0 as IGListDiffable }
+        return (0..<number).map { $0 as ListDiffable }
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         return EmbeddedSectionController()
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }
 

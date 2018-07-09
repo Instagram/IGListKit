@@ -14,7 +14,7 @@
 
 import IGListKit
 
-final class User: IGListDiffable {
+final class User: ListDiffable {
 
     let pk: Int
     let name: String
@@ -26,13 +26,13 @@ final class User: IGListDiffable {
         self.handle = handle
     }
 
-    //MARK: IGListDiffable
+    // MARK: ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return pk as NSObjectProtocol
     }
 
-    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         guard self !== object else { return true }
         guard let object = object as? User else { return false }
         return name == object.name && handle == object.handle

@@ -11,6 +11,13 @@
 
 @implementation IGListTestSection
 
+- (instancetype)init {
+    if (self = [super init]) {
+        _size = CGSizeMake(100, 10);
+    }
+    return self;
+}
+
 - (NSArray <Class> *)cellClasses {
     return @[UICollectionViewCell.class];
 }
@@ -20,7 +27,7 @@
 }
 
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
-    return CGSizeMake(100, 10);
+    return self.size;
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
@@ -37,6 +44,18 @@
 
 - (void)didSelectItemAtIndex:(NSInteger)index {
     self.wasSelected = YES;
+}
+
+- (void)didDeselectItemAtIndex:(NSInteger)index {
+    self.wasDeselected = YES;
+}
+
+- (void)didHighlightItemAtIndex:(NSInteger)index {
+    self.wasHighlighted = YES;
+}
+
+- (void)didUnhighlightItemAtIndex:(NSInteger)index {
+    self.wasUnhighlighted = YES;
 }
 
 @end

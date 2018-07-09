@@ -12,30 +12,59 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
-final class DemosViewController: UIViewController, IGListAdapterDataSource {
+final class DemosViewController: UIViewController, ListAdapterDataSource {
 
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
-    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let demos: [DemoItem] = [
-        DemoItem(name: "Tail Loading", controllerClass: LoadMoreViewController.self),
-        DemoItem(name: "Search Autocomplete", controllerClass: SearchViewController.self),
-        DemoItem(name: "Mixed Data", controllerClass: MixedDataViewController.self),
-        DemoItem(name: "Nested Adapter", controllerClass: NestedAdapterViewController.self),
-        DemoItem(name: "Empty View", controllerClass: EmptyViewController.self),
-        DemoItem(name: "Single Section Controller", controllerClass: SingleSectionViewController.self),
-        DemoItem(name: "Storyboard", controllerClass: SingleSectionViewController.self, controllerIdentifier: "demo"),
-        DemoItem(name: "Single Section Storyboard", controllerClass: SingleSectionStoryboardViewController.self, controllerIdentifier: "singleSectionDemo"),
-        DemoItem(name: "Working Range", controllerClass: WorkingRangeViewController.self),
-        DemoItem(name: "Diff Algorithm", controllerClass: DiffTableViewController.self),
-        DemoItem(name: "Supplementary Views", controllerClass: SupplementaryViewController.self),
-        DemoItem(name: "Self-sizing cells", controllerClass: SelfSizingCellsViewController.self),
-        DemoItem(name: "Display delegate", controllerClass: DisplayViewController.self),
+        DemoItem(name: "Tail Loading",
+                 controllerClass: LoadMoreViewController.self),
+        DemoItem(name: "Search Autocomplete",
+                 controllerClass: SearchViewController.self),
+        DemoItem(name: "Mixed Data",
+                 controllerClass: MixedDataViewController.self),
+        DemoItem(name: "Nested Adapter",
+                 controllerClass: NestedAdapterViewController.self),
+        DemoItem(name: "Empty View",
+                 controllerClass: EmptyViewController.self),
+        DemoItem(name: "Single Section Controller",
+                 controllerClass: SingleSectionViewController.self),
+        DemoItem(name: "Storyboard",
+                 controllerClass: SingleSectionViewController.self,
+                 controllerIdentifier: "demo"),
+        DemoItem(name: "Single Section Storyboard",
+                 controllerClass: SingleSectionStoryboardViewController.self,
+                 controllerIdentifier: "singleSectionDemo"),
+        DemoItem(name: "Working Range",
+                 controllerClass: WorkingRangeViewController.self),
+        DemoItem(name: "Diff Algorithm",
+                 controllerClass: DiffTableViewController.self),
+        DemoItem(name: "Supplementary Views",
+                 controllerClass: SupplementaryViewController.self),
+        DemoItem(name: "Self-sizing cells",
+                 controllerClass: SelfSizingCellsViewController.self),
+        DemoItem(name: "Display delegate",
+                 controllerClass: DisplayViewController.self),
+        DemoItem(name: "Stacked Section Controllers",
+                 controllerClass: StackedViewController.self),
+        DemoItem(name: "Objc Demo",
+                 controllerClass: ObjcDemoViewController.self),
+        DemoItem(name: "Objc Generated Model Demo",
+                 controllerClass: ObjcGeneratedModelDemoViewController.self),
+        DemoItem(name: "Calendar (auto diffing)",
+                 controllerClass: CalendarViewController.self),
+        DemoItem(name: "Dependency Injection",
+                 controllerClass: AnnouncingDepsViewController.self),
+        DemoItem(name: "Reorder Cells",
+                 controllerClass: ReorderableViewController.self),
+        DemoItem(name: "Reorder Stacked Section Controllers",
+                 controllerClass: ReorderableStackedViewController.self)
     ]
 
     override func viewDidLoad() {
@@ -51,17 +80,17 @@ final class DemosViewController: UIViewController, IGListAdapterDataSource {
         collectionView.frame = view.bounds
     }
 
-    //MARK: IGListAdapterDataSource
+    // MARK: ListAdapterDataSource
 
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return demos
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         return DemoSectionController()
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }
 

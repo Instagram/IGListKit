@@ -1,0 +1,61 @@
+included:
+  - IGListKitExamples
+  - IGListKitMessageExample
+  - IGListKitTodayExample
+
+excluded:
+  - Pods
+
+opt_in_rules:
+  - empty_count
+  - number_separator
+  - operator_usage_whitespace
+  - sorted_imports
+  - vertical_parameter_alignment_on_call
+  - overridden_super_call
+
+disabled_rules:
+  - force_unwrapping
+  - comma
+  - line_length
+  - force_cast
+
+force_cast: warning
+force_try: warning
+
+weak_delegate: error
+
+type_body_length:
+  warning: 300
+  error: 400
+
+file_length:
+  warning: 500
+  error: 1200
+
+type_name:
+  min_length: 4
+  max_length:
+    warning: 40
+    error: 50
+  excluded: iPhone
+
+identifier_name:
+  min_length:
+    error: 4
+  excluded:
+    - id
+    - url
+    - URL
+    - pk
+    - day
+    - map
+    - row
+    - nib
+    - GlobalAPIKey
+    - to
+    - obj
+    - str
+    - set
+
+reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, junit, html, emoji)
