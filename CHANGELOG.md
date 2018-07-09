@@ -16,6 +16,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Experimental fix to get the `UICollectionView` for batch updating immediately before applying the update. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
 
+- Fixed bug with `IGListDiff.mm` where arrays of `NSIndexPath`, instead of `NSIndexPath`, were incorrectly set as objects for the IndexPathMaps. [Bofei Zhu](https://github.com/zhubofei) (tbd)
 
 - `[IGListAdapterUpdater performBatchUpdatesWithCollectionViewBlock:]` and `[IGListAdapterUpdater performReloadDataWithCollectionViewBlock:]` clean state and run completion blocks if their `UICollectionView` is nil. [Brandon Darin](https://github.com/jbd1030) (tbd)
 
