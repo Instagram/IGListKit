@@ -65,6 +65,14 @@ static NSArray *sorted(NSArray *arr) {
     XCTAssertEqual([result changeCount], 1);
 }
 
+- (void)test_whenDiffingToEmptyArray_thatOldIndexPathsAreCorrect {
+    NSArray *o = @[@1, @2];
+    NSArray *n = @[];
+    IGListIndexPathResult *result = IGListDiffPaths(0, 1, o, n, IGListDiffEquality);
+    XCTAssertEqualObjects([result oldIndexPathForIdentifier:@1], [NSIndexPath indexPathForItem:0 inSection:0]);
+    XCTAssertEqualObjects([result oldIndexPathForIdentifier:@2], [NSIndexPath indexPathForItem:1 inSection:0]);
+}
+
 - (void)test_whenSwappingObjects_thatResultHasMoves {
     NSArray *o = @[@1, @2];
     NSArray *n = @[@2, @1];
@@ -403,5 +411,4 @@ static NSArray *sorted(NSArray *arr) {
     NSArray *expectedInserts = @[genIndexPath(0, 1), genIndexPath(3, 1), genIndexPath(4, 1), genIndexPath(5, 1)];
     XCTAssertEqualObjects(sorted(result.inserts), expectedInserts);
 }
-
 @end
