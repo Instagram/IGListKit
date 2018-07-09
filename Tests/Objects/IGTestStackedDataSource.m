@@ -13,6 +13,7 @@
 
 #import "IGTestCell.h"
 #import "IGListTestSection.h"
+#import "IGListTestContainerSizeSection.h"
 
 @implementation IGTestStackedDataSource
 
@@ -20,15 +21,21 @@
     return self.objects;
 }
 
-- (IGListSectionController <IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
+- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
     NSMutableArray *controllers = [[NSMutableArray alloc] init];
     for (id value in [(IGTestObject *)object value]) {
         id controller;
         // use a standard IGListTestSection
         if ([value isKindOfClass:[NSNumber class]]) {
-            IGListTestSection *section = [[IGListTestSection alloc] init];
-            section.items = [value integerValue];
-            controller = section;
+            if ([(NSNumber*)value isEqual: @42]) {
+                IGListTestContainerSizeSection *section = [[IGListTestContainerSizeSection alloc] init];
+                section.items = [value integerValue];
+                controller = section;
+            } else {
+                IGListTestSection *section = [[IGListTestSection alloc] init];
+                section.items = [value integerValue];
+                controller = section;
+            }
         } else if ([value isKindOfClass:[NSString class]]) {
             void (^configureBlock)(id, __kindof UICollectionViewCell *) = ^(id obj, IGTestCell *cell) {
                 // capturing the value in block scope so we use the CHILD OBJECT of the stack

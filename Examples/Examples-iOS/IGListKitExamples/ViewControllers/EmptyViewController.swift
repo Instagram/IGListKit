@@ -12,15 +12,16 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
-final class EmptyViewController: UIViewController, IGListAdapterDataSource, RemoveSectionControllerDelegate {
+final class EmptyViewController: UIViewController, ListAdapterDataSource, RemoveSectionControllerDelegate {
 
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
-    let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let emptyLabel: UILabel = {
         let label = UILabel()
@@ -32,12 +33,8 @@ final class EmptyViewController: UIViewController, IGListAdapterDataSource, Remo
     }()
 
     var tally = 4
-    var data = [
-        1,
-        2,
-        3,
-        4
-    ]
+
+    var data = [1, 2, 3, 4]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,29 +54,29 @@ final class EmptyViewController: UIViewController, IGListAdapterDataSource, Remo
         collectionView.frame = view.bounds
     }
 
-    func onAdd() {
+    @objc func onAdd() {
         data.append(tally + 1)
         tally += 1
         adapter.performUpdates(animated: true, completion: nil)
     }
 
-    //MARK: IGListAdapterDataSource
+    // MARK: ListAdapterDataSource
 
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return data as [IGListDiffable]
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        return data as [ListDiffable]
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         let sectionController = RemoveSectionController()
         sectionController.delegate = self
         return sectionController
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return emptyLabel
     }
 
-    //MARK: RemoveSectionControllerDelegate
+    // MARK: RemoveSectionControllerDelegate
 
     func removeSectionControllerWantsRemoved(_ sectionController: RemoveSectionController) {
         let section = adapter.section(for: sectionController)

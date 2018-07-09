@@ -14,8 +14,17 @@
 
 import UIKit
 
-class NibSelfSizingCell: UICollectionViewCell {
-    
+final class NibSelfSizingCell: UICollectionViewCell {
+
     @IBOutlet weak var contentLabel: UILabel!
+
+    private var content: String? {
+        get {
+            return contentLabel.text
+        }
+        set {
+            contentLabel.text = newValue
+        }
+    }
 
 }

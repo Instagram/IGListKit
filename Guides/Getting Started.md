@@ -8,26 +8,32 @@ After installing `IGListKit`, creating a new list is easy.
 
 ### Creating a section controller
 
-Creating a new section controller is simple. You subclass `IGListSectionController` and conform to the `IGListSectionType` protocol. Once you conform to `IGListSectionType`, the compiler will make sure you implement all of the required methods.
+Creating a new section controller is simple. Subclass `IGListSectionController` and override at least `cellForItemAtIndex:` and `sizeForItemAtIndex:`.
 
 Take a look at [LabelSectionController](https://raw.githubusercontent.com/Instagram/IGListKit/master/Examples/Examples-iOS/IGListKitExamples/SectionControllers/LabelSectionController.swift) for an example section controller that handles a `String` and configures a single cell with a `UILabel`.
 
 ```swift
-class LabelSectionController: IGListSectionController, IGListSectionType {
-  // ...
+class LabelSectionController: ListSectionController {
+  override func sizeForItem(at index: Int) -> CGSize {
+    return CGSize(width: collectionContext!.containerSize.width, height: 55)
+  }
+
+  override func cellForItem(at index: Int) -> UICollectionViewCell {
+    return collectionContext!.dequeueReusableCell(of: MyCell.self, for: self, at: index)
+  }
 }
 ```
 
 ### Creating the UI
 
-After creating at least one section controller, you must create an `IGListCollectionView` and `IGListAdapter`.
+After creating at least one section controller, you must create a `UICollectionView` and `IGListAdapter`.
 
 ```swift
 let layout = UICollectionViewFlowLayout()
-let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: layout)
+let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
-let updater = IGListAdapterUpdater()
-let adapter = IGListAdapter(updater: updater, viewController: self, workingRangeSize: 0)
+let updater = ListAdapterUpdater()
+let adapter = ListAdapter(updater: updater, viewController: self)
 adapter.collectionView = collectionView
 ```
 
@@ -38,12 +44,12 @@ adapter.collectionView = collectionView
 The last step is the `IGListAdapter`'s data source and returning some data.
 
 ```swift
-func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
   // this can be anything!
   return [ "Foo", "Bar", 42, "Biz" ]
 }
 
-func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
   if object is String {
     return LabelSectionController()
   } else {
@@ -51,18 +57,30 @@ func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any)
   }
 }
 
-func emptyView(for listAdapter: IGListAdapter) -> UIView? {
+func emptyView(for listAdapter: ListAdapter) -> UIView? {
   return nil
 }
 ```
 
+After you have created the data source you need to connect it to the `IGListAdapter` by setting its `dataSource` property:
+
+```swift
+adapter.dataSource = self
+```
+
 You can return an array of _any_ type of data, as long as it conforms to `IGListDiffable`.
+
+### Immutability
+
+The data should be immutable. If you return mutable objects that you will be editing later, `IGListKit` will not be able to diff the models accurately. This is because the instances have already been changed. Thus, the updates to the objects would be lost. Instead, always return a newly instantiated, immutable object and implement `IGListDiffable`.
 
 ## Diffing
 
 `IGListKit` uses an algorithm adapted from a paper titled [A technique for isolating differences between files](http://dl.acm.org/citation.cfm?id=359467&dl=ACM&coll=DL) by Paul Heckel. This algorithm uses a technique known as the *longest common subsequence* to find a minimal diff between collections in linear time `O(n)`. It finds all **inserts**, **deletes**, **updates**, and **moves** between arrays of data.
 
 To add custom, diffable models, you need to conform to the `IGListDiffable` protocol and implement `diffIdentifier()` and `isEqual(toDiffableObject:)`.
+
+> **Note:** an object's `diffIdentifier()` should never change. If an object mutates it's `diffIdentifer()` the behavior of IGListKit is undefined (and almost assuredly undesirable).
 
 For an example, consider the following model:
 
@@ -93,7 +111,7 @@ Both `shayne` and `ann` represent the same *unique* data because they share the 
 To represent this in `IGListKit`'s diffing, add and implement the `IGListDiffable` protocol:
 
 ```swift
-extension User: IGListDiffable {
+extension User: ListDiffable {
   func diffIdentifier() -> NSObjectProtocol {
     return primaryKey
   }
@@ -116,7 +134,7 @@ The algorithm will skip updating two `User` objects that have the same `primaryK
 If you want to use the diffing algorithm outside of `IGListAdapter` and `UICollectionView`, you can! The diffing algorithm was built with the flexibility to be used with any models that conform to `IGListDiffable`.
 
 ```swift
-let result = IGListDiff(oldUsers, newUsers, .equality)
+let result = ListDiff(oldArray: oldUsers, newArray: newUsers, .equality)
 ```
 
 With this you have all of the deletes, reloads, moves, and inserts! There's even a function to generate `NSIndexPath` results.
@@ -130,9 +148,9 @@ A *working range* is a range of section controllers who aren't yet visible, but 
 The `IGListAdapter` must be initialized with a range value in order to work. This value is a multiple of the visible height or width, depending on the scroll-direction.
 
 ```swift
-let adapter = IGListAdapter(updater: IGListAdapterUpdater(),
-                     viewController: self,
-                   workingRangeSize: 1) // 1 before/after visible objects
+let adapter = ListAdapter(updater: ListAdapterUpdater(),
+                   viewController: self,
+                 workingRangeSize: 1) // 1 before/after visible objects
 ```
 
 ![working-range](https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/workingrange.png)

@@ -18,11 +18,11 @@ protocol RemoveCellDelegate: class {
     func removeCellDidTapButton(_ cell: RemoveCell)
 }
 
-class RemoveCell: UICollectionViewCell {
+final class RemoveCell: UICollectionViewCell {
 
     weak var delegate: RemoveCellDelegate?
 
-    lazy var label: UILabel = {
+    private lazy var label: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
         self.contentView.addSubview(label)
@@ -39,6 +39,15 @@ class RemoveCell: UICollectionViewCell {
         return button
     }()
 
+    var text: String? {
+        get {
+            return label.text
+        }
+        set {
+            label.text = newValue
+        }
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.backgroundColor = .white
@@ -48,7 +57,7 @@ class RemoveCell: UICollectionViewCell {
         button.frame = divide.remainder
     }
 
-    func onButton(_ button: UIButton) {
+    @objc func onButton(_ button: UIButton) {
         delegate?.removeCellDidTapButton(self)
     }
 

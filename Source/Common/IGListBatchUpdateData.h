@@ -1,16 +1,15 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import <Foundation/Foundation.h>
 
 #import <IGListKit/IGListMacros.h>
 #import <IGListKit/IGListMoveIndex.h>
+#import <IGListKit/IGListMoveIndexPath.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
  update via `-[UICollectionView performBatchUpdates:completion:]`.
  */
 IGLK_SUBCLASSING_RESTRICTED
+NS_SWIFT_NAME(ListBatchUpdateData)
 @interface IGListBatchUpdateData : NSObject
 
 /**
@@ -33,43 +33,43 @@ IGLK_SUBCLASSING_RESTRICTED
 @property (nonatomic, strong, readonly) NSIndexSet *deleteSections;
 
 /**
- section moves.
+ Section moves.
  */
 @property (nonatomic, strong, readonly) NSSet<IGListMoveIndex *> *moveSections;
 
 /**
  Item insert index paths.
  */
-@property (nonatomic, strong, readonly) NSSet<NSIndexPath *> *insertIndexPaths;
+@property (nonatomic, strong, readonly) NSArray<NSIndexPath *> *insertIndexPaths;
 
 /**
  Item delete index paths.
  */
-@property (nonatomic, strong, readonly) NSSet<NSIndexPath *> *deleteIndexPaths;
+@property (nonatomic, strong, readonly) NSArray<NSIndexPath *> *deleteIndexPaths;
 
 /**
- Item reload index paths.
+ Item moves.
  */
-@property (nonatomic, strong, readonly) NSSet<NSIndexPath *> *reloadIndexPaths;
+@property (nonatomic, strong, readonly) NSArray<IGListMoveIndexPath *> *moveIndexPaths;
 
 /**
  Creates a new batch update object with section and item operations.
 
- @param insertSections   Section indexes to insert.
- @param deleteSections   Section indexes to delete.
- @param moveSections     Section moves.
+ @param insertSections Section indexes to insert.
+ @param deleteSections Section indexes to delete.
+ @param moveSections Section moves.
  @param insertIndexPaths Item index paths to insert.
  @param deleteIndexPaths Item index paths to delete.
- @param reloadIndexPaths Item index paths to reload.
+ @param moveIndexPaths Item index paths to move.
 
  @return A new batch update object.
  */
 - (instancetype)initWithInsertSections:(NSIndexSet *)insertSections
                         deleteSections:(NSIndexSet *)deleteSections
                           moveSections:(NSSet<IGListMoveIndex *> *)moveSections
-                      insertIndexPaths:(NSSet<NSIndexPath *> *)insertIndexPaths
-                      deleteIndexPaths:(NSSet<NSIndexPath *> *)deleteIndexPaths
-                      reloadIndexPaths:(NSSet<NSIndexPath *> *)reloadIndexPaths NS_DESIGNATED_INITIALIZER;
+                      insertIndexPaths:(NSArray<NSIndexPath *> *)insertIndexPaths
+                      deleteIndexPaths:(NSArray<NSIndexPath *> *)deleteIndexPaths
+                        moveIndexPaths:(NSArray<IGListMoveIndexPath *> *)moveIndexPaths NS_DESIGNATED_INITIALIZER;
 
 /**
  :nodoc:

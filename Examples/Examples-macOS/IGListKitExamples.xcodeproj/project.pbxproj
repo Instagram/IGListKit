@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7BF95C4D1F52732200F14EFE /* UserCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BF95C4C1F52732200F14EFE /* UserCollectionViewCell.xib */; };
+		7BF95C4F1F5273A100F14EFE /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF95C4E1F5273A100F14EFE /* UserCollectionViewCell.swift */; };
 		888609091DEF38A00019A4A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888609081DEF38A00019A4A5 /* AppDelegate.swift */; };
 		8886090B1DEF38A00019A4A5 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8886090A1DEF38A00019A4A5 /* UsersViewController.swift */; };
 		8886090D1DEF38A00019A4A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8886090C1DEF38A00019A4A5 /* Assets.xcassets */; };
@@ -22,6 +24,8 @@
 /* Begin PBXFileReference section */
 		1CAC2903BAE9D41694D58A7B /* Pods-IGListKitExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.release.xcconfig"; sourceTree = "<group>"; };
 		63F1F74ED983018C5D607DDC /* Pods_IGListKitExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BF95C4C1F52732200F14EFE /* UserCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCollectionViewCell.xib; sourceTree = "<group>"; };
+		7BF95C4E1F5273A100F14EFE /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
 		888609051DEF38A00019A4A5 /* IGListKitExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IGListKitExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		888609081DEF38A00019A4A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8886090A1DEF38A00019A4A5 /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +52,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7BF95C4B1F5272FA00F14EFE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7BF95C4C1F52732200F14EFE /* UserCollectionViewCell.xib */,
+				7BF95C4E1F5273A100F14EFE /* UserCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		888608FC1DEF38A00019A4A5 = {
 			isa = PBXGroup;
 			children = (
@@ -71,9 +84,10 @@
 			children = (
 				888609081DEF38A00019A4A5 /* AppDelegate.swift */,
 				DDE3D8551E0311AF00F96BE4 /* Helpers */,
-				DDE3D84F1E030A9200F96BE4 /* Resources */,
-				DDE3D84E1E030A8400F96BE4 /* ViewControllers */,
 				DDE3D84D1E030A8000F96BE4 /* Models */,
+				DDE3D84F1E030A9200F96BE4 /* Resources */,
+				7BF95C4B1F5272FA00F14EFE /* View */,
+				DDE3D84E1E030A8400F96BE4 /* ViewControllers */,
 			);
 			path = IGListKitExamples;
 			sourceTree = "<group>";
@@ -114,10 +128,10 @@
 		DDE3D84F1E030A9200F96BE4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DDE3D8521E03117600F96BE4 /* Data */,
 				8886090C1DEF38A00019A4A5 /* Assets.xcassets */,
-				8886090E1DEF38A00019A4A5 /* Main.storyboard */,
+				DDE3D8521E03117600F96BE4 /* Data */,
 				888609111DEF38A00019A4A5 /* Info.plist */,
+				8886090E1DEF38A00019A4A5 /* Main.storyboard */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -133,9 +147,9 @@
 		DDE3D8551E0311AF00F96BE4 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				DDE3D8561E0311D000F96BE4 /* UsersProvider.swift */,
 				DD9018671E0319E40003789D /* IndexSet+Extensions.swift */,
 				DD9018691E031A3E0003789D /* Shuffle.swift */,
+				DDE3D8561E0311D000F96BE4 /* UsersProvider.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -153,6 +167,7 @@
 				888609031DEF38A00019A4A5 /* Resources */,
 				7261653A62E258B06255A692 /* [CP] Embed Pods Frameworks */,
 				A9371F8E91FEAE8E1BCCA004 /* [CP] Copy Pods Resources */,
+				DC1296C51EC38A1C0043990F /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -170,12 +185,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Instagram;
 				TargetAttributes = {
 					888609041DEF38A00019A4A5 = {
 						CreatedOnToolsVersion = 8.1;
-						ProvisioningStyle = Automatic;
+						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -203,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDE3D8541E03117600F96BE4 /* users.json in Resources */,
+				7BF95C4D1F52732200F14EFE /* UserCollectionViewCell.xib in Resources */,
 				8886090D1DEF38A00019A4A5 /* Assets.xcassets in Resources */,
 				888609101DEF38A00019A4A5 /* Main.storyboard in Resources */,
 			);
@@ -217,13 +234,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IGListKitExamples-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7261653A62E258B06255A692 /* [CP] Embed Pods Frameworks */ = {
@@ -232,9 +252,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -256,6 +279,20 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		DC1296C51EC38A1C0043990F /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../../scripts/lint.sh\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -268,6 +305,7 @@
 				DD9018681E0319E40003789D /* IndexSet+Extensions.swift in Sources */,
 				888609091DEF38A00019A4A5 /* AppDelegate.swift in Sources */,
 				DDE3D8511E030AFA00F96BE4 /* User.swift in Sources */,
+				7BF95C4F1F5273A100F14EFE /* UserCollectionViewCell.swift in Sources */,
 				DDE3D8571E0311D000F96BE4 /* UsersProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,15 +333,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -345,15 +391,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -383,12 +437,16 @@
 			baseConfigurationReference = C80289D4560E0726CF3F86E0 /* Pods-IGListKitExamples.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = IGListKitExamples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -397,12 +455,16 @@
 			baseConfigurationReference = 1CAC2903BAE9D41694D58A7B /* Pods-IGListKitExamples.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = IGListKitExamples/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

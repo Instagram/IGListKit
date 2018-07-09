@@ -1,10 +1,8 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import <XCTest/XCTest.h>
@@ -47,7 +45,7 @@
     return _objects;
 }
 
-- (IGListSectionController<IGListSectionType> *)listAdapter:(IGListAdapter *)listAdapter
+- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter
                                  sectionControllerForObject:(id)object {
     return [_map objectForKey:object];
 }
@@ -67,8 +65,8 @@
     _IGTestWorkingRangeAdapterDataSource *ds = [[_IGTestWorkingRangeAdapterDataSource alloc] initWithObjects:@[object]
                                                                                        objectToControllerMap:@{object: controller}];
     IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:0];
-    id collectionView = [OCMockObject niceMockForClass:[IGListCollectionView class]];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
+    id collectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     adapter.collectionView = collectionView;
     id mockWorkingRangeDelegate = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
 
@@ -92,8 +90,8 @@
     _IGTestWorkingRangeAdapterDataSource *ds = [[_IGTestWorkingRangeAdapterDataSource alloc] initWithObjects:@[object]
                                                                                        objectToControllerMap:@{object: controller}];
     IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:0];
-    id collectionView = [OCMockObject niceMockForClass:[IGListCollectionView class]];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
+    id collectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     adapter.collectionView = collectionView;
     id mockWorkingRangeDelegate = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
 
@@ -128,7 +126,7 @@
                                                                                                                object2: controller2}];
     IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:1];
-    id collectionView = [OCMockObject niceMockForClass:[IGListCollectionView class]];
+    id collectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     adapter.collectionView = collectionView;
     id mockWorkingRangeDelegate = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
 
@@ -159,7 +157,7 @@
                                                                                                                object3: controller3}];
     IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:1];
-    id collectionView = [OCMockObject niceMockForClass:[IGListCollectionView class]];
+    id collectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     adapter.collectionView = collectionView;
     id mockWorkingRangeDelegate2 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
     id mockWorkingRangeDelegate3 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
@@ -191,7 +189,7 @@
                                                                                                                object2: controller2}];
     IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:1];
-    id collectionView = [OCMockObject niceMockForClass:[IGListCollectionView class]];
+    id collectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     adapter.collectionView = collectionView;
     id mockWorkingRangeDelegate = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
 

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>IGListCollectionViewLayout Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/objc/Class/IGListCollectionViewLayout" class="dashAnchor"></a>
+    <a title="IGListCollectionViewLayout Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">IGListKit Docs</a> (98% documented)</p>
+        <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">IGListKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        IGListCollectionViewLayout Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Guides.html">Guides</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../best-practices-and-faq.html">Best Practices and FAQ</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../generating-your-models.html">Generating your models</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../getting-started.html">Getting Started</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../iglistdiffable-and-equality.html">IGListDiffable and Equality</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../installation.html">Installation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../modeling-and-binding.html">Modeling and Binding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../vision.html">VISION</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-core-data.html">Working with Core Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../working-with-uicollectionview.html">Working with UICollectionView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/IGListAdapter.html">IGListAdapter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListBatchUpdateData.html">IGListBatchUpdateData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListIndexPathResult.html">IGListIndexPathResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListIndexSetResult.html">IGListIndexSetResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListMoveIndex.html">IGListMoveIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListMoveIndexPath.html">IGListMoveIndexPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/c:objc(cs)IGListReloadDataUpdater">IGListReloadDataUpdater</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListSectionController.html">IGListSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListSingleSectionController.html">IGListSingleSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListStackedSectionController.html">IGListStackedSectionController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Constants.html">Constants</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@IGListKitVersionNumber">IGListKitVersionNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@IGListKitVersionString">IGListKitVersionString</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/IGListAdapterUpdateType.html">IGListAdapterUpdateType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/IGListDiffOption.html">IGListDiffOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/IGListExperiment.html">IGListExperiment</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterDataSource.html">IGListAdapterDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterMoveDelegate.html">IGListAdapterMoveDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterUpdaterDelegate.html">IGListAdapterUpdaterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBatchContext.html">IGListBatchContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindable.html">IGListBindable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerDataSource.html">IGListBindingSectionControllerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListBindingSectionControllerSelectionDelegate.html">IGListBindingSectionControllerSelectionDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListDiffable.html">IGListDiffable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListSingleSectionControllerDelegate.html">IGListSingleSectionControllerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListWorkingRangeDelegate.html">IGListWorkingRangeDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Type Definitions.html">Type Definitions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/c:@F@IGListDiff">IGListDiff</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>IGListCollectionViewLayout</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight objective_c"><code>
+<span class="k">@interface</span> <span class="nc">IGListCollectionViewLayout</span> <span class="p">:</span> <span class="nc">UICollectionViewLayout</span></code></pre>
+
+                </div>
+              </div>
+            <p>This UICollectionViewLayout subclass is for vertically or horizontally scrolling lists of data with variable widths and
+heights. It supports an infinite number of sections and items. All work is done on the main thread, and while extremely efficient,
+care must be taken not to stall the main thread in sizing delegate methods.</p>
+
+<p>This layout piggybacks on the mechanics of UICollectionViewFlowLayout in that:</p>
+
+<ul>
+<li>Your UICollectionView data source must also conform to UICollectionViewDelegateFlowLayout</li>
+<li>Header support given via UICollectionElementKindSectionHeader</li>
+</ul>
+
+<p>All UICollectionViewDelegateFlowLayout methods are required and used by this layout:</p>
+<pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">CGSize</span><span class="p">)</span><span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span> <span class="nf">sizeForItemAtIndexPath</span><span class="p">:(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">UIEdgeInsets</span><span class="p">)</span><span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span> <span class="nf">insetForSectionAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span> <span class="nf">minimumLineSpacingForSectionAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span> <span class="nf">minimumInteritemSpacingForSectionAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">CGSize</span><span class="p">)</span><span class="nf">collectionView</span><span class="p">:(</span><span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">layout</span><span class="p">:(</span><span class="n">UICollectionViewLayout</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionViewLayout</span> <span class="nf">referenceSizeForHeaderInSection</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span><span class="p">;</span>
+</code></pre>
+
+<p>In a vertically scrolling layout, sections and items are put into the same horizontal row until the max-x position
+of an item extends beyond the width of the collection view. When that happens, the item is <q>newlined</q> to the next row.
+The y position of that row is determined by the maximum height (including section insets) of the section/item of the previous row.</p>
+
+<p>Ex. of a section (2,0) with a large width causing a newline.</p>
+<pre class="highlight objective_c"><code><span class="o">|</span><span class="p">[</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span> <span class="p">][</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span> <span class="p">]</span>         <span class="o">|</span>
+<span class="o">|</span><span class="p">[</span>         <span class="mi">2</span><span class="p">,</span><span class="mi">0</span>         <span class="p">]</span><span class="o">|</span>
+</code></pre>
+
+<p>A section with a non-zero height header will always cause that section to newline. Headers are always stretched to the
+width of the collection view, pinched with the section insets.</p>
+
+<p>Ex. of a section (2,0) with a header inset on the left/right.</p>
+<pre class="highlight objective_c"><code><span class="o">|</span><span class="p">[</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span> <span class="p">][</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span> <span class="p">]</span>         <span class="o">|</span>
+<span class="o">|</span> <span class="o">&gt;======</span><span class="n">header</span><span class="o">=======&lt;</span> <span class="o">|</span>
+<span class="o">|</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span><span class="mi">0</span> <span class="p">]</span>               <span class="o">|</span>
+</code></pre>
+
+<p>Section insets apply to items in the section no matter if they begin on a new row or are on the same row as a previous
+section.</p>
+
+<p>Ex. of a section (2) with multiple items and a left inset.</p>
+<pre class="highlight objective_c"><code><span class="o">|</span><span class="p">[</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span> <span class="p">][</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span> <span class="p">]</span> <span class="o">&gt;</span><span class="p">[</span> <span class="mi">2</span><span class="p">,</span><span class="mi">0</span> <span class="p">]</span><span class="o">|</span>
+<span class="o">|</span> <span class="o">&gt;</span><span class="p">[</span> <span class="mi">2</span><span class="p">,</span><span class="mi">1</span> <span class="p">][</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span> <span class="p">][</span> <span class="mi">2</span><span class="p">,</span><span class="mi">3</span> <span class="p">]</span><span class="o">|</span>
+</code></pre>
+
+<p>Interitem spacing applies to items and sections within the same row. Line spacing only applies to items within the same
+section.</p>
+
+<p>In a horizontally scrolling layout, sections and items are flowed vertically until they need to be <q>newlined</q> to the 
+next column. Headers, if used, are stretched to the height of the collection view, minus the section insets.</p>
+
+<p>Please see the unit tests for more configuration examples and expected output.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListCollectionViewLayout(py)scrollDirection"></a>
+                    <a name="//apple_ref/objc/Property/scrollDirection" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListCollectionViewLayout(py)scrollDirection">scrollDirection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Direction in which layout will be scrollable; items will be flowed in the perpendicular direction, <q>newlining</q> when they
+run out of space along that axis or when a non-zero header is found.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UICollectionViewScrollDirection</span> <span class="n">scrollDirection</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">scrollDirection</span><span class="p">:</span> <span class="kt">UICollectionViewScrollDirection</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListCollectionViewLayout(py)stickyHeaderYOffset"></a>
+                    <a name="//apple_ref/objc/Property/stickyHeaderYOffset" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListCollectionViewLayout(py)stickyHeaderYOffset">stickyHeaderYOffset</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Set this to adjust the offset of the sticky headers in the scrolling direction. Can be used to change the sticky 
+header position as UI like the navigation bar is scrolled offscreen. In a vertically scrolling layout, changing 
+this to the height of the navigation bar will give the effect of the headers sticking to the nav as it is collapsed.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Changing the value on this method will invalidate the layout every time.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGFloat</span> <span class="n">stickyHeaderYOffset</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">stickyHeaderYOffset</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListCollectionViewLayout(py)showHeaderWhenEmpty"></a>
+                    <a name="//apple_ref/objc/Property/showHeaderWhenEmpty" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListCollectionViewLayout(py)showHeaderWhenEmpty">showHeaderWhenEmpty</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Set this to <code>YES</code> to show sticky header when a section had no item. Default is <code>NO</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">showHeaderWhenEmpty</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">showHeaderWhenEmpty</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListCollectionViewLayout(im)didModifySection:"></a>
+                    <a name="//apple_ref/objc/Method/-didModifySection:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListCollectionViewLayout(im)didModifySection:">-didModifySection:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Notify the layout that a specific section was modified before invalidation. Used to optimize layout re-calculation.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>When updating a collection view (ex: calling <code>-insertSections</code>), <code>-invalidateLayoutWithContext</code> gets called on
+the layout object. However, the invalidation context doesn&rsquo;t provide details on which index paths are being modified,
+which typically forces a full layout re-calculation. We can use this method to keep track of which section actually
+needs to be updated on the following <code>-invalidateLayoutWithContext</code>. See <code><a href="../Classes/IGListCollectionView.html">IGListCollectionView</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didModifySection</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">modifiedSection</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">didModifySection</span><span class="p">(</span><span class="n">_</span> <span class="nv">modifiedSection</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>modifiedSection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The section that was modified.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListCollectionViewLayout(im)initWithStickyHeaders:scrollDirection:topContentInset:stretchToEdge:"></a>
+                    <a name="//apple_ref/objc/Method/-initWithStickyHeaders:scrollDirection:topContentInset:stretchToEdge:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListCollectionViewLayout(im)initWithStickyHeaders:scrollDirection:topContentInset:stretchToEdge:">-initWithStickyHeaders:scrollDirection:topContentInset:stretchToEdge:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create and return a new collection view layout.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
+<span class="nf">initWithStickyHeaders</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">stickyHeaders</span>
+      <span class="nf">scrollDirection</span><span class="p">:(</span><span class="n">UICollectionViewScrollDirection</span><span class="p">)</span><span class="nv">scrollDirection</span>
+      <span class="nf">topContentInset</span><span class="p">:(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">topContentInset</span>
+        <span class="nf">stretchToEdge</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">stretchToEdge</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">stickyHeaders</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">scrollDirection</span><span class="p">:</span> <span class="kt">UICollectionViewScrollDirection</span><span class="p">,</span> <span class="nv">topContentInset</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span> <span class="nv">stretchToEdge</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>stickyHeaders</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Set to <code>YES</code> to stick section headers to the top of the bounds while scrolling.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>scrollDirection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Direction along which the collection view will be scrollable (if content size exceeds the frame size)</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>topContentInset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The content inset (top or left, depending on scrolling direction) used to offset the sticky headers. Ignored if stickyHeaders is <code>NO</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>stretchToEdge</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Specifies whether to stretch width (in vertically scrolling layout) or height (horizontally scrolling) of last item to right/bottom edge when distance from last item to right/bottom edge &lt; epsilon(1)</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new collection view layout.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListCollectionViewLayout(im)initWithStickyHeaders:topContentInset:stretchToEdge:"></a>
+                    <a name="//apple_ref/objc/Method/-initWithStickyHeaders:topContentInset:stretchToEdge:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListCollectionViewLayout(im)initWithStickyHeaders:topContentInset:stretchToEdge:">-initWithStickyHeaders:topContentInset:stretchToEdge:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create and return a new vertically scrolling collection view layout.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithStickyHeaders</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">stickyHeaders</span>
+                              <span class="nf">topContentInset</span><span class="p">:(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">topContentInset</span>
+                                <span class="nf">stretchToEdge</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">stretchToEdge</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">stickyHeaders</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">topContentInset</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span> <span class="nv">stretchToEdge</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>stickyHeaders</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Set to <code>YES</code> to stick section headers to the top of the bounds while scrolling.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>topContentInset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The top content inset used to offset the sticky headers. Ignored if stickyHeaders is <code>NO</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>stretchToEdge</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Specifies whether to stretch width of last item to right edge when distance from last item to right edge &lt; epsilon(1)</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new collection view layout.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-05-01)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

@@ -1,10 +1,8 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import "IGListWorkingRangeHandler.h"
@@ -31,7 +29,7 @@ struct _IGListWorkingRangeHandlerIndexPath {
 };
 
 struct _IGListWorkingRangeHandlerSectionControllerWrapper {
-    IGListSectionController<IGListSectionType> *sectionController;
+    IGListSectionController *sectionController;
 
     bool operator==(const _IGListWorkingRangeHandlerSectionControllerWrapper &other) const {
         return (sectionController == other.sectionController);
@@ -82,7 +80,7 @@ typedef std::unordered_set<_IGListWorkingRangeHandlerIndexPath, _IGListWorkingRa
         .hash = indexPath.hash
     });
 
-    [self updateWorkingRangesWithListAdapter:listAdapter];
+    [self _updateWorkingRangesWithListAdapter:listAdapter];
 }
 
 - (void)didEndDisplayingItemAtIndexPath:(NSIndexPath *)indexPath
@@ -96,12 +94,12 @@ typedef std::unordered_set<_IGListWorkingRangeHandlerIndexPath, _IGListWorkingRa
         .hash = indexPath.hash
     });
 
-    [self updateWorkingRangesWithListAdapter:listAdapter];
+    [self _updateWorkingRangesWithListAdapter:listAdapter];
 }
 
 #pragma mark - Working Ranges
 
-- (void)updateWorkingRangesWithListAdapter:(IGListAdapter *)listAdapter {
+- (void)_updateWorkingRangesWithListAdapter:(IGListAdapter *)listAdapter {
     IGAssertMainThread();
     // This method is optimized C++ to improve straight-line speed of these operations. Change at your peril.
 
@@ -126,7 +124,7 @@ typedef std::unordered_set<_IGListWorkingRangeHandlerIndexPath, _IGListWorkingRa
     _IGListWorkingRangeSectionControllerSet workingRangeSectionControllers (visibleSectionSet.size());
     for (NSInteger idx = start; idx < end; idx++) {
         id item = [listAdapter objectAtSection:idx];
-        id <IGListSectionType> sectionController = [listAdapter sectionControllerForObject:item];
+        IGListSectionController *sectionController = [listAdapter sectionControllerForObject:item];
         workingRangeSectionControllers.insert({sectionController});
     }
 

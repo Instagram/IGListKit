@@ -1,10 +1,8 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import "IGListDiff.h"
@@ -47,7 +45,7 @@ struct IGListRecord {
     }
 };
 
-static id<NSObject> IGListTableKey(id<IGListDiffable> object) {
+static id<NSObject> IGListTableKey(__unsafe_unretained id<IGListDiffable> object) {
     id<NSObject> key = [object diffIdentifier];
     NSCAssert(key != nil, @"Cannot use a nil key for the diffIdentifier of object %@", object);
     return key;
@@ -65,6 +63,35 @@ struct IGListHashID {
     }
 };
 
+static void addIndexToMap(BOOL useIndexPaths, NSInteger section, NSInteger index, __unsafe_unretained id<IGListDiffable> object, __unsafe_unretained NSMapTable *map) {
+    id value;
+    if (useIndexPaths) {
+        value = [NSIndexPath indexPathForItem:index inSection:section];
+    } else {
+        value = @(index);
+    }
+    [map setObject:value forKey:[object diffIdentifier]];
+}
+
+static void addIndexToCollection(BOOL useIndexPaths, __unsafe_unretained id collection, NSInteger section, NSInteger index) {
+    if (useIndexPaths) {
+        NSIndexPath *path = [NSIndexPath indexPathForItem:index inSection:section];
+        [collection addObject:path];
+    } else {
+        [collection addIndex:index];
+    }
+};
+
+static NSArray<NSIndexPath *> *indexPathsAndPopulateMap(__unsafe_unretained NSArray<id<IGListDiffable>> *array, NSInteger section, __unsafe_unretained NSMapTable *map) {
+    NSMutableArray<NSIndexPath *> *paths = [NSMutableArray new];
+    [array enumerateObjectsUsingBlock:^(id<IGListDiffable> obj, NSUInteger idx, BOOL *stop) {
+        NSIndexPath *path = [NSIndexPath indexPathForItem:idx inSection:section];
+        [paths addObject:path];
+        [map setObject:paths forKey:[obj diffIdentifier]];
+    }];
+    return paths;
+}
+
 static id IGListDiffing(BOOL returnIndexPaths,
                         NSInteger fromSection,
                         NSInteger toSection,
@@ -74,6 +101,55 @@ static id IGListDiffing(BOOL returnIndexPaths,
                         IGListExperiment experiments) {
     const NSInteger newCount = newArray.count;
     const NSInteger oldCount = oldArray.count;
+
+    NSMapTable *oldMap = [NSMapTable strongToStrongObjectsMapTable];
+    NSMapTable *newMap = [NSMapTable strongToStrongObjectsMapTable];
+
+    // if no new objects, everything from the oldArray is deleted
+    // take a shortcut and just build a delete-everything result
+    if (newCount == 0) {
+        if (returnIndexPaths) {
+            return [[IGListIndexPathResult alloc] initWithInserts:[NSArray new]
+                                                          deletes:indexPathsAndPopulateMap(oldArray, fromSection, oldMap)
+                                                          updates:[NSArray new]
+                                                            moves:[NSArray new]
+                                                  oldIndexPathMap:oldMap
+                                                  newIndexPathMap:newMap];
+        } else {
+            [oldArray enumerateObjectsUsingBlock:^(id<IGListDiffable> obj, NSUInteger idx, BOOL *stop) {
+                addIndexToMap(returnIndexPaths, fromSection, idx, obj, oldMap);
+            }];
+            return [[IGListIndexSetResult alloc] initWithInserts:[NSIndexSet new]
+                                                         deletes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, oldCount)]
+                                                         updates:[NSIndexSet new]
+                                                           moves:[NSArray new]
+                                                     oldIndexMap:oldMap
+                                                     newIndexMap:newMap];
+        }
+    }
+
+    // if no old objects, everything from the newArray is inserted
+    // take a shortcut and just build an insert-everything result
+    if (oldCount == 0) {
+        if (returnIndexPaths) {
+            return [[IGListIndexPathResult alloc] initWithInserts:indexPathsAndPopulateMap(newArray, toSection, newMap)
+                                                          deletes:[NSArray new]
+                                                          updates:[NSArray new]
+                                                            moves:[NSArray new]
+                                                  oldIndexPathMap:oldMap
+                                                  newIndexPathMap:newMap];
+        } else {
+            [newArray enumerateObjectsUsingBlock:^(id<IGListDiffable> obj, NSUInteger idx, BOOL *stop) {
+                addIndexToMap(returnIndexPaths, toSection, idx, obj, newMap);
+            }];
+            return [[IGListIndexSetResult alloc] initWithInserts:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, newCount)]
+                                                         deletes:[NSIndexSet new]
+                                                         updates:[NSIndexSet new]
+                                                           moves:[NSArray new]
+                                                     oldIndexMap:oldMap
+                                                     newIndexMap:newMap];
+        }
+    }
 
     // symbol table uses the old/new array diffIdentifier as the key and IGListEntry as the value
     // using id<NSObject> as the key provided by https://lists.gnu.org/archive/html/discuss-gnustep/2011-07/msg00019.html
@@ -106,7 +182,7 @@ static id IGListDiffing(BOOL returnIndexPaths,
         IGListEntry &entry = table[key];
         entry.oldCounter++;
 
-        // push the original indices where the item occured onto the index stack
+        // push the original indices where the item occurred onto the index stack
         entry.oldIndexes.push(i);
 
         // note: the entry is just a pointer to the entry which is stack-allocated in the table
@@ -119,7 +195,7 @@ static id IGListDiffing(BOOL returnIndexPaths,
         IGListEntry *entry = newResultsArray[i].entry;
 
         // grab and pop the top original index. if the item was inserted this will be NSNotFound
-        NSCAssert(!entry->oldIndexes.empty(), @"Old indexes is empty while iterating new item %zi. Should have NSNotFound", i);
+        NSCAssert(!entry->oldIndexes.empty(), @"Old indexes is empty while iterating new item %li. Should have NSNotFound", (long)i);
         const NSInteger originalIndex = entry->oldIndexes.top();
         entry->oldIndexes.pop();
 
@@ -166,31 +242,6 @@ static id IGListDiffing(BOOL returnIndexPaths,
         mMoves = [NSMutableArray<IGListMoveIndex *> new];
     }
 
-    // populate a container based on whether we want NSIndexPaths or indexes
-    // section into INDEX SET
-    // item, section into ARRAY
-    // IGListMoveIndex or IGListMoveIndexPath into ARRAY
-    void (^addIndexToCollection)(id, NSInteger, NSInteger) = ^(id collection, NSInteger section, NSInteger index) {
-        if (returnIndexPaths) {
-            NSIndexPath *path = [NSIndexPath indexPathForItem:index inSection:section];
-            [collection addObject:path];
-        } else {
-            [collection addIndex:index];
-        }
-    };
-
-    NSMapTable *oldMap = [NSMapTable strongToStrongObjectsMapTable];
-    NSMapTable *newMap = [NSMapTable strongToStrongObjectsMapTable];
-    void (^addIndexToMap)(NSInteger, NSInteger, NSArray *, NSMapTable *) = ^(NSInteger section, NSInteger index, NSArray *array, NSMapTable *map) {
-        id value;
-        if (returnIndexPaths) {
-            value = [NSIndexPath indexPathForItem:index inSection:section];
-        } else {
-            value = @(index);
-        }
-        [map setObject:value forKey:[array[index] diffIdentifier]];
-    };
-
     // track offsets from deleted items to calculate where items have moved
     vector<NSInteger> deleteOffsets(oldCount), insertOffsets(newCount);
     NSInteger runningOffset = 0;
@@ -202,11 +253,11 @@ static id IGListDiffing(BOOL returnIndexPaths,
         const IGListRecord record = oldResultsArray[i];
         // if the record index in the new array doesn't exist, its a delete
         if (record.index == NSNotFound) {
-            addIndexToCollection(mDeletes, fromSection, i);
+            addIndexToCollection(returnIndexPaths, mDeletes, fromSection, i);
             runningOffset++;
         }
 
-        addIndexToMap(fromSection, i, oldArray, oldMap);
+        addIndexToMap(returnIndexPaths, fromSection, i, oldArray[i], oldMap);
     }
 
     // reset and track offsets from inserted items to calculate where items have moved
@@ -218,12 +269,12 @@ static id IGListDiffing(BOOL returnIndexPaths,
         const NSInteger oldIndex = record.index;
         // add to inserts if the opposing index is NSNotFound
         if (record.index == NSNotFound) {
-            addIndexToCollection(mInserts, toSection, i);
+            addIndexToCollection(returnIndexPaths, mInserts, toSection, i);
             runningOffset++;
         } else {
             // note that an entry can be updated /and/ moved
             if (record.entry->updated) {
-                addIndexToCollection(mUpdates, fromSection, oldIndex);
+                addIndexToCollection(returnIndexPaths, mUpdates, fromSection, oldIndex);
             }
 
             // calculate the offset and determine if there was a move
@@ -243,12 +294,12 @@ static id IGListDiffing(BOOL returnIndexPaths,
             }
         }
 
-        addIndexToMap(toSection, i, newArray, newMap);
+        addIndexToMap(returnIndexPaths, toSection, i, newArray[i], newMap);
     }
 
     NSCAssert((oldCount + [mInserts count] - [mDeletes count]) == newCount,
-              @"Sanity check failed applying %zi inserts and %zi deletes to old count %zi equaling new count %zi",
-              oldCount, [mInserts count], [mDeletes count], newCount);
+              @"Sanity check failed applying %li inserts and %lu deletes to old count %lu equaling new count %li",
+              (long)oldCount, (unsigned long)[mInserts count], (unsigned long)[mDeletes count], (long)newCount);
 
     if (returnIndexPaths) {
         return [[IGListIndexPathResult alloc] initWithInserts:mInserts

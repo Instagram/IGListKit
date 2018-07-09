@@ -112,6 +112,11 @@
     return [[self expect] notificationWithName:name object:sender];
 }
 
+- (NSNotification *)notificationWithName:(NSString *)name object:(id)sender userInfo:(NSDictionary *)userInfo
+{
+    return [[self expect] notificationWithName:name object:sender userInfo:userInfo];
+}
+
 
 #pragma mark  Receiving notifications
 

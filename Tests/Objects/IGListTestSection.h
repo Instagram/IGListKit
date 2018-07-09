@@ -10,12 +10,15 @@
 #import <UIKit/UIKit.h>
 
 #import <IGListKit/IGListSectionController.h>
-#import <IGListKit/IGListSectionType.h>
 
-@interface IGListTestSection : IGListSectionController <IGListSectionType>
+
+@interface IGListTestSection : IGListSectionController
 
 @property (nonatomic, assign) NSInteger items;
-
+@property (nonatomic, assign) CGSize size;
 @property (nonatomic, assign) BOOL wasSelected;
+@property (nonatomic, assign) BOOL wasDeselected;
+@property (nonatomic, assign) BOOL wasHighlighted;
+@property (nonatomic, assign) BOOL wasUnhighlighted;
 
 @end

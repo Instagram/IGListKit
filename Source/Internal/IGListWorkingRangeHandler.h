@@ -1,17 +1,15 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import <UIKit/UIKit.h>
 
 @class IGListAdapter;
 
-@protocol IGListSectionType;
+
 
 @interface IGListWorkingRangeHandler : NSObject
 
@@ -26,7 +24,7 @@
 /**
  Tells the handler that a cell will be displayed in the IGListKit infra.
 
- @param indexPath   The index path of the cell in the UICollectionView.
+ @param indexPath The index path of the cell in the UICollectionView.
  @param listAdapter The adapter managing the infra.
  */
 - (void)willDisplayItemAtIndexPath:(NSIndexPath *)indexPath
@@ -35,7 +33,7 @@
 /**
  Tells the handler that a cell did end display in the IGListKit infra.
 
- @param indexPath   The index path of the cell in the UICollectionView.
+ @param indexPath The index path of the cell in the UICollectionView.
  @param listAdapter The adapter managing the infra.
  */
 - (void)didEndDisplayingItemAtIndexPath:(NSIndexPath *)indexPath

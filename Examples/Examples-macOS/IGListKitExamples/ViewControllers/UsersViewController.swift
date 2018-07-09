@@ -17,134 +17,151 @@ import IGListKit
 
 final class UsersViewController: NSViewController {
 
-    @IBOutlet weak var tableView: NSTableView!
-    
-    //MARK: Data
-    
+    @IBOutlet weak var collectionView: NSCollectionView!
+
+    // MARK: Data
+
     var users = [User]() {
         didSet {
             computeFilteredUsers()
         }
     }
-    
+
     var searchTerm = "" {
         didSet {
             computeFilteredUsers()
         }
     }
-    
+
     private func computeFilteredUsers() {
-        guard !searchTerm.characters.isEmpty else {
+        guard !searchTerm.isEmpty else {
             filteredUsers = users
             return
         }
-        
+
         filteredUsers = users.filter({ $0.name.localizedCaseInsensitiveContains(self.searchTerm) })
     }
-    
+
     fileprivate func delete(user: User) {
         guard let index = self.users.index(where: { $0.pk == user.pk }) else { return }
-        
+
         self.users.remove(at: index)
     }
-    
-    //MARK: -
-    //MARK: Diffing 
-    
+
+    // MARK: -
+    // MARK: Diffing 
+
+    var isFirstRun = true
     var filteredUsers = [User]() {
         didSet {
-            // get the difference between the old array of Users and the new array of Users
-            let diff = IGListDiff(oldValue, filteredUsers, .equality)
-            
-            // this difference is used here to update the table view, but it can be used
-            // to update collection views and other similar interface elements
-            // this code can also be added to an extension of NSTableView ;)
-            tableView.beginUpdates()
-            tableView.insertRows(at: diff.inserts, withAnimation: .slideDown)
-            tableView.removeRows(at: diff.deletes, withAnimation: .slideUp)
-            tableView.reloadData(forRowIndexes: diff.updates, columnIndexes: .zero)
-            diff.moves.forEach { move in
-                self.tableView.moveRow(at: move.from, to: move.to)
+            // A crash occurs when you try to use performBatchUpdates the first time
+            guard !isFirstRun else {
+                collectionView.reloadData()
+                isFirstRun = false
+                return
             }
-            tableView.endUpdates()
+
+            // get the difference between the old array of Users and the new array of Users
+            let diff = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: oldValue, newArray: filteredUsers, option: .equality)
+            let batchUpdates = diff.forBatchUpdates()
+            let inserts = Set(batchUpdates.inserts)
+            let deletes = Set(batchUpdates.deletes)
+            let updates = Set(batchUpdates.updates)
+            let moves = Set(batchUpdates.moves)
+
+            // this difference is used here to update the collection view, but it can be used
+            // to update collection views and other similar interface elements
+            // this code can also be added to an extension of NSCollectionView ;)
+
+            // Set the animation duration when updating the collection view
+            NSAnimationContext.current.duration = 0.25
+
+            // Perform the updates to the collection view
+            collectionView.animator().performBatchUpdates({
+                collectionView.deleteItems(at: deletes)
+                collectionView.insertItems(at: inserts)
+                collectionView.reloadItems(at: updates)
+                moves.forEach { move in
+                    collectionView.moveItem(at: move.from, to: move.to)
+                }
+            }, completionHandler: nil)
         }
     }
-    
-    //MARK: -
-    
+
+    // MARK: -
+
     private func loadSampleUsers() {
         guard let file = Bundle.main.url(forResource: "users", withExtension: "json") else { return }
-        
+
         do {
             self.users = try UsersProvider(with: file).users
         } catch {
             NSAlert(error: error).runModal()
         }
     }
-    
+
     // MARK: Interface
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        // The view needs to be backed by a CALayer to be able to enable the collections view animations you can 
+        // enable this by selecting the view controller's view in the Interface Builder in the Core Animation section
+        // of the View Effects inspector tab, through code you can do by view.wantsLayer = true
         loadSampleUsers()
     }
-    
+
     override func viewDidAppear() {
         super.viewDidAppear()
-        
+
         view.window?.titleVisibility = .hidden
     }
-    
+
     @IBAction func shuffle(_ sender: Any?) {
         users = users.shuffled
     }
-    
+
     @IBAction func search(_ sender: NSSearchField) {
         searchTerm = sender.stringValue
     }
-    
-    @IBAction func delete(_ sender: Any?) {
-        guard tableView.selectedRowIndexes.count > 0 else { return }
-        
-        tableView.selectedRowIndexes.forEach({ self.delete(user: self.filteredUsers[$0]) })
-    }
-    
 }
 
-extension UsersViewController: NSTableViewDataSource {
-    
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return filteredUsers.count
+extension UsersViewController: UserCollectionViewCellDelegate {
+
+    func itemDeleted(_ user: User) {
+        self.delete(user: user)
     }
-    
 }
 
-extension UsersViewController: NSTableViewDelegate {
-    
+extension UsersViewController: NSCollectionViewDelegate {
+}
+
+extension UsersViewController: NSCollectionViewDataSource {
+
     private struct Storyboard {
-        static let cellIdentifier = "cell"
+        static let cellIdentifier = "UserCollectionViewCell"
     }
-    
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard let cell = tableView.make(withIdentifier: Storyboard.cellIdentifier, owner: tableView) as? NSTableCellView else {
-            return nil
-        }
-        
-        cell.textField?.stringValue = filteredUsers[row].name
-        
+
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.filteredUsers.count
+    }
+
+    @available(OSX 10.11, *)
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+        let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: Storyboard.cellIdentifier), for: indexPath)
+        guard let cell = item as? UserCollectionViewCell else { return item }
+
+        cell.delegate = self
+        cell.bindViewModel(filteredUsers[indexPath.item])
         return cell
     }
-    
-    @available(OSX 10.11, *)
-    func tableView(_ tableView: NSTableView, rowActionsForRow row: Int, edge: NSTableRowActionEdge) -> [NSTableViewRowAction] {
-        let delete = NSTableViewRowAction(style: .destructive, title: "Delete") { action, row in
-            guard row < self.filteredUsers.count else { return }
-            
-            self.delete(user: self.filteredUsers[row])
-        }
-        
-        return [delete]
+}
+
+extension UsersViewController: NSCollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+
+        let availableWidth = collectionView.bounds.width
+        return CGSize(width: availableWidth, height: 44)
     }
-    
 }

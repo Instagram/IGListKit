@@ -126,6 +126,10 @@ CFNumberType OCMNumberTypeForObjCType(const char *objcType)
  * compared textually.  This can happen particularly for pointers to such structures, which still
  * encode what is being pointed to.
  *
+ * In addition, this funtion will consider structures with unknown names, encoded as "{?=}, equal to
+ * structures with any name. This means that "{?=dd}" and "{foo=dd}", and even "{?=}" and "{foo=dd}",
+ * are considered equal.
+ *
  * For some types some runtime functions throw exceptions, which is why we wrap this in an
  * exception handler just below.
  */
@@ -159,8 +163,9 @@ static BOOL OCMEqualTypesAllowingOpaqueStructsInternal(const char *type1, const 
             intptr_t type1NameLen = type1NameEnd - type1;
             intptr_t type2NameLen = type2NameEnd - type2;
 
-            /* If the names are not equal, return NO */
-            if (type1NameLen != type2NameLen || strncmp(type1, type2, type1NameLen))
+            /* If the names are not equal and neither of the names is a question mark, return NO */
+            if ((type1NameLen != type2NameLen || strncmp(type1, type2, type1NameLen)) &&
+                !((type1NameLen == 2) && (type1[1] == '?')) && !((type2NameLen == 2) && (type2[1] == '?')))
                 return NO;
 
             /* If the same name, and at least one is opaque, that is close enough. */

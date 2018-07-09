@@ -1,20 +1,23 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import <XCTest/XCTest.h>
 
-#import <IGListKit/IGListKit.h>
-#import "IGTestStoryboardViewController.h"
+#import <IGListKit/IGListCollectionView.h>
 
-static const CGRect kIGListCollectionViewTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
+#import "IGLayoutTestItem.h"
+#import "IGLayoutTestSection.h"
+#import "IGLayoutTestDataSource.h"
+#import "IGListTestHelpers.h"
 
 @interface IGListCollectionViewTests : XCTestCase
+
+@property (nonatomic, strong) IGListCollectionView *collectionView;
+@property (nonatomic, strong) IGLayoutTestDataSource *dataSource;
 
 @end
 
@@ -22,78 +25,163 @@ static const CGRect kIGListCollectionViewTestFrame = (CGRect){{0.0, 0.0}, {100.0
 
 - (void)setUp {
     [super setUp];
+    self.dataSource = [IGLayoutTestDataSource new];
+    self.collectionView = [[IGListCollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    self.collectionView.dataSource = self.dataSource;
+    self.collectionView.delegate = self.dataSource;
+    [self.dataSource configCollectionView:self.collectionView];
 }
 
-- (void)tearDown {
-    [super tearDown];
-    
-    [[IGListCollectionView appearance] setBackgroundColor:nil];
+#pragma mark - Reload All
+
+- (void)test_whenReloadData_thatEntireLayoutUpdates {
+    self.dataSource.sections = @[
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(10, 10))])
+                                 ];
+    [self.collectionView reloadData];
+    [self.collectionView layoutIfNeeded];
+
+    self.dataSource.sections = @[
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(20, 20))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(10, 10))])
+                                 ];
+    [self.collectionView reloadData];
+    [self.collectionView layoutIfNeeded];
+
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 20, 20);
+    IGAssertEqualFrame([self cellForSection:1 item:0].frame, 20, 0, 10, 10);
 }
 
--(void)test_whenUsingUIAppearance_thatIGListCollectionViewUsesAppearanceBackgroundColor {
-    UIColor *appearanceColor = [UIColor redColor];
-    [[IGListCollectionView appearance] setBackgroundColor:appearanceColor];
-    
-    IGListCollectionView *collectionView = [self setupIGListCollectionView];
+#pragma mark - Insert/Delete/Reload/Move
 
-    XCTAssertEqualObjects(collectionView.backgroundColor, appearanceColor);
+- (void)test_whenInsertingSection_thatLayoutPartiallyUpdates {
+    self.dataSource.sections = @[
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(10, 10))])
+                                 ];
+    [self.collectionView reloadData];
+    [self.collectionView layoutIfNeeded];
+
+    self.dataSource.sections = @[
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(20, 20))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(10, 10))])
+                                 ];
+    [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:1]];
+
+    // check that section 0 wasn't updated
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 10, 10);
+    // check that section 1 was updated
+    IGAssertEqualFrame([self cellForSection:1 item:0].frame, 10, 0, 10, 10);
 }
 
--(void)test_whenNotUsingUIAppearance_thatIGListCollectionViewUsesDefaultBackgroundColor {
+- (void)test_whenDeletingSection_thatLayoutPartiallyUpdates {
+    self.dataSource.sections = @[
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(10, 10))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(10, 10))])
+                                 ];
+    [self.collectionView reloadData];
+    [self.collectionView layoutIfNeeded];
 
-    IGListCollectionView *collectionView = [self setupIGListCollectionView];
+    self.dataSource.sections = @[
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(20, 20))]),
+                                 ];
+    [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:1]];
 
-    XCTAssertEqualObjects(collectionView.backgroundColor, [UIColor whiteColor]);
+    // check that section 0 wasn't updated
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 10, 10);
 }
 
--(void)test_thatIGListCollectionViewHasCorrectDefaults {
-    IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame: kIGListCollectionViewTestFrame collectionViewLayout:[UICollectionViewFlowLayout new]];
+- (void)test_whenReloadingSection_thatLayoutPartiallyUpdates {
+    self.dataSource.sections = @[
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(10, 10))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(10, 10))])
+                                 ];
+    [self.collectionView reloadData];
+    [self.collectionView layoutIfNeeded];
 
-    XCTAssertTrue(collectionView.alwaysBounceVertical);
-    
-    if ([collectionView respondsToSelector:@selector(isPrefetchingEnabled)]) {
-        XCTAssertFalse(collectionView.isPrefetchingEnabled);
-    }
+    self.dataSource.sections = @[
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(20, 20))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(20, 20))]),
+                                 ];
+    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
+
+    // check that section 0 wasn't updated
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 10, 10);
+    // check that section 1 was updated
+    IGAssertEqualFrame([self cellForSection:1 item:0].frame, 10, 0, 20, 20);
 }
 
--(void)test_thatStoryboardIGListCollectionViewHasCorrectDefaults {
-    UIWindow *window = [[UIWindow alloc] initWithFrame:kIGListCollectionViewTestFrame];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"IGTestStoryboard" bundle:[NSBundle bundleForClass:self.class]];
-    IGTestStoryboardViewController  *viewController = [storyboard instantiateViewControllerWithIdentifier:@"testVC"];
-    [window addSubview:viewController.view];
-    [viewController performSelectorOnMainThread:@selector(loadView) withObject:nil waitUntilDone:YES];
-    
-    XCTAssertFalse(viewController.collectionView.alwaysBounceVertical);
-    
-    if ([UICollectionView instancesRespondToSelector:@selector(isPrefetchingEnabled)]) {
-        XCTAssertFalse(viewController.collectionView.isPrefetchingEnabled);
-    }
+- (void)test_whenMoveSection_thatLayoutPartiallyUpdates {
+    self.dataSource.sections = @[
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(10, 10))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(20, 20))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(30, 30))])
+                                 ];
+    [self.collectionView reloadData];
+    [self.collectionView layoutIfNeeded];
+
+    self.dataSource.sections = @[
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(40, 40))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(30, 30))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(20, 20))]),
+                                 ];
+    [self.collectionView moveSection:1 toSection:2];
+
+    // check that section 0 wasn't updated
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 10, 10);
+    // check that section 1 was updated
+    IGAssertEqualFrame([self cellForSection:1 item:0].frame, 10, 0, 30, 30);
+    // check that section 2 was updated
+    IGAssertEqualFrame([self cellForSection:2 item:0].frame, 40, 0, 20, 20);
 }
 
--(void)test_whenUsingUIAppearance_thatStoryboardIGListCollectionViewUsesAppearanceBackgroundColor {
-    UIColor *appearanceColor = [UIColor redColor];
-    [[IGListCollectionView appearance] setBackgroundColor:appearanceColor];
-    
-    UIWindow *window = [[UIWindow alloc] initWithFrame:kIGListCollectionViewTestFrame];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"IGTestStoryboard" bundle:[NSBundle bundleForClass:self.class]];
-    IGTestStoryboardViewController  *viewController = [storyboard instantiateViewControllerWithIdentifier:@"testVC"];
-    [window addSubview:viewController.view];
-    [viewController performSelectorOnMainThread:@selector(loadView) withObject:nil waitUntilDone:YES];
-    
-    XCTAssertEqualObjects(viewController.collectionView.backgroundColor, appearanceColor);
+#pragma mark - Batch
+
+- (void)test_whenInsertDeleteMoveSection_thatLayoutPartiallyUpdates {
+    self.dataSource.sections = @[
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(1, 1))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(2, 2))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(3, 3))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(4, 4))]),
+                                 ];
+    [self.collectionView reloadData];
+    [self.collectionView layoutIfNeeded];
+
+    self.dataSource.sections = @[
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(0, 0))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(4, 4))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(3, 3))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(5, 5))]),
+                                 ];
+
+    XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+
+    [self.collectionView performBatchUpdates:^{
+        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:1]]; // deleted (2, 2)
+        [self.collectionView moveSection:3 toSection:1]; // move (4, 4)
+        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:3]]; // inserted (5, 5)
+    } completion:^(BOOL finished) {
+        [self.collectionView layoutIfNeeded];
+        [expectation fulfill];
+
+        // check that section 0 wasn't updated
+        IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 1, 1);
+        // check that section 1 was updated
+        IGAssertEqualFrame([self cellForSection:1 item:0].frame, 1, 0, 4, 4);
+        // check that section 2 was updated
+        IGAssertEqualFrame([self cellForSection:2 item:0].frame, 5, 0, 3, 3);
+        // check that section 3 was updated
+        IGAssertEqualFrame([self cellForSection:3 item:0].frame, 8, 0, 5, 5);
+    }];
+
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError * _Nullable error) {
+        XCTAssertNil(error);
+    }];
 }
 
-#pragma mark - Helper Methods
+#pragma mark - Helpers
 
--(IGListCollectionView *)setupIGListCollectionView {
-    UIWindow *window = [[UIWindow alloc] initWithFrame:kIGListCollectionViewTestFrame];
-    IGListCollectionView *collectionView = [[IGListCollectionView alloc] initWithFrame: kIGListCollectionViewTestFrame collectionViewLayout:[UICollectionViewFlowLayout new]];
-    UIViewController *viewController = [UIViewController new];
-    [viewController.view addSubview:collectionView];
-    [window addSubview:viewController.view];
-    [viewController performSelectorOnMainThread:@selector(loadView) withObject:nil waitUntilDone:YES];
-    
-    return collectionView;
+- (UICollectionViewCell *)cellForSection:(NSInteger)section item:(NSInteger)item {
+    return [self.collectionView cellForItemAtIndexPath:genIndexPath(section, item)];
 }
 
 @end

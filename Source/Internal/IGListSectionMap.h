@@ -1,10 +1,8 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import <Foundation/Foundation.h>
@@ -12,7 +10,7 @@
 #import <IGListKit/IGListMacros.h>
 
 @class IGListSectionController;
-@protocol IGListSectionType;
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
  The IGListSectionMap provides a way to map a collection of objects to a collection of section controllers and achieve
  constant-time lookups O(1).
 
- IGListSectionMap is a mutable object and does not garauntee thread safety.
+ IGListSectionMap is a mutable object and does not guarantee thread safety.
  */
 IGLK_SUBCLASSING_RESTRICTED
 @interface IGListSectionMap : NSObject <NSCopying>
@@ -35,10 +33,10 @@ IGLK_SUBCLASSING_RESTRICTED
 /**
  Update the map with objects and the section controller counterparts.
 
- @param objects            The objects in the collection.
+ @param objects The objects in the collection.
  @param sectionControllers The section controllers that map to each object.
  */
-- (void)updateWithObjects:(NSArray <id <NSObject>> *)objects sectionControllers:(NSArray <id <NSObject>> *)sectionControllers;
+- (void)updateWithObjects:(NSArray <id <NSObject>> *)objects sectionControllers:(NSArray <IGListSectionController *> *)sectionControllers;
 
 /**
  Fetch a section controller given a section.
@@ -47,7 +45,7 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @return A section controller.
  */
-- (nullable IGListSectionController <IGListSectionType> *)sectionControllerForSection:(NSInteger)section;
+- (nullable IGListSectionController *)sectionControllerForSection:(NSInteger)section;
 
 /**
  Fetch the object for a section
@@ -100,12 +98,17 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @param block A block object to operate on entries in the section controller map.
  */
-- (void)enumerateUsingBlock:(void (^)(id object, IGListSectionController<IGListSectionType> *sectionController, NSInteger section, BOOL *stop))block;
+- (void)enumerateUsingBlock:(void (^)(id object, IGListSectionController *sectionController, NSInteger section, BOOL *stop))block;
 
 /**
  :nodoc:
  */
 - (instancetype)init NS_UNAVAILABLE;
+
+/**
+ :nodoc:
+ */
++ (instancetype)new NS_UNAVAILABLE;
 
 @end
 

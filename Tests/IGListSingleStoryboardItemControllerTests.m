@@ -1,10 +1,8 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import <XCTest/XCTest.h>
@@ -12,14 +10,13 @@
 #import "IGTestStoryboardCell.h"
 #import "IGTestSingleStoryboardItemDataSource.h"
 #import "IGTestStoryboardViewController.h"
-
-#define genTestObject(k, v) [[IGTestObject alloc] initWithKey:k value:v]
+#import "IGListTestCase.h"
 
 #define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
 
 @interface IGListSingleStoryboardSectionControllerTests : XCTestCase
 
-@property (nonatomic, strong) IGListCollectionView *collectionView;
+@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
 @property (nonatomic, strong) IGListAdapterUpdater *updater;
 @property (nonatomic, strong) IGTestSingleStoryboardItemDataSource *dataSource;
@@ -115,7 +112,7 @@
         XCTAssertEqualObjects(cell2.label.text, @"Qux");
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:15 handler:nil];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 @end

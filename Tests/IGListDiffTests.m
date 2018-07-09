@@ -14,13 +14,13 @@
 
 #import <IGListKit/IGListDiff.h>
 #import <IGListKit/IGListExperiments.h>
-
+#import "IGListIndexSetResultInternal.h"
 #import "IGListMoveIndexInternal.h"
 #import "IGListMoveIndexPathInternal.h"
+
 #import "IGTestObject.h"
 
 #define genIndexPath(i, s) [NSIndexPath indexPathForItem:i inSection:s]
-#define genTestObject(k, d) [[IGTestObject alloc] initWithKey:k value:d]
 
 #define IGAssertContains(collection, object) do {\
     id haystack = collection; id needle = object; \
@@ -36,33 +36,9 @@ static NSIndexSet *indexSetWithIndexes(NSArray *indexes) {
     return indexset;
 }
 
-
 static NSArray *sorted(NSArray *arr) {
     return [arr sortedArrayUsingSelector:@selector(compare:)];
 }
-
-
-@interface IGListIndexSetResult (UnitTests)
-- (NSUInteger)changeCount;
-@end
-
-@implementation IGListIndexSetResult (UnitTests)
-- (NSUInteger)changeCount {
-    return self.inserts.count + self.deletes.count + self.moves.count + self.updates.count;
-}
-@end
-
-
-@interface IGListIndexPathResult (UnitTests)
-- (NSUInteger)changeCount;
-@end
-
-@implementation IGListIndexPathResult (UnitTests)
-- (NSUInteger)changeCount {
-    return self.inserts.count + self.deletes.count + self.moves.count + self.updates.count;
-}
-@end
-
 
 @implementation IGListDiffTests
 
