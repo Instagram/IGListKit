@@ -11,7 +11,6 @@
 
 #import "IGListAdapterInternal.h"
 #import "IGListTestAdapterStoryboardDataSource.h"
-#import "IGListStackedSectionControllerInternal.h"
 #import "IGTestStoryboardViewController.h"
 #import "IGTestStoryboardSupplementarySource.h"
 
