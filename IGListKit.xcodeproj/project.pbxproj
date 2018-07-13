@@ -305,7 +305,7 @@
 		883796FF2022304D00B94676 /* IGListIndexSetResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 29DAA770201FBD870029277A /* IGListIndexSetResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		883797022022304D00B94676 /* IGListMoveIndexPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 29DAA780201FBD870029277A /* IGListMoveIndexPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		883797042022304D00B94676 /* NSString+IGListDiffable.h in Headers */ = {isa = PBXBuildFile; fileRef = 29DAA773201FBD870029277A /* NSString+IGListDiffable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		883797082022304E00B94676 /* (null) in Headers */ = {isa = PBXBuildFile; };
+		883797082022304E00B94676 /* BuildFile in Headers */ = {isa = PBXBuildFile; };
 		8837970C2022304E00B94676 /* IGListMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 29DAA781201FBD870029277A /* IGListMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		883797112022308200B94676 /* IGListTransitionDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 29DAA7A6201FBD9B0029277A /* IGListTransitionDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		88379712202230DE00B94676 /* IGListDiff.h in Headers */ = {isa = PBXBuildFile; fileRef = 29DAA78A201FBD870029277A /* IGListDiff.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1149,7 +1149,7 @@
 				8837970C2022304E00B94676 /* IGListMacros.h in Headers */,
 				883797152022319400B94676 /* IGListMoveIndexInternal.h in Headers */,
 				883796EA2022301F00B94676 /* IGListDiffable.h in Headers */,
-				883797082022304E00B94676 /* (null) in Headers */,
+				883797082022304E00B94676 /* BuildFile in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1183,7 +1183,6 @@
 				885FE1D91DC51A0D009CE2B4 /* Frameworks */,
 				885FE1DA1DC51A0D009CE2B4 /* Resources */,
 				1C5FA70E034CFACCF4FD0854 /* [CP] Embed Pods Frameworks */,
-				50676A19DB6B3CECF9C54BC9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1222,7 +1221,6 @@
 				887D0B3C1D870D7F009E01F7 /* Frameworks */,
 				887D0B3D1D870D7F009E01F7 /* Resources */,
 				21587AA7E74BD876C049E30D /* [CP] Embed Pods Frameworks */,
-				AC15CB0B9881429871447055 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1416,21 +1414,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IGListKitTests/Pods-IGListKitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		50676A19DB6B3CECF9C54BC9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IGListKit-tvOSTests/Pods-IGListKit-tvOSTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9B12CED6C1A4A7B9137C8C52 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1465,21 +1448,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AC15CB0B9881429871447055 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IGListKitTests/Pods-IGListKitTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
