@@ -25,7 +25,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
             [identifierMap setObject:object forKey:diffIdentifier];
             [uniqueObjects addObject:object];
         } else {
-            IGFailAssert(@"Duplicate identifier %@ for object %@ with object %@", diffIdentifier, object, previousObject);
+            IGLKLog(@"Duplicate identifier %@ for object %@ with object %@", diffIdentifier, object, previousObject);
         }
     }
     return uniqueObjects;
