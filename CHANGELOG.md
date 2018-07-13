@@ -23,6 +23,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Ensuring view models with duplicate diff identifiers are removed when view models are first requested by `IGListBindingSectionController` [Adam Stern](https://github.com/adamastern) (tbd)
 
+- Log instead of assert for duplicate diff identifiers to make code testable. [Adam Stern](https://github.com/adamastern) (tbd)
+
 3.4.0
 -----
 
