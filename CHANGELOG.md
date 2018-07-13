@@ -8,7 +8,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - All `IGListBindingSectionControllerSelectionDelegate` methods are now required. [Bofei Zhu](https://github.com/zhubofei) [(#1186)](https://github.com/Instagram/IGListKit/pull/1186)
 
-- `IGListStackedSectionController` has been completely removed. [Bofei Zhu](https://github.com/zhubofei) (tbd)
+- `IGListStackedSectionController` has been completely removed. [Bofei Zhu](https://github.com/zhubofei) [(#1215)](https://github.com/Instagram/IGListKit/pull/1215)
 
 ### Enhancements
 
