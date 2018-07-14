@@ -12,7 +12,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Added `IGListCollectionScrollingTraits` for exposing `UICollectionView` scrolling traits to section controllers via `IGListCollectionContext`. [Adam Stern](https://github.com/adamastern) (tbd)
 
-- Support reloading a `IGListBindingSectionController`. [Jeff Bailey](https://github.com/jeffbailey) (tbd)
+- No longer asserts when reloading a `IGListBindingSectionController`. A warning message is now logged if the entire section is going to be reloaded. [Jeff Bailey](https://github.com/jeffbailey) (#1213)
 
 ### Fixes
 
