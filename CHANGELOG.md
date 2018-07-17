@@ -21,6 +21,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Ensuring view models with duplicate diff identifiers are removed when view models are first requested by `IGListBindingSectionController` [Adam Stern](https://github.com/adamastern) (tbd)
 
+- Fixed `[IGListAdapterUpdater reloadItemInCollectionView:fromIndexPath:toIndexPath:]` does not call delegate when not inside a batch update. [Bofei Zhu] (https://github.com/zhubofei) [(#1211)](https://github.com/Instagram/IGListKit/pull/1211)
+
 3.4.0
 -----
 
