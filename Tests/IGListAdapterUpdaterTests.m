@@ -602,6 +602,46 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenNotBatchUpdate_thatDelegateEventsSent {
+    IGSectionObject *object = [IGSectionObject sectionWithObjects:@[@0, @1, @2]];
+    self.dataSource.sections = @[object];
+    [self.collectionView reloadData];
+    
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+    [mockDelegate setExpectationOrderMatters:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willDeleteIndexPaths:OCMOCK_ANY collectionView:self.collectionView];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willInsertIndexPaths:OCMOCK_ANY collectionView:self.collectionView];
+    [[mockDelegate expect] listAdapterUpdater:self.updater
+                        willMoveFromIndexPath:OCMOCK_ANY
+                                  toIndexPath:OCMOCK_ANY
+                               collectionView:self.collectionView];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willReloadIndexPaths:OCMOCK_ANY collectionView:self.collectionView];
+    
+    // This code is of no use, but it will let UICollectionView synchronize number of items,
+    // so it will not crash in following updates. https://stackoverflow.com/a/46751421/2977647
+    [self.collectionView numberOfItemsInSection:0];
+    
+    object.objects = @[@1, @2];
+    [self.updater deleteItemsFromCollectionView:self.collectionView indexPaths:@[
+                                                                                 [NSIndexPath indexPathForItem:0 inSection:0],
+                                                                                 ]];
+    object.objects = @[@1, @2, @4, @5];
+    [self.updater insertItemsIntoCollectionView:self.collectionView indexPaths:@[
+                                                                                 [NSIndexPath indexPathForItem:2 inSection:0],
+                                                                                 [NSIndexPath indexPathForItem:3 inSection:0],
+                                                                                 ]];
+    object.objects = @[@2, @1, @4, @5];
+    [self.updater moveItemInCollectionView:self.collectionView
+                             fromIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]
+                               toIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    
+    [self.updater reloadItemInCollectionView:self.collectionView
+                               fromIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
+                                 toIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    [mockDelegate verify];
+}
+
 - (void)test_whenObjectIdentifiersCollide_withDifferentTypes_thatLookupReturnsNil {
     id testObject = [[IGTestObject alloc] initWithKey:@"foo" value:@"bar"];
     id collision = @"foo";
