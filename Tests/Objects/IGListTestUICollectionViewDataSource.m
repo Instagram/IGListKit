@@ -22,7 +22,7 @@
 
 - (id<NSObject>)diffIdentifier {
     // this is for test purposes only. please dont do this.
-    return [NSString stringWithFormat:@"%zi", self.hash];
+    return [NSString stringWithFormat:@"%lu", (unsigned long)self.hash];
 }
 
 - (BOOL)isEqualToDiffableObject:(id)object {
