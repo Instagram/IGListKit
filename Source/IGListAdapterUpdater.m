@@ -534,6 +534,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
         IGListReloadIndexPath *reload = [[IGListReloadIndexPath alloc] initWithFromIndexPath:fromIndexPath toIndexPath:toIndexPath];
         [self.batchUpdates.itemReloads addObject:reload];
     } else {
+        [self.delegate listAdapterUpdater:self willReloadIndexPaths:@[fromIndexPath] collectionView:collectionView];
         [collectionView reloadItemsAtIndexPaths:@[fromIndexPath]];
     }
 }
