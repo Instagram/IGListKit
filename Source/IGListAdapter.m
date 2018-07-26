@@ -507,28 +507,6 @@
 
 - (NSArray<IGListSectionController *> *)visibleSectionControllers {
     IGAssertMainThread();
-    if (IGListExperimentEnabled(self.experiments, IGListExperimentFasterVisibleSectionController)) {
-        return [self _visibleSectionControllersFromDisplayHandler];
-    } else {
-        return [self _visibleSectionControllersFromLayoutAttributes];
-    }
-}
-
-- (NSArray<IGListSectionController *> *)_visibleSectionControllersFromLayoutAttributes {
-    NSMutableSet *visibleSectionControllers = [NSMutableSet new];
-    NSArray<UICollectionViewLayoutAttributes *> *attributes =
-    [self.collectionView.collectionViewLayout layoutAttributesForElementsInRect:self.collectionView.bounds];
-    for (UICollectionViewLayoutAttributes* attribute in attributes) {
-        IGListSectionController *sectionController = [self sectionControllerForSection:attribute.indexPath.section];
-        IGAssert(sectionController != nil, @"Section controller nil for cell in section %ld", (long)attribute.indexPath.section);
-        if (sectionController) {
-            [visibleSectionControllers addObject:sectionController];
-        }
-    }
-    return [visibleSectionControllers allObjects];
-}
-
-- (NSArray<IGListSectionController *> *)_visibleSectionControllersFromDisplayHandler {
     return [[self.displayHandler visibleListSections] allObjects];
 }
 
