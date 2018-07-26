@@ -334,11 +334,6 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     [itemDeletes addObjectsFromArray:[reloadDeletePaths allObjects]];
     [itemInserts addObjectsFromArray:[reloadInsertPaths allObjects]];
 
-    if (IGListExperimentEnabled(self.experiments, IGListExperimentDedupeItemUpdates)) {
-        itemDeletes = [[[NSSet setWithArray:itemDeletes] allObjects] mutableCopy];
-        itemInserts = [[[NSSet setWithArray:itemInserts] allObjects] mutableCopy];
-    }
-
     IGListBatchUpdateData *updateData = [[IGListBatchUpdateData alloc] initWithInsertSections:inserts
                                                                                deleteSections:deletes
                                                                                  moveSections:moves

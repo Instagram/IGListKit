@@ -20,8 +20,6 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentBackgroundDiffing = 1 << 2,
     /// Test fallback to reloadData when "too many" update operations.
     IGListExperimentReloadDataFallback = 1 << 3,
-    /// Test deduping item-level updates.
-    IGListExperimentDedupeItemUpdates = 1 << 5,
     /// Test deferring object creation until just before diffing.
     IGListExperimentDeferredToObjectCreation = 1 << 6,
     /// Test getting collection view at update time.
