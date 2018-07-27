@@ -27,28 +27,27 @@
 
 ----------------
 
-A data-driven `UICollectionView` framework for building fast and flexible lists.
+一个数据驱动的“UICollectionView”框架，用于构建快速灵活的列表。
 
-|         | Main Features  |
+|         | 主要特性  |
 ----------|-----------------
-&#128581; | Never call `performBatchUpdates(_:, completion:)` or `reloadData()` again
-&#127968; | Better architecture with reusable cells and components
-&#128288; | Create collections with multiple data types
-&#128273; | Decoupled diffing algorithm
-&#9989;   | Fully unit tested
-&#128269; | Customize your diffing behavior for your models
-&#128241; | Simply `UICollectionView` at its core
-&#128640; | Extendable API
-&#128038; | Written in Objective-C with full Swift interop support
+&#128581; | 不要直接调用 `performBatchUpdates(_:, completion:)` 或 `reloadData()`
+&#127968; | 更好的可复用cell和组件体系结构
+&#128288; | 创建具有多个数据类型的集合
+&#128273; | 解耦扩散算法
+&#9989;   | 全单元测试
+&#128269; | 自定义差异行为模型的
+&#128241; | 简化 `UICollectionView`核心
+&#128640; | 可扩展API
+&#128038; | Objective-C编写,同时完全支持Swift
 
-`IGListKit` is built and maintained with &#10084;&#65039; by [Instagram engineering](https://engineering.instagram.com/).
-We use the open source version `master` branch in the Instagram app.
+`IGListKit`由[Instagram 工程师](https://engineering.instagram.com/) 创建 并且&#10084;&#65039; 维护.
+我们在Instagram中使用开源的`master`主版本.
+## 多语言翻译
 
-## Multilingual translation
+[英文README](README.md)
 
-[Chinese README](README.zh.md)
-
-## Requirements
+## 要求
 
 - Xcode 9.0+
 - iOS 8.0+
@@ -56,11 +55,11 @@ We use the open source version `master` branch in the Instagram app.
 - macOS 10.11+ *(diffing algorithm components only)*
 - Interoperability with Swift 3.0+
 
-## Installation
+## 安装
 
 ### CocoaPods
 
-The preferred installation method is with [CocoaPods](https://cocoapods.org). Add the following to your `Podfile`:
+[CocoaPods](https://cocoapods.org)优选安装方法. 添加如下到 `Podfile`文件中:
 
 ```ruby
 pod 'IGListKit', '~> 3.0'
@@ -68,15 +67,15 @@ pod 'IGListKit', '~> 3.0'
 
 ### Carthage
 
-For [Carthage](https://github.com/Carthage/Carthage), add the following to your `Cartfile`:
+针对[Carthage](https://github.com/Carthage/Carthage), 添加如下到 `Cartfile`文件中:
 
 ```ogdl
 github "Instagram/IGListKit" ~> 3.0
 ```
 
-> For advanced usage, see our [Installation Guide](https://instagram.github.io/IGListKit/installation.html).
+> 对于高级用法, 查阅 [安装指南](https://instagram.github.io/IGListKit/installation.html).
 
-## Getting Started
+## 入门指南
 
 ```bash
 $ git clone https://github.com/Instagram/IGListKit.git
@@ -84,25 +83,25 @@ $ cd IGListKit/
 $ ./scripts/setup.sh
 ```
 
-- Our [Getting Started guide](https://instagram.github.io/IGListKit/getting-started.html)
+- [入门指南](https://instagram.github.io/IGListKit/getting-started.html)
 - Ray Wenderlich's [IGListKit Tutorial: Better UICollectionViews](https://www.raywenderlich.com/147162/iglistkit-tutorial-better-uicollectionviews)
-- Our [example projects](https://github.com/Instagram/IGListKit/tree/master/Examples)
+- [样例项目](https://github.com/Instagram/IGListKit/tree/master/Examples)
 - Ryan Nystrom's [talk at try! Swift NYC](https://realm.io/news/tryswift-ryan-nystrom-refactoring-at-scale-lessons-learned-rewriting-instagram-feed/) (Note: this talk was for an earlier version. Some APIs have changed.)
 - [Migrating an UITableView to IGListCollectionView](https://medium.com/cocoaacademymag/iglistkit-migrating-an-uitableview-to-iglistkitcollectionview-65a30cf9bac9), by Rodrigo Cavalcante
 - [Keeping data fresh in Buffer for iOS with AsyncDisplayKit, IGListKit & Pusher](https://overflow.buffer.com/2017/04/10/keeping-data-fresh-buffer-ios-asyncdisplaykit-iglistkit-pusher/), Andy Yates, Buffer
 - [CCIGListKitDemo](https://github.com/ccworld1000/CCIGListKitDemo) is on the way for Objective-C demo
 
-## Documentation
+## 文档
 
-You can find [the docs here](https://instagram.github.io/IGListKit). Documentation is generated with [jazzy](https://github.com/realm/jazzy) and hosted on [GitHub-Pages](https://pages.github.com).
+[这里可以查阅文档](https://instagram.github.io/IGListKit). 文档由[jazzy](https://github.com/realm/jazzy)生成, 托管在 [GitHub-Pages](https://pages.github.com).
 
-To regenerate docs, run `./scripts/build_docs.sh` from the root directory in the repo.
+运行位于数据仓root目录 `./scripts/build_docs.sh`生成文档.
 
-## Vision
+## 远景
 
 For the long-term goals and "vision" of `IGListKit`, please read our [Vision](https://github.com/Instagram/IGListKit/blob/master/Guides/VISION.md) doc.
 
-## Contributing
+## 贡献
 
 Please see the [CONTRIBUTING](https://github.com/Instagram/IGListKit/blob/master/.github/CONTRIBUTING.md) file for how to help. At Instagram, we sync the open source version of `IGListKit` daily, so we're always testing the latest changes. But that requires all changes be thoroughly tested and follow our style guide.
 
