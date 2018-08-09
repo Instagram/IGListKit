@@ -26,6 +26,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Log instead of assert for duplicate diff identifiers to make code testable. [Adam Stern](https://github.com/adamastern) (tbd)
 
+- Fixed logic flaw in `[IGListCollectionViewLayout shouldInvalidateLayoutForBoundsChange:]`. [Allen Hsu](https://github.com/allenhsu) (tbd)
+
 3.4.0
 -----
 
