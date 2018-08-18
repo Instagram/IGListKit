@@ -955,7 +955,7 @@
     IGParameterAssert(index >= 0);
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Dequeueing cell of class %@ with reuseIdentifier %@ from section controller %@ without a collection view at index %li", NSStringFromClass(cellClass), reuseIdentifier, sectionController, (long)index);
-    NSString *identifier = IGListReusableViewIdentifier(cellClass, nil, nil, reuseIdentifier);
+    NSString *identifier = IGListReusableViewIdentifier(cellClass, nil, reuseIdentifier);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
     if (![self.registeredCellClasses containsObject:cellClass]) {
         [self.registeredCellClasses addObject:cellClass];
@@ -1012,7 +1012,7 @@
     IGParameterAssert(index >= 0);
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Dequeueing cell of class %@ from section controller %@ without a collection view at index %li with supplementary view %@", NSStringFromClass(viewClass), sectionController, (long)index, elementKind);
-    NSString *identifier = IGListReusableViewIdentifier(viewClass, nil, elementKind, nil);
+    NSString *identifier = IGListReusableViewIdentifier(viewClass, elementKind, nil);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
     if (![self.registeredSupplementaryViewIdentifiers containsObject:identifier]) {
         [self.registeredSupplementaryViewIdentifiers addObject:identifier];
