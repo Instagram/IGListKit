@@ -110,7 +110,9 @@ NS_SWIFT_NAME(ListSectionController)
 /**
  Identifies whether an object can be moved through interactive reordering.
  
- @param index The index of the unhighlighted cell.
+ @param index The index of the object in the list.
+
+ @return `YES` if the object is allowed to move, otherwise `NO`.
  
  @note Interactive reordering is supported both for items within a single section, as well as for reordering sections
  themselves when sections contain only one item. The default implementation returns false.
