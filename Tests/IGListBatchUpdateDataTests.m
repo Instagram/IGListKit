@@ -47,6 +47,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                              moveSections:[NSSet new]
                                                                          insertIndexPaths:@[]
                                                                          deleteIndexPaths:@[]
+                                                                         updateIndexPaths:@[]
                                                                            moveIndexPaths:@[]];
     XCTAssertNotNil(result);
 }
@@ -57,6 +58,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                              moveSections:[NSSet setWithArray:@[newMove(3, 4)]]
                                                                          insertIndexPaths:@[newPath(0, 0)]
                                                                          deleteIndexPaths:@[newPath(1, 0)]
+                                                                         updateIndexPaths:@[]
                                                                            moveIndexPaths:@[newMovePath(6, 0, 6, 1)]];
     XCTAssertEqualObjects(result.insertSections, indexSet(@[@0, @1]));
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@5]));
@@ -73,6 +75,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                              moveSections:[NSSet setWithArray:@[newMove(2, 4)]]
                                                                          insertIndexPaths:@[]
                                                                          deleteIndexPaths:@[newPath(2, 0), newPath(3, 4)]
+                                                                         updateIndexPaths:@[]
                                                                            moveIndexPaths:@[]];
     XCTAssertEqualObjects(result.insertSections, indexSet(@[@4]));
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@2]));
@@ -86,6 +89,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                              moveSections:[NSSet setWithArray:@[newMove(2, 4)]]
                                                                          insertIndexPaths:@[newPath(4, 0), newPath(3, 4)]
                                                                          deleteIndexPaths:@[]
+                                                                         updateIndexPaths:@[]
                                                                            moveIndexPaths:@[]];
     XCTAssertEqualObjects(result.insertSections, indexSet(@[@4]));
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@2]));
@@ -99,6 +103,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                              moveSections:[NSSet new]
                                                                          insertIndexPaths:@[]
                                                                          deleteIndexPaths:@[]
+                                                                         updateIndexPaths:@[]
                                                                            moveIndexPaths:@[newMovePath(0, 0, 0, 1)]];
     XCTAssertEqual(result.moveIndexPaths.count, 0);
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@0]));
@@ -110,6 +115,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                              moveSections:[NSSet setWithArray:@[newMove(0, 1)]]
                                                                          insertIndexPaths:@[]
                                                                          deleteIndexPaths:@[]
+                                                                         updateIndexPaths:@[]
                                                                            moveIndexPaths:@[newMovePath(0, 0, 0, 1)]];
     XCTAssertEqual(result.moveIndexPaths.count, 0);
     XCTAssertEqual(result.moveSections.count, 0);
@@ -123,6 +129,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                              moveSections:[NSSet setWithArray:@[newMove(2, 6), newMove(0, 2)]]
                                                                          insertIndexPaths:@[]
                                                                          deleteIndexPaths:@[]
+                                                                         updateIndexPaths:@[]
                                                                            moveIndexPaths:@[]];
     XCTAssertEqual(result.deleteSections.count, 1);
     XCTAssertEqual(result.moveSections.count, 1);

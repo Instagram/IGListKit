@@ -9,20 +9,25 @@
 
 #import "IGListTestUICollectionViewDataSource.h"
 
-@implementation IGSectionObject
-
-+ (instancetype)sectionWithObjects:(NSArray *)objects {
-    IGSectionObject *object = [[IGSectionObject alloc] init];
-    object.objects = objects;
-    return object;
+@implementation IGSectionObject {
+    NSString *_identifier;
 }
 
++ (instancetype)sectionWithObjects:(NSArray *)objects {
+    return [IGSectionObject sectionWithObjects:objects identifier:[NSUUID UUID].UUIDString];
+}
+
++ (instancetype)sectionWithObjects:(NSArray *)objects identifier:(NSString *)identifier {
+    IGSectionObject *object = [[IGSectionObject alloc] init];
+    object.objects = objects;
+    object->_identifier = [identifier copy];
+    return object;
+}
 
 #pragma mark - IGListDiffable
 
 - (id<NSObject>)diffIdentifier {
-    // this is for test purposes only. please dont do this.
-    return [NSString stringWithFormat:@"%lu", (unsigned long)self.hash];
+    return _identifier;
 }
 
 - (BOOL)isEqualToDiffableObject:(id)object {

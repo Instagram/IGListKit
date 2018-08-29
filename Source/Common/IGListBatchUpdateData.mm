@@ -47,17 +47,19 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
  Converts all section moves that are also reloaded, or have index path inserts, deletes, or reloads into a section
  delete + insert in order to avoid UICollectionView heap corruptions, exceptions, and animation/snapshot bugs.
  */
-- (instancetype)initWithInsertSections:(NSIndexSet *)insertSections
-                        deleteSections:(NSIndexSet *)deleteSections
-                          moveSections:(NSSet<IGListMoveIndex *> *)moveSections
-                      insertIndexPaths:(NSArray<NSIndexPath *> *)insertIndexPaths
-                      deleteIndexPaths:(NSArray<NSIndexPath *> *)deleteIndexPaths
-                        moveIndexPaths:(NSArray<IGListMoveIndexPath *> *)moveIndexPaths {
+- (instancetype)initWithInsertSections:(nonnull NSIndexSet *)insertSections
+                        deleteSections:(nonnull NSIndexSet *)deleteSections
+                          moveSections:(nonnull NSSet<IGListMoveIndex *> *)moveSections
+                      insertIndexPaths:(nonnull NSArray<NSIndexPath *> *)insertIndexPaths
+                      deleteIndexPaths:(nonnull NSArray<NSIndexPath *> *)deleteIndexPaths
+                      updateIndexPaths:(nonnull NSArray<NSIndexPath *> *)updateIndexPaths
+                        moveIndexPaths:(nonnull NSArray<IGListMoveIndexPath *> *)moveIndexPaths {
     IGParameterAssert(insertSections != nil);
     IGParameterAssert(deleteSections != nil);
     IGParameterAssert(moveSections != nil);
     IGParameterAssert(insertIndexPaths != nil);
     IGParameterAssert(deleteIndexPaths != nil);
+    IGParameterAssert(updateIndexPaths != nil);
     IGParameterAssert(moveIndexPaths != nil);
     if (self = [super init]) {
         NSMutableSet<IGListMoveIndex *> *mMoveSections = [moveSections mutableCopy];
@@ -120,15 +122,32 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
         _moveSections = [mMoveSections copy];
         _deleteIndexPaths = [mDeleteIndexPaths copy];
         _insertIndexPaths = [mInsertIndexPaths copy];
+        _updateIndexPaths = [updateIndexPaths copy];
         _moveIndexPaths = [mMoveIndexPaths copy];
     }
     return self;
 }
 
+- (BOOL)isEqual:(id)object {
+    if (object == self) {
+        return YES;
+    }
+    if ([object isKindOfClass:[IGListBatchUpdateData class]]) {
+        return ([self.insertSections isEqual:[object insertSections]]
+                && [self.deleteSections isEqual:[object deleteSections]]
+                && [self.moveSections isEqual:[object moveSections]]
+                && [self.insertIndexPaths isEqual:[object insertIndexPaths]]
+                && [self.deleteIndexPaths isEqual:[object deleteIndexPaths]]
+                && [self.updateIndexPaths isEqual:[object updateIndexPaths]]
+                && [self.moveIndexPaths isEqual:[object moveIndexPaths]]);
+    }
+    return NO;
+}
+
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@ %p; deleteSections: %lu; insertSections: %lu; moveSections: %lu; deleteIndexPaths: %lu; insertIndexPaths: %lu;>",
+    return [NSString stringWithFormat:@"<%@ %p; deleteSections: %lu; insertSections: %lu; moveSections: %lu; deleteIndexPaths: %lu; insertIndexPaths: %lu; updateIndexPaths: %lu>",
             NSStringFromClass(self.class), self, (unsigned long)self.deleteSections.count, (unsigned long)self.insertSections.count, (unsigned long)self.moveSections.count,
-            (unsigned long)self.deleteIndexPaths.count, (unsigned long)self.insertIndexPaths.count];
+            (unsigned long)self.deleteIndexPaths.count, (unsigned long)self.insertIndexPaths.count, (unsigned long)self.updateIndexPaths.count];
 }
 
 @end

@@ -34,6 +34,7 @@
                                                                           moveSections:[NSSet setWithObject:[[IGListMoveIndex alloc] initWithFrom:3 to:4]]
                                                                       insertIndexPaths:@[path]
                                                                       deleteIndexPaths:@[path]
+                                                                      updateIndexPaths:@[]
                                                                         moveIndexPaths:@[[[IGListMoveIndexPath alloc] initWithFrom:path to:path]]];
     IGListTestAdapterDataSource *dataSource = [IGListTestAdapterDataSource new];
     dataSource.objects = @[@1, @2, @3];
