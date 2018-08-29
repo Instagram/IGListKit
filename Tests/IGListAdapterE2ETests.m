@@ -242,7 +242,31 @@
 
     IGTestObject *object = self.dataSource.objects[0];
     IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+    
+    XCTestExpectation *expectation = genExpectation;
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+        object.value = @3;
+        [batchContext reloadSectionController:sectionController];
+    } completion:^(BOOL finished2) {
+        XCTAssertEqual([self.collectionView numberOfSections], 2);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
 
+- (void)test_whenSectionControllerReloads_withPreferItemReload_thatCountsAreUpdated {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @2),
+                             genTestObject(@2, @2)
+                             ]];
+    
+    IGTestObject *object = self.dataSource.objects[0];
+    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+    
+    // Prefer to use item reloads for section reloads if available.
+    [(IGListAdapterUpdater *)self.adapter.updater setPreferItemReloadsForSectionReloads:YES];
+    
     XCTestExpectation *expectation = genExpectation;
     [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
         object.value = @3;

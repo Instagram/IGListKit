@@ -17,6 +17,8 @@
 
 + (instancetype)sectionWithObjects:(NSArray *)objects;
 
++ (instancetype)sectionWithObjects:(NSArray *)objects identifier:(NSString *)identifier;
+
 @end
 
 @interface IGListTestUICollectionViewDataSource : NSObject <UICollectionViewDataSource>

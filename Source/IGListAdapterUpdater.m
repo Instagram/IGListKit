@@ -199,12 +199,12 @@
     // block executed in the first param block of -[UICollectionView performBatchUpdates:completion:]
     void (^batchUpdatesBlock)(IGListIndexSetResult *result) = ^(IGListIndexSetResult *result){
         executeUpdateBlocks();
-
+        
         self.applyingUpdateData = [self _flushCollectionView:collectionView
-                                             withDiffResult:result
-                                               batchUpdates:self.batchUpdates
-                                                fromObjects:fromObjects];
-
+                                              withDiffResult:result
+                                                batchUpdates:self.batchUpdates
+                                                 fromObjects:fromObjects];
+        
         [self _cleanStateAfterUpdates];
         [self _performBatchUpdatesItemBlockApplied];
     };
@@ -294,6 +294,17 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     }];
 }
 
+static NSArray<NSIndexPath *> *convertSectionReloadToItemUpdates(NSIndexSet *sectionReloads, UICollectionView *collectionView) {
+    NSMutableArray<NSIndexPath *> *updates = [NSMutableArray new];
+    [sectionReloads enumerateIndexesUsingBlock:^(NSUInteger sectionIndex, BOOL * _Nonnull stop) {
+        NSUInteger numberOfItems = [collectionView numberOfItemsInSection:sectionIndex];
+        for (NSUInteger itemIndex = 0; itemIndex < numberOfItems; itemIndex++) {
+            [updates addObject:[NSIndexPath indexPathForItem:itemIndex inSection:sectionIndex]];
+        }
+    }];
+    return [updates copy];
+}
+
 - (IGListBatchUpdateData *)_flushCollectionView:(UICollectionView *)collectionView
                                 withDiffResult:(IGListIndexSetResult *)diffResult
                                   batchUpdates:(IGListBatchUpdates *)batchUpdates
@@ -306,6 +317,7 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 
     NSMutableIndexSet *inserts = [diffResult.inserts mutableCopy];
     NSMutableIndexSet *deletes = [diffResult.deletes mutableCopy];
+    NSMutableArray<NSIndexPath *> *itemUpdates = [NSMutableArray new];
     if (self.movesAsDeletesInserts) {
         for (IGListMoveIndex *move in moves) {
             [deletes addIndex:move.from];
@@ -315,9 +327,22 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
         moves = [NSSet new];
     }
 
-    // reloadSections: is unsafe to use within performBatchUpdates:, so instead convert all reloads into deletes+inserts
-    convertReloadToDeleteInsert(reloads, deletes, inserts, diffResult, fromObjects);
-
+    if (self.preferItemReloadsForSectionReloads) {
+        [reloads enumerateIndexesUsingBlock:^(NSUInteger sectionIndex, BOOL * _Nonnull stop) {
+            NSMutableIndexSet *localIndexSet = [NSMutableIndexSet indexSetWithIndex:sectionIndex];
+            if ([collectionView numberOfItemsInSection:sectionIndex] == [collectionView.dataSource collectionView:collectionView numberOfItemsInSection:sectionIndex]) {
+                // Perfer to do item reloads instead, if the number of items in section is unchanged.
+                [itemUpdates addObjectsFromArray:convertSectionReloadToItemUpdates(localIndexSet, collectionView)];
+            } else {
+                // Otherwise, fallback to convert into delete+insert section operation.
+                convertReloadToDeleteInsert(localIndexSet, deletes, inserts, diffResult, fromObjects);
+            }
+        }];
+    } else {
+        // reloadSections: is unsafe to use within performBatchUpdates:, so instead convert all reloads into deletes+inserts
+        convertReloadToDeleteInsert(reloads, deletes, inserts, diffResult, fromObjects);
+    }
+    
     NSMutableArray<NSIndexPath *> *itemInserts = batchUpdates.itemInserts;
     NSMutableArray<NSIndexPath *> *itemDeletes = batchUpdates.itemDeletes;
     NSMutableArray<IGListMoveIndexPath *> *itemMoves = batchUpdates.itemMoves;
@@ -339,6 +364,7 @@ void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
                                                                                  moveSections:moves
                                                                              insertIndexPaths:itemInserts
                                                                              deleteIndexPaths:itemDeletes
+                                                                             updateIndexPaths:itemUpdates
                                                                                moveIndexPaths:itemMoves];
     [collectionView ig_applyBatchUpdateData:updateData];
     return updateData;
