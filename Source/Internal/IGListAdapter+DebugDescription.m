@@ -34,9 +34,9 @@
         [debug addObject:[NSString stringWithFormat:@"Is prefetching enabled: %@", IGListDebugBOOL(self.collectionView.isPrefetchingEnabled)]];
     }
 
-    if (self.registeredCellClasses.count > 0) {
-        [debug addObject:@"Registered cell classes:"];
-        [debug addObject:[self.registeredCellClasses description]];
+    if (self.registeredCellIdentifiers.count > 0) {
+        [debug addObject:@"Registered cell identifiers:"];
+        [debug addObject:[self.registeredCellIdentifiers description]];
     }
 
     if (self.registeredNibNames.count > 0) {

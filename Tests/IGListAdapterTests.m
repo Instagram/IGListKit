@@ -141,7 +141,7 @@
     XCTAssertEqualObjects(identifier, @"UICollectionViewCell");
 }
 
-- (void)test_whenQueryingReusableIdentifierWithGivenIdentifier_tahtIdentifierEqualsGivenIdentifierAndClassName {
+- (void)test_whenQueryingReusableIdentifierWithGivenIdentifier_thatIdentifierEqualsGivenIdentifierAndClassName {
     NSString *identifier = IGListReusableViewIdentifier(UICollectionViewCell.class, nil, nil, @"MyCoolID");
     XCTAssertEqualObjects(identifier, @"MyCoolIDUICollectionViewCell");
 }

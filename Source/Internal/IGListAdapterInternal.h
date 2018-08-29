@@ -58,7 +58,11 @@ IGListBatchContext
 @property (nonatomic, assign) BOOL isInUpdateBlock;
 @property (nonatomic, strong, nullable) IGListSectionMap *previousSectionMap;
 
-@property (nonatomic, strong) NSMutableSet<Class> *registeredCellClasses;
+/**
+ Set of cell identifiers registered with the list context.
+ Identifiers are constructed with the `IGListReusableViewIdentifier` function.
+ */
+@property (nonatomic, strong) NSMutableSet<NSString *> *registeredCellIdentifiers;
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredNibNames;
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewIdentifiers;
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewNibNames;
