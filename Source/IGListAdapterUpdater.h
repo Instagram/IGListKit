@@ -37,11 +37,11 @@ NS_SWIFT_NAME(ListAdapterUpdater)
 @property (nonatomic, assign) BOOL movesAsDeletesInserts;
 
 /**
- A flag indicating that during section reloads, if the number of items for the section is unchanged, we should
- prefer to generate item reloads instead of treating as "delete section, then insert section" operation.
- Instead, we would generate updated indexPaths to be used in `-[UICollectionView reloadItemsAtIndexPaths:]` during updates.
- 
- @note If the number of items for the section is changed, we would fallback to do the "delete section, then insert section" operation.
+ A flag indicating that section reloads should be treated as item reloads, instead of converting them to "delete, then insert" operations.
+ This only applies if the number of items for the section is unchanged.
+
+ @note If the number of items for the section is changed, we would fallback to the default behavior and convert it to "delete + insert",
+ because the collectionView can crash otherwise.
  
  Default is NO.
  */
