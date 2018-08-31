@@ -30,6 +30,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Fixed crash when using `-[IGListCollectionContext dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:]` [Jeremy Lawrence](https://github.com/ziewvater) (tbd)
 
+- Fixed a bug where `-[IGListIndexPathResult oldIndexPathForIdentifier:]` and `-[IGListIndexPathResult newIndexPathForIdentifier:]` were returning `NSArray<NSIndexPath *> *` instead of `NSIndexPath *` when diff contained only insertions or deletions. [Anton Sotkov](https://github.com/antons) (tbd)
+
 3.4.0
 -----
 
