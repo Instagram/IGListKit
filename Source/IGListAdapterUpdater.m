@@ -330,7 +330,9 @@ static NSArray<NSIndexPath *> *convertSectionReloadToItemUpdates(NSIndexSet *sec
     if (self.preferItemReloadsForSectionReloads) {
         [reloads enumerateIndexesUsingBlock:^(NSUInteger sectionIndex, BOOL * _Nonnull stop) {
             NSMutableIndexSet *localIndexSet = [NSMutableIndexSet indexSetWithIndex:sectionIndex];
-            if ([collectionView numberOfItemsInSection:sectionIndex] == [collectionView.dataSource collectionView:collectionView numberOfItemsInSection:sectionIndex]) {
+            if (sectionIndex < [collectionView numberOfSections]
+                && sectionIndex < [collectionView.dataSource numberOfSectionsInCollectionView:collectionView]
+                && [collectionView numberOfItemsInSection:sectionIndex] == [collectionView.dataSource collectionView:collectionView numberOfItemsInSection:sectionIndex]) {
                 // Perfer to do item reloads instead, if the number of items in section is unchanged.
                 [itemUpdates addObjectsFromArray:convertSectionReloadToItemUpdates(localIndexSet, collectionView)];
             } else {
