@@ -327,7 +327,8 @@ static NSArray<NSIndexPath *> *convertSectionReloadToItemUpdates(NSIndexSet *sec
         moves = [NSSet new];
     }
 
-    if (self.preferItemReloadsForSectionReloads) {
+    // Item reloads are not safe, if any section moves happened
+    if (moves.count == 0 && self.preferItemReloadsForSectionReloads) {
         [reloads enumerateIndexesUsingBlock:^(NSUInteger sectionIndex, BOOL * _Nonnull stop) {
             NSMutableIndexSet *localIndexSet = [NSMutableIndexSet indexSetWithIndex:sectionIndex];
             if (sectionIndex < [collectionView numberOfSections]
