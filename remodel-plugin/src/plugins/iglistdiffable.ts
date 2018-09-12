@@ -211,6 +211,9 @@ export function createPlugin():ObjectSpec.Plugin {
         diffIdentifierMethod(objectType)
       ];
     },
+    macros: function(valueType:ObjectSpec.Type):ObjC.Macro[] {
+      return [];
+    },
     properties: function(objectType:ObjectSpec.Type):ObjC.Property[] {
       return [];
     },

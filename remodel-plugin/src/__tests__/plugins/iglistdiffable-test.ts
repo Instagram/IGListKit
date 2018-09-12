@@ -21,6 +21,7 @@ const ObjectSpecPlugin = IGListDiffable.createPlugin();
 
 function igListDiffableIsEqualMethod():ObjC.Method {
   return {
+    preprocessors:[],
     belongsToProtocol:Maybe.Just('IGListDiffable'),
     code: ['return [self isEqual:object];'],
     comments:[],
@@ -47,6 +48,7 @@ function igListDiffableIsEqualMethod():ObjC.Method {
 
 function igListDiffableDiffIdentifierMethodWithCode(code:string):ObjC.Method {
   return {
+    preprocessors:[],
     belongsToProtocol:Maybe.Just<string>('IGListDiffable'),
     code: [code],
     comments:[],
