@@ -302,7 +302,7 @@
                     contentOffset.y = offsetMin - contentInset.top;
                     break;
             }
-            const CGFloat maxOffsetY = collectionView.contentSize.height - collectionView.frame.size.height + contentInset.bottom;
+            const CGFloat maxOffsetY = collectionView.collectionViewLayout.collectionViewContentSize.height - collectionView.frame.size.height + contentInset.bottom;
             const CGFloat minOffsetY = -contentInset.top;
             contentOffset.y = MIN(contentOffset.y, maxOffsetY);
             contentOffset.y = MAX(contentOffset.y, minOffsetY);
