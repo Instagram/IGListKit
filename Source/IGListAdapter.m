@@ -886,6 +886,11 @@
         return nil;
     }
 
+    // if we know this section is not currently being displayed, bail early.
+    if (![[self.displayHandler visibleListSections] containsObject:sectionController]) {
+        return nil;
+    }
+
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:YES];
     // prevent querying the collection view if it isn't fully reloaded yet for the current data set
     if (indexPath != nil
@@ -902,6 +907,12 @@
 
 - (NSArray<UICollectionViewCell *> *)visibleCellsForSectionController:(IGListSectionController *)sectionController {
     NSMutableArray *cells = [NSMutableArray new];
+
+    // if we know this section is not currently being displayed, bail early.
+    if (![[self.displayHandler visibleListSections] containsObject:sectionController]) {
+        return cells;
+    }
+
     UICollectionView *collectionView = self.collectionView;
     NSArray *visibleCells = [collectionView visibleCells];
     const NSInteger section = [self sectionForSectionController:sectionController];
@@ -915,6 +926,12 @@
 
 - (NSArray<NSIndexPath *> *)visibleIndexPathsForSectionController:(IGListSectionController *) sectionController {
     NSMutableArray *paths = [NSMutableArray new];
+
+    // if we know this section is not currently being displayed, bail early.
+    if (![[self.displayHandler visibleListSections] containsObject:sectionController]) {
+        return paths;
+    }
+
     UICollectionView *collectionView = self.collectionView;
     NSArray *visiblePaths = [collectionView indexPathsForVisibleItems];
     const NSInteger section = [self sectionForSectionController:sectionController];
