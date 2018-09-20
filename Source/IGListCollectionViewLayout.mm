@@ -119,7 +119,7 @@ struct IGListSectionEntry {
 // other cells adds (item) to the base zIndex.
 // This allows us to present tooltips that can grow from the cell to its top.
 static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attributes) {
-    const NSInteger maxZIndexPerSection = 1000;
+    const NSInteger maxZIndexPerSection = NSIntegerMax;
     const NSInteger baseZIndex = attributes.indexPath.section * maxZIndexPerSection;
 
     switch (attributes.representedElementCategory) {
