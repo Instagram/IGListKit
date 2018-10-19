@@ -409,14 +409,7 @@ static NSArray<NSIndexPath *> *convertSectionReloadToItemUpdates(NSIndexSet *sec
 
 - (void)_queueUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock {
     IGAssertMainThread();
-
-    // callers may hold weak refs and lose the collection view by the time we requeue, bail if that's the case
-//    if (collectionView == nil) {
-//        return;
-//    }
-
     __weak __typeof__(self) weakSelf = self;
-//    __weak __typeof__(collectionView) weakCollectionView = collectionView;
 
     // dispatch after a given amount of time to coalesce other updates and execute as one
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, self.coalescanceTime * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
