@@ -10,6 +10,9 @@
 #import <IGListKit/IGListBatchUpdateData.h>
 
 @class IGListAdapterUpdater;
+@class IGListBatchUpdates;
+@class IGListIndexSetResult;
+@protocol IGListDiffable;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,8 +27,15 @@ NS_SWIFT_NAME(ListAdapterUpdaterDelegate)
 
  @param listAdapterUpdater The adapter updater owning the transition.
  @param collectionView The collection view that will perform the batch updates.
+ @param fromObjects The items transitioned from in the batch updates, if any.
+ @param toObjects The items transitioned to in the batch updates, if any.
+ @param listIndexSetResults The diffing result of indices to be inserted/removed/updated/moved/etc.
  */
-- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView;
+- (void)               listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
+willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
+                              fromObjects:(nullable NSArray <id<IGListDiffable>> *)fromObjects
+                                toObjects:(nullable NSArray <id<IGListDiffable>> *)toObjects
+                       listIndexSetResult:(nullable IGListIndexSetResult *)listIndexSetResults;
 
 /**
  Notifies the delegate that the updater successfully finished `-[UICollectionView performBatchUpdates:completion:]`.

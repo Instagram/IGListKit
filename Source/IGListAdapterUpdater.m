@@ -228,7 +228,11 @@
         [collectionView layoutIfNeeded];
 
         @try {
-            [delegate listAdapterUpdater:self willPerformBatchUpdatesWithCollectionView:collectionView];
+            [delegate  listAdapterUpdater:self
+willPerformBatchUpdatesWithCollectionView:collectionView
+                              fromObjects:fromObjects
+                                toObjects:toObjects
+                       listIndexSetResult:result];
             if (result.changeCount > 100 && IGListExperimentEnabled(experiments, IGListExperimentReloadDataFallback)) {
                 reloadDataFallback();
             } else if (animated) {

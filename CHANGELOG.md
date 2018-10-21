@@ -8,6 +8,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - All `IGListBindingSectionControllerSelectionDelegate` methods are now required. [Bofei Zhu] (https://github.com/zhubofei) [(#1186)](https://github.com/Instagram/IGListKit/pull/1186)
 
+- Renamed `[IGListAdapterUpdatingDelegate listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:]` to `[IGListAdapterUpdatingDelegate listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:fromObjects:toObjects:listIndexSetResult:]` to include more supporting info on updated objects. [Jeremy Cohen] (https://github.com/jeremycohen) (tbd)
+
 ### Enhancements
 
 - Added `IGListCollectionScrollingTraits` for exposing `UICollectionView` scrolling traits to section controllers via `IGListCollectionContext`. [Adam Stern](https://github.com/adamastern) (tbd)
