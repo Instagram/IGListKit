@@ -171,12 +171,14 @@
         self.state = IGListBatchUpdateStateExecutedBatchUpdateBlock;
     };
 
-    void (^reloadDataFallback)(void) = ^{
+    void (^reloadDataFallback)(BOOL) = ^(BOOL layoutIfNeeded){
         executeUpdateBlocks();
         [self _cleanStateAfterUpdates];
         [self _performBatchUpdatesItemBlockApplied];
         [collectionView reloadData];
-        [collectionView layoutIfNeeded];
+        if (layoutIfNeeded) {
+            [collectionView layoutIfNeeded];
+        }
         executeCompletionBlocks(YES);
     };
 
@@ -185,7 +187,7 @@
     const BOOL iOS83OrLater = (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_3);
     if (iOS83OrLater && self.allowsBackgroundReloading && collectionView.window == nil) {
         [self _beginPerformBatchUpdatesToObjects:toObjects];
-        reloadDataFallback();
+        reloadDataFallback(NO);
         return;
     }
 
@@ -234,7 +236,7 @@ willPerformBatchUpdatesWithCollectionView:collectionView
                                 toObjects:toObjects
                        listIndexSetResult:result];
             if (result.changeCount > 100 && IGListExperimentEnabled(experiments, IGListExperimentReloadDataFallback)) {
-                reloadDataFallback();
+                reloadDataFallback(collectionView.window != nil);
             } else if (animated) {
                 [collectionView performBatchUpdates:^{
                     batchUpdatesBlock(result);
