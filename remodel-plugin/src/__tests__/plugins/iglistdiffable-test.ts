@@ -164,7 +164,7 @@ describe('ObjectSpecPlugins.IGListDiffable', function() {
 
         const expectedInstanceMethods:ObjC.Method[] = [
           igListDiffableIsEqualMethod(),
-          igListDiffableDiffIdentifierMethodWithCode('return [NSString stringWithFormat:@"%lld", (long long)_age];')
+          igListDiffableDiffIdentifierMethodWithCode('return @(_age);')
         ];
 
         expect(instanceMethods).toEqualJSON(expectedInstanceMethods);
@@ -203,7 +203,7 @@ describe('ObjectSpecPlugins.IGListDiffable', function() {
 
         const expectedInstanceMethods:ObjC.Method[] = [
           igListDiffableIsEqualMethod(),
-          igListDiffableDiffIdentifierMethodWithCode('return NSStringFromCGRect(_rect);')
+          igListDiffableDiffIdentifierMethodWithCode('return [NSValue valueWithCGRect:_rect];')
         ];
 
         expect(instanceMethods).toEqualJSON(expectedInstanceMethods);
@@ -256,7 +256,7 @@ describe('ObjectSpecPlugins.IGListDiffable', function() {
 
         const expectedInstanceMethods:ObjC.Method[] = [
           igListDiffableIsEqualMethod(),
-          igListDiffableDiffIdentifierMethodWithCode('return [NSString stringWithFormat:@"%lld", (long long)_age];')
+          igListDiffableDiffIdentifierMethodWithCode('return @(_age);')
         ];
 
         expect(instanceMethods).toEqualJSON(expectedInstanceMethods);

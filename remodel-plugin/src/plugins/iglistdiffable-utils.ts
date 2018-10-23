@@ -44,6 +44,10 @@ function nullableObjectValueWithFallback(objectValue:string, optionalFallback:st
   return (optionalFallback === null) ? objectValue : `${objectValue} ?: ${optionalFallback}`;
 }
 
+function wrappedInNSValueForTypeName(iVarString:string, typeName:string) {
+  return `[NSValue valueWith${typeName}:${iVarString}]`;
+}
+
 function objectValueForAttribute(attribute:ObjectSpec.Attribute, optionalFallback:string=null):string {
   const iVarString:string = ObjectSpecCodeUtils.ivarForAttribute(attribute);
   const type:ObjC.Type = ObjectSpecCodeUtils.computeTypeOfAttribute(attribute);
@@ -56,58 +60,58 @@ function objectValueForAttribute(attribute:ObjectSpec.Attribute, optionalFallbac
       return nullableObjectValueWithFallback(iVarString, optionalFallback);
     },
     BOOL: function() {
-      return iVarString + " ? @\"YES\" : @\"NO\"";
+      return `@(${iVarString})`;
     },
     NSInteger: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%lld", "long long");
+      return `@(${iVarString})`;
     },
     NSUInteger: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%llu", "unsigned long long");
+      return `@(${iVarString})`;
     },
     double: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%lf");
+      return `@(${iVarString})`;
     },
     float: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%f");
+      return `@(${iVarString})`;
     },
     CGFloat: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%f");
+      return `@(${iVarString})`;
     },
     NSTimeInterval: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%lf");
+      return `@(${iVarString})`;
     },
     uintptr_t: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%ld");
+      return `@(${iVarString})`;
     },
     uint32_t: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%u");
+      return `@(${iVarString})`;
     },
     uint64_t: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%llu");
+      return `@(${iVarString})`;
     },
     int32_t: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%d");
+      return `@(${iVarString})`;
     },
     int64_t: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%lld");
+      return `@(${iVarString})`;
     },
     SEL: function() {
       return functionReturnValueForIvarWithFunctionName(iVarString, "NSStringFromSelector");
     },
     NSRange: function() {
-      return functionReturnValueForIvarWithFunctionName(iVarString, "NSStringFromRange");
+      return wrappedInNSValueForTypeName(iVarString, 'Range');
     },
     CGRect: function() {
-      return functionReturnValueForIvarWithFunctionName(iVarString, "NSStringFromCGRect");
+      return wrappedInNSValueForTypeName(iVarString, type.name);
     },
     CGPoint: function() {
-      return functionReturnValueForIvarWithFunctionName(iVarString, "NSStringFromCGPoint");
+      return wrappedInNSValueForTypeName(iVarString, type.name);
     },
     CGSize: function() {
-      return functionReturnValueForIvarWithFunctionName(iVarString, "NSStringFromCGSize");
+      return wrappedInNSValueForTypeName(iVarString, type.name);
     },
     UIEdgeInsets: function() {
-      return functionReturnValueForIvarWithFunctionName(iVarString, "NSStringFromUIEdgeInsets");
+      return wrappedInNSValueForTypeName(iVarString, type.name);
     },
     Class: function() {
       return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%@");
