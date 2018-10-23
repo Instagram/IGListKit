@@ -40,7 +40,11 @@ function formattedStringValueForIvarWithFormatSpecifier(iVarString:string, strin
   return "[NSString stringWithFormat:@\"" + stringFormatSpecifier + "\", " + castString + iVarString + "]";
 }
 
-function objectValueForAttribute(attribute:ObjectSpec.Attribute):string {
+function nullableObjectValueWithFallback(objectValue:string, optionalFallback:string=null) {
+  return (optionalFallback === null) ? objectValue : `${objectValue} ?: ${optionalFallback}`;
+}
+
+function objectValueForAttribute(attribute:ObjectSpec.Attribute, optionalFallback:string=null):string {
   const iVarString:string = ObjectSpecCodeUtils.ivarForAttribute(attribute);
   const type:ObjC.Type = ObjectSpecCodeUtils.computeTypeOfAttribute(attribute);
 
@@ -49,7 +53,7 @@ function objectValueForAttribute(attribute:ObjectSpec.Attribute):string {
       return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%@");
     },
     NSObject: function() {
-      return iVarString;
+      return nullableObjectValueWithFallback(iVarString, optionalFallback);
     },
     BOOL: function() {
       return iVarString + " ? @\"YES\" : @\"NO\"";
@@ -112,7 +116,7 @@ function objectValueForAttribute(attribute:ObjectSpec.Attribute):string {
       return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%@");
     },
     unmatchedType: function() {
-      return "self";
+      return nullableObjectValueWithFallback('self', optionalFallback);
     }
   }, type);
 }
