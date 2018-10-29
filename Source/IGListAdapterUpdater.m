@@ -333,8 +333,9 @@ static NSArray<NSIndexPath *> *convertSectionReloadToItemUpdates(NSIndexSet *sec
         moves = [NSSet new];
     }
 
-    // Item reloads are not safe, if any section moves happened
-    if (moves.count == 0 && self.preferItemReloadsForSectionReloads) {
+    // Item reloads are not safe, if any section moves happened or there are inserts/deletes.
+    if (self.preferItemReloadsForSectionReloads
+        && moves.count == 0 && inserts.count == 0 && deletes.count == 0 && reloads.count > 0) {
         [reloads enumerateIndexesUsingBlock:^(NSUInteger sectionIndex, BOOL * _Nonnull stop) {
             NSMutableIndexSet *localIndexSet = [NSMutableIndexSet indexSetWithIndex:sectionIndex];
             if (sectionIndex < [collectionView numberOfSections]
