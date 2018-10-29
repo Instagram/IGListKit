@@ -869,15 +869,15 @@
     [mockDelegate verify];
 }
 
-- (void)test_whenReloadIsCalledWithSectionInsertAndUpdate_andPreferItemReload_orderHappened {
+- (void)test_whenReloadIsCalledWithSectionInsertAndUpdate_andPreferItemReload_noItemReloads {
     self.updater.preferItemReloadsForSectionReloads = YES;
     
-    IGListBatchUpdateData *expectedBatchUpdateData = [[IGListBatchUpdateData alloc] initWithInsertSections:[NSIndexSet indexSetWithIndex:1]
-                                                                                            deleteSections:[NSIndexSet new]
+    IGListBatchUpdateData *expectedBatchUpdateData = [[IGListBatchUpdateData alloc] initWithInsertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)]
+                                                                                            deleteSections:[NSIndexSet indexSetWithIndex:0]
                                                                                               moveSections:[NSSet new]
                                                                                           insertIndexPaths:@[]
                                                                                           deleteIndexPaths:@[]
-                                                                                          updateIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]]
+                                                                                          updateIndexPaths:@[]
                                                                                             moveIndexPaths:@[]];
     NSArray<IGSectionObject *> *from = @[[IGSectionObject sectionWithObjects:@[@1] identifier:@"id1"]];
     NSArray<IGSectionObject *> *to = @[[IGSectionObject sectionWithObjects:@[@2] identifier:@"id1"],
