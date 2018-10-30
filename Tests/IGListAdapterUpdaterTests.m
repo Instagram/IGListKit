@@ -13,9 +13,11 @@
 #import "IGListAdapterUpdaterInternal.h"
 #import "IGListTestUICollectionViewDataSource.h"
 #import "IGTestObject.h"
+#import "IGListMoveIndexInternal.h"
 
 #define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
 #define waitExpectation [self waitForExpectationsWithTimeout:30 handler:nil]
+#define genToBlock ^NSArray *{ return to; }
 
 @interface IGListAdapterUpdaterTests : XCTestCase
 
@@ -434,7 +436,7 @@
     id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
     self.updater.delegate = mockDelegate;
     id compilerFriendlyNil = nil;
-    [[mockDelegate reject] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:compilerFriendlyNil];
+    [[mockDelegate reject] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:compilerFriendlyNil fromObjects:@[] toObjects:@[] listIndexSetResult:OCMOCK_ANY];
     [[mockDelegate reject] listAdapterUpdater:self.updater didPerformBatchUpdates:[OCMArg any] collectionView:compilerFriendlyNil];
     [self.updater performBatchUpdatesWithCollectionViewBlock:^UICollectionView *{ return compilerFriendlyNil; }];
     [mockDelegate verify];
@@ -488,16 +490,14 @@
     id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
     self.updater.delegate = mockDelegate;
     [mockDelegate setExpectationOrderMatters:YES];
-    [[mockDelegate expect] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView];
+    NSArray<IGSectionObject *> *to = @[[IGSectionObject sectionWithObjects:@[]]];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView fromObjects:self.dataSource.sections toObjects:to listIndexSetResult:[OCMArg checkWithBlock:^BOOL(IGListIndexSetResult *result) {
+        return result.inserts.firstIndex == 0 && result.moves.count == 0 && result.updates.count == 0 && result.deletes.count == 0;
+    }]];
     [[mockDelegate expect] listAdapterUpdater:self.updater didPerformBatchUpdates:OCMOCK_ANY collectionView:self.collectionView];
 
     XCTestExpectation *expectation = genExpectation;
-    IGListToObjectBlock to = ^NSArray *{
-        return @[
-                 [IGSectionObject sectionWithObjects:@[]]
-                 ];
-    };
-    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:self.dataSource.sections toObjectsBlock:to animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:self.dataSource.sections toObjectsBlock:genToBlock animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
         [expectation fulfill];
     }];
     waitExpectation;
@@ -515,7 +515,7 @@
     // in the future, but we configure the mock delegate to allow any call
     // except the batch updates calls.
 
-    [[mockDelegate reject] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView];
+    [[mockDelegate reject] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView fromObjects:@[] toObjects:@[] listIndexSetResult:OCMOCK_ANY];
     [[mockDelegate reject] listAdapterUpdater:self.updater didPerformBatchUpdates:OCMOCK_ANY collectionView:self.collectionView];
 
     XCTestExpectation *expectation = genExpectation;
@@ -659,6 +659,249 @@
     XCTAssertNil([table objectForKey:collision]);
 }
 
+- (void)test_whenReloadIsCalledWithSameItemCount_deleteInsertSectionHappen {
+    IGListBatchUpdateData *expectedBatchUpdateData = [[IGListBatchUpdateData alloc] initWithInsertSections:[NSIndexSet indexSetWithIndex:0]
+                                                                                            deleteSections:[NSIndexSet indexSetWithIndex:0]
+                                                                                              moveSections:[NSSet new]
+                                                                                          insertIndexPaths:@[]
+                                                                                          deleteIndexPaths:@[]
+                                                                                          updateIndexPaths:@[]
+                                                                                            moveIndexPaths:@[]];
+    NSArray<IGSectionObject *> *from = @[[IGSectionObject sectionWithObjects:@[@1] identifier:@"id"]];
+    NSArray<IGSectionObject *> *to = @[[IGSectionObject sectionWithObjects:@[@2] identifier:@"id"]];
+    self.dataSource.sections = from;
+
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+    [mockDelegate setExpectationOrderMatters:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView fromObjects:from toObjects:to listIndexSetResult:[OCMArg checkWithBlock:^BOOL(IGListIndexSetResult *result) {
+        return result.inserts.count == 0 && result.deletes.count == 0 && result.moves.count == 0 && result.updates.firstIndex == 0;
+    }]];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didPerformBatchUpdates:expectedBatchUpdateData collectionView:self.collectionView];
+    
+    XCTestExpectation *expectation = genExpectation;
+
+    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:from toObjectsBlock:genToBlock animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+    waitExpectation;
+    [mockDelegate verify];
+}
+
+# pragma mark - preferItemReloadsFroSectionReloads
+
+- (void)test_whenReloadIsCalledWithSameItemCount_andPreferItemReload_updateIndexPathsHappen {
+    self.updater.preferItemReloadsForSectionReloads = YES;
+    
+    IGListBatchUpdateData *expectedBatchUpdateData = [[IGListBatchUpdateData alloc] initWithInsertSections:[NSIndexSet new]
+                                                                                            deleteSections:[NSIndexSet new]
+                                                                                              moveSections:[NSSet new]
+                                                                                          insertIndexPaths:@[]
+                                                                                          deleteIndexPaths:@[]
+                                                                                          updateIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:0]]
+                                                                                            moveIndexPaths:@[]];
+    NSArray<IGSectionObject *> *from = @[[IGSectionObject sectionWithObjects:@[@1] identifier:@"id"]];
+    // Update the items
+    NSArray<IGSectionObject *> *to = @[[IGSectionObject sectionWithObjects:@[@2] identifier:@"id"]];
+    self.dataSource.sections = from;
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+    [mockDelegate setExpectationOrderMatters:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView fromObjects:from toObjects:to listIndexSetResult:[OCMArg checkWithBlock:^BOOL(IGListIndexSetResult *result) {
+        return result.inserts.count == 0 && result.deletes.count == 0 && result.moves.count == 0 && result.updates.firstIndex == 0;
+    }]];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didPerformBatchUpdates:expectedBatchUpdateData collectionView:self.collectionView];
+    
+    XCTestExpectation *expectation = genExpectation;
+    
+    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:from toObjectsBlock:genToBlock animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+    waitExpectation;
+    [mockDelegate verify];
+}
+
+- (void)test_whenReloadIsCalledWithDifferentItemCount_andPreferItemReload_deleteInsertSectionHappen {
+    self.updater.preferItemReloadsForSectionReloads = YES;
+    
+    IGListBatchUpdateData *expectedBatchUpdateData = [[IGListBatchUpdateData alloc] initWithInsertSections:[NSIndexSet indexSetWithIndex:0]
+                                                                                            deleteSections:[NSIndexSet indexSetWithIndex:0]
+                                                                                              moveSections:[NSSet new]
+                                                                                          insertIndexPaths:@[]
+                                                                                          deleteIndexPaths:@[]
+                                                                                          updateIndexPaths:@[]
+                                                                                            moveIndexPaths:@[]];
+    NSArray<IGSectionObject *> *from = @[[IGSectionObject sectionWithObjects:@[@1] identifier:@"id"]];
+    // more items in the section
+    NSArray<IGSectionObject *> *to = @[[IGSectionObject sectionWithObjects:@[@1, @2] identifier:@"id"]];
+    self.dataSource.sections = from;
+    
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+    [mockDelegate setExpectationOrderMatters:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView fromObjects:from toObjects:to listIndexSetResult:[OCMArg checkWithBlock:^BOOL(IGListIndexSetResult *result) {
+        return result.inserts.count == 0 && result.deletes.count == 0 && result.moves.count == 0 && result.updates.firstIndex == 0;
+    }]];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didPerformBatchUpdates:expectedBatchUpdateData collectionView:self.collectionView];
+    
+    XCTestExpectation *expectation = genExpectation;
+    
+    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:from toObjectsBlock:genToBlock animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+    waitExpectation;
+    [mockDelegate verify];
+}
+
+- (void)test_whenReloadIsCalledWithSectionMoveAndUpdate_andPreferItemReload_deleteInsertMoveHappens {
+    self.updater.preferItemReloadsForSectionReloads = YES;
+    
+    IGListBatchUpdateData *expectedBatchUpdateData = [[IGListBatchUpdateData alloc] initWithInsertSections:[NSIndexSet indexSetWithIndex:0]
+                                                                                            deleteSections:[NSIndexSet indexSetWithIndex:1]
+                                                                                              moveSections:[NSSet setWithArray:@[[[IGListMoveIndex alloc] initWithFrom:0 to:1]]]
+                                                                                          insertIndexPaths:@[]
+                                                                                          deleteIndexPaths:@[]
+                                                                                          updateIndexPaths:@[]
+                                                                                            moveIndexPaths:@[]];
+    NSArray<IGSectionObject *> *from = @[[IGSectionObject sectionWithObjects:@[@1] identifier:@"id1"],
+                                         [IGSectionObject sectionWithObjects:@[@2] identifier:@"id2"]];
+    // move section, and also update the item for "id2"
+    NSArray<IGSectionObject *> *to = @[[IGSectionObject sectionWithObjects:@[@22] identifier:@"id2"],
+                                       [IGSectionObject sectionWithObjects:@[@1] identifier:@"id1"]];
+    self.dataSource.sections = from;
+
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+    [mockDelegate setExpectationOrderMatters:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView fromObjects:from toObjects:to listIndexSetResult:[OCMArg checkWithBlock:^BOOL(IGListIndexSetResult *result) {
+        if (result.inserts.count != 0 || result.deletes.count != 0) {
+            return NO;
+        }
+        // Make sure we note that index 1 is updated (id2 from @[@2] -> @[@22], "id1" moved from section 0 -> 1, and "id2" moved from section 1 -> 0
+        return result.updates.firstIndex == 1 && result.moves.count == 2 && [result.moves containsObject:[[IGListMoveIndex alloc] initWithFrom:0 to:1]] && [result.moves containsObject:[[IGListMoveIndex alloc] initWithFrom:1 to:0]];
+    }]];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didPerformBatchUpdates:expectedBatchUpdateData collectionView:self.collectionView];
+    
+    XCTestExpectation *expectation = genExpectation;
+    
+    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:from toObjectsBlock:genToBlock animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+    waitExpectation;
+    [mockDelegate verify];
+}
+
+- (void)test_whenReloadIsCalledWithSectionMoveAndUpdate_withDifferentSectionLength_andPreferItemReload_deleteInsertMoveHappens {
+    self.updater.preferItemReloadsForSectionReloads = YES;
+    
+    IGListBatchUpdateData *expectedBatchUpdateData = [[IGListBatchUpdateData alloc] initWithInsertSections:[NSIndexSet indexSetWithIndex:0]
+                                                                                            deleteSections:[NSIndexSet indexSetWithIndex:1]
+                                                                                              moveSections:[NSSet setWithArray:@[[[IGListMoveIndex alloc] initWithFrom:0 to:1]]]
+                                                                                          insertIndexPaths:@[]
+                                                                                          deleteIndexPaths:@[]
+                                                                                          updateIndexPaths:@[]
+                                                                                            moveIndexPaths:@[]];
+    NSArray<IGSectionObject *> *from = @[[IGSectionObject sectionWithObjects:@[@1, @2, @3] identifier:@"id1"],
+                                         [IGSectionObject sectionWithObjects:@[@2] identifier:@"id2"]];
+    // move section, and also update the item for "id2"
+    NSArray<IGSectionObject *> *to = @[[IGSectionObject sectionWithObjects:@[@22] identifier:@"id2"],
+                                       [IGSectionObject sectionWithObjects:@[@1, @2, @3] identifier:@"id1"]];
+    self.dataSource.sections = from;
+
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+    [mockDelegate setExpectationOrderMatters:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView fromObjects:from toObjects:to listIndexSetResult:[OCMArg checkWithBlock:^BOOL(IGListIndexSetResult *result) {
+        if (result.inserts.count != 0 || result.deletes.count != 0) {
+            return NO;
+        }
+        // Make sure we note that index 1 is updated (id2 from @[@2] -> @[@22], "id1" moved from section 0 -> 1, and "id2" moved from section 1 -> 0
+        return result.updates.firstIndex == 1 && result.moves.count == 2 && [result.moves containsObject:[[IGListMoveIndex alloc] initWithFrom:0 to:1]] && [result.moves containsObject:[[IGListMoveIndex alloc] initWithFrom:1 to:0]];
+    }]];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didPerformBatchUpdates:expectedBatchUpdateData collectionView:self.collectionView];
+    
+    XCTestExpectation *expectation = genExpectation;
+    
+    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:from toObjectsBlock:genToBlock animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+    waitExpectation;
+    [mockDelegate verify];
+}
+
+
+- (void)test_whenReloadIsCalledWithSectionMoveAndUpdate_withThreeSections_deleteInsertMoveHappens {
+    self.updater.preferItemReloadsForSectionReloads = YES;
+    
+    IGListBatchUpdateData *expectedBatchUpdateData = [[IGListBatchUpdateData alloc] initWithInsertSections:[NSIndexSet indexSetWithIndex:0]
+                                                                                            deleteSections:[NSIndexSet indexSetWithIndex:1]
+                                                                                              moveSections:[NSSet setWithArray:@[[[IGListMoveIndex alloc] initWithFrom:0 to:1]]]
+                                                                                          insertIndexPaths:@[]
+                                                                                          deleteIndexPaths:@[]
+                                                                                          updateIndexPaths:@[]
+                                                                                            moveIndexPaths:@[]];
+    NSArray<IGSectionObject *> *from = @[[IGSectionObject sectionWithObjects:@[@1] identifier:@"id1"],
+                                         [IGSectionObject sectionWithObjects:@[@2] identifier:@"id2"],
+                                         [IGSectionObject sectionWithObjects:@[@3] identifier:@"id3"]];
+    // move section, and also update the items for "id2"
+    NSArray<IGSectionObject *> *to = @[[IGSectionObject sectionWithObjects:@[@22, @23] identifier:@"id2"],
+                                       [IGSectionObject sectionWithObjects:@[@1] identifier:@"id1"],
+                                       [IGSectionObject sectionWithObjects:@[@3] identifier:@"id3"]];
+    self.dataSource.sections = from;
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+    [mockDelegate setExpectationOrderMatters:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView fromObjects:from toObjects:to listIndexSetResult:[OCMArg checkWithBlock:^BOOL(IGListIndexSetResult *result) {
+        if (result.inserts.count != 0 || result.deletes.count != 0) {
+            return NO;
+        }
+        // Make sure we note that index 1 is updated (id2 from @[@2] -> @[@22], "id1" moved from section 0 -> 1, "id2" moved from section 1 -> 0
+        return result.updates.firstIndex == 1 && result.moves.count == 2 && [result.moves containsObject:[[IGListMoveIndex alloc] initWithFrom:0 to:1]] && [result.moves containsObject:[[IGListMoveIndex alloc] initWithFrom:1 to:0]];
+    }]];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didPerformBatchUpdates:expectedBatchUpdateData collectionView:self.collectionView];
+    
+    XCTestExpectation *expectation = genExpectation;
+    
+    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:from toObjectsBlock:genToBlock animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+    waitExpectation;
+    [mockDelegate verify];
+}
+
+- (void)test_whenReloadIsCalledWithSectionInsertAndUpdate_andPreferItemReload_noItemReloads {
+    self.updater.preferItemReloadsForSectionReloads = YES;
+    
+    IGListBatchUpdateData *expectedBatchUpdateData = [[IGListBatchUpdateData alloc] initWithInsertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)]
+                                                                                            deleteSections:[NSIndexSet indexSetWithIndex:0]
+                                                                                              moveSections:[NSSet new]
+                                                                                          insertIndexPaths:@[]
+                                                                                          deleteIndexPaths:@[]
+                                                                                          updateIndexPaths:@[]
+                                                                                            moveIndexPaths:@[]];
+    NSArray<IGSectionObject *> *from = @[[IGSectionObject sectionWithObjects:@[@1] identifier:@"id1"]];
+    NSArray<IGSectionObject *> *to = @[[IGSectionObject sectionWithObjects:@[@2] identifier:@"id1"],
+                                       [IGSectionObject sectionWithObjects:@[@22] identifier:@"id2"]];
+    self.dataSource.sections = from;
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+    [mockDelegate setExpectationOrderMatters:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView fromObjects:from toObjects:to listIndexSetResult:[OCMArg checkWithBlock:^BOOL(IGListIndexSetResult *result) {
+        if (result.deletes.count != 0 || result.moves.count != 0) {
+            return NO;
+        }
+        // Make sure we note that index 1 is updated (id1 from @[@1] -> @[@2]), and "id2" was inserted at index 1
+        return result.updates.firstIndex == 0 && result.inserts.firstIndex == 1;
+    }]];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didPerformBatchUpdates:expectedBatchUpdateData collectionView:self.collectionView];
+    
+    XCTestExpectation *expectation = genExpectation;
+    
+    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:from toObjectsBlock:genToBlock animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+    waitExpectation;
+    [mockDelegate verify];
+}
+
 @end
-
-

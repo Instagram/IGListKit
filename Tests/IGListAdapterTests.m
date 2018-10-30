@@ -141,7 +141,7 @@
     XCTAssertEqualObjects(identifier, @"UICollectionViewCell");
 }
 
-- (void)test_whenQueryingReusableIdentifierWithGivenIdentifier_tahtIdentifierEqualsGivenIdentifierAndClassName {
+- (void)test_whenQueryingReusableIdentifierWithGivenIdentifier_thatIdentifierEqualsGivenIdentifierAndClassName {
     NSString *identifier = IGListReusableViewIdentifier(UICollectionViewCell.class, nil, @"MyCoolID");
     XCTAssertEqualObjects(identifier, @"MyCoolIDUICollectionViewCell");
 }
@@ -149,6 +149,21 @@
 - (void)test_whenQueryingReusableIdentifier_thatIdentifierEqualsClassNameAndSupplimentaryKind {
     NSString *identifier = IGListReusableViewIdentifier(UICollectionViewCell.class, UICollectionElementKindSectionFooter, nil);
     XCTAssertEqualObjects(identifier, @"UICollectionElementKindSectionFooterUICollectionViewCell");
+}
+
+- (void)test_whenDequeueingTwoCellsOfTheSameClassWithDifferentReuseIdentifiers_thatBothReuseIdentifiersReturnCells {
+    self.dataSource.objects = @[@1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+    UICollectionViewCell *cell1 = [self.adapter dequeueReusableCellOfClass:[UICollectionViewCell class]
+                                                       withReuseIdentifier:@"reuse-1"
+                                                      forSectionController:[self.adapter sectionControllerForObject:@1]
+                                                                   atIndex:0];
+    UICollectionViewCell *cell2 = [self.adapter dequeueReusableCellOfClass:[UICollectionViewCell class]
+                                                       withReuseIdentifier:@"reuse-2"
+                                                      forSectionController:[self.adapter sectionControllerForObject:@1]
+                                                                   atIndex:0];
+    XCTAssertNotNil(cell1);
+    XCTAssertNotNil(cell2);
 }
 
 - (void)test_whenDataSourceChanges_thatBackgroundViewVisibilityChanges {

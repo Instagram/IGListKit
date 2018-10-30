@@ -81,7 +81,7 @@ Feature: Outputting Value Objects implementing IGListDiffable
       {
         if (self == object) {
           return YES;
-        } else if (self == nil || object == nil || ![object isKindOfClass:[self class]]) {
+        } else if (object == nil || ![object isKindOfClass:[self class]]) {
           return NO;
         }
         return
@@ -151,7 +151,7 @@ Feature: Outputting Value Objects implementing IGListDiffable
 
       - (id<NSObject>)diffIdentifier
       {
-        return NSStringFromCGRect(_someRect);
+        return [NSValue valueWithCGRect:_someRect];
       }
 
       - (NSUInteger)hash
@@ -175,7 +175,7 @@ Feature: Outputting Value Objects implementing IGListDiffable
       {
         if (self == object) {
           return YES;
-        } else if (self == nil || object == nil || ![object isKindOfClass:[self class]]) {
+        } else if (object == nil || ![object isKindOfClass:[self class]]) {
           return NO;
         }
         return
@@ -188,6 +188,24 @@ Feature: Outputting Value Objects implementing IGListDiffable
       }
 
       @end
+
+      """
+
+  Scenario: Generating a value object, which correctly implements IGListDiffable using an NSInteger property
+    Given a file named "project/values/Test.value" with:
+      """
+      Test includes(IGListDiffable) {
+        %diffIdentifier
+        NSInteger count
+      }
+      """
+    When I run `../../bin/generate project`
+    Then the file "project/values/Test.m" should contain:
+      """
+      - (id<NSObject>)diffIdentifier
+      {
+        return @(_count);
+      }
 
       """
 
@@ -267,7 +285,7 @@ Feature: Outputting Value Objects implementing IGListDiffable
       {
         if (self == object) {
           return YES;
-        } else if (self == nil || object == nil || ![object isKindOfClass:[self class]]) {
+        } else if (object == nil || ![object isKindOfClass:[self class]]) {
           return NO;
         }
         return
