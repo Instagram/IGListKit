@@ -10,6 +10,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Renamed `[IGListAdapterUpdatingDelegate listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:]` to `[IGListAdapterUpdatingDelegate listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:fromObjects:toObjects:listIndexSetResult:]` to include more supporting info on updated objects. [Jeremy Cohen] (https://github.com/jeremycohen) (tbd)
 
+- Renamed `[IGListAdapterUpdatingDelegatelistAdapterUpdater:collectionView:willCrashWithException:fromObjects:toObjects:updates:]` to `[ IGListAdapterUpdatingDelegatelistAdapterUpdater:collectionView:willCrashWithException:fromObjects:toObjects:diffResult:updates:]` to include diff result info. [Zhisheng Huang] (https://github.com/lorixx) (tbd)
+
 ### Enhancements
 
 - Added `IGListCollectionScrollingTraits` for exposing `UICollectionView` scrolling traits to section controllers via `IGListCollectionContext`. [Adam Stern](https://github.com/adamastern) (tbd)

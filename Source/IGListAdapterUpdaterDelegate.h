@@ -141,6 +141,7 @@ willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
  @param exception The exception thrown by the collection view.
  @param fromObjects The items transitioned from in the diff, if any.
  @param toObjects The items transitioned to in the diff, if any.
+ @param diffResult The diff result that were computed from `fromObjects` and `toObjects`.
  @param updates The batch updates that were applied to the collection view.
  */
 - (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
@@ -148,6 +149,7 @@ willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
     willCrashWithException:(NSException *)exception
                fromObjects:(nullable NSArray *)fromObjects
                  toObjects:(nullable NSArray *)toObjects
+                diffResult:(IGListIndexSetResult *)diffResult
                    updates:(IGListBatchUpdateData *)updates;
 
 @end
