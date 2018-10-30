@@ -255,6 +255,7 @@ willPerformBatchUpdatesWithCollectionView:collectionView
                   willCrashWithException:exception
                              fromObjects:fromObjects
                                toObjects:toObjects
+                              diffResult:result
                                  updates:(id)self.applyingUpdateData];
             @throw exception;
         }
