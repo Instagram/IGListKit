@@ -77,6 +77,8 @@ NS_SWIFT_NAME(ListBindingSectionController)
  */
 - (void)updateAnimated:(BOOL)animated completion:(nullable void (^)(BOOL updated))completion;
 
+- (void)moveObjectFromIndex:(NSInteger)sourceIndex toIndex:(NSInteger)destinationIndex NS_REQUIRES_SUPER;
+
 @end
 
 NS_ASSUME_NONNULL_END

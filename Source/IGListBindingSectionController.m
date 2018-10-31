@@ -125,6 +125,16 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
     }
 }
 
+- (void)moveObjectFromIndex:(NSInteger)sourceIndex toIndex:(NSInteger)destinationIndex {
+    NSMutableArray *viewModels = [self.viewModels mutableCopy];
+    
+    id modelAtSource = [viewModels objectAtIndex:sourceIndex];
+    [viewModels removeObjectAtIndex:sourceIndex];
+    [viewModels insertObject:modelAtSource atIndex:destinationIndex];
+    
+    self.viewModels = viewModels;
+}
+
 - (void)didSelectItemAtIndex:(NSInteger)index {
     [self.selectionDelegate sectionController:self didSelectItemAtIndex:index viewModel:self.viewModels[index]];
 }
