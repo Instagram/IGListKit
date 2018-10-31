@@ -31,6 +31,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 - Log instead of assert for duplicate diff identifiers to make code testable. [Adam Stern](https://github.com/adamastern) (tbd)
 
 - Fixed crash when using `-[IGListCollectionContext dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:]` [Jeremy Lawrence](https://github.com/ziewvater) (tbd)
+- Added missing method override to `IGListBindingSectionController` that updates the internal `viewModels` array after moving a cell. [Dennis Müller](https://github.com/d3mueller) (see [#1262](https://github.com/Instagram/IGListKit/issues/1262))
 
 3.4.0
 -----
