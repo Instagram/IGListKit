@@ -1,5 +1,5 @@
 /**
- Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
+ Copyright (c) Facebook, Inc. and its affiliates.
 
  The examples provided by Facebook are for non-commercial testing and evaluation
  purposes only. Facebook reserves all rights not expressly granted.
@@ -45,14 +45,11 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource, Li
     ]
 
     var selectedClass: Any.Type?
-    var moveList: [Any] = []
-    var isChnaged: Bool = false
-    var control: UISegmentedControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        control = UISegmentedControl(items: segments.map { return $0.0 })
+        let control = UISegmentedControl(items: segments.map { return $0.0 })
         control.selectedSegmentIndex = 0
         control.addTarget(self, action: #selector(MixedDataViewController.onControl(_:)), for: .valueChanged)
         navigationItem.titleView = control
@@ -79,9 +76,6 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource, Li
                 break
             }
             collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
-            if control.selectedSegmentIndex == 3 {
-                isChnaged = true
-            }
         case .changed:
             if let view = gesture.view {
                 let position = gesture.location(in: view)
@@ -107,10 +101,6 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource, Li
     // MARK: ListAdapterDataSource
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        if isChnaged && control.selectedSegmentIndex == 3 {
-            return moveList.map { $0 as! ListDiffable }
-        }
-        
         guard selectedClass != nil else {
             return data.map { $0 as! ListDiffable }
         }
@@ -131,6 +121,6 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource, Li
     // MARK: - ListAdapterMoveDelegate
     
     func listAdapter(_ listAdapter: ListAdapter, move object: Any, from previousObjects: [Any], to objects: [Any]) {
-        moveList = objects
+        data = objects
     }
 }
