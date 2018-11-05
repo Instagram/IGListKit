@@ -90,7 +90,6 @@ $ ./scripts/setup.sh
 - Ryan Nystrom's [talk at try! Swift NYC](https://realm.io/news/tryswift-ryan-nystrom-refactoring-at-scale-lessons-learned-rewriting-instagram-feed/) (Note: this talk was for an earlier version. Some APIs have changed.)
 - [Migrating an UITableView to IGListCollectionView](https://medium.com/cocoaacademymag/iglistkit-migrating-an-uitableview-to-iglistkitcollectionview-65a30cf9bac9), by Rodrigo Cavalcante
 - [Keeping data fresh in Buffer for iOS with AsyncDisplayKit, IGListKit & Pusher](https://overflow.buffer.com/2017/04/10/keeping-data-fresh-buffer-ios-asyncdisplaykit-iglistkit-pusher/), Andy Yates, Buffer
-- [CCIGListKitDemo](https://github.com/ccworld1000/CCIGListKitDemo) is on the way for Objective-C demo
 
 ## Documentation
 
