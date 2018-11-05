@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -35,6 +35,17 @@ NS_SWIFT_NAME(ListAdapterUpdater)
  A flag indicating if a move should be treated as a "delete, then insert" operation.
  */
 @property (nonatomic, assign) BOOL movesAsDeletesInserts;
+
+/**
+ A flag indicating that section reloads should be treated as item reloads, instead of converting them to "delete, then insert" operations.
+ This only applies if the number of items for the section is unchanged.
+
+ @note If the number of items for the section is changed, we would fallback to the default behavior and convert it to "delete + insert",
+ because the collectionView can crash otherwise.
+ 
+ Default is NO.
+ */
+@property (nonatomic, assign) BOOL preferItemReloadsForSectionReloads;
 
 /**
  A flag indicating whether this updater should skip diffing and simply call

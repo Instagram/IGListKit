@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -242,7 +242,31 @@
 
     IGTestObject *object = self.dataSource.objects[0];
     IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+    
+    XCTestExpectation *expectation = genExpectation;
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+        object.value = @3;
+        [batchContext reloadSectionController:sectionController];
+    } completion:^(BOOL finished2) {
+        XCTAssertEqual([self.collectionView numberOfSections], 2);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
 
+- (void)test_whenSectionControllerReloads_withPreferItemReload_thatCountsAreUpdated {
+    [self setupWithObjects:@[
+                             genTestObject(@1, @2),
+                             genTestObject(@2, @2)
+                             ]];
+    
+    IGTestObject *object = self.dataSource.objects[0];
+    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+    
+    // Prefer to use item reloads for section reloads if available.
+    [(IGListAdapterUpdater *)self.adapter.updater setPreferItemReloadsForSectionReloads:YES];
+    
     XCTestExpectation *expectation = genExpectation;
     [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
         object.value = @3;
@@ -1779,25 +1803,6 @@
     XCTestExpectation *expectation = genExpectation;
     [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
         XCTAssertNil(weakListener);
-        [expectation fulfill];
-    }];
-
-    [self waitForExpectationsWithTimeout:30 handler:nil];
-}
-
-- (void)test_whenInsertingItemTwice_withDedupeExperiment_thatSecondInsertGetsDropped {
-    ((IGListAdapterUpdater*)self.updater).experiments = IGListExperimentDedupeItemUpdates;
-
-    IGTestObject *object = genTestObject(@1, @1);
-    [self setupWithObjects:@[object]];
-
-    IGTestDelegateController *controller = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
-    XCTestExpectation *expectation = genExpectation;
-    [controller.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext>  _Nonnull batchContext) {
-        object.value = @2;
-        [batchContext insertInSectionController:controller atIndexes:[NSIndexSet indexSetWithIndex:0]];
-        [batchContext insertInSectionController:controller atIndexes:[NSIndexSet indexSetWithIndex:0]];
-    } completion:^(BOOL finished) {
         [expectation fulfill];
     }];
 

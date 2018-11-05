@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
@@ -11,125 +11,11 @@ import Code = require('../code');
 import Error = require('../error');
 import FileWriter = require('../file-writer');
 import FunctionUtils = require('../function-utils');
+import IGListDiffableUtils = require ('./iglistdiffable-utils');
 import Maybe = require('../maybe');
 import ObjC = require('../objc');
-import ObjCTypeUtils = require('../objc-type-utils');
 import ObjectSpec = require('../object-spec');
 import ObjectSpecUtils = require('../object-spec-utils');
-import ObjectSpecCodeUtils = require('../object-spec-code-utils');
-
-function isEqualToDiffableObjectMethod():ObjC.Method {
-  return {
-    preprocessors:[],
-    belongsToProtocol:Maybe.Just<string>('IGListDiffable'),
-    code: ['return [self isEqual:object];'],
-    comments:[],
-    compilerAttributes:[],
-    keywords: [
-      {
-        name: 'isEqualToDiffableObject',
-        argument: Maybe.Just<ObjC.KeywordArgument>({
-          name: 'object',
-          modifiers: [ObjC.KeywordArgumentModifier.Nullable()],
-          type: {
-            name: 'id',
-            reference: 'id'
-          }
-        })
-      }
-    ],
-    returnType: { type: Maybe.Just({
-      name: 'BOOL',
-      reference: 'BOOL'
-    }), modifiers: [] }
-  }
-}
-
-function formattedStringValueForIvarWithFormatSpecifier(iVarString:string, stringFormatSpecifier:string, optionalCast:string=null):string {
-  var castString:string = (optionalCast === null ? "" : "(" + optionalCast + ")");
-  return "[NSString stringWithFormat:@\"" + stringFormatSpecifier + "\", " + castString + iVarString + "]";
-}
-
-function functionReturnValueForIvarWithFunctionName(iVarString:string, functionToCall:string):string {
-  return functionToCall + '(' + iVarString + ')';
-}
-
-function objectValueForAttribute(attribute:ObjectSpec.Attribute):string {
-  const iVarString:string = ObjectSpecCodeUtils.ivarForAttribute(attribute);
-  const type:ObjC.Type = ObjectSpecCodeUtils.computeTypeOfAttribute(attribute);
-
-  return ObjCTypeUtils.matchType({
-    id: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%@");
-    },
-    NSObject: function() {
-      return iVarString;
-    },
-    BOOL: function() {
-      return iVarString + " ? @\"YES\" : @\"NO\"";
-    },
-    NSInteger: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%lld", "long long");
-    },
-    NSUInteger: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%llu", "unsigned long long");
-    },
-    double: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%lf");
-    },
-    float: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%f");
-    },
-    CGFloat: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%f");
-    },
-    NSTimeInterval: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%lf");
-    },
-    uintptr_t: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%ld");
-    },
-    uint32_t: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%u");
-    },
-    uint64_t: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%llu");
-    },
-    int32_t: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%d");
-    },
-    int64_t: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%lld");
-    },
-    SEL: function() {
-      return functionReturnValueForIvarWithFunctionName(iVarString, "NSStringFromSelector");
-    },
-    NSRange: function() {
-      return functionReturnValueForIvarWithFunctionName(iVarString, "NSStringFromRange");
-    },
-    CGRect: function() {
-      return functionReturnValueForIvarWithFunctionName(iVarString, "NSStringFromCGRect");
-    },
-    CGPoint: function() {
-      return functionReturnValueForIvarWithFunctionName(iVarString, "NSStringFromCGPoint");
-    },
-    CGSize: function() {
-      return functionReturnValueForIvarWithFunctionName(iVarString, "NSStringFromCGSize");
-    },
-    UIEdgeInsets: function() {
-      return functionReturnValueForIvarWithFunctionName(iVarString, "NSStringFromUIEdgeInsets");
-    },
-    Class: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%@");
-    },
-    dispatch_block_t: function() {
-      return formattedStringValueForIvarWithFormatSpecifier(iVarString, "%@");
-    },
-    unmatchedType: function() {
-      return "self";
-    }
-  }, type);
-}
 
 function diffIdentiferAttributeFilter(attribute:ObjectSpec.Attribute, index, array):boolean {
   return (attribute.annotations["diffIdentifier"] != null);
@@ -139,7 +25,7 @@ function diffIdentifierMethodImplementation(objectType:ObjectSpec.Type):string[]
   const diffIdentifierAttributes:ObjectSpec.Attribute[] = objectType.attributes.filter(diffIdentiferAttributeFilter);
   if (diffIdentifierAttributes.length > 0) {
     // use first marked attribute as identifier, if available
-    return ['return ' + objectValueForAttribute(diffIdentifierAttributes[0]) + ';']
+    return ['return ' + IGListDiffableUtils.objectValueForAttribute(diffIdentifierAttributes[0]) + ';']
   } else {
     // fallback/default to self
     return ['return self;'];
@@ -207,9 +93,12 @@ export function createPlugin():ObjectSpec.Plugin {
     },
     instanceMethods: function(objectType:ObjectSpec.Type):ObjC.Method[] {
       return [
-        isEqualToDiffableObjectMethod(),
+        IGListDiffableUtils.isEqualToDiffableObjectMethod(),
         diffIdentifierMethod(objectType)
       ];
+    },
+    macros: function(valueType:ObjectSpec.Type):ObjC.Macro[] {
+      return [];
     },
     properties: function(objectType:ObjectSpec.Type):ObjC.Property[] {
       return [];

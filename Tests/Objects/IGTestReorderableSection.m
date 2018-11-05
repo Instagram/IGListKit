@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,7 +19,7 @@
 
 - (id<NSObject>)diffIdentifier {
     // this is for test purposes only. please dont do this.
-    return [NSString stringWithFormat:@"%zi", self.hash];
+    return [NSString stringWithFormat:@"%lu", (unsigned long)self.hash];
 }
 
 - (BOOL)isEqualToDiffableObject:(id)object {

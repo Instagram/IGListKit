@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -25,7 +25,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
             [identifierMap setObject:object forKey:diffIdentifier];
             [uniqueObjects addObject:object];
         } else {
-            IGFailAssert(@"Duplicate identifier %@ for object %@ with object %@", diffIdentifier, object, previousObject);
+            IGLKLog(@"Duplicate identifier %@ for object %@ with object %@", diffIdentifier, object, previousObject);
         }
     }
     return uniqueObjects;
