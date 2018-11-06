@@ -236,7 +236,10 @@ willPerformBatchUpdatesWithCollectionView:collectionView
                               fromObjects:fromObjects
                                 toObjects:toObjects
                        listIndexSetResult:result];
-            if (result.changeCount > 100 && IGListExperimentEnabled(experiments, IGListExperimentReloadDataFallback)) {
+            if (collectionView.dataSource == nil) {
+                // If the data source is nil, we should not call any collection view update.
+                batchUpdatesCompletionBlock(NO);
+            } else if (result.changeCount > 100 && IGListExperimentEnabled(experiments, IGListExperimentReloadDataFallback)) {
                 reloadDataFallback();
             } else if (animated) {
                 [collectionView performBatchUpdates:^{
