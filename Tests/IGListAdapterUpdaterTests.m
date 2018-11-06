@@ -97,6 +97,17 @@
     XCTAssertEqual([self.collectionView numberOfSections], 0);
 }
 
+- (void)test_whenReloadingDataWithNilDataSourceBefore_thatCollectionViewNotCrash {
+    self.dataSource.sections = @[[IGSectionObject sectionWithObjects:@[@1]], [IGSectionObject sectionWithObjects:@[@2]]];
+    [self.updater performReloadDataWithCollectionViewBlock:[self collectionViewBlock]];
+    XCTAssertEqual([self.collectionView numberOfSections], 2);
+    
+    self.collectionView.dataSource = nil;
+    self.dataSource.sections = @[];
+    [self.updater performReloadDataWithCollectionViewBlock:[self collectionViewBlock]];
+    XCTAssertEqual([self.collectionView numberOfSections], 1); // Setting collectionView's dataSource to nil would yield a single section by default.
+}
+
 - (void)test_whenInsertingSection_thatCollectionViewUpdates {
     NSArray *from = @[
                       [IGSectionObject sectionWithObjects:@[]]
@@ -531,6 +542,28 @@
     [mockDelegate verify];
 }
 
+- (void)test_whenCollectionViewNotInWindow_andBackgroundReloadFlag_isDefaultYES_andDataSourceWasSetToNilBefore_thatCollectionViewNotCrash {
+    [self.collectionView removeFromSuperview];
+    
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+    [[mockDelegate reject] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView fromObjects:@[] toObjects:@[] listIndexSetResult:OCMOCK_ANY];
+    [[mockDelegate reject] listAdapterUpdater:self.updater didPerformBatchUpdates:OCMOCK_ANY collectionView:self.collectionView];
+    
+    XCTestExpectation *expectation = genExpectation;
+    IGListToObjectBlock to = ^NSArray *{
+        return @[
+                 [IGSectionObject sectionWithObjects:@[]]
+                 ];
+    };
+    self.collectionView.dataSource = nil;
+    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:self.dataSource.sections toObjectsBlock:to animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+    waitExpectation;
+    [mockDelegate verify];
+}
+
 - (void)test_whenReloadBatchedWithUpdate_thatCompletionBlockStillExecuted {
     IGSectionObject *object = [IGSectionObject sectionWithObjects:@[@0, @1, @2]];
     self.dataSource.sections = @[object];
@@ -682,6 +715,36 @@
     XCTestExpectation *expectation = genExpectation;
 
     [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:from toObjectsBlock:genToBlock animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+    waitExpectation;
+    [mockDelegate verify];
+}
+
+- (void)test_whenPerformUpdates_dataSourceWasSetToNil_shouldNotCrash {
+    NSArray<IGSectionObject *> *from = @[[IGSectionObject sectionWithObjects:@[@1] identifier:@"id1"]];
+    NSArray<IGSectionObject *> *to = @[[IGSectionObject sectionWithObjects:@[@2] identifier:@"id1"],
+                                       [IGSectionObject sectionWithObjects:@[@22] identifier:@"id2"]];
+    self.dataSource.sections = from;
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+    [mockDelegate setExpectationOrderMatters:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView fromObjects:from toObjects:to listIndexSetResult:[OCMArg checkWithBlock:^BOOL(IGListIndexSetResult *result) {
+        if (result.deletes.count != 0 || result.moves.count != 0) {
+            return NO;
+        }
+        // Make sure we note that index 1 is updated (id1 from @[@1] -> @[@2]), and "id2" was inserted at index 1
+        return result.updates.firstIndex == 0 && result.inserts.firstIndex == 1;
+    }]];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didPerformBatchUpdates:OCMOCK_ANY collectionView:self.collectionView];
+    
+    XCTestExpectation *expectation = genExpectation;
+    
+    // Manually set the data source to be nil.
+    self->_collectionView.dataSource = nil;
+    
+    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:from toObjectsBlock:genToBlock animated:NO objectTransitionBlock:^(NSArray * _Nonnull toObjects) {
+    }  completion:^(BOOL finished) {
         [expectation fulfill];
     }];
     waitExpectation;
