@@ -119,7 +119,7 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource, Li
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
 
     // MARK: - ListAdapterMoveDelegate
-    
+
     func listAdapter(_ listAdapter: ListAdapter, move object: Any, from previousObjects: [Any], to objects: [Any]) {
         data = objects
     }
