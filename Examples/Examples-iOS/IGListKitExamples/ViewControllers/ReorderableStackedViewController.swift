@@ -12,8 +12,8 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
 final class LabelsItem: NSObject {
 
@@ -49,10 +49,10 @@ final class ReorderableStackedViewController: UIViewController, ListAdapterDataS
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     var data: [ListDiffable] = [
-        LabelsItem(color: UIColor(red: 56/255.0, green: 151/255.0, blue: 240/255.0, alpha: 1),
+        LabelsItem(color: UIColor(red: 56 / 255.0, green: 151 / 255.0, blue: 240 / 255.0, alpha: 1),
                    labels1: ["A", "B", "C"],
                    labels2: ["1", "2", "3"]),
-        LabelsItem(color: UIColor(red: 128/255.0, green: 240/255.0, blue: 151/255.0, alpha: 1),
+        LabelsItem(color: UIColor(red: 128 / 255.0, green: 240 / 255.0, blue: 151 / 255.0, alpha: 1),
                    labels1: ["D"],
                    labels2: ["4"])
     ]
