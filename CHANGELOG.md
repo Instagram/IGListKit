@@ -76,6 +76,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Fixed binding section controllers failing to update their cells when the section controller's section changes. [Chrisna Aing](https://github.com/ccrazy88) [(#1144)](https://github.com/Instagram/IGListKit/pull/1144)
 
+- Fixed a bug caused when applying interactive reordering on a single section item while dragging it through the last spot of the collection view and back to some (non-last) target position. [Ofir Gluzman](https://github.com/ofirgluzman) [#1289](https://github.com/Instagram/IGListKit/pull/1289)
+
 3.2.0
 -----
 

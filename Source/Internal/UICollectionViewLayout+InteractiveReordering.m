@@ -93,6 +93,8 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
     IGListSectionController *sourceSectionController = [adapter sectionControllerForSection:sourceSectionIndex];
     IGListSectionController *destinationSectionController = [adapter sectionControllerForSection:destinationSectionIndex];
 
+    adapter.isLastInteractiveMoveToLastSectionIndex = NO;
+
     // this is a reordering of sections themselves
     if ([sourceSectionController numberOfItems] == 1
         && [destinationSectionController numberOfItems] == 1) {
