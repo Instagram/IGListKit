@@ -7,6 +7,7 @@
 
 #import "IGTestDiffingSectionController.h"
 
+#import "IGLayoutTestItem.h"
 #import "IGTestDiffingObject.h"
 #import "IGTestStringBindableCell.h"
 #import "IGTestNumberBindableCell.h"
@@ -43,8 +44,12 @@
 }
 
 - (CGSize)sectionController:(IGListBindingSectionController *)sectionController sizeForViewModel:(id)viewModel atIndex:(NSInteger)index {
-    const BOOL isString = [viewModel isKindOfClass:[NSString class]];
-    return CGSizeMake([self.collectionContext containerSize].width, isString ? 55 : 30);
+    if ([viewModel isKindOfClass:[IGTestObject class]] && [[(IGTestObject *)viewModel value] isKindOfClass:[IGLayoutTestItem class]]) {
+        return [(IGLayoutTestItem *)[(IGTestObject *)viewModel value] size];
+    } else {
+        const BOOL isString = [viewModel isKindOfClass:[NSString class]];
+        return CGSizeMake([self.collectionContext containerSize].width, isString ? 55 : 30);
+    }
 }
 
 #pragma mark - IGListBindingSectionControllerSelectionDelegate

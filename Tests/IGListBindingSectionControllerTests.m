@@ -18,6 +18,7 @@
 #import "IGListAdapterInternal.h"
 #import "IGTestObject.h"
 #import "IGTestCell.h"
+#import "IGLayoutTestItem.h"
 #import "IGListTestCase.h"
 #import "IGTestBindingWithoutDeselectionDelegate.h"
 
@@ -393,6 +394,71 @@
     [initObjects removeAllObjects];
     
     XCTAssertNotEqualObjects(initObjects, section.viewModels);
+}
+
+- (void)test_whenUpdatingManully_withViewModelReloads_thatCellSizeUpdatedToLatestSize_usingIGListCollectionViewLayout {
+    
+    NSArray *startingSection0 = @[
+                                  [[IGTestObject alloc] initWithKey:@0 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 30)]],
+                                  [[IGTestObject alloc] initWithKey:@1 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 40)]]
+                                  ];
+    NSArray *startingSection1 = @[
+                                  [[IGTestObject alloc] initWithKey:@0 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 50)]],
+                                  [[IGTestObject alloc] initWithKey:@1 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 60)]]
+                                  ];
+    
+    IGListCollectionViewLayout *layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:NO topContentInset:0 stretchToEdge:NO];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:self.frame collectionViewLayout:layout];
+    [(IGListAdapterUpdater *)self.adapter.updater setAllowsBackgroundReloading:NO];
+    
+    [self setupWithObjects:@[
+                             [[IGTestDiffingObject alloc] initWithKey:@0 objects:startingSection0],
+                             [[IGTestDiffingObject alloc] initWithKey:@1 objects:startingSection1]
+                             ]];
+    
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 2);
+    
+    IGTestCell *cell00 = [self cellAtSection:0 item:0];
+    IGTestCell *cell01 = [self cellAtSection:0 item:1];
+    IGTestCell *cell10 = [self cellAtSection:1 item:0];
+    IGTestCell *cell11 = [self cellAtSection:1 item:1];
+    
+    IGAssertEqualSize(cell00.frame.size, 50, 30);
+    IGAssertEqualSize(cell01.frame.size, 50, 40);
+    IGAssertEqualSize(cell10.frame.size, 50, 50);
+    IGAssertEqualSize(cell11.frame.size, 50, 60);
+    
+    NSArray *newSection0 = @[
+                             [[IGTestObject alloc] initWithKey:@0 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(45, 30)]],  // Width: 50 -> 45
+                             [[IGTestObject alloc] initWithKey:@1 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 55)]]   // Height: 40 -> 55
+                             ];
+    NSArray *newSection1 = @[
+                             [[IGTestObject alloc] initWithKey:@0 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 50)]],  // No change
+                             [[IGTestObject alloc] initWithKey:@1 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(20, 30)]]   // Size: (50, 60) -> (20, 30)
+                             ];
+    
+    self.dataSource.objects = @[
+                                [[IGTestDiffingObject alloc] initWithKey:@0 objects:newSection0],
+                                [[IGTestDiffingObject alloc] initWithKey:@1 objects:newSection1]
+                                ];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        IGTestCell *updatedCell00 = [self cellAtSection:0 item:0];
+        IGTestCell *updatedCell01 = [self cellAtSection:0 item:1];
+        IGTestCell *nochangedCell10 = [self cellAtSection:1 item:0];
+        IGTestCell *updatedCell11 = [self cellAtSection:1 item:1];
+        
+        IGAssertEqualSize(updatedCell00.frame.size, 45, 30);
+        IGAssertEqualSize(updatedCell01.frame.size, 50, 55);
+        IGAssertEqualSize(nochangedCell10.frame.size, 50, 50);
+        IGAssertEqualSize(updatedCell11.frame.size, 20, 30);
+        
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 @end
