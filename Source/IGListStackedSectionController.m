@@ -417,8 +417,7 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     [self.forwardingBatchContext deleteInSectionController:self atIndexes:itemIndexes];
 }
 
-- (void)invalidateLayoutInSectionController:(IGListSectionController *)sectionController atIndexes:(NSIndexSet *)indexes
-{
+- (void)invalidateLayoutInSectionController:(IGListSectionController *)sectionController atIndexes:(NSIndexSet *)indexes {
     NSIndexSet *itemIndexes = [self _itemIndexesForSectionController:sectionController indexes:indexes];
     [self.forwardingBatchContext invalidateLayoutInSectionController:sectionController atIndexes:itemIndexes];
 }
