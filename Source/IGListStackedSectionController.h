@@ -7,6 +7,7 @@
 
 #import <IGListKit/IGListSectionController.h>
 
+#import <IGListKit/IGListExperiments.h>
 #import <IGListKit/IGListMacros.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -24,6 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 IGLK_SUBCLASSING_RESTRICTED
 NS_SWIFT_NAME(ListStackedSectionController)
 @interface IGListStackedSectionController : IGListSectionController
+
+/// A bitmask of experiments to conduct on the section controller.
+@property (nonatomic, assign) IGListExperiment experiments;
 
 /**
  Creates a new stacked section controller.

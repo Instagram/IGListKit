@@ -410,6 +410,7 @@
     IGListCollectionViewLayout *layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:NO topContentInset:0 stretchToEdge:NO];
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.frame collectionViewLayout:layout];
     [(IGListAdapterUpdater *)self.adapter.updater setAllowsBackgroundReloading:NO];
+    self.adapter.experiments |= IGListExperimentInvalidateLayoutForUpdates;
     
     [self setupWithObjects:@[
                              [[IGTestDiffingObject alloc] initWithKey:@0 objects:startingSection0],

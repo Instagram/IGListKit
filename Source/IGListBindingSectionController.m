@@ -73,7 +73,9 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
             }
         }];
         
-        [batchContext invalidateLayoutInSectionController:self atIndexes:result.updates];
+        if (IGListExperimentEnabled(self.collectionContext.experiments, IGListExperimentInvalidateLayoutForUpdates)) {
+            [batchContext invalidateLayoutInSectionController:self atIndexes:result.updates];
+        }
         [batchContext deleteInSectionController:self atIndexes:result.deletes];
         [batchContext insertInSectionController:self atIndexes:result.inserts];
         

@@ -9,6 +9,7 @@
 
 #import <IGListKit/IGListBatchContext.h>
 #import <IGListKit/IGListCollectionScrollingTraits.h>
+#import <IGListKit/IGListExperiments.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,6 +46,11 @@ NS_SWIFT_NAME(ListCollectionContext)
  The current scrolling traits of the underlying collection view.
  */
 @property (nonatomic, readonly) IGListCollectionScrollingTraits scrollingTraits;
+
+/**
+ A bitmask of experiments to conduct on the section controller.
+ */
+@property (nonatomic, assign) IGListExperiment experiments;
 
 /**
  Returns size of the collection view relative to the section controller.
