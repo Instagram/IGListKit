@@ -1699,4 +1699,34 @@
     XCTAssertEqual(section1Objects[2], section1.sectionObject.objects[2]);
 }
 
+- (void)test_whenSingleItemInSectionIsInteractivelyReorderedThorughLastSpot_indexesUpdateCorrectly {
+    IGListTestAdapterReorderingDataSource *dataSource = [IGListTestAdapterReorderingDataSource new];
+    dataSource.objects = @[@0, @1, @2];
+    self.adapter.dataSource = dataSource;
+    self.adapter.moveDelegate = dataSource;
+
+    IGTestReorderableSection *section0 = (IGTestReorderableSection *)[self.adapter sectionControllerForSection:0];
+    IGTestReorderableSection *section1 = (IGTestReorderableSection *)[self.adapter sectionControllerForSection:1];
+    IGTestReorderableSection *section2 = (IGTestReorderableSection *)[self.adapter sectionControllerForSection:2];
+    section0.sectionObject = [IGTestReorderableSectionObject sectionWithObjects:@[@0]];
+    section0.isReorderable = YES;
+    section1.sectionObject = [IGTestReorderableSectionObject sectionWithObjects:@[@0]];
+    section2.sectionObject = [IGTestReorderableSectionObject sectionWithObjects:@[@0]];
+
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+
+    NSIndexPath *fromIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    NSIndexPath *lastSpotIndexPath = [NSIndexPath indexPathForItem:1 inSection:2];
+    NSIndexPath *toIndexPath = [NSIndexPath indexPathForItem:1 inSection:1];
+
+    // move the first section item to the middle while simulating dragging to the last spot and back.
+    NSIndexPath *interpretedPath = [self interpretedIndexPathFromIndexPath:fromIndexPath toIndexPath:lastSpotIndexPath];
+    interpretedPath = [self interpretedIndexPathFromIndexPath:interpretedPath toIndexPath:toIndexPath];
+    [self.adapter collectionView:self.collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:interpretedPath];
+
+    XCTAssertEqual(section0, [self.adapter sectionControllerForSection:1]);
+    XCTAssertEqual(section1, [self.adapter sectionControllerForSection:0]);
+    XCTAssertEqual(section2, [self.adapter sectionControllerForSection:2]);
+}
+
 @end
