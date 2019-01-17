@@ -9,6 +9,8 @@
 
 #import <IGListKit/IGListMacros.h>
 
+#import "IGListCollectionViewLayoutCompatible.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -69,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
  Please see the unit tests for more configuration examples and expected output.
  */
 NS_SWIFT_NAME(ListCollectionViewLayout)
-@interface IGListCollectionViewLayout : UICollectionViewLayout
+@interface IGListCollectionViewLayout : UICollectionViewLayout <IGListCollectionViewLayoutCompatible>
 
 /**
  Direction in which layout will be scrollable; items will be flowed in the perpendicular direction, "newlining" when they
@@ -90,18 +92,6 @@ NS_SWIFT_NAME(ListCollectionViewLayout)
  Set this to `YES` to show sticky header when a section had no item. Default is `NO`.
 */
 @property (nonatomic, assign) BOOL showHeaderWhenEmpty;
-
-/**
- Notify the layout that a specific section was modified before invalidation. Used to optimize layout re-calculation.
-
- @note When updating a collection view (ex: calling `-insertSections`), `-invalidateLayoutWithContext` gets called on
- the layout object. However, the invalidation context doesn't provide details on which index paths are being modified,
- which typically forces a full layout re-calculation. We can use this method to keep track of which section actually
- needs to be updated on the following `-invalidateLayoutWithContext`. See `IGListCollectionView`.
-
- @param modifiedSection The section that was modified.
- */
-- (void)didModifySection:(NSInteger)modifiedSection;
 
 /**
  Create and return a new collection view layout.
