@@ -7,6 +7,7 @@
 
 #import "IGListCollectionView.h"
 
+#import "IGListCollectionViewLayoutCompatible.h"
 #import "IGListCollectionViewLayout.h"
 
 @implementation IGListCollectionView
@@ -18,15 +19,15 @@
     return [self initWithFrame:frame listCollectionViewLayout:layout];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame listCollectionViewLayout:(IGListCollectionViewLayout *)collectionViewLayout {
+- (instancetype)initWithFrame:(CGRect)frame listCollectionViewLayout:(UICollectionViewLayout<IGListCollectionViewLayoutCompatible> *)collectionViewLayout {
     return [super initWithFrame:frame collectionViewLayout:collectionViewLayout];
 }
 
 #pragma mark - IGListCollectionViewLayout
 
-- (IGListCollectionViewLayout *)_listLayout {
-    if ([self.collectionViewLayout isKindOfClass:[IGListCollectionViewLayout class]]) {
-        return (IGListCollectionViewLayout *)self.collectionViewLayout;
+- (UICollectionViewLayout<IGListCollectionViewLayoutCompatible> *)_listLayout {
+    if ([self.collectionViewLayout conformsToProtocol:@protocol(IGListCollectionViewLayoutCompatible)]) {
+        return (UICollectionViewLayout<IGListCollectionViewLayoutCompatible> *)self.collectionViewLayout;
     }
 
     return nil;
