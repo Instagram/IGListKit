@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -92,6 +92,8 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
 
     IGListSectionController *sourceSectionController = [adapter sectionControllerForSection:sourceSectionIndex];
     IGListSectionController *destinationSectionController = [adapter sectionControllerForSection:destinationSectionIndex];
+
+    adapter.isLastInteractiveMoveToLastSectionIndex = NO;
 
     // this is a reordering of sections themselves
     if ([sourceSectionController numberOfItems] == 1

@@ -2,6 +2,7 @@
 
 - [ ] I have reviewed the [`README`](https://github.com/Instagram/IGListKit/blob/master/README.md) and [documentation](http://instagram.github.io/IGListKit)
 - [ ] I have searched [existing issues](https://github.com/Instagram/IGListKit/issues) and this is not a duplicate
+- [ ] I have attempted to reproduce the issue and include an example project.
 
 ### General information
 

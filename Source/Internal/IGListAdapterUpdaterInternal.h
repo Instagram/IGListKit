@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -40,6 +40,8 @@ FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
 
 @property (nonatomic, assign) IGListBatchUpdateState state;
 @property (nonatomic, strong, nullable) IGListBatchUpdateData *applyingUpdateData;
+
+@property (nonatomic, strong) dispatch_queue_t backgroundUpdateQueue;
 
 - (void)performReloadDataWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock;
 - (void)performBatchUpdatesWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -132,6 +132,8 @@
         return;
     }
 
+    IGAssert(objectsWithDuplicateIdentifiersRemoved(fromObjects).count == fromObjects.count, @"The fromObjects has duplicate identifiers (it should already be dedupepd at this point).");
+    
     NSArray *toObjects = nil;
     if (toObjectsBlock != nil) {
         toObjects = objectsWithDuplicateIdentifiersRemoved(toObjectsBlock());
@@ -174,7 +176,10 @@
         [self _cleanStateAfterUpdates];
         [self _performBatchUpdatesItemBlockApplied];
         [collectionView reloadData];
-        [collectionView layoutIfNeeded];
+        if (!IGListExperimentEnabled(self.experiments, IGListExperimentSkipLayout)
+            || collectionView.window != nil) {
+            [collectionView layoutIfNeeded];
+        }
         executeCompletionBlocks(YES);
     };
 
@@ -226,8 +231,15 @@
         [collectionView layoutIfNeeded];
 
         @try {
-            [delegate listAdapterUpdater:self willPerformBatchUpdatesWithCollectionView:collectionView];
-            if (result.changeCount > 100 && IGListExperimentEnabled(experiments, IGListExperimentReloadDataFallback)) {
+            [delegate  listAdapterUpdater:self
+willPerformBatchUpdatesWithCollectionView:collectionView
+                              fromObjects:fromObjects
+                                toObjects:toObjects
+                       listIndexSetResult:result];
+            if (collectionView.dataSource == nil) {
+                // If the data source is nil, we should not call any collection view update.
+                batchUpdatesCompletionBlock(NO);
+            } else if (result.changeCount > 100 && IGListExperimentEnabled(experiments, IGListExperimentReloadDataFallback)) {
                 reloadDataFallback();
             } else if (animated) {
                 [collectionView performBatchUpdates:^{
@@ -249,14 +261,23 @@
                   willCrashWithException:exception
                              fromObjects:fromObjects
                                toObjects:toObjects
+                              diffResult:result
                                  updates:(id)self.applyingUpdateData];
             @throw exception;
         }
     };
 
-    // temporary test to try out background diffing
+    dispatch_queue_t asyncQueue = nil;
     if (IGListExperimentEnabled(experiments, IGListExperimentBackgroundDiffing)) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        asyncQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    } else if (IGListExperimentEnabled(experiments, IGListExperimentBackgroundDiffingSerial)) {
+        if (_backgroundUpdateQueue == nil) {
+            _backgroundUpdateQueue = dispatch_queue_create("io.github.instagram.IGListKit.backgroundupdatequeue", DISPATCH_QUEUE_SERIAL);
+        }
+        asyncQueue = _backgroundUpdateQueue;
+    }
+    if (asyncQueue) {
+        dispatch_async(asyncQueue, ^{
             IGListIndexSetResult *result = performDiff();
             dispatch_async(dispatch_get_main_queue(), ^{
                 performUpdate(result);
@@ -327,8 +348,9 @@ static NSArray<NSIndexPath *> *convertSectionReloadToItemUpdates(NSIndexSet *sec
         moves = [NSSet new];
     }
 
-    // Item reloads are not safe, if any section moves happened
-    if (moves.count == 0 && self.preferItemReloadsForSectionReloads) {
+    // Item reloads are not safe, if any section moves happened or there are inserts/deletes.
+    if (self.preferItemReloadsForSectionReloads
+        && moves.count == 0 && inserts.count == 0 && deletes.count == 0 && reloads.count > 0) {
         [reloads enumerateIndexesUsingBlock:^(NSUInteger sectionIndex, BOOL * _Nonnull stop) {
             NSMutableIndexSet *localIndexSet = [NSMutableIndexSet indexSetWithIndex:sectionIndex];
             if (sectionIndex < [collectionView numberOfSections]
@@ -407,14 +429,7 @@ static NSArray<NSIndexPath *> *convertSectionReloadToItemUpdates(NSIndexSet *sec
 
 - (void)_queueUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock {
     IGAssertMainThread();
-
-    // callers may hold weak refs and lose the collection view by the time we requeue, bail if that's the case
-//    if (collectionView == nil) {
-//        return;
-//    }
-
     __weak __typeof__(self) weakSelf = self;
-//    __weak __typeof__(collectionView) weakCollectionView = collectionView;
 
     // dispatch after a given amount of time to coalesce other updates and execute as one
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, self.coalescanceTime * NSEC_PER_SEC), dispatch_get_main_queue(), ^{

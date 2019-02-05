@@ -1,5 +1,5 @@
 /**
- Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
+ Copyright (c) Facebook, Inc. and its affiliates.
 
  The examples provided by Facebook are for non-commercial testing and evaluation
  purposes only. Facebook reserves all rights not expressly granted.
@@ -119,7 +119,7 @@ final class MixedDataViewController: UIViewController, ListAdapterDataSource, Li
     func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
 
     // MARK: - ListAdapterMoveDelegate
-    
+
     func listAdapter(_ listAdapter: ListAdapter, move object: Any, from previousObjects: [Any], to objects: [Any]) {
         data = objects
     }
