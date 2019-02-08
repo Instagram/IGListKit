@@ -10,6 +10,7 @@
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListAdapterUpdater.h>
 #import <IGListKit/IGListSupplementaryViewSource.h>
+#import <IGListKit/IGSystemVersion.h>
 
 #import "IGListSectionControllerInternal.h"
 #import "IGListDebugger.h"
@@ -26,7 +27,7 @@
 
 - (void)dealloc {
     // on iOS 9 setting the dataSource has side effects that can invalidate the layout and seg fault
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
+    if (!IGSystemVersionIsIOS9OrNewer()) {
         // properties are assign for <iOS 9
         _collectionView.dataSource = nil;
         _collectionView.delegate = nil;

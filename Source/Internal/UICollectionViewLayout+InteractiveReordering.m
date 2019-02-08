@@ -11,6 +11,7 @@
 #import <IGListKit/IGListAdapterInternal.h>
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListSectionController.h>
+#import <IGListKit/IGSystemVersion.h>
 
 #import <objc/runtime.h>
 
@@ -23,7 +24,7 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         // interactive reordering does not exist prior to iOS 9
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
+        if (!IGSystemVersionIsIOS9OrNewer()) {
             return;
         }
 
