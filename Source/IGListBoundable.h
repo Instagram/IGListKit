@@ -6,9 +6,9 @@
  */
 
 #import <Foundation/Foundation.h>
-
+#import <IGListKit/IGListSectionController.h>
 NS_ASSUME_NONNULL_BEGIN
-
+@class IGListSectionController;
 /**
  A protocol for cells that configure themselves given a view model.
  */
@@ -23,7 +23,7 @@ NS_SWIFT_NAME(ListBoundable)
  @note The view model can change many times throughout the lifetime of a cell as the model values change and the cell
  is reused. Implementations should use only this method to do their configuration.
  */
-- ([IGListSectionController Class])boundedSectionController;
+- (IGListSectionController *)boundedSectionController;
 
 
 @end
