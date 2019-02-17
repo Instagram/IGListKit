@@ -25,4 +25,8 @@ NS_SWIFT_NAME(ListBoundable)
  */
 - ([IGListSectionController Class])boundedSectionController;
 
+
+@end
+
+
 NS_ASSUME_NONNULL_END
