@@ -131,8 +131,6 @@
         executeCompletionBlocks(NO);
         return;
     }
-
-    IGAssert(objectsWithDuplicateIdentifiersRemoved(fromObjects).count == fromObjects.count, @"The fromObjects has duplicate identifiers (it should already be dedupepd at this point).");
     
     NSArray *toObjects = nil;
     if (toObjectsBlock != nil) {
