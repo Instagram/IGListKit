@@ -427,15 +427,19 @@ static NSArray<NSIndexPath *> *convertSectionReloadToItemUpdates(NSIndexSet *sec
 
 - (void)_queueUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock {
     IGAssertMainThread();
+    
     __weak __typeof__(self) weakSelf = self;
-
-    // dispatch after a given amount of time to coalesce other updates and execute as one
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, self.coalescanceTime * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+    
+    // dispatch_async to give the main queue time to collect more batch updates so that a minimum amount of work
+    // (diffing, etc) is done on main. dispatch_async does not garauntee a full runloop turn will pass though.
+    // see -performUpdateWithCollectionView:fromObjects:toObjects:animated:objectTransitionBlock:completion: for more
+    // details on how coalescence is done.
+    dispatch_async(dispatch_get_main_queue(), ^{
         if (weakSelf.state != IGListBatchUpdateStateIdle
             || ![weakSelf hasChanges]) {
             return;
         }
-
+        
         if (weakSelf.hasQueuedReloadData) {
             [weakSelf performReloadDataWithCollectionViewBlock:collectionViewBlock];
         } else {
