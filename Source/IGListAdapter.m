@@ -554,10 +554,15 @@
 
 - (CGSize)sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     IGAssertMainThread();
+    id<IGListAdapterPerformanceDelegate> performanceDelegate = self.performanceDelegate;
+    [performanceDelegate listAdapterWillCallSize:self];
 
     IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
     const CGSize size = [sectionController sizeForItemAtIndex:indexPath.item];
-    return CGSizeMake(MAX(size.width, 0.0), MAX(size.height, 0.0));
+    const CGSize positiveSize = CGSizeMake(MAX(size.width, 0.0), MAX(size.height, 0.0));
+
+    [performanceDelegate listAdapter:self didCallSizeOnSectionController:sectionController atIndex:indexPath.item];
+    return positiveSize;
 }
 
 - (CGSize)sizeForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
@@ -782,6 +787,9 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    id<IGListAdapterPerformanceDelegate> performanceDelegate = self.performanceDelegate;
+    [performanceDelegate listAdapterWillCallScroll:self];
+
     // forward this method to the delegate b/c this implementation will steal the message from the proxy
     id<UIScrollViewDelegate> scrollViewDelegate = self.scrollViewDelegate;
     if ([scrollViewDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
@@ -791,6 +799,8 @@
     for (IGListSectionController *sectionController in visibleSectionControllers) {
         [[sectionController scrollDelegate] listAdapter:self didScrollSectionController:sectionController];
     }
+
+    [performanceDelegate listAdapter:self didCallScroll:scrollView];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

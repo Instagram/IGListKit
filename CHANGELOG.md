@@ -22,6 +22,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Added `preferItemReloadsForSectionReloads` in IGListAdapterUpdater so that the item updates are invoked with the proper collectionView animation, instead of using the delete+insert section operation when the number of items is unchanged. [Zhisheng Huang](https://github.com/lorixx) (tbd)
 
+- Created `IGListAdapterPerformanceDelegate` for IGListAdapter to be able to measure how long some operations take across all section controllers. For example, how long it takes to dequeue a cell. [Maxime Ollivier](https://github.com/maxoll) (tbd)
+
 ### Fixes
 
 - Fixed crash when the data source is nil before calling `-[IGListAdapterUpdater performUpdateWithCollectionViewBlock:fromObjects:toObjectsBlock:animated:objectTransitionBlock:completion:]`. [Zhisheng Huang](https://github.com/lorixx) (tbd)

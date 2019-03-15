@@ -1729,4 +1729,59 @@
     XCTAssertEqual(section2, [self.adapter sectionControllerForSection:2]);
 }
 
+- (void)test_whenReload_thatPerformanceDelegateEventsSent {
+    self.dataSource.objects = @[@1];
+    // Use IGListReloadDataUpdater to make sure updates happen synchronously
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
+                                                     viewController:nil];
+    adapter.collectionView = self.collectionView;
+    adapter.dataSource = self.dataSource;
+
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterPerformanceDelegate)];
+    adapter.performanceDelegate = mockDelegate;
+    [mockDelegate setExpectationOrderMatters:YES];
+
+    // Sizing
+    [[mockDelegate expect] listAdapterWillCallSize:adapter];
+    [[mockDelegate expect] listAdapter:adapter didCallSizeOnSectionController:OCMOCK_ANY atIndex:0];
+
+    // Dequeue
+    [[mockDelegate expect] listAdapterWillCallDequeueCell:adapter];
+    [[mockDelegate expect] listAdapter:adapter didCallDequeueCell:OCMOCK_ANY onSectionController:OCMOCK_ANY atIndex:0];
+
+    // Display
+    [[mockDelegate expect] listAdapterWillCallDisplayCell:adapter];
+    [[mockDelegate expect] listAdapter:adapter didCallDisplayCell:OCMOCK_ANY onSectionController:OCMOCK_ANY atIndex:0];
+
+    // End display
+    [[mockDelegate expect] listAdapterWillCallEndDisplayCell:adapter];
+    [[mockDelegate expect] listAdapter:adapter didCallEndDisplayCell:OCMOCK_ANY onSectionController:OCMOCK_ANY atIndex:0];
+
+    // Commit changes
+    [self.collectionView reloadData];
+    [self.collectionView layoutIfNeeded];
+
+    // Remove cell
+    self.dataSource.objects = @[];
+
+    // Commit changes
+    [self.collectionView reloadData];
+    [self.collectionView layoutIfNeeded];
+
+    [mockDelegate verify];
+}
+
+- (void)test_whenScroll_thatPerformanceDelegateEventsSent {
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListAdapterPerformanceDelegate)];
+    self.adapter.performanceDelegate = mockDelegate;
+
+    [mockDelegate setExpectationOrderMatters:YES];
+    [[mockDelegate expect] listAdapterWillCallScroll:self.adapter];
+    [[mockDelegate expect] listAdapter:self.adapter didCallScroll:self.collectionView];
+
+    [self.adapter scrollViewDidScroll:self.collectionView];
+
+    [mockDelegate verify];
+}
+
 @end
