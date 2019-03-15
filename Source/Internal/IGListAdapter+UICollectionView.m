@@ -31,6 +31,9 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    id<IGListAdapterPerformanceDelegate> performanceDelegate = self.performanceDelegate;
+    [performanceDelegate listAdapterWillCallDequeueCell:self];
+
     IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
 
     // flag that a cell is being dequeued in case it tries to access a cell in the process
@@ -43,6 +46,7 @@
     // associate the section controller with the cell so that we know which section controller is using it
     [self mapView:cell toSectionController:sectionController];
 
+    [performanceDelegate listAdapter:self didCallDequeueCell:cell onSectionController:sectionController atIndex:indexPath.item];
     return cell;
 }
 
@@ -135,6 +139,9 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    id<IGListAdapterPerformanceDelegate> performanceDelegate = self.performanceDelegate;
+    [performanceDelegate listAdapterWillCallDisplayCell:self];
+
     // forward this method to the delegate b/c this implementation will steal the message from the proxy
     id<UICollectionViewDelegate> collectionViewDelegate = self.collectionViewDelegate;
     if ([collectionViewDelegate respondsToSelector:@selector(collectionView:willDisplayCell:forItemAtIndexPath:)]) {
@@ -155,9 +162,14 @@
     _isSendingWorkingRangeDisplayUpdates = YES;
     [self.workingRangeHandler willDisplayItemAtIndexPath:indexPath forListAdapter:self];
     _isSendingWorkingRangeDisplayUpdates = NO;
+
+    [performanceDelegate listAdapter:self didCallDisplayCell:cell onSectionController:sectionController atIndex:indexPath.item];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    id<IGListAdapterPerformanceDelegate> performanceDelegate = self.performanceDelegate;
+    [performanceDelegate listAdapterWillCallEndDisplayCell:self];
+
     // forward this method to the delegate b/c this implementation will steal the message from the proxy
     id<UICollectionViewDelegate> collectionViewDelegate = self.collectionViewDelegate;
     if ([collectionViewDelegate respondsToSelector:@selector(collectionView:didEndDisplayingCell:forItemAtIndexPath:)]) {
@@ -170,6 +182,8 @@
 
     // break the association between the cell and the section controller
     [self removeMapForView:cell];
+
+    [performanceDelegate listAdapter:self didCallEndDisplayCell:cell onSectionController:sectionController atIndex:indexPath.item];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplaySupplementaryView:(UICollectionReusableView *)view forElementKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
@@ -232,7 +246,7 @@
     CGSize size = [self sizeForItemAtIndexPath:indexPath];
     IGAssert(!isnan(size.height), @"IGListAdapter returned NaN height = %f for item at indexPath <%@>", size.height, indexPath);
     IGAssert(!isnan(size.width), @"IGListAdapter returned NaN width = %f for item at indexPath <%@>", size.width, indexPath);
-    
+
     return size;
 }
 
