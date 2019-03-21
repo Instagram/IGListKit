@@ -257,6 +257,13 @@ NS_SWIFT_NAME(ListAdapter)
         scrollPosition:(UICollectionViewScrollPosition)scrollPosition
               animated:(BOOL)animated;
 
+- (void)scrollToObject:(id)object
+    supplementaryKinds:(nullable NSArray<NSString *> *)supplementaryKinds
+       scrollDirection:(UICollectionViewScrollDirection)scrollDirection
+        scrollPosition:(UICollectionViewScrollPosition)scrollPosition
+              animated:(BOOL)animated
+                deductOffset:(int)suplementaryHeight;
+
 /**
  Returns the size of a cell at the specified index path.
 

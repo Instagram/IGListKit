@@ -312,8 +312,147 @@
     }
 
     [collectionView setContentOffset:contentOffset animated:animated];
-}
+} 
 
+- (void)scrollToObject:(id)object
+    supplementaryKinds:(NSArray<NSString *> *)supplementaryKinds
+       scrollDirection:(UICollectionViewScrollDirection)scrollDirection
+        scrollPosition:(UICollectionViewScrollPosition)scrollPosition
+              animated:(BOOL)animated
+          deductOffset:(int)suplementaryHeight {
+    
+    IGAssertMainThread();
+    IGParameterAssert(object != nil);
+    
+    const NSInteger section = [self sectionForObject:object];
+    if (section == NSNotFound) {
+        return;
+    }
+    
+    UICollectionView *collectionView = self.collectionView;
+    UICollectionViewLayout *layout = self.collectionView.collectionViewLayout;
+    
+    // force layout before continuing
+    // this method is typcially called before pushing a view controller
+    // thus, before the layout process has actually happened
+    [collectionView setNeedsLayout];
+    [collectionView layoutIfNeeded];
+    
+    NSIndexPath *indexPathFirstElement = [NSIndexPath indexPathForItem:0 inSection:section];
+    
+    // collect the layout attributes for the cell and supplementary views for the first index
+    // this will break if there are supplementary views beyond item 0
+    NSMutableArray<UICollectionViewLayoutAttributes *> *attributes = nil;
+    
+    const NSInteger numberOfItems = [collectionView numberOfItemsInSection:section];
+    if (numberOfItems > 0) {
+        attributes = [self _layoutAttributesForIndexPath:indexPathFirstElement supplementaryKinds:supplementaryKinds].mutableCopy;
+        
+        if (numberOfItems > 1) {
+            NSIndexPath *indexPathLastElement = [NSIndexPath indexPathForItem:(numberOfItems - 1) inSection:section];
+            UICollectionViewLayoutAttributes *lastElementattributes = [self _layoutAttributesForIndexPath:indexPathLastElement supplementaryKinds:supplementaryKinds].firstObject;
+            if (lastElementattributes != nil) {
+                [attributes addObject:lastElementattributes];
+            }
+        }
+    } else {
+        NSMutableArray *supplementaryAttributes = [NSMutableArray new];
+        for (NSString* supplementaryKind in supplementaryKinds) {
+            UICollectionViewLayoutAttributes *supplementaryAttribute = [layout layoutAttributesForSupplementaryViewOfKind:supplementaryKind atIndexPath:indexPathFirstElement];
+            if (supplementaryAttribute != nil) {
+                [supplementaryAttributes addObject: supplementaryAttribute];
+            }
+        }
+        attributes = supplementaryAttributes;
+    }
+    
+    CGFloat offsetMin = 0.0;
+    CGFloat offsetMax = 0.0;
+    for (UICollectionViewLayoutAttributes *attribute in attributes) {
+        const CGRect frame = attribute.frame;
+        CGFloat originMin;
+        CGFloat endMax;
+        switch (scrollDirection) {
+            case UICollectionViewScrollDirectionHorizontal:
+                originMin = CGRectGetMinX(frame);
+                endMax = CGRectGetMaxX(frame);
+                break;
+            case UICollectionViewScrollDirectionVertical:
+                originMin = CGRectGetMinY(frame);
+                endMax = CGRectGetMaxY(frame);
+                break;
+        }
+        
+        // find the minimum origin value of all the layout attributes
+        if (attribute == attributes.firstObject || originMin < offsetMin) {
+            offsetMin = originMin;
+        }
+        // find the maximum end value of all the layout attributes
+        if (attribute == attributes.firstObject || endMax > offsetMax) {
+            offsetMax = endMax;
+        }
+    }
+    
+    const CGFloat offsetMid = (offsetMin + offsetMax) / 2.0;
+    const CGFloat collectionViewWidth = collectionView.bounds.size.width;
+    const CGFloat collectionViewHeight = collectionView.bounds.size.height;
+    const UIEdgeInsets contentInset = collectionView.ig_contentInset;
+    CGPoint contentOffset = collectionView.contentOffset;
+    switch (scrollDirection) {
+        case UICollectionViewScrollDirectionHorizontal: {
+            switch (scrollPosition) {
+                case UICollectionViewScrollPositionRight:
+                    contentOffset.x = offsetMax - collectionViewWidth - contentInset.left;
+                    break;
+                case UICollectionViewScrollPositionCenteredHorizontally: {
+                    const CGFloat insets = (contentInset.left - contentInset.right) / 2.0;
+                    contentOffset.x = offsetMid - collectionViewWidth / 2.0 - insets;
+                    break;
+                }
+                case UICollectionViewScrollPositionLeft:
+                case UICollectionViewScrollPositionNone:
+                case UICollectionViewScrollPositionTop:
+                case UICollectionViewScrollPositionBottom:
+                case UICollectionViewScrollPositionCenteredVertically:
+                    contentOffset.x = offsetMin - contentInset.left;
+                    break;
+            }
+            const CGFloat maxOffsetX = collectionView.contentSize.width - collectionView.frame.size.width + contentInset.right;
+            const CGFloat minOffsetX = -contentInset.left;
+            contentOffset.x = MIN(contentOffset.x, maxOffsetX);
+            contentOffset.x = MAX(contentOffset.x, minOffsetX);
+            break;
+        }
+        case UICollectionViewScrollDirectionVertical: {
+            switch (scrollPosition) {
+                case UICollectionViewScrollPositionBottom:
+                    contentOffset.y = offsetMax - collectionViewHeight;
+                    break;
+                case UICollectionViewScrollPositionCenteredVertically: {
+                    const CGFloat insets = (contentInset.top - contentInset.bottom) / 2.0;
+                    contentOffset.y = offsetMid - collectionViewHeight / 2.0 - insets;
+                    break;
+                }
+                case UICollectionViewScrollPositionTop:
+                    contentOffset.y = offsetMin - contentInset.top - suplementaryHeight;
+                    break;
+                case UICollectionViewScrollPositionNone:
+                case UICollectionViewScrollPositionLeft:
+                case UICollectionViewScrollPositionRight:
+                case UICollectionViewScrollPositionCenteredHorizontally:
+                    contentOffset.y = offsetMin - contentInset.top;
+                    break;
+            }
+            const CGFloat maxOffsetY = collectionView.contentSize.height - collectionView.frame.size.height + contentInset.bottom;
+            const CGFloat minOffsetY = -contentInset.top;
+            contentOffset.y = MIN(contentOffset.y, maxOffsetY);
+            contentOffset.y = MAX(contentOffset.y, minOffsetY);
+            break;
+        }
+    }
+    
+    [collectionView setContentOffset:contentOffset animated:animated];
+}
 #pragma mark - Editing
 
 - (void)performUpdatesAnimated:(BOOL)animated completion:(IGListUpdaterCompletion)completion {
