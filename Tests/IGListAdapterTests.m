@@ -645,7 +645,7 @@
     [self.adapter reloadDataWithCompletion:nil];
     self.collectionView.contentOffset = CGPointMake(0, 80);
     [self.collectionView layoutIfNeeded];
-
+    
     NSArray *visibleCellsForObject = [self.adapter visibleCellsForObject:@3];
     XCTAssertEqual(visibleCellsForObject.count, 0);
 }
