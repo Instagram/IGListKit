@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
+ * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
@@ -1022,7 +1022,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
-- (void)test_whenMovingItemsInChild_thatCorrectCellsAreMoved {
+- (void)DISABLED_test_whenMovingItemsInChild_thatCorrectCellsAreMoved {
     [self setupWithObjects:@[
                              [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
                              [[IGTestObject alloc] initWithKey:@1 value:@[@1, @2, @3]],
