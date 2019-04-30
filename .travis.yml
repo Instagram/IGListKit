@@ -120,14 +120,13 @@ jobs:
       name: "Tests: iOS 11.3"
       env: DESTINATION="$IOS_DESTINATION_11" WORKSPACE="IGListKit.xcworkspace" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME"
 
-    # Post stage
-    - stage: post test
-      name: Danger
+    # Danger
+    - stage: Danger
       script: bundle exec danger --verbose
 
 stages:
   - pod lint
   - build examples
   - tests
-  - post test
+  - danger
 
