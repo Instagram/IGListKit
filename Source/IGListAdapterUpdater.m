@@ -265,17 +265,8 @@ willPerformBatchUpdatesWithCollectionView:collectionView
         }
     };
 
-    dispatch_queue_t asyncQueue = nil;
     if (IGListExperimentEnabled(experiments, IGListExperimentBackgroundDiffing)) {
-        asyncQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    } else if (IGListExperimentEnabled(experiments, IGListExperimentBackgroundDiffingSerial)) {
-        if (_backgroundUpdateQueue == nil) {
-            _backgroundUpdateQueue = dispatch_queue_create("io.github.instagram.IGListKit.backgroundupdatequeue", DISPATCH_QUEUE_SERIAL);
-        }
-        asyncQueue = _backgroundUpdateQueue;
-    }
-    if (asyncQueue) {
-        dispatch_async(asyncQueue, ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             IGListIndexSetResult *result = performDiff();
             dispatch_async(dispatch_get_main_queue(), ^{
                 performUpdate(result);
