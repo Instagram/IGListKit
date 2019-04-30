@@ -1,6 +1,11 @@
 language: objective-c
 osx_image: xcode10.2
 gemfile: Gemfile
+addons:
+  homebrew:
+    packages:
+    - swiftlint
+    update: true
 
 branches:
   only:
@@ -18,8 +23,6 @@ env:
    - LANG=en_US.UTF-8
 
    - IOS_SCHEME="IGListKit"
-   - TVOS_SCHEME="IGListKit-tvOS"
-   - MACOS_SCHEME="IGListKit-macOS"
 
    - IOS_SDK=iphonesimulator12.2
    - MACOS_SDK=macosx10.14
@@ -48,10 +51,6 @@ before_install:
   # Bundler 2.0
   - gem update --system
   - gem install bundler
-
-  # swiftlint
-  - brew update
-  - brew outdated swiftlint || brew upgrade swiftlint
 
 jobs:
   include:
@@ -120,21 +119,6 @@ jobs:
     - <<: *unit-tests
       name: "Tests: iOS 11.3"
       env: DESTINATION="$IOS_DESTINATION_11" WORKSPACE="IGListKit.xcworkspace" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME"
-
-    # Analysis
-    - &static-analysis
-      stage: tests
-      name: "Static Analysis: iOS"
-      env: DESTINATION="$IOS_DESTINATION_12" WORKSPACE="IGListKit.xcworkspace" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME"
-      script: xcodebuild build analyze -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
-
-    - <<: *static-analysis
-      name: "Static Analysis: macOS"
-      env: DESTINATION="$MACOS_DESTINATION" WORKSPACE="IGListKit.xcworkspace" SDK="$TVOS_SDK" SCHEME="$MACOS_SCHEME"
-
-    - <<: *static-analysis
-      name: "Static Analysis: iOS"
-      env: DESTINATION="$TVOS_DESTINATION_12" WORKSPACE="IGListKit.xcworkspace" SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME"
 
     # Post stage
     - stage: post test
