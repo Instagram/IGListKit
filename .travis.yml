@@ -139,7 +139,7 @@ jobs:
     # Post stage
     - stage: post test
       name: Danger
-      script: bundle exec danger
+      script: bundle exec danger --verbose
 
 stages:
   - pod lint
