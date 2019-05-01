@@ -410,9 +410,7 @@
     [mockWorkingRangeDelegate2 verifyWithDelay:5];
 }
 
-- (void)test_whenDisplayingItemsAtPaths_withWorkingRangeSizeZero_thenRemovingFirstItem_thenInsertingItemAtLastPosition_thatItemEntersWorkingRange {
-    return; // This test currently fails; working range calculations do not take inserts + deletes into account.
-    
+- (void)DISABLED_test_whenDisplayingItemsAtPaths_withWorkingRangeSizeZero_thenRemovingFirstItem_thenInsertingItemAtLastPosition_thatItemEntersWorkingRange {
     // Arrange 1: Set up a simple collection view and adapter with a single element.
     IGListTestSection *controller1 = [[IGListTestSection alloc] init];
     NSString *object1 = @"obj1";
@@ -460,9 +458,7 @@
     [mockWorkingRangeDelegate2 verifyWithDelay:5];
 }
 
-- (void)test_whenDisplayingItemAtPath_withWorkingRangeSizeZero_thenInsertingNewItem_thatVisibleItemsRemainInWorkingRange {
-    return; // This test currently fails; working range calculations do not take inserts + deletes into account.
-    
+- (void)DISABLED_test_whenDisplayingItemAtPath_withWorkingRangeSizeZero_thenInsertingNewItem_thatVisibleItemsRemainInWorkingRange {
     // Arrange 1: Set up a simple collection view and adapter with a single element.
     IGListTestSection *controller1 = [[IGListTestSection alloc] init];
     NSString *object1 = @"obj1";
