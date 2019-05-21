@@ -237,9 +237,9 @@ static id IGListDiffing(BOOL returnIndexPaths,
         mDeletes = [NSMutableArray<NSIndexPath *> new];
     } else {
         mInserts = [NSMutableIndexSet new];
+        mMoves = [NSMutableArray<IGListMoveIndex *> new];
         mUpdates = [NSMutableIndexSet new];
         mDeletes = [NSMutableIndexSet new];
-        mMoves = [NSMutableArray<IGListMoveIndex *> new];
     }
 
     // track offsets from deleted items to calculate where items have moved
