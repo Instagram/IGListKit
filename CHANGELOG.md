@@ -6,6 +6,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 -----
 ### Breaking Changes
 
+- Remove `coalescanceTime` from IGListAdapterUpdate, since it increase crash rate. [Zhisheng Huang](https://github.com/lorixx) (tbd)
+
 - All `IGListBindingSectionControllerSelectionDelegate` methods are now required. [Bofei Zhu] (https://github.com/zhubofei) [(#1186)](https://github.com/Instagram/IGListKit/pull/1186)
 
 - Renamed `[IGListAdapterUpdatingDelegate listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:]` to `[IGListAdapterUpdatingDelegate listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:fromObjects:toObjects:listIndexSetResult:]` to include more supporting info on updated objects. [Jeremy Cohen] (https://github.com/jeremycohen) (tbd)
@@ -19,6 +21,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 -  `IGListBindingSectionController` no longer asserts when reloading the entire section. A warning message is now logged if the entire section is going to be reloaded. [Jeff Bailey](https://github.com/jeffbailey) (#1213)
 
 - Added `preferItemReloadsForSectionReloads` in IGListAdapterUpdater so that the item updates are invoked with the proper collectionView animation, instead of using the delete+insert section operation when the number of items is unchanged. [Zhisheng Huang](https://github.com/lorixx) (tbd)
+
+- Created `IGListAdapterPerformanceDelegate` for IGListAdapter to be able to measure how long some operations take across all section controllers. For example, how long it takes to dequeue a cell. [Maxime Ollivier](https://github.com/maxoll) (tbd)
 
 ### Fixes
 
@@ -442,3 +446,4 @@ You can find a [migration guide here](https://instagram.github.io/IGListKit/migr
 -----
 
 Initial release. :tada:
+

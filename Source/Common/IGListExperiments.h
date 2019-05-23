@@ -26,10 +26,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentGetCollectionViewAtUpdate = 1 << 7,
     /// Test skipping layout when UICollectionView isn't visible
     IGListExperimentSkipLayout = 1 << 8,
-    /// Test updater diffing performed on a serial background queue.
-    IGListExperimentBackgroundDiffingSerial = 1 << 9,
     /// Test invalidating layout when cell reloads/updates in IGListBindingSectionController.
-    IGListExperimentInvalidateLayoutForUpdates = 1 << 10,
+    IGListExperimentInvalidateLayoutForUpdates = 1 << 9,
 };
 
 /**

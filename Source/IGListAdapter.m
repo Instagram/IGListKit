@@ -10,6 +10,7 @@
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListAdapterUpdater.h>
 #import <IGListKit/IGListSupplementaryViewSource.h>
+#import <IGListKit/IGSystemVersion.h>
 
 #import "IGListSectionControllerInternal.h"
 #import "IGListDebugger.h"
@@ -26,7 +27,7 @@
 
 - (void)dealloc {
     // on iOS 9 setting the dataSource has side effects that can invalidate the layout and seg fault
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
+    if (!IGSystemVersionIsIOS9OrNewer()) {
         // properties are assign for <iOS 9
         _collectionView.dataSource = nil;
         _collectionView.delegate = nil;
@@ -553,10 +554,15 @@
 
 - (CGSize)sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     IGAssertMainThread();
+    id<IGListAdapterPerformanceDelegate> performanceDelegate = self.performanceDelegate;
+    [performanceDelegate listAdapterWillCallSize:self];
 
     IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
     const CGSize size = [sectionController sizeForItemAtIndex:indexPath.item];
-    return CGSizeMake(MAX(size.width, 0.0), MAX(size.height, 0.0));
+    const CGSize positiveSize = CGSizeMake(MAX(size.width, 0.0), MAX(size.height, 0.0));
+
+    [performanceDelegate listAdapter:self didCallSizeOnSectionController:sectionController atIndex:indexPath.item];
+    return positiveSize;
 }
 
 - (CGSize)sizeForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
@@ -781,6 +787,9 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    id<IGListAdapterPerformanceDelegate> performanceDelegate = self.performanceDelegate;
+    [performanceDelegate listAdapterWillCallScroll:self];
+
     // forward this method to the delegate b/c this implementation will steal the message from the proxy
     id<UIScrollViewDelegate> scrollViewDelegate = self.scrollViewDelegate;
     if ([scrollViewDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
@@ -790,6 +799,8 @@
     for (IGListSectionController *sectionController in visibleSectionControllers) {
         [[sectionController scrollDelegate] listAdapter:self didScrollSectionController:sectionController];
     }
+
+    [performanceDelegate listAdapter:self didCallScroll:scrollView];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
