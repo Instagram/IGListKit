@@ -736,6 +736,12 @@
     self.dataSource.objects = @[@100];
     [self.adapter reloadDataWithCompletion:nil];
 
+    if (@available(iOS 11.0, *)) {
+        self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        // Fallback on earlier versions
+    }
+    
     // no insets
     self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.collectionView layoutIfNeeded];
