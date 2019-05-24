@@ -57,6 +57,10 @@ NS_SWIFT_NAME(ListSectionController)
  will be used on screen. You should never allocate new cells in this method, instead use the provided adapter to call
  one of the dequeue methods on the IGListCollectionContext. The default implementation will assert. **You must override
  this method without calling super.**
+ 
+ @warning Don't call this method to obtain a reference to currently dequeued cells: a new cell will be dequeued
+ and returned, rather than the existing cell that you may have intended to retrieve. Instead, you can call
+ `-cellForItemAtIndex:sectionController:` on `IGListCollectionContext` to obtain active cell references.
  */
 - (__kindof UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index;
 

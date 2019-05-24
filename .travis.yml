@@ -1,89 +1,132 @@
 language: objective-c
-osx_image: xcode9.3beta
+osx_image: xcode10.2
 gemfile: Gemfile
+addons:
+  homebrew:
+    packages:
+    - swiftlint
+    update: true
 
 branches:
   only:
     - master
     - stable
+    - travis-stages
 
 cache:
   - cocoapods
   - bundler
+  - $HOME/Library/Caches/Homebrew
 
 env:
    global:
    - LANG=en_US.UTF-8
-   - WORKSPACE="IGListKit.xcworkspace"
 
    - IOS_SCHEME="IGListKit"
-   - TVOS_SCHEME="IGListKit-tvOS"
-   - MACOS_SCHEME="IGListKit-macOS"
 
-   - IOS_SDK=iphonesimulator11.3
-   - MACOS_SDK=macosx10.13
-   - TVOS_SDK=appletvsimulator11.3
+   - IOS_SDK=iphonesimulator12.2
+   - MACOS_SDK=macosx10.14
+   - TVOS_SDK=appletvsimulator12.2
 
    - IOS_EXAMPLE_WORKSPACE="Examples/Examples-iOS/IGListKitExamples.xcworkspace"
    - TVOS_EXAMPLE_WORKSPACE="Examples/Examples-tvOS/IGListKitExamples.xcworkspace"
    - MACOS_EXAMPLE_WORKSPACE="Examples/Examples-macOS/IGListKitExamples.xcworkspace"
    - EXAMPLE_SCHEME="IGListKitExamples"
 
-   matrix:
-   - DESTINATION="OS=9.3,name=iPad Air 2"  SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="NO" RUN_UI_TESTS="NO"  BUILD_EXAMPLE="YES" POD_LINT="YES"
-   - DESTINATION="OS=10.3.1,name=iPhone 7" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="YES" RUN_UI_TESTS="NO"  BUILD_EXAMPLE="YES" POD_LINT="NO"
-   - DESTINATION="OS=11.3,name=iPhone X"   SDK="$IOS_SDK" SCHEME="$IOS_SCHEME" RUN_TESTS="YES" RUN_UI_TESTS="YES" BUILD_EXAMPLE="YES" POD_LINT="NO"
+   # iOS Destinations
+   - IOS_DESTINATION_9="OS=9.3,name=iPad Air 2"
+   - IOS_DESTINATION_10="OS=10.3.1,name=iPhone 7"
+   - IOS_DESTINATION_11="OS=11.3,name=iPhone X"
+   - IOS_DESTINATION_12="OS=12.2,name=iPhone Xʀ"
 
-   - DESTINATION="OS=10.2,name=Apple TV 1080p" SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME" RUN_TESTS="NO" RUN_UI_TESTS="NO" BUILD_EXAMPLE="YES" POD_LINT="NO"
-   - DESTINATION="OS=11.3,name=Apple TV 4K"    SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME" RUN_TESTS="NO" RUN_UI_TESTS="NO" BUILD_EXAMPLE="YES" POD_LINT="NO"
+   # macOS Destinations
+   - MACOS_DESTINATION="arch=x86_64"
 
-   - DESTINATION="arch=x86_64" SDK="$MACOS_SDK" SCHEME="$MACOS_SCHEME" RUN_TESTS="YES" RUN_UI_TESTS="NO" BUILD_EXAMPLE="YES" POD_LINT="NO"
+   # tvOS Destinations
+   - TVOS_DESTINATION_10="OS=10.2,name=Apple TV 1080p"
+   - TVOS_DESTINATION_11="OS=11.3,name=Apple TV 4K"
+   - TVOS_DESTINATION_12="OS=12.2,name=Apple TV 4K"
 
 before_install:
-  # - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
-  # - gem install bundler --no-rdoc --no-ri --no-document --quiet
-  # - bundle install
-  - brew update
-  - brew outdated swiftlint || brew upgrade swiftlint
+  # Bundler 2.0
+  - gem update --system
+  - gem install bundler
 
-script:
-- set -o pipefail
-- xcodebuild -version -sdk
+jobs:
+  include:
+    - stage: pod lint
+      name: Cocoapods Lint
+      script: bundle exec pod lib lint
 
+    # Build example projects
+    - &build-examples
+      stage: build examples
+      name: "iOS 12.2"
+      env: DESTINATION="$IOS_DESTINATION_12" WORKSPACE="$IOS_EXAMPLE_WORKSPACE" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME"
+      script:
+        - set -o pipefail
+        - xcodebuild -version -sdk
+        - xcodebuild build -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
 
-- if [ $POD_LINT == "YES" ]; then
-      bundle exec pod lib lint;
-  fi
+    - <<: *build-examples
+      name: "iOS 11.3"
+      env: DESTINATION="$IOS_DESTINATION_11" WORKSPACE="$IOS_EXAMPLE_WORKSPACE" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME"
 
+    - <<: *build-examples
+      name: "iOS 10.3.1"
+      env: DESTINATION="$IOS_DESTINATION_10" WORKSPACE="$IOS_EXAMPLE_WORKSPACE" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME"
 
-- if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $IOS_SDK ]; then
-      xcodebuild build -workspace "$IOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
-  fi
+    - <<: *build-examples
+      name: "iOS 9.3"
+      env: DESTINATION="$IOS_DESTINATION_9" WORKSPACE="$IOS_EXAMPLE_WORKSPACE" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME"
 
+    - <<: *build-examples
+      name: "macOS 10.13"
+      env: DESTINATION="$MACOS_DESTINATION" WORKSPACE="$MACOS_EXAMPLE_WORKSPACE" SDK="$MACOS_SDK" SCHEME="$EXAMPLE_SCHEME"
 
-- if [ $RUN_UI_TESTS == "YES" ] && [ $SDK == $IOS_SDK ]; then
-      xcodebuild build test -workspace "$IOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
-  fi
+    - <<: *build-examples
+      name: "tvOS 12.3"
+      env: DESTINATION="$TVOS_DESTINATION_12" WORKSPACE="$TVOS_EXAMPLE_WORKSPACE" SDK="$TVOS_SDK" SCHEME="$EXAMPLE_SCHEME"
 
+    - <<: *build-examples
+      name: "tvOS 11.3"
+      env: DESTINATION="$TVOS_DESTINATION_11" WORKSPACE="$TVOS_EXAMPLE_WORKSPACE" SDK="$TVOS_SDK" SCHEME="$EXAMPLE_SCHEME"
 
-- if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $TVOS_SDK ]; then
-      xcodebuild build -workspace "$TVOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
-  fi
+    - <<: *build-examples
+      name: "tvOS 10.3"
+      env: DESTINATION="$TVOS_DESTINATION_10" WORKSPACE="$TVOS_EXAMPLE_WORKSPACE" SDK="$TVOS_SDK" SCHEME="$EXAMPLE_SCHEME"
 
+    # UI Tests
+    - stage: tests
+      name: "UI Tests: iOS 12.2"
+      env: DESTINATION="$IOS_DESTINATION_12" WORKSPACE="$IOS_EXAMPLE_WORKSPACE" SDK="$IOS_SDK" SCHEME="$EXAMPLE_SCHEME"
+      script:
+        - set -o pipefail
+        - xcodebuild build test -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
 
-- if [ $BUILD_EXAMPLE == "YES" ] && [ $SDK == $MACOS_SDK ]; then
-      xcodebuild build -workspace "$MACOS_EXAMPLE_WORKSPACE" -scheme "$EXAMPLE_SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
-  fi
+    # Unit Tests
+    - &unit-tests
+      stage: tests
+      name: "Tests: iOS 12.2"
+      env: DESTINATION="$IOS_DESTINATION_12" WORKSPACE="IGListKit.xcworkspace" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME"
+      script:
+        - set -o pipefail
+        - xcodebuild build build-for-testing -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c;
+        - xcodebuild analyze test-without-building -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c;
+      after_success:
+        - bundle exec slather
 
+    - <<: *unit-tests
+      name: "Tests: iOS 11.3"
+      env: DESTINATION="$IOS_DESTINATION_11" WORKSPACE="IGListKit.xcworkspace" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME"
 
-- if [ $RUN_TESTS == "YES" ]; then
-      xcodebuild build build-for-testing -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c;
-      xcodebuild analyze test-without-building -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c;
-  else
-      xcodebuild build analyze -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c;
-  fi
+    # Danger
+    - stage: Danger
+      script: bundle exec danger --verbose
 
-- bundle exec danger
+stages:
+  - pod lint
+  - build examples
+  - tests
+  - danger
 
-after_success:
-  - bundle exec slather
