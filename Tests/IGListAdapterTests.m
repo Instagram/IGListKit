@@ -736,6 +736,12 @@
     self.dataSource.objects = @[@100];
     [self.adapter reloadDataWithCompletion:nil];
 
+    if (@available(iOS 11.0, *)) {
+        self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        // Fallback on earlier versions
+    }
+    
     // no insets
     self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.collectionView layoutIfNeeded];
@@ -751,13 +757,45 @@
     self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
     [self.collectionView layoutIfNeeded];
     [self.adapter scrollToObject:@100 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionBottom animated:NO];
-    IGAssertEqualPoint([self.collectionView contentOffset], 0, 900);
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 900 + 100);
 
     // top 50, bottom 100
     self.collectionView.contentInset = UIEdgeInsetsMake(50, 0, 100, 0);
     [self.collectionView layoutIfNeeded];
     [self.adapter scrollToObject:@100 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionBottom animated:NO];
-    IGAssertEqualPoint([self.collectionView contentOffset], 0, 900);
+    IGAssertEqualPoint([self.collectionView contentOffset], 0, 900 + 100);
+}
+
+- (void)test_whenScrollHorizontalToRight_withContentInsets_thatRightFlushWithCollectionViewBounds {
+    self.dataSource.objects = @[@100];
+    [self.adapter reloadDataWithCompletion:nil];
+    
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    [layout invalidateLayout];
+    
+    // no insets
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    [self.collectionView layoutIfNeeded];
+    [self.adapter scrollToObject:@100 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionHorizontal scrollPosition:UICollectionViewScrollPositionRight animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 900, 0);
+    
+    // left 100
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 100, 0, 0);
+    [self.adapter scrollToObject:@100 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionHorizontal scrollPosition:UICollectionViewScrollPositionRight animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 900, 0);
+    
+    // right 100
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 100);
+    [self.collectionView layoutIfNeeded];
+    [self.adapter scrollToObject:@100 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionHorizontal scrollPosition:UICollectionViewScrollPositionRight animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 900 + 100, 0);
+    
+    // left 50, right 100
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 50, 0, 100);
+    [self.collectionView layoutIfNeeded];
+    [self.adapter scrollToObject:@100 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionHorizontal scrollPosition:UICollectionViewScrollPositionRight animated:NO];
+    IGAssertEqualPoint([self.collectionView contentOffset], 900 + 100, 0);
 }
 
 - (void)test_whenScrollHorizontallyToItem {
