@@ -28,6 +28,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Fixed bug with layouts inconsistency in `updateAnimated:completion` of IGListBindingSectionController. [Qinghua Hong](https://github.com/xohozu) [(#1285)](https://github.com/Instagram/IGListKit/pull/1285)
 
+- Fixed bug with `-[IGListAdapter scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:animated:]` where the content inset(bottom/right) of the collection view was incorrectly being applied to the final offset and was inconsistent with the content inset(top/left) of the collection view being applied. [Qinghua Hong](https://github.com/xohozu) [(#1284)](https://github.com/Instagram/IGListKit/pull/1284)
+
 - Fixed crash when the data source is nil before calling `-[IGListAdapterUpdater performUpdateWithCollectionViewBlock:fromObjects:toObjectsBlock:animated:objectTransitionBlock:completion:]`. [Zhisheng Huang](https://github.com/lorixx) (tbd)
 
 - Experimental fix to get the `UICollectionView` for batch updating immediately before applying the update. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
