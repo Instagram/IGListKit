@@ -48,6 +48,15 @@ NS_SWIFT_NAME(ListBatchContext)
                         atIndexes:(NSIndexSet *)indexes;
 
 /**
+ Invalidates layouts of cells at specific in the section controller.
+ 
+ @param sectionController The section controller who's cells need invalidating.
+ @param indexes The indexes of items that need invalidating.
+ */
+- (void)invalidateLayoutInSectionController:(IGListSectionController *)sectionController
+                                  atIndexes:(NSIndexSet *)indexes;
+
+/**
  Moves a cell from one index to another within the section controller.
  
  @param sectionController The section controller who's cell needs moved.

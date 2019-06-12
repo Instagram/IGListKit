@@ -1196,6 +1196,24 @@
     [self _updateBackgroundViewShouldHide:![self _itemCountIsZero]];
 }
 
+- (void)invalidateLayoutInSectionController:(IGListSectionController *)sectionController atIndexes:(NSIndexSet *)indexes {
+    IGAssertMainThread();
+    IGParameterAssert(indexes != nil);
+    IGParameterAssert(sectionController != nil);
+    UICollectionView *collectionView = self.collectionView;
+    IGAssert(collectionView != nil, @"Invalidating items from %@ without a collection view at indexes %@.", sectionController, indexes);
+    
+    if (indexes.count == 0) {
+        return;
+    }
+    
+    NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes usePreviousIfInUpdateBlock:NO];
+    UICollectionViewLayout *layout = collectionView.collectionViewLayout;
+    UICollectionViewLayoutInvalidationContext *context = [[[layout.class invalidationContextClass] alloc] init];
+    [context invalidateItemsAtIndexPaths:indexPaths];
+    [layout invalidateLayoutWithContext:context];
+}
+
 - (void)moveInSectionController:(IGListSectionController *)sectionController fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
