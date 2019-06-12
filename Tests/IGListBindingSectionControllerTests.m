@@ -18,9 +18,10 @@
 #import "IGListAdapterInternal.h"
 #import "IGTestObject.h"
 #import "IGTestCell.h"
-#import "IGLayoutTestItem.h"
 #import "IGListTestCase.h"
 #import "IGTestBindingWithoutDeselectionDelegate.h"
+#import "IGTestInvalidateLayoutDataSource.h"
+#import "IGTestInvalidateLayoutObject.h"
 
 @interface IGListBindingSectionControllerTests : IGListTestCase
 
@@ -396,16 +397,18 @@
     XCTAssertNotEqualObjects(initObjects, section.viewModels);
 }
 
-- (void)test_whenUpdatingManully_withViewModelReloads_thatCellSizeUpdatedToLatestSize_usingIGListCollectionViewLayout {
+- (void)test_whenUpdatingManully_withInvalidateLayoutForUpdates_thatCellSizeUpdatedToLatestSize_usingIGListCollectionViewLayout {
+    self.dataSource = [[IGTestInvalidateLayoutDataSource alloc] init];
+    self.adapter.dataSource = self.dataSource;
     
-    NSArray *startingSection0 = @[
-                                  [[IGTestObject alloc] initWithKey:@0 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 30)]],
-                                  [[IGTestObject alloc] initWithKey:@1 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 40)]]
-                                  ];
-    NSArray *startingSection1 = @[
-                                  [[IGTestObject alloc] initWithKey:@0 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 50)]],
-                                  [[IGTestObject alloc] initWithKey:@1 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 60)]]
-                                  ];
+    NSArray<IGTestObject *> *startingSection0 = @[
+                                                  genInvalidateLayoutObject(@0, CGSizeMake(50, 30)),
+                                                  genInvalidateLayoutObject(@1, CGSizeMake(50, 40)),
+                                                  ];
+    NSArray<IGTestObject *> *startingSection1 = @[
+                                                  genInvalidateLayoutObject(@0, CGSizeMake(50, 50)),
+                                                  genInvalidateLayoutObject(@1, CGSizeMake(50, 60))
+                                                  ];
     
     IGListCollectionViewLayout *layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:NO topContentInset:0 stretchToEdge:NO];
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.frame collectionViewLayout:layout];
@@ -413,8 +416,8 @@
     self.adapter.experiments |= IGListExperimentInvalidateLayoutForUpdates;
     
     [self setupWithObjects:@[
-                             [[IGTestDiffingObject alloc] initWithKey:@0 objects:startingSection0],
-                             [[IGTestDiffingObject alloc] initWithKey:@1 objects:startingSection1]
+                             [[IGTestInvalidateLayoutObject alloc] initWithKey:@0 objects:startingSection0],
+                             [[IGTestInvalidateLayoutObject alloc] initWithKey:@1 objects:startingSection1]
                              ]];
     
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
@@ -430,18 +433,18 @@
     IGAssertEqualSize(cell10.frame.size, 50, 50);
     IGAssertEqualSize(cell11.frame.size, 50, 60);
     
-    NSArray *newSection0 = @[
-                             [[IGTestObject alloc] initWithKey:@0 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(45, 30)]],  // Width: 50 -> 45
-                             [[IGTestObject alloc] initWithKey:@1 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 55)]]   // Height: 40 -> 55
-                             ];
-    NSArray *newSection1 = @[
-                             [[IGTestObject alloc] initWithKey:@0 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(50, 50)]],  // No change
-                             [[IGTestObject alloc] initWithKey:@1 value:[[IGLayoutTestItem alloc] initWithSize:CGSizeMake(20, 30)]]   // Size: (50, 60) -> (20, 30)
-                             ];
+    NSArray<IGTestObject *> *newSection0 = @[
+                                             genInvalidateLayoutObject(@0, CGSizeMake(45, 30)),  // Width: 50 -> 45
+                                             genInvalidateLayoutObject(@1, CGSizeMake(50, 55)),  // Height: 40 -> 55
+                                             ];
+    NSArray<IGTestObject *> *newSection1 = @[
+                                             genInvalidateLayoutObject(@0, CGSizeMake(50, 50)),  // No change
+                                             genInvalidateLayoutObject(@1, CGSizeMake(20, 30)),  // Size: (50, 60) -> (20, 30)
+                                             ];
     
     self.dataSource.objects = @[
-                                [[IGTestDiffingObject alloc] initWithKey:@0 objects:newSection0],
-                                [[IGTestDiffingObject alloc] initWithKey:@1 objects:newSection1]
+                                [[IGTestInvalidateLayoutObject alloc] initWithKey:@0 objects:newSection0],
+                                [[IGTestInvalidateLayoutObject alloc] initWithKey:@1 objects:newSection1]
                                 ];
     
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];

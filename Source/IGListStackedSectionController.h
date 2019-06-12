@@ -26,7 +26,9 @@ IGLK_SUBCLASSING_RESTRICTED
 NS_SWIFT_NAME(ListStackedSectionController)
 @interface IGListStackedSectionController : IGListSectionController
 
-/// A bitmask of experiments to conduct on the section controller.
+/**
+ A bitmask of experiments to conduct on the section controller.
+ */
 @property (nonatomic, assign) IGListExperiment experiments;
 
 /**
