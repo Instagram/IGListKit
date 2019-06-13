@@ -12,6 +12,7 @@
 
 #import "IGListAssert.h"
 #import "IGListBatchUpdateData.h"
+#import "IGListBoundable.h"
 #import "IGListCompatibility.h"
 #import "IGListDiff.h"
 #import "IGListDiffable.h"
@@ -57,6 +58,7 @@
 #import "IGListWorkingRangeDelegate.h"
 #import "IGListAssert.h"
 #import "IGListBatchUpdateData.h"
+#import "IGListBoundable.h"
 #import "IGListCompatibility.h"
 #import "IGListDiff.h"
 #import "IGListDiffable.h"
