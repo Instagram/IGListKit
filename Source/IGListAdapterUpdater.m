@@ -174,10 +174,8 @@
         [self _cleanStateAfterUpdates];
         [self _performBatchUpdatesItemBlockApplied];
         [collectionView reloadData];
-        if (!IGListExperimentEnabled(self.experiments, IGListExperimentSkipLayout)
-            || collectionView.window != nil) {
-            [collectionView layoutIfNeeded];
-        }
+        [collectionView layoutIfNeeded];
+
         executeCompletionBlocks(YES);
     };
 
