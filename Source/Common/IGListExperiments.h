@@ -26,6 +26,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentGetCollectionViewAtUpdate = 1 << 7,
     /// Test invalidating layout when cell reloads/updates in IGListBindingSectionController.
     IGListExperimentInvalidateLayoutForUpdates = 1 << 8,
+    /// Test using the collection view when asking for layout instead of accessing the data source. Only apply to IGListCollectionViewLayout.
+    IGListExperimentUseCollectionViewInsteadOfDataSourceInLayout = 1 << 9
 };
 
 /**
