@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 
 #import <IGListKit/IGListMacros.h>
+#import <IGListKit/IGListExperiments.h>
 
 #import "IGListCollectionViewLayoutCompatible.h"
 
@@ -92,6 +93,11 @@ NS_SWIFT_NAME(ListCollectionViewLayout)
  Set this to `YES` to show sticky header when a section had no item. Default is `NO`.
 */
 @property (nonatomic, assign) BOOL showHeaderWhenEmpty;
+
+/**
+ A bitmask of experiments to conduct on the adapter.
+ */
+@property (nonatomic, assign) IGListExperiment experiments;
 
 /**
  Create and return a new collection view layout.
