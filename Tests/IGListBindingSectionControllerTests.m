@@ -465,5 +465,21 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_viewModelsUpdate_afterCellHasBeenMoved {
+    [self setupWithObjects:@[
+                             [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven", @20]],
+                             ]];
+    
+    IGTestDiffingSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+    
+    [section moveObjectFromIndex:0 toIndex:2];
+    XCTAssertEqual([section.viewModels firstObject], @"seven");
+    XCTAssertEqual([section.viewModels lastObject], @7);
+    
+    [section moveObjectFromIndex:2 toIndex:1];
+    XCTAssertEqual([section.viewModels objectAtIndex: 1], @7);
+    XCTAssertEqual([section.viewModels lastObject], @20);
+}
+
 @end
 

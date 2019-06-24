@@ -45,6 +45,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 - Removed `nibName` argument from `IGListReusableViewIdentifier`. [Trung Duc](https://github.com/trungducc) [(#1223)](https://github.com/Instagram/IGListKit/issues/1223)
 
 - Fixed crash when using `-[IGListCollectionContext dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:]` [Jeremy Lawrence](https://github.com/ziewvater) (tbd)
+- Added missing method override to `IGListBindingSectionController` that updates the internal `viewModels` array after moving a cell. [Dennis Müller](https://github.com/d3mueller) (see [#1262](https://github.com/Instagram/IGListKit/issues/1262))
 
 - Fixed logic flaw in `[IGListCollectionViewLayout shouldInvalidateLayoutForBoundsChange:]`. [Allen Hsu](https://github.com/allenhsu) (tbd)
 
