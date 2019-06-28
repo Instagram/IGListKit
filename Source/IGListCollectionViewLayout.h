@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -8,6 +8,9 @@
 #import <UIKit/UIKit.h>
 
 #import <IGListKit/IGListMacros.h>
+#import <IGListKit/IGListExperiments.h>
+
+#import "IGListCollectionViewLayoutCompatible.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -69,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
  Please see the unit tests for more configuration examples and expected output.
  */
 NS_SWIFT_NAME(ListCollectionViewLayout)
-@interface IGListCollectionViewLayout : UICollectionViewLayout
+@interface IGListCollectionViewLayout : UICollectionViewLayout <IGListCollectionViewLayoutCompatible>
 
 /**
  Direction in which layout will be scrollable; items will be flowed in the perpendicular direction, "newlining" when they
@@ -92,16 +95,9 @@ NS_SWIFT_NAME(ListCollectionViewLayout)
 @property (nonatomic, assign) BOOL showHeaderWhenEmpty;
 
 /**
- Notify the layout that a specific section was modified before invalidation. Used to optimize layout re-calculation.
-
- @note When updating a collection view (ex: calling `-insertSections`), `-invalidateLayoutWithContext` gets called on
- the layout object. However, the invalidation context doesn't provide details on which index paths are being modified,
- which typically forces a full layout re-calculation. We can use this method to keep track of which section actually
- needs to be updated on the following `-invalidateLayoutWithContext`. See `IGListCollectionView`.
-
- @param modifiedSection The section that was modified.
+ A bitmask of experiments to conduct on the adapter.
  */
-- (void)didModifySection:(NSInteger)modifiedSection;
+@property (nonatomic, assign) IGListExperiment experiments;
 
 /**
  Create and return a new collection view layout.

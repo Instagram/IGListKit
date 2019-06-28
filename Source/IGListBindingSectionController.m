@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -73,7 +73,9 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
             }
         }];
         
-        
+        if (IGListExperimentEnabled(self.collectionContext.experiments, IGListExperimentInvalidateLayoutForUpdates)) {
+            [batchContext invalidateLayoutInSectionController:self atIndexes:result.updates];
+        }
         [batchContext deleteInSectionController:self atIndexes:result.deletes];
         [batchContext insertInSectionController:self atIndexes:result.inserts];
         
@@ -123,6 +125,16 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
 #endif
         [self updateAnimated:YES completion:nil];
     }
+}
+
+- (void)moveObjectFromIndex:(NSInteger)sourceIndex toIndex:(NSInteger)destinationIndex {
+    NSMutableArray *viewModels = [self.viewModels mutableCopy];
+    
+    id modelAtSource = [viewModels objectAtIndex:sourceIndex];
+    [viewModels removeObjectAtIndex:sourceIndex];
+    [viewModels insertObject:modelAtSource atIndex:destinationIndex];
+    
+    self.viewModels = viewModels;
 }
 
 - (void)didSelectItemAtIndex:(NSInteger)index {

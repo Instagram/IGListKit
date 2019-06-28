@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -57,6 +57,10 @@ NS_SWIFT_NAME(ListSectionController)
  will be used on screen. You should never allocate new cells in this method, instead use the provided adapter to call
  one of the dequeue methods on the IGListCollectionContext. The default implementation will assert. **You must override
  this method without calling super.**
+ 
+ @warning Don't call this method to obtain a reference to currently dequeued cells: a new cell will be dequeued
+ and returned, rather than the existing cell that you may have intended to retrieve. Instead, you can call
+ `-cellForItemAtIndex:sectionController:` on `IGListCollectionContext` to obtain active cell references.
  */
 - (__kindof UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index;
 
@@ -110,7 +114,9 @@ NS_SWIFT_NAME(ListSectionController)
 /**
  Identifies whether an object can be moved through interactive reordering.
  
- @param index The index of the unhighlighted cell.
+ @param index The index of the object in the list.
+
+ @return `YES` if the object is allowed to move, otherwise `NO`.
  
  @note Interactive reordering is supported both for items within a single section, as well as for reordering sections
  themselves when sections contain only one item. The default implementation returns false.

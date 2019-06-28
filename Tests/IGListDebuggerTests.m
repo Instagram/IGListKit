@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -34,6 +34,7 @@
                                                                           moveSections:[NSSet setWithObject:[[IGListMoveIndex alloc] initWithFrom:3 to:4]]
                                                                       insertIndexPaths:@[path]
                                                                       deleteIndexPaths:@[path]
+                                                                      updateIndexPaths:@[]
                                                                         moveIndexPaths:@[[[IGListMoveIndexPath alloc] initWithFrom:path to:path]]];
     IGListTestAdapterDataSource *dataSource = [IGListTestAdapterDataSource new];
     dataSource.objects = @[@1, @2, @3];

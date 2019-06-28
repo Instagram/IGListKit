@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -46,6 +46,15 @@ NS_SWIFT_NAME(ListBatchContext)
  */
 - (void)deleteInSectionController:(IGListSectionController *)sectionController
                         atIndexes:(NSIndexSet *)indexes;
+
+/**
+ Invalidates layouts of cells at specific in the section controller.
+ 
+ @param sectionController The section controller who's cells need invalidating.
+ @param indexes The indexes of items that need invalidating.
+ */
+- (void)invalidateLayoutInSectionController:(IGListSectionController *)sectionController
+                                  atIndexes:(NSIndexSet *)indexes;
 
 /**
  Moves a cell from one index to another within the section controller.

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10,6 +10,7 @@
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListAdapterUpdater.h>
 #import <IGListKit/IGListSupplementaryViewSource.h>
+#import <IGListKit/IGSystemVersion.h>
 
 #import "IGListSectionControllerInternal.h"
 #import "IGListDebugger.h"
@@ -26,7 +27,7 @@
 
 - (void)dealloc {
     // on iOS 9 setting the dataSource has side effects that can invalidate the layout and seg fault
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
+    if (!IGSystemVersionIsIOS9OrNewer()) {
         // properties are assign for <iOS 9
         _collectionView.dataSource = nil;
         _collectionView.delegate = nil;
@@ -94,7 +95,7 @@
 
         // dump old registered section controllers in the case that we are changing collection views or setting for
         // the first time
-        _registeredCellClasses = [NSMutableSet new];
+        _registeredCellIdentifiers = [NSMutableSet new];
         _registeredNibNames = [NSMutableSet new];
         _registeredSupplementaryViewIdentifiers = [NSMutableSet new];
         _registeredSupplementaryViewNibNames = [NSMutableSet new];
@@ -263,7 +264,7 @@
         case UICollectionViewScrollDirectionHorizontal: {
             switch (scrollPosition) {
                 case UICollectionViewScrollPositionRight:
-                    contentOffset.x = offsetMax - collectionViewWidth - contentInset.left;
+                    contentOffset.x = offsetMax - collectionViewWidth + contentInset.right;
                     break;
                 case UICollectionViewScrollPositionCenteredHorizontally: {
                     const CGFloat insets = (contentInset.left - contentInset.right) / 2.0;
@@ -287,7 +288,7 @@
         case UICollectionViewScrollDirectionVertical: {
             switch (scrollPosition) {
                 case UICollectionViewScrollPositionBottom:
-                    contentOffset.y = offsetMax - collectionViewHeight;
+                    contentOffset.y = offsetMax - collectionViewHeight + contentInset.bottom;
                     break;
                 case UICollectionViewScrollPositionCenteredVertically: {
                     const CGFloat insets = (contentInset.top - contentInset.bottom) / 2.0;
@@ -553,10 +554,15 @@
 
 - (CGSize)sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     IGAssertMainThread();
+    id<IGListAdapterPerformanceDelegate> performanceDelegate = self.performanceDelegate;
+    [performanceDelegate listAdapterWillCallSize:self];
 
     IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
     const CGSize size = [sectionController sizeForItemAtIndex:indexPath.item];
-    return CGSizeMake(MAX(size.width, 0.0), MAX(size.height, 0.0));
+    const CGSize positiveSize = CGSizeMake(MAX(size.width, 0.0), MAX(size.height, 0.0));
+
+    [performanceDelegate listAdapter:self didCallSizeOnSectionController:sectionController atIndex:indexPath.item];
+    return positiveSize;
 }
 
 - (CGSize)sizeForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
@@ -781,6 +787,9 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    id<IGListAdapterPerformanceDelegate> performanceDelegate = self.performanceDelegate;
+    [performanceDelegate listAdapterWillCallScroll:self];
+
     // forward this method to the delegate b/c this implementation will steal the message from the proxy
     id<UIScrollViewDelegate> scrollViewDelegate = self.scrollViewDelegate;
     if ([scrollViewDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
@@ -790,6 +799,8 @@
     for (IGListSectionController *sectionController in visibleSectionControllers) {
         [[sectionController scrollDelegate] listAdapter:self didScrollSectionController:sectionController];
     }
+
+    [performanceDelegate listAdapter:self didCallScroll:scrollView];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -955,10 +966,10 @@
     IGParameterAssert(index >= 0);
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Dequeueing cell of class %@ with reuseIdentifier %@ from section controller %@ without a collection view at index %li", NSStringFromClass(cellClass), reuseIdentifier, sectionController, (long)index);
-    NSString *identifier = IGListReusableViewIdentifier(cellClass, nil, nil, reuseIdentifier);
+    NSString *identifier = IGListReusableViewIdentifier(cellClass, nil, reuseIdentifier);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
-    if (![self.registeredCellClasses containsObject:cellClass]) {
-        [self.registeredCellClasses addObject:cellClass];
+    if (![self.registeredCellIdentifiers containsObject:identifier]) {
+        [self.registeredCellIdentifiers addObject:identifier];
         [collectionView registerClass:cellClass forCellWithReuseIdentifier:identifier];
     }
     return [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
@@ -1012,7 +1023,7 @@
     IGParameterAssert(index >= 0);
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Dequeueing cell of class %@ from section controller %@ without a collection view at index %li with supplementary view %@", NSStringFromClass(viewClass), sectionController, (long)index, elementKind);
-    NSString *identifier = IGListReusableViewIdentifier(viewClass, nil, elementKind, nil);
+    NSString *identifier = IGListReusableViewIdentifier(viewClass, elementKind, nil);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
     if (![self.registeredSupplementaryViewIdentifiers containsObject:identifier]) {
         [self.registeredSupplementaryViewIdentifiers addObject:identifier];
@@ -1061,7 +1072,7 @@
     IGAssert(self.collectionView != nil, @"Performing batch updates without a collection view.");
 
     [self _enterBatchUpdates];
-
+    
     __weak __typeof__(self) weakSelf = self;
     [self.updater performUpdateWithCollectionViewBlock:[self _collectionViewBlock] animated:animated itemUpdates:^{
         weakSelf.isInUpdateBlock = YES;
@@ -1183,6 +1194,24 @@
     NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes usePreviousIfInUpdateBlock:YES];
     [self.updater deleteItemsFromCollectionView:collectionView indexPaths:indexPaths];
     [self _updateBackgroundViewShouldHide:![self _itemCountIsZero]];
+}
+
+- (void)invalidateLayoutInSectionController:(IGListSectionController *)sectionController atIndexes:(NSIndexSet *)indexes {
+    IGAssertMainThread();
+    IGParameterAssert(indexes != nil);
+    IGParameterAssert(sectionController != nil);
+    UICollectionView *collectionView = self.collectionView;
+    IGAssert(collectionView != nil, @"Invalidating items from %@ without a collection view at indexes %@.", sectionController, indexes);
+    
+    if (indexes.count == 0) {
+        return;
+    }
+    
+    NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes usePreviousIfInUpdateBlock:NO];
+    UICollectionViewLayout *layout = collectionView.collectionViewLayout;
+    UICollectionViewLayoutInvalidationContext *context = [[[layout.class invalidationContextClass] alloc] init];
+    [context invalidateItemsAtIndexPaths:indexPaths];
+    [layout invalidateLayoutWithContext:context];
 }
 
 - (void)moveInSectionController:(IGListSectionController *)sectionController fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {

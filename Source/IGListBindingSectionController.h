@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -76,6 +76,16 @@ NS_SWIFT_NAME(ListBindingSectionController)
  @param completion An optional completion block executed after updates finish. Parameter is YES if updates were applied.
  */
 - (void)updateAnimated:(BOOL)animated completion:(nullable void (^)(BOOL updated))completion;
+
+/**
+ Notifies the section that a list object should move within a section as the result of interactive reordering.
+ 
+ @param sourceIndex The starting index of the object.
+ @param destinationIndex The ending index of the object.
+ 
+ @note this method must be implemented if interactive reordering is enabled. To ensure updating the internal viewModels array, **calling super is required**, preferably before your own implementation.
+ */
+- (void)moveObjectFromIndex:(NSInteger)sourceIndex toIndex:(NSInteger)destinationIndex NS_REQUIRES_SUPER;
 
 @end
 

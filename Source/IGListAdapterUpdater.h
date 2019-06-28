@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -37,6 +37,17 @@ NS_SWIFT_NAME(ListAdapterUpdater)
 @property (nonatomic, assign) BOOL movesAsDeletesInserts;
 
 /**
+ A flag indicating that section reloads should be treated as item reloads, instead of converting them to "delete, then insert" operations.
+ This only applies if the number of items for the section is unchanged.
+
+ @note If the number of items for the section is changed, we would fallback to the default behavior and convert it to "delete + insert",
+ because the collectionView can crash otherwise.
+ 
+ Default is NO.
+ */
+@property (nonatomic, assign) BOOL preferItemReloadsForSectionReloads;
+
+/**
  A flag indicating whether this updater should skip diffing and simply call
  `reloadData` for updates when the collection view is not in a window. The default value is `YES`.
  
@@ -46,11 +57,6 @@ NS_SWIFT_NAME(ListAdapterUpdater)
  @warning On iOS < 8.3, this behavior is unsupported and will always be treated as `NO`.
  */
 @property (nonatomic, assign) BOOL allowsBackgroundReloading;
-
-/**
- Time, in seconds, to wait and coalesce batch updates. Default is 0.
- */
-@property (nonatomic, assign) NSTimeInterval coalescanceTime;
 
 /**
  A bitmask of experiments to conduct on the updater.

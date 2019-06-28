@@ -1,5 +1,5 @@
 /**
- Copyright (c) 2016-present, Facebook, Inc. All rights reserved.
+ Copyright (c) Facebook, Inc. and its affiliates.
  
  The examples provided by Facebook are for non-commercial testing and evaluation
  purposes only. Facebook reserves all rights not expressly granted.
@@ -12,8 +12,8 @@
  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import UIKit
 import IGListKit
+import UIKit
 
 final class ReorderableSectionController: ListSectionController {
 

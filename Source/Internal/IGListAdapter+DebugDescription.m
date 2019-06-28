@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -34,9 +34,9 @@
         [debug addObject:[NSString stringWithFormat:@"Is prefetching enabled: %@", IGListDebugBOOL(self.collectionView.isPrefetchingEnabled)]];
     }
 
-    if (self.registeredCellClasses.count > 0) {
-        [debug addObject:@"Registered cell classes:"];
-        [debug addObject:[self.registeredCellClasses description]];
+    if (self.registeredCellIdentifiers.count > 0) {
+        [debug addObject:@"Registered cell identifiers:"];
+        [debug addObject:[self.registeredCellIdentifiers description]];
     }
 
     if (self.registeredNibNames.count > 0) {

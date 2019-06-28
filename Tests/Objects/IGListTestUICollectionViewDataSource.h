@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
@@ -16,6 +16,8 @@
 @property (nonatomic, strong) NSArray *objects;
 
 + (instancetype)sectionWithObjects:(NSArray *)objects;
+
++ (instancetype)sectionWithObjects:(NSArray *)objects identifier:(NSString *)identifier;
 
 @end
 

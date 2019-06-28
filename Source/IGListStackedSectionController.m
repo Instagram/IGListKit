@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -415,6 +415,11 @@ static void * kStackedSectionControllerIndexKey = &kStackedSectionControllerInde
     [self reloadData];
     NSIndexSet *itemIndexes = [self _itemIndexesForSectionController:sectionController indexes:indexes];
     [self.forwardingBatchContext deleteInSectionController:self atIndexes:itemIndexes];
+}
+
+- (void)invalidateLayoutInSectionController:(IGListSectionController *)sectionController atIndexes:(NSIndexSet *)indexes {
+    NSIndexSet *itemIndexes = [self _itemIndexesForSectionController:sectionController indexes:indexes];
+    [self.forwardingBatchContext invalidateLayoutInSectionController:sectionController atIndexes:itemIndexes];
 }
 
 - (void)moveInSectionController:(IGListSectionController *)sectionController fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {

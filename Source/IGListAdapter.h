@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -11,6 +11,7 @@
 #import <IGListKit/IGListAdapterDelegate.h>
 #import <IGListKit/IGListAdapterMoveDelegate.h>
 #import <IGListKit/IGListCollectionContext.h>
+#import <IGListKit/IGListAdapterPerformanceDelegate.h>
 #import <IGListKit/IGListAdapterUpdateListener.h>
 
 #import <IGListKit/IGListExperiments.h>
@@ -82,6 +83,11 @@ NS_SWIFT_NAME(ListAdapter)
  @note This works with UICollectionView interactive reordering available on iOS 9.0+
  */
 @property (nonatomic, nullable, weak) id <IGListAdapterMoveDelegate> moveDelegate NS_AVAILABLE_IOS(9_0);
+
+/**
+ The object that receives `IGListAdapterPerformanceDelegate` events to measure performance.
+ */
+@property (nonatomic, nullable, weak) id <IGListAdapterPerformanceDelegate> performanceDelegate;
 
 /**
  The updater for the adapter.

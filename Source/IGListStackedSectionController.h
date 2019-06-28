@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -7,6 +7,7 @@
 
 #import <IGListKit/IGListSectionController.h>
 
+#import <IGListKit/IGListExperiments.h>
 #import <IGListKit/IGListMacros.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -24,6 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
 IGLK_SUBCLASSING_RESTRICTED
 NS_SWIFT_NAME(ListStackedSectionController)
 @interface IGListStackedSectionController : IGListSectionController
+
+/**
+ A bitmask of experiments to conduct on the section controller.
+ */
+@property (nonatomic, assign) IGListExperiment experiments;
 
 /**
  Creates a new stacked section controller.
