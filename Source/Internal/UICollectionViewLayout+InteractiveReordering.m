@@ -12,6 +12,7 @@
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListSectionController.h>
 #import <IGListKit/IGSystemVersion.h>
+#import <IGListKit/IGWeakObject.h>
 
 #import <objc/runtime.h>
 
@@ -60,7 +61,9 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
 }
 
 - (void)ig_hijackLayoutInteractiveReorderingMethodForAdapter:(IGListAdapter *)adapter {
-    objc_setAssociatedObject(self, kIGListAdapterKey, adapter, OBJC_ASSOCIATION_ASSIGN);
+    IGWeakObject *weakObject = [[IGWeakObject alloc] init];
+    weakObject.object = adapter;
+    objc_setAssociatedObject(self, kIGListAdapterKey, weakObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSIndexPath *)ig_targetIndexPathForInteractivelyMovingItem:(NSIndexPath *)previousIndexPath
@@ -70,7 +73,7 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
     NSIndexPath *originalTarget = [self ig_targetIndexPathForInteractivelyMovingItem:previousIndexPath
                                                                         withPosition:position];
 
-    IGListAdapter *adapter = (IGListAdapter *)objc_getAssociatedObject(self, kIGListAdapterKey);
+    IGListAdapter *adapter = ((IGWeakObject *)objc_getAssociatedObject(self, kIGListAdapterKey)).object;
     if (adapter == nil) {
         return originalTarget;
     }
@@ -143,7 +146,7 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
 }
 
 - (UICollectionViewLayoutInvalidationContext *)ig_cleanupInvalidationContext:(UICollectionViewLayoutInvalidationContext *)originalContext {
-    IGListAdapter *adapter = (IGListAdapter *)objc_getAssociatedObject(self, kIGListAdapterKey);
+    IGListAdapter *adapter = ((IGWeakObject *)objc_getAssociatedObject(self, kIGListAdapterKey)).object;
     if (adapter == nil || !self.collectionView) {
         return originalContext;
     }
