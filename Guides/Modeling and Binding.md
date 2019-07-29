@@ -15,7 +15,7 @@ You can follow along and build the example in this guide. First, you must downlo
 
 Take a look at the following Instagram-inspired list element design:
 
-![Design Specs](../Resources/modeling-design.png)
+![Design Specs](https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/modeling-design.png)
 
 You can already start mentally modelling your data:
 
@@ -234,7 +234,7 @@ You now have the following view models, which can all be derived from each `Post
 
 Let's start using these models to power cells using `ListBindingSectionController`. This controller takes a top-level model (`Post`), asks its data source for an array of diffable view models (our view models above), then binds those view models to cells (provided in the starter project).
 
-![Binding Flow](../Resources/binding-flow.png)
+![Binding Flow](https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/binding-flow.png)
 
 Create **PostSectionController.swift** and add the following code:
 
@@ -470,7 +470,7 @@ func listAdapter(
 
 **Build and run** the sample app to see your post show up!
 
-![Working in the Simulator](../Resources/modeling-working.png)
+![Working in the Simulator](https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/modeling-working.png)
 
 ## Handling Cell Actions
 
@@ -570,7 +570,7 @@ ActionViewModel(likes: localLikes ?? object.likes)
 **Build and run** the app, tap on the heart button, and see your likes increment!
 
 <p align="center">
-  <img src="../Resources/modeling-likes.gif" width=300  />
+  <img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/modeling-likes.gif" width=300  />
 </p>
 
 ## Wrapping up
