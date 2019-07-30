@@ -56,7 +56,7 @@ jobs:
   include:
     - stage: pod lint
       name: Cocoapods Lint
-      script: bundle exec pod lib lint
+      script: bundle exec pod lib lint --allow-warnings
 
     # Build example projects
     - &build-examples
