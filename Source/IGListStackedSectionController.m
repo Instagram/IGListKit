@@ -10,7 +10,6 @@
 #import <objc/runtime.h>
 
 #import <IGListKit/IGListAssert.h>
-#import <IGListKit/IGListSupplementaryViewSource.h>
 
 #import "IGListSectionControllerInternal.h"
 

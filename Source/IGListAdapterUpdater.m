@@ -9,8 +9,6 @@
 #import "IGListAdapterUpdaterInternal.h"
 
 #import <IGListKit/IGListAssert.h>
-#import <IGListKit/IGListBatchUpdateData.h>
-#import <IGListKit/IGListDiff.h>
 #import <IGListKit/IGListIndexSetResultInternal.h>
 #import <IGListKit/IGListMoveIndexPathInternal.h>
 

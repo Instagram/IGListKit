@@ -6,9 +6,6 @@
  */
 
 #import "IGListMoveIndexPath.h"
-#import "IGListMoveIndexPathInternal.h"
-
-#import <IGListKit/IGListMacros.h>
 
 @implementation IGListMoveIndexPath
 
