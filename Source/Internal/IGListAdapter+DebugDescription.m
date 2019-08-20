@@ -59,15 +59,15 @@
         [debug addObjectsFromArray:IGListDebugIndentedLines([(IGListAdapterUpdater *)self.updater debugDescriptionLines])];
     }
 
-    [debug addObject:[NSString stringWithFormat:@"Section map details:"]];
+    [debug addObject:@"Section map details:"];
     [debug addObjectsFromArray:IGListDebugIndentedLines([self.sectionMap debugDescriptionLines])];
 
     if (self.previousSectionMap != nil) {
-        [debug addObject:[NSString stringWithFormat:@"Previous section map details:"]];
+        [debug addObject:@"Previous section map details:"];
         [debug addObjectsFromArray:IGListDebugIndentedLines([self.previousSectionMap debugDescriptionLines])];
     }
 
-    [debug addObject:[NSString stringWithFormat:@"Collection view details:"]];
+    [debug addObject:@"Collection view details:"];
     [debug addObjectsFromArray:IGListDebugIndentedLines([self.collectionView debugDescriptionLines])];
 #endif // #if IGLK_DEBUG_DESCRIPTION_ENABLED
     return debug;
