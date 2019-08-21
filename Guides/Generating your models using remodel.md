@@ -1,4 +1,4 @@
-# Generating your IGListDiffable models
+# Generating your IGListDiffable models using remodel
 
 With the `IGListDiffable` plugin for [remodel by facebook](https://github.com/facebook/remodel), you can automatically generate models conforming to the `IGListDiffable`.
 
