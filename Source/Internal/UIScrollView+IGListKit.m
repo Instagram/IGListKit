@@ -11,15 +11,11 @@
 
 - (UIEdgeInsets) ig_contentInset
 {
-#ifdef __IPHONE_11_0
     if (@available(iOS 11.0, tvOS 11.0, *)) {
         return self.adjustedContentInset;
     } else {
         return self.contentInset;
     }
-#else
-    return self.contentInset;
-#endif
 }
 
 @end
