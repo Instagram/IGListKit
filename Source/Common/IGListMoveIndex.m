@@ -6,7 +6,6 @@
  */
 
 #import "IGListMoveIndex.h"
-#import "IGListMoveIndexInternal.h"
 
 @implementation IGListMoveIndex
 

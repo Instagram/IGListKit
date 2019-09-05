@@ -9,14 +9,10 @@
 
 #import <set>
 #import <unordered_set>
-#import <vector>
 
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListAdapter.h>
 #import <IGListKit/IGListSectionController.h>
-#import <IGListKit/IGListWorkingRangeDelegate.h>
-
-#import "IGListWorkingRangeDelegate.h"
 
 struct _IGListWorkingRangeHandlerIndexPath {
     NSInteger section;
