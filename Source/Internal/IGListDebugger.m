@@ -7,7 +7,6 @@
 
 #import "IGListDebugger.h"
 
-#import "IGListDebuggingUtilities.h"
 #import "IGListAdapter+DebugDescription.h"
 
 @implementation IGListDebugger

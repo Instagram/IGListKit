@@ -7,9 +7,7 @@
 
 #import "UICollectionViewLayout+InteractiveReordering.h"
 
-#import <IGListKit/IGListAdapterDataSource.h>
 #import <IGListKit/IGListAdapterInternal.h>
-#import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListSectionController.h>
 #import <IGListKit/IGSystemVersion.h>
 

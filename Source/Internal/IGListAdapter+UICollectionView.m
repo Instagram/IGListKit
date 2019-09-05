@@ -11,7 +11,6 @@
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListSectionController.h>
 #import <IGListKit/IGListSectionControllerInternal.h>
-#import <IGListKit/UICollectionViewLayout+InteractiveReordering.h>
 
 @implementation IGListAdapter (UICollectionView)
 

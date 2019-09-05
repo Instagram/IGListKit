@@ -12,7 +12,6 @@
 #import <vector>
 
 #import <IGListKit/IGListCompatibility.h>
-#import <IGListKit/IGListMacros.h>
 #import <IGListKit/IGListExperiments.h>
 
 #import "IGListIndexPathResultInternal.h"
