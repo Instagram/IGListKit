@@ -53,6 +53,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Fixed crash when calling `[UICollectionView layoutAttributesForSupplementaryElementOfKind...]` with `IGListCollectionViewLayout` and the section controller doesn't actually return a supplementary view [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
+- Added `IGListExperimentAvoidLayoutOnScrollToObject` to avoid creating off-screen cells when calling `[IGListAdapter scrollToObject ...]`. [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
 3.4.0
 -----
 

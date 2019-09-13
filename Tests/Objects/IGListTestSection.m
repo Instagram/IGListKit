@@ -9,11 +9,15 @@
 
 #import "IGListTestSection.h"
 
+@interface IGListTestSection () <IGListDisplayDelegate>
+@end
+
 @implementation IGListTestSection
 
 - (instancetype)init {
     if (self = [super init]) {
         _size = CGSizeMake(100, 10);
+        self.displayDelegate = self;
     }
     return self;
 }
@@ -57,5 +61,19 @@
 - (void)didUnhighlightItemAtIndex:(NSInteger)index {
     self.wasUnhighlighted = YES;
 }
+
+#pragma mark - IGListDisplayDelegate
+
+- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController *)sectionController {
+    _wasDisplayed = YES;
+}
+
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController *)sectionController {}
+- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController *)sectionController
+               cell:(UICollectionViewCell *)cell
+            atIndex:(NSInteger)index {}
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController *)sectionController
+               cell:(UICollectionViewCell *)cell
+            atIndex:(NSInteger)index {}
 
 @end

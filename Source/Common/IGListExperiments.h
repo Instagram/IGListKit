@@ -20,6 +20,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentBackgroundDiffing = 1 << 2,
     /// Test fallback to reloadData when "too many" update operations.
     IGListExperimentReloadDataFallback = 1 << 3,
+    /// Test removing the layout pass when calling scrollToObject to avoid creating off-screen cells.
+    IGListExperimentAvoidLayoutOnScrollToObject = 1 << 4,
     /// Test deferring object creation until just before diffing.
     IGListExperimentDeferredToObjectCreation = 1 << 6,
     /// Test getting collection view at update time.
