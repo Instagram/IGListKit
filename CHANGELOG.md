@@ -51,6 +51,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Fixed logic flaw in `[IGListCollectionViewLayout shouldInvalidateLayoutForBoundsChange:]`. [Allen Hsu](https://github.com/allenhsu) (tbd)
 
+- Fixed crash when calling `[UICollectionView layoutAttributesForSupplementaryElementOfKind...]` with `IGListCollectionViewLayout` and the section controller doesn't actually return a supplementary view [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
 3.4.0
 -----
 

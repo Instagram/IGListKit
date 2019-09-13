@@ -251,7 +251,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                 // do not add zero height headers/footers or headers/footers that are outside the rect
                 const CGRect frame = attributes.frame;
                 const CGRect intersection = CGRectIntersection(frame, rect);
-                if (!CGRectIsEmpty(intersection) && CGRectGetLengthInDirection(frame, self.scrollDirection) > 0.0) {
+                if (attributes && !CGRectIsEmpty(intersection) && CGRectGetLengthInDirection(frame, self.scrollDirection) > 0.0) {
                     [result addObject:attributes];
                 }
             }
@@ -339,13 +339,19 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     } else if ([elementKind isEqualToString:UICollectionElementKindSectionFooter]) {
         frame = entry.footerBounds;
     }
-    
-    attributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
-    attributes.frame = frame;
-    adjustZIndexForAttributes(attributes);
-    _supplementaryAttributesCache[elementKind][indexPath] = attributes;
-    
-    return attributes;
+
+    if (CGRectIsEmpty(frame)) {
+        // Just like UICollectionViewFlowLayout, if the header/footer size is empty, do not not return an attribute.
+        // If we did return something, calling [UICollectionView layoutAttributesForSupplementaryElementOfKind...] would too,
+        // which could then crash if the UICollectionViewDelegate is not expecting to actually return a supplimentary view.
+        return nil;
+    } else {
+        attributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
+        attributes.frame = frame;
+        adjustZIndexForAttributes(attributes);
+        _supplementaryAttributesCache[elementKind][indexPath] = attributes;
+        return attributes;
+    }
 }
 
 - (CGSize)collectionViewContentSize {
