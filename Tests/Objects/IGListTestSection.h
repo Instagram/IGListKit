@@ -20,5 +20,6 @@
 @property (nonatomic, assign) BOOL wasDeselected;
 @property (nonatomic, assign) BOOL wasHighlighted;
 @property (nonatomic, assign) BOOL wasUnhighlighted;
+@property (nonatomic, assign) BOOL wasDisplayed;
 
 @end

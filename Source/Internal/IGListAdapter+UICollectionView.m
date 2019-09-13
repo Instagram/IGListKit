@@ -60,15 +60,15 @@
 
     return view;
 }
-    
+
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath {
     const NSInteger sectionIndex = indexPath.section;
     const NSInteger itemIndex = indexPath.item;
-    
+
     IGListSectionController *sectionController = [self sectionControllerForSection:sectionIndex];
     return [sectionController canMoveItemAtIndex:itemIndex];
 }
-    
+
 - (void)collectionView:(UICollectionView *)collectionView
    moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath
            toIndexPath:(NSIndexPath *)destinationIndexPath {
@@ -241,7 +241,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     IGAssert(![self.collectionViewDelegate respondsToSelector:_cmd], @"IGListAdapter is consuming method also implemented by the collectionViewDelegate: %@", NSStringFromSelector(_cmd));
-    
+
     CGSize size = [self sizeForItemAtIndexPath:indexPath];
     IGAssert(!isnan(size.height), @"IGListAdapter returned NaN height = %f for item at indexPath <%@>", size.height, indexPath);
     IGAssert(!isnan(size.width), @"IGListAdapter returned NaN width = %f for item at indexPath <%@>", size.width, indexPath);

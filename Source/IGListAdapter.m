@@ -192,13 +192,16 @@
     }
 
     UICollectionView *collectionView = self.collectionView;
-    UICollectionViewLayout *layout = self.collectionView.collectionViewLayout;
+    const BOOL avoidLayout = IGListExperimentEnabled(self.experiments, IGListExperimentAvoidLayoutOnScrollToObject);
 
-    // force layout before continuing
-    // this method is typcially called before pushing a view controller
-    // thus, before the layout process has actually happened
-    [collectionView setNeedsLayout];
-    [collectionView layoutIfNeeded];
+    // Experiment with skipping the forced layout to avoid creating off-screen cells.
+    // Calling [collectionView layoutIfNeeded] creates the current visible cells that will no longer be visible after the scroll.
+    // We can avoid that by asking the UICollectionView (not the layout object) for the attributes. So if the attributes are not
+    // ready, the UICollectionView will call -prepareLayout, return the attributes, but doesn't generate the cells just yet.
+    if (!avoidLayout) {
+        [collectionView setNeedsLayout];
+        [collectionView layoutIfNeeded];
+    }
 
     NSIndexPath *indexPathFirstElement = [NSIndexPath indexPathForItem:0 inSection:section];
 
@@ -208,11 +211,13 @@
 
     const NSInteger numberOfItems = [collectionView numberOfItemsInSection:section];
     if (numberOfItems > 0) {
-        attributes = [self _layoutAttributesForIndexPath:indexPathFirstElement supplementaryKinds:supplementaryKinds].mutableCopy;
+        attributes = [self _layoutAttributesForItemAndSupplementaryViewAtIndexPath:indexPathFirstElement
+                                                                supplementaryKinds:supplementaryKinds].mutableCopy;
 
         if (numberOfItems > 1) {
             NSIndexPath *indexPathLastElement = [NSIndexPath indexPathForItem:(numberOfItems - 1) inSection:section];
-            UICollectionViewLayoutAttributes *lastElementattributes = [self _layoutAttributesForIndexPath:indexPathLastElement supplementaryKinds:supplementaryKinds].firstObject;
+            UICollectionViewLayoutAttributes *lastElementattributes = [self _layoutAttributesForItemAndSupplementaryViewAtIndexPath:indexPathLastElement
+                                                                                                                 supplementaryKinds:supplementaryKinds].firstObject;
             if (lastElementattributes != nil) {
                 [attributes addObject:lastElementattributes];
             }
@@ -220,7 +225,7 @@
     } else {
         NSMutableArray *supplementaryAttributes = [NSMutableArray new];
         for (NSString* supplementaryKind in supplementaryKinds) {
-            UICollectionViewLayoutAttributes *supplementaryAttribute = [layout layoutAttributesForSupplementaryViewOfKind:supplementaryKind atIndexPath:indexPathFirstElement];
+            UICollectionViewLayoutAttributes *supplementaryAttribute = [self _layoutAttributesForSupplementaryViewOfKind:supplementaryKind atIndexPath:indexPathFirstElement];
             if (supplementaryAttribute != nil) {
                 [supplementaryAttributes addObject: supplementaryAttribute];
             }
@@ -303,7 +308,15 @@
                     contentOffset.y = offsetMin - contentInset.top;
                     break;
             }
-            const CGFloat maxOffsetY = collectionView.contentSize.height - collectionView.frame.size.height + contentInset.bottom;
+            CGFloat maxHeight;
+            if (avoidLayout) {
+                // If we don't call [collectionView layoutIfNeeded], the collectionView.contentSize does not get updated.
+                // So lets use the layout object, since it should have been updated by now.
+                maxHeight = collectionView.collectionViewLayout.collectionViewContentSize.height;
+            } else {
+                maxHeight = collectionView.contentSize.height;
+            }
+            const CGFloat maxOffsetY = maxHeight - collectionView.frame.size.height + contentInset.bottom;
             const CGFloat minOffsetY = -contentInset.top;
             contentOffset.y = MIN(contentOffset.y, maxOffsetY);
             contentOffset.y = MAX(contentOffset.y, minOffsetY);
@@ -726,24 +739,40 @@
     }
 }
 
-- (NSArray<UICollectionViewLayoutAttributes *> *)_layoutAttributesForIndexPath:(NSIndexPath *)indexPath
-                                                            supplementaryKinds:(NSArray<NSString *> *)supplementaryKinds {
-    UICollectionViewLayout *layout = self.collectionView.collectionViewLayout;
+- (NSArray<UICollectionViewLayoutAttributes *> *)_layoutAttributesForItemAndSupplementaryViewAtIndexPath:(NSIndexPath *)indexPath
+                                                                                      supplementaryKinds:(NSArray<NSString *> *)supplementaryKinds {
     NSMutableArray<UICollectionViewLayoutAttributes *> *attributes = [NSMutableArray new];
 
-    UICollectionViewLayoutAttributes *cellAttributes = [layout layoutAttributesForItemAtIndexPath:indexPath];
+    UICollectionViewLayoutAttributes *cellAttributes = [self _layoutAttributesForItemAtIndexPath:indexPath];
     if (cellAttributes) {
         [attributes addObject:cellAttributes];
     }
 
     for (NSString *kind in supplementaryKinds) {
-        UICollectionViewLayoutAttributes *supplementaryAttributes = [layout layoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
+        UICollectionViewLayoutAttributes *supplementaryAttributes = [self _layoutAttributesForSupplementaryViewOfKind:kind atIndexPath:indexPath];
         if (supplementaryAttributes) {
             [attributes addObject:supplementaryAttributes];
         }
     }
 
     return attributes;
+}
+
+- (nullable UICollectionViewLayoutAttributes *)_layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (IGListExperimentEnabled(self.experiments, IGListExperimentAvoidLayoutOnScrollToObject)) {
+        return [self.collectionView layoutAttributesForItemAtIndexPath:indexPath];
+    } else {
+        return [self.collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:indexPath];
+    }
+}
+
+- (nullable UICollectionViewLayoutAttributes *)_layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind
+                                                                               atIndexPath:(NSIndexPath *)indexPath {
+    if (IGListExperimentEnabled(self.experiments, IGListExperimentAvoidLayoutOnScrollToObject)) {
+        return [self.collectionView layoutAttributesForSupplementaryElementOfKind:elementKind atIndexPath:indexPath];
+    } else {
+        return [self.collectionView.collectionViewLayout layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:indexPath];
+    }
 }
 
 - (void)mapView:(UICollectionReusableView *)view toSectionController:(IGListSectionController *)sectionController {
@@ -1072,7 +1101,6 @@
     IGAssert(self.collectionView != nil, @"Performing batch updates without a collection view.");
 
     [self _enterBatchUpdates];
-    
     __weak __typeof__(self) weakSelf = self;
     [self.updater performUpdateWithCollectionViewBlock:[self _collectionViewBlock] animated:animated itemUpdates:^{
         weakSelf.isInUpdateBlock = YES;
@@ -1202,11 +1230,11 @@
     IGParameterAssert(sectionController != nil);
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Invalidating items from %@ without a collection view at indexes %@.", sectionController, indexes);
-    
+
     if (indexes.count == 0) {
         return;
     }
-    
+
     NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes usePreviousIfInUpdateBlock:NO];
     UICollectionViewLayout *layout = collectionView.collectionViewLayout;
     UICollectionViewLayoutInvalidationContext *context = [[[layout.class invalidationContextClass] alloc] init];
@@ -1317,4 +1345,3 @@
 }
 
 @end
-
