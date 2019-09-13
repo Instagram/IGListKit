@@ -40,6 +40,10 @@
     // test case doesn't use -setupWithObjects for more control over update events
     self.adapter.collectionView = self.collectionView;
     self.adapter.dataSource = self.dataSource;
+
+    if (@available(iOS 11.0, *)) {
+        self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
 }
 
 - (void)test_whenAdapterNotUpdated_withDataSourceUpdated_thatAdapterHasNoSectionControllers {
@@ -650,7 +654,7 @@
     XCTAssertEqual(visibleCellsForObject.count, 0);
 }
 
-- (void)DISABLED_test_whenScrollVerticallyToItem {
+- (void)test_whenScrollVerticallyToItem {
     // # of items for each object == [item integerValue], so @2 has 2 items (cells)
     self.dataSource.objects = @[@1, @2, @3, @4, @5, @6];
     [self.adapter reloadDataWithCompletion:nil];
@@ -670,7 +674,7 @@
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 110);
 }
 
-- (void)DISABLED_test_whenScrollVerticallyToItemInASectionWithNoCellsAndNoSupplymentaryView {
+- (void)test_whenScrollVerticallyToItemInASectionWithNoCellsAndNoSupplymentaryView {
     self.dataSource.objects = @[@1, @0, @300];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual([self.collectionView numberOfSections], 3);
@@ -682,7 +686,7 @@
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 10);
 }
 
-- (void)DISABLED_test_whenScrollVerticallyToItemInASectionWithNoCellsButAHeaderSupplymentaryView {
+- (void)test_whenScrollVerticallyToItemInASectionWithNoCellsButAHeaderSupplymentaryView {
     self.dataSource.objects = @[@1, @0, @300];
     [self.adapter reloadDataWithCompletion:nil];
 
@@ -707,7 +711,7 @@
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 20);
 }
 
-- (void)DISABLED_test_whenScrollVerticallyToItemWithPositionning {
+- (void)test_whenScrollVerticallyToItemWithPositionning {
     self.dataSource.objects = @[@1, @100, @200];
     [self.adapter reloadDataWithCompletion:nil];
     [self.adapter scrollToObject:@1 supplementaryKinds:nil scrollDirection:UICollectionViewScrollDirectionVertical scrollPosition:UICollectionViewScrollPositionNone animated:NO];
@@ -735,10 +739,6 @@
 - (void)test_whenScrollVerticallyToBottom_withContentInsets_thatBottomFlushWithCollectionViewBounds {
     self.dataSource.objects = @[@100];
     [self.adapter reloadDataWithCompletion:nil];
-
-    if (@available(iOS 11.0, *)) {
-        self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
     
     // no insets
     self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -821,7 +821,7 @@
     self.adapter.dataSource = self.dataSource;
 }
 
-- (void)DISABLED_test_whenScrollToItem_thatSupplementarySourceSupportsSingleHeader {
+- (void)test_whenScrollToItem_thatSupplementarySourceSupportsSingleHeader {
     self.dataSource.objects = @[@1, @2];
     [self.adapter reloadDataWithCompletion:nil];
 
@@ -843,7 +843,7 @@
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
 }
 
-- (void)DISABLED_test_whenScrollToItem_thatSupplementarySourceSupportsHeaderAndFooter {
+- (void)test_whenScrollToItem_thatSupplementarySourceSupportsHeaderAndFooter {
     self.dataSource.objects = @[@1, @2];
     [self.adapter reloadDataWithCompletion:nil];
 
@@ -866,7 +866,7 @@
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
 }
 
-- (void)DISABLED_test_whenScrollVerticallyToItem_thatFeedIsEmpty {
+- (void)test_whenScrollVerticallyToItem_thatFeedIsEmpty {
     self.dataSource.objects = @[];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual([self.collectionView numberOfSections], 0);
@@ -874,7 +874,7 @@
     IGAssertEqualPoint([self.collectionView contentOffset], 0, 0);
 }
 
-- (void)DISABLED_test_whenScrollVerticallyToItem_thatItemNotInFeed {
+- (void)test_whenScrollVerticallyToItem_thatItemNotInFeed {
     // # of items for each object == [item integerValue], so @2 has 2 items (cells)
     self.dataSource.objects = @[@1, @2, @3, @4];
     [self.adapter reloadDataWithCompletion:nil];
@@ -1546,13 +1546,14 @@
 }
 
 - (void)test_whenPrefetchingEnabled_thatSetterDisables {
+  if (@available(iOS 10.0, *)) {
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
-    collectionView.prefetchingEnabled = YES;
 
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
     adapter.collectionView = collectionView;
 
     XCTAssertFalse(collectionView.prefetchingEnabled);
+  }
 }
 
 - (void)test_whenSectionControllerReorderDisabled_thatAdapterReorderDisabled {
