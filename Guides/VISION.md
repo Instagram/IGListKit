@@ -4,7 +4,7 @@ This document serves to outline the long term goals of `IGListKit` and act as a 
 
 ## Prioritizing Features & Fixes
 
-`IGListKit` is a data-driven, list-building framework built, owned, and maintained by the engineering team at Instagram. Because `IGListKit` powers parts of the Instagram iOS app, we prioritize features and bugs towards those that effect Instagram. However the team recognizes the wide range of use-cases for `IGListKit` and wants to serve as broad an audience as possible without sacrificing our own needs.
+`IGListKit` is a data-driven, list-building framework built, owned, and maintained by the engineering team at Instagram. Because `IGListKit` powers parts of the Instagram iOS app, we prioritize features and bugs towards those that affect Instagram. However the team recognizes the wide range of use-cases for `IGListKit` and wants to serve as broad an audience as possible without sacrificing our own needs.
 
 ## Goals & Scope
 
