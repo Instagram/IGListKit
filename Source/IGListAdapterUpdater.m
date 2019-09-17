@@ -369,13 +369,15 @@ static NSArray<NSIndexPath *> *convertSectionReloadToItemUpdates(NSIndexSet *sec
     [itemDeletes addObjectsFromArray:[reloadDeletePaths allObjects]];
     [itemInserts addObjectsFromArray:[reloadInsertPaths allObjects]];
 
+    const BOOL fixIndexPathImbalance = IGListExperimentEnabled(self.experiments, IGListExperimentFixIndexPathImbalance);
     IGListBatchUpdateData *updateData = [[IGListBatchUpdateData alloc] initWithInsertSections:inserts
                                                                                deleteSections:deletes
                                                                                  moveSections:moves
                                                                              insertIndexPaths:itemInserts
                                                                              deleteIndexPaths:itemDeletes
                                                                              updateIndexPaths:itemUpdates
-                                                                               moveIndexPaths:itemMoves];
+                                                                               moveIndexPaths:itemMoves
+                                                                        fixIndexPathImbalance:fixIndexPathImbalance];
     [collectionView ig_applyBatchUpdateData:updateData];
     return updateData;
 }

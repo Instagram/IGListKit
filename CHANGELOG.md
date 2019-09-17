@@ -57,6 +57,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Added `IGListExperimentAvoidLayoutOnScrollToObject` to avoid creating off-screen cells when calling `[IGListAdapter scrollToObject ...]`. [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
+- Added `IGListExperimentFixIndexPathImbalance` to test fixing a crash when inserting and deleting the same NSIndexPath multiple times. [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
 3.4.0
 -----
 

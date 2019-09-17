@@ -751,6 +751,42 @@
     [mockDelegate verify];
 }
 
+- (void)test_whenPerformIndexPathUpdates_insertDeleteTheSameIndexPathMultipleTimes_shouldNotCrash {
+    // Set up the fix
+    self.updater.experiments |= IGListExperimentFixIndexPathImbalance;
+
+    // Set up data
+    NSArray<IGSectionObject *> *from = @[[IGSectionObject sectionWithObjects:@[@1] identifier:@"id"]];
+    self.dataSource.sections = from;
+
+    // Mock delegate to confirm update did work
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+    [mockDelegate setExpectationOrderMatters:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didPerformBatchUpdates:OCMOCK_ANY collectionView:self.collectionView];
+
+    // Expectation to wait for performUpdate to finish
+    XCTestExpectation *expectation = genExpectation;
+
+    NSArray<NSIndexPath *> *indexPaths = @[[NSIndexPath indexPathForItem:0 inSection:0]];
+    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock]
+                                              animated:NO
+                                           itemUpdates:^{
+                                               [self.updater insertItemsIntoCollectionView:self.collectionView indexPaths:indexPaths];
+                                               [self.updater deleteItemsFromCollectionView:self.collectionView indexPaths:indexPaths];
+
+                                               [self.updater insertItemsIntoCollectionView:self.collectionView indexPaths:indexPaths];
+                                               [self.updater deleteItemsFromCollectionView:self.collectionView indexPaths:indexPaths];
+                                           }
+                                            completion:^(BOOL finished) {
+                                                [expectation fulfill];
+                                            }];
+
+    waitExpectation;
+
+    [mockDelegate verify];
+}
+
 # pragma mark - preferItemReloadsFroSectionReloads
 
 - (void)test_whenReloadIsCalledWithSameItemCount_andPreferItemReload_updateIndexPathsHappen {
