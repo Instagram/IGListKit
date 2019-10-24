@@ -11,6 +11,8 @@
 #import <IGListKit/IGListBindable.h>
 
 #import "IGListArrayUtilsInternal.h"
+#import "IGListBindingRangeHandler.h"
+#import "IGListBindingSectionControllerInternal.h"
 
 typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
     IGListDiffingSectionStateIdle = 0,
@@ -28,6 +30,25 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
 @end
 
 @implementation IGListBindingSectionController
+
+#pragma mark - Init
+
+- (instancetype)initWithBindingRangeSize:(NSInteger)bindingRangeSize {
+    if (self = [super init]) {
+        _bindingRangeHandler = [[IGListBindingRangeHandler alloc] initWithBindingRangeSize:bindingRangeSize];
+        // This is so tricky to be refactored
+        [super setDisplayDelegate:self];
+    }
+    return self;
+}
+
+- (instancetype)init {
+    return [self initWithBindingRangeSize:0];
+}
+
+- (void)setDisplayDelegate:(id<IGListDisplayDelegate>)displayDelegate {
+    self.displayDelegateProxy = displayDelegate;
+}
 
 #pragma mark - Public API
 
@@ -148,6 +169,34 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
 
 - (void)didUnhighlightItemAtIndex:(NSInteger)index {
     [self.selectionDelegate sectionController:self didUnhighlightItemAtIndex:index viewModel:self.viewModels[index]];
+}
+
+#pragma mark - IGListDisplayDelegate
+
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController *)sectionController {
+    [self.displayDelegateProxy listAdapter:listAdapter didEndDisplayingSectionController:sectionController];
+}
+
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController *)sectionController
+               cell:(UICollectionViewCell *)cell
+            atIndex:(NSInteger)index {
+    [self.displayDelegateProxy listAdapter:listAdapter didEndDisplayingSectionController:sectionController cell:cell atIndex:index];
+    
+    [self.bindingRangeHandler didEndBindingItemAtIndex:index forSectionController:self];
+}
+
+- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController *)sectionController {
+    [self.displayDelegateProxy listAdapter:listAdapter willDisplaySectionController:sectionController];
+}
+
+- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController *)sectionController
+               cell:(UICollectionViewCell *)cell
+            atIndex:(NSInteger)index {
+    [self.displayDelegateProxy listAdapter:listAdapter willDisplaySectionController:sectionController cell:cell atIndex:index];
+    
+    _isSendingBindingRangeBindUpdates = YES;
+    [self.bindingRangeHandler willBindItemAtIndex:index forSectionController:self];
+    _isSendingBindingRangeBindUpdates = NO;
 }
 
 @end

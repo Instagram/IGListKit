@@ -12,6 +12,7 @@
 #import <IGListKit/IGListSectionController.h>
 #import <IGListKit/IGListBindingSectionControllerSelectionDelegate.h>
 #import <IGListKit/IGListBindingSectionControllerDataSource.h>
+#import <IGListKit/IGListBindingSectionControllerBindingRangeDelegate.h>
 
 @protocol IGListDiffable;
 @protocol IGListBindable;
@@ -58,6 +59,8 @@ NS_SWIFT_NAME(ListBindingSectionController)
  */
 @property (nonatomic, weak, nullable) id<IGListBindingSectionControllerSelectionDelegate> selectionDelegate;
 
+@property (nonatomic, weak, nullable) id <IGListBindingSectionBindingRangeDelegate> bindingRangeDelegate;
+
 /**
  The object currently assigned to the section controller, if any.
  */
@@ -68,6 +71,8 @@ NS_SWIFT_NAME(ListBindingSectionController)
  calling `-updateAnimated:completion:` manually.
  */
 @property (nonatomic, strong, readonly) NSArray<id<IGListDiffable>> *viewModels;
+
+- (instancetype)initWithBindingRangeSize:(NSInteger)bindingRangeSize NS_DESIGNATED_INITIALIZER;
 
 /**
  Tells the section controller to query for new view models, diff the changes, and update its cells.
