@@ -14,7 +14,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListKit/IGListDiffable.h>
+#import <IGListDiffKit/IGListDiffable.h>
 
 @interface Post : NSObject <IGListDiffable>
 

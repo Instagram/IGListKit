@@ -8,22 +8,22 @@
 #import <objc/runtime.h>
 
 #import <XCTest/XCTest.h>
+
 #import <OCMock/OCMock.h>
 
-#import <IGListKit/IGListExperiments.h>
+#import <IGListDiffKit/IGListExperiments.h>
 #import <IGListKit/IGListKit.h>
 
 #import "IGListAdapterInternal.h"
 #import "IGListTestAdapterDataSource.h"
-#import "IGListTestAdapterReorderingDataSource.h"
 #import "IGListTestAdapterHorizontalDataSource.h"
+#import "IGListTestAdapterReorderingDataSource.h"
+#import "IGListTestCase.h"
 #import "IGListTestOffsettingLayout.h"
 #import "IGListTestSection.h"
+#import "IGTestNibSupplementaryView.h"
 #import "IGTestReorderableSection.h"
 #import "IGTestSupplementarySource.h"
-#import "IGTestNibSupplementaryView.h"
-#import "IGListTestCase.h"
-
 #import "UICollectionViewLayout+InteractiveReordering.h"
 
 @interface IGListAdapterTests : IGListTestCase
