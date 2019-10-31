@@ -1669,14 +1669,14 @@
 }
 
 - (void)test_whenPrefetchingEnabled_thatSetterDisables {
-  if (@available(iOS 10.0, *)) {
-    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
-
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
-    adapter.collectionView = collectionView;
-
-    XCTAssertFalse(collectionView.prefetchingEnabled);
-  }
+    if (@available(iOS 10.0, *)) {
+        UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
+        
+        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+        adapter.collectionView = collectionView;
+        
+        XCTAssertFalse(collectionView.prefetchingEnabled);        
+    }
 }
 
 - (void)test_whenSectionControllerReorderDisabled_thatAdapterReorderDisabled {
