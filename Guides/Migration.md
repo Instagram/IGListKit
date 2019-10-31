@@ -93,7 +93,7 @@ If you relied on the default `NSObject<IGListDiffable>` category, you will need 
 **Objective-C**
 
 ```objc
-#import <IGListKit/IGListDiffable.h>
+#import <IGListDiffKit/IGListDiffable.h>
 
 // Header
 @interface MyModel <IGListDiffable>

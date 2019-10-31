@@ -9,15 +9,15 @@
 
 #import "IGListDiffTests.h"
 
-#import <XCTest/XCTest.h>
 #import <Foundation/Foundation.h>
+#import <XCTest/XCTest.h>
 
-#import <IGListKit/IGListDiff.h>
-#import <IGListKit/IGListExperiments.h>
+#import <IGListDiffKit/IGListDiff.h>
+#import <IGListDiffKit/IGListExperiments.h>
+
 #import "IGListIndexSetResultInternal.h"
 #import "IGListMoveIndexInternal.h"
 #import "IGListMoveIndexPathInternal.h"
-
 #import "IGTestObject.h"
 
 #define genIndexPath(i, s) [NSIndexPath indexPathForItem:i inSection:s]

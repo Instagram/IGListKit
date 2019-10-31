@@ -7,10 +7,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListKit/IGListDiffable.h>
+#import <IGListDiffKit/IGListDiffable.h>
 
-#import "IGTestObject.h"
 #import "IGLayoutTestItem.h"
+#import "IGTestObject.h"
 
 #define genInvalidateLayoutObject(key, size) [[IGTestObject alloc] initWithKey:key value:[[IGLayoutTestItem alloc] initWithSize:size]]
 

@@ -7,7 +7,8 @@
 
 #import <XCTest/XCTest.h>
 
-#import <IGListKit/IGListBatchUpdateData.h>
+#import <IGListDiffKit/IGListBatchUpdateData.h>
+
 #import "IGListMoveIndexPathInternal.h"
 
 // IGListMoveIndexInternal.h
