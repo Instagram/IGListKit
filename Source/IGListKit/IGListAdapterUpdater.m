@@ -179,8 +179,7 @@
 
     // if the collection view isn't in a visible window, skip diffing and batch updating. execute all transition blocks,
     // reload data, execute completion blocks, and get outta here
-    const BOOL iOS83OrLater = (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_3);
-    if (iOS83OrLater && self.allowsBackgroundReloading && collectionView.window == nil) {
+    if (self.allowsBackgroundReloading && collectionView.window == nil) {
         [self _beginPerformBatchUpdatesToObjects:toObjects];
         reloadDataFallback();
         return;

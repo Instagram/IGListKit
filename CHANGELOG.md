@@ -6,6 +6,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 -----
 ### Breaking Changes
 
+- Remove support for iOS 8
+
 - `IGListKit` has been split into `IGListKit` and `IGListDiffKit` for Xcode and Carthage builds. Cocoapods continues to use an all-inclusive `IGListKit` podspec. [Nate Stedman](https://github.com/natestedman) ([#1377])(https://github.com/Instagram/IGListKit/pull/1377)
 
 - Remove `coalescanceTime` from IGListAdapterUpdate, since it increase crash rate. [Zhisheng Huang](https://github.com/lorixx) (tbd)
