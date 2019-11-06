@@ -6,6 +6,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 -----
 ### Breaking Changes
 
+- Added Swift annotation name to `IGListAdapterDelegate` which removes `IG` prefix. The new name for Swift clients is `ListAdapterDelegate`. [Andrea Antonioni](https://github.com/andreaantonioni)[(#1116)](https://github.com/Instagram/IGListKit/pull/1116)
+
 - Remove support for iOS 8
 
 - `IGListKit` has been split into `IGListKit` and `IGListDiffKit` for Xcode and Carthage builds. Cocoapods continues to use an all-inclusive `IGListKit` podspec. [Nate Stedman](https://github.com/natestedman) ([#1377])(https://github.com/Instagram/IGListKit/pull/1377)
