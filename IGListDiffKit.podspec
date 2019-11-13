@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
-  s.name = 'IGListKit'
+  s.name = 'IGListDiffKit'
   s.version = `scripts/version.sh`
-  s.summary = 'A data-driven UICollectionView framework.'
+  s.summary = 'Diffing utilities for a data-driven UICollectionView framework.'
   s.homepage = 'https://github.com/Instagram/IGListKit'
   s.documentation_url = 'https://instagram.github.io/IGListKit'
-  s.description = 'A data-driven UICollectionView framework for building fast and flexible lists.'
+  s.description = 'Diffing utilities for a data-driven UICollectionView framework for building fast and flexible lists.'
 
   s.license =  { :type => 'MIT' }
   s.authors = 'Instagram'
@@ -15,20 +15,8 @@ Pod::Spec.new do |s|
     :branch => 'stable'
   }
 
-  s.dependency 'IGListDiffKit', "= #{s.version}"
-
-  [s.ios, s.tvos].each do |os|
-    os.source_files = [
-      'Source/IGListDiffKit/Internal/*.h',
-      'Source/IGListKit/**/*.{h,m,mm}',
-    ]
-    os.private_header_files = [
-      'Source/IGListDiffKit/Internal/*.h',
-      'Source/IGListKit/Internal/*.h',
-    ]
-  end
-
-  s.osx.source_files = 'Source/IGListKit/IGListKit.h'
+  s.source_files = 'Source/IGListDiffKit/**/*.{h,m,mm}'
+  s.private_header_files = 'Source/IGListDiffKit/Internal/*.h'
 
   s.requires_arc = true
 
@@ -42,7 +30,7 @@ Pod::Spec.new do |s|
 
   s.library = 'c++'
   s.pod_target_xcconfig = {
-    'CLANG_CXX_LANGUAGE_STANDARD' => 'c++11',
-    'CLANG_CXX_LIBRARY' => 'libc++',
+        'CLANG_CXX_LANGUAGE_STANDARD' => 'c++11',
+        'CLANG_CXX_LIBRARY' => 'libc++',
   }
 end

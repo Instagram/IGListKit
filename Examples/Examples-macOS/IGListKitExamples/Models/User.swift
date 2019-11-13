@@ -13,7 +13,7 @@
  */
 
 import Foundation
-import IGListKit
+import IGListDiffKit
 
 final class User: ListDiffable {
 

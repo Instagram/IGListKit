@@ -1,20 +1,22 @@
 PODS:
+  - IGListDiffKit (3.4.0)
   - IGListKit (3.4.0):
-    - IGListKit/Default (= 3.4.0)
-  - IGListKit/Default (3.4.0):
-    - IGListKit/Diffing
-  - IGListKit/Diffing (3.4.0)
+    - IGListDiffKit (= 3.4.0)
 
 DEPENDENCIES:
+  - IGListDiffKit (from `../../IGListDiffKit.podspec`)
   - IGListKit (from `../../IGListKit.podspec`)
 
 EXTERNAL SOURCES:
+  IGListDiffKit:
+    :path: "../../IGListDiffKit.podspec"
   IGListKit:
     :path: "../../IGListKit.podspec"
 
 SPEC CHECKSUMS:
-  IGListKit: c57123b584b8e79a3168059c7d23b4ddc9457a69
+  IGListDiffKit: c780d5f336d276224575e231a982bcc04044b442
+  IGListKit: 50f04303ebab85f6103763c6d4e32e7205e11281
 
-PODFILE CHECKSUM: f68cec0d93efa38d42ede50dfe01309d83664d56
+PODFILE CHECKSUM: 57ee7be27265cfa15902ecd3e41339cf18d24ed7
 
 COCOAPODS: 1.8.4
