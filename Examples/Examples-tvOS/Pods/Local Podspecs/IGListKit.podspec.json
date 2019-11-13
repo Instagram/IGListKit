@@ -15,57 +15,46 @@
     "tag": "3.4.0",
     "branch": "stable"
   },
-  "header_mappings_dir": "Source",
-  "default_subspecs": "Default",
-  "requires_arc": true,
-  "platforms": {
-    "ios": "8.0",
-    "tvos": "9.0",
-    "osx": "10.11"
+  "dependencies": {
+    "IGListDiffKit": [
+      "= 3.4.0"
+    ]
   },
   "ios": {
+    "source_files": [
+      "Source/IGListDiffKit/Internal/*.h",
+      "Source/IGListKit/**/*.{h,m,mm}"
+    ],
+    "private_header_files": [
+      "Source/IGListDiffKit/Internal/*.h",
+      "Source/IGListKit/Internal/*.h"
+    ],
     "frameworks": "UIKit"
   },
   "tvos": {
+    "source_files": [
+      "Source/IGListDiffKit/Internal/*.h",
+      "Source/IGListKit/**/*.{h,m,mm}"
+    ],
+    "private_header_files": [
+      "Source/IGListDiffKit/Internal/*.h",
+      "Source/IGListKit/Internal/*.h"
+    ],
     "frameworks": "UIKit"
   },
   "osx": {
+    "source_files": "Source/IGListKit/IGListKit.h",
     "frameworks": "Cocoa"
+  },
+  "requires_arc": true,
+  "platforms": {
+    "ios": "9.0",
+    "tvos": "9.0",
+    "osx": "10.11"
   },
   "libraries": "c++",
   "pod_target_xcconfig": {
     "CLANG_CXX_LANGUAGE_STANDARD": "c++11",
-    "CLANG_CXX_LIBRARY": "libc++",
-    "HEADER_SEARCH_PATHS": "$(PODS_TARGET_SRCROOT)/Source"
-  },
-  "subspecs": [
-    {
-      "name": "Diffing",
-      "source_files": "Source/IGListDiffKit/**/*.{h,m,mm}",
-      "private_header_files": "Source/IGListDiffKit/Internal/*.h"
-    },
-    {
-      "name": "Default",
-      "dependencies": {
-        "IGListKit/Diffing": [
-
-        ]
-      },
-      "ios": {
-        "source_files": "Source/IGListKit/**/*.{h,m,mm}",
-        "private_header_files": [
-          "Source/IGListKit/Internal/*.h"
-        ]
-      },
-      "tvos": {
-        "source_files": "Source/IGListKit/**/*.{h,m,mm}",
-        "private_header_files": [
-          "Source/IGListKit/Internal/*.h"
-        ]
-      },
-      "osx": {
-        "source_files": "Source/IGListKit/IGListKit.h"
-      }
-    }
-  ]
+    "CLANG_CXX_LIBRARY": "libc++"
+  }
 }

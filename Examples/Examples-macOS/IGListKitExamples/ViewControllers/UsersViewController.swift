@@ -13,7 +13,7 @@
  */
 
 import Cocoa
-import IGListKit
+import IGListDiffKit
 
 final class UsersViewController: NSViewController {
 

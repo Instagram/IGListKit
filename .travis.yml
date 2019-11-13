@@ -56,7 +56,9 @@ jobs:
   include:
     - stage: pod lint
       name: Cocoapods Lint
-      script: bundle exec pod lib lint --allow-warnings
+      # We need to pass IGListDiffKit.podspec here so that Cocoapods uses the local version,
+      # rather than searching the specs repository for the IGListDiffKit spec.
+      script: bundle exec pod lib lint --allow-warnings --include-podspecs=IGListDiffKit.podspec
 
     # Build example projects
     - &build-examples
