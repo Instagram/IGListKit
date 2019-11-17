@@ -32,6 +32,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Created `IGListAdapterPerformanceDelegate` for IGListAdapter to be able to measure how long some operations take across all section controllers. For example, how long it takes to dequeue a cell. [Maxime Ollivier](https://github.com/maxoll) (tbd)
 
+- Update CocoaPods integration to use the CocoaPods specs CDN [Koen Punt](https://github.com/koenpunt) (#1386)
+
 ### Fixes
 
 - Fixed bug with layouts inconsistency in `updateAnimated:completion` of IGListBindingSectionController. [Qinghua Hong](https://github.com/xohozu) [(#1285)](https://github.com/Instagram/IGListKit/pull/1285)
@@ -48,7 +50,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Ensuring view models with duplicate diff identifiers are removed when view models are first requested by `IGListBindingSectionController` [Adam Stern](https://github.com/adamastern) (tbd)
 
-- Fixed `[IGListAdapterUpdater reloadItemInCollectionView:fromIndexPath:toIndexPath:]` does not call delegate when not inside a batch update. [Bofei Zhu] (https://github.com/zhubofei) [(#1211)](https://github.com/Instagram/IGListKit/pull/1211)
+- Fixed `[IGListAdapterUpdater reloadItemInCollectionView:fromIndexPath:toIndexPath:]` does not call delegate when not inside a batch update. [Bofei Zhu](https://github.com/zhubofei) [(#1211)](https://github.com/Instagram/IGListKit/pull/1211)
 
 - Log instead of assert for duplicate diff identifiers to make code testable. [Adam Stern](https://github.com/adamastern) (tbd)
 
