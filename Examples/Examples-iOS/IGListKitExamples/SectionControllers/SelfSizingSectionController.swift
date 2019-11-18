@@ -41,7 +41,7 @@ final class SelfSizingSectionController: ListSectionController {
         case .none:
             guard let manualCell = collectionContext?.dequeueReusableCell(of: ManuallySelfSizingCell.self,
                                                                           for: self,
-                                                                          at: index) as? ManuallySelfSizingCell else {
+                                                                          at: index) else {
                                                                             fatalError()
             }
             manualCell.text = text
@@ -49,7 +49,7 @@ final class SelfSizingSectionController: ListSectionController {
         case .fullWidth:
             guard let manualCell = collectionContext?.dequeueReusableCell(of: FullWidthSelfSizingCell.self,
                                                                           for: self,
-                                                                          at: index) as? FullWidthSelfSizingCell else {
+                                                                          at: index) else {
                                                                             fatalError()
             }
             manualCell.text = text

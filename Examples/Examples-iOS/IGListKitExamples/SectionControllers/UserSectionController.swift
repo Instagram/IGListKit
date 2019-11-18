@@ -30,7 +30,7 @@ final class UserSectionController: ListSectionController {
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: DetailLabelCell.self, for: self, at: index) as? DetailLabelCell else {
+        guard let cell = collectionContext?.dequeueReusableCell(of: DetailLabelCell.self, for: self, at: index) else {
             fatalError()
         }
         cell.title = user?.name

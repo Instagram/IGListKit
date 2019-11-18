@@ -73,7 +73,7 @@ final class GridSectionController: ListSectionController {
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as? CenterLabelCell else {
+        guard let cell = collectionContext?.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) else {
             fatalError()
         }
         cell.text = object?.items[index] ?? "undefined"

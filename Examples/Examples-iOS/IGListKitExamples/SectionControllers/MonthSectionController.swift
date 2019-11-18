@@ -57,7 +57,7 @@ final class MonthSectionController: ListBindingSectionController<ListDiffable>, 
     func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>,
                            cellForViewModel viewModel: Any,
                            at index: Int) -> UICollectionViewCell & ListBindable {
-        let cellClass: AnyClass
+        let cellClass: UICollectionViewCell.Type
         if viewModel is DayViewModel {
             cellClass = CalendarDayCell.self
         } else if viewModel is MonthTitleViewModel {
@@ -65,8 +65,9 @@ final class MonthSectionController: ListBindingSectionController<ListDiffable>, 
         } else {
             cellClass = LabelCell.self
         }
-        guard let cell = collectionContext?.dequeueReusableCell(of: cellClass, for: self, at: index) as? UICollectionViewCell & ListBindable
-            else { fatalError() }
+        guard let cell = collectionContext?.dequeueReusableCell(of: cellClass, for: self, at: index) as? UICollectionViewCell & ListBindable else {
+            fatalError()
+        }
         return cell
     }
 

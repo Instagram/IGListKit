@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   [s.ios, s.tvos].each do |os|
     os.source_files = [
       'Source/IGListDiffKit/Internal/*.h',
-      'Source/IGListKit/**/*.{h,m,mm}',
+      'Source/IGListKit/**/*.{h,m,mm,swift}',
     ]
     os.private_header_files = [
       'Source/IGListDiffKit/Internal/*.h',

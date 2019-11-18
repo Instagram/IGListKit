@@ -33,7 +33,7 @@ final class RemoveSectionController: ListSectionController, RemoveCellDelegate {
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: RemoveCell.self, for: self, at: index) as? RemoveCell else {
+        guard let cell = collectionContext?.dequeueReusableCell(of: RemoveCell.self, for: self, at: index) else {
             fatalError()
         }
         cell.text = "Cell: \((number ?? 0) + 1)"
