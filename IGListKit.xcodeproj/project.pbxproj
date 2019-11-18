@@ -66,6 +66,8 @@
 		401B5E63230111EC004099D5 /* IGTestNibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 294369B01DB1B7AE0025F6E7 /* IGTestNibCell.xib */; };
 		401B5E64230111F3004099D5 /* IGTestNibSupplementaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2904861C1DCD02140007F41D /* IGTestNibSupplementaryView.xib */; };
 		401B5E65230111F7004099D5 /* IGTestStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 821BC4C21DB8CAE900172ED0 /* IGTestStoryboard.storyboard */; };
+		5E2FC3A92382998100C3143C /* IGListCollectionContext+Refinements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2FC3A82382998100C3143C /* IGListCollectionContext+Refinements.swift */; };
+		5EFA9CA523830D9E0020C4F2 /* IGListCollectionContext+Refinements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2FC3A82382998100C3143C /* IGListCollectionContext+Refinements.swift */; };
 		6A9EB3611F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9EB3601F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m */; };
 		6A9EB3621F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9EB3601F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m */; };
 		7A02CEEE2361511100B49FAE /* IGListReloadDataUpdater.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A02CEC72361510F00B49FAE /* IGListReloadDataUpdater.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -485,6 +487,7 @@
 		29DA5CA61EA7D37000113926 /* IGListTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListTestCase.m; sourceTree = "<group>"; };
 		29DA5CA91EA7D39B00113926 /* IGListTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListTestCase.h; sourceTree = "<group>"; };
 		29DA5CAA1EA7D3FF00113926 /* IGListTestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListTestHelpers.h; sourceTree = "<group>"; };
+		5E2FC3A82382998100C3143C /* IGListCollectionContext+Refinements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IGListCollectionContext+Refinements.swift"; sourceTree = "<group>"; };
 		6A9EB35F1F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGTestSingleWithoutDeselectionDelegate.h; sourceTree = "<group>"; };
 		6A9EB3601F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IGTestSingleWithoutDeselectionDelegate.m; sourceTree = "<group>"; };
 		7A02CEC72361510F00B49FAE /* IGListReloadDataUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListReloadDataUpdater.h; sourceTree = "<group>"; };
@@ -802,6 +805,7 @@
 				7A02CED02361510F00B49FAE /* IGListBindingSectionControllerDataSource.h */,
 				7A02CEE92361511000B49FAE /* IGListBindingSectionControllerSelectionDelegate.h */,
 				7A02CED12361510F00B49FAE /* IGListCollectionContext.h */,
+				5E2FC3A82382998100C3143C /* IGListCollectionContext+Refinements.swift */,
 				7A02CEE72361511000B49FAE /* IGListCollectionScrollingTraits.h */,
 				7A02CECD2361510F00B49FAE /* IGListCollectionView.h */,
 				7A02CEED2361511100B49FAE /* IGListCollectionView.m */,
@@ -1698,6 +1702,7 @@
 				7A02CF522361511100B49FAE /* IGListAdapter.m in Sources */,
 				7A02CF942361513600B49FAE /* IGListAdapter+DebugDescription.m in Sources */,
 				7A02CFD92361513600B49FAE /* IGListBatchUpdateData+DebugDescription.m in Sources */,
+				5EFA9CA523830D9E0020C4F2 /* IGListCollectionContext+Refinements.swift in Sources */,
 				7A02CFAF2361513600B49FAE /* UICollectionViewLayout+InteractiveReordering.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1797,6 +1802,7 @@
 				7A02CF512361511100B49FAE /* IGListAdapter.m in Sources */,
 				7A02CF932361513600B49FAE /* IGListAdapter+DebugDescription.m in Sources */,
 				7A02CFD82361513600B49FAE /* IGListBatchUpdateData+DebugDescription.m in Sources */,
+				5E2FC3A92382998100C3143C /* IGListCollectionContext+Refinements.swift in Sources */,
 				7A02CFAE2361513600B49FAE /* UICollectionViewLayout+InteractiveReordering.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

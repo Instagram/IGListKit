@@ -142,7 +142,7 @@ NS_SWIFT_NAME(ListCollectionContext)
 - (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
                                           withReuseIdentifier:(nullable NSString *)reuseIdentifier
                                          forSectionController:(IGListSectionController *)sectionController
-                                                      atIndex:(NSInteger)index;
+                                                      atIndex:(NSInteger)index NS_REFINED_FOR_SWIFT;
 
 /**
  Dequeues a cell from the collection view reuse pool.
@@ -157,7 +157,7 @@ NS_SWIFT_NAME(ListCollectionContext)
  */
 - (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
                                          forSectionController:(IGListSectionController *)sectionController
-                                                      atIndex:(NSInteger)index;
+                                                      atIndex:(NSInteger)index NS_REFINED_FOR_SWIFT;
 
 /**
  Dequeues a cell from the collection view reuse pool.
