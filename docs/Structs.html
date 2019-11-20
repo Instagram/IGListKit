@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Installation  Reference</title>
+    <title>Structures  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,7 +10,8 @@
     
   </head>
   <body>
-    <a title="Installation  Reference"></a>
+    <a name="//apple_ref/objc/Section/Structures" class="dashAnchor"></a>
+    <a title="Structures  Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="index.html">IGListKit Docs</a> (98% documented)</p>
@@ -21,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="index.html">IGListKit Reference</a>
         <img id="carat" src="img/carat.png" />
-        Installation  Reference
+        Structures  Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -270,43 +271,49 @@
       <article class="main-content">
         <section>
           <section class="section">
-            
-            <h1 id='installation' class='heading'>Installation</h1>
+            <h1>Structures</h1>
+            <p>The following structures are available globally.</p>
 
-<p>This guide provides details on how to install <code>IGListKit</code>.</p>
-<h2 id='cocoapods' class='heading'>CocoaPods</h2>
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@S@IGListCollectionScrollingTraits"></a>
+                    <a name="//apple_ref/objc/Struct/IGListCollectionScrollingTraits" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@S@IGListCollectionScrollingTraits">IGListCollectionScrollingTraits</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The current scrolling traits of the underlying collection view.
+The attributes are always equal to their corresponding properties on the underlying collection view.</p>
 
-<p>The preferred method of installation for <code>IGListKit</code> is using <a href="https://cocoapods.org/">CocoaPods</a>.</p>
+                        <a href="Structs/IGListCollectionScrollingTraits.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">struct</span> <span class="n">IGListCollectionScrollingTraits</span> <span class="p">{}</span></code></pre>
 
-<p>In order to use the latest release of the framework, add the following to your <code>Podfile</code>:</p>
-<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'IGListKit'</span><span class="p">,</span> <span class="s1">'~&gt; 3.0'</span>
-</code></pre>
-<h3 id='using-code-master-code' class='heading'>Using <code>master</code></h3>
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">IGListCollectionScrollingTraits</span></code></pre>
 
-<p>Alternatively, you can use the latest version from the <a href="https://github.com/Instagram/IGListKit/tree/master"><code>master</code> branch</a>. This is what we use at Instagram, so you can be confident that <code>master</code> is always stable and reliable.</p>
-<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'IGListKit'</span><span class="p">,</span> <span class="ss">:git</span> <span class="o">=&gt;</span> <span class="s1">'https://github.com/Instagram/IGListKit.git'</span><span class="p">,</span> <span class="ss">:branch</span> <span class="o">=&gt;</span> <span class="s1">'master'</span>
-</code></pre>
-
-<blockquote>
-<p><strong>Note:</strong> while <code>master</code> is stable, it may have breaking changes. Before updating to <code>master</code>, be sure to check the <a href="https://github.com/Instagram/IGListKit/blob/master/CHANGELOG.md"><code>CHANGELOG</code></a> for details on changes.</p>
-</blockquote>
-<h3 id='subspecs' class='heading'>Subspecs</h3>
-
-<p>With the exception of <code>macOS</code> (which currently only supports the diffing algorithm components), using <code>pod &#39;IGListKit&#39;</code> will get you the full library, including the flexible <code>UICollectionView</code> system. Learn more about how to get started in our <a href="https://instagram.github.io/IGListKit/getting-started.html">Getting Started guide</a>.</p>
-
-<p>However, if you only want to use the diffing components of this library, then you can use the diffing subspec in your <code>Podfile</code>:</p>
-<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'IGListKit/Diffing'</span><span class="p">,</span> <span class="s1">'~&gt; 3.0'</span>
-</code></pre>
-
-<p>Regardless of whether you only use the diffing components, or the entire library, the imports are the same:</p>
-<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">IGListKit</span>
-</code></pre>
-<h2 id='carthage' class='heading'>Carthage</h2>
-
-<p>If using <a href="https://github.com/Carthage/Carthage">Carthage</a>, add the following to your <code>Cartfile</code>:</p>
-<pre class="highlight plaintext"><code>github "Instagram/IGListKit" ~&gt; 3.0
-</code></pre>
-
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </section>
         </section>
         <section id="footer">
