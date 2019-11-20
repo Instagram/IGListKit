@@ -32,6 +32,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Created `IGListAdapterPerformanceDelegate` for IGListAdapter to be able to measure how long some operations take across all section controllers. For example, how long it takes to dequeue a cell. [Maxime Ollivier](https://github.com/maxoll) [(4662454)](https://github.com/Instagram/IGListKit/commit/4662454c4aedbc5d3bed0cb386f2ef93de40ba51)
 
+- Update CocoaPods integration to use the CocoaPods specs CDN [Koen Punt](https://github.com/koenpunt) (#1386)
+
 ### Fixes
 
 - Fixed bug with layouts inconsistency in `updateAnimated:completion` of IGListBindingSectionController. [Qinghua Hong](https://github.com/xohozu) [(#1285)](https://github.com/Instagram/IGListKit/pull/1285)
