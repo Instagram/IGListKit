@@ -1,0 +1,69 @@
+name: CI
+on: [push]
+
+jobs:
+  lint-podspec:
+    name: Lint podspec
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Cache bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: v1-${{ runner.os }}-bundler-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            v1-${{ runner.os }}-bundler-
+      - name: Install rubygems
+        run: gem install bundler
+      - name: Install gems
+        run: bundle install --retry 2 --path vendor/bundle
+      - name: CocoaPods Lint
+        # We need to pass IGListDiffKit.podspec here so that Cocoapods uses the local version,
+        # rather than searching the specs repository for the IGListDiffKit spec.
+        run: bundle exec pod lib lint --allow-warnings --include-podspecs=IGListDiffKit.podspec
+  examples:
+    name: Build example projects
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        destination:
+          - OS=9.3,name=iPad Air 2
+          - OS=10.3.1,name=iPhone 7
+          - OS=11.3,name=iPhone X
+          - OS=12.2,name=iPhone Xʀ
+    steps:
+      - uses: actions/checkout@v1
+      - name: Cache bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: v1-${{ runner.os }}-bundler-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            v1-${{ runner.os }}-bundler-
+      # - name: Cache CocoaPods
+      #   uses: actions/cache@v1
+      #   with:
+      #     path: Pods
+      #     key: ${{ runner.os }}-cocoapods-${{ hashFiles('**/Podfile.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-cocoapods-
+      - name: Install rubygems
+        run: gem install bundler
+      - name: Install swiftlint
+        run: brew install swiftlint
+      - name: Install gems
+        run: bundle install --retry 2 --path vendor/bundle
+      - name: Setup examples
+        run: ./scripts/pod_setup.sh
+      - name: Cocoapods Lint
+        # We need to pass IGListDiffKit.podspec here so that Cocoapods uses the local version,
+        # rather than searching the specs repository for the IGListDiffKit spec.
+        run: |-
+          set -o pipefail
+          xcodebuild -version -sdk
+          xcodebuild build -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+        env:
+          WORKSPACE: Examples/Examples-iOS/IGListKitExamples.xcworkspace
+          SDK: iphonesimulator12.2
+          SCHEME: IGListKit
