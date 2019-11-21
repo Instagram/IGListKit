@@ -35,7 +35,7 @@
                 <a href="../best-practices-and-faq.html">Best Practices and FAQ</a>
               </li>
               <li class="nav-group-task">
-                <a href="../generating-your-models.html">Generating your models</a>
+                <a href="../generating-your-models-using-remodel.html">Generating your models using remodel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../getting-started.html">Getting Started</a>
@@ -108,9 +108,6 @@
               <li class="nav-group-task">
                 <a href="../Classes/IGListSingleSectionController.html">IGListSingleSectionController</a>
               </li>
-              <li class="nav-group-task">
-                <a href="../Classes/IGListStackedSectionController.html">IGListStackedSectionController</a>
-              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -151,6 +148,9 @@
                 <a href="../Protocols/IGListAdapterMoveDelegate.html">IGListAdapterMoveDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterPerformanceDelegate.html">IGListAdapterPerformanceDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
               </li>
               <li class="nav-group-task">
@@ -173,6 +173,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListCollectionViewLayoutCompatible.html">IGListCollectionViewLayoutCompatible</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListDiffable.html">IGListDiffable</a>
@@ -201,31 +204,37 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Type Definitions.html">Type Definitions</a>
+            <a href="../Type%20Definitions.html">Type Definitions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
+                <a href="../Type%20Definitions/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
+                <a href="../Type%20Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
+                <a href="../Type%20Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a>
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a>
               </li>
             </ul>
           </li>
@@ -249,6 +258,14 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -258,9 +275,8 @@
               <div class="declaration">
                 <div class="language">
                   <pre class="highlight objective_c"><code>
-<span class="k">@interface</span> <span class="nc">IGListBindingSectionController</span> <span class="o">&lt;</span> <span class="n">__covariant</span> <span class="n">ObjectType</span>
-    <span class="o">:</span> <span class="n">id</span> <span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">:</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="k">@end</span></code></pre>
+<span class="k">@interface</span> <span class="nc">IGListBindingSectionController</span><span class="o">&lt;</span>
+    <span class="n">__covariant</span> <span class="n">ObjectType</span> <span class="o">:</span> <span class="n">id</span> <span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">:</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span></code></pre>
 
                 </div>
               </div>
@@ -315,6 +331,11 @@ instance has already been checked.</p>
         <span class="n">dataSource</span><span class="p">;</span></code></pre>
 
                         </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">dataSource</span><span class="p">:</span> <span class="kt">ListBindingSectionControllerDataSource</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -344,6 +365,11 @@ instance has already been checked.</p>
         <span class="n">selectionDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">selectionDelegate</span><span class="p">:</span> <span class="kt">ListBindingSectionControllerSelectionDelegate</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -369,6 +395,11 @@ instance has already been checked.</p>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">ObjectType</span> <span class="n">object</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">ObjectType</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -400,6 +431,11 @@ calling <code><a href="../Classes/IGListBindingSectionController.html#/c:objc(cs
     <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">viewModels</span><span class="p">;</span></code></pre>
 
                         </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">viewModels</span><span class="p">:</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -426,6 +462,11 @@ calling <code><a href="../Classes/IGListBindingSectionController.html#/c:objc(cs
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">updateAnimated</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span>
             <span class="nf">completion</span><span class="p">:(</span><span class="n">nullable</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">BOOL</span><span class="p">))</span><span class="nv">completion</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -463,13 +504,82 @@ calling <code><a href="../Classes/IGListBindingSectionController.html#/c:objc(cs
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListBindingSectionController(im)moveObjectFromIndex:toIndex:"></a>
+                    <a name="//apple_ref/objc/Method/-moveObjectFromIndex:toIndex:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBindingSectionController(im)moveObjectFromIndex:toIndex:">-moveObjectFromIndex:toIndex:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Notifies the section that a list object should move within a section as the result of interactive reordering.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>this method must be implemented if interactive reordering is enabled. To ensure updating the internal viewModels array, <strong>calling super is required</strong>, preferably before your own implementation.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">moveObjectFromIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">sourceIndex</span>
+                    <span class="nf">toIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">destinationIndex</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">moveObject</span><span class="p">(</span><span class="n">from</span> <span class="nv">sourceIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">to</span> <span class="nv">destinationIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sourceIndex</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The starting index of the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>destinationIndex</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ending index of the object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-05-01)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2019 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2019-11-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

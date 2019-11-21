@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>IGListWorkingRangeDelegate Protocol Reference</title>
+    <title>IGListCollectionViewLayoutCompatible Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/objc/Protocol/IGListWorkingRangeDelegate" class="dashAnchor"></a>
-    <a title="IGListWorkingRangeDelegate Protocol Reference"></a>
+    <a name="//apple_ref/objc/Protocol/IGListCollectionViewLayoutCompatible" class="dashAnchor"></a>
+    <a title="IGListCollectionViewLayoutCompatible Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">IGListKit Docs</a> (98% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">IGListKit Reference</a>
         <img id="carat" src="../img/carat.png" />
-        IGListWorkingRangeDelegate Protocol Reference
+        IGListCollectionViewLayoutCompatible Protocol Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -271,17 +271,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>IGListWorkingRangeDelegate</h1>
+            <h1>IGListCollectionViewLayoutCompatible</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight objective_c"><code><span class="k">@protocol</span> <span class="nc">IGListWorkingRangeDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+                  <pre class="highlight objective_c"><code><span class="k">@protocol</span> <span class="nc">IGListCollectionViewLayoutCompatible</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
 
                 </div>
               </div>
-            <p>Implement this protocol to receive working range events for a list.</p>
-
-<p>The working range is a range <em>near</em> the viewport in which you can begin preparing content for display. For example,
-you could begin decoding images, or warming text caches.</p>
+            <p>A protocol for layouts that defines interaction with an IGListCollectionView, for recieving updated section indexes.</p>
 
           </section>
           <section class="section task-group-section">
@@ -290,9 +287,9 @@ you could begin decoding images, or warming text caches.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerWillEnterWorkingRange:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapter:sectionControllerWillEnterWorkingRange:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerWillEnterWorkingRange:">-listAdapter:sectionControllerWillEnterWorkingRange:</a>
+                    <a name="/c:objc(pl)IGListCollectionViewLayoutCompatible(im)didModifySection:"></a>
+                    <a name="//apple_ref/objc/Method/-didModifySection:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionViewLayoutCompatible(im)didModifySection:">-didModifySection:</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -300,21 +297,28 @@ you could begin decoding images, or warming text caches.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that an section controller will enter the working range.</p>
+                        <p>Called to notify the layout that a specific section was modified before invalidation. This can be used to optimize
+layout re-calculation.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>When updating a collection view (ex: calling <code>-insertSections</code>), <code>-invalidateLayoutWithContext</code> gets called on
+the layout object. However, the invalidation context doesn&rsquo;t provide details on which index paths are being modified,
+which typically forces a full layout re-calculation. Layouts can use this method to keep track of which section
+actually needs to be updated on the following <code>-invalidateLayoutWithContext</code>. See <code><a href="../Classes/IGListCollectionView.html">IGListCollectionView</a></code>.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
-    <span class="nf">sectionControllerWillEnterWorkingRange</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didModifySection</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">modifiedSection</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="p">,</span> <span class="n">sectionControllerWillEnterWorkingRange</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">didModifySection</span><span class="p">(</span><span class="n">_</span> <span class="nv">modifiedSection</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -325,89 +329,12 @@ you could begin decoding images, or warming text caches.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>listAdapter</em>
+                                <em>modifiedSection</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The adapter controlling the list.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>sectionController</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The section controller entering the range.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerDidExitWorkingRange:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapter:sectionControllerDidExitWorkingRange:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerDidExitWorkingRange:">-listAdapter:sectionControllerDidExitWorkingRange:</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Notifies the delegate that an section controller exited the working range.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
-    <span class="nf">sectionControllerDidExitWorkingRange</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="p">,</span> <span class="n">sectionControllerDidExitWorkingRange</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>listAdapter</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The adapter controlling the list.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>sectionController</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The section controller that exited the range.</p>
+                                  <p>The section that was modified.</p>
                                 </div>
                               </td>
                             </tr>
