@@ -11,7 +11,6 @@
 
 #import <IGListKit/IGListAdapterInternal.h>
 #import <IGListKit/IGListSectionController.h>
-#import <IGListKit/IGSystemVersion.h>
 
 @implementation UICollectionViewLayout (InteractiveReordering)
 
@@ -21,11 +20,6 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        // interactive reordering does not exist prior to iOS 9
-        if (!IGSystemVersionIsIOS9OrNewer()) {
-            return;
-        }
-
         Class layoutClass = [self class];
 
         // override implementation for targetIndexPathForInteractivelyMovingItem:withPosition:

@@ -34,6 +34,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Update CocoaPods integration to use the CocoaPods specs CDN [Koen Punt](https://github.com/koenpunt) (#1386)
 
+- Remove useless system version code [Kinarobin](https://github.com/kinarobin) [(#1386)](https://github.com/Instagram/IGListKit/pull/1396)
+
 ### Fixes
 
 - Fixed bug with layouts inconsistency in `updateAnimated:completion` of IGListBindingSectionController. [Qinghua Hong](https://github.com/xohozu) [(#1285)](https://github.com/Instagram/IGListKit/pull/1285)
