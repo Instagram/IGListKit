@@ -9,7 +9,7 @@ The preferred method of installation for `IGListKit` is using [CocoaPods](https:
 In order to use the latest release of the framework, add the following to your `Podfile`:
 
 ```ruby
-pod 'IGListKit', '~> 3.0'
+pod 'IGListKit', '~> 4.0'
 ```
 
 ### Using `master`
@@ -29,7 +29,7 @@ With the exception of `macOS` (which currently only supports the diffing algorit
 However, if you only want to use the diffing components of this library, then you can use the diffing subspec in your `Podfile`:
 
 ```ruby
-pod 'IGListKit/Diffing', '~> 3.0'
+pod 'IGListKit/Diffing', '~> 4.0'
 ```
 
 Regardless of whether you only use the diffing components, or the entire library, the imports are the same:
@@ -43,5 +43,5 @@ import IGListKit
 If using [Carthage](https://github.com/Carthage/Carthage), add the following to your `Cartfile`:
 
 ```ogdl
-github "Instagram/IGListKit" ~> 3.0
+github "Instagram/IGListKit" ~> 4.0
 ```
