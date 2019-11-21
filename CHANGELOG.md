@@ -2,7 +2,7 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
-4.0.0 (upcoming release)
+4.0.0
 -----
 ### Breaking Changes
 
@@ -31,6 +31,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 - Added `preferItemReloadsForSectionReloads` in IGListAdapterUpdater so that the item updates are invoked with the proper collectionView animation, instead of using the delete+insert section operation when the number of items is unchanged. [Zhisheng Huang](https://github.com/lorixx) [(f699ea0)](https://github.com/Instagram/IGListKit/commit/f699ea0e17a8cc6335285dc9f86fb80a0ad49700)
 
 - Created `IGListAdapterPerformanceDelegate` for IGListAdapter to be able to measure how long some operations take across all section controllers. For example, how long it takes to dequeue a cell. [Maxime Ollivier](https://github.com/maxoll) [(4662454)](https://github.com/Instagram/IGListKit/commit/4662454c4aedbc5d3bed0cb386f2ef93de40ba51)
+
+- Update CocoaPods integration to use the CocoaPods specs CDN [Koen Punt](https://github.com/koenpunt) (#1386)
 
 ### Fixes
 

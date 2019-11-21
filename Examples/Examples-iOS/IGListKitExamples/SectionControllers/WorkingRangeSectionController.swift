@@ -23,8 +23,9 @@ final class WorkingRangeSectionController: ListSectionController, ListWorkingRan
 
     private var urlString: String? {
         guard let height = height,
-            let width = collectionContext?.containerSize.width
+              let size = collectionContext?.containerSize
             else { return nil }
+        let width = Int(size.width)
         return "https://unsplash.it/" + width.description + "/" + height.description
     }
 

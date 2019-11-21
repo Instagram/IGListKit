@@ -150,7 +150,7 @@ header {
   margin-left: 246px;
   position: absolute;
   overflow: hidden;
-  padding-bottom: 60px;
+  padding-bottom: 20px;
   top: 70px;
   width: 734px; }
   .main-content p, .main-content a, .main-content code, .main-content em, .main-content ul, .main-content table, .main-content blockquote {
@@ -216,10 +216,15 @@ header {
   .item code {
     background-color: transparent;
     padding: 0; }
-  .item .token {
+  .item .token, .item .direct-link {
     padding-left: 3px;
     margin-left: 15px;
-    font-size: 11.9px; }
+    font-size: 11.9px;
+    transition: all 300ms; }
+  .item .token-open {
+    margin-left: 0px; }
+  .item .discouraged {
+    text-decoration: line-through; }
   .item .declaration-note {
     font-size: .85em;
     color: gray;
@@ -283,9 +288,9 @@ header {
   .language .aside-title {
     color: #4b8afb; }
 
-.aside-warning {
+.aside-warning, .aside-deprecated, .aside-unavailable {
   border-left: 5px solid #ff6666; }
-  .aside-warning .aside-title {
+  .aside-warning .aside-title, .aside-deprecated .aside-title, .aside-unavailable .aside-title {
     color: #ff0000; }
 
 .graybox {
@@ -310,8 +315,9 @@ header {
   font-size: 0.9em; }
 
 #footer {
-  position: absolute;
-  bottom: 10px;
+  position: relative;
+  top: 10px;
+  bottom: 0px;
   margin-left: 25px; }
   #footer p {
     margin: 0;
@@ -320,6 +326,7 @@ header {
 
 html.dash header, html.dash #breadcrumbs, html.dash .sidebar {
   display: none; }
+
 html.dash .main-content {
   width: 980px;
   margin-left: 0;
@@ -327,11 +334,15 @@ html.dash .main-content {
   width: 100%;
   top: 0;
   padding-bottom: 0; }
+
 html.dash .height-container {
   display: block; }
+
 html.dash .item .token {
   margin-left: 0; }
+
 html.dash .content-wrapper {
   width: auto; }
+
 html.dash #footer {
   position: static; }
