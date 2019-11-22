@@ -6,6 +6,7 @@
  */
 
 #import <IGListKit/IGListKit.h>
+#import <IGListKit/IGListBindingSectionController.h>
 
 @interface IGListBindingSectionController (DebugDescription)
 
