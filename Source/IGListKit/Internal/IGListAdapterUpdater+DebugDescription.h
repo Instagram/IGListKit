@@ -6,6 +6,7 @@
  */
 
 #import <IGListKit/IGListKit.h>
+#import <IGListKit/IGListAdapterUpdater.h>
 
 @interface IGListAdapterUpdater (DebugDescription)
 
