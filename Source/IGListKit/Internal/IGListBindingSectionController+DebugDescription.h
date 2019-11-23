@@ -5,7 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <IGListKit/IGListKit.h>
 #import <IGListKit/IGListBindingSectionController.h>
 
 @interface IGListBindingSectionController (DebugDescription)
