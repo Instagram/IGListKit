@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+#import <IGListKit/IGListKit.h>
 #import <IGListDiffKit/IGListBatchUpdateData.h>
 
 @interface IGListBatchUpdateData (DebugDescription)
