@@ -660,12 +660,7 @@
         [[map sectionControllerForObject:object] didUpdateToObject:object];
     }
 
-    NSInteger itemCount = 0;
-    for (IGListSectionController *sectionController in sectionControllers) {
-        itemCount += [sectionController numberOfItems];
-    }
-
-    [self _updateBackgroundViewShouldHide:itemCount > 0];
+    [self _updateBackgroundViewShouldHide:![self _itemCountIsZero]];
 }
 
 - (void)_updateBackgroundViewShouldHide:(BOOL)shouldHide {
