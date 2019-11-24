@@ -2,6 +2,14 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
+
+4.1.0 (upcoming release)
+-----
+
+### Breaking Changes
+
+- Add Swift refinements for `dequeueReusableCellOfClass` methods. [Koen Punt](https://github.com/koenpunt) [(#1388)](https://github.com/Instagram/IGListKit/pull/1388). _This only is a potentially breaking change when using IGListKit with Swift._
+
 4.0.0
 -----
 ### Breaking Changes
