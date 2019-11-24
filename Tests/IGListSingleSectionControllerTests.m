@@ -75,14 +75,14 @@
                              genTestObject(@3, @"Baz"),
                              ]];
     self.dataSource.objects = @[
-                                genTestObject(@1, @"Foo"),
-                                genTestObject(@2, @"Qux"), // new value
+                                genTestObject(@1, @"Qux"), // new value
+                                genTestObject(@2, @"Bar"),
                                 genTestObject(@3, @"Baz"),
                                 ];
     XCTestExpectation *expectation = genExpectation;
     [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
-        IGTestCell *cell2 = (IGTestCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
-        XCTAssertEqualObjects(cell2.label.text, @"Qux");
+        IGTestCell *cell1 = (IGTestCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        XCTAssertEqualObjects(cell1.label.text, @"Qux");
         [expectation fulfill];
     }];
     [self waitForExpectationsWithTimeout:30 handler:nil];

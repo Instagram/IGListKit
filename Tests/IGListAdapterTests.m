@@ -41,7 +41,7 @@
     self.adapter.collectionView = self.collectionView;
     self.adapter.dataSource = self.dataSource;
 
-    if (@available(iOS 11.0, *)) {
+    if (@available(iOS 11.0, tvOS 11.0, *)) {
         self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
 }
@@ -284,6 +284,7 @@
     XCTAssertTrue([visibleSectionControllers containsObject:[self.adapter sectionControllerForObject:@4]]);
 }
 
+#if !TARGET_OS_TV
 - (void) test_withEmptySectionPlusFooter_thatVisibleSectionControllersAreCorrect {
     self.dataSource.objects = @[@0];
     [self.adapter reloadDataWithCompletion:nil];
@@ -300,6 +301,7 @@
     XCTAssertTrue([visibleSectionControllers count] == 1);
     XCTAssertTrue(visibleSectionControllers.firstObject.supplementaryViewSource == supplementarySource);
 }
+#endif
 
 - (void)DISABLED_test_whenCellsExtendBeyondBounds_thatVisibleCellsExistForSectionControllers {
     self.dataSource.objects = @[@2, @3, @4, @5, @6];
@@ -475,6 +477,7 @@
     XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
 }
 
+#if !TARGET_OS_TV
 - (void)test_whenSupplementarySourceSupportsFooter_withNibs_thatHeaderViewsAreNil {
     self.dataSource.objects = @[@1, @2];
     [self.adapter reloadDataWithCompletion:nil];
@@ -498,6 +501,7 @@
     XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
     XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
 }
+#endif
 
 - (void)test_whenAdapterReleased_withSectionControllerStrongRefToCell_thatSectionControllersRelease {
     __weak id weakCollectionView = nil, weakAdapter = nil, weakSectionController = nil;

@@ -50,7 +50,6 @@
 		2997D4971DF5FC0B005A5DD2 /* IGReloadDataUpdaterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2997D4961DF5FC0B005A5DD2 /* IGReloadDataUpdaterTests.m */; };
 		29C4748C1DDF45F400AE68CE /* IGListAdapterProxyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 29C4748A1DDF45E700AE68CE /* IGListAdapterProxyTests.m */; };
 		29C4748D1DDF45F900AE68CE /* IGListAdapterProxyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 29C4748A1DDF45E700AE68CE /* IGListAdapterProxyTests.m */; };
-		29C4748E1DDF460500AE68CE /* IGListAdapterStoryboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8240C7F11DC284C300B3AAE7 /* IGListAdapterStoryboardTests.m */; };
 		29C4748F1DDF460500AE68CE /* IGListDiffResultTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AC6311DDE4C19002FCE5D /* IGListDiffResultTests.m */; };
 		29C474901DDF460500AE68CE /* IGListSectionMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 829D7BA81DD1816400549816 /* IGListSectionMapTests.m */; };
 		29C5792E1DE0DA89003A149B /* IGTestNibSupplementaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2904861F1DCD02750007F41D /* IGTestNibSupplementaryView.m */; };
@@ -63,9 +62,6 @@
 		29DA5CA71EA7D37000113926 /* IGListTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 29DA5CA61EA7D37000113926 /* IGListTestCase.m */; };
 		29DA5CA81EA7D37000113926 /* IGListTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 29DA5CA61EA7D37000113926 /* IGListTestCase.m */; };
 		29EA6C491DB43A8000957A88 /* IGTestNibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 294369B01DB1B7AE0025F6E7 /* IGTestNibCell.xib */; };
-		401B5E63230111EC004099D5 /* IGTestNibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 294369B01DB1B7AE0025F6E7 /* IGTestNibCell.xib */; };
-		401B5E64230111F3004099D5 /* IGTestNibSupplementaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2904861C1DCD02140007F41D /* IGTestNibSupplementaryView.xib */; };
-		401B5E65230111F7004099D5 /* IGTestStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 821BC4C21DB8CAE900172ED0 /* IGTestStoryboard.storyboard */; };
 		6A9EB3611F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9EB3601F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m */; };
 		6A9EB3621F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9EB3601F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m */; };
 		7A02CEEE2361511100B49FAE /* IGListReloadDataUpdater.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A02CEC72361510F00B49FAE /* IGListReloadDataUpdater.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -361,8 +357,6 @@
 		885FE2301DC51B76009CE2B4 /* IGListDiffTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE81D870EDC007C7F66 /* IGListDiffTests.m */; };
 		885FE2311DC51B76009CE2B4 /* IGListDisplayHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE91D870EDC007C7F66 /* IGListDisplayHandlerTests.m */; };
 		885FE2331DC51B76009CE2B4 /* IGListSingleSectionControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EED1D870EDC007C7F66 /* IGListSingleSectionControllerTests.m */; };
-		885FE2341DC51B76009CE2B4 /* IGListSingleNibItemControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 26271C8B1DAE96740073E116 /* IGListSingleNibItemControllerTests.m */; };
-		885FE2351DC51B76009CE2B4 /* IGListSingleStoryboardItemControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 821BC4BE1DB8C95300172ED0 /* IGListSingleStoryboardItemControllerTests.m */; };
 		885FE2371DC51B76009CE2B4 /* IGListWorkingRangeHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EEF1D870EDC007C7F66 /* IGListWorkingRangeHandlerTests.m */; };
 		885FE2381DC51B86009CE2B4 /* IGListTestAdapterDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EF21D870EDC007C7F66 /* IGListTestAdapterDataSource.m */; };
 		885FE2391DC51B86009CE2B4 /* IGListTestOffsettingLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EF41D870EDC007C7F66 /* IGListTestOffsettingLayout.m */; };
@@ -1522,9 +1516,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				401B5E65230111F7004099D5 /* IGTestStoryboard.storyboard in Resources */,
-				401B5E64230111F3004099D5 /* IGTestNibSupplementaryView.xib in Resources */,
-				401B5E63230111EC004099D5 /* IGTestNibCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1739,7 +1730,6 @@
 				8285404D1DE40C6E00118B94 /* IGListTestHorizontalSection.m in Sources */,
 				298DDA061E3AE2B000F76F50 /* IGTestNumberBindableCell.m in Sources */,
 				885FE2381DC51B86009CE2B4 /* IGListTestAdapterDataSource.m in Sources */,
-				885FE2341DC51B76009CE2B4 /* IGListSingleNibItemControllerTests.m in Sources */,
 				0B40C5F31E01CB8200378109 /* IGReloadDataUpdaterTests.m in Sources */,
 				885FE2391DC51B86009CE2B4 /* IGListTestOffsettingLayout.m in Sources */,
 				29C4748F1DDF460500AE68CE /* IGListDiffResultTests.m in Sources */,
@@ -1755,8 +1745,6 @@
 				885FE22C1DC51B76009CE2B4 /* IGListAdapterTests.m in Sources */,
 				298DDA051E3AE2B000F76F50 /* IGTestStringBindableCell.m in Sources */,
 				885FE22D1DC51B76009CE2B4 /* IGListAdapterUpdaterTests.m in Sources */,
-				885FE2351DC51B76009CE2B4 /* IGListSingleStoryboardItemControllerTests.m in Sources */,
-				29C4748E1DDF460500AE68CE /* IGListAdapterStoryboardTests.m in Sources */,
 				885FE2411DC51B86009CE2B4 /* IGTestSingleNibItemDataSource.m in Sources */,
 				6A9EB3621F841E5D0070C572 /* IGTestSingleWithoutDeselectionDelegate.m in Sources */,
 				885FE2461DC51B86009CE2B4 /* IGTestSupplementarySource.m in Sources */,
@@ -2163,6 +2151,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/IGListKitTests-Bridging-Header.h";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
@@ -2185,6 +2174,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/IGListKitTests-Bridging-Header.h";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
