@@ -16,12 +16,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-FOUNDATION_EXTERN void convertReloadToDeleteInsert(NSMutableIndexSet *reloads,
-                                                   NSMutableIndexSet *deletes,
-                                                   NSMutableIndexSet *inserts,
-                                                   IGListIndexSetResult *result,
-                                                   NSArray<id<IGListDiffable>> *fromObjects);
-
 @interface IGListAdapterUpdater ()
 
 @property (nonatomic, copy, nullable) NSArray *fromObjects;
