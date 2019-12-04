@@ -19,6 +19,11 @@
 
 + (instancetype)sectionWithObjects:(NSArray *)objects identifier:(NSString *)identifier;
 
+/**
+ @param usesIdentifierForDiffable YES if we only use the `identifier` for -isEqualToDiffableObject. NO then we compares both the `identifier` as well as `objects`.
+ */
++ (instancetype)sectionWithObjects:(NSArray *)objects identifier:(NSString *)identifier usesIdentifierForDiffable:(BOOL)usesIdentifierForDiffable;
+
 @end
 
 @interface IGListTestUICollectionViewDataSource : NSObject <UICollectionViewDataSource>
