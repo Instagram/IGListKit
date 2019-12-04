@@ -14,6 +14,7 @@
 #import "IGListTestUICollectionViewDataSource.h"
 #import "IGTestObject.h"
 #import "IGListMoveIndexInternal.h"
+#import "IGListAdapterUpdaterHelpers.h"
 
 #define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
 #define waitExpectation [self waitForExpectationsWithTimeout:30 handler:nil]
@@ -396,7 +397,7 @@
     [reloads addIndex:2];
     NSMutableIndexSet *deletes = [result.deletes mutableCopy];
     NSMutableIndexSet *inserts = [result.inserts mutableCopy];
-    convertReloadToDeleteInsert(reloads, deletes, inserts, result, from);
+    IGListConvertReloadToDeleteInsert(reloads, deletes, inserts, result, from);
     XCTAssertEqual(reloads.count, 0);
     XCTAssertEqual(deletes.count, 1);
     XCTAssertEqual(inserts.count, 1);
@@ -412,7 +413,7 @@
     [reloads addIndex:2];
     NSMutableIndexSet *deletes = [result.deletes mutableCopy];
     NSMutableIndexSet *inserts = [result.inserts mutableCopy];
-    convertReloadToDeleteInsert(reloads, deletes, inserts, result, from);
+    IGListConvertReloadToDeleteInsert(reloads, deletes, inserts, result, from);
     XCTAssertEqual(reloads.count, 0);
     XCTAssertEqual(deletes.count, 1);
     XCTAssertEqual(inserts.count, 1);
@@ -427,7 +428,7 @@
     NSMutableIndexSet *reloads = [NSMutableIndexSet indexSetWithIndex:1];
     NSMutableIndexSet *deletes = [NSMutableIndexSet new];
     NSMutableIndexSet *inserts = [NSMutableIndexSet new];
-    convertReloadToDeleteInsert(reloads, deletes, inserts, result, from);
+    IGListConvertReloadToDeleteInsert(reloads, deletes, inserts, result, from);
     XCTAssertEqual(reloads.count, 0);
     XCTAssertEqual(deletes.count, 0);
     XCTAssertEqual(inserts.count, 0);
