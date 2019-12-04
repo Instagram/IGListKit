@@ -9,18 +9,26 @@
 
 #import "IGListTestUICollectionViewDataSource.h"
 
+#import <IGAssert/IGAssert.h>
+
 @implementation IGSectionObject {
     NSString *_identifier;
+    BOOL _usesIdentifierForDiffable;
 }
 
 + (instancetype)sectionWithObjects:(NSArray *)objects {
-    return [IGSectionObject sectionWithObjects:objects identifier:[NSUUID UUID].UUIDString];
+    return [IGSectionObject sectionWithObjects:objects identifier:[NSUUID UUID].UUIDString usesIdentifierForDiffable:NO];
 }
 
 + (instancetype)sectionWithObjects:(NSArray *)objects identifier:(NSString *)identifier {
+    return [IGSectionObject sectionWithObjects:objects identifier:identifier usesIdentifierForDiffable:NO];
+}
+
++ (instancetype)sectionWithObjects:(NSArray *)objects identifier:(NSString *)identifier usesIdentifierForDiffable:(BOOL)usesIdentifierForDiffable {
     IGSectionObject *object = [[IGSectionObject alloc] init];
     object.objects = objects;
     object->_identifier = [identifier copy];
+    object->_usesIdentifierForDiffable = usesIdentifierForDiffable;
     return object;
 }
 
@@ -34,8 +42,24 @@
     if (object == self) {
         return YES;
     } else if ([object isKindOfClass:IGSectionObject.class]) {
-        return (self.objects && [self.objects isEqualToArray:[object objects]])
-        || (!self.objects && ![object objects]);
+        IGSectionObject *sectionObject = (IGSectionObject *)object;
+        if (_usesIdentifierForDiffable) {
+            return [_identifier isEqualToString:sectionObject->_identifier];
+        } else {
+            return [self isEqual:object];
+        }
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL)isEqual:(id)object {
+    if (object == self) {
+        return YES;
+    } else if ([object isKindOfClass:IGSectionObject.class]) {
+        IGSectionObject *sectionObject = (IGSectionObject *)object;
+        return ([self.objects isEqualToArray:sectionObject.objects]
+                && [_identifier isEqualToString:sectionObject->_identifier]);
     } else {
         return NO;
     }
