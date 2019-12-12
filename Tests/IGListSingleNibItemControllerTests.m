@@ -18,6 +18,7 @@
 
 - (void)setUp {
     self.dataSource = [IGTestSingleNibItemDataSource new];
+    self.frame = CGRectMake(0, 0, 100, 1000);
     [super setUp];
 }
 
@@ -33,7 +34,7 @@
     XCTAssertEqual([self.collectionView numberOfItemsInSection:2], 1);
 }
 
-- (void)DISABLED_test_whenDisplayingCollectionView_thatCellsAreConfigured {
+- (void)test_whenDisplayingCollectionView_thatCellsAreConfigured {
     [self setupWithObjects:@[
                              genTestObject(@1, @"Foo"),
                              genTestObject(@2, @"Bar"),
@@ -47,7 +48,7 @@
     XCTAssertEqualObjects(cell3.label.text, @"Baz");
 }
 
-- (void)DISABLED_test_whenDisplayingCollectionView_thatCellsAreSized {
+- (void)test_whenDisplayingCollectionView_thatCellsAreSized {
     [self setupWithObjects:@[
                              genTestObject(@1, @"Foo"),
                              genTestObject(@2, @"Bar"),

@@ -29,7 +29,7 @@
 
 - (void)setUp {
     [super setUp];
-    self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 1000)];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"IGTestStoryboard" bundle:[NSBundle bundleForClass:self.class]];
     self.viewController = [storyboard instantiateViewControllerWithIdentifier:@"testVC"];
     [self.window addSubview:self.viewController.view];
@@ -67,7 +67,7 @@
     XCTAssertEqual([self.collectionView numberOfItemsInSection:2], 1);
 }
 
-- (void)DISABLED_test_whenDisplayingCollectionView_thatCellsAreConfigured {
+- (void)test_whenDisplayingCollectionView_thatCellsAreConfigured {
     [self setupWithObjects:@[
                              genTestObject(@1, @"Foo"),
                              genTestObject(@2, @"Bar"),
@@ -81,7 +81,7 @@
     XCTAssertEqualObjects(cell3.label.text, @"Baz");
 }
 
-- (void)DISABLED_test_whenDisplayingCollectionView_thatCellsAreSized {
+- (void)test_whenDisplayingCollectionView_thatCellsAreSized {
     [self setupWithObjects:@[
                              genTestObject(@1, @"Foo"),
                              genTestObject(@2, @"Bar"),
