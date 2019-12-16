@@ -383,6 +383,10 @@
 		88DF89881E010F5C00B1B9B4 /* IGListDiffResultTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AC6311DDE4C19002FCE5D /* IGListDiffResultTests.m */; };
 		88DF89891E010F6500B1B9B4 /* IGListDiffSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE61D870EDC007C7F66 /* IGListDiffSwiftTests.swift */; };
 		88DF898A1E010F7000B1B9B4 /* IGListDiffTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE81D870EDC007C7F66 /* IGListDiffTests.m */; };
+		B1F48C5F23A73E730070ABB8 /* IGListAdapterUpdaterHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F48C5D23A73E730070ABB8 /* IGListAdapterUpdaterHelpers.h */; };
+		B1F48C6023A73E730070ABB8 /* IGListAdapterUpdaterHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F48C5D23A73E730070ABB8 /* IGListAdapterUpdaterHelpers.h */; };
+		B1F48C6123A73E730070ABB8 /* IGListAdapterUpdaterHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F48C5E23A73E730070ABB8 /* IGListAdapterUpdaterHelpers.m */; };
+		B1F48C6223A73E730070ABB8 /* IGListAdapterUpdaterHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F48C5E23A73E730070ABB8 /* IGListAdapterUpdaterHelpers.m */; };
 		DD468D380BBF350ACE7EA28B /* Pods_IGListKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB7195278D0BBB5DA88D36F /* Pods_IGListKitTests.framework */; };
 		E56B7B3420A9D7100071010C /* IGListCollectionScrollingTraitsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E56B7B3320A9D7100071010C /* IGListCollectionScrollingTraitsTests.m */; };
 		E56B7B3520A9D7100071010C /* IGListCollectionScrollingTraitsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E56B7B3320A9D7100071010C /* IGListCollectionScrollingTraitsTests.m */; };
@@ -659,6 +663,8 @@
 		887D0B571D870E1E009E01F7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88DF897C1E010E6A00B1B9B4 /* IGListKit-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IGListKit-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9574C58371B7A46F62E9AC24 /* Pods-IGListKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTests/Pods-IGListKitTests.release.xcconfig"; sourceTree = "<group>"; };
+		B1F48C5D23A73E730070ABB8 /* IGListAdapterUpdaterHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListAdapterUpdaterHelpers.h; sourceTree = "<group>"; };
+		B1F48C5E23A73E730070ABB8 /* IGListAdapterUpdaterHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListAdapterUpdaterHelpers.m; sourceTree = "<group>"; };
 		CA8726D7FF3608E20E9F7EC6 /* Pods-IGListKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTests/Pods-IGListKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DD3152AC1DE227FA00AC9D2C /* IGListKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IGListKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E56B7B3320A9D7100071010C /* IGListCollectionScrollingTraitsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListCollectionScrollingTraitsTests.m; sourceTree = "<group>"; };
@@ -831,6 +837,8 @@
 		7A02CF632361511700B49FAE /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				B1F48C5D23A73E730070ABB8 /* IGListAdapterUpdaterHelpers.h */,
+				B1F48C5E23A73E730070ABB8 /* IGListAdapterUpdaterHelpers.m */,
 				7A02CF7F2361513500B49FAE /* IGListAdapter+DebugDescription.h */,
 				7A02CF652361513300B49FAE /* IGListAdapter+DebugDescription.m */,
 				7A02CF742361513400B49FAE /* IGListAdapter+UICollectionView.h */,
@@ -1179,6 +1187,7 @@
 				7A02CF462361511100B49FAE /* IGListAdapterPerformanceDelegate.h in Headers */,
 				7A02CF0A2361511100B49FAE /* IGListBindingSectionControllerDataSource.h in Headers */,
 				7A02D0122361513600B49FAE /* UICollectionView+DebugDescription.h in Headers */,
+				B1F48C6023A73E730070ABB8 /* IGListAdapterUpdaterHelpers.h in Headers */,
 				7A02CF0D2361511100B49FAE /* IGListCollectionContext.h in Headers */,
 				7A02CF372361511100B49FAE /* IGListAdapterDataSource.h in Headers */,
 				7A02CFC12361513600B49FAE /* IGListAdapter+UICollectionView.h in Headers */,
@@ -1240,6 +1249,7 @@
 				7A02CFC92361513600B49FAE /* UICollectionView+IGListBatchUpdateData.h in Headers */,
 				7A02CEF12361511100B49FAE /* IGListScrollDelegate.h in Headers */,
 				7A02CFF62361513600B49FAE /* IGListSectionMap+DebugDescription.h in Headers */,
+				B1F48C5F23A73E730070ABB8 /* IGListAdapterUpdaterHelpers.h in Headers */,
 				7A02CF002361511100B49FAE /* IGListCollectionView.h in Headers */,
 				7A02CF152361511100B49FAE /* IGListCollectionViewLayout.h in Headers */,
 				7A02CF1B2361511100B49FAE /* IGListSectionController.h in Headers */,
@@ -1697,6 +1707,7 @@
 				7A02D0062361513600B49FAE /* IGListDebuggingUtilities.m in Sources */,
 				7A02CF522361511100B49FAE /* IGListAdapter.m in Sources */,
 				7A02CF942361513600B49FAE /* IGListAdapter+DebugDescription.m in Sources */,
+				B1F48C6223A73E730070ABB8 /* IGListAdapterUpdaterHelpers.m in Sources */,
 				7A02CFD92361513600B49FAE /* IGListBatchUpdateData+DebugDescription.m in Sources */,
 				7A02CFAF2361513600B49FAE /* UICollectionViewLayout+InteractiveReordering.m in Sources */,
 			);
@@ -1796,6 +1807,7 @@
 				7A02D0052361513600B49FAE /* IGListDebuggingUtilities.m in Sources */,
 				7A02CF512361511100B49FAE /* IGListAdapter.m in Sources */,
 				7A02CF932361513600B49FAE /* IGListAdapter+DebugDescription.m in Sources */,
+				B1F48C6123A73E730070ABB8 /* IGListAdapterUpdaterHelpers.m in Sources */,
 				7A02CFD82361513600B49FAE /* IGListBatchUpdateData+DebugDescription.m in Sources */,
 				7A02CFAE2361513600B49FAE /* UICollectionViewLayout+InteractiveReordering.m in Sources */,
 			);
