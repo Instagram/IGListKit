@@ -7,7 +7,7 @@
 
 #import "IGListAdapterUpdaterHelpers.h"
 
-#import <IGAssert/IGAssert.h>
+#import <IGListDiffKit/IGListAssert.h>
 
 #import <IGListDiffKit/IGListBatchUpdateData.h>
 #import <IGListDiffKit/IGListIndexSetResult.h>
