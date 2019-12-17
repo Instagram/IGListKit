@@ -122,6 +122,10 @@ jobs:
       name: "Tests: iOS 11.3"
       env: DESTINATION="$IOS_DESTINATION_11" WORKSPACE="IGListKit.xcworkspace" SDK="$IOS_SDK" SCHEME="$IOS_SCHEME"
 
+    - <<: *unit-tests
+      name: "Tests: tvOS 11.3"
+      env: DESTINATION="$TVOS_DESTINATION_11" WORKSPACE="IGListKit.xcworkspace" SDK="$TVOS_SDK" SCHEME="IGListKit-tvOS"
+
     # Danger
     - stage: Danger
       script: bundle exec danger --verbose
