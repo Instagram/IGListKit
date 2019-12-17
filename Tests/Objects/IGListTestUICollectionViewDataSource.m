@@ -9,7 +9,7 @@
 
 #import "IGListTestUICollectionViewDataSource.h"
 
-#import <IGAssert/IGAssert.h>
+#import <IGListDiffKit/IGListAssert.h>
 
 @implementation IGSectionObject {
     NSString *_identifier;
