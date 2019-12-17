@@ -194,18 +194,35 @@
     IGListIndexSetResult *(^performDiff)(void) = ^{
         return IGListDiffExperiment(fromObjects, toObjects, IGListDiffEquality, experiments);
     };
-
+    
     // block executed in the first param block of -[UICollectionView performBatchUpdates:completion:]
     void (^batchUpdatesBlock)(IGListIndexSetResult *result) = ^(IGListIndexSetResult *result){
         executeUpdateBlocks();
-      
-        self.applyingUpdateData = IGListApplyUpdatesToCollectionView(collectionView,
-                                                                     result,
-                                                                     self.batchUpdates,
-                                                                     fromObjects,
-                                                                     experiments,
-                                                                     self.movesAsDeletesInserts,
-                                                                     self.preferItemReloadsForSectionReloads);
+        if (self.singleItemSectionUpdates) {
+            [collectionView deleteSections:result.deletes];
+            [collectionView insertSections:result.inserts];
+            for (IGListMoveIndex *move in result.moves) {
+                [collectionView moveSection:move.from toSection:move.to];
+            }
+            // NOTE: for section updates, it's updated in the IGListSectionController's -didUpdateToObject:, since there is *only* 1 cell for the section, we can just update that cell.
+            
+            self.applyingUpdateData = [[IGListBatchUpdateData alloc]
+                                       initWithInsertSections:result.inserts
+                                       deleteSections:result.deletes
+                                       moveSections:[NSSet setWithArray:result.moves]
+                                       insertIndexPaths:@[]
+                                       deleteIndexPaths:@[]
+                                       updateIndexPaths:@[]
+                                       moveIndexPaths:@[]];
+        } else {
+            self.applyingUpdateData = IGListApplyUpdatesToCollectionView(collectionView,
+                                                                         result,
+                                                                         self.batchUpdates,
+                                                                         fromObjects,
+                                                                         experiments,
+                                                                         self.movesAsDeletesInserts,
+                                                                         self.preferItemReloadsForSectionReloads);
+}
 
         [self _cleanStateAfterUpdates];
         [self _performBatchUpdatesItemBlockApplied];
