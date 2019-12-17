@@ -312,6 +312,10 @@
 		7A02D0AA2361530800B49FAE /* IGListDiffKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A02D02B2361525800B49FAE /* IGListDiffKit.framework */; };
 		7A02D0AB2361530E00B49FAE /* IGListDiffKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A02D01D2361520200B49FAE /* IGListDiffKit.framework */; };
 		7A02D0C023615CE500B49FAE /* IGListKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A02CED72361511000B49FAE /* IGListKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7A92EAB423A8A5FA00E5A13D /* IGListAdapterUpdaterHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD6864A23A89E7F009000DE /* IGListAdapterUpdaterHelpers.h */; };
+		7AD6864C23A89E7F009000DE /* IGListAdapterUpdaterHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD6864A23A89E7F009000DE /* IGListAdapterUpdaterHelpers.h */; };
+		7A92EAB523A8A5FF00E5A13D /* IGListAdapterUpdaterHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD6864923A89E7F009000DE /* IGListAdapterUpdaterHelpers.m */; };
+		7AD6864B23A89E7F009000DE /* IGListAdapterUpdaterHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD6864923A89E7F009000DE /* IGListAdapterUpdaterHelpers.m */; };
 		821BC4C01DB8C9D500172ED0 /* IGListSingleStoryboardItemControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 821BC4BE1DB8C95300172ED0 /* IGListSingleStoryboardItemControllerTests.m */; };
 		821BC4C41DB8CEF800172ED0 /* IGTestStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 821BC4C21DB8CAE900172ED0 /* IGTestStoryboard.storyboard */; };
 		821BC4CB1DB8D60100172ED0 /* IGTestStoryboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 821BC4C81DB8D5B200172ED0 /* IGTestStoryboardViewController.m */; };
@@ -598,6 +602,8 @@
 		7A02D0592361529E00B49FAE /* IGListMoveIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListMoveIndex.h; sourceTree = "<group>"; };
 		7A02D05A2361529F00B49FAE /* IGListIndexSetResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListIndexSetResult.h; sourceTree = "<group>"; };
 		7A02D0AC236153CE00B49FAE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AD6864923A89E7F009000DE /* IGListAdapterUpdaterHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListAdapterUpdaterHelpers.m; sourceTree = "<group>"; };
+		7AD6864A23A89E7F009000DE /* IGListAdapterUpdaterHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListAdapterUpdaterHelpers.h; sourceTree = "<group>"; };
 		821BC4BE1DB8C95300172ED0 /* IGListSingleStoryboardItemControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListSingleStoryboardItemControllerTests.m; sourceTree = "<group>"; };
 		821BC4C21DB8CAE900172ED0 /* IGTestStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IGTestStoryboard.storyboard; sourceTree = "<group>"; };
 		821BC4C71DB8D5B200172ED0 /* IGTestStoryboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGTestStoryboardViewController.h; sourceTree = "<group>"; };
@@ -840,6 +846,8 @@
 				7A02CF722361513400B49FAE /* IGListAdapterProxy.m */,
 				7A02CF7E2361513500B49FAE /* IGListAdapterUpdater+DebugDescription.h */,
 				7A02CF732361513400B49FAE /* IGListAdapterUpdater+DebugDescription.m */,
+				7AD6864A23A89E7F009000DE /* IGListAdapterUpdaterHelpers.h */,
+				7AD6864923A89E7F009000DE /* IGListAdapterUpdaterHelpers.m */,
 				7A02CF702361513400B49FAE /* IGListAdapterUpdaterInternal.h */,
 				7A02CF812361513500B49FAE /* IGListArrayUtilsInternal.h */,
 				7A02CF8C2361513500B49FAE /* IGListBatchUpdateData+DebugDescription.h */,
@@ -1179,6 +1187,7 @@
 				7A02CF462361511100B49FAE /* IGListAdapterPerformanceDelegate.h in Headers */,
 				7A02CF0A2361511100B49FAE /* IGListBindingSectionControllerDataSource.h in Headers */,
 				7A02D0122361513600B49FAE /* UICollectionView+DebugDescription.h in Headers */,
+				7A92EAB423A8A5FA00E5A13D /* IGListAdapterUpdaterHelpers.h in Headers */,
 				7A02CF0D2361511100B49FAE /* IGListCollectionContext.h in Headers */,
 				7A02CF372361511100B49FAE /* IGListAdapterDataSource.h in Headers */,
 				7A02CFC12361513600B49FAE /* IGListAdapter+UICollectionView.h in Headers */,
@@ -1240,6 +1249,7 @@
 				7A02CFC92361513600B49FAE /* UICollectionView+IGListBatchUpdateData.h in Headers */,
 				7A02CEF12361511100B49FAE /* IGListScrollDelegate.h in Headers */,
 				7A02CFF62361513600B49FAE /* IGListSectionMap+DebugDescription.h in Headers */,
+				7AD6864C23A89E7F009000DE /* IGListAdapterUpdaterHelpers.h in Headers */,
 				7A02CF002361511100B49FAE /* IGListCollectionView.h in Headers */,
 				7A02CF152361511100B49FAE /* IGListCollectionViewLayout.h in Headers */,
 				7A02CF1B2361511100B49FAE /* IGListSectionController.h in Headers */,
@@ -1697,6 +1707,7 @@
 				7A02D0062361513600B49FAE /* IGListDebuggingUtilities.m in Sources */,
 				7A02CF522361511100B49FAE /* IGListAdapter.m in Sources */,
 				7A02CF942361513600B49FAE /* IGListAdapter+DebugDescription.m in Sources */,
+				7A92EAB523A8A5FF00E5A13D /* IGListAdapterUpdaterHelpers.m in Sources */,
 				7A02CFD92361513600B49FAE /* IGListBatchUpdateData+DebugDescription.m in Sources */,
 				7A02CFAF2361513600B49FAE /* UICollectionViewLayout+InteractiveReordering.m in Sources */,
 			);
@@ -1796,6 +1807,7 @@
 				7A02D0052361513600B49FAE /* IGListDebuggingUtilities.m in Sources */,
 				7A02CF512361511100B49FAE /* IGListAdapter.m in Sources */,
 				7A02CF932361513600B49FAE /* IGListAdapter+DebugDescription.m in Sources */,
+				7AD6864B23A89E7F009000DE /* IGListAdapterUpdaterHelpers.m in Sources */,
 				7A02CFD82361513600B49FAE /* IGListBatchUpdateData+DebugDescription.m in Sources */,
 				7A02CFAE2361513600B49FAE /* UICollectionViewLayout+InteractiveReordering.m in Sources */,
 			);
