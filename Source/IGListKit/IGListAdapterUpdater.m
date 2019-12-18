@@ -194,7 +194,7 @@
     IGListIndexSetResult *(^performDiff)(void) = ^{
         return IGListDiffExperiment(fromObjects, toObjects, IGListDiffEquality, experiments);
     };
-    
+
     // block executed in the first param block of -[UICollectionView performBatchUpdates:completion:]
     void (^batchUpdatesBlock)(IGListIndexSetResult *result) = ^(IGListIndexSetResult *result){
         executeUpdateBlocks();
@@ -205,7 +205,7 @@
                 [collectionView moveSection:move.from toSection:move.to];
             }
             // NOTE: for section updates, it's updated in the IGListSectionController's -didUpdateToObject:, since there is *only* 1 cell for the section, we can just update that cell.
-            
+
             self.applyingUpdateData = [[IGListBatchUpdateData alloc]
                                        initWithInsertSections:result.inserts
                                        deleteSections:result.deletes
@@ -260,14 +260,22 @@ willPerformBatchUpdatesWithCollectionView:collectionView
                     batchUpdatesBlock(result);
                 } completion:batchUpdatesCompletionBlock];
             } else {
-                [CATransaction begin];
-                [CATransaction setDisableActions:YES];
-                [collectionView performBatchUpdates:^{
-                    batchUpdatesBlock(result);
-                } completion:^(BOOL finished) {
-                    [CATransaction commit];
-                    batchUpdatesCompletionBlock(finished);
-                }];
+                if (IGListExperimentEnabled(experiments, IGListExperimentPerformUpdatesWithoutDeferringCATransactionCommit)) {
+                    [UIView performWithoutAnimation:^{
+                        [collectionView performBatchUpdates:^{
+                            batchUpdatesBlock(result);
+                        } completion:batchUpdatesCompletionBlock];
+                    }];
+                } else {
+                    [CATransaction begin];
+                    [CATransaction setDisableActions:YES];
+                    [collectionView performBatchUpdates:^{
+                        batchUpdatesBlock(result);
+                    } completion:^(BOOL finished) {
+                        [CATransaction commit];
+                        batchUpdatesCompletionBlock(finished);
+                    }];
+                }
             }
         } @catch (NSException *exception) {
             [delegate listAdapterUpdater:self
