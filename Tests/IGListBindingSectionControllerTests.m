@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -8,20 +8,21 @@
 #import <XCTest/XCTest.h>
 
 #import <OCMock/OCMock.h>
+
 #import <IGListKit/IGListKit.h>
 
+#import "IGListAdapterInternal.h"
+#import "IGListTestCase.h"
+#import "IGTestBindingWithoutDeselectionDelegate.h"
+#import "IGTestCell.h"
 #import "IGTestDiffingDataSource.h"
 #import "IGTestDiffingObject.h"
 #import "IGTestDiffingSectionController.h"
-#import "IGTestStringBindableCell.h"
-#import "IGTestNumberBindableCell.h"
-#import "IGListAdapterInternal.h"
-#import "IGTestObject.h"
-#import "IGTestCell.h"
-#import "IGListTestCase.h"
-#import "IGTestBindingWithoutDeselectionDelegate.h"
 #import "IGTestInvalidateLayoutDataSource.h"
 #import "IGTestInvalidateLayoutObject.h"
+#import "IGTestNumberBindableCell.h"
+#import "IGTestObject.h"
+#import "IGTestStringBindableCell.h"
 
 @interface IGListBindingSectionControllerTests : IGListTestCase
 
@@ -386,21 +387,21 @@
     [self setupWithObjects:@[
                              [[IGTestDiffingObject alloc] initWithKey:@1 objects:initObjects]
                              ]];
-    
+
     IGTestDiffingSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
 
     XCTAssertNotEqual(initObjects, section.viewModels);
     XCTAssertEqualObjects(initObjects, section.viewModels);
 
     [initObjects removeAllObjects];
-    
+
     XCTAssertNotEqualObjects(initObjects, section.viewModels);
 }
 
 - (void)test_whenUpdatingManully_withInvalidateLayoutForUpdates_thatCellSizeUpdatedToLatestSize_usingIGListCollectionViewLayout {
     self.dataSource = [[IGTestInvalidateLayoutDataSource alloc] init];
     self.adapter.dataSource = self.dataSource;
-    
+
     NSArray<IGTestObject *> *startingSection0 = @[
                                                   genInvalidateLayoutObject(@0, CGSizeMake(50, 30)),
                                                   genInvalidateLayoutObject(@1, CGSizeMake(50, 40)),
@@ -409,30 +410,30 @@
                                                   genInvalidateLayoutObject(@0, CGSizeMake(50, 50)),
                                                   genInvalidateLayoutObject(@1, CGSizeMake(50, 60))
                                                   ];
-    
+
     IGListCollectionViewLayout *layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:NO topContentInset:0 stretchToEdge:NO];
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.frame collectionViewLayout:layout];
     [(IGListAdapterUpdater *)self.adapter.updater setAllowsBackgroundReloading:NO];
     self.adapter.experiments |= IGListExperimentInvalidateLayoutForUpdates;
-    
+
     [self setupWithObjects:@[
                              [[IGTestInvalidateLayoutObject alloc] initWithKey:@0 objects:startingSection0],
                              [[IGTestInvalidateLayoutObject alloc] initWithKey:@1 objects:startingSection1]
                              ]];
-    
+
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
     XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 2);
-    
+
     IGTestCell *cell00 = [self cellAtSection:0 item:0];
     IGTestCell *cell01 = [self cellAtSection:0 item:1];
     IGTestCell *cell10 = [self cellAtSection:1 item:0];
     IGTestCell *cell11 = [self cellAtSection:1 item:1];
-    
+
     IGAssertEqualSize(cell00.frame.size, 50, 30);
     IGAssertEqualSize(cell01.frame.size, 50, 40);
     IGAssertEqualSize(cell10.frame.size, 50, 50);
     IGAssertEqualSize(cell11.frame.size, 50, 60);
-    
+
     NSArray<IGTestObject *> *newSection0 = @[
                                              genInvalidateLayoutObject(@0, CGSizeMake(45, 30)),  // Width: 50 -> 45
                                              genInvalidateLayoutObject(@1, CGSizeMake(50, 55)),  // Height: 40 -> 55
@@ -441,27 +442,27 @@
                                              genInvalidateLayoutObject(@0, CGSizeMake(50, 50)),  // No change
                                              genInvalidateLayoutObject(@1, CGSizeMake(20, 30)),  // Size: (50, 60) -> (20, 30)
                                              ];
-    
+
     self.dataSource.objects = @[
                                 [[IGTestInvalidateLayoutObject alloc] initWithKey:@0 objects:newSection0],
                                 [[IGTestInvalidateLayoutObject alloc] initWithKey:@1 objects:newSection1]
                                 ];
-    
+
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
         IGTestCell *updatedCell00 = [self cellAtSection:0 item:0];
         IGTestCell *updatedCell01 = [self cellAtSection:0 item:1];
         IGTestCell *nochangedCell10 = [self cellAtSection:1 item:0];
         IGTestCell *updatedCell11 = [self cellAtSection:1 item:1];
-        
+
         IGAssertEqualSize(updatedCell00.frame.size, 45, 30);
         IGAssertEqualSize(updatedCell01.frame.size, 50, 55);
         IGAssertEqualSize(nochangedCell10.frame.size, 50, 50);
         IGAssertEqualSize(updatedCell11.frame.size, 20, 30);
-        
+
         [expectation fulfill];
     }];
-    
+
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
@@ -469,17 +470,16 @@
     [self setupWithObjects:@[
                              [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven", @20]],
                              ]];
-    
+
     IGTestDiffingSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
-    
+
     [section moveObjectFromIndex:0 toIndex:2];
     XCTAssertEqual([section.viewModels firstObject], @"seven");
     XCTAssertEqual([section.viewModels lastObject], @7);
-    
+
     [section moveObjectFromIndex:2 toIndex:1];
     XCTAssertEqual([section.viewModels objectAtIndex: 1], @7);
     XCTAssertEqual([section.viewModels lastObject], @20);
 }
 
 @end
-

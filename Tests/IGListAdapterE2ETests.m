@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -6,19 +6,20 @@
  */
 
 #import <XCTest/XCTest.h>
+
 #import <OCMock/OCMock.h>
 
 #import <IGListKit/IGListKit.h>
 
 #import "IGListAdapterInternal.h"
+#import "IGListAdapterUpdateTester.h"
+#import "IGListTestCase.h"
+#import "IGListTestHelpers.h"
 #import "IGListTestOffsettingLayout.h"
 #import "IGTestCell.h"
 #import "IGTestDelegateController.h"
 #import "IGTestDelegateDataSource.h"
 #import "IGTestObject.h"
-#import "IGListTestCase.h"
-#import "IGListAdapterUpdateTester.h"
-#import "IGListTestHelpers.h"
 
 @interface IGListAdapterE2ETests : IGListTestCase
 @end
@@ -242,7 +243,7 @@
 
     IGTestObject *object = self.dataSource.objects[0];
     IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
-    
+
     XCTestExpectation *expectation = genExpectation;
     [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
         object.value = @3;
@@ -260,13 +261,13 @@
                              genTestObject(@1, @2),
                              genTestObject(@2, @2)
                              ]];
-    
+
     IGTestObject *object = self.dataSource.objects[0];
     IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
-    
+
     // Prefer to use item reloads for section reloads if available.
     [(IGListAdapterUpdater *)self.adapter.updater setPreferItemReloadsForSectionReloads:YES];
-    
+
     XCTestExpectation *expectation = genExpectation;
     [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
         object.value = @3;

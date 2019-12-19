@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
 
 @interface IGListBindingSectionController()
 
-@property (nonatomic, strong, readwrite) NSArray<id<IGListDiffable>> *viewModels;
+@property (nonatomic, copy, readwrite) NSArray<id<IGListDiffable>> *viewModels;
 
 @property (nonatomic, strong) id object;
 @property (nonatomic, assign) IGListDiffingSectionState state;
@@ -50,16 +50,16 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
         if (self.state != IGListDiffingSectionStateUpdateQueued) {
             return;
         }
-        
+
         oldViewModels = self.viewModels;
 
         id<IGListDiffable> object = self.object;
         IGAssert(object != nil, @"Expected IGListBindingSectionController object to be non-nil before updating.");
-        
+
         NSArray *newViewModels = [self.dataSource sectionController:self viewModelsForObject:object];
         self.viewModels = objectsWithDuplicateIdentifiersRemoved(newViewModels);
         result = IGListDiff(oldViewModels, self.viewModels, IGListDiffEquality);
-        
+
         [result.updates enumerateIndexesUsingBlock:^(NSUInteger oldUpdatedIndex, BOOL *stop) {
             id identifier = [oldViewModels[oldUpdatedIndex] diffIdentifier];
             const NSInteger indexAfterUpdate = [result newIndexForIdentifier:identifier];
@@ -69,17 +69,17 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
                 [cell bindViewModel:self.viewModels[indexAfterUpdate]];
             }
         }];
-        
+
         if (IGListExperimentEnabled(self.collectionContext.experiments, IGListExperimentInvalidateLayoutForUpdates)) {
             [batchContext invalidateLayoutInSectionController:self atIndexes:result.updates];
         }
         [batchContext deleteInSectionController:self atIndexes:result.deletes];
         [batchContext insertInSectionController:self atIndexes:result.inserts];
-        
+
         for (IGListMoveIndex *move in result.moves) {
             [batchContext moveInSectionController:self fromIndex:move.from toIndex:move.to];
         }
-        
+
         self.state = IGListDiffingSectionStateUpdateApplied;
     } completion:^(BOOL finished) {
         self.state = IGListDiffingSectionStateIdle;
@@ -126,11 +126,11 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
 
 - (void)moveObjectFromIndex:(NSInteger)sourceIndex toIndex:(NSInteger)destinationIndex {
     NSMutableArray *viewModels = [self.viewModels mutableCopy];
-    
+
     id modelAtSource = [viewModels objectAtIndex:sourceIndex];
     [viewModels removeObjectAtIndex:sourceIndex];
     [viewModels insertObject:modelAtSource atIndex:destinationIndex];
-    
+
     self.viewModels = viewModels;
 }
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -37,10 +37,9 @@
     [debug addObject:[NSString stringWithFormat:@"Display delegate: %@", self.displayDelegate]];
     [debug addObject:[NSString stringWithFormat:@"Working range delegate: %@", self.workingRangeDelegate]];
     [debug addObject:[NSString stringWithFormat:@"Scroll delegate: %@", self.scrollDelegate]];
-    
+
 #endif // #if IGLK_DEBUG_DESCRIPTION_ENABLED
     return debug;
 }
 
 @end
-

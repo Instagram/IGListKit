@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -8,11 +8,11 @@
 #import <XCTest/XCTest.h>
 
 #import <IGListKit/IGListKit.h>
+
+#import "IGListAdapterUpdaterInternal.h"
+#import "IGListDebugger.h"
 #import "IGListMoveIndexInternal.h"
 #import "IGListMoveIndexPathInternal.h"
-
-#import "IGListDebugger.h"
-#import "IGListAdapterUpdaterInternal.h"
 #import "IGListTestAdapterDataSource.h"
 
 @interface IGListDebuggerTests : XCTestCase

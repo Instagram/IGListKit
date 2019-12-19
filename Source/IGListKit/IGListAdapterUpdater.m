@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -10,12 +10,12 @@
 
 #import <IGListDiffKit/IGListAssert.h>
 
+#import "IGListAdapterUpdaterHelpers.h"
 #import "IGListArrayUtilsInternal.h"
 #import "IGListIndexSetResultInternal.h"
 #import "IGListMoveIndexPathInternal.h"
 #import "IGListReloadIndexPath.h"
 #import "UICollectionView+IGListBatchUpdateData.h"
-#import "IGListAdapterUpdaterHelpers.h"
 
 @implementation IGListAdapterUpdater
 

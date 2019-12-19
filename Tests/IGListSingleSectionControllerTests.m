@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -6,12 +6,13 @@
  */
 
 #import <XCTest/XCTest.h>
+
 #import <OCMock/OCMock.h>
 
 #import "IGListAdapterInternal.h"
+#import "IGListTestCase.h"
 #import "IGTestCell.h"
 #import "IGTestSingleItemDataSource.h"
-#import "IGListTestCase.h"
 #import "IGTestSingleWithoutDeselectionDelegate.h"
 
 @interface IGListSingleSectionControllerTests : IGListTestCase

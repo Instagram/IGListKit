@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -11,8 +11,8 @@
 
 #import "IGListAdapterInternal.h"
 #import "IGListTestAdapterStoryboardDataSource.h"
-#import "IGTestStoryboardViewController.h"
 #import "IGTestStoryboardSupplementarySource.h"
+#import "IGTestStoryboardViewController.h"
 
 static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 

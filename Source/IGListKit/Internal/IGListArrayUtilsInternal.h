@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -14,7 +14,7 @@ static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable
     if (objects == nil) {
         return nil;
     }
-    
+
     NSMapTable *identifierMap = [NSMapTable strongToStrongObjectsMapTable];
     NSMutableArray *uniqueObjects = [NSMutableArray new];
     for (id<IGListDiffable> object in objects) {

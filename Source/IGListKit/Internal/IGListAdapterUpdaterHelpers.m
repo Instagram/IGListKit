@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -9,9 +9,9 @@
 
 #import <IGListDiffKit/IGListAssert.h>
 #import <IGListDiffKit/IGListBatchUpdateData.h>
-#import <IGListDiffKit/IGListIndexSetResult.h>
 #import <IGListDiffKit/IGListDiffable.h>
 #import <IGListDiffKit/IGListExperiments.h>
+#import <IGListDiffKit/IGListIndexSetResult.h>
 
 #import "IGListBatchUpdates.h"
 #import "IGListReloadIndexPath.h"
@@ -30,7 +30,7 @@ void IGListConvertReloadToDeleteInsert(NSMutableIndexSet *reloads,
     const NSInteger from = hasObjects ? [result oldIndexForIdentifier:diffIdentifier] : idx;
     const NSInteger to = hasObjects ? [result newIndexForIdentifier:diffIdentifier] : idx;
     [reloads removeIndex:from];
-    
+
     // if a reload is queued outside the diff and the object was inserted or deleted it cannot be
     if (from != NSNotFound && to != NSNotFound) {
             [deletes addIndex:from];
@@ -127,5 +127,3 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
     [collectionView ig_applyBatchUpdateData:updateData];
     return updateData;
 }
-
-

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -10,11 +10,10 @@
 #import <IGListKit/IGListKit.h>
 
 #import "IGListAdapterInternal.h"
-#import "IGListTestSection.h"
 #import "IGListTestAdapterDataSource.h"
 #import "IGListTestAdapterReorderingDataSource.h"
+#import "IGListTestSection.h"
 #import "IGTestReorderableSection.h"
-
 #import "UICollectionViewLayout+InteractiveReordering.h"
 
 @interface IGReloadDataUpdaterTests : XCTestCase

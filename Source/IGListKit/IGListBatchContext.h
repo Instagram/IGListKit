@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -22,7 +22,7 @@ NS_SWIFT_NAME(ListBatchContext)
 
 /**
  Reloads cells in the section controller.
- 
+
  @param sectionController  The section controller who's cells need reloading.
  @param indexes The indexes of items that need reloading.
  */
@@ -31,7 +31,7 @@ NS_SWIFT_NAME(ListBatchContext)
 
 /**
  Inserts cells in the list.
- 
+
  @param sectionController The section controller who's cells need inserting.
  @param indexes The indexes of items that need inserting.
  */
@@ -40,7 +40,7 @@ NS_SWIFT_NAME(ListBatchContext)
 
 /**
  Deletes cells in the list.
- 
+
  @param sectionController The section controller who's cells need deleted.
  @param indexes The indexes of items that need deleting.
  */
@@ -49,7 +49,7 @@ NS_SWIFT_NAME(ListBatchContext)
 
 /**
  Invalidates layouts of cells at specific in the section controller.
- 
+
  @param sectionController The section controller who's cells need invalidating.
  @param indexes The indexes of items that need invalidating.
  */
@@ -58,7 +58,7 @@ NS_SWIFT_NAME(ListBatchContext)
 
 /**
  Moves a cell from one index to another within the section controller.
- 
+
  @param sectionController The section controller who's cell needs moved.
  @param fromIndex The index the cell is currently in.
  @param toIndex The index the cell should move to.
@@ -69,14 +69,14 @@ NS_SWIFT_NAME(ListBatchContext)
 
 /**
  Reloads the entire section controller.
- 
+
  @param sectionController The section controller who's cells need reloading.
  */
 - (void)reloadSectionController:(IGListSectionController *)sectionController;
-    
+
 /**
  Moves a section controller from one index to another during interactive reordering.
- 
+
  @param sectionController The section controller to move.
  @param fromIndex The index where the section currently resides.
  @param toIndex The index the section should move to.
@@ -87,7 +87,7 @@ NS_SWIFT_NAME(ListBatchContext)
 
 /**
  Moves an object within a section controller from one index to another during interactive reordering.
- 
+
  @param sectionController The section controller containing the object to move.
  @param fromIndex The index where the object currently resides.
  @param toIndex The index the object should move to.
@@ -95,10 +95,10 @@ NS_SWIFT_NAME(ListBatchContext)
 - (void)moveInSectionControllerInteractive:(IGListSectionController *)sectionController
                                  fromIndex:(NSInteger)fromIndex
                                    toIndex:(NSInteger)toIndex NS_AVAILABLE_IOS(9_0);
-    
+
 /**
  Reverts an move from one indexPath to another during interactive reordering.
- 
+
  @param sourceIndexPath The indexPath the item was originally in.
  @param destinationIndexPath The indexPath the item was moving to.
  */

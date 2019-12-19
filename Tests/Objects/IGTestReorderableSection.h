@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -12,7 +12,7 @@
 
 @interface IGTestReorderableSectionObject : NSObject <IGListDiffable>
 
-@property (nonatomic, strong) NSArray *objects;
+@property (nonatomic, copy) NSArray *objects;
 
 + (instancetype)sectionWithObjects:(NSArray *)objects;
 
@@ -27,4 +27,3 @@
 - (instancetype)initWithSectionObject:(IGTestReorderableSectionObject *)sectionObject;
 
 @end
-

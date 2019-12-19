@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -14,7 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- An instance of `IGListBatchUpdateData` takes section indexes and item index paths 
+ An instance of `IGListBatchUpdateData` takes section indexes and item index paths
  and performs cleanup on init in order to perform a crash-free
  update via `-[UICollectionView performBatchUpdates:completion:]`.
  */

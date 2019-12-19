@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -11,7 +11,7 @@
 
 @implementation UICollectionView (IGListBatchUpdateData)
 
-- (void)ig_applyBatchUpdateData:(IGListBatchUpdateData *)updateData {    
+- (void)ig_applyBatchUpdateData:(IGListBatchUpdateData *)updateData {
     [self deleteItemsAtIndexPaths:updateData.deleteIndexPaths];
     [self insertItemsAtIndexPaths:updateData.insertIndexPaths];
     [self reloadItemsAtIndexPaths:updateData.updateIndexPaths];

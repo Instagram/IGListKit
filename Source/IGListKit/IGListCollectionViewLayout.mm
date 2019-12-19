@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -76,7 +76,7 @@ static NSInteger IGListMergeMinimumInvalidatedSection(NSInteger section, NSInteg
     } else if (otherSection == NSNotFound) {
         return section;
     }
-    
+
     return MIN(section, otherSection);
 }
 
@@ -87,28 +87,28 @@ struct IGListSectionEntry {
      to build layout attributes given a rect.
      */
     CGRect bounds;
-    
+
     // The insets for the section. Used to find total content size of the section.
     UIEdgeInsets insets;
-    
+
     // The RESTING frame of the header view (e.g. when the header is not sticking to the top of the scroll view).
     CGRect headerBounds;
-    
+
     // The RESTING frame of the footer view
     CGRect footerBounds;
-    
+
     // An array of frames for each cell in the section.
     std::vector<CGRect> itemBounds;
-    
+
     // last item distance in scroll direction, used for partial invalidation
     CGFloat lastItemCoordInScrollDirection;
-    
+
     // last item distance in fixed direction, used for partial invalidation
     CGFloat lastItemCoordInFixedDirection;
-    
+
     // last next row distance in scroll direction, used for partial invalidation
     CGFloat lastNextRowCoordInScrollDirection;
-    
+
     // Returns YES when the section has visible content (header and/or items).
     BOOL isValid() {
         return !CGSizeEqualToSize(bounds.size, CGSizeZero);
@@ -122,7 +122,7 @@ struct IGListSectionEntry {
 static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attributes) {
     const NSInteger maxZIndexPerSection = 1000;
     const NSInteger baseZIndex = attributes.indexPath.section * maxZIndexPerSection;
-    
+
     switch (attributes.representedElementCategory) {
         case UICollectionElementCategoryCell:
             attributes.zIndex = baseZIndex + attributes.indexPath.item;
@@ -155,10 +155,10 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 @implementation IGListCollectionViewLayout {
     std::vector<IGListSectionEntry> _sectionData;
     NSMutableDictionary<NSIndexPath *, UICollectionViewLayoutAttributes *> *_attributesCache;
-    
+
     // invalidate starting at this section
     NSInteger _minimumInvalidatedSection;
-    
+
     /**
      The workflow for getting sticky headers working:
      1. Use a custom invalidation context to mark supplementary attributes invalid.
@@ -232,17 +232,17 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
     IGAssertMainThread();
-    
+
     NSMutableArray *result = [NSMutableArray new];
-    
+
     const NSRange range = [self _rangeOfSectionsInRect:rect];
     if (range.location == NSNotFound) {
         return nil;
     }
-    
+
     for (NSInteger section = range.location; section < NSMaxRange(range); section++) {
         const NSInteger itemCount = _sectionData[section].itemBounds.size();
-        
+
         // do not add headers if there are no items
         if (itemCount > 0 || self.showHeaderWhenEmpty) {
             for (NSString *elementKind in _supplementaryAttributesCache.allKeys) {
@@ -257,7 +257,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                 }
             }
         }
-        
+
         // add all cells within the rect, return early if it starts iterating outside
         for (NSInteger item = 0; item < itemCount; item++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
@@ -267,19 +267,19 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             }
         }
     }
-    
+
     return result;
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     IGAssertMainThread();
     IGParameterAssert(indexPath != nil);
-    
+
     UICollectionViewLayoutAttributes *attributes = _attributesCache[indexPath];
     if (attributes != nil) {
         return attributes;
     }
-    
+
     // avoid OOB errors
     const NSInteger section = indexPath.section;
     const NSInteger item = indexPath.item;
@@ -287,7 +287,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         || item >= _sectionData[section].itemBounds.size()) {
         return nil;
     }
-    
+
     attributes = [[[self class] layoutAttributesClass] layoutAttributesForCellWithIndexPath:indexPath];
     attributes.frame = _sectionData[indexPath.section].itemBounds[indexPath.item];
     adjustZIndexForAttributes(attributes);
@@ -298,30 +298,30 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 - (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     IGAssertMainThread();
     IGParameterAssert(indexPath != nil);
-    
+
     UICollectionViewLayoutAttributes *attributes = _supplementaryAttributesCache[elementKind][indexPath];
     if (attributes != nil) {
         return attributes;
     }
-    
+
     // avoid OOB errors
     const NSInteger section = indexPath.section;
     if (section >= _sectionData.size()) {
         return nil;
     }
-    
+
     UICollectionView *collectionView = self.collectionView;
     const IGListSectionEntry entry = _sectionData[section];
     const CGFloat minOffset = CGRectGetMinInDirection(entry.bounds, self.scrollDirection);
-    
+
     CGRect frame = CGRectZero;
-    
+
     if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
         frame = entry.headerBounds;
-        
+
         if (self.stickyHeaders) {
             CGFloat offset = CGPointGetCoordinateInDirection(collectionView.contentOffset, self.scrollDirection) + self.topContentInset + self.stickyHeaderYOffset;
-            
+
             if (section + 1 == _sectionData.size()) {
                 offset = MAX(minOffset, offset);
             } else {
@@ -357,13 +357,13 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 - (CGSize)collectionViewContentSize {
     IGAssertMainThread();
-    
+
     const NSInteger sectionCount = _sectionData.size();
-    
+
     if (sectionCount == 0) {
         return CGSizeZero;
     }
-    
+
     const IGListSectionEntry section = _sectionData[sectionCount - 1];
     UICollectionView *collectionView = self.collectionView;
     const UIEdgeInsets contentInset = collectionView.ig_contentInset;
@@ -377,7 +377,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
             return CGSizeMake(width, CGRectGetHeight(collectionView.bounds) - contentInset.top - contentInset.bottom);
         }
     }
-    
+
 }
 
 - (void)invalidateLayoutWithContext:(IGListCollectionViewLayoutInvalidationContext *)context {
@@ -385,7 +385,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     if ([context respondsToSelector:@selector(invalidatedItemIndexPaths)]) {
         hasInvalidatedItemIndexPaths = [context invalidatedItemIndexPaths].count > 0;
     }
-    
+
     if (hasInvalidatedItemIndexPaths
         || [context invalidateEverything]
         || context.ig_invalidateAllAttributes) {
@@ -395,11 +395,11 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         // invalidate all if count changed and we don't have information on the minimum invalidated section
         _minimumInvalidatedSection = 0;
     }
-    
+
     if (context.ig_invalidateSupplementaryAttributes) {
         [self _resetSupplementaryAttributesCache];
     }
-    
+
     [super invalidateLayoutWithContext:context];
 }
 
@@ -409,7 +409,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 - (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
     const CGRect oldBounds = self.collectionView.bounds;
-    
+
     IGListCollectionViewLayoutInvalidationContext *context =
     (IGListCollectionViewLayoutInvalidationContext *)[super invalidationContextForBoundsChange:newBounds];
     context.ig_invalidateSupplementaryAttributes = YES;
@@ -421,17 +421,17 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
     const CGRect oldBounds = self.collectionView.bounds;
-    
+
     // always invalidate for size changes
     if (!CGSizeEqualToSize(oldBounds.size, newBounds.size)) {
         return YES;
     }
-    
+
     // if the y origin has changed, only invalidate when using sticky headers
     if (CGRectGetMinInDirection(newBounds, self.scrollDirection) != CGRectGetMinInDirection(oldBounds, self.scrollDirection)) {
         return self.stickyHeaders;
     }
-    
+
     return NO;
 }
 
@@ -443,10 +443,10 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 - (void)setStickyHeaderYOffset:(CGFloat)stickyHeaderYOffset {
     IGAssertMainThread();
-    
+
     if (_stickyHeaderYOffset != stickyHeaderYOffset) {
         _stickyHeaderYOffset = stickyHeaderYOffset;
-        
+
         IGListCollectionViewLayoutInvalidationContext *invalidationContext = [IGListCollectionViewLayoutInvalidationContext new];
         invalidationContext.ig_invalidateSupplementaryAttributes = YES;
         [self invalidateLayoutWithContext:invalidationContext];
@@ -459,30 +459,30 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     if (_minimumInvalidatedSection == NSNotFound) {
         return;
     }
-    
+
     // purge attribute caches so they are rebuilt
     [_attributesCache removeAllObjects];
     [self _resetSupplementaryAttributesCache];
-    
+
     UICollectionView *collectionView = self.collectionView;
     id<UICollectionViewDataSource> dataSource = collectionView.dataSource;
     id<UICollectionViewDelegateFlowLayout> delegate = (id<UICollectionViewDelegateFlowLayout>)collectionView.delegate;
-    
+
     const NSInteger sectionCount = (IGListExperimentEnabled(_experiments, IGListExperimentUseCollectionViewInsteadOfDataSourceInLayout)
                                     ? [collectionView numberOfSections]
                                     : [dataSource numberOfSectionsInCollectionView:collectionView]);
     const UIEdgeInsets contentInset = collectionView.ig_contentInset;
     const CGRect contentInsetAdjustedCollectionViewBounds = UIEdgeInsetsInsetRect(collectionView.bounds, contentInset);
-    
+
     _sectionData.resize(sectionCount);
-    
+
     CGFloat itemCoordInScrollDirection = 0.0;
     CGFloat itemCoordInFixedDirection = 0.0;
     CGFloat nextRowCoordInScrollDirection = 0.0;
-    
+
     // union item frames and optionally the header to find a bounding box of the entire section
     CGRect rollingSectionBounds = CGRectZero;
-    
+
     // populate last valid section information
     const NSInteger lastValidSection = _minimumInvalidatedSection - 1;
     if (lastValidSection >= 0 && lastValidSection < sectionCount) {
@@ -491,7 +491,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         nextRowCoordInScrollDirection = _sectionData[lastValidSection].lastNextRowCoordInScrollDirection;
         rollingSectionBounds = _sectionData[lastValidSection].bounds;
     }
-    
+
     for (NSInteger section = _minimumInvalidatedSection; section < sectionCount; section++) {
         const NSInteger itemCount = (IGListExperimentEnabled(_experiments, IGListExperimentUseCollectionViewInsteadOfDataSourceInLayout)
                                      ? [collectionView numberOfItemsInSection:section]
@@ -499,7 +499,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         const BOOL itemsEmpty = itemCount == 0;
         const BOOL hideHeaderWhenItemsEmpty = itemsEmpty && !self.showHeaderWhenEmpty;
         _sectionData[section].itemBounds = std::vector<CGRect>(itemCount);
-        
+
         const CGSize headerSize = [delegate collectionView:collectionView layout:self referenceSizeForHeaderInSection:section];
         const CGSize footerSize = [delegate collectionView:collectionView layout:self referenceSizeForFooterInSection:section];
         const UIEdgeInsets insets = [delegate collectionView:collectionView layout:self insetForSectionAtIndex:section];

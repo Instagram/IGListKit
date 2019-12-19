@@ -1,18 +1,17 @@
-// 
-// Copyright (c) Facebook, Inc. and its affiliates.
-// All rights reserved.
-//
-// This source code is licensed under the BSD-style license found in the
-// LICENSE file in the root directory of this source tree. An additional grant
-// of patent rights can be found in the PATENTS file in the same directory.
-//
+/*
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 
 #import <XCTest/XCTest.h>
 
 #import <IGListKit/IGListKit.h>
-#import "UIScrollView+IGListKit.h"
-#import "IGListTestHelpers.h"
+
 #import "IGListAdapterInternal.h"
+#import "IGListTestHelpers.h"
+#import "UIScrollView+IGListKit.h"
 
 static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {320.0, 480.0}};
 
@@ -30,9 +29,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {320.0, 480.0}};
 
 - (void)setUp {
     [super setUp];
-    
+
     self.viewController = [UIViewController new];
-    
+
     IGListCollectionViewLayout *layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:NO
                                                                                    topContentInset:0
                                                                                      stretchToEdge:YES];
@@ -40,12 +39,12 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {320.0, 480.0}};
                                              collectionViewLayout:layout];
     self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.viewController.view addSubview:self.collectionView];
-    
+
     self.adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new]
                                            viewController:self.viewController];
     self.adapter.dataSource = self;
     self.adapter.collectionView = self.collectionView;
-    
+
     self.window = [[UIWindow alloc] initWithFrame:kStackTestFrame];
     self.window.rootViewController = self.viewController;
 }
@@ -53,7 +52,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {320.0, 480.0}};
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
-    
+
     self.adapter = nil;
     self.viewController = nil;
     self.collectionView = nil;

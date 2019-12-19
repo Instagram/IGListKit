@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -9,10 +9,10 @@
 
 #import <IGListKit/IGListCollectionViewLayout.h>
 
-#import "IGListCollectionViewLayoutInternal.h"
 #import "IGLayoutTestDataSource.h"
 #import "IGLayoutTestItem.h"
 #import "IGLayoutTestSection.h"
+#import "IGListCollectionViewLayoutInternal.h"
 #import "IGListTestHelpers.h"
 
 @interface IGListCollectionViewLayoutTests : XCTestCase
@@ -96,7 +96,7 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 
 - (void)test_whenSectionDataIsEmpty_thatStickyHeaderStillShow {
     [self setUpWithStickyHeaders:YES showHeaderWhenEmpty:YES];
-    
+
     [self prepareWithData:@[[[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
                                                             lineSpacing:0
                                                        interitemSpacing:0
@@ -115,7 +115,7 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
                                                            headerHeight:30
                                                            footerHeight:0
                                                                   items:nil]]];
-    
+
     IGAssertEqualFrame([self headerForSection:0].frame, 0, 0, 100, 10);
     IGAssertEqualFrame([self headerForSection:1].frame, 0, 10, 100, 20);
     IGAssertEqualFrame([self headerForSection:2].frame, 0, 30, 100, 30);
@@ -123,7 +123,7 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 
 - (void)test_whenSectionDataIsEmpty_thatStickyHeaderShouldBeHidden {
     [self setUpWithStickyHeaders:YES showHeaderWhenEmpty:NO];
-    
+
     [self prepareWithData:@[[[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
                                                             lineSpacing:0
                                                        interitemSpacing:0
@@ -148,7 +148,7 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
                                                                           [[IGLayoutTestItem alloc] initWithSize:(CGSize) {85, 20}],
                                                                           ]]
                             ]];
-    
+
     IGAssertEqualFrame([self headerForSection:0].frame, 0, 0, 100, 10);
     IGAssertEqualFrame([self headerForSection:1].frame, 0, 0, 0, 0);
     IGAssertEqualFrame([self headerForSection:2].frame, 0, 20, 100, 20);
@@ -264,7 +264,7 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 
 - (void)test_whenLayingOutCellsHorizontally_withHeaderHeight_withLineSpacing_withInsets_thatFramesCorrect {
     [self setUpWithStickyHeaders:NO scrollDirection:UICollectionViewScrollDirectionHorizontal topInset:0 stretchToEdge:NO testFrame:kTestFrame];
-    
+
     const CGFloat headerHeight = 10;
     const CGFloat lineSpacing = 10;
     const UIEdgeInsets insets = UIEdgeInsetsMake(10, 10, 5, 5);
@@ -394,13 +394,13 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
                                                           [[IGLayoutTestItem alloc] initWithSize:(CGSize) {30, 100}],
                                                   ]],
     ]];
-    
+
     // scroll header 0 halfway
     self.collectionView.contentOffset = CGPointMake(5, 0);
     [self.collectionView layoutIfNeeded];
     IGAssertEqualFrame([self headerForSection:0].frame, 15, 0, 10, 100);
     IGAssertEqualFrame([self headerForSection:1].frame, 50, 0, 10, 100);
-    
+
     // scroll header 0 off and 1 left
     self.collectionView.contentOffset = CGPointMake(45, 0);
     [self.collectionView layoutIfNeeded];
@@ -914,7 +914,7 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
                                                               ]]];
     }
     [self prepareWithData:data];
-    
+
     NSArray *attributes = [self.layout layoutAttributesForElementsInRect:CGRectMake(0, 50, 100, 100)];
     NSArray *paths = [[attributes valueForKeyPath:@"indexPath"] sortedArrayUsingSelector:@selector(compare:)];
     NSArray *expectation = @[
@@ -922,7 +922,7 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
                              genIndexPath(1, 0),
                              genIndexPath(1, 1),
                              ];
-    
+
     // should include 2 of the 100-height items and one of the 10-height
     XCTAssertEqualObjects(paths, expectation);
 }
@@ -943,7 +943,7 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
                                                               ]]];
     }
     [self prepareWithData:data];
-    
+
     NSArray *attributes = [self.layout layoutAttributesForElementsInRect:CGRectMake(0, 50, 100, 100)];
     NSArray *paths = [[attributes valueForKeyPath:@"indexPath"] sortedArrayUsingSelector:@selector(compare:)];
 
@@ -953,7 +953,7 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
                              genIndexPath(1, 1),
                              genIndexPath(1, 2),
                              ];
-    
+
     // should include 2 of the 100-height items and two of the 10-height
     XCTAssertEqualObjects(paths, expectation);
 }
