@@ -43,7 +43,7 @@ final class UsersViewController: NSViewController {
     }
 
     fileprivate func delete(user: User) {
-        guard let index = self.users.index(where: { $0.pk == user.pk }) else { return }
+        guard let index = self.users.firstIndex(where: { $0.pk == user.pk }) else { return }
 
         self.users.remove(at: index)
     }

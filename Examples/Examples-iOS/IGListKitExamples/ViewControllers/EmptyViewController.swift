@@ -80,7 +80,7 @@ final class EmptyViewController: UIViewController, ListAdapterDataSource, Remove
 
     func removeSectionControllerWantsRemoved(_ sectionController: RemoveSectionController) {
         let section = adapter.section(for: sectionController)
-        guard let object = adapter.object(atSection: section) as? Int, let index = data.index(of: object) else { return }
+        guard let object = adapter.object(atSection: section) as? Int, let index = data.firstIndex(of: object) else { return }
         data.remove(at: index)
         adapter.performUpdates(animated: true, completion: nil)
     }

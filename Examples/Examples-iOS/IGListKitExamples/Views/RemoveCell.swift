@@ -31,8 +31,8 @@ final class RemoveCell: UICollectionViewCell {
 
     fileprivate lazy var button: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("Remove", for: UIControlState())
-        button.setTitleColor(.blue, for: UIControlState())
+        button.setTitle("Remove", for: UIControl.State())
+        button.setTitleColor(.blue, for: UIControl.State())
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(RemoveCell.onButton(_:)), for: .touchUpInside)
         self.contentView.addSubview(button)
