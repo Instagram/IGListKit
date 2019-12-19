@@ -13,6 +13,7 @@
  */
 
 import IGListKit
+import IGListSwiftKit
 import UIKit
 
 final class SelfSizingSectionController: ListSectionController {
@@ -39,18 +40,20 @@ final class SelfSizingSectionController: ListSectionController {
         let cell: UICollectionViewCell
         switch model.type {
         case .none:
-            guard let manualCell = collectionContext?.dequeueReusableCell(of: ManuallySelfSizingCell.self,
-                                                                          for: self,
-                                                                          at: index) as? ManuallySelfSizingCell else {
-                                                                            fatalError()
+            guard let manualCell: ManuallySelfSizingCell = collectionContext?.dequeueReusableCell(
+                for: self,
+                at: index
+            ) else {
+                fatalError()
             }
             manualCell.text = text
             cell = manualCell
         case .fullWidth:
-            guard let manualCell = collectionContext?.dequeueReusableCell(of: FullWidthSelfSizingCell.self,
-                                                                          for: self,
-                                                                          at: index) as? FullWidthSelfSizingCell else {
-                                                                            fatalError()
+            guard let manualCell: FullWidthSelfSizingCell = collectionContext?.dequeueReusableCell(
+                for: self,
+                at: index
+            ) else {
+                fatalError()
             }
             manualCell.text = text
             cell = manualCell

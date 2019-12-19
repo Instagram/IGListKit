@@ -13,6 +13,7 @@
  */
 
 import IGListKit
+import IGListSwiftKit
 import UIKit
 
 final class HorizontalSectionController: ListSectionController, ListAdapterDataSource {
@@ -40,10 +41,11 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext!.dequeueReusableCell(of: EmbeddedCollectionViewCell.self,
-                                                                for: self,
-                                                                at: index) as? EmbeddedCollectionViewCell else {
-                                                                    fatalError()
+        guard let cell: EmbeddedCollectionViewCell = collectionContext?.dequeueReusableCell(
+            for: self,
+            at: index
+        ) else {
+            fatalError()
         }
         adapter.collectionView = cell.collectionView
         return cell

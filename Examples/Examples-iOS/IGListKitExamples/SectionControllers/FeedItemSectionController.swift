@@ -13,6 +13,7 @@
  */
 
 import IGListKit
+import IGListSwiftKit
 
 final class FeedItemSectionController: ListSectionController, ListSupplementaryViewSource {
 
@@ -34,7 +35,7 @@ final class FeedItemSectionController: ListSectionController, ListSupplementaryV
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as? LabelCell else {
+        guard let cell: LabelCell = collectionContext?.dequeueReusableCell(for: self, at: index) else {
             fatalError()
         }
         cell.text = feedItem.comments[index]

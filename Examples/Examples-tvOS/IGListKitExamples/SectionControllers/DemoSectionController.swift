@@ -13,6 +13,7 @@
  */
 
 import IGListKit
+import IGListSwiftKit
 import UIKit
 
 final class DemoItem: NSObject {
@@ -51,7 +52,7 @@ final class DemoSectionController: ListSectionController {
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: DemoCell.self, for: self, at: index) as? DemoCell else {
+        guard let cell: DemoCell = collectionContext?.dequeueReusableCell(for: self, at: index) else {
             fatalError()
         }
         cell.label.text = object?.name
