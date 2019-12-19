@@ -13,6 +13,7 @@
  */
 
 import IGListKit
+import IGListSwiftKit
 import UIKit
 
 final class EmbeddedSectionController: ListSectionController {
@@ -30,7 +31,7 @@ final class EmbeddedSectionController: ListSectionController {
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: CenterLabelCell.self, for: self, at: index) as? CenterLabelCell else {
+        guard let cell: CenterLabelCell = collectionContext?.dequeueReusableCell(for: self, at: index) else {
             fatalError()
         }
         let value = number ?? 0
