@@ -48,14 +48,14 @@ final class FeedItemSectionController: ListSectionController, ListSupplementaryV
     // MARK: ListSupplementaryViewSource
 
     func supportedElementKinds() -> [String] {
-        return [UICollectionElementKindSectionHeader, UICollectionElementKindSectionFooter]
+        return [UICollectionView.elementKindSectionHeader, UICollectionView.elementKindSectionFooter]
     }
 
     func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
         switch elementKind {
-        case UICollectionElementKindSectionHeader:
+        case UICollectionView.elementKindSectionHeader:
             return userHeaderView(atIndex: index)
-        case UICollectionElementKindSectionFooter:
+        case UICollectionView.elementKindSectionFooter:
             return userFooterView(atIndex: index)
         default:
             fatalError()
@@ -68,7 +68,7 @@ final class FeedItemSectionController: ListSectionController, ListSupplementaryV
 
     // MARK: Private
     private func userHeaderView(atIndex index: Int) -> UICollectionReusableView {
-        guard let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
+        guard let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
                                                                              for: self,
                                                                              nibName: "UserHeaderView",
                                                                              bundle: nil,
@@ -81,7 +81,7 @@ final class FeedItemSectionController: ListSectionController, ListSupplementaryV
     }
 
     private func userFooterView(atIndex index: Int) -> UICollectionReusableView {
-        guard let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter,
+        guard let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter,
                                                                              for: self,
                                                                              nibName: "UserFooterView",
                                                                              bundle: nil,
