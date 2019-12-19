@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -7,8 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class IGListAdapter;
 
-extern NSString *IGListDebugBOOL(BOOL b);
+NSString *IGListDebugBOOL(BOOL b);
 
-extern NSArray<NSString *> *IGListDebugIndentedLines(NSArray<NSString *> *lines);
+NSArray<NSString *> *IGListDebugIndentedLines(NSArray<NSString *> *lines);

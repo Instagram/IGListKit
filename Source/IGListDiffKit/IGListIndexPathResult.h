@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -49,7 +49,7 @@ NS_SWIFT_NAME(ListIndexPathResult)
  @param identifier The diff identifier of the object.
 
  @return The index path of the object before the diff, or `nil`.
- 
+
  @see `-[IGListDiffable diffIdentifier]`.
  */
 - (nullable NSIndexPath *)oldIndexPathForIdentifier:(id<NSObject>)identifier;

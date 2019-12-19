@@ -1,15 +1,8 @@
-/**
- Copyright (c) Facebook, Inc. and its affiliates.
-
- The examples provided by Facebook are for non-commercial testing and evaluation
- purposes only. Facebook reserves all rights not expressly granted.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
- ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/*
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 import Cocoa
@@ -49,7 +42,7 @@ final class UsersViewController: NSViewController {
     }
 
     // MARK: -
-    // MARK: Diffing 
+    // MARK: Diffing
 
     var isFirstRun = true
     var filteredUsers = [User]() {
@@ -105,7 +98,7 @@ final class UsersViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // The view needs to be backed by a CALayer to be able to enable the collections view animations you can 
+        // The view needs to be backed by a CALayer to be able to enable the collections view animations you can
         // enable this by selecting the view controller's view in the Interface Builder in the Core Animation section
         // of the View Effects inspector tab, through code you can do by view.wantsLayer = true
         loadSampleUsers()

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -9,11 +9,11 @@
 
 #import <IGListKit/IGListAdapterDataSource.h>
 
-#import "IGTestObject.h"
 #import "IGListTestCase.h"
+#import "IGTestObject.h"
 
 @interface IGTestSingleNibItemDataSource : NSObject <IGListTestCaseDataSource>
 
-@property (nonatomic, strong) NSArray <IGTestObject *> *objects;
+@property (nonatomic, copy) NSArray <IGTestObject *> *objects;
 
 @end

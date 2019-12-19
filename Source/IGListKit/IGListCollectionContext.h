@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -54,9 +54,9 @@ NS_SWIFT_NAME(ListCollectionContext)
 
 /**
  Returns size of the collection view relative to the section controller.
- 
+
  @param sectionController The section controller requesting this information.
- 
+
  @return The size of the collection view minus the given section controller's insets.
  */
 - (CGSize)containerSizeForSectionController:(IGListSectionController *)sectionController;
@@ -96,9 +96,9 @@ NS_SWIFT_NAME(ListCollectionContext)
 
 /**
  Returns the visible paths for the given section controller.
- 
+
  @param sectionController The section controller requesting this information.
- 
+
  @return An array of visible index paths, or an empty array if none are found.
  */
 - (NSArray<NSIndexPath *> *)visibleIndexPathsForSectionController:(IGListSectionController *) sectionController;
@@ -116,7 +116,7 @@ NS_SWIFT_NAME(ListCollectionContext)
 
 /**
  Selects a cell in the collection.
- 
+
  @param index The index of the item to select.
  @param sectionController The section controller requesting this information.
  @param animated Pass `YES` to animate the change, `NO` otherwise.

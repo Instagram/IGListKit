@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -13,6 +13,6 @@
 
 @interface IGTestSingleStoryboardItemDataSource : NSObject <IGListAdapterDataSource>
 
-@property (nonatomic, strong) NSArray <IGTestObject *> *objects;
+@property (nonatomic, copy) NSArray <IGTestObject *> *objects;
 
 @end

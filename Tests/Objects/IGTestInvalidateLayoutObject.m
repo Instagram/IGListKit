@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -35,7 +35,7 @@
     if ([object isKindOfClass:[IGTestInvalidateLayoutObject class]]) {
         return YES;
     }
-    
+
     return NO;
 }
 

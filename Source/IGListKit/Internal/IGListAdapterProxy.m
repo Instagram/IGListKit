@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -36,7 +36,7 @@ static BOOL isInterceptedSelector(SEL sel) {
             sel == @selector(collectionView:layout:minimumLineSpacingForSectionAtIndex:) ||
             sel == @selector(collectionView:layout:referenceSizeForFooterInSection:) ||
             sel == @selector(collectionView:layout:referenceSizeForHeaderInSection:) ||
-            
+
             // IGListCollectionViewDelegateLayout
             sel == @selector(collectionView:layout:customizedInitialLayoutAttributes:atIndexPath:) ||
             sel == @selector(collectionView:layout:customizedFinalLayoutAttributes:atIndexPath:)

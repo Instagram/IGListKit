@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -6,6 +6,7 @@
  */
 
 #import <XCTest/XCTest.h>
+
 #import <OCMock/OCMock.h>
 
 #import <IGListKit/IGListReloadDataUpdater.h>
@@ -121,25 +122,25 @@
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
     id collectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     adapter.collectionView = collectionView;
-    
+
     id mockWorkingRangeDelegate1 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
     id mockWorkingRangeDelegate2 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
     id mockWorkingRangeDelegate3 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
-    
+
     adapter.dataSource = ds;
     controller1.workingRangeDelegate = mockWorkingRangeDelegate1;
     controller2.workingRangeDelegate = mockWorkingRangeDelegate2;
     controller3.workingRangeDelegate = mockWorkingRangeDelegate3;
-    
+
     // Arrange 2: Force an update so we get the objects we configured through the system.
     [adapter performUpdatesAnimated:NO completion:nil];
-    
+
     // Act: Tell the working range handler that the center item will be displayed.
     [[mockWorkingRangeDelegate1 reject] listAdapter:[OCMArg any] sectionControllerWillEnterWorkingRange:[OCMArg any]];
     [[mockWorkingRangeDelegate2 expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller2];
     [[mockWorkingRangeDelegate3 reject] listAdapter:[OCMArg any] sectionControllerWillEnterWorkingRange:[OCMArg any]];
     [adapter.workingRangeHandler willDisplayItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1] forListAdapter:adapter];
-    
+
     [mockWorkingRangeDelegate1 verifyWithDelay:5];
     [mockWorkingRangeDelegate2 verifyWithDelay:5];
     [mockWorkingRangeDelegate3 verifyWithDelay:5];
@@ -161,25 +162,25 @@
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:1];
     id collectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     adapter.collectionView = collectionView;
-    
+
     id mockWorkingRangeDelegate1 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
     id mockWorkingRangeDelegate2 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
     id mockWorkingRangeDelegate3 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
-    
+
     adapter.dataSource = ds;
     controller1.workingRangeDelegate = mockWorkingRangeDelegate1;
     controller2.workingRangeDelegate = mockWorkingRangeDelegate2;
     controller3.workingRangeDelegate = mockWorkingRangeDelegate3;
-    
+
     // Arrange 2: Force an update so we get the objects we configured through the system.
     [adapter performUpdatesAnimated:NO completion:nil];
-    
+
     // Act: Tell the working range handler that the center item will be displayed.
     [[mockWorkingRangeDelegate1 expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller1];
     [[mockWorkingRangeDelegate2 expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller2];
     [[mockWorkingRangeDelegate3 expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller3];
     [adapter.workingRangeHandler willDisplayItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1] forListAdapter:adapter];
-    
+
     [mockWorkingRangeDelegate1 verifyWithDelay:5];
     [mockWorkingRangeDelegate2 verifyWithDelay:5];
     [mockWorkingRangeDelegate3 verifyWithDelay:5];
@@ -207,23 +208,23 @@
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:1];
     id collectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     adapter.collectionView = collectionView;
-    
+
     id mockWorkingRangeDelegate1 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
     id mockWorkingRangeDelegate2 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
     id mockWorkingRangeDelegate3 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
     id mockWorkingRangeDelegate4 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
     id mockWorkingRangeDelegate5 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
-    
+
     adapter.dataSource = ds;
     controller1.workingRangeDelegate = mockWorkingRangeDelegate1;
     controller2.workingRangeDelegate = mockWorkingRangeDelegate2;
     controller3.workingRangeDelegate = mockWorkingRangeDelegate3;
     controller4.workingRangeDelegate = mockWorkingRangeDelegate4;
     controller5.workingRangeDelegate = mockWorkingRangeDelegate5;
-    
+
     // Arrange 2: Force an update so we get the objects we configured through the system.
     [adapter performUpdatesAnimated:NO completion:nil];
-    
+
     // Act: Tell the working range handler that the center item will be displayed.
     [[mockWorkingRangeDelegate1 reject] listAdapter:[OCMArg any] sectionControllerWillEnterWorkingRange:[OCMArg any]];
     [[mockWorkingRangeDelegate2 expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller2];
@@ -231,7 +232,7 @@
     [[mockWorkingRangeDelegate4 expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller4];
     [[mockWorkingRangeDelegate5 reject] listAdapter:[OCMArg any] sectionControllerWillEnterWorkingRange:[OCMArg any]];
     [adapter.workingRangeHandler willDisplayItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:2] forListAdapter:adapter];
-    
+
     [mockWorkingRangeDelegate1 verifyWithDelay:5];
     [mockWorkingRangeDelegate2 verifyWithDelay:5];
     [mockWorkingRangeDelegate3 verifyWithDelay:5];
@@ -365,7 +366,7 @@
     // Act: Hide the first item, and watch for the second item to leave the working range.
     [[mockWorkingRangeDelegate expect] listAdapter:adapter sectionControllerDidExitWorkingRange:controller2];
     [adapter.workingRangeHandler didEndDisplayingItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] forListAdapter:adapter];
-    
+
     [mockWorkingRangeDelegate verifyWithDelay:5];
 }
 
@@ -382,30 +383,30 @@
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:1];
     id collectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     adapter.collectionView = collectionView;
-    
+
     id mockWorkingRangeDelegate1 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
     id mockWorkingRangeDelegate2 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
-    
+
     adapter.dataSource = ds;
     controller1.workingRangeDelegate = mockWorkingRangeDelegate1;
     controller2.workingRangeDelegate = mockWorkingRangeDelegate2;
-    
+
     // Arrange 2: Force an update so we get the objects we configured through the system.
     [adapter performUpdatesAnimated:NO completion:nil];
-    
+
     // Arrange 3: Tell the working range handler that the first item in the list will be displayed.
     [[mockWorkingRangeDelegate1 expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller1];
     [[mockWorkingRangeDelegate2 expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller2];
     [adapter.workingRangeHandler willDisplayItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] forListAdapter:adapter];
-    
+
     [mockWorkingRangeDelegate1 verifyWithDelay:5];
     [mockWorkingRangeDelegate2 verifyWithDelay:5];
-    
+
     // Act: Tell the working range handler that the second item in the list will be displayed.
     [[mockWorkingRangeDelegate1 reject] listAdapter:[OCMArg any] sectionControllerWillEnterWorkingRange:[OCMArg any]];
     [[mockWorkingRangeDelegate2 reject] listAdapter:[OCMArg any] sectionControllerWillEnterWorkingRange:[OCMArg any]];
     [adapter.workingRangeHandler willDisplayItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1] forListAdapter:adapter];
-    
+
     [mockWorkingRangeDelegate1 verifyWithDelay:5];
     [mockWorkingRangeDelegate2 verifyWithDelay:5];
 }
@@ -423,17 +424,17 @@
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
     id collectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     adapter.collectionView = collectionView;
-    
+
     id mockWorkingRangeDelegate1 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
     id mockWorkingRangeDelegate2 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
-    
+
     adapter.dataSource = ds;
     controller1.workingRangeDelegate = mockWorkingRangeDelegate1;
     controller2.workingRangeDelegate = mockWorkingRangeDelegate2;
-    
+
     // Arrange 2: Force an update so we get the objects we configured through the system.
     [adapter performUpdatesAnimated:NO completion:nil];
-    
+
     // Arrange 3: Tell the working range handler that the first two items in the list will be displayed.
     [[mockWorkingRangeDelegate1 expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller1];
     [[mockWorkingRangeDelegate2 expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller2];
@@ -441,13 +442,13 @@
     [adapter.workingRangeHandler willDisplayItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1] forListAdapter:adapter];
     [mockWorkingRangeDelegate1 verifyWithDelay:5];
     [mockWorkingRangeDelegate2 verifyWithDelay:5];
-    
+
     // Arrange 4: Remove the object at the first index, and update the working range handler.
     [ds removeObjectAtIndex:0];
     [[mockWorkingRangeDelegate1 expect] listAdapter:adapter sectionControllerDidExitWorkingRange:controller1];
     [adapter.workingRangeHandler didEndDisplayingItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] forListAdapter:adapter];
     [mockWorkingRangeDelegate1 verifyWithDelay:5];
-    
+
     // Act: Insert a new object at index one, and update the working range handler.
     [ds insertObject:object1 withController:controller1 atIndex:1];
     [[mockWorkingRangeDelegate1 expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller1];
@@ -470,32 +471,32 @@
     IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
     id collectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     adapter.collectionView = collectionView;
-    
+
     id mockWorkingRangeDelegate1 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
     id mockWorkingRangeDelegate2 = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
-    
+
     adapter.dataSource = ds;
     controller1.workingRangeDelegate = mockWorkingRangeDelegate1;
     controller2.workingRangeDelegate = mockWorkingRangeDelegate2;
-    
+
     // Arrange 2: Force an update so we get the objects we configured through the system.
     [adapter performUpdatesAnimated:NO completion:nil];
-    
+
     // Arrange 3: Tell the working range handler that the first item in the list will be displayed.
     [[mockWorkingRangeDelegate1 expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller1];
     [adapter.workingRangeHandler willDisplayItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] forListAdapter:adapter];
     [mockWorkingRangeDelegate1 verifyWithDelay:5];
-    
+
     // Arrange 4: Insert a second object in the first index.
     [ds insertObject:object2 withController:controller2 atIndex:0];
-    
+
     // Act: Tell the working range handler that the new item will become visible.
     [[mockWorkingRangeDelegate1 reject] listAdapter:[OCMArg any] sectionControllerWillEnterWorkingRange:[OCMArg any]];
     [[mockWorkingRangeDelegate1 reject] listAdapter:[OCMArg any] sectionControllerDidExitWorkingRange:[OCMArg any]];
     [[mockWorkingRangeDelegate2 expect] listAdapter:adapter sectionControllerWillEnterWorkingRange:controller2];
     [[mockWorkingRangeDelegate2 reject] listAdapter:[OCMArg any] sectionControllerDidExitWorkingRange:[OCMArg any]];
     [adapter.workingRangeHandler willDisplayItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] forListAdapter:adapter];
-    
+
     [mockWorkingRangeDelegate1 verifyWithDelay:5];
     [mockWorkingRangeDelegate2 verifyWithDelay:5];
 }

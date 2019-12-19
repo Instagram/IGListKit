@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -25,7 +25,7 @@ NS_SWIFT_NAME(ListBindingSectionControllerDataSource)
 
  @param sectionController The section controller requesting view models.
  @param object The top-level object that powers the section controller.
- 
+
  @return A new array of view models.
  */
 - (NSArray<id<IGListDiffable>> *)sectionController:(IGListBindingSectionController *)sectionController
@@ -37,9 +37,9 @@ NS_SWIFT_NAME(ListBindingSectionControllerDataSource)
  @param sectionController The section controller requesting a cell.
  @param viewModel The view model for the cell.
  @param index The index of the view model.
- 
+
  @return A dequeued cell.
- 
+
  @note The section controller will call `-bindViewModel:` with the provided view model after the cell is dequeued. You
  should handle cell configuration using this method. However, you can do additional configuration at this stage as well.
  */
@@ -53,7 +53,7 @@ NS_SWIFT_NAME(ListBindingSectionControllerDataSource)
  @param sectionController The section controller requesting a size.
  @param viewModel The view model for the cell.
  @param index The index of the view model.
- 
+
  @return A size for the view model.
  */
 - (CGSize)sectionController:(IGListBindingSectionController *)sectionController

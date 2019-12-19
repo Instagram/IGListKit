@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -10,19 +10,19 @@
 #import <IGListDiffKit/IGListExperiments.h>
 
 @class IGListBatchUpdateData;
-@class IGListIndexSetResult;
 @class IGListBatchUpdates;
+@class IGListIndexSetResult;
 @protocol IGListDiffable;
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern void IGListConvertReloadToDeleteInsert(NSMutableIndexSet *reloads,
+void IGListConvertReloadToDeleteInsert(NSMutableIndexSet *reloads,
                                               NSMutableIndexSet *deletes,
                                               NSMutableIndexSet *inserts,
                                               IGListIndexSetResult *result,
                                               NSArray<id<IGListDiffable>> *fromObjects);
 
-extern IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *collectionView,
+IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *collectionView,
                                                                  IGListIndexSetResult *diffResult,
                                                                  IGListBatchUpdates *batchUpdates,
                                                                  NSArray<id<IGListDiffable>> *fromObjects,

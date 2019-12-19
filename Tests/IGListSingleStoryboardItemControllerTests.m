@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -7,10 +7,10 @@
 
 #import <XCTest/XCTest.h>
 
-#import "IGTestStoryboardCell.h"
-#import "IGTestSingleStoryboardItemDataSource.h"
-#import "IGTestStoryboardViewController.h"
 #import "IGListTestCase.h"
+#import "IGTestSingleStoryboardItemDataSource.h"
+#import "IGTestStoryboardCell.h"
+#import "IGTestStoryboardViewController.h"
 
 #define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
 
