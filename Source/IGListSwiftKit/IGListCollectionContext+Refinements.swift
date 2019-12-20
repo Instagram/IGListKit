@@ -13,7 +13,6 @@ extension ListCollectionContext {
      Dequeues a cell from the collection view reuse pool.
 
      - Parameters:
-        - cellClass: The class of the cell you want to dequeue.
         - reuseIdentifier: A reuse identifier for the specified cell. This parameter may be `nil`.
         - sectionController: The section controller requesting this information.
         - index: The index of the cell.
@@ -41,7 +40,6 @@ extension ListCollectionContext {
      Dequeues a cell from the collection view reuse pool.
 
      - Parameters:
-         - cellClass: The class of the cell you want to dequeue.
          - sectionController: The section controller requesting this information.
          - index: The index of the cell.
 
