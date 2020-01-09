@@ -9,9 +9,20 @@
 
 #import <IGListDiffKit/IGListAssert.h>
 
+@interface IGListBindingSingleSectionController () <IGListDisplayDelegate>
+
+@end
 
 @implementation IGListBindingSingleSectionController {
     id _item;
+    __weak UICollectionViewCell *_displayingCell;
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+        self.displayDelegate = self;
+    }
+    return self;
 }
 
 - (void)didSelectItemWithCell:(UICollectionViewCell *)cell {
@@ -44,6 +55,26 @@
     return CGSizeZero;
 }
 
+#pragma mark - IGListDisplayDelegate
+
+- (void)listAdapter:(nonnull IGListAdapter *)listAdapter willDisplaySectionController:(nonnull IGListSectionController *)sectionController {
+    // no-op
+}
+
+- (void)listAdapter:(nonnull IGListAdapter *)listAdapter didEndDisplayingSectionController:(nonnull IGListSectionController *)sectionController {
+    // no-op
+}
+
+- (void)listAdapter:(nonnull IGListAdapter *)listAdapter willDisplaySectionController:(nonnull IGListSectionController *)sectionController cell:(nonnull UICollectionViewCell *)cell atIndex:(NSInteger)index {
+    IGParameterAssert(index == 0);
+    _displayingCell = cell;
+}
+
+- (void)listAdapter:(nonnull IGListAdapter *)listAdapter didEndDisplayingSectionController:(nonnull IGListSectionController *)sectionController cell:(nonnull UICollectionViewCell *)cell atIndex:(NSInteger)index {
+    IGParameterAssert(index == 0);
+    _displayingCell = nil;
+}
+
 #pragma mark - IGListSectionController Overrides
 
 - (NSInteger)numberOfItems {
@@ -66,9 +97,10 @@
 - (void)didUpdateToObject:(id)object {
     _item = object;
     
-    UICollectionViewCell *cell = [self.collectionContext cellForItemAtIndex:0 sectionController:self];
-    if (cell) {
-        [self configureCell:cell withViewModel:_item];
+    if (_enabledCellConfigurationDuringUpdate) {
+        if (_displayingCell) {
+            [self configureCell:_displayingCell withViewModel:_item];
+        }
     }
 }
 
