@@ -124,8 +124,6 @@ typedef std::unordered_set<_IGListWorkingRangeHandlerIndexPath, _IGListWorkingRa
         workingRangeSectionControllers.insert({sectionController});
     }
 
-    IGAssert(workingRangeSectionControllers.size() < 1000, @"This algorithm is way too slow with so many objects:%lu", workingRangeSectionControllers.size());
-
     // Tell any new section controllers that they have entered the working range
     for (const _IGListWorkingRangeHandlerSectionControllerWrapper &wrapper : workingRangeSectionControllers) {
         // Check if the item exists in the old working range item array.
