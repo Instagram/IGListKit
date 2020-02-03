@@ -89,7 +89,7 @@
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
     IGParameterAssert(index == 0);
     UICollectionViewCell *cell = [self.collectionContext dequeueReusableCellOfClass:[self cellClass] forSectionController:self atIndex:index];
-    IGAssertNonnull(cell);
+    IGAssert(cell != nil);
     [self configureCell:cell withViewModel:_item];
     return cell;
 }
