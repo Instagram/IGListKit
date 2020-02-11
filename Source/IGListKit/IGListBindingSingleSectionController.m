@@ -89,14 +89,14 @@
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
     IGParameterAssert(index == 0);
     UICollectionViewCell *cell = [self.collectionContext dequeueReusableCellOfClass:[self cellClass] forSectionController:self atIndex:index];
-    IGAssert(cell != nil);
+    IGAssert(cell != nil, @"could not find a cell of class %@", NSStringFromClass([self cellClass]));
     [self configureCell:cell withViewModel:_item];
     return cell;
 }
 
 - (void)didUpdateToObject:(id)object {
     _item = object;
-    
+
     if (_enabledCellConfigurationDuringUpdate) {
         if (_displayingCell) {
             [self configureCell:_displayingCell withViewModel:_item];
