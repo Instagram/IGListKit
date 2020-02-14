@@ -72,7 +72,9 @@
 
 - (void)listAdapter:(nonnull IGListAdapter *)listAdapter didEndDisplayingSectionController:(nonnull IGListSectionController *)sectionController cell:(nonnull UICollectionViewCell *)cell atIndex:(NSInteger)index {
     IGParameterAssert(index == 0);
-    _displayingCell = nil;
+    if (cell == _displayingCell) {
+        _displayingCell = nil;
+    }
 }
 
 #pragma mark - IGListSectionController Overrides
