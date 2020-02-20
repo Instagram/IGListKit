@@ -8,21 +8,15 @@
 #import "IGListBindingSingleSectionController.h"
 
 #import <IGListDiffKit/IGListAssert.h>
+#import "IGListSectionControllerInternal.h"
 
-@interface IGListBindingSingleSectionController () <IGListDisplayDelegate>
+@interface IGListBindingSingleSectionController ()
 
 @end
 
 @implementation IGListBindingSingleSectionController {
     id _item;
     __weak UICollectionViewCell *_displayingCell;
-}
-
-- (instancetype)init {
-    if (self = [super init]) {
-        self.displayDelegate = self;
-    }
-    return self;
 }
 
 - (void)didSelectItemWithCell:(UICollectionViewCell *)cell {
@@ -53,28 +47,6 @@
 - (CGSize)sizeForViewModel:(id)viewModel {
     IGFailAssert(@"Implemented by subclass");
     return CGSizeZero;
-}
-
-#pragma mark - IGListDisplayDelegate
-
-- (void)listAdapter:(nonnull IGListAdapter *)listAdapter willDisplaySectionController:(nonnull IGListSectionController *)sectionController {
-    // no-op
-}
-
-- (void)listAdapter:(nonnull IGListAdapter *)listAdapter didEndDisplayingSectionController:(nonnull IGListSectionController *)sectionController {
-    // no-op
-}
-
-- (void)listAdapter:(nonnull IGListAdapter *)listAdapter willDisplaySectionController:(nonnull IGListSectionController *)sectionController cell:(nonnull UICollectionViewCell *)cell atIndex:(NSInteger)index {
-    IGParameterAssert(index == 0);
-    _displayingCell = cell;
-}
-
-- (void)listAdapter:(nonnull IGListAdapter *)listAdapter didEndDisplayingSectionController:(nonnull IGListSectionController *)sectionController cell:(nonnull UICollectionViewCell *)cell atIndex:(NSInteger)index {
-    IGParameterAssert(index == 0);
-    if (cell == _displayingCell) {
-        _displayingCell = nil;
-    }
 }
 
 #pragma mark - IGListSectionController Overrides
@@ -128,6 +100,20 @@
     IGParameterAssert(index == 0);
     UICollectionViewCell *cell = [self.collectionContext cellForItemAtIndex:0 sectionController:self];
     [self didUnhighlightItemWithCell:cell];
+}
+
+- (void)willDisplayCell:(UICollectionViewCell *)cell atIndex:(NSInteger)index listAdapter:(IGListAdapter *)listAdapter {
+    IGParameterAssert(index == 0);
+    _displayingCell = cell;
+    [super willDisplayCell:cell atIndex:index listAdapter:listAdapter];
+}
+
+- (void)didEndDisplayingCell:(UICollectionViewCell *)cell atIndex:(NSInteger)index listAdapter:(IGListAdapter *)listAdapter {
+    IGParameterAssert(index == 0);
+    if (cell == _displayingCell) {
+        _displayingCell = nil;
+    }
+    [super didEndDisplayingCell:cell atIndex:index listAdapter:listAdapter];
 }
 
 @end
