@@ -11,6 +11,7 @@
 #import <IGListKit/IGListAdapter.h>
 #import <IGListKit/IGListDisplayDelegate.h>
 #import <IGListKit/IGListSectionController.h>
+#import <IGListKit/IGListSectionControllerInternal.h>
 
 @interface IGListDisplayHandler ()
 
@@ -48,7 +49,7 @@
     [self.visibleViewObjectMap setObject:object forKey:view];
     NSCountedSet *visibleListSections = self.visibleListSections;
     if ([visibleListSections countForObject:sectionController] == 0) {
-        [sectionController.displayDelegate listAdapter:listAdapter willDisplaySectionController:sectionController];
+        [sectionController willDisplaySectionControllerWithListAdapter:listAdapter];
         [listAdapter.delegate listAdapter:listAdapter willDisplayObject:object atIndex:indexPath.section];
     }
     [visibleListSections addObject:sectionController];
@@ -73,7 +74,7 @@
     [visibleSections removeObject:sectionController];
 
     if ([visibleSections countForObject:sectionController] == 0) {
-        [sectionController.displayDelegate listAdapter:listAdapter didEndDisplayingSectionController:sectionController];
+        [sectionController didEndDisplayingSectionControllerWithListAdapter:listAdapter];
         [listAdapter.delegate listAdapter:listAdapter didEndDisplayingObject:object atIndex:section];
     }
 }
@@ -100,8 +101,7 @@
       sectionController:(IGListSectionController *)sectionController
                  object:(id)object
               indexPath:(NSIndexPath *)indexPath {
-    id <IGListDisplayDelegate> displayDelegate = [sectionController displayDelegate];
-    [displayDelegate listAdapter:listAdapter willDisplaySectionController:sectionController cell:cell atIndex:indexPath.item];
+    [sectionController willDisplayCell:cell atIndex:indexPath.item listAdapter:listAdapter];
     [self _willDisplayReusableView:cell forListAdapter:listAdapter sectionController:sectionController object:object indexPath:indexPath];
 }
 
@@ -114,8 +114,7 @@
     if (object == nil) {
         return;
     }
-
-    [sectionController.displayDelegate listAdapter:listAdapter didEndDisplayingSectionController:sectionController cell:cell atIndex:indexPath.item];
+    [sectionController didEndDisplayingCell:cell atIndex:indexPath.item listAdapter:listAdapter];
     [self _didEndDisplayingReusableView:cell forListAdapter:listAdapter sectionController:sectionController object:object indexPath:indexPath];
 }
 
