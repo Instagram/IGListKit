@@ -100,4 +100,20 @@ void IGListSectionControllerPopThread(void) {
     IGFailAssert(@"Section controller %@ must override %s if interactive reordering is enabled.", self, __PRETTY_FUNCTION__);
 }
 
+- (void)willDisplayCell:(UICollectionViewCell *)cell atIndex:(NSInteger)index listAdapter:(IGListAdapter *)listAdapter {
+    [_displayDelegate listAdapter:listAdapter willDisplaySectionController:self cell:cell atIndex:index];
+}
+
+- (void)didEndDisplayingCell:(UICollectionViewCell *)cell atIndex:(NSInteger)index listAdapter:(IGListAdapter *)listAdapter {
+    [_displayDelegate listAdapter:listAdapter didEndDisplayingSectionController:self cell:cell atIndex:index];
+}
+
+- (void)willDisplaySectionControllerWithListAdapter:(IGListAdapter *)listAdapter {
+    [_displayDelegate listAdapter:listAdapter willDisplaySectionController:self];
+}
+
+- (void)didEndDisplayingSectionControllerWithListAdapter:(IGListAdapter *)listAdapter {
+    [_displayDelegate listAdapter:listAdapter didEndDisplayingSectionController:self];
+}
+
 @end

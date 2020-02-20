@@ -28,4 +28,12 @@ FOUNDATION_EXTERN void IGListSectionControllerPopThread(void);
  */
 - (BOOL)canMoveItemAtIndex:(NSInteger)sourceItemIndex toIndex:(NSInteger)destinationItemIndex;
 
+- (void)willDisplayCell:(UICollectionViewCell *)cell atIndex:(NSInteger)index listAdapter:(IGListAdapter *)listAdapter;
+
+- (void)didEndDisplayingCell:(UICollectionViewCell *)cell atIndex:(NSInteger)index listAdapter:(IGListAdapter *)listAdapter;
+
+- (void)willDisplaySectionControllerWithListAdapter:(IGListAdapter *)listAdapter;
+
+- (void)didEndDisplayingSectionControllerWithListAdapter:(IGListAdapter *)listAdapter;
+
 @end
