@@ -101,19 +101,19 @@ void IGListSectionControllerPopThread(void) {
 }
 
 - (void)willDisplayCell:(UICollectionViewCell *)cell atIndex:(NSInteger)index listAdapter:(IGListAdapter *)listAdapter {
-    [_displayDelegate listAdapter:listAdapter willDisplaySectionController:self cell:cell atIndex:index];
+    [self.displayDelegate listAdapter:listAdapter willDisplaySectionController:self cell:cell atIndex:index];
 }
 
 - (void)didEndDisplayingCell:(UICollectionViewCell *)cell atIndex:(NSInteger)index listAdapter:(IGListAdapter *)listAdapter {
-    [_displayDelegate listAdapter:listAdapter didEndDisplayingSectionController:self cell:cell atIndex:index];
+    [self.displayDelegate listAdapter:listAdapter didEndDisplayingSectionController:self cell:cell atIndex:index];
 }
 
 - (void)willDisplaySectionControllerWithListAdapter:(IGListAdapter *)listAdapter {
-    [_displayDelegate listAdapter:listAdapter willDisplaySectionController:self];
+    [self.displayDelegate listAdapter:listAdapter willDisplaySectionController:self];
 }
 
 - (void)didEndDisplayingSectionControllerWithListAdapter:(IGListAdapter *)listAdapter {
-    [_displayDelegate listAdapter:listAdapter didEndDisplayingSectionController:self];
+    [self.displayDelegate listAdapter:listAdapter didEndDisplayingSectionController:self];
 }
 
 @end
