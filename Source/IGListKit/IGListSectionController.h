@@ -131,6 +131,18 @@ NS_SWIFT_NAME(ListSectionController)
 - (void)didUnhighlightItemAtIndex:(NSInteger)index;
 
 /**
+ Tells the section controller that the cell has requested a menu configuration.
+ 
+ @param index The index of the cell that requested the menu.
+ @param point The point of the tap on the cell.
+ 
+ @return An object that conforms to `UIContextMenuConfiguration`
+ 
+ @note The default implementation does nothing. **Calling super is not required.**
+ */
+- (nullable UIContextMenuConfiguration *)contextMenuConfigurationForItemAtIndex:(NSInteger)index point:(CGPoint)point API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos);
+
+/**
  Identifies whether an object can be moved through interactive reordering.
 
  @param index The index of the object in the list.

@@ -1647,7 +1647,7 @@
     [mockDelegate verify];
 }
 
-- (void)test_whenUnlighlightingCell_thatSectionControllerReceivesMethod {
+- (void)test_whenUnhighlightingCell_thatSectionControllerReceivesMethod {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];
 
@@ -1663,6 +1663,40 @@
     XCTAssertTrue(s0.wasUnhighlighted);
     XCTAssertFalse(s1.wasUnhighlighted);
     XCTAssertFalse(s2.wasUnhighlighted);
+}
+
+- (void)test_whenContextMenuAskedCell_thatCollectionViewDelegateReceivesMethod API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos) {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
+    self.adapter.collectionViewDelegate = mockDelegate;
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    [[mockDelegate expect] collectionView:self.collectionView contextMenuConfigurationForItemAtIndexPath:indexPath point:CGPointZero];
+
+    // simulates the collectionview telling its delegate that it needs the context menu configuration
+    [self.adapter collectionView:self.collectionView contextMenuConfigurationForItemAtIndexPath:indexPath point:CGPointZero];
+
+    [mockDelegate verify];
+}
+
+- (void)test_whenContextMenuAskedCell_thatSectionControllerReceivesMethod API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos) {
+    self.dataSource.objects = @[@0, @1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+
+    // simulates the collectionview telling its delegate that it needs the context menu configuration
+    [self.adapter collectionView:self.collectionView contextMenuConfigurationForItemAtIndexPath:indexPath point:CGPointZero];
+
+    IGListTestSection *s0 = [self.adapter sectionControllerForObject:@0];
+    IGListTestSection *s1 = [self.adapter sectionControllerForObject:@1];
+    IGListTestSection *s2 = [self.adapter sectionControllerForObject:@2];
+
+    XCTAssertTrue(s0.requestedContextMenu);
+    XCTAssertFalse(s1.requestedContextMenu);
+    XCTAssertFalse(s2.requestedContextMenu);
 }
 
 - (void)test_whenDataSourceDoesntHandleObject_thatObjectIsDropped {

@@ -315,6 +315,20 @@
     return nil;
 }
 
+
+#if !TARGET_OS_TV
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)) {
+  // forward this method to the delegate b/c this implementation will steal the message from the proxy
+  id<UICollectionViewDelegate> collectionViewDelegate = self.collectionViewDelegate;
+  if ([collectionViewDelegate respondsToSelector:@selector(collectionView:contextMenuConfigurationForItemAtIndexPath:point:)]) {
+      [collectionViewDelegate collectionView:collectionView contextMenuConfigurationForItemAtIndexPath:indexPath point:point];
+  }
+
+  IGListSectionController * sectionController = [self sectionControllerForSection:indexPath.section];
+  return [sectionController contextMenuConfigurationForItemAtIndex:indexPath.item point:point];
+}
+#endif
+
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {

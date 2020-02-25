@@ -101,6 +101,10 @@ void IGListSectionControllerPopThread(void) {
 
 - (void)didUnhighlightItemAtIndex:(NSInteger)index {}
 
+- (nullable UIContextMenuConfiguration *)contextMenuConfigurationForItemAtIndex:(NSInteger)index point:(CGPoint)point {
+  return nil;
+}
+
 - (BOOL)canMoveItemAtIndex:(NSInteger)index {
     return NO;
 }
