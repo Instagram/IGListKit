@@ -873,38 +873,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		00949037D7964280924D2068B5A9F564 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2276B6AD57514428F944E91DE04FDFC2 /* OCMock-tvOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/OCMock-tvOS/OCMock-tvOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/OCMock-tvOS/OCMock-tvOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/OCMock-tvOS/OCMock-tvOS.modulemap";
-				PRODUCT_MODULE_NAME = OCMock;
-				PRODUCT_NAME = OCMock;
-				SDKROOT = appletvos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		0C0D688050E00261E62D274C75A2D7C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0202923AC20F487F42691ADA009E2C9D /* Pods-IGListKit-tvOSTests.debug.xcconfig */;
@@ -937,6 +905,38 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		398A55AA0F7E51C034CE7F476012049F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88AB49668AEFB00F98B83F048ADFE04A /* OCMock-iOS.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/OCMock-iOS/OCMock-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/OCMock-iOS/OCMock-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/OCMock-iOS/OCMock-iOS.modulemap";
+				PRODUCT_MODULE_NAME = OCMock;
+				PRODUCT_NAME = OCMock;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		3B68C44A70F97D2A83B7DD870307B834 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -971,9 +971,9 @@
 			};
 			name = Debug;
 		};
-		4195993191CC9E056FF8FF76B6A60874 /* Debug */ = {
+		5B239FE7C7A9434F83A196E2B02FEEDA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 88AB49668AEFB00F98B83F048ADFE04A /* OCMock-iOS.xcconfig */;
+			baseConfigurationReference = 2276B6AD57514428F944E91DE04FDFC2 /* OCMock-tvOS.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -984,50 +984,19 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/OCMock-iOS/OCMock-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/OCMock-iOS/OCMock-iOS-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/OCMock-tvOS/OCMock-tvOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/OCMock-tvOS/OCMock-tvOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/OCMock-iOS/OCMock-iOS.modulemap";
+				MODULEMAP_FILE = "Target Support Files/OCMock-tvOS/OCMock-tvOS.modulemap";
 				PRODUCT_MODULE_NAME = OCMock;
 				PRODUCT_NAME = OCMock;
-				SDKROOT = iphoneos;
+				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		5A5CC8356F062DED58FD6792B66DFE37 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 88AB49668AEFB00F98B83F048ADFE04A /* OCMock-iOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/OCMock-iOS/OCMock-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/OCMock-iOS/OCMock-iOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/OCMock-iOS/OCMock-iOS.modulemap";
-				PRODUCT_MODULE_NAME = OCMock;
-				PRODUCT_NAME = OCMock;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1133,37 +1102,6 @@
 			};
 			name = Release;
 		};
-		866027EB337845841ECDFEB7915E81DC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2276B6AD57514428F944E91DE04FDFC2 /* OCMock-tvOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/OCMock-tvOS/OCMock-tvOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/OCMock-tvOS/OCMock-tvOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/OCMock-tvOS/OCMock-tvOS.modulemap";
-				PRODUCT_MODULE_NAME = OCMock;
-				PRODUCT_NAME = OCMock;
-				SDKROOT = appletvos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		8D236224FA77161AA741CF384D52111B /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 69FBFD608CA2F60D75E80E817B6231D4 /* Pods-IGListKit-tvOSTests.release.xcconfig */;
@@ -1197,6 +1135,68 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
+		};
+		AE2415C14BD360C2C24BD563F7E867E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2276B6AD57514428F944E91DE04FDFC2 /* OCMock-tvOS.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/OCMock-tvOS/OCMock-tvOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/OCMock-tvOS/OCMock-tvOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/OCMock-tvOS/OCMock-tvOS.modulemap";
+				PRODUCT_MODULE_NAME = OCMock;
+				PRODUCT_NAME = OCMock;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E51A50091BFE682C5284DD96938D40CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88AB49668AEFB00F98B83F048ADFE04A /* OCMock-iOS.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/OCMock-iOS/OCMock-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/OCMock-iOS/OCMock-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/OCMock-iOS/OCMock-iOS.modulemap";
+				PRODUCT_MODULE_NAME = OCMock;
+				PRODUCT_NAME = OCMock;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		F406DA30E8420BA4061CB8BE19A8C0D1 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1274,8 +1274,8 @@
 		194475CCD3CFDA1D80A0D09994B332FF /* Build configuration list for PBXNativeTarget "OCMock-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				866027EB337845841ECDFEB7915E81DC /* Debug */,
-				00949037D7964280924D2068B5A9F564 /* Release */,
+				AE2415C14BD360C2C24BD563F7E867E3 /* Debug */,
+				5B239FE7C7A9434F83A196E2B02FEEDA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1301,8 +1301,8 @@
 		E5AC1BC8E546A2BA6272FBE0CB5897A4 /* Build configuration list for PBXNativeTarget "OCMock-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4195993191CC9E056FF8FF76B6A60874 /* Debug */,
-				5A5CC8356F062DED58FD6792B66DFE37 /* Release */,
+				E51A50091BFE682C5284DD96938D40CC /* Debug */,
+				398A55AA0F7E51C034CE7F476012049F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
