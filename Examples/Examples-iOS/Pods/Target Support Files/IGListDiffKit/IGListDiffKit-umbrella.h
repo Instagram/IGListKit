@@ -1,10 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
 #else
@@ -34,3 +27,4 @@
 
 FOUNDATION_EXPORT double IGListDiffKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char IGListDiffKitVersionString[];
+

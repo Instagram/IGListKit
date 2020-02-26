@@ -1,10 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
 #else
@@ -30,6 +23,7 @@
 #import "IGListBindingSectionController.h"
 #import "IGListBindingSectionControllerDataSource.h"
 #import "IGListBindingSectionControllerSelectionDelegate.h"
+#import "IGListBindingSingleSectionController.h"
 #import "IGListCollectionContext.h"
 #import "IGListCollectionScrollingTraits.h"
 #import "IGListCollectionView.h"
@@ -50,3 +44,4 @@
 
 FOUNDATION_EXPORT double IGListKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
+

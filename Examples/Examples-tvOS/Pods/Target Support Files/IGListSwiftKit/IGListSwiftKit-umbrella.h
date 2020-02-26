@@ -1,5 +1,5 @@
 #ifdef __OBJC__
-#import <Cocoa/Cocoa.h>
+#import <UIKit/UIKit.h>
 #else
 #ifndef FOUNDATION_EXPORT
 #if defined(__cplusplus)
@@ -9,4 +9,8 @@
 #endif
 #endif
 #endif
+
+
+FOUNDATION_EXPORT double IGListSwiftKitVersionNumber;
+FOUNDATION_EXPORT const unsigned char IGListSwiftKitVersionString[];
 
