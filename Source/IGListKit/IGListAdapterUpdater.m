@@ -260,22 +260,11 @@ willPerformBatchUpdatesWithCollectionView:collectionView
                     batchUpdatesBlock(result);
                 } completion:batchUpdatesCompletionBlock];
             } else {
-                if (IGListExperimentEnabled(experiments, IGListExperimentPerformUpdatesWithoutDeferringCATransactionCommit)) {
-                    [UIView performWithoutAnimation:^{
-                        [collectionView performBatchUpdates:^{
-                            batchUpdatesBlock(result);
-                        } completion:batchUpdatesCompletionBlock];
-                    }];
-                } else {
-                    [CATransaction begin];
-                    [CATransaction setDisableActions:YES];
+                [UIView performWithoutAnimation:^{
                     [collectionView performBatchUpdates:^{
                         batchUpdatesBlock(result);
-                    } completion:^(BOOL finished) {
-                        [CATransaction commit];
-                        batchUpdatesCompletionBlock(finished);
-                    }];
-                }
+                    } completion:batchUpdatesCompletionBlock];
+                }];
             }
         } @catch (NSException *exception) {
             [delegate listAdapterUpdater:self
