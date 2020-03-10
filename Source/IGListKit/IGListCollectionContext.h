@@ -86,6 +86,15 @@ NS_SWIFT_NAME(ListCollectionContext)
                                              sectionController:(IGListSectionController *)sectionController;
 
 /**
+ Returns the fully visible cells for the given section controller.
+
+ @param sectionController The section controller requesting this information.
+
+ @return An array of fully visible cells, or an empty array if none are found.
+ */
+- (NSArray<UICollectionViewCell *> *)fullyVisibleCellsForSectionController:(IGListSectionController *)sectionController;
+
+/**
  Returns the visible cells for the given section controller.
 
  @param sectionController The section controller requesting this information.
