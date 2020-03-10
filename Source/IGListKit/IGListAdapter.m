@@ -927,6 +927,22 @@
     return nil;
 }
 
+- (NSArray<UICollectionViewCell *> *)fullyVisibleCellsForSectionController:(IGListSectionController *)sectionController {
+    NSMutableArray *cells = [NSMutableArray new];
+    UICollectionView *collectionView = self.collectionView;
+    NSArray *visibleCells = [collectionView visibleCells];
+    const NSInteger section = [self sectionForSectionController:sectionController];
+    for (UICollectionViewCell *cell in visibleCells) {
+        if ([collectionView indexPathForCell:cell].section == section) {
+            const CGRect cellRect = [cell convertRect:cell.bounds toView:collectionView];
+            if (CGRectContainsRect(UIEdgeInsetsInsetRect(collectionView.bounds, collectionView.contentInset), cellRect)) {
+                [cells addObject:cell];
+            }
+        }
+    }
+    return cells;
+}
+
 - (NSArray<UICollectionViewCell *> *)visibleCellsForSectionController:(IGListSectionController *)sectionController {
     NSMutableArray *cells = [NSMutableArray new];
     UICollectionView *collectionView = self.collectionView;
