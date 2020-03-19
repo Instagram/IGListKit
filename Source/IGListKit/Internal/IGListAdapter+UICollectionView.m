@@ -12,15 +12,20 @@
 #import <IGListKit/IGListSectionController.h>
 #import <IGListKit/IGListSectionControllerInternal.h>
 
+#import "IGListAdapterInternal.h"
+
 @implementation IGListAdapter (UICollectionView)
 
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    _assertNotInMiddleOfObjectUpdate(self.isInObjectUpdateTransaction);
     return self.sectionMap.objects.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    _assertNotInMiddleOfObjectUpdate(self.isInObjectUpdateTransaction);
+
     IGListSectionController * sectionController = [self sectionControllerForSection:section];
     IGAssert(sectionController != nil, @"Nil section controller for section %li for item %@. Check your -diffIdentifier and -isEqual: implementations.",
              (long)section, [self.sectionMap objectForSection:section]);
@@ -302,6 +307,12 @@
                                                          atIndex:indexPath.item];
     }
     return attributes;
+}
+
+#pragma mark - Assert helpers
+
+static void _assertNotInMiddleOfObjectUpdate(BOOL isInObjectUpdateTransaction) {
+    IGAssert(isInObjectUpdateTransaction == NO, @"The UICollectionView is attempting to update its data while the IGListAdapter is in a middle of updating the object list. This will cause inconsistencies and potentially crashes (which are hard to debug). The most common cause is a section controller tries to access/modify the UICollectionView in -didUpdateToObject.");
 }
 
 @end
