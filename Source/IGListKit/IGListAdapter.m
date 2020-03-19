@@ -598,6 +598,9 @@
 - (void)_updateObjects:(NSArray *)objects dataSource:(id<IGListAdapterDataSource>)dataSource {
     IGParameterAssert(dataSource != nil);
 
+    // Should be the first thing called in this function.
+    _isInObjectUpdateTransaction = YES;
+
 #if DEBUG
     for (id object in objects) {
         IGAssert([object isEqualToDiffableObject:object], @"Object instance %@ not equal to itself. This will break infra map tables.", object);
@@ -661,6 +664,9 @@
     }
 
     [self _updateBackgroundViewShouldHide:![self _itemCountIsZero]];
+
+    // Should be the last thing called in this function.
+    _isInObjectUpdateTransaction = NO;
 }
 
 - (void)_updateBackgroundViewShouldHide:(BOOL)shouldHide {
