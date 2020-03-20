@@ -140,7 +140,7 @@ NS_SWIFT_NAME(ListSectionController)
  
  @note The default implementation does nothing. **Calling super is not required.**
  */
-- (nullable UIContextMenuConfiguration *)contextMenuConfigurationForItemAtIndex:(NSInteger)index point:(CGPoint)point API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos);
+- (UIContextMenuConfiguration * _Nullable)contextMenuConfigurationForItemAtIndex:(NSInteger)index point:(CGPoint)point API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos);
 
 /**
  Identifies whether an object can be moved through interactive reordering.

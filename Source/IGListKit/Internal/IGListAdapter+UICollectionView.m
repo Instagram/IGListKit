@@ -321,7 +321,7 @@
   // forward this method to the delegate b/c this implementation will steal the message from the proxy
   id<UICollectionViewDelegate> collectionViewDelegate = self.collectionViewDelegate;
   if ([collectionViewDelegate respondsToSelector:@selector(collectionView:contextMenuConfigurationForItemAtIndexPath:point:)]) {
-      [collectionViewDelegate collectionView:collectionView contextMenuConfigurationForItemAtIndexPath:indexPath point:point];
+      return [collectionViewDelegate collectionView:collectionView contextMenuConfigurationForItemAtIndexPath:indexPath point:point];
   }
 
   IGListSectionController * sectionController = [self sectionControllerForSection:indexPath.section];
