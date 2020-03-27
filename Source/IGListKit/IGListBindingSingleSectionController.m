@@ -116,4 +116,8 @@
     [super didEndDisplayingCell:cell atIndex:index listAdapter:listAdapter];
 }
 
+- (BOOL)isDisplayingCell {
+    return _displayingCell != nil;
+}
+
 @end
