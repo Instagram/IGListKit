@@ -46,6 +46,8 @@ NS_SWIFT_NAME(ListBindingSingleSectionController)
 // Subclasable. Defaults is no-op.0
 - (void)didUnhighlightItemWithCell:(Cell)cell;
 
+- (BOOL)isDisplayingCell;
+
 @end
 
 NS_ASSUME_NONNULL_END
