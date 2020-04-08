@@ -15,7 +15,7 @@
 @end
 
 @implementation IGListBindingSingleSectionController {
-    id _item;
+    id<IGListDiffable> _item;
     __weak UICollectionViewCell *_displayingCell;
 }
 
@@ -68,7 +68,10 @@
     return cell;
 }
 
-- (void)didUpdateToObject:(id)object {
+- (void)didUpdateToObject:(id<IGListDiffable>)object {
+    if ([_item isEqualToDiffableObject:object]) {
+        return;
+    }
     _item = object;
 
     if (_enabledCellConfigurationDuringUpdate) {
