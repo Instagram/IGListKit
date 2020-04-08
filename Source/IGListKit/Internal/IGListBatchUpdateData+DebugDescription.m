@@ -11,7 +11,7 @@
 
 - (NSArray<NSString *> *)debugDescriptionLines {
     NSMutableArray *debug = [NSMutableArray new];
-#if IGLK_DEBUG_DESCRIPTION_ENABLED
+#if defined(IGLK_DEBUG_DESCRIPTION_ENABLED) && IGLK_DEBUG_DESCRIPTION_ENABLED
     [debug addObject:[NSString stringWithFormat:@"Insert sections: %@", self.insertSections]];
     [debug addObject:[NSString stringWithFormat:@"Delete sections: %@", self.deleteSections]];
 

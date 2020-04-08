@@ -14,7 +14,7 @@
 static NSHashTable<IGListAdapter *> *livingAdaptersTable = nil;
 
 + (void)trackAdapter:(IGListAdapter *)adapter {
-#if IGLK_DEBUG_DESCRIPTION_ENABLED
+#if defined(IGLK_DEBUG_DESCRIPTION_ENABLED) && IGLK_DEBUG_DESCRIPTION_ENABLED
     if (livingAdaptersTable == nil) {
         livingAdaptersTable = [NSHashTable weakObjectsHashTable];
     }

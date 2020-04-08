@@ -17,7 +17,7 @@
 #define IGLK_UNAVAILABLE(message) __attribute__((unavailable(message)))
 #endif // #ifndef IGLK_UNAVAILABLE
 
-#if IGLK_LOGGING_ENABLED
+#if defined(IGLK_LOGGING_ENABLED) && IGLK_LOGGING_ENABLED
 #define IGLKLog( s, ... ) do { NSLog( @"IGListKit: %@", [NSString stringWithFormat: (s), ##__VA_ARGS__] ); } while(0)
 #else
 #define IGLKLog( s, ... )

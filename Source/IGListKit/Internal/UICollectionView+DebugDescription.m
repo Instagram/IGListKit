@@ -13,7 +13,7 @@
 
 - (NSArray<NSString *> *)debugDescriptionLines {
     NSMutableArray *debug = [NSMutableArray new];
-#if IGLK_DEBUG_DESCRIPTION_ENABLED
+#if defined(IGLK_DEBUG_DESCRIPTION_ENABLED) && IGLK_DEBUG_DESCRIPTION_ENABLED
     [debug addObject:[NSString stringWithFormat:@"Class: %@, instance: %p", NSStringFromClass(self.class), self]];
     [debug addObject:[NSString stringWithFormat:@"Data source: %@", self.dataSource]];
     [debug addObject:[NSString stringWithFormat:@"Delegate: %@", self.delegate]];
