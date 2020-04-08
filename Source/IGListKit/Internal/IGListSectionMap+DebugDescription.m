@@ -13,7 +13,7 @@
 
 - (NSArray<NSString *> *)debugDescriptionLines {
     NSMutableArray *debug = [NSMutableArray new];
-#if IGLK_DEBUG_DESCRIPTION_ENABLED
+#if defined(IGLK_DEBUG_DESCRIPTION_ENABLED) && IGLK_DEBUG_DESCRIPTION_ENABLED
     [self enumerateUsingBlock:^(id object, IGListSectionController *sectionController, NSInteger section, BOOL *stop) {
         if ([sectionController isKindOfClass:[IGListBindingSectionController class]]) {
             [debug addObject:[sectionController debugDescription]];

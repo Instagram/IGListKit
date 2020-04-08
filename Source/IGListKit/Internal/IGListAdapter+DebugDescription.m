@@ -23,7 +23,7 @@
 
 - (NSArray<NSString *> *)debugDescriptionLines {
     NSMutableArray *debug = [NSMutableArray new];
-#if IGLK_DEBUG_DESCRIPTION_ENABLED
+#if defined(IGLK_DEBUG_DESCRIPTION_ENABLED) && IGLK_DEBUG_DESCRIPTION_ENABLED
     [debug addObject:[NSString stringWithFormat:@"Updater type: %@", NSStringFromClass(self.updater.class)]];
     [debug addObject:[NSString stringWithFormat:@"Data source: %@", self.dataSource]];
     [debug addObject:[NSString stringWithFormat:@"Collection view delegate: %@", self.collectionViewDelegate]];
