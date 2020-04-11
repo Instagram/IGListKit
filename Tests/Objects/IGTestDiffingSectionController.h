@@ -13,5 +13,6 @@
 @property (nonatomic, strong) id deselectedViewModel;
 @property (nonatomic, strong) id highlightedViewModel;
 @property (nonatomic, strong) id unhighlightedViewModel;
+@property (nonatomic, strong) id contextMenuViewModel;
 
 @end

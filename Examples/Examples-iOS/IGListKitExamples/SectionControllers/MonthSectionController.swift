@@ -96,4 +96,26 @@ final class MonthSectionController: ListBindingSectionController<ListDiffable>, 
 
     func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, didUnhighlightItemAt index: Int, viewModel: Any) {}
 
+    @available(iOS 13.0, *)
+    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, contextMenuConfigurationForItemAt index: Int, point: CGPoint, viewModel: Any) -> UIContextMenuConfiguration? {
+      return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+          // Create an action for sharing
+        let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { _ in
+            // Show share sheet
+        }
+
+        // Create an action for copy
+        let rename = UIAction(title: "Copy", image: UIImage(systemName: "doc.on.doc")) { _ in
+            // Perform copy
+        }
+
+        // Create an action for delete with destructive attributes (highligh in red)
+        let delete = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in
+            // Perform delete
+        }
+
+        // Create a UIMenu with all the actions as children
+        return UIMenu(title: "", children: [share, rename, delete])
+    }
+  }
 }

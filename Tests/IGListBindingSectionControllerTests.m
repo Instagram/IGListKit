@@ -190,6 +190,15 @@
     XCTAssertEqualObjects(section.unhighlightedViewModel, @"seven");
 }
 
+- (void)test_whenContextMenuAskedCell_thatCorrectViewModelRetrieved API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos) {
+    [self setupWithObjects:@[
+                             [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
+                             ]];
+    [self.adapter collectionView:self.collectionView contextMenuConfigurationForItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0] point:CGPointZero];
+    IGTestDiffingSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+    XCTAssertEqualObjects(section.contextMenuViewModel, @"seven");
+}
+
 - (void)test_whenDeselectingCell_withoutImplementation_thatNoOps {
     [self setupWithObjects:@[
                              [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],

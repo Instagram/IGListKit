@@ -31,4 +31,12 @@ didUnhighlightItemAtIndex:(NSInteger)index
                 viewModel:(nonnull id)viewModel {
 }
 
+
+- (UIContextMenuConfiguration * _Nullable)sectionController:(nonnull IGListBindingSectionController *)sectionController
+                    contextMenuConfigurationForItemAtIndex:(NSInteger)index
+                                                     point:(CGPoint)point
+                                                 viewModel:(nonnull id)viewModel API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos) {
+  return nil;
+}
+
 @end

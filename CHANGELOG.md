@@ -6,9 +6,13 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 4.1.0 (upcoming release)
 -----
 
+### Enhancements
+
 - Introduce `IGListSwiftKit`, with Swift refinements for `dequeueReusableCellOfClass` methods. [Koen Punt](https://github.com/koenpunt) [(#1388)](https://github.com/Instagram/IGListKit/pull/1388).
 
 - Added `APPLICATION_EXTENSION_API_ONLY` support for `IGListDiffKit` [Peter Meyers](https://github.com/pm-dev) [(#1422)](https://github.com/Instagram/IGListKit/pull/1422)
+
+- Added support for iOS 13 Context Menus with `contextMenuConfigurationForItemAt` method. [Jérôme B.](https://github.com/jjbourdev) [(#1430)](https://github.com/Instagram/IGListKit/pull/1430).
 
 4.0.0
 -----
