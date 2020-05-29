@@ -465,12 +465,9 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     [self _resetSupplementaryAttributesCache];
 
     UICollectionView *collectionView = self.collectionView;
-    id<UICollectionViewDataSource> dataSource = collectionView.dataSource;
     id<UICollectionViewDelegateFlowLayout> delegate = (id<UICollectionViewDelegateFlowLayout>)collectionView.delegate;
 
-    const NSInteger sectionCount = (IGListExperimentEnabled(_experiments, IGListExperimentUseCollectionViewInsteadOfDataSourceInLayout)
-                                    ? [collectionView numberOfSections]
-                                    : [dataSource numberOfSectionsInCollectionView:collectionView]);
+    const NSInteger sectionCount = [collectionView numberOfSections];
     const UIEdgeInsets contentInset = collectionView.ig_contentInset;
     const CGRect contentInsetAdjustedCollectionViewBounds = UIEdgeInsetsInsetRect(collectionView.bounds, contentInset);
 
@@ -493,9 +490,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     }
 
     for (NSInteger section = _minimumInvalidatedSection; section < sectionCount; section++) {
-        const NSInteger itemCount = (IGListExperimentEnabled(_experiments, IGListExperimentUseCollectionViewInsteadOfDataSourceInLayout)
-                                     ? [collectionView numberOfItemsInSection:section]
-                                     : [dataSource collectionView:collectionView numberOfItemsInSection:section]);
+        const NSInteger itemCount = [collectionView numberOfItemsInSection:section];
         const BOOL itemsEmpty = itemCount == 0;
         const BOOL hideHeaderWhenItemsEmpty = itemsEmpty && !self.showHeaderWhenEmpty;
         _sectionData[section].itemBounds = std::vector<CGRect>(itemCount);

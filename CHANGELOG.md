@@ -10,6 +10,10 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Added `APPLICATION_EXTENSION_API_ONLY` support for `IGListDiffKit` [Peter Meyers](https://github.com/pm-dev) [(#1422)](https://github.com/Instagram/IGListKit/pull/1422)
 
+### Fixes
+
+- `IGListCollectionViewLayout` should get the section/index counts via `UICollectionView` to stay in sync, instead of the `dataSource` [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
 4.0.0
 -----
 ### Breaking Changes
