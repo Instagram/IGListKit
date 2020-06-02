@@ -115,15 +115,13 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
     [itemDeletes addObjectsFromArray:[reloadDeletePaths allObjects]];
     [itemInserts addObjectsFromArray:[reloadInsertPaths allObjects]];
 
-    const BOOL fixIndexPathImbalance = IGListExperimentEnabled(experiments, IGListExperimentFixIndexPathImbalance);
     IGListBatchUpdateData *updateData = [[IGListBatchUpdateData alloc] initWithInsertSections:inserts
                                                                                deleteSections:deletes
                                                                                  moveSections:moves
                                                                              insertIndexPaths:itemInserts
                                                                              deleteIndexPaths:itemDeletes
                                                                              updateIndexPaths:itemUpdates
-                                                                               moveIndexPaths:itemMoves
-                                                                        fixIndexPathImbalance:fixIndexPathImbalance];
+                                                                               moveIndexPaths:itemMoves];
     [collectionView ig_applyBatchUpdateData:updateData];
     return updateData;
 }

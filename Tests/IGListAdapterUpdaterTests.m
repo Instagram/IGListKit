@@ -753,10 +753,7 @@
     [mockDelegate verify];
 }
 
-- (void)test_whenPerformIndexPathUpdates_insertDeleteTheSameIndexPathMultipleTimes_shouldNotCrash {
-    // Set up the fix
-    self.updater.experiments |= IGListExperimentFixIndexPathImbalance;
-
+- (void)test_whenPerformIndexPathUpdates_reloadingTheSameIndexPathMultipleTimes_shouldNotCrash {
     // Set up data
     NSArray<IGSectionObject *> *from = @[[IGSectionObject sectionWithObjects:@[@1] identifier:@"id"]];
     self.dataSource.sections = from;
@@ -770,19 +767,16 @@
     // Expectation to wait for performUpdate to finish
     XCTestExpectation *expectation = genExpectation;
 
-    NSArray<NSIndexPath *> *indexPaths = @[[NSIndexPath indexPathForItem:0 inSection:0]];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
     [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock]
                                               animated:NO
                                            itemUpdates:^{
-                                               [self.updater insertItemsIntoCollectionView:self.collectionView indexPaths:indexPaths];
-                                               [self.updater deleteItemsFromCollectionView:self.collectionView indexPaths:indexPaths];
-
-                                               [self.updater insertItemsIntoCollectionView:self.collectionView indexPaths:indexPaths];
-                                               [self.updater deleteItemsFromCollectionView:self.collectionView indexPaths:indexPaths];
-                                           }
+        [self.updater reloadItemInCollectionView:self.collectionView fromIndexPath:indexPath toIndexPath:indexPath];
+        [self.updater reloadItemInCollectionView:self.collectionView fromIndexPath:indexPath toIndexPath:indexPath];
+    }
                                             completion:^(BOOL finished) {
-                                                [expectation fulfill];
-                                            }];
+        [expectation fulfill];
+    }];
 
     waitExpectation;
 
