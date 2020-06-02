@@ -14,6 +14,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - `IGListCollectionViewLayout` should get the section/index counts via `UICollectionView` to stay in sync, instead of the `dataSource` [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
+- Remove `[collectionView layoutIfNeeded]` before scrolling in `[IGListAdapter scrollToObject...]` to avoid creating off-screen cells. [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
 4.0.0
 -----
 ### Breaking Changes

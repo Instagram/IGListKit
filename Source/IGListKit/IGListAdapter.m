@@ -184,16 +184,10 @@
     }
 
     UICollectionView *collectionView = self.collectionView;
-    const BOOL avoidLayout = IGListExperimentEnabled(self.experiments, IGListExperimentAvoidLayoutOnScrollToObject);
 
-    // Experiment with skipping the forced layout to avoid creating off-screen cells.
-    // Calling [collectionView layoutIfNeeded] creates the current visible cells that will no longer be visible after the scroll.
-    // We can avoid that by asking the UICollectionView (not the layout object) for the attributes. So if the attributes are not
-    // ready, the UICollectionView will call -prepareLayout, return the attributes, but doesn't generate the cells just yet.
-    if (!avoidLayout) {
-        [collectionView setNeedsLayout];
-        [collectionView layoutIfNeeded];
-    }
+    // We avoid calling `[collectionView layoutIfNeeded]` here because that could create cells that will no longer be visible after the scroll.
+    // Note that we get the layout attributes from the `UICollectionView` instead of the `collectionViewLayout`, because that will generate the
+    // necessary attributes without creating the cells just yet.
 
     NSIndexPath *indexPathFirstElement = [NSIndexPath indexPathForItem:0 inSection:section];
 
@@ -300,14 +294,9 @@
                     contentOffset.y = offsetMin - contentInset.top;
                     break;
             }
-            CGFloat maxHeight;
-            if (avoidLayout) {
-                // If we don't call [collectionView layoutIfNeeded], the collectionView.contentSize does not get updated.
-                // So lets use the layout object, since it should have been updated by now.
-                maxHeight = collectionView.collectionViewLayout.collectionViewContentSize.height;
-            } else {
-                maxHeight = collectionView.contentSize.height;
-            }
+            // If we don't call [collectionView layoutIfNeeded], the collectionView.contentSize does not get updated.
+            // So lets use the layout object, since it should have been updated by now.
+            const CGFloat maxHeight = collectionView.collectionViewLayout.collectionViewContentSize.height;
             const CGFloat maxOffsetY = maxHeight - collectionView.frame.size.height + contentInset.bottom;
             const CGFloat minOffsetY = -contentInset.top;
             contentOffset.y = MIN(contentOffset.y, maxOffsetY);
@@ -752,20 +741,12 @@
 }
 
 - (nullable UICollectionViewLayoutAttributes *)_layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (IGListExperimentEnabled(self.experiments, IGListExperimentAvoidLayoutOnScrollToObject)) {
-        return [self.collectionView layoutAttributesForItemAtIndexPath:indexPath];
-    } else {
-        return [self.collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:indexPath];
-    }
+    return [self.collectionView layoutAttributesForItemAtIndexPath:indexPath];
 }
 
 - (nullable UICollectionViewLayoutAttributes *)_layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind
                                                                                atIndexPath:(NSIndexPath *)indexPath {
-    if (IGListExperimentEnabled(self.experiments, IGListExperimentAvoidLayoutOnScrollToObject)) {
-        return [self.collectionView layoutAttributesForSupplementaryElementOfKind:elementKind atIndexPath:indexPath];
-    } else {
-        return [self.collectionView.collectionViewLayout layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:indexPath];
-    }
+    return [self.collectionView layoutAttributesForSupplementaryElementOfKind:elementKind atIndexPath:indexPath];
 }
 
 - (void)mapView:(UICollectionReusableView *)view toSectionController:(IGListSectionController *)sectionController {
