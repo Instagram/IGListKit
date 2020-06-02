@@ -67,7 +67,6 @@ NS_SWIFT_NAME(ListBatchUpdateData)
  @param deleteIndexPaths Item index paths to delete.
  @param updateIndexPaths Item index paths to update.
  @param moveIndexPaths Item index paths to move.
- @param fixIndexPathImbalance When enabled, we remove duplicate NSIndexPath inserts to avoid insert/delete imbalance and a crash.
 
  @return A new batch update object.
  */
@@ -77,19 +76,7 @@ NS_SWIFT_NAME(ListBatchUpdateData)
                       insertIndexPaths:(NSArray<NSIndexPath *> *)insertIndexPaths
                       deleteIndexPaths:(NSArray<NSIndexPath *> *)deleteIndexPaths
                       updateIndexPaths:(NSArray<NSIndexPath *> *)updateIndexPaths
-                        moveIndexPaths:(NSArray<IGListMoveIndexPath *> *)moveIndexPaths
-                 fixIndexPathImbalance:(BOOL)fixIndexPathImbalance NS_DESIGNATED_INITIALIZER;
-
-/**
- Convenience initializer with fixIndexPathImbalance disabled.
- */
-- (instancetype)initWithInsertSections:(NSIndexSet *)insertSections
-                        deleteSections:(NSIndexSet *)deleteSections
-                          moveSections:(NSSet<IGListMoveIndex *> *)moveSections
-                      insertIndexPaths:(NSArray<NSIndexPath *> *)insertIndexPaths
-                      deleteIndexPaths:(NSArray<NSIndexPath *> *)deleteIndexPaths
-                      updateIndexPaths:(NSArray<NSIndexPath *> *)updateIndexPaths
-                        moveIndexPaths:(NSArray<IGListMoveIndexPath *> *)moveIndexPaths;
+                        moveIndexPaths:(NSArray<IGListMoveIndexPath *> *)moveIndexPaths NS_DESIGNATED_INITIALIZER;
 
 /**
  :nodoc:
