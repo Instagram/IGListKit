@@ -179,6 +179,10 @@
         [collectionView layoutIfNeeded];
         executeCompletionBlocks(YES);
         [delegate listAdapterUpdater:self didReloadDataWithCollectionView:collectionView isFallbackReload:YES];
+
+        // queue another update in case something changed during batch updates. this method will bail next runloop if
+        // there are no changes
+        [self _queueUpdateWithCollectionViewBlock:collectionViewBlock];
     };
 
     // disables multiple performBatchUpdates: from happening at the same time
