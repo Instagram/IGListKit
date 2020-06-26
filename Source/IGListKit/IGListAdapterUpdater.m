@@ -280,7 +280,9 @@ willPerformBatchUpdatesWithCollectionView:collectionView
 
     // block that executes the batch update and exception handling
     void (^tryToPerformUpdate)(IGListIndexSetResult *) = ^(IGListIndexSetResult *result){
-        [collectionView layoutIfNeeded];
+        if (!IGListExperimentEnabled(experiments, IGListExperimentSkipLayoutBeforeUpdate)) {
+            [collectionView layoutIfNeeded];
+        }
 
         @try {
             if (collectionView.dataSource == nil) {

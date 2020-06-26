@@ -772,6 +772,48 @@
     [mockDelegate verify];
 }
 
+- (void)test_whenPerformingUpdatesMultipleTimesInARow_thenUpdateWorks {
+    self.updater.experiments |= IGListExperimentSkipLayoutBeforeUpdate;
+
+    NSArray *objects1 = @[
+        [IGSectionObject sectionWithObjects:@[@0]]
+    ];
+    NSArray *objects2 = @[
+        [IGSectionObject sectionWithObjects:@[@0, @1]],
+        [IGSectionObject sectionWithObjects:@[@0, @1]]
+    ];
+    NSArray *objects3 = @[
+        [IGSectionObject sectionWithObjects:@[@0, @1]],
+        [IGSectionObject sectionWithObjects:@[@0, @1]],
+        [IGSectionObject sectionWithObjects:@[@0, @1]]
+    ];
+    IGListToObjectBlock toObjectsBlock2 = ^NSArray *{
+        return objects2;
+    };
+    IGListToObjectBlock toObjectsBlock3 = ^NSArray *{
+        return objects3;
+    };
+
+    self.dataSource.sections = objects1;
+    [self.updater performReloadDataWithCollectionViewBlock:[self collectionViewBlock]];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:objects1 toObjectsBlock:toObjectsBlock2 animated:YES objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView numberOfSections], 2);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 2);
+
+        [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:objects2 toObjectsBlock:toObjectsBlock3 animated:YES objectTransitionBlock:self.updateBlock completion:^(BOOL finished2) {
+            XCTAssertEqual([self.collectionView numberOfSections], 3);
+            XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+            XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 2);
+            XCTAssertEqual([self.collectionView numberOfItemsInSection:2], 2);
+            [expectation fulfill];
+        }];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
 # pragma mark - preferItemReloadsFroSectionReloads
 
 - (void)test_whenReloadIsCalledWithSameItemCount_andPreferItemReload_updateIndexPathsHappen {
