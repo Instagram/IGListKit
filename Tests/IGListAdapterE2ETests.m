@@ -1533,8 +1533,6 @@
     // init empty
     [self setupWithObjects:@[]];
 
-    ((IGListAdapterUpdater *)self.updater).experiments = IGListExperimentReloadDataFallback;
-
     NSMutableArray *objects = [NSMutableArray new];
     for (NSInteger i = 0; i < 3000; i++) {
         [objects addObject:genTestObject(@(i + 1), @4)];
