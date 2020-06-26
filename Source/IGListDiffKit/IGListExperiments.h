@@ -20,10 +20,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentBackgroundDiffing = 1 << 2,
     /// Test fallback to reloadData when "too many" update operations.
     IGListExperimentReloadDataFallback = 1 << 3,
-    /// Test deferring object creation until just before diffing.
-    IGListExperimentDeferredToObjectCreation = 1 << 4,
     /// Test invalidating layout when cell reloads/updates in IGListBindingSectionController.
-    IGListExperimentInvalidateLayoutForUpdates = 1 << 5,
+    IGListExperimentInvalidateLayoutForUpdates = 1 << 4,
 };
 
 /**

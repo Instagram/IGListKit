@@ -324,22 +324,14 @@
 
     NSArray *fromObjects = self.sectionMap.objects;
 
-    IGListToObjectBlock toObjectsBlock;
     __weak __typeof__(self) weakSelf = self;
-    if (IGListExperimentEnabled(self.experiments, IGListExperimentDeferredToObjectCreation)) {
-        toObjectsBlock = ^NSArray *{
-            __typeof__(self) strongSelf = weakSelf;
-            if (strongSelf == nil) {
-                return nil;
-            }
-            return [dataSource objectsForListAdapter:strongSelf];
-        };
-    } else {
-        NSArray *newObjects = [dataSource objectsForListAdapter:self];
-        toObjectsBlock = ^NSArray *{
-            return newObjects;
-        };
-    }
+    IGListToObjectBlock toObjectsBlock = ^NSArray *{
+        __typeof__(self) strongSelf = weakSelf;
+        if (strongSelf == nil) {
+            return nil;
+        }
+        return [dataSource objectsForListAdapter:strongSelf];
+    };
 
     [self _enterBatchUpdates];
     [self.updater performUpdateWithCollectionViewBlock:[self _collectionViewBlock]
