@@ -69,6 +69,12 @@ NS_SWIFT_NAME(ListAdapterUpdater)
 @property (nonatomic, assign) BOOL allowsBackgroundReloading;
 
 /**
+ If there's more than 100 diff updates, fallback to using `reloadData` to avoid stalling the main thread.
+ Default is YES.
+ */
+@property (nonatomic, assign) BOOL allowsReloadingOnTooManyUpdates;
+
+/**
  A bitmask of experiments to conduct on the updater.
  */
 @property (nonatomic, assign) IGListExperiment experiments;

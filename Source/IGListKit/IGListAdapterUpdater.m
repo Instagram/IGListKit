@@ -28,6 +28,7 @@
         _completionBlocks = [NSMutableArray new];
         _batchUpdates = [IGListBatchUpdates new];
         _allowsBackgroundReloading = YES;
+        _allowsReloadingOnTooManyUpdates = YES;
     }
     return self;
 }
@@ -110,6 +111,7 @@
     NSMutableArray *completionBlocks = [self.completionBlocks mutableCopy];
     void (^objectTransitionBlock)(NSArray *) = [self.objectTransitionBlock copy];
     const BOOL animated = self.queuedUpdateIsAnimated;
+    const BOOL allowsReloadingOnTooManyUpdates = self.allowsReloadingOnTooManyUpdates;
     IGListBatchUpdates *batchUpdates = self.batchUpdates;
 
     // clean up all state so that new updates can be coalesced while the current update is in flight
@@ -284,7 +286,7 @@ willPerformBatchUpdatesWithCollectionView:collectionView
             if (collectionView.dataSource == nil) {
                 // If the data source is nil, we should not call any collection view update.
                 fallbackWithoutUpdates();
-            } else if (result.changeCount > 100 && IGListExperimentEnabled(experiments, IGListExperimentReloadDataFallback)) {
+            } else if (result.changeCount > 100 && allowsReloadingOnTooManyUpdates) {
                 reloadDataFallback();
             } else {
                 performUpdate(result);
