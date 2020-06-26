@@ -22,10 +22,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentReloadDataFallback = 1 << 3,
     /// Test deferring object creation until just before diffing.
     IGListExperimentDeferredToObjectCreation = 1 << 4,
-    /// Test getting collection view at update time.
-    IGListExperimentGetCollectionViewAtUpdate = 1 << 5,
     /// Test invalidating layout when cell reloads/updates in IGListBindingSectionController.
-    IGListExperimentInvalidateLayoutForUpdates = 1 << 6,
+    IGListExperimentInvalidateLayoutForUpdates = 1 << 5,
 };
 
 /**

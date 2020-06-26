@@ -107,8 +107,7 @@
         [self _updateCollectionViewDelegate];
 
         // only construct
-        if (!IGListExperimentEnabled(self.experiments, IGListExperimentGetCollectionViewAtUpdate)
-            || settingFirstCollectionView) {
+        if (settingFirstCollectionView) {
             [self _updateAfterPublicSettingsChange];
         }
     }
@@ -573,13 +572,8 @@
 #pragma mark - Private API
 
 - (IGListCollectionViewBlock)_collectionViewBlock {
-    if (IGListExperimentEnabled(self.experiments, IGListExperimentGetCollectionViewAtUpdate)) {
-        __weak __typeof__(self) weakSelf = self;
-        return ^UICollectionView *{ return weakSelf.collectionView; };
-    } else {
-        __weak UICollectionView *collectionView = _collectionView;
-        return ^UICollectionView *{ return collectionView; };
-    }
+     __weak __typeof__(self) weakSelf = self;
+    return ^UICollectionView *{ return weakSelf.collectionView; };
 }
 
 // this method is what updates the "source of truth"

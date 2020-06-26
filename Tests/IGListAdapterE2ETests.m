@@ -1841,7 +1841,6 @@
 - (void)test_whenSwappingCollectionViewsAfterUpdate_thatUpdatePerformedOnTheCorrectCollectionView {
     // BEGIN: setup of FIRST adapter+dataSource+collectionView
     IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
-    adapter1.experiments |= IGListExperimentGetCollectionViewAtUpdate;
 
     UICollectionView *collectionView1 = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
     [self.window addSubview:collectionView1];
@@ -1857,7 +1856,6 @@
 
     // BEGIN: setup of SECOND adapter+dataSource+collectionView
     IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
-    adapter2.experiments |= IGListExperimentGetCollectionViewAtUpdate;
 
     UICollectionView *collectionView2 = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
     [self.window addSubview:collectionView2];
@@ -1891,7 +1889,6 @@
     [self setupWithObjects:@[
                              genTestObject(@1, @1)
                              ]];
-    self.adapter.experiments |= IGListExperimentGetCollectionViewAtUpdate;
 
     // perform update on listAdapter
     XCTestExpectation *expectation1 = genExpectation;
@@ -1938,7 +1935,6 @@
     [self setupWithObjects:@[
                              genTestObject(@1, @1)
                              ]];
-    self.adapter.experiments |= IGListExperimentGetCollectionViewAtUpdate;
 
     // reload data on listAdapter
     XCTestExpectation *expectation1 = genExpectation;
