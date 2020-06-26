@@ -435,22 +435,20 @@
     XCTAssertEqual(inserts.count, 0);
 }
 
-- (void)test_whenReloadingData_withNilCollectionView_thatDelegateEventNotSent {
+- (void)test_whenReloadingData_withNilCollectionView_thatDelegateFinishesWithoutUpdates {
     id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
     self.updater.delegate = mockDelegate;
     id compilerFriendlyNil = nil;
-    [[mockDelegate reject] listAdapterUpdater:self.updater willReloadDataWithCollectionView:compilerFriendlyNil];
-    [[mockDelegate reject] listAdapterUpdater:self.updater didReloadDataWithCollectionView:compilerFriendlyNil];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didFinishWithoutUpdatesWithCollectionView:nil];
     [self.updater performReloadDataWithCollectionViewBlock:^UICollectionView *{ return compilerFriendlyNil; }];
     [mockDelegate verify];
 }
 
-- (void)test_whenPerformingUpdates_withNilCollectionView_thatDelegateEventNotSent {
+- (void)test_whenPerformingUpdates_withNilCollectionView_thatDelegateFinishesWithoutUpdates {
     id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
     self.updater.delegate = mockDelegate;
     id compilerFriendlyNil = nil;
-    [[mockDelegate reject] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:compilerFriendlyNil fromObjects:@[] toObjects:@[] listIndexSetResult:OCMOCK_ANY];
-    [[mockDelegate reject] listAdapterUpdater:self.updater didPerformBatchUpdates:[OCMArg any] collectionView:compilerFriendlyNil];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didFinishWithoutUpdatesWithCollectionView:nil];
     [self.updater performBatchUpdatesWithCollectionViewBlock:^UICollectionView *{ return compilerFriendlyNil; }];
     [mockDelegate verify];
 }
@@ -517,19 +515,15 @@
     [mockDelegate verify];
 }
 
-- (void)test_whenCollectionViewNotInWindow_andBackgroundReloadFlag_isDefaultYES_diffDoesNotHappen {
+- (void)test_whenCollectionViewNotInWindow_andBackgroundReloadFlag_isDefaultYES_fallbackToReload {
     [self.collectionView removeFromSuperview];
 
     id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
     self.updater.delegate = mockDelegate;
 
-    // NOTE: The current behavior in this case is for the adapter updater
-    // simply not to call any delegate methods at all. This may change
-    // in the future, but we configure the mock delegate to allow any call
-    // except the batch updates calls.
-
-    [[mockDelegate reject] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView fromObjects:@[] toObjects:@[] listIndexSetResult:OCMOCK_ANY];
-    [[mockDelegate reject] listAdapterUpdater:self.updater didPerformBatchUpdates:OCMOCK_ANY collectionView:self.collectionView];
+    [mockDelegate setExpectationOrderMatters:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willReloadDataWithCollectionView:self.collectionView isFallbackReload:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didReloadDataWithCollectionView:self.collectionView isFallbackReload:YES];
 
     XCTestExpectation *expectation = genExpectation;
     IGListToObjectBlock to = ^NSArray *{
@@ -544,13 +538,15 @@
     [mockDelegate verify];
 }
 
-- (void)test_whenCollectionViewNotInWindow_andBackgroundReloadFlag_isDefaultYES_andDataSourceWasSetToNilBefore_thatCollectionViewNotCrash {
+- (void)test_whenCollectionViewNotInWindow_andBackgroundReloadFlag_isDefaultYES_andDataSourceWasSetToNilBefore_fallbackToReload {
     [self.collectionView removeFromSuperview];
 
     id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
     self.updater.delegate = mockDelegate;
-    [[mockDelegate reject] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView fromObjects:@[] toObjects:@[] listIndexSetResult:OCMOCK_ANY];
-    [[mockDelegate reject] listAdapterUpdater:self.updater didPerformBatchUpdates:OCMOCK_ANY collectionView:self.collectionView];
+
+    [mockDelegate setExpectationOrderMatters:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willReloadDataWithCollectionView:self.collectionView isFallbackReload:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didReloadDataWithCollectionView:self.collectionView isFallbackReload:YES];
 
     XCTestExpectation *expectation = genExpectation;
     IGListToObjectBlock to = ^NSArray *{
@@ -731,14 +727,7 @@
     id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
     self.updater.delegate = mockDelegate;
     [mockDelegate setExpectationOrderMatters:YES];
-    [[mockDelegate expect] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView fromObjects:from toObjects:to listIndexSetResult:[OCMArg checkWithBlock:^BOOL(IGListIndexSetResult *result) {
-        if (result.deletes.count != 0 || result.moves.count != 0) {
-            return NO;
-        }
-        // Make sure we note that index 1 is updated (id1 from @[@1] -> @[@2]), and "id2" was inserted at index 1
-        return result.updates.firstIndex == 0 && result.inserts.firstIndex == 1;
-    }]];
-    [[mockDelegate expect] listAdapterUpdater:self.updater didPerformBatchUpdates:OCMOCK_ANY collectionView:self.collectionView];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didFinishWithoutUpdatesWithCollectionView:self.collectionView];
 
     XCTestExpectation *expectation = genExpectation;
 
