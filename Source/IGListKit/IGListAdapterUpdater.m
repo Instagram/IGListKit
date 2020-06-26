@@ -64,6 +64,7 @@
     if (collectionView == nil) {
         [self _cleanStateAfterUpdates];
         executeCompletionBlocks(NO);
+        [_delegate listAdapterUpdater:self didFinishWithoutUpdatesWithCollectionView:collectionView];
         return;
     }
 
@@ -89,11 +90,11 @@
 
     [self _cleanStateAfterUpdates];
 
-    [delegate listAdapterUpdater:self willReloadDataWithCollectionView:collectionView];
+    [delegate listAdapterUpdater:self willReloadDataWithCollectionView:collectionView isFallbackReload:NO];
     [collectionView reloadData];
     [collectionView.collectionViewLayout invalidateLayout];
     [collectionView layoutIfNeeded];
-    [delegate listAdapterUpdater:self didReloadDataWithCollectionView:collectionView];
+    [delegate listAdapterUpdater:self didReloadDataWithCollectionView:collectionView isFallbackReload:NO];
 
     executeCompletionBlocks(YES);
 }
@@ -128,6 +129,7 @@
     if (collectionView == nil) {
         [self _cleanStateAfterUpdates];
         executeCompletionBlocks(NO);
+        [_delegate listAdapterUpdater:self didFinishWithoutUpdatesWithCollectionView:collectionView];
         return;
     }
 
@@ -169,25 +171,25 @@
     };
 
     void (^reloadDataFallback)(void) = ^{
+        [delegate listAdapterUpdater:self willReloadDataWithCollectionView:collectionView isFallbackReload:YES];
         executeUpdateBlocks();
         [self _cleanStateAfterUpdates];
         [self _performBatchUpdatesItemBlockApplied];
         [collectionView reloadData];
         [collectionView layoutIfNeeded];
-
         executeCompletionBlocks(YES);
+        [delegate listAdapterUpdater:self didReloadDataWithCollectionView:collectionView isFallbackReload:YES];
     };
+
+    // disables multiple performBatchUpdates: from happening at the same time
+    [self _beginPerformBatchUpdatesToObjects:toObjects];
 
     // if the collection view isn't in a visible window, skip diffing and batch updating. execute all transition blocks,
     // reload data, execute completion blocks, and get outta here
     if (self.allowsBackgroundReloading && collectionView.window == nil) {
-        [self _beginPerformBatchUpdatesToObjects:toObjects];
         reloadDataFallback();
         return;
     }
-
-    // disables multiple performBatchUpdates: from happening at the same time
-    [self _beginPerformBatchUpdatesToObjects:toObjects];
 
     const IGListExperiment experiments = self.experiments;
 
@@ -229,6 +231,17 @@
     };
 
     // block used as the second param of -[UICollectionView performBatchUpdates:completion:]
+    void (^fallbackWithoutUpdates)(void) = ^(void) {
+        executeCompletionBlocks(NO);
+
+        [delegate listAdapterUpdater:self didFinishWithoutUpdatesWithCollectionView:collectionView];
+
+        // queue another update in case something changed during batch updates. this method will bail next runloop if
+        // there are no changes
+        [self _queueUpdateWithCollectionViewBlock:collectionViewBlock];
+    };
+
+    // block used as the second param of -[UICollectionView performBatchUpdates:completion:]
     void (^batchUpdatesCompletionBlock)(BOOL) = ^(BOOL finished) {
         IGListBatchUpdateData *oldApplyingUpdateData = self.applyingUpdateData;
         executeCompletionBlocks(finished);
@@ -240,31 +253,37 @@
         [self _queueUpdateWithCollectionViewBlock:collectionViewBlock];
     };
 
-    // block that executes the batch update and exception handling
     void (^performUpdate)(IGListIndexSetResult *) = ^(IGListIndexSetResult *result){
-        [collectionView layoutIfNeeded];
-
-        @try {
-            [delegate  listAdapterUpdater:self
+        [delegate listAdapterUpdater:self
 willPerformBatchUpdatesWithCollectionView:collectionView
-                              fromObjects:fromObjects
-                                toObjects:toObjects
-                       listIndexSetResult:result];
-            if (collectionView.dataSource == nil) {
-                // If the data source is nil, we should not call any collection view update.
-                batchUpdatesCompletionBlock(NO);
-            } else if (result.changeCount > 100 && IGListExperimentEnabled(experiments, IGListExperimentReloadDataFallback)) {
-                reloadDataFallback();
-            } else if (animated) {
+                         fromObjects:fromObjects
+                           toObjects:toObjects
+                  listIndexSetResult:result];
+        if (animated) {
+            [collectionView performBatchUpdates:^{
+                batchUpdatesBlock(result);
+            } completion:batchUpdatesCompletionBlock];
+        } else {
+            [UIView performWithoutAnimation:^{
                 [collectionView performBatchUpdates:^{
                     batchUpdatesBlock(result);
                 } completion:batchUpdatesCompletionBlock];
+            }];
+        }
+    };
+
+    // block that executes the batch update and exception handling
+    void (^tryToPerformUpdate)(IGListIndexSetResult *) = ^(IGListIndexSetResult *result){
+        [collectionView layoutIfNeeded];
+
+        @try {
+            if (collectionView.dataSource == nil) {
+                // If the data source is nil, we should not call any collection view update.
+                fallbackWithoutUpdates();
+            } else if (result.changeCount > 100 && IGListExperimentEnabled(experiments, IGListExperimentReloadDataFallback)) {
+                reloadDataFallback();
             } else {
-                [UIView performWithoutAnimation:^{
-                    [collectionView performBatchUpdates:^{
-                        batchUpdatesBlock(result);
-                    } completion:batchUpdatesCompletionBlock];
-                }];
+                performUpdate(result);
             }
         } @catch (NSException *exception) {
             [delegate listAdapterUpdater:self
@@ -282,12 +301,12 @@ willPerformBatchUpdatesWithCollectionView:collectionView
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
             IGListIndexSetResult *result = performDiff();
             dispatch_async(dispatch_get_main_queue(), ^{
-                performUpdate(result);
+                tryToPerformUpdate(result);
             });
         });
     } else {
         IGListIndexSetResult *result = performDiff();
-        performUpdate(result);
+        tryToPerformUpdate(result);
     }
 }
 

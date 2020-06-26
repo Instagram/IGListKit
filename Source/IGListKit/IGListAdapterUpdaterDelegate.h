@@ -121,16 +121,18 @@ willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
 
  @param listAdapterUpdater The adapter updater owning the transition.
  @param collectionView The collection view that will be reloaded.
+ @param isFallbackReload The reload was a fallback because we could not performBatchUpdate
  */
-- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater willReloadDataWithCollectionView:(UICollectionView *)collectionView;
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater willReloadDataWithCollectionView:(UICollectionView *)collectionView isFallbackReload:(BOOL)isFallbackReload;
 
 /**
  Notifies the delegate that the updater successfully called `-[UICollectionView reloadData]`.
 
  @param listAdapterUpdater The adapter updater owning the transition.
  @param collectionView The collection view that reloaded.
+ @param isFallbackReload The reload was a fallback because we could not performBatchUpdate
  */
-- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater didReloadDataWithCollectionView:(UICollectionView *)collectionView;
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater didReloadDataWithCollectionView:(UICollectionView *)collectionView isFallbackReload:(BOOL)isFallbackReload;
 
 /**
  Notifies the delegate that the collection view threw an exception in `-[UICollectionView performBatchUpdates:completion:]`.
@@ -150,6 +152,14 @@ willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
                  toObjects:(nullable NSArray *)toObjects
                 diffResult:(IGListIndexSetResult *)diffResult
                    updates:(IGListBatchUpdateData *)updates;
+
+/**
+Notifies the delegate that the updater finished without performing any batch updates or reloads
+
+@param listAdapterUpdater The adapter updater owning the transition.
+@param collectionView The collection view that reloaded.
+*/
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater didFinishWithoutUpdatesWithCollectionView:(nullable UICollectionView *)collectionView;
 
 @end
 
