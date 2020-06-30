@@ -29,12 +29,14 @@ NS_SWIFT_NAME(ListAdapterUpdaterDelegate)
  @param fromObjects The items transitioned from in the batch updates, if any.
  @param toObjects The items transitioned to in the batch updates, if any.
  @param listIndexSetResults The diffing result of indices to be inserted/removed/updated/moved/etc.
+ @param animated Is the cell transtion animated
  */
 - (void)               listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
 willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
                               fromObjects:(nullable NSArray <id<IGListDiffable>> *)fromObjects
                                 toObjects:(nullable NSArray <id<IGListDiffable>> *)toObjects
-                       listIndexSetResult:(nullable IGListIndexSetResult *)listIndexSetResults;
+                       listIndexSetResult:(nullable IGListIndexSetResult *)listIndexSetResults
+                                 animated:(BOOL)animated;
 
 /**
  Notifies the delegate that the updater successfully finished `-[UICollectionView performBatchUpdates:completion:]`.

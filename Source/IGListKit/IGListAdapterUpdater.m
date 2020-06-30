@@ -264,7 +264,8 @@
 willPerformBatchUpdatesWithCollectionView:collectionView
                          fromObjects:fromObjects
                            toObjects:toObjects
-                  listIndexSetResult:result];
+                  listIndexSetResult:result
+                            animated:animated];
         if (animated) {
             [collectionView performBatchUpdates:^{
                 batchUpdatesBlock(result);
