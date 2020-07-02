@@ -814,6 +814,44 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenPerformingUpdate_thatCallsDiffingDelegate {
+    self.updater.experiments |= IGListExperimentBackgroundDiffing;
+
+    NSArray *from = @[
+        [IGSectionObject sectionWithObjects:@[] identifier:@"0"]
+    ];
+    NSArray *to = @[
+        [IGSectionObject sectionWithObjects:@[] identifier:@"0"],
+        [IGSectionObject sectionWithObjects:@[] identifier:@"1"]
+    ];
+    IGListToObjectBlock toBlock = ^NSArray *{
+        return to;
+    };
+
+    self.dataSource.sections = from;
+    [self.updater performReloadDataWithCollectionViewBlock:[self collectionViewBlock]];
+
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+    [mockDelegate setExpectationOrderMatters:YES];
+    [[mockDelegate expect] listAdapterUpdater:self.updater willDiffFromObjects:from toObjects:to];
+    [[mockDelegate expect] listAdapterUpdater:self.updater didDiffWithResults:[OCMArg checkWithBlock:^BOOL(IGListIndexSetResult *result) {
+        return [result.inserts isEqualToIndexSet:[NSIndexSet indexSetWithIndex:1]]
+        && result.deletes.count == 0
+        && result.updates.count == 0
+        && result.moves.count == 0;
+    }] onBackgroundThread:YES];
+
+    XCTestExpectation *expectation = genExpectation;
+
+    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:from toObjectsBlock:toBlock animated:NO objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+    waitExpectation;
+    [mockDelegate verify];
+}
+
+
 # pragma mark - preferItemReloadsFroSectionReloads
 
 - (void)test_whenReloadIsCalledWithSameItemCount_andPreferItemReload_updateIndexPathsHappen {

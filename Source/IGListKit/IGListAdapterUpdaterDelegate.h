@@ -22,6 +22,28 @@ NS_SWIFT_NAME(ListAdapterUpdaterDelegate)
 @protocol IGListAdapterUpdaterDelegate <NSObject>
 
 /**
+ Notifies the delegate that the updater is about to beging diffing.
+
+ @param listAdapterUpdater The adapter updater owning the transition.
+ @param fromObjects The items transitioned from in the batch updates, if any.
+ @param toObjects The items transitioned to in the batch updates, if any.
+ */
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
+       willDiffFromObjects:(nullable NSArray <id<IGListDiffable>> *)fromObjects
+                 toObjects:(nullable NSArray <id<IGListDiffable>> *)toObjects;
+
+/**
+ Notifies the delegate that the updater finished diffing.
+
+ @param listAdapterUpdater The adapter updater owning the transition.
+ @param listIndexSetResults The diffing result of indices to be inserted/removed/updated/moved/etc.
+ @param onBackgroundThread Was the diffing performed on a background thread
+ */
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
+        didDiffWithResults:(nullable IGListIndexSetResult *)listIndexSetResults
+        onBackgroundThread:(BOOL)onBackgroundThread;
+
+/**
  Notifies the delegate that the updater will call `-[UICollectionView performBatchUpdates:completion:]`.
 
  @param listAdapterUpdater The adapter updater owning the transition.

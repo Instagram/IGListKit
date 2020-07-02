@@ -17,6 +17,8 @@
 #import "IGListReloadIndexPath.h"
 #import "UICollectionView+IGListBatchUpdateData.h"
 
+typedef void (^IGListAdapterUpdaterDiffResultBlock)(IGListIndexSetResult *);
+
 @implementation IGListAdapterUpdater
 
 - (instancetype)init {
@@ -112,6 +114,7 @@
     void (^objectTransitionBlock)(NSArray *) = [self.objectTransitionBlock copy];
     const BOOL animated = self.queuedUpdateIsAnimated;
     const BOOL allowsReloadingOnTooManyUpdates = self.allowsReloadingOnTooManyUpdates;
+    const IGListExperiment experiments = self.experiments;
     IGListBatchUpdates *batchUpdates = self.batchUpdates;
 
     // clean up all state so that new updates can be coalesced while the current update is in flight
@@ -197,12 +200,6 @@
         return;
     }
 
-    const IGListExperiment experiments = self.experiments;
-
-    IGListIndexSetResult *(^performDiff)(void) = ^{
-        return IGListDiffExperiment(fromObjects, toObjects, IGListDiffEquality, experiments);
-    };
-
     // block executed in the first param block of -[UICollectionView performBatchUpdates:completion:]
     void (^batchUpdatesBlock)(IGListIndexSetResult *result) = ^(IGListIndexSetResult *result){
         executeUpdateBlocks();
@@ -230,7 +227,7 @@
                                                                          experiments,
                                                                          self.movesAsDeletesInserts,
                                                                          self.preferItemReloadsForSectionReloads);
-}
+        }
 
         [self _cleanStateAfterUpdates];
         [self _performBatchUpdatesItemBlockApplied];
@@ -306,17 +303,12 @@ willPerformBatchUpdatesWithCollectionView:collectionView
         }
     };
 
-    if (IGListExperimentEnabled(experiments, IGListExperimentBackgroundDiffing)) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-            IGListIndexSetResult *result = performDiff();
-            dispatch_async(dispatch_get_main_queue(), ^{
-                tryToPerformUpdate(result);
-            });
-        });
-    } else {
-        IGListIndexSetResult *result = performDiff();
+    const BOOL onBackgroundThread = IGListExperimentEnabled(experiments, IGListExperimentBackgroundDiffing);
+    [delegate listAdapterUpdater:self willDiffFromObjects:fromObjects toObjects:toObjects];
+    IGListAdapterUpdaterPerformDiffing(fromObjects, toObjects, IGListDiffEquality, onBackgroundThread, experiments, ^(IGListIndexSetResult *result){
+        [delegate listAdapterUpdater:self didDiffWithResults:result onBackgroundThread:onBackgroundThread];
         tryToPerformUpdate(result);
-    }
+    });
 }
 
 - (void)_beginPerformBatchUpdatesToObjects:(NSArray *)toObjects {
@@ -373,7 +365,6 @@ willPerformBatchUpdatesWithCollectionView:collectionView
         }
     });
 }
-
 
 #pragma mark - IGListUpdatingDelegate
 
@@ -575,5 +566,25 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     }
 }
 
+#pragma mark - Diffing
+
+static void IGListAdapterUpdaterPerformDiffing(NSArray<id<IGListDiffable>> *_Nullable oldArray,
+                                               NSArray<id<IGListDiffable>> *_Nullable newArray,
+                                               IGListDiffOption option,
+                                               IGListExperiment experiments,
+                                               BOOL onBackgroundThread,
+                                               IGListAdapterUpdaterDiffResultBlock completion) {
+    if (onBackgroundThread) {
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+            IGListIndexSetResult *result = IGListDiffExperiment(oldArray, newArray, option, experiments);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(result);
+            });
+        });
+    } else {
+        IGListIndexSetResult *result = IGListDiffExperiment(oldArray, newArray, option, experiments);
+        completion(result);
+    }
+}
 
 @end
