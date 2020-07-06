@@ -305,7 +305,7 @@ willPerformBatchUpdatesWithCollectionView:collectionView
 
     const BOOL onBackgroundThread = IGListExperimentEnabled(experiments, IGListExperimentBackgroundDiffing);
     [delegate listAdapterUpdater:self willDiffFromObjects:fromObjects toObjects:toObjects];
-    IGListAdapterUpdaterPerformDiffing(fromObjects, toObjects, IGListDiffEquality, onBackgroundThread, experiments, ^(IGListIndexSetResult *result){
+    IGListAdapterUpdaterPerformDiffing(fromObjects, toObjects, IGListDiffEquality, experiments, onBackgroundThread, ^(IGListIndexSetResult *result){
         [delegate listAdapterUpdater:self didDiffWithResults:result onBackgroundThread:onBackgroundThread];
         tryToPerformUpdate(result);
     });
