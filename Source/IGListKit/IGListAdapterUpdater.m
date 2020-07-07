@@ -18,6 +18,8 @@
 #import "UICollectionView+IGListBatchUpdateData.h"
 
 typedef void (^IGListAdapterUpdaterDiffResultBlock)(IGListIndexSetResult *);
+typedef void (^IGListAdapterUpdaterBlock)(void);
+typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
 
 @implementation IGListAdapterUpdater
 
@@ -263,17 +265,13 @@ willPerformBatchUpdatesWithCollectionView:collectionView
                            toObjects:toObjects
                   listIndexSetResult:result
                             animated:animated];
-        if (animated) {
-            [collectionView performBatchUpdates:^{
-                batchUpdatesBlock(result);
-            } completion:batchUpdatesCompletionBlock];
-        } else {
-            [UIView performWithoutAnimation:^{
-                [collectionView performBatchUpdates:^{
-                    batchUpdatesBlock(result);
-                } completion:batchUpdatesCompletionBlock];
-            }];
-        }
+
+        // Wrap `[UICollectionView performBatchUpdates ...]` so that in case it crashes, the first app symbol will not be a block. A block name includes the
+        // line number, which means if you change the block line number, it will be categorized as a different crash. This makes tracking crashes
+        // across multiple app-versions a pain.
+        IGListAdapterUpdaterPerformBatchUpdate(collectionView, animated, ^{
+            batchUpdatesBlock(result);
+        }, batchUpdatesCompletionBlock);
     };
 
     // block that executes the batch update and exception handling
@@ -566,7 +564,17 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     }
 }
 
-#pragma mark - Diffing
+#pragma mark - Helpers
+
+static void IGListAdapterUpdaterPerformBatchUpdate(UICollectionView *collectionView, BOOL animated, IGListAdapterUpdaterBlock updates, IGListAdapterUpdaterCompletionBlock completion) {
+    if (animated) {
+        [collectionView performBatchUpdates:updates completion:completion];
+    } else {
+        [UIView performWithoutAnimation:^{
+            [collectionView performBatchUpdates:updates completion:completion];
+        }];
+    }
+}
 
 static void IGListAdapterUpdaterPerformDiffing(NSArray<id<IGListDiffable>> *_Nullable oldArray,
                                                NSArray<id<IGListDiffable>> *_Nullable newArray,
