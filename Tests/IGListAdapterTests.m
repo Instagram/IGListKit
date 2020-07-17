@@ -1843,4 +1843,57 @@
     [mockDelegate verify];
 }
 
+#pragma mark - Deleted Section Controllers
+
+- (void)test_whenSectionControllerRemoved_thatCellForIndexPathIsNil {
+    self.dataSource.objects = @[@1];
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:@1];
+    self.dataSource.objects = @[@2];
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    XCTAssertNil([sectionController.collectionContext cellForItemAtIndex:0 sectionController:sectionController]);
+}
+
+- (void)test_whenSectionControllerRemoved_thatFullyVisibleCellsIsEmpty {
+    self.dataSource.objects = @[@1];
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:@1];
+    self.dataSource.objects = @[@2];
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+
+    NSArray<UICollectionViewCell *> *cells = [sectionController.collectionContext fullyVisibleCellsForSectionController:sectionController];
+    XCTAssertEqual(cells.count, 0);
+}
+
+- (void)test_whenSectionControllerRemoved_thatVisibleCellsIsEmpty {
+    self.dataSource.objects = @[@1];
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:@1];
+    self.dataSource.objects = @[@2];
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+
+    NSArray<UICollectionViewCell *> *cells = [sectionController.collectionContext visibleCellsForSectionController:sectionController];
+    XCTAssertEqual(cells.count, 0);
+}
+
+- (void)test_whenSectionControllerRemoved_thatVisibleIndexPathIsEmpty {
+    self.dataSource.objects = @[@1];
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:@1];
+    self.dataSource.objects = @[@2];
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+
+    NSArray<NSIndexPath *> *cells = [sectionController.collectionContext visibleIndexPathsForSectionController:sectionController];
+    XCTAssertEqual(cells.count, 0);
+}
+
+- (void)test_whenSectionControllerRemoved_thatDoesNotCrashOnInvalidatingLayout {
+    self.dataSource.objects = @[@1];
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:@1];
+    self.dataSource.objects = @[@2];
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    [sectionController.collectionContext invalidateLayoutForSectionController:sectionController completion:nil];
+}
+
 @end
