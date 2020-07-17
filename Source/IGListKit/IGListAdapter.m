@@ -901,10 +901,16 @@
 }
 
 - (NSArray<UICollectionViewCell *> *)fullyVisibleCellsForSectionController:(IGListSectionController *)sectionController {
+    const NSInteger section = [self sectionForSectionController:sectionController];
+    if (section == NSNotFound) {
+        // The section controller is not in the map, which can happen if the associated object was deleted or after a full reload.
+        return @[];
+    }
+
     NSMutableArray *cells = [NSMutableArray new];
     UICollectionView *collectionView = self.collectionView;
     NSArray *visibleCells = [collectionView visibleCells];
-    const NSInteger section = [self sectionForSectionController:sectionController];
+
     for (UICollectionViewCell *cell in visibleCells) {
         if ([collectionView indexPathForCell:cell].section == section) {
             const CGRect cellRect = [cell convertRect:cell.bounds toView:collectionView];
@@ -917,10 +923,16 @@
 }
 
 - (NSArray<UICollectionViewCell *> *)visibleCellsForSectionController:(IGListSectionController *)sectionController {
+    const NSInteger section = [self sectionForSectionController:sectionController];
+    if (section == NSNotFound) {
+        // The section controller is not in the map, which can happen if the associated object was deleted or after a full reload.
+        return @[];
+    }
+
     NSMutableArray *cells = [NSMutableArray new];
     UICollectionView *collectionView = self.collectionView;
     NSArray *visibleCells = [collectionView visibleCells];
-    const NSInteger section = [self sectionForSectionController:sectionController];
+
     for (UICollectionViewCell *cell in visibleCells) {
         if ([collectionView indexPathForCell:cell].section == section) {
             [cells addObject:cell];
@@ -930,10 +942,16 @@
 }
 
 - (NSArray<NSIndexPath *> *)visibleIndexPathsForSectionController:(IGListSectionController *) sectionController {
+    const NSInteger section = [self sectionForSectionController:sectionController];
+    if (section == NSNotFound) {
+        // The section controller is not in the map, which can happen if the associated object was deleted or after a full reload.
+        return @[];
+    }
+
     NSMutableArray *paths = [NSMutableArray new];
     UICollectionView *collectionView = self.collectionView;
     NSArray *visiblePaths = [collectionView indexPathsForVisibleItems];
-    const NSInteger section = [self sectionForSectionController:sectionController];
+
     for (NSIndexPath *path in visiblePaths) {
         if (path.section == section) {
             [paths addObject:path];
@@ -1105,8 +1123,16 @@
 }
 
 - (void)invalidateLayoutForSectionController:(IGListSectionController *)sectionController
-                                  completion:(void (^)(BOOL finished))completion{
+                                  completion:(void (^)(BOOL finished))completion {
     const NSInteger section = [self sectionForSectionController:sectionController];
+    if (section == NSNotFound) {
+        // The section controller is not in the map, which can happen if the associated object was deleted or after a full reload.
+        if (completion) {
+            completion(NO);
+        }
+        return;
+    }
+
     const NSInteger items = [_collectionView numberOfItemsInSection:section];
 
     NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray new];
