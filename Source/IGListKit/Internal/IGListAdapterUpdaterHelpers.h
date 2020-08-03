@@ -27,7 +27,7 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
                                                                  IGListBatchUpdates *batchUpdates,
                                                                  NSArray<id<IGListDiffable>> *fromObjects,
                                                                  IGListExperiment experiments,
-                                                                 BOOL movesAsDeletesInserts,
+                                                                 BOOL sectionMovesAsDeletesInserts,
                                                                  BOOL preferItemReloadsForSectionReloads);
 
 NS_ASSUME_NONNULL_END

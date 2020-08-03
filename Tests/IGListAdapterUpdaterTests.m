@@ -377,7 +377,7 @@
     [self.updater performReloadDataWithCollectionViewBlock:[self collectionViewBlock]];
 
     // without moves as inserts, we would assert b/c the # of items in each section changes
-    self.updater.movesAsDeletesInserts = YES;
+    self.updater.sectionMovesAsDeletesInserts = YES;
 
     XCTestExpectation *expectation = genExpectation;
     [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock] fromObjects:from toObjectsBlock:to animated:YES objectTransitionBlock:self.updateBlock completion:^(BOOL finished) {

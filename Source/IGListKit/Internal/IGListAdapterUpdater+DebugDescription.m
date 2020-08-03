@@ -27,7 +27,7 @@ static NSMutableArray *linesFromObjects(NSArray *objects) {
 - (NSArray<NSString *> *)debugDescriptionLines {
     NSMutableArray *debug = [NSMutableArray new];
 #if defined(IGLK_DEBUG_DESCRIPTION_ENABLED) && IGLK_DEBUG_DESCRIPTION_ENABLED
-    [debug addObject:[NSString stringWithFormat:@"Moves as deletes+inserts: %@", IGListDebugBOOL(self.movesAsDeletesInserts)]];
+    [debug addObject:[NSString stringWithFormat:@"Section moves as deletes+inserts: %@", IGListDebugBOOL(self.sectionMovesAsDeletesInserts)]];
     [debug addObject:[NSString stringWithFormat:@"Allows background reloading: %@", IGListDebugBOOL(self.allowsBackgroundReloading)]];
     [debug addObject:[NSString stringWithFormat:@"Has queued reload data: %@", IGListDebugBOOL(self.hasQueuedReloadData)]];
     [debug addObject:[NSString stringWithFormat:@"Queued update is animated: %@", IGListDebugBOOL(self.queuedUpdateIsAnimated)]];

@@ -59,7 +59,7 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
                                                           IGListBatchUpdates *batchUpdates,
                                                           NSArray<id<IGListDiffable>> *fromObjects,
                                                           IGListExperiment experiments,
-                                                          BOOL movesAsDeletesInserts,
+                                                          BOOL sectionMovesAsDeletesInserts,
                                                           BOOL preferItemReloadsForSectionReloads) {
     NSSet *moves = [[NSSet alloc] initWithArray:diffResult.moves];
 
@@ -70,7 +70,7 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
     NSMutableIndexSet *inserts = [diffResult.inserts mutableCopy];
     NSMutableIndexSet *deletes = [diffResult.deletes mutableCopy];
     NSMutableArray<NSIndexPath *> *itemUpdates = [NSMutableArray new];
-    if (movesAsDeletesInserts) {
+    if (sectionMovesAsDeletesInserts) {
         for (IGListMoveIndex *move in moves) {
             [deletes addIndex:move.from];
             [inserts addIndex:move.to];
