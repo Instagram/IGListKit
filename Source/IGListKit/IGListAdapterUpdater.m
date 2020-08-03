@@ -227,7 +227,7 @@ typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
                                                                          self.batchUpdates,
                                                                          fromObjects,
                                                                          experiments,
-                                                                         self.movesAsDeletesInserts,
+                                                                         self.sectionMovesAsDeletesInserts,
                                                                          self.preferItemReloadsForSectionReloads);
         }
 
