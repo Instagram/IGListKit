@@ -155,6 +155,6 @@ extension UsersViewController: NSCollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
 
         let availableWidth = collectionView.bounds.width
-        return CGSize(width: availableWidth, height: 44)
+        return CGSize(width: availableWidth, height: 47)
     }
 }
