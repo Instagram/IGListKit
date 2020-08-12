@@ -43,7 +43,11 @@ final class RemoveCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            contentView.backgroundColor = .tertiarySystemBackground
+        } else {
+            contentView.backgroundColor = .white
+        }
         let bounds = contentView.bounds
         let divide = bounds.divided(atDistance: 100, from: .maxXEdge)
         label.frame = divide.slice.insetBy(dx: 15, dy: 0)

@@ -16,7 +16,11 @@ final class DetailLabelCell: UICollectionViewCell {
         view.backgroundColor = .clear
         view.textAlignment = .left
         view.font = .systemFont(ofSize: 17)
-        view.textColor = .darkText
+        if #available(iOS 13.0, *) {
+            view.textColor = .label
+        } else {
+            view.textColor = .darkText
+        }
         self.contentView.addSubview(view)
         return view
     }()
@@ -26,7 +30,11 @@ final class DetailLabelCell: UICollectionViewCell {
         view.backgroundColor = .clear
         view.textAlignment = .right
         view.font = .systemFont(ofSize: 17)
-        view.textColor = .lightGray
+        if #available(iOS 13.0, *) {
+            view.textColor = .secondaryLabel
+        } else {
+            view.textColor = .lightGray
+        }
         self.contentView.addSubview(view)
         return view
     }()

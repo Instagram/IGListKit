@@ -38,14 +38,18 @@
     [self.contentView addSubview:self.avatarView];
 
     self.nameLabel = [[UILabel alloc] init];
-    self.nameLabel.textColor = [UIColor darkTextColor];
     self.nameLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.nameLabel];
 
     self.separatorView = [[UIView alloc] init];
-    self.separatorView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:1.0];
     [self.contentView addSubview:self.separatorView];
-
+    if (@available(iOS 13.0, *)) {
+        self.nameLabel.textColor = [UIColor labelColor];
+        self.separatorView.backgroundColor = [UIColor separatorColor];
+    } else {
+        self.nameLabel.textColor = [UIColor darkTextColor];
+        self.separatorView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:1.0];
+    }
     self.separatorHeight = (1 / [UIScreen mainScreen].scale);
 }
 

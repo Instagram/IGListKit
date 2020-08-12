@@ -28,8 +28,11 @@ final class FullWidthSelfSizingCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        contentView.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            contentView.backgroundColor = .systemBackground
+        } else {
+            contentView.backgroundColor = .white
+        }
 
         contentView.addSubview(label)
 
