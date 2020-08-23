@@ -6,4 +6,4 @@
 
 cd "$(dirname "$(dirname "$0")")" || exit 1
 
-exec defaults read "$(pwd)/Source/Info" CFBundleShortVersionString
+/usr/libexec/PlistBuddy -c "print CFBundleShortVersionString" "$(pwd)/Source/Info.plist"
