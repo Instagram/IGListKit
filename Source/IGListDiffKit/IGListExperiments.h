@@ -24,6 +24,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentArrayAndSetOptimization = 1 << 4,
     /// Test validating the collectionView count just before performBatchUpdate. `IGListExperimentalAdapterUpdater` only.
     IGListExperimentSectionCountValidation = 1 << 5,
+    /// Test skipping performBatchUpdate if we don't have any updates. `IGListExperimentalAdapterUpdater` only.
+    IGListExperimentSkipPerformUpdateIfPossible = 1 << 6,
 };
 
 /**
