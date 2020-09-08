@@ -10,7 +10,6 @@
 #import <IGListDiffKit/IGListAssert.h>
 #import <IGListDiffKit/IGListBatchUpdateData.h>
 #import <IGListDiffKit/IGListDiffable.h>
-#import <IGListDiffKit/IGListExperiments.h>
 #import <IGListDiffKit/IGListIndexSetResult.h>
 
 #import "IGListBatchUpdates.h"
@@ -58,7 +57,6 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
                                                           IGListIndexSetResult *diffResult,
                                                           IGListBatchUpdates *batchUpdates,
                                                           NSArray<id<IGListDiffable>> *fromObjects,
-                                                          IGListExperiment experiments,
                                                           BOOL sectionMovesAsDeletesInserts,
                                                           BOOL preferItemReloadsForSectionReloads) {
     NSSet *moves = [[NSSet alloc] initWithArray:diffResult.moves];

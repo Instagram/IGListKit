@@ -8,6 +8,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Breaking Changes
 
+- Removed unneeded diffing functions `IGListDiffExperiment(...)` and `IGListDiffPathsExperiment(...)`. [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
 ### Enhancements
 
