@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import <IGListDiffKit/IGListMoveIndexPath.h>
+#import <IGListKit/IGListUpdatingDelegateExperimental.h>
 
 #import "IGListExperimentalAdapterUpdater.h"
 #import "IGListBatchUpdateState.h"
@@ -18,16 +19,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IGListExperimentalAdapterUpdater ()
 
-@property (nonatomic, copy, nullable) NSArray *fromObjects;
-@property (nonatomic, copy, nullable) IGListToObjectBlock toObjectsBlock;
-@property (nonatomic, copy, nullable) NSArray *pendingTransitionToObjects;
+@property (nonatomic, copy, nullable) IGListTransitionDataBlock dataBlock;
 @property (nonatomic, strong) NSMutableArray<IGListUpdatingCompletion> *completionBlocks;
 
 @property (nonatomic, assign) BOOL queuedUpdateIsAnimated;
 
 @property (nonatomic, strong) IGListBatchUpdates *batchUpdates;
 
-@property (nonatomic, copy, nullable) IGListObjectTransitionBlock objectTransitionBlock;
+@property (nonatomic, copy, nullable) IGListTransitionDataApplyBlock applyDataBlock;
 
 @property (nonatomic, copy, nullable) IGListReloadUpdateBlock reloadUpdates;
 @property (nonatomic, assign, getter=hasQueuedReloadData) BOOL queuedReloadData;
