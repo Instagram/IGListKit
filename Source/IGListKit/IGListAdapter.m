@@ -14,7 +14,9 @@
 #import "IGListArrayUtilsInternal.h"
 #import "IGListDebugger.h"
 #import "IGListSectionControllerInternal.h"
+#import "IGListTransitionData.h"
 #import "IGListUpdatedObjectContainer.h"
+#import "IGListUpdatingDelegateExperimental.h"
 #import "UICollectionViewLayout+InteractiveReordering.h"
 #import "UIScrollView+IGListKit.h"
 
@@ -23,6 +25,8 @@
     // An array of blocks to execute once batch updates are finished
     NSMutableArray<void (^)(void)> *_queuedCompletionBlocks;
     NSHashTable<id<IGListAdapterUpdateListener>> *_updateListeners;
+    // Temporary property while we experiment with a new updater.
+    id<IGListUpdatingDelegateExperimental> _experimentalUpdater;
 }
 
 - (void)dealloc {
@@ -53,6 +57,7 @@
 
         _updater = updater;
         _viewController = viewController;
+        _experimentalUpdater = [updater conformsToProtocol:@protocol(IGListUpdatingDelegateExperimental)] ? (id<IGListUpdatingDelegateExperimental>)updater : nil;
 
         [IGListDebugger trackAdapter:self];
     }
@@ -314,15 +319,47 @@
     IGAssertMainThread();
 
     id<IGListAdapterDataSource> dataSource = self.dataSource;
+    id<IGListUpdatingDelegate> updater = self.updater;
     UICollectionView *collectionView = self.collectionView;
     if (dataSource == nil || collectionView == nil) {
         IGLKLog(@"Warning: Your call to %s is ignored as dataSource or collectionView haven't been set.", __PRETTY_FUNCTION__);
-        if (completion) {
-            completion(NO);
-        }
+        IGLK_BLOCK_CALL_SAFE(completion, NO);
         return;
     }
 
+    __weak __typeof__(self) weakSelf = self;
+    IGListUpdaterCompletion outerCompletionBlock = ^(BOOL finished){
+        __typeof__(self) strongSelf = weakSelf;
+        if (strongSelf == nil) {
+            IGLK_BLOCK_CALL_SAFE(completion,finished);
+            return;
+        }
+
+        // release the previous items
+        strongSelf.previousSectionMap = nil;
+        [strongSelf _notifyDidUpdate:IGListAdapterUpdateTypePerformUpdates animated:animated];
+        IGLK_BLOCK_CALL_SAFE(completion,finished);
+        [strongSelf _exitBatchUpdates];
+    };
+
+    [self _enterBatchUpdates];
+    if (_experimentalUpdater) {
+        [self _performExperimentalUpdatesWithUpdater:_experimentalUpdater
+                                          dataSource:dataSource
+                                            animated:animated
+                                          completion:outerCompletionBlock];
+    } else {
+        [self _performRegularUpdatesWithUpdater:updater
+                                     dataSource:dataSource
+                                       animated:animated
+                                     completion:outerCompletionBlock];
+    }
+}
+
+- (void)_performRegularUpdatesWithUpdater:(id<IGListUpdatingDelegate>)updater
+                               dataSource:(id<IGListAdapterDataSource>)dataSource
+                                 animated:(BOOL)animated
+                               completion:(IGListUpdaterCompletion)completion {
     NSArray *fromObjects = self.sectionMap.objects;
 
     __weak __typeof__(self) weakSelf = self;
@@ -334,27 +371,48 @@
         return [dataSource objectsForListAdapter:strongSelf];
     };
 
-    [self _enterBatchUpdates];
-    [self.updater performUpdateWithCollectionViewBlock:[self _collectionViewBlock]
-                                           fromObjects:fromObjects
-                                        toObjectsBlock:toObjectsBlock
-                                              animated:animated
-                                 objectTransitionBlock:^(NSArray *toObjects) {
-                                     // temporarily capture the item map that we are transitioning from in case
-                                     // there are any item deletes at the same
-                                     weakSelf.previousSectionMap = [weakSelf.sectionMap copy];
+    [updater performUpdateWithCollectionViewBlock:[self _collectionViewBlock]
+                                      fromObjects:fromObjects
+                                   toObjectsBlock:toObjectsBlock
+                                         animated:animated
+                            objectTransitionBlock:^(NSArray *toObjects) {
+        // temporarily capture the item map that we are transitioning from in case
+        // there are any item deletes at the same
+        weakSelf.previousSectionMap = [weakSelf.sectionMap copy];
+        [weakSelf _updateObjects:toObjects dataSource:dataSource];
+    } completion:completion];
+}
 
-                                     [weakSelf _updateObjects:toObjects dataSource:dataSource];
-                                 } completion:^(BOOL finished) {
-                                     // release the previous items
-                                     weakSelf.previousSectionMap = nil;
+- (void)_performExperimentalUpdatesWithUpdater:(id<IGListUpdatingDelegateExperimental>)updater
+                                    dataSource:(id<IGListAdapterDataSource>)dataSource
+                                      animated:(BOOL)animated
+                                    completion:(IGListUpdaterCompletion)completion {
+    __weak __typeof__(self) weakSelf = self;
+    IGListTransitionDataBlock dataBlock = ^IGListTransitionData *{
+        __typeof__(self) strongSelf = weakSelf;
+        if (strongSelf == nil) {
+            return nil;
+        }
+        NSArray *toObjects = [dataSource objectsForListAdapter:strongSelf];
+        return [strongSelf _generateTransitionDataWithObjects:toObjects dataSource:dataSource];
+    };
 
-                                     [weakSelf _notifyDidUpdate:IGListAdapterUpdateTypePerformUpdates animated:animated];
-                                     if (completion) {
-                                         completion(finished);
-                                     }
-                                     [weakSelf _exitBatchUpdates];
-                                 }];
+    IGListTransitionDataApplyBlock applyDataBlock = ^void(IGListTransitionData *data) {
+        __typeof__(self) strongSelf = weakSelf;
+        if (strongSelf == nil) {
+            return;
+        }
+        // temporarily capture the item map that we are transitioning from in case
+        // there are any item deletes at the same
+        strongSelf.previousSectionMap = [weakSelf.sectionMap copy];
+        [strongSelf _updateWithData:data];
+    };
+
+    [updater performExperimentalUpdateAnimated:animated
+                           collectionViewBlock:[self _collectionViewBlock]
+                                     dataBlock:dataBlock
+                                applyDataBlock:applyDataBlock
+                                    completion:completion];
 }
 
 - (void)reloadDataWithCompletion:(nullable IGListUpdaterCompletion)completion {
@@ -569,13 +627,8 @@
     return ^UICollectionView *{ return weakSelf.collectionView; };
 }
 
-// this method is what updates the "source of truth"
-// this should only be called just before the collection view is updated
-- (void)_updateObjects:(NSArray *)objects dataSource:(id<IGListAdapterDataSource>)dataSource {
+- (IGListTransitionData *)_generateTransitionDataWithObjects:(NSArray *)objects dataSource:(id<IGListAdapterDataSource>)dataSource {
     IGParameterAssert(dataSource != nil);
-
-    // Should be the first thing called in this function.
-    _isInObjectUpdateTransaction = YES;
 
 #if DEBUG
     for (id object in objects) {
@@ -585,20 +638,14 @@
 
     NSMutableArray<IGListSectionController *> *sectionControllers;
     NSMutableArray *validObjects;
-    id<IGListUpdatedObjectContainer> updatedObjects;
 
     if (IGListExperimentEnabled(_experiments, IGListExperimentArrayAndSetOptimization)) {
-        // Experiment:
-        // 1) Pass the capacity count, so that arrays don't have to re-size.
-        // 2) Avoid using a set, so that we don't need to deal with hashes and equality. The updater
-        // should have dealt with duplicates already.
+        // Experiment: Pass the capacity count, so that arrays don't have to re-size.
         sectionControllers = [[NSMutableArray alloc] initWithCapacity:objects.count];
         validObjects = [[NSMutableArray alloc] initWithCapacity:objects.count];
-        updatedObjects = [NSMutableArray new];
     } else {
         sectionControllers = [NSMutableArray new];
         validObjects = [NSMutableArray new];
-        updatedObjects = [NSMutableSet new];
     }
 
     IGListSectionMap *map = self.sectionMap;
@@ -626,12 +673,6 @@
         sectionController.collectionContext = self;
         sectionController.viewController = self.viewController;
 
-        // check if the item has changed instances or is new
-        const NSInteger oldSection = [map sectionForObject:object];
-        if (oldSection == NSNotFound || [map objectForSection:oldSection] != object) {
-            [updatedObjects addObject:object];
-        }
-
         [sectionControllers addObject:sectionController];
         [validObjects addObject:object];
     }
@@ -644,7 +685,43 @@
     // clear the view controller and collection context
     IGListSectionControllerPopThread();
 
-    [map updateWithObjects:validObjects sectionControllers:sectionControllers];
+    return [[IGListTransitionData alloc] initFromObjects:map.objects
+                                               toObjects:validObjects
+                                    toSectionControllers:sectionControllers];
+}
+
+- (void)_updateObjects:(NSArray *)objects dataSource:(id<IGListAdapterDataSource>)dataSource {
+    [self _updateWithData:[self _generateTransitionDataWithObjects:objects dataSource:dataSource]];
+}
+
+// this method is what updates the "source of truth"
+// this should only be called just before the collection view is updated
+- (void)_updateWithData:(IGListTransitionData *)data {
+    IGParameterAssert(data);
+
+    // Should be the first thing called in this function.
+    _isInObjectUpdateTransaction = YES;
+
+    IGListSectionMap *map = self.sectionMap;
+
+    id<IGListUpdatedObjectContainer> updatedObjects;
+    if (IGListExperimentEnabled(_experiments, IGListExperimentArrayAndSetOptimization)) {
+        // Experiment: Avoid using a set, so that we don't need to deal with hashes and equality. The updater
+        // should have dealt with duplicates already.
+        updatedObjects = [NSMutableArray new];
+    } else {
+        updatedObjects = [NSMutableSet new];
+    }
+
+    for (id object in data.toObjects) {
+        // check if the item has changed instances or is new
+        const NSInteger oldSection = [map sectionForObject:object];
+        if (oldSection == NSNotFound || [map objectForSection:oldSection] != object) {
+            [updatedObjects addObject:object];
+        }
+    }
+
+    [map updateWithObjects:data.toObjects sectionControllers:data.toSectionControllers];
 
     // now that the maps have been created and contexts are assigned, we consider the section controller "fully loaded"
     for (id object in updatedObjects) {
