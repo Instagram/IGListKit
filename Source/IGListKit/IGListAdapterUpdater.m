@@ -231,8 +231,12 @@ typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
                                        moveIndexPaths:@[]];
         } else {
             self.applyingUpdateData = IGListApplyUpdatesToCollectionView(collectionView,
-                                                                         result,
-                                                                         self.batchUpdates,
+                                                                         result,                                                                         
+                                                                         self.batchUpdates.sectionReloads,
+                                                                         self.batchUpdates.itemInserts,
+                                                                         self.batchUpdates.itemDeletes,
+                                                                         self.batchUpdates.itemReloads,
+                                                                         self.batchUpdates.itemMoves,
                                                                          fromObjects,
                                                                          self.sectionMovesAsDeletesInserts,
                                                                          self.preferItemReloadsForSectionReloads);

@@ -8,23 +8,28 @@
 #import <UIKit/UIKit.h>
 
 @class IGListBatchUpdateData;
-@class IGListBatchUpdates;
 @class IGListIndexSetResult;
+@class IGListReloadIndexPath;
+@class IGListMoveIndexPath;
 @protocol IGListDiffable;
 
 NS_ASSUME_NONNULL_BEGIN
 
 void IGListConvertReloadToDeleteInsert(NSMutableIndexSet *reloads,
-                                              NSMutableIndexSet *deletes,
-                                              NSMutableIndexSet *inserts,
-                                              IGListIndexSetResult *result,
-                                              NSArray<id<IGListDiffable>> *fromObjects);
+                                       NSMutableIndexSet *deletes,
+                                       NSMutableIndexSet *inserts,
+                                       IGListIndexSetResult *result,
+                                       NSArray<id<IGListDiffable>> *fromObjects);
 
 IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *collectionView,
-                                                                 IGListIndexSetResult *diffResult,
-                                                                 IGListBatchUpdates *batchUpdates,
-                                                                 NSArray<id<IGListDiffable>> *fromObjects,
-                                                                 BOOL sectionMovesAsDeletesInserts,
-                                                                 BOOL preferItemReloadsForSectionReloads);
+                                                          IGListIndexSetResult *diffResult,
+                                                          NSMutableIndexSet *sectionReloads,
+                                                          NSMutableArray<NSIndexPath *> *itemInserts,
+                                                          NSMutableArray<NSIndexPath *> *itemDeletes,
+                                                          NSMutableArray<IGListReloadIndexPath *> *itemReloads,
+                                                          NSMutableArray<IGListMoveIndexPath *> *itemMoves,
+                                                          NSArray<id<IGListDiffable>> *fromObjects,
+                                                          BOOL sectionMovesAsDeletesInserts,
+                                                          BOOL preferItemReloadsForSectionReloads);
 
 NS_ASSUME_NONNULL_END

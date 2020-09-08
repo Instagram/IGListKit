@@ -12,7 +12,6 @@
 #import <IGListDiffKit/IGListDiffable.h>
 #import <IGListDiffKit/IGListIndexSetResult.h>
 
-#import "IGListBatchUpdates.h"
 #import "IGListReloadIndexPath.h"
 #import "UICollectionView+IGListBatchUpdateData.h"
 
@@ -55,7 +54,11 @@ static NSArray<NSIndexPath *> *convertSectionReloadToItemUpdates(NSIndexSet *sec
 
 IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *collectionView,
                                                           IGListIndexSetResult *diffResult,
-                                                          IGListBatchUpdates *batchUpdates,
+                                                          NSMutableIndexSet *sectionReloads,
+                                                          NSMutableArray<NSIndexPath *> *itemInserts,
+                                                          NSMutableArray<NSIndexPath *> *itemDeletes,
+                                                          NSMutableArray<IGListReloadIndexPath *> *itemReloads,
+                                                          NSMutableArray<IGListMoveIndexPath *> *itemMoves,
                                                           NSArray<id<IGListDiffable>> *fromObjects,
                                                           BOOL sectionMovesAsDeletesInserts,
                                                           BOOL preferItemReloadsForSectionReloads) {
@@ -63,7 +66,7 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
 
     // combine section reloads from the diff and manual reloads via reloadItems:
     NSMutableIndexSet *reloads = [diffResult.updates mutableCopy];
-    [reloads addIndexes:batchUpdates.sectionReloads];
+    [reloads addIndexes:sectionReloads];
 
     NSMutableIndexSet *inserts = [diffResult.inserts mutableCopy];
     NSMutableIndexSet *deletes = [diffResult.deletes mutableCopy];
@@ -97,14 +100,10 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
         IGListConvertReloadToDeleteInsert(reloads, deletes, inserts, diffResult, fromObjects);
     }
 
-    NSMutableArray<NSIndexPath *> *itemInserts = batchUpdates.itemInserts;
-    NSMutableArray<NSIndexPath *> *itemDeletes = batchUpdates.itemDeletes;
-    NSMutableArray<IGListMoveIndexPath *> *itemMoves = batchUpdates.itemMoves;
-
     NSSet<NSIndexPath *> *uniqueDeletes = [NSSet setWithArray:itemDeletes];
     NSMutableSet<NSIndexPath *> *reloadDeletePaths = [NSMutableSet new];
     NSMutableSet<NSIndexPath *> *reloadInsertPaths = [NSMutableSet new];
-    for (IGListReloadIndexPath *reload in batchUpdates.itemReloads) {
+    for (IGListReloadIndexPath *reload in itemReloads) {
         if (![uniqueDeletes containsObject:reload.fromIndexPath]) {
             [reloadDeletePaths addObject:reload.fromIndexPath];
             [reloadInsertPaths addObject:reload.toIndexPath];
