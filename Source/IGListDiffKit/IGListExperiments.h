@@ -22,6 +22,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentInvalidateLayoutForUpdates = 1 << 3,
     /// Test removing the layout before performing an update
     IGListExperimentSkipLayoutBeforeUpdate = 1 << 4,
+    /// Test array and set optimization on update
+    IGListExperimentArrayAndSetOptimization = 1 << 5,
 };
 
 /**

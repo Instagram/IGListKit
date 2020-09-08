@@ -14,6 +14,7 @@
 #import "IGListArrayUtilsInternal.h"
 #import "IGListDebugger.h"
 #import "IGListSectionControllerInternal.h"
+#import "IGListUpdatedObjectContainer.h"
 #import "UICollectionViewLayout+InteractiveReordering.h"
 #import "UIScrollView+IGListKit.h"
 
@@ -582,13 +583,25 @@
     }
 #endif
 
-    NSMutableArray<IGListSectionController *> *sectionControllers = [NSMutableArray new];
-    NSMutableArray *validObjects = [NSMutableArray new];
+    NSMutableArray<IGListSectionController *> *sectionControllers;
+    NSMutableArray *validObjects;
+    id<IGListUpdatedObjectContainer> updatedObjects;
+
+    if (IGListExperimentEnabled(_experiments, IGListExperimentArrayAndSetOptimization)) {
+        // Experiment:
+        // 1) Pass the capacity count, so that arrays don't have to re-size.
+        // 2) Avoid using a set, so that we don't need to deal with hashes and equality. The updater
+        // should have dealt with duplicates already.
+        sectionControllers = [[NSMutableArray alloc] initWithCapacity:objects.count];
+        validObjects = [[NSMutableArray alloc] initWithCapacity:objects.count];
+        updatedObjects = [NSMutableArray new];
+    } else {
+        sectionControllers = [NSMutableArray new];
+        validObjects = [NSMutableArray new];
+        updatedObjects = [NSMutableSet new];
+    }
 
     IGListSectionMap *map = self.sectionMap;
-
-    // collect items that have changed since the last update
-    NSMutableSet *updatedObjects = [NSMutableSet new];
 
     // push the view controller and collection context into a local thread container so they are available on init
     // for IGListSectionController subclasses after calling [super init]
