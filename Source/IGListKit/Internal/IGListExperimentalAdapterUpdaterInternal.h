@@ -13,7 +13,7 @@
 
 #import "IGListExperimentalAdapterUpdater.h"
 #import "IGListBatchUpdateState.h"
-#import "IGListBatchUpdates.h"
+#import "IGListItemUpdatesCollector.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,7 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL queuedUpdateIsAnimated;
 
-@property (nonatomic, strong) IGListBatchUpdates *batchUpdates;
+@property (nonatomic, strong) NSMutableArray<IGListItemUpdateBlock> *itemUpdateBlocks;
+
+@property (nonatomic, strong) NSMutableArray<IGListUpdatingCompletion> *inUpdateCompletionBlocks;
+@property (nonatomic, strong) IGListItemUpdatesCollector *inUpdateItemCollector;
 
 @property (nonatomic, copy, nullable) IGListTransitionDataApplyBlock applyDataBlock;
 

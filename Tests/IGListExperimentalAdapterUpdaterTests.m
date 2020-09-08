@@ -634,6 +634,56 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenPerformingItemUpdateInMiddleOfReload_thatCompletionBlockStillExecuted {
+    IGSectionObject *object = [IGSectionObject sectionWithObjects:@[@0, @1, @2]];
+    self.dataSource.sections = @[object];
+
+    XCTestExpectation *expectation = genExpectation;
+
+    // Section-controllers can schedule item updates in -didUpdateToObject, so lets make sure the completion block works.
+    IGListReloadUpdateBlock reloadUpdateBlock = ^{
+        [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock]
+                                                  animated:YES
+                                               itemUpdates:^{}
+                                                completion:^(BOOL finished) {
+            [expectation fulfill];
+        }];
+    };
+
+    [self.updater reloadDataWithCollectionViewBlock:[self collectionViewBlock]
+                                  reloadUpdateBlock:reloadUpdateBlock
+                                         completion:nil];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+- (void)test_whenPerformingItemUpdateInMiddleOfUpdate_thatCompletionBlockStillExecuted {
+    IGSectionObject *object = [IGSectionObject sectionWithObjects:@[@0, @1, @2]];
+    self.dataSource.sections = @[object];
+
+    XCTestExpectation *expectation = genExpectation;
+
+    // Section-controllers can schedule item updates in -didUpdateToObject, so lets make sure the completion block works.
+    void (^updateItemBlock)(void) = ^{
+        [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock]
+                                                  animated:YES
+                                               itemUpdates:^{}
+                                                completion:^(BOOL finished) {
+            [expectation fulfill];
+        }];
+    };
+
+    [self.updater performExperimentalUpdateAnimated:NO
+                                collectionViewBlock:[self collectionViewBlock]
+                                          dataBlock:[self dataBlockFromObjects:self.dataSource.sections toObjects:self.dataSource.sections]
+                                     applyDataBlock:^(IGListTransitionData * _Nonnull data) {
+        updateItemBlock();
+    }
+                                         completion:nil];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
 - (void)test_whenNotInViewHierarchy_thatUpdatesStillExecuteBlocks {
     [self.collectionView removeFromSuperview];
 
