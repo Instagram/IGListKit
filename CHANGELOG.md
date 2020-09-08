@@ -3,18 +3,21 @@
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
 
-4.1.0 (upcoming release)
+5.0.0 (upcoming release)
 -----
+
+### Breaking Changes
+
+
+### Enhancements
 
 - Introduce `IGListSwiftKit`, with Swift refinements for `dequeueReusableCellOfClass` methods. [Koen Punt](https://github.com/koenpunt) [(#1388)](https://github.com/Instagram/IGListKit/pull/1388).
 
 - Added `APPLICATION_EXTENSION_API_ONLY` support for `IGListDiffKit` [Peter Meyers](https://github.com/pm-dev) [(#1422)](https://github.com/Instagram/IGListKit/pull/1422)
 
-### Enhancements
-
 -  Improved performance by deferring requesting objects from the `IGListAdapterDataSource` until just before diffing is executed. If n updates are coalesced into one, this results in just a single request for objects from the data source. Shipped with experiment `IGListExperimentDeferredToObjectCreation` from Ryan Nystrom.  [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
-- Improved performance by using `reloadData` when there are too many diffing updates. Shipped with experiment `IGListExperimentReloadDataFallback` from Ryan Nystrom. [Maxime Ollivier](https://github.com/maxolls) (tbd) 
+- Improved performance by using `reloadData` when there are too many diffing updates. Shipped with experiment `IGListExperimentReloadDataFallback` from Ryan Nystrom. [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
 ### Fixes
 
