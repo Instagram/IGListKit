@@ -89,7 +89,7 @@
         .preferItemReloadsForSectionReloads = _preferItemReloadsForSectionReloads,
         .allowsBackgroundReloading = _allowsBackgroundReloading,
         .allowsReloadingOnTooManyUpdates = _allowsReloadingOnTooManyUpdates,
-        .allowBackgroundDiffing = IGListExperimentEnabled(_experiments, IGListExperimentBackgroundDiffing),
+        .experiments = _experiments,
     };
 
     id<IGListUpdateTransactable> transaction = [self.transactionBuilder buildWithConfig:config delegate:_delegate updater:self];
