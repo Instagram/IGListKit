@@ -275,10 +275,6 @@ willPerformBatchUpdatesWithCollectionView:collectionView
 
     // block that executes the batch update and exception handling
     void (^tryToPerformUpdate)(IGListIndexSetResult *) = ^(IGListIndexSetResult *result){
-        if (!IGListExperimentEnabled(experiments, IGListExperimentSkipLayoutBeforeUpdate)) {
-            [collectionView layoutIfNeeded];
-        }
-
         @try {
             if (collectionView.dataSource == nil) {
                 // If the data source is nil, we should not call any collection view update.
