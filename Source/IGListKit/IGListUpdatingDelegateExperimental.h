@@ -41,6 +41,14 @@ NS_SWIFT_NAME(ListUpdatingDelegateExperimental)
                            applyDataBlock:(IGListTransitionDataApplyBlock)applyDataBlock
                                completion:(nullable IGListUpdatingCompletion)completion;
 
+/**
+ Perform a `[UICollectionView setDataSource:...]` swap within this block. It gives the updater the chance to cancel or
+ execute any on-going updates. The block will be executed synchronously.
+
+ @param block The block that will actuallty change the `dataSource`
+ */
+- (void)performDataSourceChange:(IGListDataSourceChangeBlock)block;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -20,6 +20,12 @@
 #import "IGListTransitionData.h"
 #import "UICollectionView+IGListBatchUpdateData.h"
 
+typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
+    IGListBatchUpdateTransactionModeCancellable,
+    IGListBatchUpdateTransactionModeNotCancellable,
+    IGListBatchUpdateTransactionModeCancelled,
+};
+
 @interface IGListBatchUpdateTransaction ()
 // Given
 @property (nonatomic, copy, readonly) UICollectionView *collectionView;
@@ -35,6 +41,7 @@
 @property (nonatomic, strong, readonly) IGListItemUpdatesCollector *inUpdateItemCollector;
 @property (nonatomic, copy, readonly) NSMutableArray<IGListUpdatingCompletion> *inUpdateCompletionBlocks;
 @property (nonatomic, assign, readwrite) IGListBatchUpdateState state;
+@property (nonatomic, assign, readwrite) IGListBatchUpdateTransactionMode mode;
 @property (nonatomic, strong, readwrite, nullable) IGListBatchUpdateData *actualCollectionViewUpdates;
 @end
 
@@ -62,6 +69,7 @@
 
         _inUpdateItemCollector = [IGListItemUpdatesCollector new];
         _state = IGListBatchUpdateStateIdle;
+        _mode = IGListBatchUpdateTransactionModeCancellable;
     }
     return self;
 }
@@ -116,6 +124,14 @@
 }
 
 - (void)_didDiff:(IGListIndexSetResult *)diffResult {
+    if (self.mode == IGListBatchUpdateTransactionModeCancelled) {
+        // Cancelling should have already taken care of the completion blocks
+        return;
+    }
+
+    // After this point, we can assume that the update has began and there's no turning back.
+    self.mode = IGListBatchUpdateTransactionModeNotCancellable;
+
     [self.delegate listAdapterUpdater:self.updater didDiffWithResults:diffResult onBackgroundThread:self.config.allowBackgroundDiffing];
 
     @try {
@@ -253,6 +269,16 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
 - (void)_bail {
     [self.delegate listAdapterUpdater:self.updater didFinishWithoutUpdatesWithCollectionView:self.collectionView];
     [self _completeAsFinished:NO];
+}
+
+#pragma mark - Cancel
+
+- (BOOL)cancel {
+    if (_mode != IGListBatchUpdateTransactionModeCancellable) {
+        return NO;
+    }
+    _mode = IGListBatchUpdateTransactionModeCancelled;
+    return YES;
 }
 
 #pragma mark - Item updates

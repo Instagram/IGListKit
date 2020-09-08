@@ -100,8 +100,33 @@
 
         const BOOL settingFirstCollectionView = _collectionView == nil;
 
-        _collectionView = collectionView;
-        _collectionView.dataSource = self;
+        if (_experimentalUpdater) {
+            // We can't just swap out the collectionView, because we might have on-going or pending updates.
+            // `_experimentalUpdater` can take care of that by wrapping the change in `performDataSourceChange`.
+
+            [_experimentalUpdater performDataSourceChange:^{
+                if (self->_collectionView.dataSource == self) {
+                    // Since we're not going to sync the previous collectionView anymore, lets not be its dataSource.
+                    self->_collectionView.dataSource = nil;
+                }
+                self->_collectionView = collectionView;
+                self->_collectionView.dataSource = self;
+
+                [self _updateCollectionViewDelegate];
+
+                // Sync the dataSource <> adapter for a couple of reasons:
+                // 1. We might not have synced on -setDataSource, so now is the time to try again.
+                // 2. Any in-flight `performUpdatesAnimated` were cancelled, so lets make sure we have the latest data.
+                [self _updateObjects];
+
+                // The sync between the collectionView <> adapter will happen automically, since
+                // we just changed the `collectionView.dataSource`.
+            }];
+        } else {
+            _collectionView = collectionView;
+            _collectionView.dataSource = self;
+            [self _updateCollectionViewDelegate];
+        }
 
         if (@available(iOS 10.0, tvOS 10, *)) {
             _collectionView.prefetchingEnabled = NO;
@@ -110,19 +135,34 @@
         [_collectionView.collectionViewLayout ig_hijackLayoutInteractiveReorderingMethodForAdapter:self];
         [_collectionView.collectionViewLayout invalidateLayout];
 
-        [self _updateCollectionViewDelegate];
-
-        // only construct
-        if (settingFirstCollectionView) {
-            [self _updateAfterPublicSettingsChange];
+        if (!_experimentalUpdater && settingFirstCollectionView) {
+            [self _updateObjectsIfHasDataSource];
         }
     }
 }
 
 - (void)setDataSource:(id<IGListAdapterDataSource>)dataSource {
-    if (_dataSource != dataSource) {
+    if (_dataSource == dataSource) {
+        return;
+    }
+
+    if (_experimentalUpdater) {
+        [_experimentalUpdater performDataSourceChange:^{
+            self->_dataSource = dataSource;
+
+            // Invalidate the collectionView internal section & item counts, as if its dataSource changed.
+            self->_collectionView.dataSource = nil;
+            self->_collectionView.dataSource = self;
+
+            // Sync the dataSource <> adapter
+            [self _updateObjects];
+
+            // The sync between the collectionView <> adapter will happen automically, since
+            // we just changed the `collectionView.dataSource`.
+        }];
+    } else {
         _dataSource = dataSource;
-        [self _updateAfterPublicSettingsChange];
+        [self _updateObjectsIfHasDataSource];
     }
 }
 
@@ -147,12 +187,21 @@
     }
 }
 
-- (void)_updateAfterPublicSettingsChange {
-    id<IGListAdapterDataSource> dataSource = _dataSource;
-    if (_collectionView != nil && dataSource != nil) {
-        NSArray *uniqueObjects = objectsWithDuplicateIdentifiersRemoved([dataSource objectsForListAdapter:self]);
-        [self _updateObjects:uniqueObjects dataSource:dataSource];
+- (void)_updateObjectsIfHasDataSource {
+    // This is to keep the existing logic while testing `experimentalUpdater` 
+    if (_dataSource != nil) {
+        [self _updateObjects];
     }
+}
+
+- (void)_updateObjects {
+    if (_collectionView == nil) {
+        // If we don't have a collectionView, we can't do much.
+        return;
+    }
+    id<IGListAdapterDataSource> dataSource = _dataSource;
+    NSArray *uniqueObjects = objectsWithDuplicateIdentifiersRemoved([dataSource objectsForListAdapter:self]);
+    [self _updateObjects:uniqueObjects dataSource:dataSource];
 }
 
 - (void)_createProxyAndUpdateCollectionViewDelegate {
@@ -628,7 +677,13 @@
 }
 
 - (IGListTransitionData *)_generateTransitionDataWithObjects:(NSArray *)objects dataSource:(id<IGListAdapterDataSource>)dataSource {
-    IGParameterAssert(dataSource != nil);
+    IGListSectionMap *map = self.sectionMap;
+
+    if (!dataSource) {
+        return [[IGListTransitionData alloc] initFromObjects:map.objects
+                                                   toObjects:@[]
+                                        toSectionControllers:@[]];
+    }
 
 #if DEBUG
     for (id object in objects) {
@@ -647,8 +702,6 @@
         sectionControllers = [NSMutableArray new];
         validObjects = [NSMutableArray new];
     }
-
-    IGListSectionMap *map = self.sectionMap;
 
     // push the view controller and collection context into a local thread container so they are available on init
     // for IGListSectionController subclasses after calling [super init]

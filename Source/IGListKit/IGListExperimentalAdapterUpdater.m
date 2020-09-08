@@ -20,7 +20,9 @@
 
 @interface IGListExperimentalAdapterUpdater ()
 @property (nonatomic, strong) IGListUpdateTransactionBuilder *transactionBuilder;
+@property (nonatomic, strong, nullable) IGListUpdateTransactionBuilder *lastTransactionBuilder;
 @property (nonatomic, strong, nullable) id<IGListUpdateTransactable> transaction;
+@property (nonatomic, assign) BOOL hasQueuedUpdate;
 @end
 
 @implementation IGListExperimentalAdapterUpdater
@@ -50,8 +52,12 @@
     return [self.transactionBuilder hasChanges];
 }
 
-- (void)_queueUpdate {
+- (void)_queueUpdateIfNeeded {
     IGAssertMainThread();
+
+    if (self.hasQueuedUpdate || !self.transactionBuilder.hasChanges) {
+        return;
+    }
 
     __weak __typeof__(self) weakSelf = self;
 
@@ -59,7 +65,9 @@
     // (diffing, etc) is done on main. dispatch_async does not garauntee a full runloop turn will pass though.
     // see -performUpdateWithCollectionView:fromObjects:toObjects:animated:objectTransitionBlock:completion: for more
     // details on how coalescence is done.
+    self.hasQueuedUpdate = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
+        weakSelf.hasQueuedUpdate = NO;
         [weakSelf update];
     });
 }
@@ -86,6 +94,7 @@
 
     id<IGListUpdateTransactable> transaction = [self.transactionBuilder buildWithConfig:config delegate:_delegate updater:self];
     self.transaction = transaction;
+    self.lastTransactionBuilder = self.transactionBuilder;
     self.transactionBuilder = [IGListUpdateTransactionBuilder new];
 
     if (!transaction) {
@@ -96,11 +105,17 @@
     __weak __typeof__(self) weakSelf = self;
     __weak __typeof__(transaction) weakTransaction = transaction;
     [transaction addCompletionBlock:^(BOOL finished) {
-        if (weakSelf.transaction == weakTransaction) {
-            weakSelf.transaction = nil;
+        __typeof__(self) strongSelf = weakSelf;
+        if (strongSelf == nil) {
+            return;
+        }
+        if (strongSelf.transaction == weakTransaction) {
+            strongSelf.transaction = nil;
+            strongSelf.lastTransactionBuilder = nil;
+
             // queue another update in case something changed during batch updates. this method will bail next runloop if
             // there are no changes
-            [weakSelf _queueUpdate];
+            [strongSelf _queueUpdateIfNeeded];
         }
     }];
     [transaction begin];
@@ -154,7 +169,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
                                            applyDataBlock:applyDataBlock
                                                completion:completion];
 
-    [self _queueUpdate];
+    [self _queueUpdateIfNeeded];
 }
 
 
@@ -179,7 +194,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
                                                itemUpdates:itemUpdates
                                                 completion:completion];
 
-        [self _queueUpdate];
+        [self _queueUpdateIfNeeded];
     }
 }
 
@@ -194,7 +209,39 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
                                                      reloadBlock:reloadUpdateBlock
                                                       completion:completion];
 
-    [self _queueUpdate];
+    [self _queueUpdateIfNeeded];
+}
+
+- (void)performDataSourceChange:(IGListDataSourceChangeBlock)block {
+    // Unlike the other "performs", we need the dataSource change to be synchronous.
+    // Which means we need to cancel the current transaction, flatten the changes from
+    // both the current transtion and builder, and execute that new transaction.
+
+    if (!self.transaction && ![self.transactionBuilder hasChanges]) {
+        // If nothing is going on, lets take a shortcut.
+        block();
+        return;
+    }
+
+    IGListUpdateTransactionBuilder *builder = [IGListUpdateTransactionBuilder new];
+    [builder addDataSourceChange:block];
+
+    // Lets try to cancel any current transactions.
+    if ([self.transaction cancel] && self.lastTransactionBuilder) {
+        // We still need to apply the item-updates and completion-blocks, so lets merge the builders.
+        [builder addChangesFromBuilder:(IGListUpdateTransactionBuilder *)self.lastTransactionBuilder];
+    }
+
+    // Lets merge pending changes
+    [builder addChangesFromBuilder:self.transactionBuilder];
+
+    // Clear the current state
+    self.transaction = nil;
+    self.lastTransactionBuilder = nil;
+    self.transactionBuilder = builder;
+
+    // Update synchronously
+    [self update];
 }
 
 - (void)insertItemsIntoCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray <NSIndexPath *> *)indexPaths {

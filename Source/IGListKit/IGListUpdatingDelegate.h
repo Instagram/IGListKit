@@ -43,6 +43,10 @@ typedef NSArray * _Nullable (^IGListToObjectBlock)(void);
 NS_SWIFT_NAME(ListCollectionViewBlock)
 typedef UICollectionView * _Nullable (^IGListCollectionViewBlock)(void);
 
+/// A block that applies a `UICollectionView` dataSource change
+NS_SWIFT_NAME(ListDataSourceChangeBlock)
+typedef void (^IGListDataSourceChangeBlock)(void);
+
 /**
  Implement this protocol in order to handle both section and row based update events. Implementation should forward or
  coalesce these events to a backing store or collection.
