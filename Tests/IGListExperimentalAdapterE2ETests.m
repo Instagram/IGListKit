@@ -1976,4 +1976,30 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenUpdating_withMissingSectionController_thatDoesNotCrash {
+    [self setupWithObjects:@[
+        genTestObject(@0, @"Foo"),
+        genTestObject(@1, @"Bar")
+    ]];
+    
+    // Adding an object that won't have a corresponding section-controller
+    self.dataSource.objects = @[
+        genTestObject(@0, @"Foo"),
+        genTestObject(@1, @"Bar"),
+        kIGTestDelegateDataSourceSkipObject
+    ];
+    
+    // Perform updates on the adapter
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:NO completion:^(BOOL finished) {
+        // Checked that the update worked
+        XCTAssertTrue(finished);
+        // Check that we skipped the object with a missing section-controller
+        XCTAssertEqual([self.collectionView numberOfSections], 2);
+        XCTAssertEqual(self.adapter.objects.count, 2);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
 @end
