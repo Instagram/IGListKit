@@ -35,10 +35,7 @@ typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
     IGAssertMainThread();
 
     if (self = [super init]) {
-        // the default is to use animations unless NO is passed
-        _queuedUpdateIsAnimated = YES;
-        _completionBlocks = [NSMutableArray new];
-        _itemUpdateBlocks = [NSMutableArray new];
+        _transactionBuilder = [IGListUpdateTransactionBuilder new];
         _allowsBackgroundReloading = YES;
         _allowsReloadingOnTooManyUpdates = YES;
     }
@@ -48,18 +45,16 @@ typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
 #pragma mark - Private API
 
 - (BOOL)hasChanges {
-    return self.hasQueuedReloadData
-    || self.itemUpdateBlocks.count > 0
-    || self.dataBlock != nil;
+    return [self.transactionBuilder hasChanges];
 }
 
 - (void)performReloadDataWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock {
     IGAssertMainThread();
 
     id<IGListAdapterUpdaterDelegate> delegate = self.delegate;
-    void (^reloadUpdates)(void) = self.reloadUpdates;
-    NSArray *itemUpdateBlocks = [self.itemUpdateBlocks copy];
-    NSArray *completionBlocks = [self.completionBlocks copy];
+    void (^reloadUpdates)(void) = [self.transactionBuilder reloadBlock];
+    NSArray *itemUpdateBlocks = [self.transactionBuilder itemUpdateBlocks];
+    NSArray *completionBlocks = [self.transactionBuilder completionBlocks];
 
     [self cleanStateBeforeUpdates];
 
@@ -118,13 +113,13 @@ typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
 
     // create local variables so we can immediately clean our state but pass these items into the batch update block
     id<IGListAdapterUpdaterDelegate> delegate = self.delegate;
-    IGListTransitionDataBlock dataBlock = [self.dataBlock copy];
-    IGListTransitionDataApplyBlock applyDataBlock = [self.applyDataBlock copy];
-    NSArray *completionBlocks = [self.completionBlocks copy];
-    const BOOL animated = self.queuedUpdateIsAnimated;
+    IGListTransitionDataBlock dataBlock = [self.transactionBuilder dataBlock];
+    IGListTransitionDataApplyBlock applyDataBlock = [self.transactionBuilder applyDataBlock];
+    NSArray *completionBlocks = [self.transactionBuilder completionBlocks];
+    const BOOL animated = [self.transactionBuilder animated];
     const BOOL allowsReloadingOnTooManyUpdates = self.allowsReloadingOnTooManyUpdates;
     const IGListExperiment experiments = self.experiments;
-    NSArray *itemUpdateBlocks = [self.itemUpdateBlocks copy];
+    NSArray *itemUpdateBlocks = [self.transactionBuilder itemUpdateBlocks];
 
     // clean up all state so that new updates can be coalesced while the current update is in flight
     [self cleanStateBeforeUpdates];
@@ -319,23 +314,8 @@ willPerformBatchUpdatesWithCollectionView:collectionView
 }
 
 - (void)cleanStateBeforeUpdates {
-    self.queuedUpdateIsAnimated = YES;
+    _transactionBuilder = [IGListUpdateTransactionBuilder new];
 
-    // destroy to/from transition items
-    self.dataBlock = nil;
-
-    // destroy reloadData state
-    self.reloadUpdates = nil;
-    self.queuedReloadData = NO;
-
-    // remove indexpath/item changes
-    self.applyDataBlock = nil;
-
-    // removes all object completion blocks. done before updates to start collecting completion blocks for coalesced
-    // or re-entrant object updates
-    [self.completionBlocks removeAllObjects];
-
-    [self.itemUpdateBlocks removeAllObjects];
     self.inUpdateCompletionBlocks = [NSMutableArray new];
     self.inUpdateItemCollector = [IGListItemUpdatesCollector new];
 }
@@ -360,7 +340,7 @@ willPerformBatchUpdatesWithCollectionView:collectionView
             return;
         }
 
-        if (weakSelf.hasQueuedReloadData) {
+        if (weakSelf.transactionBuilder.hasReloadData) {
             [weakSelf performReloadDataWithCollectionViewBlock:collectionViewBlock];
         } else {
             [weakSelf performBatchUpdatesWithCollectionViewBlock:collectionViewBlock];
@@ -410,20 +390,11 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     IGParameterAssert(dataBlock != nil);
     IGParameterAssert(applyDataBlock != nil);
 
-    // will call the dataBlock after the dispatch
-    self.dataBlock = dataBlock;
-
-    // always use the last update block, even though this should always do the exact same thing
-    self.applyDataBlock = applyDataBlock;
-
-    // disabled animations will always take priority
-    // reset to YES in -cleanupState
-    self.queuedUpdateIsAnimated = self.queuedUpdateIsAnimated && animated;
-
-    IGListUpdatingCompletion localCompletion = completion;
-    if (localCompletion) {
-        [self.completionBlocks addObject:localCompletion];
-    }
+    [self.transactionBuilder addSectionBatchUpdateAnimated:animated
+                                      collectionViewBlock:collectionViewBlock
+                                                dataBlock:dataBlock
+                                           applyDataBlock:applyDataBlock
+                                               completion:completion];
 
     [self _queueUpdateWithCollectionViewBlock:collectionViewBlock];
 }
@@ -445,15 +416,10 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
         }
         itemUpdates();
     } else {
-        if (completion != nil) {
-            [self.completionBlocks addObject:completion];
-        }
-
-        [self.itemUpdateBlocks addObject:itemUpdates];
-
-        // disabled animations will always take priority
-        // reset to YES in -cleanupState
-        self.queuedUpdateIsAnimated = self.queuedUpdateIsAnimated && animated;
+        [self.transactionBuilder addItemBatchUpdateAnimated:animated
+                                       collectionViewBlock:collectionViewBlock
+                                               itemUpdates:itemUpdates
+                                                completion:completion];
 
         [self _queueUpdateWithCollectionViewBlock:collectionViewBlock];
     }
@@ -554,13 +520,10 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     IGParameterAssert(collectionViewBlock != nil);
     IGParameterAssert(reloadUpdateBlock != nil);
 
-    IGListUpdatingCompletion localCompletion = completion;
-    if (localCompletion) {
-        [self.completionBlocks addObject:localCompletion];
-    }
+    [self.transactionBuilder addReloadDataWithCollectionViewBlock:collectionViewBlock
+                                                     reloadBlock:reloadUpdateBlock
+                                                      completion:completion];
 
-    self.reloadUpdates = reloadUpdateBlock;
-    self.queuedReloadData = YES;
     [self _queueUpdateWithCollectionViewBlock:collectionViewBlock];
 }
 

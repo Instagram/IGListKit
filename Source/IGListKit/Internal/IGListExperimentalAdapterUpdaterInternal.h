@@ -14,25 +14,16 @@
 #import "IGListExperimentalAdapterUpdater.h"
 #import "IGListBatchUpdateState.h"
 #import "IGListItemUpdatesCollector.h"
+#import "IGListUpdateTransactionBuilder.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IGListExperimentalAdapterUpdater ()
 
-@property (nonatomic, copy, nullable) IGListTransitionDataBlock dataBlock;
-@property (nonatomic, strong) NSMutableArray<IGListUpdatingCompletion> *completionBlocks;
-
-@property (nonatomic, assign) BOOL queuedUpdateIsAnimated;
-
-@property (nonatomic, strong) NSMutableArray<IGListItemUpdateBlock> *itemUpdateBlocks;
+@property (nonatomic, strong, readonly) IGListUpdateTransactionBuilder *transactionBuilder;
 
 @property (nonatomic, strong) NSMutableArray<IGListUpdatingCompletion> *inUpdateCompletionBlocks;
 @property (nonatomic, strong) IGListItemUpdatesCollector *inUpdateItemCollector;
-
-@property (nonatomic, copy, nullable) IGListTransitionDataApplyBlock applyDataBlock;
-
-@property (nonatomic, copy, nullable) IGListReloadUpdateBlock reloadUpdates;
-@property (nonatomic, assign, getter=hasQueuedReloadData) BOOL queuedReloadData;
 
 @property (nonatomic, assign) IGListBatchUpdateState state;
 @property (nonatomic, strong, nullable) IGListBatchUpdateData *applyingUpdateData;
