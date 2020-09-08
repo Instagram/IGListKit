@@ -20,10 +20,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentBackgroundDiffing = 1 << 2,
     /// Test invalidating layout when cell reloads/updates in IGListBindingSectionController.
     IGListExperimentInvalidateLayoutForUpdates = 1 << 3,
-    /// Test removing the layout before performing an update
-    IGListExperimentSkipLayoutBeforeUpdate = 1 << 4,
     /// Test array and set optimization on update
-    IGListExperimentArrayAndSetOptimization = 1 << 5,
+    IGListExperimentArrayAndSetOptimization = 1 << 4,
 };
 
 /**

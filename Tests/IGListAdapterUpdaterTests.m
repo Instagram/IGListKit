@@ -773,8 +773,6 @@
 }
 
 - (void)test_whenPerformingUpdatesMultipleTimesInARow_thenUpdateWorks {
-    self.updater.experiments |= IGListExperimentSkipLayoutBeforeUpdate;
-
     NSArray *objects1 = @[
         [IGSectionObject sectionWithObjects:@[@0]]
     ];
