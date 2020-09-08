@@ -26,3 +26,11 @@
 #ifndef IGLK_DEBUG_DESCRIPTION_ENABLED
 #define IGLK_DEBUG_DESCRIPTION_ENABLED DEBUG
 #endif // #ifndef IGLK_DEBUG_DESCRIPTION_ENABLED
+
+#define IGLK_BLOCK_CALL_SAFE(BLOCK, ...) \
+   do { \
+       __typeof(BLOCK) ig_safe_block = (BLOCK); \
+       if (ig_safe_block) { \
+           ig_safe_block(__VA_ARGS__); \
+       } \
+   } while (NO)
