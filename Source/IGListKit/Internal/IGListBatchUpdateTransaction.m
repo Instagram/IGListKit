@@ -167,23 +167,47 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
                    listIndexSetResult:diffResult
                              animated:self.animated];
 
+    // Experiment to skip calling `[UICollectionView performBatchUpdates ...]` if we don't have changes. It does
+    // require us to call `_applyDataUpdates` outside the update block, but that should be ok as long as we call
+    // `performBatchUpdates` right after.
+    const BOOL skipPerformUpdateIfPossible = IGListExperimentEnabled(self.config.experiments, IGListExperimentSkipPerformUpdateIfPossible);
+    if (skipPerformUpdateIfPossible) {
+        // Force the `UICollectionView` data to sync before applying any new updates.
+        [self.collectionView numberOfSections];
+        [self _applyDataUpdates];
+
+        if (!diffResult.hasChanges && !self.inUpdateItemCollector.hasChanges) {
+            // If we don't have any section or item changes, take a shortcut.
+            [self _finishWithoutUpdate];
+            return;
+        }
+    }
+
+    // **************************
+    // **************************
+    // IMPORTANT: The very next thing we call must be `[UICollectionView performBatchUpdates ...]`, because
+    // we're in a state where the adapter is synced, but not the `UICollectionView`.
+    // **************************
+    // **************************
+
+    void (^updates)(void) = ^ {
+        if (!skipPerformUpdateIfPossible) {
+            [self _applyDataUpdates];
+        }
+        [self _applyCollectioViewUpdates:diffResult];
+    };
+
+    void (^completion)(BOOL) = ^(BOOL finished) {
+        [self _didPerformBatchUpdate:finished];
+    };
 
     if (self.animated) {
-        [self _performBatchUpdateWithDiff:diffResult];
+        [self.collectionView performBatchUpdates:updates completion:completion];
     } else {
         [UIView performWithoutAnimation:^{
-            [self _performBatchUpdateWithDiff:diffResult];
+            [self.collectionView performBatchUpdates:updates completion:completion];
         }];
     }
-}
-
-- (void)_performBatchUpdateWithDiff:(IGListIndexSetResult *)diffResult {
-    [self.collectionView performBatchUpdates:^{
-        [self _applyDataUpdates];
-        [self _applyCollectioViewUpdates:diffResult];
-    } completion:^(BOOL finished) {
-        [self _collectionViewCompletion:finished];
-    }];
 }
 
 - (void)_applyDataUpdates {
@@ -237,14 +261,14 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
     }
 }
 
-- (void)_collectionViewCompletion:(BOOL)finished {
+- (void)_didPerformBatchUpdate:(BOOL)finished {
     if (self.actualCollectionViewUpdates) {
         [self.delegate listAdapterUpdater:self.updater didPerformBatchUpdates:(IGListBatchUpdateData *)self.actualCollectionViewUpdates collectionView:self.collectionView];
     }
-    [self _completeAsFinished:finished];
+    [self _executeCompletionAsFinished:finished];
 }
 
-- (void)_completeAsFinished:(BOOL)finished {
+- (void)_executeCompletionAsFinished:(BOOL)finished {
     for (IGListUpdatingCompletion block in self.completionBlocks) {
         block(finished);
     }
@@ -267,12 +291,17 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
     [self.collectionView reloadData];
     [self.collectionView layoutIfNeeded];
     [self.delegate listAdapterUpdater:self.updater didReloadDataWithCollectionView:self.collectionView isFallbackReload:YES];
-    [self _completeAsFinished:YES];
+    [self _executeCompletionAsFinished:YES];
 }
 
 - (void)_bail {
     [self.delegate listAdapterUpdater:self.updater didFinishWithoutUpdatesWithCollectionView:self.collectionView];
-    [self _completeAsFinished:NO];
+    [self _executeCompletionAsFinished:NO];
+}
+
+- (void)_finishWithoutUpdate {
+    [self.delegate listAdapterUpdater:self.updater didFinishWithoutUpdatesWithCollectionView:self.collectionView];
+    [self _executeCompletionAsFinished:YES];
 }
 
 #pragma mark - Cancel
