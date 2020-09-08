@@ -109,21 +109,22 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
     IGListTransitionData *data = self.data;
     [self.delegate listAdapterUpdater:self.updater willDiffFromObjects:data.fromObjects toObjects:data.toObjects];
 
-    if (self.config.allowBackgroundDiffing) {
+    const BOOL onBackground = IGListExperimentEnabled(self.config.experiments, IGListExperimentBackgroundDiffing);
+    if (onBackground) {
         __weak __typeof__(self) weakSelf = self;
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
             IGListIndexSetResult *result = IGListDiff(data.fromObjects, data.toObjects, IGListDiffEquality);
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf _didDiff:result];
+                [weakSelf _didDiff:result onBackground:onBackground];
             });
         });
     } else {
         IGListIndexSetResult *result = IGListDiff(data.fromObjects, data.toObjects, IGListDiffEquality);
-        [self _didDiff:result];
+        [self _didDiff:result onBackground:onBackground];
     }
 }
 
-- (void)_didDiff:(IGListIndexSetResult *)diffResult {
+- (void)_didDiff:(IGListIndexSetResult *)diffResult onBackground:(BOOL)onBackground {
     if (self.mode == IGListBatchUpdateTransactionModeCancelled) {
         // Cancelling should have already taken care of the completion blocks
         return;
@@ -132,13 +133,16 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
     // After this point, we can assume that the update has began and there's no turning back.
     self.mode = IGListBatchUpdateTransactionModeNotCancellable;
 
-    [self.delegate listAdapterUpdater:self.updater didDiffWithResults:diffResult onBackgroundThread:self.config.allowBackgroundDiffing];
+    [self.delegate listAdapterUpdater:self.updater didDiffWithResults:diffResult onBackgroundThread:onBackground];
 
     @try {
         if (self.collectionView.dataSource == nil) {
             // If the data source is nil, we should not call any collection view update.
             [self _bail];
         } else if (diffResult.changeCount > 100 && self.config.allowsReloadingOnTooManyUpdates) {
+            [self _reload];
+        } else if (!_validateCollectionViewSectionCount(self.collectionView, self.data, self.config)) {
+            IGFailAssert(@"The UICollectionView's data didn't match the IGListAdapter's data, so we can't performBatchUpdates. Falling back to reloadData.");
             [self _reload];
         } else {
             [self _applyDiff:diffResult];
@@ -310,6 +314,17 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
         _inUpdateCompletionBlocks = [NSMutableArray new];
     }
     [_inUpdateCompletionBlocks addObject:completion];
+}
+
+#pragma mark - Helpers
+
+static BOOL _validateCollectionViewSectionCount(UICollectionView *collectionView, IGListTransitionData *data, IGListUpdateTransactationConfig config) {
+    // If data is nil, there is no section updates.
+    if (IGListExperimentEnabled(config.experiments, IGListExperimentSectionCountValidation) && data) {
+        return [collectionView numberOfSections] == data.fromObjects.count;
+    } else {
+        return YES;
+    }
 }
 
 @end

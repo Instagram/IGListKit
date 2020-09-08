@@ -958,6 +958,48 @@
     [mockDelegate verify];
 }
 
+- (void)test_whenCollectionViewSectionCountIsIncorrect_thatDoesNotCrash {
+    self.updater.experiments |= IGListExperimentSectionCountValidation;
+
+    NSArray *from = @[
+        [IGSectionObject sectionWithObjects:@[]]
+    ];
+    NSArray *to = @[
+        [IGSectionObject sectionWithObjects:@[]],
+        [IGSectionObject sectionWithObjects:@[]]
+    ];
+
+    self.dataSource.sections = from;
+    [self.updater reloadDataWithCollectionViewBlock:[self collectionViewBlock] reloadUpdateBlock:^{} completion:nil];
+    [self.updater update];
+    XCTAssertEqual([self.collectionView numberOfSections], 1);
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.updater performExperimentalUpdateAnimated:YES
+                                collectionViewBlock:[self collectionViewBlock]
+                                          dataBlock:[self dataBlockFromObjects:from toObjects:to]
+                                     applyDataBlock:self.applyDataBlock
+                                         completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView numberOfSections], 2);
+        [expectation fulfill];
+    }];
+
+    // Lets say we change the dataSource without the updater on accident.
+    self.dataSource.sections =  @[
+        [IGSectionObject sectionWithObjects:@[]],
+        [IGSectionObject sectionWithObjects:@[]],
+        [IGSectionObject sectionWithObjects:@[]]
+    ];
+
+    // Lets force the collectionView to sync
+    [self.collectionView reloadData];
+    [self.collectionView layoutIfNeeded];
+    XCTAssertEqual([self.collectionView numberOfSections], 3);
+
+    // No we wait for the update, which should fallback to a reload.
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
 
 # pragma mark - preferItemReloadsFroSectionReloads
 

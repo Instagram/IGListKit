@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import <IGListDiffKit/IGListExperiments.h>
+
 #import "IGListBatchUpdateState.h"
 #import "IGListUpdatingDelegate.h"
 
@@ -19,7 +21,7 @@ typedef struct {
     BOOL preferItemReloadsForSectionReloads;
     BOOL allowsBackgroundReloading;
     BOOL allowsReloadingOnTooManyUpdates;
-    BOOL allowBackgroundDiffing;
+    IGListExperiment experiments;
 } IGListUpdateTransactationConfig;
 
 /// Conform to this protocol to handle an update transaction.
