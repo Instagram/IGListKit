@@ -23,6 +23,14 @@ typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
 
 @implementation IGListAdapterUpdater
 
+@synthesize delegate = _delegate;
+@synthesize sectionMovesAsDeletesInserts = _sectionMovesAsDeletesInserts;
+@synthesize singleItemSectionUpdates = _singleItemSectionUpdates;
+@synthesize preferItemReloadsForSectionReloads = _preferItemReloadsForSectionReloads;
+@synthesize allowsBackgroundReloading = _allowsBackgroundReloading;
+@synthesize allowsReloadingOnTooManyUpdates = _allowsReloadingOnTooManyUpdates;
+@synthesize experiments = _experiments;
+
 - (instancetype)init {
     IGAssertMainThread();
 
