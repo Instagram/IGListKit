@@ -6,7 +6,6 @@
  */
 
 #import "IGListExperimentalAdapterUpdater.h"
-#import "IGListExperimentalAdapterUpdaterInternal.h"
 
 #import <IGListDiffKit/IGListAssert.h>
 
@@ -15,11 +14,14 @@
 #import "IGListMoveIndexPathInternal.h"
 #import "IGListReloadIndexPath.h"
 #import "IGListTransitionData.h"
+#import "IGListUpdateTransactable.h"
+#import "IGListUpdateTransactionBuilder.h"
 #import "UICollectionView+IGListBatchUpdateData.h"
 
-typedef void (^IGListAdapterUpdaterDiffResultBlock)(IGListIndexSetResult *);
-typedef void (^IGListAdapterUpdaterBlock)(void);
-typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
+@interface IGListExperimentalAdapterUpdater ()
+@property (nonatomic, strong) IGListUpdateTransactionBuilder *transactionBuilder;
+@property (nonatomic, strong, nullable) id<IGListUpdateTransactable> transaction;
+@end
 
 @implementation IGListExperimentalAdapterUpdater
 
@@ -42,290 +44,13 @@ typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
     return self;
 }
 
-#pragma mark - Private API
+#pragma mark - Update
 
 - (BOOL)hasChanges {
     return [self.transactionBuilder hasChanges];
 }
 
-- (void)performReloadDataWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock {
-    IGAssertMainThread();
-
-    id<IGListAdapterUpdaterDelegate> delegate = self.delegate;
-    void (^reloadUpdates)(void) = [self.transactionBuilder reloadBlock];
-    NSArray *itemUpdateBlocks = [self.transactionBuilder itemUpdateBlocks];
-    NSArray *completionBlocks = [self.transactionBuilder completionBlocks];
-
-    [self cleanStateBeforeUpdates];
-
-    void (^executeCompletionBlocks)(BOOL) = ^(BOOL finished) {
-        for (IGListUpdatingCompletion block in completionBlocks) {
-            block(finished);
-        }
-
-        // Execute any completion blocks from item updates. Added after item blocks are executed in order to capture any
-        // re-entrant updates.
-        NSArray *inUpdateCompletionBlocks = [self.inUpdateCompletionBlocks copy];
-        for (IGListUpdatingCompletion block in inUpdateCompletionBlocks) {
-            block(finished);
-        }
-
-        [self _cleanStateAfterUpdates];
-        self.state = IGListBatchUpdateStateIdle;
-    };
-
-    // bail early if the collection view has been deallocated in the time since the update was queued
-    UICollectionView *collectionView = collectionViewBlock();
-    if (collectionView == nil) {
-        executeCompletionBlocks(NO);
-        [_delegate listAdapterUpdater:self didFinishWithoutUpdatesWithCollectionView:collectionView];
-        return;
-    }
-
-    // item updates must not send mutations to the collection view while we are reloading
-    self.state = IGListBatchUpdateStateExecutingBatchUpdateBlock;
-
-    if (reloadUpdates) {
-        reloadUpdates();
-    }
-
-    // execute all stored item update blocks even if we are just calling reloadData. the actual collection view
-    // mutations will be discarded, but clients are encouraged to put their actual /data/ mutations inside the
-    // update block as well, so if we don't execute the block the changes will never happen
-    for (IGListItemUpdateBlock itemUpdateBlock in itemUpdateBlocks) {
-        itemUpdateBlock();
-    }
-
-    self.state = IGListBatchUpdateStateExecutedBatchUpdateBlock;
-
-    [delegate listAdapterUpdater:self willReloadDataWithCollectionView:collectionView isFallbackReload:NO];
-    [collectionView reloadData];
-    [collectionView.collectionViewLayout invalidateLayout];
-    [collectionView layoutIfNeeded];
-    [delegate listAdapterUpdater:self didReloadDataWithCollectionView:collectionView isFallbackReload:NO];
-
-    executeCompletionBlocks(YES);
-}
-
-- (void)performBatchUpdatesWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock {
-    IGAssertMainThread();
-    IGAssert(self.state == IGListBatchUpdateStateIdle, @"Should not call batch updates when state isn't idle");
-
-    // create local variables so we can immediately clean our state but pass these items into the batch update block
-    id<IGListAdapterUpdaterDelegate> delegate = self.delegate;
-    IGListTransitionDataBlock dataBlock = [self.transactionBuilder dataBlock];
-    IGListTransitionDataApplyBlock applyDataBlock = [self.transactionBuilder applyDataBlock];
-    NSArray *completionBlocks = [self.transactionBuilder completionBlocks];
-    const BOOL animated = [self.transactionBuilder animated];
-    const BOOL allowsReloadingOnTooManyUpdates = self.allowsReloadingOnTooManyUpdates;
-    const IGListExperiment experiments = self.experiments;
-    NSArray *itemUpdateBlocks = [self.transactionBuilder itemUpdateBlocks];
-
-    // clean up all state so that new updates can be coalesced while the current update is in flight
-    [self cleanStateBeforeUpdates];
-
-    void (^executeCompletionBlocks)(BOOL) = ^(BOOL finished) {
-        for (IGListUpdatingCompletion block in completionBlocks) {
-            block(finished);
-        }
-
-        // Execute any completion blocks from item updates. Added after item blocks are executed in order to capture any
-        // re-entrant updates.
-        NSArray *inUpdateCompletionBlocks = [self.inUpdateCompletionBlocks copy];
-        for (IGListUpdatingCompletion block in inUpdateCompletionBlocks) {
-            block(finished);
-        }
-
-        [self _cleanStateAfterUpdates];
-        self.applyingUpdateData = nil;
-        self.state = IGListBatchUpdateStateIdle;
-    };
-
-    // bail early if the collection view has been deallocated in the time since the update was queued
-    UICollectionView *collectionView = collectionViewBlock();
-    if (collectionView == nil) {
-        executeCompletionBlocks(NO);
-        [_delegate listAdapterUpdater:self didFinishWithoutUpdatesWithCollectionView:collectionView];
-        return;
-    }
-
-
-    IGListTransitionData *data = nil;
-    if (dataBlock != nil) {
-        data = dataBlock();
-    }
-
-    NSArray *toObjects = data.toObjects;
-    NSArray *fromObjects = data.fromObjects;
-
-#ifdef DEBUG
-    for (id obj in toObjects) {
-        IGAssert([obj conformsToProtocol:@protocol(IGListDiffable)],
-                 @"In order to use IGListAdapterUpdater, object %@ must conform to IGListDiffable", obj);
-        IGAssert([obj diffIdentifier] != nil,
-                 @"Cannot have a nil diffIdentifier for object %@", obj);
-    }
-#endif
-
-    void (^executeUpdateBlocks)(void) = ^{
-        self.state = IGListBatchUpdateStateExecutingBatchUpdateBlock;
-
-        // run the update block so that the adapter can set its items. this makes sure that just before the update is
-        // committed that the data source is updated to the /latest/ "toObjects". this makes the data source in sync
-        // with the items that the updater is transitioning to
-        if (applyDataBlock != nil && data != nil) {
-            applyDataBlock(data);
-        }
-
-        // execute each item update block which should make calls like insert, delete, and reload for index paths
-        // we collect all mutations in corresponding sets on self, then filter based on UICollectionView shortcomings
-        // call after the objectTransitionBlock so section level mutations happen before any items
-        for (IGListItemUpdateBlock itemUpdateBlock in itemUpdateBlocks) {
-            itemUpdateBlock();
-        }
-
-        self.state = IGListBatchUpdateStateExecutedBatchUpdateBlock;
-    };
-
-    void (^reloadDataFallback)(void) = ^{
-        [delegate listAdapterUpdater:self willReloadDataWithCollectionView:collectionView isFallbackReload:YES];
-        executeUpdateBlocks();
-        [collectionView reloadData];
-        [collectionView layoutIfNeeded];
-        executeCompletionBlocks(YES);
-        [delegate listAdapterUpdater:self didReloadDataWithCollectionView:collectionView isFallbackReload:YES];
-
-        // queue another update in case something changed during batch updates. this method will bail next runloop if
-        // there are no changes
-        [self _queueUpdateWithCollectionViewBlock:collectionViewBlock];
-    };
-
-    // disables multiple performBatchUpdates: from happening at the same time
-    self.state = IGListBatchUpdateStateQueuedBatchUpdate;
-
-    // if the collection view isn't in a visible window, skip diffing and batch updating. execute all transition blocks,
-    // reload data, execute completion blocks, and get outta here
-    if (self.allowsBackgroundReloading && collectionView.window == nil) {
-        reloadDataFallback();
-        return;
-    }
-
-    // block executed in the first param block of -[UICollectionView performBatchUpdates:completion:]
-    void (^batchUpdatesBlock)(IGListIndexSetResult *result) = ^(IGListIndexSetResult *result){
-        executeUpdateBlocks();
-        if (self.singleItemSectionUpdates) {
-            [collectionView deleteSections:result.deletes];
-            [collectionView insertSections:result.inserts];
-            for (IGListMoveIndex *move in result.moves) {
-                [collectionView moveSection:move.from toSection:move.to];
-            }
-            // NOTE: for section updates, it's updated in the IGListSectionController's -didUpdateToObject:, since there is *only* 1 cell for the section, we can just update that cell.
-
-            self.applyingUpdateData = [[IGListBatchUpdateData alloc]
-                                       initWithInsertSections:result.inserts
-                                       deleteSections:result.deletes
-                                       moveSections:[NSSet setWithArray:result.moves]
-                                       insertIndexPaths:@[]
-                                       deleteIndexPaths:@[]
-                                       updateIndexPaths:@[]
-                                       moveIndexPaths:@[]];
-        } else {
-            self.applyingUpdateData = IGListApplyUpdatesToCollectionView(collectionView,
-                                                                         result,
-                                                                         self.inUpdateItemCollector.sectionReloads,
-                                                                         self.inUpdateItemCollector.itemInserts,
-                                                                         self.inUpdateItemCollector.itemDeletes,
-                                                                         self.inUpdateItemCollector.itemReloads,
-                                                                         self.inUpdateItemCollector.itemMoves,
-                                                                         fromObjects,
-                                                                         self.sectionMovesAsDeletesInserts,
-                                                                         self.preferItemReloadsForSectionReloads);
-        }
-    };
-
-    // block used as the second param of -[UICollectionView performBatchUpdates:completion:]
-    void (^fallbackWithoutUpdates)(void) = ^(void) {
-        executeCompletionBlocks(NO);
-
-        [delegate listAdapterUpdater:self didFinishWithoutUpdatesWithCollectionView:collectionView];
-
-        // queue another update in case something changed during batch updates. this method will bail next runloop if
-        // there are no changes
-        [self _queueUpdateWithCollectionViewBlock:collectionViewBlock];
-    };
-
-    // block used as the second param of -[UICollectionView performBatchUpdates:completion:]
-    void (^batchUpdatesCompletionBlock)(BOOL) = ^(BOOL finished) {
-        IGListBatchUpdateData *oldApplyingUpdateData = self.applyingUpdateData;
-        executeCompletionBlocks(finished);
-
-        [delegate listAdapterUpdater:self didPerformBatchUpdates:oldApplyingUpdateData collectionView:collectionView];
-
-        // queue another update in case something changed during batch updates. this method will bail next runloop if
-        // there are no changes
-        [self _queueUpdateWithCollectionViewBlock:collectionViewBlock];
-    };
-
-    void (^performUpdate)(IGListIndexSetResult *) = ^(IGListIndexSetResult *result){
-        [delegate listAdapterUpdater:self
-willPerformBatchUpdatesWithCollectionView:collectionView
-                         fromObjects:fromObjects
-                           toObjects:toObjects
-                  listIndexSetResult:result
-                            animated:animated];
-
-        // Wrap `[UICollectionView performBatchUpdates ...]` so that in case it crashes, the first app symbol will not be a block. A block name includes the
-        // line number, which means if you change the block line number, it will be categorized as a different crash. This makes tracking crashes
-        // across multiple app-versions a pain.
-        IGListAdapterUpdaterPerformBatchUpdate(collectionView, animated, ^{
-            batchUpdatesBlock(result);
-        }, batchUpdatesCompletionBlock);
-    };
-
-    // block that executes the batch update and exception handling
-    void (^tryToPerformUpdate)(IGListIndexSetResult *) = ^(IGListIndexSetResult *result){
-        @try {
-            if (collectionView.dataSource == nil) {
-                // If the data source is nil, we should not call any collection view update.
-                fallbackWithoutUpdates();
-            } else if (result.changeCount > 100 && allowsReloadingOnTooManyUpdates) {
-                reloadDataFallback();
-            } else {
-                performUpdate(result);
-            }
-        } @catch (NSException *exception) {
-            [delegate listAdapterUpdater:self
-                          collectionView:collectionView
-                  willCrashWithException:exception
-                             fromObjects:fromObjects
-                               toObjects:toObjects
-                              diffResult:result
-                                 updates:(id)self.applyingUpdateData];
-            @throw exception;
-        }
-    };
-
-    const BOOL onBackgroundThread = IGListExperimentEnabled(experiments, IGListExperimentBackgroundDiffing);
-    [delegate listAdapterUpdater:self willDiffFromObjects:fromObjects toObjects:toObjects];
-    IGListAdapterUpdaterPerformDiffing(fromObjects, toObjects, IGListDiffEquality, onBackgroundThread, ^(IGListIndexSetResult *result){
-        [delegate listAdapterUpdater:self didDiffWithResults:result onBackgroundThread:onBackgroundThread];
-        tryToPerformUpdate(result);
-    });
-}
-
-- (void)cleanStateBeforeUpdates {
-    _transactionBuilder = [IGListUpdateTransactionBuilder new];
-
-    self.inUpdateCompletionBlocks = [NSMutableArray new];
-    self.inUpdateItemCollector = [IGListItemUpdatesCollector new];
-}
-
-- (void)_cleanStateAfterUpdates {
-    self.inUpdateCompletionBlocks = nil;
-    self.inUpdateItemCollector = nil;
-}
-
-- (void)_queueUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock {
+- (void)_queueUpdate {
     IGAssertMainThread();
 
     __weak __typeof__(self) weakSelf = self;
@@ -335,17 +60,50 @@ willPerformBatchUpdatesWithCollectionView:collectionView
     // see -performUpdateWithCollectionView:fromObjects:toObjects:animated:objectTransitionBlock:completion: for more
     // details on how coalescence is done.
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (weakSelf.state != IGListBatchUpdateStateIdle
-            || ![weakSelf hasChanges]) {
-            return;
-        }
-
-        if (weakSelf.transactionBuilder.hasReloadData) {
-            [weakSelf performReloadDataWithCollectionViewBlock:collectionViewBlock];
-        } else {
-            [weakSelf performBatchUpdatesWithCollectionViewBlock:collectionViewBlock];
-        }
+        [weakSelf update];
     });
+}
+
+- (void)update {
+    IGAssertMainThread();
+
+    if (![self.transactionBuilder hasChanges]) {
+        return;
+    }
+
+    if (self.transaction && self.transaction.state != IGListBatchUpdateStateIdle) {
+        return;
+    }
+
+    IGListUpdateTransactationConfig config = (IGListUpdateTransactationConfig) {
+        .sectionMovesAsDeletesInserts = _sectionMovesAsDeletesInserts,
+        .singleItemSectionUpdates = _singleItemSectionUpdates,
+        .preferItemReloadsForSectionReloads = _preferItemReloadsForSectionReloads,
+        .allowsBackgroundReloading = _allowsBackgroundReloading,
+        .allowsReloadingOnTooManyUpdates = _allowsReloadingOnTooManyUpdates,
+        .allowBackgroundDiffing = IGListExperimentEnabled(_experiments, IGListExperimentBackgroundDiffing),
+    };
+
+    id<IGListUpdateTransactable> transaction = [self.transactionBuilder buildWithConfig:config delegate:_delegate updater:self];
+    self.transaction = transaction;
+    self.transactionBuilder = [IGListUpdateTransactionBuilder new];
+
+    if (!transaction) {
+        // If we don't have enough information, we might not be able to create a transaction.
+        return;
+    }
+
+    __weak __typeof__(self) weakSelf = self;
+    __weak __typeof__(transaction) weakTransaction = transaction;
+    [transaction addCompletionBlock:^(BOOL finished) {
+        if (weakSelf.transaction == weakTransaction) {
+            weakSelf.transaction = nil;
+            // queue another update in case something changed during batch updates. this method will bail next runloop if
+            // there are no changes
+            [weakSelf _queueUpdate];
+        }
+    }];
+    [transaction begin];
 }
 
 #pragma mark - IGListUpdatingDelegate
@@ -371,20 +129,20 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
 }
 
 - (void)performUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                            fromObjects:(NSArray *)fromObjects
-                         toObjectsBlock:(IGListToObjectBlock)toObjectsBlock
-                               animated:(BOOL)animated
-                  objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
-                             completion:(IGListUpdatingCompletion)completion {
+                                 fromObjects:(NSArray *)fromObjects
+                              toObjectsBlock:(IGListToObjectBlock)toObjectsBlock
+                                    animated:(BOOL)animated
+                       objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
+                                  completion:(IGListUpdatingCompletion)completion {
     IGFailAssert(@"IGListExperimentalAdapterUpdater works with IGListUpdatingDelegateExperimental and doesn't implement the regular -performUpdateWithCollectionViewBlock method");
     completion(NO);
 }
 
 - (void)performExperimentalUpdateAnimated:(BOOL)animated
-                     collectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                               dataBlock:(IGListTransitionDataBlock)dataBlock
-                          applyDataBlock:(IGListTransitionDataApplyBlock)applyDataBlock
-                              completion:(IGListUpdatingCompletion)completion {
+                      collectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
+                                dataBlock:(IGListTransitionDataBlock)dataBlock
+                           applyDataBlock:(IGListTransitionDataApplyBlock)applyDataBlock
+                               completion:(IGListUpdatingCompletion)completion {
     IGAssertMainThread();
     IGParameterAssert(collectionViewBlock != nil);
     IGParameterAssert(dataBlock != nil);
@@ -396,23 +154,23 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
                                            applyDataBlock:applyDataBlock
                                                completion:completion];
 
-    [self _queueUpdateWithCollectionViewBlock:collectionViewBlock];
+    [self _queueUpdate];
 }
 
 
 - (void)performUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                               animated:(BOOL)animated
-                            itemUpdates:(void (^)(void))itemUpdates
-                             completion:(void (^)(BOOL))completion {
+                                    animated:(BOOL)animated
+                                 itemUpdates:(void (^)(void))itemUpdates
+                                  completion:(void (^)(BOOL))completion {
     IGAssertMainThread();
     IGParameterAssert(collectionViewBlock != nil);
     IGParameterAssert(itemUpdates != nil);
 
     // if already inside the execution of the update block, immediately unload the itemUpdates block.
     // the completion blocks are executed later in the lifecycle, so that still needs to be added to the batch
-    if (self.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {
+    if (self.transaction.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {
         if (completion != nil) {
-            [self.inUpdateCompletionBlocks addObject:completion];
+            [self.transaction addCompletionBlock:completion];
         }
         itemUpdates();
     } else {
@@ -421,16 +179,30 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
                                                itemUpdates:itemUpdates
                                                 completion:completion];
 
-        [self _queueUpdateWithCollectionViewBlock:collectionViewBlock];
+        [self _queueUpdate];
     }
+}
+
+- (void)reloadDataWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
+                        reloadUpdateBlock:(IGListReloadUpdateBlock)reloadUpdateBlock
+                               completion:(nullable IGListUpdatingCompletion)completion {
+    IGAssertMainThread();
+    IGParameterAssert(collectionViewBlock != nil);
+    IGParameterAssert(reloadUpdateBlock != nil);
+
+    [self.transactionBuilder addReloadDataWithCollectionViewBlock:collectionViewBlock
+                                                     reloadBlock:reloadUpdateBlock
+                                                      completion:completion];
+
+    [self _queueUpdate];
 }
 
 - (void)insertItemsIntoCollectionView:(UICollectionView *)collectionView indexPaths:(NSArray <NSIndexPath *> *)indexPaths {
     IGAssertMainThread();
     IGParameterAssert(collectionView != nil);
     IGParameterAssert(indexPaths != nil);
-    if (self.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {
-        [self.inUpdateItemCollector.itemInserts addObjectsFromArray:indexPaths];
+    if (self.transaction.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {
+        [self.transaction insertItemsAtIndexPaths:indexPaths];
     } else {
         [self.delegate listAdapterUpdater:self willInsertIndexPaths:indexPaths collectionView:collectionView];
         [collectionView insertItemsAtIndexPaths:indexPaths];
@@ -441,8 +213,8 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     IGAssertMainThread();
     IGParameterAssert(collectionView != nil);
     IGParameterAssert(indexPaths != nil);
-    if (self.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {
-        [self.inUpdateItemCollector.itemDeletes addObjectsFromArray:indexPaths];
+    if (self.transaction.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {
+        [self.transaction deleteItemsAtIndexPaths:indexPaths];
     } else {
         [self.delegate listAdapterUpdater:self willDeleteIndexPaths:indexPaths collectionView:collectionView];
         [collectionView deleteItemsAtIndexPaths:indexPaths];
@@ -452,9 +224,8 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
 - (void)moveItemInCollectionView:(UICollectionView *)collectionView
                    fromIndexPath:(NSIndexPath *)fromIndexPath
                      toIndexPath:(NSIndexPath *)toIndexPath {
-    if (self.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {
-        IGListMoveIndexPath *move = [[IGListMoveIndexPath alloc] initWithFrom:fromIndexPath to:toIndexPath];
-        [self.inUpdateItemCollector.itemMoves addObject:move];
+    if (self.transaction.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {
+        [self.transaction moveItemFromIndexPath:fromIndexPath toIndexPath:toIndexPath];
     } else {
         [self.delegate listAdapterUpdater:self willMoveFromIndexPath:fromIndexPath toIndexPath:toIndexPath collectionView:collectionView];
         [collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
@@ -464,12 +235,23 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
 - (void)reloadItemInCollectionView:(UICollectionView *)collectionView
                      fromIndexPath:(NSIndexPath *)fromIndexPath
                        toIndexPath:(NSIndexPath *)toIndexPath {
-    if (self.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {
-        IGListReloadIndexPath *reload = [[IGListReloadIndexPath alloc] initWithFromIndexPath:fromIndexPath toIndexPath:toIndexPath];
-        [self.inUpdateItemCollector.itemReloads addObject:reload];
+    if (self.transaction.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {
+        [self.transaction reloadItemFromIndexPath:fromIndexPath toIndexPath:toIndexPath];
     } else {
         [self.delegate listAdapterUpdater:self willReloadIndexPaths:@[fromIndexPath] collectionView:collectionView];
         [collectionView reloadItemsAtIndexPaths:@[fromIndexPath]];
+    }
+}
+
+- (void)reloadCollectionView:(UICollectionView *)collectionView sections:(NSIndexSet *)sections {
+    IGAssertMainThread();
+    IGParameterAssert(collectionView != nil);
+    IGParameterAssert(sections != nil);
+    if (self.transaction.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {
+        [self.transaction reloadSections:sections];
+    } else {
+        [self.delegate listAdapterUpdater:self willReloadSections:sections collectionView:collectionView];
+        [collectionView reloadSections:sections];
     }
 }
 
@@ -511,62 +293,6 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     } completion:^(BOOL finished) {
         [CATransaction commit];
     }];
-}
-
-- (void)reloadDataWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                   reloadUpdateBlock:(IGListReloadUpdateBlock)reloadUpdateBlock
-                          completion:(nullable IGListUpdatingCompletion)completion {
-    IGAssertMainThread();
-    IGParameterAssert(collectionViewBlock != nil);
-    IGParameterAssert(reloadUpdateBlock != nil);
-
-    [self.transactionBuilder addReloadDataWithCollectionViewBlock:collectionViewBlock
-                                                     reloadBlock:reloadUpdateBlock
-                                                      completion:completion];
-
-    [self _queueUpdateWithCollectionViewBlock:collectionViewBlock];
-}
-
-- (void)reloadCollectionView:(UICollectionView *)collectionView sections:(NSIndexSet *)sections {
-    IGAssertMainThread();
-    IGParameterAssert(collectionView != nil);
-    IGParameterAssert(sections != nil);
-    if (self.state == IGListBatchUpdateStateExecutingBatchUpdateBlock) {
-        [self.inUpdateItemCollector.sectionReloads addIndexes:sections];
-    } else {
-        [self.delegate listAdapterUpdater:self willReloadSections:sections collectionView:collectionView];
-        [collectionView reloadSections:sections];
-    }
-}
-
-#pragma mark - Helpers
-
-static void IGListAdapterUpdaterPerformBatchUpdate(UICollectionView *collectionView, BOOL animated, IGListAdapterUpdaterBlock updates, IGListAdapterUpdaterCompletionBlock completion) {
-    if (animated) {
-        [collectionView performBatchUpdates:updates completion:completion];
-    } else {
-        [UIView performWithoutAnimation:^{
-            [collectionView performBatchUpdates:updates completion:completion];
-        }];
-    }
-}
-
-static void IGListAdapterUpdaterPerformDiffing(NSArray<id<IGListDiffable>> *_Nullable oldArray,
-                                               NSArray<id<IGListDiffable>> *_Nullable newArray,
-                                               IGListDiffOption option,
-                                               BOOL onBackgroundThread,
-                                               IGListAdapterUpdaterDiffResultBlock completion) {
-    if (onBackgroundThread) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-            IGListIndexSetResult *result = IGListDiff(oldArray, newArray, option);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completion(result);
-            });
-        });
-    } else {
-        IGListIndexSetResult *result = IGListDiff(oldArray, newArray, option);
-        completion(result);
-    }
 }
 
 @end

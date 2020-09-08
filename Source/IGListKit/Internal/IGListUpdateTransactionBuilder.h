@@ -11,8 +11,10 @@
 #import <IGListKit/IGListUpdatingDelegate.h>
 #import <IGListKit/IGListUpdatingDelegateExperimental.h>
 
+#import "IGListUpdateTransactable.h"
+
+@protocol IGListAdapterUpdaterCompatible;
 @protocol IGListAdapterUpdaterDelegate;
-@protocol IGListAdapterUpdating;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -59,19 +61,13 @@ Completely reload data in the collection.
                                  reloadBlock:(IGListReloadUpdateBlock)reloadBlock
                                   completion:(nullable IGListUpdatingCompletion)completion;
 
-// Batch updates
-- (nullable IGListTransitionDataBlock)dataBlock;
-- (nullable IGListTransitionDataApplyBlock)applyDataBlock;
-- (NSMutableArray<IGListItemUpdateBlock> *)itemUpdateBlocks;
-- (BOOL)animated;
+/**
+ Build a transaction based on the changes addded.
+ */
+- (nullable id<IGListUpdateTransactable>)buildWithConfig:(IGListUpdateTransactationConfig)config
+                                                delegate:(nullable id<IGListAdapterUpdaterDelegate>)delegate
+                                                 updater:(id<IGListAdapterUpdaterCompatible>)updater;
 
-// Reload
-- (BOOL)hasReloadData;
-- (nullable IGListReloadUpdateBlock)reloadBlock;
-
-// Both
-- (nullable IGListCollectionViewBlock)collectionViewBlock;
-- (NSMutableArray<IGListUpdatingCompletion> *)completionBlocks;
 - (BOOL)hasChanges;
 
 @end

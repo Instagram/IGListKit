@@ -7,6 +7,9 @@
 
 #import "IGListUpdateTransactionBuilder.h"
 
+#import "IGListBatchUpdateTransaction.h"
+#import "IGListReloadTransaction.h"
+
 @interface IGListUpdateTransactionBuilder ()
 // Batch updates
 @property (nonatomic, copy, readwrite, nullable) IGListTransitionDataBlock dataBlock;
@@ -90,6 +93,38 @@
     return self.hasReloadData
     || self.itemUpdateBlocks.count > 0
     || self.dataBlock != nil;
+}
+
+- (nullable id<IGListUpdateTransactable>)buildWithConfig:(IGListUpdateTransactationConfig)config
+                                                delegate:(nullable id<IGListAdapterUpdaterDelegate>)delegate
+                                                 updater:(id<IGListAdapterUpdaterCompatible>)updater {
+    IGListCollectionViewBlock collectionViewBlock = _collectionViewBlock;
+    if (!collectionViewBlock) {
+        return nil;
+    }
+
+    if (_hasReloadData) {
+        IGListReloadUpdateBlock reloadBlock = self.reloadBlock;
+        if (!reloadBlock) {
+            return nil;
+        }
+        return [[IGListReloadTransaction alloc] initWithCollectionViewBlock:collectionViewBlock
+                                                                    updater:updater
+                                                                   delegate:delegate
+                                                                reloadBlock:reloadBlock
+                                                           itemUpdateBlocks:self.itemUpdateBlocks
+                                                           completionBlocks:self.completionBlocks];
+    } else {
+        return [[IGListBatchUpdateTransaction alloc] initWithCollectionViewBlock:collectionViewBlock
+                                                                         updater:updater
+                                                                        delegate:delegate
+                                                                          config:config
+                                                                        animated:self.animated
+                                                                       dataBlock:self.dataBlock
+                                                                  applyDataBlock:self.applyDataBlock
+                                                                itemUpdateBlocks:self.itemUpdateBlocks
+                                                                completionBlocks:self.completionBlocks];
+    }
 }
 
 @end
