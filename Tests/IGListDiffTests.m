@@ -11,7 +11,6 @@
 #import <XCTest/XCTest.h>
 
 #import <IGListDiffKit/IGListDiff.h>
-#import <IGListDiffKit/IGListExperiments.h>
 
 #import "IGListIndexSetResultInternal.h"
 #import "IGListMoveIndexInternal.h"

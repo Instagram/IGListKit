@@ -7,8 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import <IGListDiffKit/IGListExperiments.h>
-
 @class IGListBatchUpdateData;
 @class IGListBatchUpdates;
 @class IGListIndexSetResult;
@@ -26,7 +24,6 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
                                                                  IGListIndexSetResult *diffResult,
                                                                  IGListBatchUpdates *batchUpdates,
                                                                  NSArray<id<IGListDiffable>> *fromObjects,
-                                                                 IGListExperiment experiments,
                                                                  BOOL sectionMovesAsDeletesInserts,
                                                                  BOOL preferItemReloadsForSectionReloads);
 

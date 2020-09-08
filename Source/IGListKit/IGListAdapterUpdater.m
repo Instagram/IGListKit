@@ -226,7 +226,6 @@ typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
                                                                          result,
                                                                          self.batchUpdates,
                                                                          fromObjects,
-                                                                         experiments,
                                                                          self.sectionMovesAsDeletesInserts,
                                                                          self.preferItemReloadsForSectionReloads);
         }
@@ -303,7 +302,7 @@ willPerformBatchUpdatesWithCollectionView:collectionView
 
     const BOOL onBackgroundThread = IGListExperimentEnabled(experiments, IGListExperimentBackgroundDiffing);
     [delegate listAdapterUpdater:self willDiffFromObjects:fromObjects toObjects:toObjects];
-    IGListAdapterUpdaterPerformDiffing(fromObjects, toObjects, IGListDiffEquality, experiments, onBackgroundThread, ^(IGListIndexSetResult *result){
+    IGListAdapterUpdaterPerformDiffing(fromObjects, toObjects, IGListDiffEquality, onBackgroundThread, ^(IGListIndexSetResult *result){
         [delegate listAdapterUpdater:self didDiffWithResults:result onBackgroundThread:onBackgroundThread];
         tryToPerformUpdate(result);
     });
@@ -579,18 +578,17 @@ static void IGListAdapterUpdaterPerformBatchUpdate(UICollectionView *collectionV
 static void IGListAdapterUpdaterPerformDiffing(NSArray<id<IGListDiffable>> *_Nullable oldArray,
                                                NSArray<id<IGListDiffable>> *_Nullable newArray,
                                                IGListDiffOption option,
-                                               IGListExperiment experiments,
                                                BOOL onBackgroundThread,
                                                IGListAdapterUpdaterDiffResultBlock completion) {
     if (onBackgroundThread) {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-            IGListIndexSetResult *result = IGListDiffExperiment(oldArray, newArray, option, experiments);
+            IGListIndexSetResult *result = IGListDiff(oldArray, newArray, option);
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(result);
             });
         });
     } else {
-        IGListIndexSetResult *result = IGListDiffExperiment(oldArray, newArray, option, experiments);
+        IGListIndexSetResult *result = IGListDiff(oldArray, newArray, option);
         completion(result);
     }
 }
