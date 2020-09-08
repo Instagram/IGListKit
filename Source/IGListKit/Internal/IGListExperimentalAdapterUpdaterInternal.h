@@ -6,10 +6,12 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
 
 #import "IGListExperimentalAdapterUpdater.h"
 #import "IGListBatchUpdateState.h"
+
+@class IGListUpdateTransactionBuilder;
+@protocol IGListUpdateTransactable;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,6 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Force an update to start
 - (void)update;
+
+- (id<IGListUpdateTransactable>)transaction;
+- (IGListUpdateTransactionBuilder *)transactionBuilder;
+- (IGListUpdateTransactionBuilder *)lastTransactionBuilder;
 
 @end
 
