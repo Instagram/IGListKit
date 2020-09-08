@@ -8,7 +8,20 @@
 #import "IGListUpdateTransactionBuilder.h"
 
 #import "IGListBatchUpdateTransaction.h"
+#import "IGListDataSourceChangeTransaction.h"
 #import "IGListReloadTransaction.h"
+
+/**
+ Modes in ascending order of priority.
+ */
+typedef NS_ENUM (NSInteger, IGListUpdateTransactionBuilderMode) {
+    /// The lowest priority is a batch-update, because a reload or dataSource take care of any changes.
+    IGListUpdateTransactionBuilderModeBatchUpdate,
+    /// The second priority is reloading all data.
+    IGListUpdateTransactionBuilderModeReload,
+    /// The highest priority is changing the `UICollectionView` dataSource.
+    IGListUpdateTransactionBuilderModeDataSourceChange,
+};
 
 @interface IGListUpdateTransactionBuilder ()
 // Batch updates
@@ -17,9 +30,11 @@
 @property (nonatomic, strong, readonly) NSMutableArray<IGListItemUpdateBlock> *itemUpdateBlocks;
 @property (nonatomic, assign, readwrite) BOOL animated;
 // Reload
-@property (nonatomic, assign, readwrite) BOOL hasReloadData;
 @property (nonatomic, copy, readwrite, nullable) IGListReloadUpdateBlock reloadBlock;
+// DataSource change
+@property (nonatomic, copy, readwrite, nullable) IGListDataSourceChangeBlock dataSourceChangeBlock;
 // Both
+@property (nonatomic, assign, readwrite) IGListUpdateTransactionBuilderMode mode;
 @property (nonatomic, copy, readwrite, nullable) IGListCollectionViewBlock collectionViewBlock;
 @property (nonatomic, strong, readonly) NSMutableArray<IGListUpdatingCompletion> *completionBlocks;
 @end
@@ -42,6 +57,8 @@
                             dataBlock:(IGListTransitionDataBlock)dataBlock
                        applyDataBlock:(IGListTransitionDataApplyBlock)applyDataBlock
                            completion:(IGListUpdatingCompletion)completion {
+    self.mode = MAX(self.mode, IGListUpdateTransactionBuilderModeBatchUpdate);
+
     // disabled animations will always take priority
     // reset to YES in -cleanupState
     self.animated = self.animated && animated;
@@ -63,6 +80,8 @@
                collectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
                        itemUpdates:(IGListItemUpdateBlock)itemUpdates
                         completion:(nullable IGListUpdatingCompletion)completion {
+    self.mode = MAX(self.mode, IGListUpdateTransactionBuilderModeBatchUpdate);
+
     // disabled animations will always take priority
     // reset to YES in -cleanupState
     self.animated = self.animated && animated;
@@ -79,7 +98,8 @@
 - (void)addReloadDataWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
                                  reloadBlock:(IGListReloadUpdateBlock)reloadBlock
                                   completion:(nullable IGListUpdatingCompletion)completion {
-    self.hasReloadData = YES;
+    self.mode = MAX(self.mode, IGListUpdateTransactionBuilderModeReload);
+
     self.collectionViewBlock = collectionViewBlock;
     self.reloadBlock = reloadBlock;
 
@@ -89,42 +109,84 @@
     }
 }
 
-- (BOOL)hasChanges {
-    return self.hasReloadData
-    || self.itemUpdateBlocks.count > 0
-    || self.dataBlock != nil;
+- (void)addDataSourceChange:(IGListDataSourceChangeBlock)block {
+    self.mode = MAX(self.mode, IGListUpdateTransactionBuilderModeDataSourceChange);
+
+    self.dataSourceChangeBlock = block;
+}
+
+- (void)addChangesFromBuilder:(IGListUpdateTransactionBuilder *)builder {
+    if (!builder) {
+        return;
+    }
+
+    self.mode = MAX(self.mode, builder.mode);
+
+    // Section update
+    self.animated = self.animated && builder.animated;
+    self.dataBlock = self.dataBlock ?: builder.dataBlock;
+    self.applyDataBlock = self.applyDataBlock ?: builder.applyDataBlock;
+
+    // Item updates
+    [self.itemUpdateBlocks addObjectsFromArray:builder.itemUpdateBlocks];
+
+    // Reload
+    self.reloadBlock = self.reloadBlock ?: builder.reloadBlock;
+
+    // All
+    self.collectionViewBlock = self.collectionViewBlock ?: builder.collectionViewBlock;
+    [self.completionBlocks addObjectsFromArray:builder.completionBlocks];
 }
 
 - (nullable id<IGListUpdateTransactable>)buildWithConfig:(IGListUpdateTransactationConfig)config
                                                 delegate:(nullable id<IGListAdapterUpdaterDelegate>)delegate
                                                  updater:(id<IGListAdapterUpdaterCompatible>)updater {
-    IGListCollectionViewBlock collectionViewBlock = _collectionViewBlock;
+    IGListCollectionViewBlock collectionViewBlock = self.collectionViewBlock;
     if (!collectionViewBlock) {
         return nil;
     }
 
-    if (_hasReloadData) {
-        IGListReloadUpdateBlock reloadBlock = self.reloadBlock;
-        if (!reloadBlock) {
-            return nil;
+    switch (self.mode) {
+        case IGListUpdateTransactionBuilderModeBatchUpdate: {
+            return [[IGListBatchUpdateTransaction alloc] initWithCollectionViewBlock:collectionViewBlock
+                                                                             updater:updater
+                                                                            delegate:delegate
+                                                                              config:config
+                                                                            animated:self.animated
+                                                                           dataBlock:self.dataBlock
+                                                                      applyDataBlock:self.applyDataBlock
+                                                                    itemUpdateBlocks:self.itemUpdateBlocks
+                                                                    completionBlocks:self.completionBlocks];
         }
-        return [[IGListReloadTransaction alloc] initWithCollectionViewBlock:collectionViewBlock
-                                                                    updater:updater
-                                                                   delegate:delegate
-                                                                reloadBlock:reloadBlock
-                                                           itemUpdateBlocks:self.itemUpdateBlocks
-                                                           completionBlocks:self.completionBlocks];
-    } else {
-        return [[IGListBatchUpdateTransaction alloc] initWithCollectionViewBlock:collectionViewBlock
-                                                                         updater:updater
-                                                                        delegate:delegate
-                                                                          config:config
-                                                                        animated:self.animated
-                                                                       dataBlock:self.dataBlock
-                                                                  applyDataBlock:self.applyDataBlock
-                                                                itemUpdateBlocks:self.itemUpdateBlocks
-                                                                completionBlocks:self.completionBlocks];
+        case IGListUpdateTransactionBuilderModeReload: {
+            IGListReloadUpdateBlock reloadBlock = self.reloadBlock;
+            if (!reloadBlock) {
+                return nil;
+            }
+            return [[IGListReloadTransaction alloc] initWithCollectionViewBlock:collectionViewBlock
+                                                                        updater:updater
+                                                                       delegate:delegate
+                                                                    reloadBlock:reloadBlock
+                                                               itemUpdateBlocks:self.itemUpdateBlocks
+                                                               completionBlocks:self.completionBlocks];
+        }
+        case IGListUpdateTransactionBuilderModeDataSourceChange: {
+            IGListDataSourceChangeBlock dataSourceChangeBlock = self.dataSourceChangeBlock;
+            if (!dataSourceChangeBlock) {
+                return nil;
+            }
+            return [[IGListDataSourceChangeTransaction alloc] initWithChangeBlock:dataSourceChangeBlock
+                                                                 itemUpdateBlocks:self.itemUpdateBlocks
+                                                                 completionBlocks:self.completionBlocks];
+        }
     }
+}
+
+- (BOOL)hasChanges {
+    return self.mode == IGListUpdateTransactionBuilderModeReload
+    || self.mode == IGListUpdateTransactionBuilderModeDataSourceChange
+    || self.itemUpdateBlocks.count > 0
+    || self.dataBlock != nil;
 }
 
 @end

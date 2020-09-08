@@ -28,6 +28,9 @@ typedef struct {
 /// Begin the transaction. We expect all completion blocks to be called once finished.
 - (void)begin;
 
+/// Cancel any on going updates.
+- (BOOL)cancel;
+
 /// Current state of the transaction
 - (IGListBatchUpdateState)state;
 

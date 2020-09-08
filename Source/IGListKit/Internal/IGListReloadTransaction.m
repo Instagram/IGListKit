@@ -93,6 +93,13 @@
     self.state = IGListBatchUpdateStateIdle;
 }
 
+#pragma mark - Cancel
+
+- (BOOL)cancel {
+    // This transaction is syncronous
+    return NO;
+}
+
 #pragma mark - Item updates
 
 - (void)insertItemsAtIndexPaths:(NSArray <NSIndexPath *> *)indexPaths {

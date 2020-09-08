@@ -62,6 +62,20 @@ Completely reload data in the collection.
                                   completion:(nullable IGListUpdatingCompletion)completion;
 
 /**
+Change the `UICollectionView` dataSource
+
+@param block A block that applies a `UICollectionView` dataSource change
+*/
+- (void)addDataSourceChange:(IGListDataSourceChangeBlock)block;
+
+/**
+ Add the changes from another builder.
+
+@param builder Add the changes from this builder
+*/
+- (void)addChangesFromBuilder:(IGListUpdateTransactionBuilder *)builder;
+
+/**
  Build a transaction based on the changes addded.
  */
 - (nullable id<IGListUpdateTransactable>)buildWithConfig:(IGListUpdateTransactationConfig)config
