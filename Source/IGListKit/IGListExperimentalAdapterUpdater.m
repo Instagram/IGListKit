@@ -11,10 +11,10 @@
 #import <IGListDiffKit/IGListAssert.h>
 
 #import "IGListAdapterUpdaterHelpers.h"
-#import "IGListArrayUtilsInternal.h"
 #import "IGListIndexSetResultInternal.h"
 #import "IGListMoveIndexPathInternal.h"
 #import "IGListReloadIndexPath.h"
+#import "IGListTransitionData.h"
 #import "UICollectionView+IGListBatchUpdateData.h"
 
 typedef void (^IGListAdapterUpdaterDiffResultBlock)(IGListIndexSetResult *);
@@ -50,8 +50,7 @@ typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
 - (BOOL)hasChanges {
     return self.hasQueuedReloadData
     || [self.batchUpdates hasChanges]
-    || self.fromObjects != nil
-    || self.toObjectsBlock != nil;
+    || self.dataBlock != nil;
 }
 
 - (void)performReloadDataWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock {
@@ -118,10 +117,9 @@ typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
 
     // create local variables so we can immediately clean our state but pass these items into the batch update block
     id<IGListAdapterUpdaterDelegate> delegate = self.delegate;
-    NSArray *fromObjects = [self.fromObjects copy];
-    IGListToObjectBlock toObjectsBlock = [self.toObjectsBlock copy];
+    IGListTransitionDataBlock dataBlock = [self.dataBlock copy];
+    IGListTransitionDataApplyBlock applyDataBlock = [self.applyDataBlock copy];
     NSMutableArray *completionBlocks = [self.completionBlocks mutableCopy];
-    void (^objectTransitionBlock)(NSArray *) = [self.objectTransitionBlock copy];
     const BOOL animated = self.queuedUpdateIsAnimated;
     const BOOL allowsReloadingOnTooManyUpdates = self.allowsReloadingOnTooManyUpdates;
     const IGListExperiment experiments = self.experiments;
@@ -148,10 +146,15 @@ typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
         return;
     }
 
-    NSArray *toObjects = nil;
-    if (toObjectsBlock != nil) {
-        toObjects = objectsWithDuplicateIdentifiersRemoved(toObjectsBlock());
+
+    IGListTransitionData *data = nil;
+    if (dataBlock != nil) {
+        data = dataBlock();
     }
+
+    NSArray *toObjects = data.toObjects;
+    NSArray *fromObjects = data.fromObjects;
+
 #ifdef DEBUG
     for (id obj in toObjects) {
         IGAssert([obj conformsToProtocol:@protocol(IGListDiffable)],
@@ -167,8 +170,8 @@ typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
         // run the update block so that the adapter can set its items. this makes sure that just before the update is
         // committed that the data source is updated to the /latest/ "toObjects". this makes the data source in sync
         // with the items that the updater is transitioning to
-        if (objectTransitionBlock != nil) {
-            objectTransitionBlock(toObjects);
+        if (applyDataBlock != nil && data != nil) {
+            applyDataBlock(data);
         }
 
         // execute each item update block which should make calls like insert, delete, and reload for index paths
@@ -189,7 +192,6 @@ typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
         [delegate listAdapterUpdater:self willReloadDataWithCollectionView:collectionView isFallbackReload:YES];
         executeUpdateBlocks();
         [self _cleanStateAfterUpdates];
-        [self _performBatchUpdatesItemBlockApplied];
         [collectionView reloadData];
         [collectionView layoutIfNeeded];
         executeCompletionBlocks(YES);
@@ -201,7 +203,7 @@ typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
     };
 
     // disables multiple performBatchUpdates: from happening at the same time
-    [self _beginPerformBatchUpdatesToObjects:toObjects];
+    self.state = IGListBatchUpdateStateQueuedBatchUpdate;
 
     // if the collection view isn't in a visible window, skip diffing and batch updating. execute all transition blocks,
     // reload data, execute completion blocks, and get outta here
@@ -239,7 +241,6 @@ typedef void (^IGListAdapterUpdaterCompletionBlock)(BOOL);
         }
 
         [self _cleanStateAfterUpdates];
-        [self _performBatchUpdatesItemBlockApplied];
     };
 
     // block used as the second param of -[UICollectionView performBatchUpdates:completion:]
@@ -312,28 +313,18 @@ willPerformBatchUpdatesWithCollectionView:collectionView
     });
 }
 
-- (void)_beginPerformBatchUpdatesToObjects:(NSArray *)toObjects {
-    self.pendingTransitionToObjects = toObjects;
-    self.state = IGListBatchUpdateStateQueuedBatchUpdate;
-}
-
-- (void)_performBatchUpdatesItemBlockApplied {
-    self.pendingTransitionToObjects = nil;
-}
-
 - (void)cleanStateBeforeUpdates {
     self.queuedUpdateIsAnimated = YES;
 
     // destroy to/from transition items
-    self.fromObjects = nil;
-    self.toObjectsBlock = nil;
+    self.dataBlock = nil;
 
     // destroy reloadData state
     self.reloadUpdates = nil;
     self.queuedReloadData = NO;
 
     // remove indexpath/item changes
-    self.objectTransitionBlock = nil;
+    self.applyDataBlock = nil;
 
     // removes all object completion blocks. done before updates to start collecting completion blocks for coalesced
     // or re-entrant object updates
@@ -395,24 +386,29 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
                                animated:(BOOL)animated
                   objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
                              completion:(IGListUpdatingCompletion)completion {
+    IGFailAssert(@"IGListExperimentalAdapterUpdater works with IGListUpdatingDelegateExperimental and doesn't implement the regular -performUpdateWithCollectionViewBlock method");
+    completion(NO);
+}
+
+- (void)performExperimentalUpdateAnimated:(BOOL)animated
+                     collectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
+                               dataBlock:(IGListTransitionDataBlock)dataBlock
+                          applyDataBlock:(IGListTransitionDataApplyBlock)applyDataBlock
+                              completion:(IGListUpdatingCompletion)completion {
     IGAssertMainThread();
     IGParameterAssert(collectionViewBlock != nil);
-    IGParameterAssert(objectTransitionBlock != nil);
+    IGParameterAssert(dataBlock != nil);
+    IGParameterAssert(applyDataBlock != nil);
 
-    // only update the items that we are coming from if it has not been set
-    // this allows multiple updates to be called while an update is already in progress, and the transition from > to
-    // will be done on the first "fromObjects" received and the last "toObjects"
-    // if performBatchUpdates: hasn't applied the update block, then data source hasn't transitioned its state. if an
-    // update is queued in between then we must use the pending toObjects
-    self.fromObjects = self.fromObjects ?: self.pendingTransitionToObjects ?: fromObjects;
-    self.toObjectsBlock = toObjectsBlock;
+    // will call the dataBlock after the dispatch
+    self.dataBlock = dataBlock;
+
+    // always use the last update block, even though this should always do the exact same thing
+    self.applyDataBlock = applyDataBlock;
 
     // disabled animations will always take priority
     // reset to YES in -cleanupState
     self.queuedUpdateIsAnimated = self.queuedUpdateIsAnimated && animated;
-
-    // always use the last update block, even though this should always do the exact same thing
-    self.objectTransitionBlock = objectTransitionBlock;
 
     IGListUpdatingCompletion localCompletion = completion;
     if (localCompletion) {
@@ -421,6 +417,7 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
 
     [self _queueUpdateWithCollectionViewBlock:collectionViewBlock];
 }
+
 
 - (void)performUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
                                animated:(BOOL)animated

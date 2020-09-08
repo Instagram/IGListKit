@@ -393,7 +393,7 @@
         if (strongSelf == nil) {
             return nil;
         }
-        NSArray *toObjects = [dataSource objectsForListAdapter:strongSelf];
+        NSArray *toObjects = objectsWithDuplicateIdentifiersRemoved([dataSource objectsForListAdapter:strongSelf]);
         return [strongSelf _generateTransitionDataWithObjects:toObjects dataSource:dataSource];
     };
 
