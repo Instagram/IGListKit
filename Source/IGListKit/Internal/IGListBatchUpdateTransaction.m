@@ -172,8 +172,11 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
     // `performBatchUpdates` right after.
     const BOOL skipPerformUpdateIfPossible = IGListExperimentEnabled(self.config.experiments, IGListExperimentSkipPerformUpdateIfPossible);
     if (skipPerformUpdateIfPossible) {
-        // Force the `UICollectionView` data to sync before applying any new updates.
-        [self.collectionView numberOfSections];
+        // From Apple docs: If the collection view's layout is not up to date before you call performBatchUpdates, a reload may
+        // occur. To avoid problems, you should update your data model inside the updates block or ensure the layout is
+        // updated before you call performBatchUpdates(_:completion:).
+        [self.collectionView layoutIfNeeded];
+
         [self _applyDataUpdates];
 
         if (!diffResult.hasChanges && !self.inUpdateItemCollector.hasChanges) {
