@@ -33,7 +33,7 @@ NS_SWIFT_NAME(ListGenericSectionController)
 
  @note This `IGListSectionController` subclass sets its object in this method, so any overrides **must call super**.
  */
-- (void)didUpdateToObject:(id)object NS_REQUIRES_SUPER;
+- (void)didUpdateToObject:(ObjectType)object NS_REQUIRES_SUPER;
 
 @end
 
