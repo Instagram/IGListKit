@@ -147,8 +147,13 @@ NS_SWIFT_NAME(ListSectionController)
  A context object for interacting with the collection.
 
  Use this property for accessing the collection size, dequeuing cells, reloading, inserting, deleting, etc.
+
+ @note When created outside of `-listAdapter:sectionControllerForObject:`, this object is temporarily `nil`
+ after initialization. We bridge it to Swift as an implicitly-unwrapped Optional, so that idiomatic IGListKit
+ code is not forced to handle nullability with explicit `as!` or `fatalError`, as using a non-`nil` instance
+ of this object is essential for dequeueing cells.
  */
-@property (nonatomic, weak, nullable, readonly) id <IGListCollectionContext> collectionContext;
+@property (nonatomic, weak, null_unspecified, readonly) id <IGListCollectionContext> collectionContext;
 
 /**
  Returns the section within the list for this section controller.

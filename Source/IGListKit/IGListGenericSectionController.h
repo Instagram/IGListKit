@@ -22,9 +22,10 @@ NS_SWIFT_NAME(ListGenericSectionController)
  returned.
 
  @note This object is briefly `nil` between initialization and the first call to `didUpdateToObject:`. After that, it is
- safe to assume that this is non-`nil`.
+ safe to assume that this is non-`nil`. For this reason, we bridge it to Swift as an implicitly-unwrapped Optional, so
+ that idiomatic IGListKit code is not forced to handle nullability with explicit `as!` or `fatalError`.
  */
-@property (nonatomic, strong, nullable, readonly) ObjectType object;
+@property (nonatomic, strong, null_unspecified, readonly) ObjectType object;
 
 /**
  Updates the section controller to a new object.
