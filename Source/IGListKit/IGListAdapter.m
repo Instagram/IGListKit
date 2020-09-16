@@ -1271,6 +1271,17 @@
 
 - (void)invalidateLayoutForSectionController:(IGListSectionController *)sectionController
                                   completion:(void (^)(BOOL finished))completion {
+    __weak __typeof__(self) weakSelf = self;
+
+    // do not call -[UICollectionView performBatchUpdates:completion:] while already updating. defer it until completed.
+    [self _deferBlockBetweenBatchUpdates:^{
+        // Note that we calculate the `NSIndexPaths` after the batch update, otherwise they're be wrong.
+        [weakSelf _invalidateLayoutForSectionController:sectionController completion:completion];
+    }];
+}
+
+- (void)_invalidateLayoutForSectionController:(IGListSectionController *)sectionController
+                                   completion:(void (^)(BOOL finished))completion {
     const NSInteger section = [self sectionForSectionController:sectionController];
     if (section == NSNotFound) {
         // The section controller is not in the map, which can happen if the associated object was deleted or after a full reload.
@@ -1291,14 +1302,9 @@
     UICollectionViewLayoutInvalidationContext *context = [[[layout.class invalidationContextClass] alloc] init];
     [context invalidateItemsAtIndexPaths:indexPaths];
 
-    __weak __typeof__(_collectionView) weakCollectionView = _collectionView;
-
-    // do not call -[UICollectionView performBatchUpdates:completion:] while already updating. defer it until completed.
-    [self _deferBlockBetweenBatchUpdates:^{
-        [weakCollectionView performBatchUpdates:^{
-            [layout invalidateLayoutWithContext:context];
-        } completion:completion];
-    }];
+    [_collectionView performBatchUpdates:^{
+        [layout invalidateLayoutWithContext:context];
+    } completion:completion];
 }
 
 #pragma mark - IGListBatchContext
