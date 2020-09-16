@@ -1597,6 +1597,39 @@
     }];
 }
 
+- (void)test_whenInvalidatingInsideBatchUpdate_andRemoveThatSectionController_thatCollectionViewDoesntCrash {
+    IGTestObject *foo = genTestObject(@1, @"Foo");
+    IGTestObject *bar = genTestObject(@0, @"Bar");
+    self.dataSource.objects = @[foo, bar];
+
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
+    [self.window addSubview:collectionView];
+    IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
+    adapter.dataSource = self.dataSource;
+    adapter.collectionView = collectionView;
+    [collectionView layoutIfNeeded];
+
+    IGTestDelegateController *sectionToRemove = [adapter sectionControllerForObject:bar];
+
+    self.dataSource.objects = @[foo];
+
+    XCTestExpectation *expectation = genExpectation;
+    [adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertTrue(finished);
+        [expectation fulfill];
+    }];
+
+    XCTestExpectation *expectation2 = genExpectation;
+    [sectionToRemove.collectionContext invalidateLayoutForSectionController:sectionToRemove completion:^(BOOL finished) {
+        // That section-controller is about to be removed, so this should not finish.
+        XCTAssertFalse(finished);
+        [expectation2 fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
 - (void)test_whenAddingMultipleUpdateListeners_withPerformUpdatesAnimated_thatEventsReceived {
     [self setupWithObjects:@[
                              genTestObject(@1, @1)
