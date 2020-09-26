@@ -17,12 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = UINavigationController(rootViewController: DemosViewController())
         window?.makeKeyAndVisible()
-        if #available(iOS 13.0, *) {
-            UICollectionView.appearance().backgroundColor = .systemBackground
-        } else {
-            UICollectionView.appearance().backgroundColor = .white
-        }
-
+        UICollectionView.appearance().backgroundColor = UIColor.background
         return true
     }
 

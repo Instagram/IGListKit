@@ -28,11 +28,7 @@ final class SpinnerCell: UICollectionViewCell {
 
     lazy var activityIndicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView()
-        if #available(iOS 13.0, *) {
-            view.style = .medium
-        } else {
-            view.style = .gray
-        }
+        view.style = UIActivityIndicatorView.defaultStyle
         self.contentView.addSubview(view)
         return view
     }()

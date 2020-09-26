@@ -13,21 +13,13 @@ final class ImageCell: UICollectionViewCell {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
-        if #available(iOS 13.0, *) {
-            view.backgroundColor = .secondarySystemBackground
-        } else {
-            view.backgroundColor = UIColor(white: 0.95, alpha: 1)
-        }
+        view.backgroundColor = UIColor.secondaryBackground
         return view
     }()
 
     fileprivate let activityView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView()
-        if #available(iOS 13.0, *) {
-            view.style = .medium
-        } else {
-            view.style = .gray
-        }
+        view.style = UIActivityIndicatorView.defaultStyle
         view.startAnimating()
         return view
     }()

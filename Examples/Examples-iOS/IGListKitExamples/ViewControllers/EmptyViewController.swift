@@ -16,11 +16,7 @@ final class EmptyViewController: UIViewController, ListAdapterDataSource, Remove
 
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        if #available(iOS 13.0, *) {
-            collectionView.backgroundColor = .secondarySystemBackground
-        } else {
-            collectionView.backgroundColor = .lightGray
-        }
+        collectionView.backgroundColor = UIColor.secondaryBackground
         return collectionView
     }()
 
