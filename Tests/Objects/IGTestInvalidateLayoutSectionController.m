@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -7,10 +7,10 @@
 
 #import "IGTestInvalidateLayoutSectionController.h"
 
-#import "IGTestInvalidateLayoutObject.h"
-#import "IGTestCell.h"
-#import "IGTestObject.h"
 #import "IGLayoutTestItem.h"
+#import "IGTestCell.h"
+#import "IGTestInvalidateLayoutObject.h"
+#import "IGTestObject.h"
 
 @implementation IGTestInvalidateLayoutSectionController
 

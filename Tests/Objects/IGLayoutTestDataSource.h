@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -11,7 +11,7 @@
 
 @interface IGLayoutTestDataSource : NSObject <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
 
-@property (nonatomic, strong) NSArray<IGLayoutTestSection *> *sections;
+@property (nonatomic, copy) NSArray<IGLayoutTestSection *> *sections;
 
 // call before using as the data source so cells and headers are configured
 - (void)configCollectionView:(UICollectionView *)collectionView;

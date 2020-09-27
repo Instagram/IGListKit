@@ -5,113 +5,147 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import Code = require('../code');
-import Error = require('../error');
-import FileWriter = require('../file-writer');
-import FunctionUtils = require('../function-utils');
-import IGListDiffableUtils = require ('./iglistdiffable-utils');
-import Maybe = require('../maybe');
-import ObjC = require('../objc');
-import ObjectSpec = require('../object-spec');
-import ObjectSpecUtils = require('../object-spec-utils');
+import * as Code from '../code';
+import * as Error from '../error';
+import * as FileWriter from '../file-writer';
+import * as IGListDiffableUtils from './iglistdiffable-utils';
+import * as Maybe from '../maybe';
+import * as ObjC from '../objc';
+import * as ObjectSpec from '../object-spec';
 
-function diffIdentiferAttributeFilter(attribute:ObjectSpec.Attribute, index, array):boolean {
-  return (attribute.annotations["diffIdentifier"] != null);
+function diffIdentiferAttributeFilter(
+  attribute: ObjectSpec.Attribute,
+  index,
+  array,
+): boolean {
+  return attribute.annotations['diffIdentifier'] != null;
 }
 
-function diffIdentifierMethodImplementation(objectType:ObjectSpec.Type):string[] {
-  const diffIdentifierAttributes:ObjectSpec.Attribute[] = objectType.attributes.filter(diffIdentiferAttributeFilter);
+function diffIdentifierMethodImplementation(
+  objectType: ObjectSpec.Type,
+): string[] {
+  const diffIdentifierAttributes: ObjectSpec.Attribute[] = objectType.attributes.filter(
+    diffIdentiferAttributeFilter,
+  );
   if (diffIdentifierAttributes.length > 0) {
     // use first marked attribute as identifier, if available
-    return ['return ' + IGListDiffableUtils.objectValueForAttribute(diffIdentifierAttributes[0]) + ';']
+    return [
+      'return ' +
+        IGListDiffableUtils.objectValueForAttribute(
+          diffIdentifierAttributes[0],
+        ) +
+        ';',
+    ];
   } else {
     // fallback/default to self
     return ['return self;'];
   }
 }
 
-function diffIdentifierMethod(objectType:ObjectSpec.Type):ObjC.Method {
+function diffIdentifierMethod(objectType: ObjectSpec.Type): ObjC.Method {
   return {
-    preprocessors:[],
-    belongsToProtocol:Maybe.Just<string>('IGListDiffable'),
+    preprocessors: [],
+    belongsToProtocol: Maybe.Just<string>('IGListDiffable'),
     code: diffIdentifierMethodImplementation(objectType),
-    comments:[],
-    compilerAttributes:[],
+    comments: [],
+    compilerAttributes: [],
     keywords: [
       {
         name: 'diffIdentifier',
-        argument: Maybe.Nothing<ObjC.KeywordArgument>()
-      }
+        argument: Maybe.Nothing<ObjC.KeywordArgument>(),
+      },
     ],
-    returnType: { type: Maybe.Just({
-      name: 'NSObject',
-      reference: 'id<NSObject>'
-    }), modifiers: [] }
-  }
+    returnType: {
+      type: Maybe.Just({
+        name: 'NSObject',
+        reference: 'id<NSObject>',
+      }),
+      modifiers: [],
+    },
+  };
 }
 
-export function createPlugin():ObjectSpec.Plugin {
+export function createPlugin(): ObjectSpec.Plugin {
   return {
-    additionalFiles: function(objectType:ObjectSpec.Type):Code.File[] {
+    additionalFiles: function(objectType: ObjectSpec.Type): Code.File[] {
       return [];
     },
-    additionalTypes: function(objectType:ObjectSpec.Type):ObjectSpec.Type[] {
+    transformBaseFile: function(
+      objectType: ObjectSpec.Type,
+      baseFile: Code.File,
+    ): Code.File {
+      return baseFile;
+    },
+    additionalTypes: function(objectType: ObjectSpec.Type): ObjectSpec.Type[] {
       return [];
     },
-    attributes: function(objectType:ObjectSpec.Type):ObjectSpec.Attribute[] {
+    attributes: function(objectType: ObjectSpec.Type): ObjectSpec.Attribute[] {
       return [];
     },
-    classMethods: function(objectType:ObjectSpec.Type):ObjC.Method[] {
+    classMethods: function(objectType: ObjectSpec.Type): ObjC.Method[] {
       return [];
     },
-    fileTransformation: function(request:FileWriter.Request):FileWriter.Request {
+    transformFileRequest: function(
+      request: FileWriter.Request,
+    ): FileWriter.Request {
       return request;
     },
-    fileType: function(objectType:ObjectSpec.Type):Maybe.Maybe<Code.FileType> {
+    fileType: function(
+      objectType: ObjectSpec.Type,
+    ): Maybe.Maybe<Code.FileType> {
       return Maybe.Nothing<Code.FileType>();
     },
-    forwardDeclarations: function(objectType:ObjectSpec.Type):ObjC.ForwardDeclaration[] {
+    forwardDeclarations: function(
+      objectType: ObjectSpec.Type,
+    ): ObjC.ForwardDeclaration[] {
       return [];
     },
-    functions: function(objectType:ObjectSpec.Type):ObjC.Function[] {
+    functions: function(objectType: ObjectSpec.Type): ObjC.Function[] {
       return [];
     },
-    headerComments: function(objectType:ObjectSpec.Type):ObjC.Comment[] {
+    headerComments: function(objectType: ObjectSpec.Type): ObjC.Comment[] {
       return [];
     },
-    implementedProtocols: function(objectType:ObjectSpec.Type):ObjC.Protocol[] {
+    implementedProtocols: function(
+      objectType: ObjectSpec.Type,
+    ): ObjC.Protocol[] {
+      return [{name: 'IGListDiffable'}];
+    },
+    imports: function(objectType: ObjectSpec.Type): ObjC.Import[] {
       return [
-        { name: 'IGListDiffable' },
+        {
+          file: 'IGListDiffable.h',
+          isPublic: true,
+          requiresCPlusPlus: false,
+          library: Maybe.Just('IGListKit'),
+        },
       ];
     },
-    imports: function(objectType:ObjectSpec.Type):ObjC.Import[] {
-      return [
-        {file:'IGListDiffable.h', isPublic:true, library:Maybe.Just('IGListKit')},
-      ];
-    },
-    instanceMethods: function(objectType:ObjectSpec.Type):ObjC.Method[] {
+    instanceMethods: function(objectType: ObjectSpec.Type): ObjC.Method[] {
       return [
         IGListDiffableUtils.isEqualToDiffableObjectMethod(),
-        diffIdentifierMethod(objectType)
+        diffIdentifierMethod(objectType),
       ];
     },
-    macros: function(valueType:ObjectSpec.Type):ObjC.Macro[] {
+    macros: function(valueType: ObjectSpec.Type): ObjC.Macro[] {
       return [];
     },
-    properties: function(objectType:ObjectSpec.Type):ObjC.Property[] {
+    properties: function(objectType: ObjectSpec.Type): ObjC.Property[] {
       return [];
     },
-    requiredIncludesToRun:['IGListDiffable'],
-    staticConstants: function(objectType:ObjectSpec.Type):ObjC.Constant[] {
+    requiredIncludesToRun: ['IGListDiffable'],
+    staticConstants: function(objectType: ObjectSpec.Type): ObjC.Constant[] {
       return [];
     },
-    validationErrors: function(objectType:ObjectSpec.Type):Error.Error[] {
+    validationErrors: function(objectType: ObjectSpec.Type): Error.Error[] {
       return [];
     },
-    nullability: function(objectType:ObjectSpec.Type):Maybe.Maybe<ObjC.ClassNullability> {
+    nullability: function(
+      objectType: ObjectSpec.Type,
+    ): Maybe.Maybe<ObjC.ClassNullability> {
       return Maybe.Nothing<ObjC.ClassNullability>();
     },
-    subclassingRestricted: function(objectType:ObjectSpec.Type):boolean {
+    subclassingRestricted: function(objectType: ObjectSpec.Type): boolean {
       return false;
     },
   };

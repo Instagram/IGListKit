@@ -56,8 +56,13 @@ jobs:
   include:
     - stage: pod lint
       name: Cocoapods Lint
-      script: bundle exec pod lib lint
-
+      # We need to pass all of the podspecs here so that Cocoapods uses the local version,
+      # rather than searching the specs repository for the other specs in the repo.
+      script: 
+        - bundle exec pod lib lint IGListDiffKit.podspec --allow-warnings
+        - bundle exec pod lib lint IGListKit.podspec --allow-warnings "--include-podspecs=IGListDiffKit.podspec"
+        - bundle exec pod lib lint IGListSwiftKit.podspec --allow-warnings "--include-podspecs=*.podspec"
+        
     # Build example projects
     - &build-examples
       stage: build examples
@@ -129,4 +134,3 @@ stages:
   - build examples
   - tests
   - danger
-

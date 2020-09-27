@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -15,6 +15,6 @@
 
 @interface IGTestDiffingDataSource : NSObject <IGListTestCaseDataSource>
 
-@property (nonatomic, strong) NSArray<IGTestDiffingObject *> *objects;
+@property (nonatomic, copy) NSArray<IGTestDiffingObject *> *objects;
 
 @end

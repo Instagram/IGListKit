@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -6,19 +6,20 @@
  */
 
 #import <XCTest/XCTest.h>
+
 #import <OCMock/OCMock.h>
 
 #import <IGListKit/IGListKit.h>
 
 #import "IGListAdapterInternal.h"
+#import "IGListAdapterUpdateTester.h"
+#import "IGListTestCase.h"
+#import "IGListTestHelpers.h"
 #import "IGListTestOffsettingLayout.h"
 #import "IGTestCell.h"
 #import "IGTestDelegateController.h"
 #import "IGTestDelegateDataSource.h"
 #import "IGTestObject.h"
-#import "IGListTestCase.h"
-#import "IGListAdapterUpdateTester.h"
-#import "IGListTestHelpers.h"
 
 @interface IGListAdapterE2ETests : IGListTestCase
 @end
@@ -242,7 +243,7 @@
 
     IGTestObject *object = self.dataSource.objects[0];
     IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
-    
+
     XCTestExpectation *expectation = genExpectation;
     [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
         object.value = @3;
@@ -260,13 +261,13 @@
                              genTestObject(@1, @2),
                              genTestObject(@2, @2)
                              ]];
-    
+
     IGTestObject *object = self.dataSource.objects[0];
     IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
-    
+
     // Prefer to use item reloads for section reloads if available.
     [(IGListAdapterUpdater *)self.adapter.updater setPreferItemReloadsForSectionReloads:YES];
-    
+
     XCTestExpectation *expectation = genExpectation;
     [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
         object.value = @3;
@@ -1532,8 +1533,6 @@
     // init empty
     [self setupWithObjects:@[]];
 
-    ((IGListAdapterUpdater *)self.updater).experiments = IGListExperimentReloadDataFallback;
-
     NSMutableArray *objects = [NSMutableArray new];
     for (NSInteger i = 0; i < 3000; i++) {
         [objects addObject:genTestObject(@(i + 1), @4)];
@@ -1596,6 +1595,39 @@
         XCTAssertTrue(executedItemUpdate);
         XCTAssertNil(weakAdapter);
     }];
+}
+
+- (void)test_whenInvalidatingInsideBatchUpdate_andRemoveThatSectionController_thatCollectionViewDoesntCrash {
+    IGTestObject *foo = genTestObject(@1, @"Foo");
+    IGTestObject *bar = genTestObject(@0, @"Bar");
+    self.dataSource.objects = @[foo, bar];
+
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
+    [self.window addSubview:collectionView];
+    IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
+    adapter.dataSource = self.dataSource;
+    adapter.collectionView = collectionView;
+    [collectionView layoutIfNeeded];
+
+    IGTestDelegateController *sectionToRemove = [adapter sectionControllerForObject:bar];
+
+    self.dataSource.objects = @[foo];
+
+    XCTestExpectation *expectation = genExpectation;
+    [adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertTrue(finished);
+        [expectation fulfill];
+    }];
+
+    XCTestExpectation *expectation2 = genExpectation;
+    [sectionToRemove.collectionContext invalidateLayoutForSectionController:sectionToRemove completion:^(BOOL finished) {
+        // That section-controller is about to be removed, so this should not finish.
+        XCTAssertFalse(finished);
+        [expectation2 fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 - (void)test_whenAddingMultipleUpdateListeners_withPerformUpdatesAnimated_thatEventsReceived {
@@ -1840,7 +1872,6 @@
 - (void)test_whenSwappingCollectionViewsAfterUpdate_thatUpdatePerformedOnTheCorrectCollectionView {
     // BEGIN: setup of FIRST adapter+dataSource+collectionView
     IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
-    adapter1.experiments |= IGListExperimentGetCollectionViewAtUpdate;
 
     UICollectionView *collectionView1 = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
     [self.window addSubview:collectionView1];
@@ -1856,7 +1887,6 @@
 
     // BEGIN: setup of SECOND adapter+dataSource+collectionView
     IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
-    adapter2.experiments |= IGListExperimentGetCollectionViewAtUpdate;
 
     UICollectionView *collectionView2 = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
     [self.window addSubview:collectionView2];
@@ -1890,7 +1920,6 @@
     [self setupWithObjects:@[
                              genTestObject(@1, @1)
                              ]];
-    self.adapter.experiments |= IGListExperimentGetCollectionViewAtUpdate;
 
     // perform update on listAdapter
     XCTestExpectation *expectation1 = genExpectation;
@@ -1937,7 +1966,6 @@
     [self setupWithObjects:@[
                              genTestObject(@1, @1)
                              ]];
-    self.adapter.experiments |= IGListExperimentGetCollectionViewAtUpdate;
 
     // reload data on listAdapter
     XCTestExpectation *expectation1 = genExpectation;

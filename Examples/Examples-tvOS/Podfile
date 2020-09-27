@@ -2,5 +2,7 @@ use_frameworks!
 platform :tvos, '9.0'
 
 target 'IGListKitExamples' do
+  pod 'IGListDiffKit', :path => '../../IGListDiffKit.podspec'
   pod 'IGListKit', :path => '../../IGListKit.podspec'
+  pod 'IGListSwiftKit', :path => '../../IGListSwiftKit.podspec'
 end

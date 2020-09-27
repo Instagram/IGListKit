@@ -1,23 +1,20 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import "IGListDiffTests.h"
 
-#import <XCTest/XCTest.h>
 #import <Foundation/Foundation.h>
+#import <XCTest/XCTest.h>
 
-#import <IGListKit/IGListDiff.h>
-#import <IGListKit/IGListExperiments.h>
+#import <IGListDiffKit/IGListDiff.h>
+
 #import "IGListIndexSetResultInternal.h"
 #import "IGListMoveIndexInternal.h"
 #import "IGListMoveIndexPathInternal.h"
-
 #import "IGTestObject.h"
 
 #define genIndexPath(i, s) [NSIndexPath indexPathForItem:i inSection:s]

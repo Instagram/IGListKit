@@ -1,14 +1,20 @@
 use_frameworks!
-platform :ios, '8.0'
+platform :ios, '9.0'
 
 target 'IGListKitExamples' do
+  pod 'IGListDiffKit', :path => '../../IGListDiffKit.podspec'
   pod 'IGListKit', :path => '../../IGListKit.podspec'
+  pod 'IGListSwiftKit', :path => '../../IGListSwiftKit.podspec'
 end
 
 target 'IGListKitMessageExample' do
+  pod 'IGListDiffKit', :path => '../../IGListDiffKit.podspec'
   pod 'IGListKit', :path => '../../IGListKit.podspec'
+  pod 'IGListSwiftKit', :path => '../../IGListSwiftKit.podspec'
 end
 
 target 'IGListKitTodayExample' do
+  pod 'IGListDiffKit', :path => '../../IGListDiffKit.podspec'
   pod 'IGListKit', :path => '../../IGListKit.podspec'
+  pod 'IGListSwiftKit', :path => '../../IGListSwiftKit.podspec'
 end

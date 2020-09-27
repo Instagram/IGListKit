@@ -1,6 +1,11 @@
+# Copyright (c) Facebook, Inc. and its affiliates.
+#
+# This source code is licensed under the MIT license found in the
+# LICENSE file in the root directory of this source tree.
+
 Pod::Spec.new do |s|
   s.name = 'IGListKit'
-  s.version = '3.4.0'
+  s.version = `scripts/version.sh`
   s.summary = 'A data-driven UICollectionView framework.'
   s.homepage = 'https://github.com/Instagram/IGListKit'
   s.documentation_url = 'https://instagram.github.io/IGListKit'
@@ -15,25 +20,24 @@ Pod::Spec.new do |s|
     :branch => 'stable'
   }
 
-  s.subspec 'Diffing' do |ds|
-    ds.source_files = 'Source/Common/**/*.{h,m,mm}'
-    ds.private_header_files = 'Source/Common/Internal/*.h'
+  s.dependency 'IGListDiffKit', "= #{s.version}"
+
+  [s.ios, s.tvos].each do |os|
+    os.source_files = [
+      'Source/IGListDiffKit/Internal/*.h',
+      'Source/IGListKit/**/*.{h,m,mm}',
+    ]
+    os.private_header_files = [
+      'Source/IGListDiffKit/Internal/*.h',
+      'Source/IGListKit/Internal/*.h',
+    ]
   end
 
-  s.subspec 'Default' do |cs|
-    cs.dependency 'IGListKit/Diffing'
+  s.osx.source_files = 'Source/IGListKit/IGListKit.h'
 
-    cs.ios.source_files = 'Source/**/*.{h,m,mm}'
-    cs.ios.private_header_files = ['Source/Internal/*.h', 'Source/Common/Internal/*.h']
-
-    cs.tvos.source_files = 'Source/**/*.{h,m,mm}'
-    cs.tvos.private_header_files = ['Source/Internal/*.h', 'Source/Common/Internal/*.h']
-  end
-
-  s.default_subspec = 'Default'
   s.requires_arc = true
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
   s.tvos.deployment_target = '9.0'
   s.osx.deployment_target = '10.11'
 
@@ -43,7 +47,7 @@ Pod::Spec.new do |s|
 
   s.library = 'c++'
   s.pod_target_xcconfig = {
-       'CLANG_CXX_LANGUAGE_STANDARD' => 'c++11',
-       'CLANG_CXX_LIBRARY' => 'libc++'
+    'CLANG_CXX_LANGUAGE_STANDARD' => 'c++11',
+    'CLANG_CXX_LIBRARY' => 'libc++',
   }
 end

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -9,9 +9,9 @@
 
 #import <IGListKit/IGListCollectionView.h>
 
+#import "IGLayoutTestDataSource.h"
 #import "IGLayoutTestItem.h"
 #import "IGLayoutTestSection.h"
-#import "IGLayoutTestDataSource.h"
 #import "IGListTestHelpers.h"
 
 @interface IGListCollectionViewTests : XCTestCase

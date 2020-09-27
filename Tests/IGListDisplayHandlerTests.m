@@ -1,13 +1,12 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import <XCTest/XCTest.h>
+
 #import <OCMock/OCMock.h>
 
 #import <IGListKit/IGListKit.h>
@@ -210,7 +209,7 @@
     [[self.mockAdapterDelegate expect] listAdapter:self.adapter willDisplayObject:self.object atIndex:path.section];
 
     [self.displayHandler willDisplaySupplementaryView:view forListAdapter:self.adapter sectionController:self.list object:self.object indexPath:path];
-    
+
     [self.mockDisplayDelegate verify];
     [self.mockAdapterDelegate verify];
 
