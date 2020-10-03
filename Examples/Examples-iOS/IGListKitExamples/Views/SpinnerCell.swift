@@ -27,7 +27,8 @@ func spinnerSectionController() -> ListSingleSectionController {
 final class SpinnerCell: UICollectionViewCell {
 
     lazy var activityIndicator: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(style: .gray)
+        let view = UIActivityIndicatorView()
+        view.style = UIActivityIndicatorView.defaultStyle
         self.contentView.addSubview(view)
         return view
     }()

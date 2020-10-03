@@ -16,7 +16,7 @@ final class DetailLabelCell: UICollectionViewCell {
         view.backgroundColor = .clear
         view.textAlignment = .left
         view.font = .systemFont(ofSize: 17)
-        view.textColor = .darkText
+        view.textColor = UIColor.titleLabel
         self.contentView.addSubview(view)
         return view
     }()
@@ -26,7 +26,7 @@ final class DetailLabelCell: UICollectionViewCell {
         view.backgroundColor = .clear
         view.textAlignment = .right
         view.font = .systemFont(ofSize: 17)
-        view.textColor = .lightGray
+        view.textColor = UIColor.detailLabel
         self.contentView.addSubview(view)
         return view
     }()
