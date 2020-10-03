@@ -95,6 +95,10 @@
 		986FB7401DBBAEA600A65C18 /* LabelSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2942FF881D9F39E00015D24B /* LabelSectionController.swift */; };
 		986FB7411DBBAEA900A65C18 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961B3A71D68B0B5001C9451 /* LabelCell.swift */; };
 		98B4DBF41DC2937A002BA58A /* Demo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98B4DBF31DC2937A002BA58A /* Demo.storyboard */; };
+		9DB684E1251B10C2002023DD /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB684E0251B10C2002023DD /* UIColor+Extension.swift */; };
+		9DFF4CFB251F089E0048474A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB684E0251B10C2002023DD /* UIColor+Extension.swift */; };
+		9DFF4D00251F089F0048474A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB684E0251B10C2002023DD /* UIColor+Extension.swift */; };
+		9DFF4D06251F08F50048474A /* UIActivityIndicatorView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFF4D05251F08F50048474A /* UIActivityIndicatorView+Extension.swift */; };
 		C82AE9741251907F18F77350 /* Pods_IGListKitMessageExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7B1FA2EFFA5E994FEE587DE /* Pods_IGListKitMessageExample.framework */; };
 		CBA8F64BE2F00E8B3DEFF6ED /* Pods_IGListKitExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7316EF8201F89655D39E53 /* Pods_IGListKitExamples.framework */; };
 		EB0289A2202A11E0007E17D5 /* PersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB02899F202A11DF007E17D5 /* PersonModel.m */; };
@@ -247,6 +251,8 @@
 		986FB7381DBBAD8600A65C18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98B4DBF31DC2937A002BA58A /* Demo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Demo.storyboard; path = IGListKitExamples/Storyboard/Demo.storyboard; sourceTree = "<group>"; };
 		9B462C62486AED269F046A35 /* Pods-IGListKitTodayExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTodayExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTodayExample/Pods-IGListKitTodayExample.debug.xcconfig"; sourceTree = "<group>"; };
+		9DB684E0251B10C2002023DD /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		9DFF4D05251F08F50048474A /* UIActivityIndicatorView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+Extension.swift"; sourceTree = "<group>"; };
 		B7B1FA2EFFA5E994FEE587DE /* Pods_IGListKitMessageExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitMessageExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B87895B5B9CB6A17AF47F4C9 /* Pods-IGListKitTodayExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTodayExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTodayExample/Pods-IGListKitTodayExample.release.xcconfig"; sourceTree = "<group>"; };
 		C544C2903D822EF8E4E91142 /* Pods-IGListKitExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.release.xcconfig"; sourceTree = "<group>"; };
@@ -393,6 +399,7 @@
 			children = (
 				2961B38D1D68B031001C9451 /* AppDelegate.swift */,
 				2961B3941D68B031001C9451 /* Assets.xcassets */,
+				9DB684DF251B1093002023DD /* Extensions */,
 				2961B3991D68B031001C9451 /* Info.plist */,
 				2961B3961D68B031001C9451 /* LaunchScreen.storyboard */,
 				2991F91C1D7BB30300B0C58F /* Models */,
@@ -550,6 +557,15 @@
 				986FB7331DBBAD8600A65C18 /* TodayViewController.swift */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		9DB684DF251B1093002023DD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9DB684E0251B10C2002023DD /* UIColor+Extension.swift */,
+				9DFF4D05251F08F50048474A /* UIActivityIndicatorView+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		EB02899E202A11DF007E17D5 /* RemodelGeneratedModels */ = {
@@ -872,6 +888,7 @@
 				EB0289A6202A14E1007E17D5 /* ObjcGeneratedModelDemoViewController.m in Sources */,
 				2991F91E1D7BB30C00B0C58F /* User.swift in Sources */,
 				2991F9241D7BB89F00B0C58F /* NestedAdapterViewController.swift in Sources */,
+				9DFF4D06251F08F50048474A /* UIActivityIndicatorView+Extension.swift in Sources */,
 				2961B38E1D68B031001C9451 /* AppDelegate.swift in Sources */,
 				2942FF941D9F39E00015D24B /* UserSectionController.swift in Sources */,
 				29459C001DBE48E200F05375 /* DiffTableViewController.swift in Sources */,
@@ -903,6 +920,7 @@
 				29C6297F1DCFD9E9004A5BB1 /* FeedItemSectionController.swift in Sources */,
 				2942FF8E1D9F39E00015D24B /* ExpandableSectionController.swift in Sources */,
 				29F7E2AA1E9283FF00197586 /* AnnouncingDepsViewController.swift in Sources */,
+				9DB684E1251B10C2002023DD /* UIColor+Extension.swift in Sources */,
 				56C05B721E49B32A0026DB39 /* CommentCell.m in Sources */,
 				821BC4BA1DB8B61200172ED0 /* StoryboardLabelSectionController.swift in Sources */,
 			);
@@ -927,6 +945,7 @@
 				986FB7281DBBA9B200A65C18 /* LabelSectionController.swift in Sources */,
 				986FB7291DBBA9C900A65C18 /* LabelCell.swift in Sources */,
 				986FB7161DBBA60900A65C18 /* MessagesViewController.swift in Sources */,
+				9DFF4CFB251F089E0048474A /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -937,6 +956,7 @@
 				986FB7401DBBAEA600A65C18 /* LabelSectionController.swift in Sources */,
 				986FB7411DBBAEA900A65C18 /* LabelCell.swift in Sources */,
 				986FB7341DBBAD8600A65C18 /* TodayViewController.swift in Sources */,
+				9DFF4D00251F089F0048474A /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

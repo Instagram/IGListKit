@@ -35,7 +35,7 @@ final class LabelCell: UICollectionViewCell {
 
     let separator: CALayer = {
         let layer = CALayer()
-        layer.backgroundColor = UIColor(red: 200 / 255.0, green: 199 / 255.0, blue: 204 / 255.0, alpha: 1).cgColor
+        layer.backgroundColor = UIColor.defaultSeparator.cgColor
         return layer
     }()
 
@@ -50,9 +50,9 @@ final class LabelCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.backgroundColor = UIColor.background
         contentView.addSubview(label)
         contentView.layer.addSublayer(separator)
-        contentView.backgroundColor = .white
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -70,8 +70,14 @@ final class LabelCell: UICollectionViewCell {
 
     override var isHighlighted: Bool {
         didSet {
-            contentView.backgroundColor = UIColor(white: isHighlighted ? 0.9 : 1, alpha: 1)
+            let color = isHighlighted ? UIColor.gray.withAlphaComponent(0.3) : UIColor.clear
+            contentView.backgroundColor = color
         }
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        separator.backgroundColor = UIColor.defaultSeparator.cgColor
     }
 
 }
