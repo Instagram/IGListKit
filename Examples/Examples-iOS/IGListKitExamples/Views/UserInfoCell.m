@@ -35,7 +35,6 @@
 
     self.nameLabel = [[UILabel alloc] init];
     self.nameLabel.font = [UIFont boldSystemFontOfSize:15];
-    self.nameLabel.textColor = [UIColor darkTextColor];
     self.nameLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.nameLabel];
 }
