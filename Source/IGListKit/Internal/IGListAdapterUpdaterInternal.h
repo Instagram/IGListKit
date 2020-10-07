@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import <IGListDiffKit/IGListMoveIndexPath.h>
+#import "IGListMoveIndexPath.h"
 
 #import "IGListAdapterUpdater.h"
 #import "IGListBatchUpdateState.h"

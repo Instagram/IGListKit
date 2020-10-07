@@ -7,8 +7,8 @@
 
 #import <UIKit/UIKit.h>
 
-#import <IGListDiffKit/IGListMacros.h>
-#import <IGListKit/IGListUpdatingDelegate.h>
+#import "IGListMacros.h"
+#import "IGListUpdatingDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -7,9 +7,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListDiffKit/IGListMacros.h>
-#import <IGListKit/IGListUpdatingDelegate.h>
-#import <IGListKit/IGListUpdatingDelegateExperimental.h>
+#import "IGListMacros.h"
+#import "IGListUpdatingDelegate.h"
+#import "IGListUpdatingDelegateExperimental.h"
 
 #import "IGListUpdateTransactable.h"
 

@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListDiffKit/IGListExperiments.h>
+#import "IGListExperiments.h"
 
 #import "IGListBatchUpdateState.h"
 #import "IGListUpdatingDelegate.h"

@@ -10,17 +10,29 @@ let package = Package(
     products: [
         .library(name: "IGListDiffKit",
                  type: .static ,
-                 targets: ["IGListDiffKit"])
+                 targets: ["IGListDiffKit"]),
+        .library(name: "IGListKit",
+                 type: .static,
+                 targets: ["IGListKit"]),
     ],
     targets: [
         .target(
             name: "IGListDiffKit",
             path: "Source/IGListDiffKit",
-            exclude: ["include/IGListDiffKit.h"],
             cSettings: [
                 .headerSearchPath("Internal")
             ]
-        )
+        ),
+        .target(
+            name: "IGListKit",
+            dependencies: ["IGListDiffKit"],
+            path: "Source/IGListKit",
+            cSettings: [
+                .headerSearchPath("../IGListDiffKit/Internal"),
+                .headerSearchPath("IGListDiffKit/Internal"),
+                .headerSearchPath("Internal")
+            ]
+        ),
     ],
     cLanguageStandard: .gnu11,
     cxxLanguageStandard: .gnucxx14

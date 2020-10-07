@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import <IGListDiffKit/IGListBatchUpdateData.h>
+#import "IGListBatchUpdateData.h"
 
 @class IGListIndexSetResult;
 @protocol IGListDiffable;

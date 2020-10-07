@@ -7,7 +7,7 @@
 
 #import "UICollectionView+DebugDescription.h"
 
-#import <IGListDiffKit/IGListMacros.h>
+#import "IGListMacros.h"
 
 @implementation UICollectionView (DebugDescription)
 
