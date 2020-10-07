@@ -5,7 +5,7 @@ let package = Package(
     name: "IGListKit",
     platforms: [ .iOS(.v9),
                  .tvOS(.v9),
-                 .macOS(.v10_13)
+                 .macOS(.v10_15)
     ],
     products: [
         .library(name: "IGListDiffKit",
@@ -14,6 +14,9 @@ let package = Package(
         .library(name: "IGListKit",
                  type: .static,
                  targets: ["IGListKit"]),
+        .library(name: "IGListSwiftKit",
+                 type: .static,
+                 targets: ["IGListSwiftKit"]),
     ],
     targets: [
         .target(
@@ -32,6 +35,11 @@ let package = Package(
                 .headerSearchPath("IGListDiffKit/Internal"),
                 .headerSearchPath("Internal")
             ]
+        ),
+        .target(
+            name: "IGListSwiftKit",
+            dependencies: ["IGListKit"],
+            path: "Source/IGListSwiftKit"
         ),
     ],
     cLanguageStandard: .gnu11,
