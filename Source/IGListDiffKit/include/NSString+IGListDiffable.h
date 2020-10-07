@@ -7,11 +7,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListDiffKit/IGListDiffable.h>
+#import "IGListDiffable.h"
 
 /**
- This category provides default `IGListDiffable` conformance for `NSNumber`.
+ This category provides default `IGListDiffable` conformance for `NSString`.
  */
-@interface NSNumber (IGListDiffable) <IGListDiffable>
+@interface NSString (IGListDiffable) <IGListDiffable>
 
 @end
