@@ -7,7 +7,11 @@
 
 #import "IGListExperimentalAdapterUpdater.h"
 
+#if SWIFT_PACKAGE
 #import "IGListAssert.h"
+#else
+#import <IGListDiffKit/IGListAssert.h>
+#endif
 
 #import "IGListAdapterUpdaterHelpers.h"
 #import "IGListIndexSetResultInternal.h"

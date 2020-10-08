@@ -7,8 +7,14 @@
 
 #import <UIKit/UIKit.h>
 
+#if SWIFT_PACKAGE
 #import "IGListExperiments.h"
 #import "IGListMacros.h"
+#else
+#import <IGListDiffKit/IGListExperiments.h>
+#import <IGListDiffKit/IGListMacros.h>
+#endif
+
 #import "IGListAdapterDataSource.h"
 #import "IGListAdapterDelegate.h"
 #import "IGListAdapterMoveDelegate.h"

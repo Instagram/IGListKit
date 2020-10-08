@@ -7,7 +7,11 @@
 
 #import <Foundation/Foundation.h>
 
+#if SWIFT_PACKAGE
 #import "IGListExperiments.h"
+#else
+#import <IGListDiffKit/IGListExperiments.h>
+#endif
 
 #import "IGListBatchUpdateState.h"
 #import "IGListUpdatingDelegate.h"

@@ -7,7 +7,11 @@
 
 #import <UIKit/UIKit.h>
 
+#if SWIFT_PACKAGE
 #import "IGListBatchUpdateData.h"
+#else
+#import <IGListDiffKit/IGListBatchUpdateData.h>
+#endif
 
 @class IGListIndexSetResult;
 @protocol IGListDiffable;

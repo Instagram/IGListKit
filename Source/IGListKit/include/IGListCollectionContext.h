@@ -7,7 +7,11 @@
 
 #import <UIKit/UIKit.h>
 
+#if SWIFT_PACKAGE
 #import "IGListExperiments.h"
+#else
+#import <IGListDiffKit/IGListExperiments.h>
+#endif
 #import "IGListBatchContext.h"
 #import "IGListCollectionScrollingTraits.h"
 

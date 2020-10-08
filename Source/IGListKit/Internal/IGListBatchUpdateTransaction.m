@@ -7,9 +7,16 @@
 
 #import "IGListBatchUpdateTransaction.h"
 
+#if SWIFT_PACKAGE
 #import "IGListAssert.h"
 #import "IGListDiffable.h"
 #import "IGListDiff.h"
+#else
+#import <IGListDiffKit/IGListAssert.h>
+#import <IGListDiffKit/IGListDiffable.h>
+#import <IGListDiffKit/IGListDiff.h>
+#endif
+
 #import "IGListAdapterUpdaterDelegate.h"
 
 #import "IGListAdapterUpdaterHelpers.h"

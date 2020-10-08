@@ -8,7 +8,11 @@
 #import <Foundation/Foundation.h>
 
 #import "IGListUpdatingDelegate.h"
+#if SWIFT_PACKAGE
 #import "IGListExperiments.h"
+#else
+#import <IGListDiffKit/IGListExperiments.h>
+#endif
 #import "IGListAdapterUpdaterDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN

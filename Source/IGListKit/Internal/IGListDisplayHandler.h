@@ -7,7 +7,11 @@
 
 #import <UIKit/UIKit.h>
 
+#if SWIFT_PACKAGE
 #import "IGListMacros.h"
+#else
+#import <IGListDiffKit/IGListMacros.h>
+#endif
 
 @class IGListAdapter;
 @class IGListSectionController;

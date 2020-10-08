@@ -7,7 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if SWIFT_PACKAGE
 #import "IGListMacros.h"
+#else
+#import <IGListDiffKit/IGListMacros.h>
+#endif
+
 #import "IGListUpdatingDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN

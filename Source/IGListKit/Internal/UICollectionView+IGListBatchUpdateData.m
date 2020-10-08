@@ -7,7 +7,11 @@
 
 #import "UICollectionView+IGListBatchUpdateData.h"
 
+#if SWIFT_PACKAGE
 #import "IGListBatchUpdateData.h"
+#else
+#import <IGListDiffKit/IGListBatchUpdateData.h>
+#endif
 
 @implementation UICollectionView (IGListBatchUpdateData)
 

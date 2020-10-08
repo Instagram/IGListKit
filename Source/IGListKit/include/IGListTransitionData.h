@@ -7,7 +7,11 @@
 
 #import <Foundation/Foundation.h>
 
+#if SWIFT_PACKAGE
 #import "IGListMacros.h"
+#else
+#import <IGListDiffKit/IGListMacros.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
