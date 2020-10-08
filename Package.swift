@@ -42,6 +42,6 @@ let package = Package(
             path: "Source/IGListSwiftKit"
         ),
     ],
-    cLanguageStandard: .gnu11,
-    cxxLanguageStandard: .gnucxx14
+    cLanguageStandard: .gnu99,
+    cxxLanguageStandard: .cxx11
 )
