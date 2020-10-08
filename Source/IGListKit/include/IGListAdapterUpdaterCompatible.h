@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 
 #import "IGListUpdatingDelegate.h"
-#if SWIFT_PACKAGE
+#if SWIFT_PACKAGE || USE_PACKAGE_FROM_XCODE
 #import "IGListExperiments.h"
 #else
 #import <IGListDiffKit/IGListExperiments.h>

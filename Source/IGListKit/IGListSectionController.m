@@ -7,7 +7,7 @@
 
 #import "IGListSectionControllerInternal.h"
 
-#if SWIFT_PACKAGE
+#if SWIFT_PACKAGE || USE_PACKAGE_FROM_XCODE
 #import "IGListAssert.h"
 #import "IGListMacros.h"
 #else

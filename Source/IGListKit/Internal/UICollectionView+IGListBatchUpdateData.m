@@ -7,7 +7,7 @@
 
 #import "UICollectionView+IGListBatchUpdateData.h"
 
-#if SWIFT_PACKAGE
+#if SWIFT_PACKAGE || USE_PACKAGE_FROM_XCODE
 #import "IGListBatchUpdateData.h"
 #else
 #import <IGListDiffKit/IGListBatchUpdateData.h>

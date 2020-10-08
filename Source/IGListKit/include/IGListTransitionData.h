@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#if SWIFT_PACKAGE
+#if SWIFT_PACKAGE || USE_PACKAGE_FROM_XCODE
 #import "IGListMacros.h"
 #else
 #import <IGListDiffKit/IGListMacros.h>
