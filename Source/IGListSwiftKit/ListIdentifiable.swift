@@ -5,7 +5,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+#if SWIFT_PACKAGE || USE_SWIFT_PACKAGE_FROM_XCODE
+import IGListKit
+#else
 import IGListDiffKit
+#endif
+
 
 /// The `ListIdentifiable` protocol is a subset of `ListDiffable`'s functionality,
 /// for use with Swift value types and `ListValueSectionController`.

@@ -14,9 +14,9 @@ let package = Package(
         .library(name: "IGListKit",
                  type: .static,
                  targets: ["IGListKit"]),
-//        .library(name: "IGListSwiftKit",
-//                 type: .static,
-//                 targets: ["IGListSwiftKit"]),
+        .library(name: "IGListSwiftKit",
+                 type: .static,
+                 targets: ["IGListSwiftKit"]),
     ],
     targets: [
         .target(
@@ -40,11 +40,18 @@ let package = Package(
                 .headerSearchPath("Internal"),
             ]
         ),
-//        .target(
-//            name: "IGListSwiftKit",
-//            dependencies: ["IGListKit"],
-//            path: "Source/IGListSwiftKit"
-//        ),
+        .target(
+            name: "IGListSwiftKit",
+            dependencies: ["IGListKit", "IGListDiffKit"],
+            path: "Source/IGListSwiftKit",
+            cSettings: [
+                .headerSearchPath("../"),
+                .headerSearchPath("../IGListDiffKit/Internal"),
+                .headerSearchPath("../IGListDiffKit/"),
+                .headerSearchPath("Internal"),
+                .define("USE_SWIFT_PACKAGE_FROM_XCODE", to: "1"),
+            ]
+        ),
     ],
     cLanguageStandard: .c11,
     cxxLanguageStandard: .cxx11
