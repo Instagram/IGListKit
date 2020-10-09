@@ -11,7 +11,7 @@
 #import <IGListKit/IGListAdapter.h>
 #import <IGListKit/IGListDisplayDelegate.h>
 #import <IGListKit/IGListSectionController.h>
-#import <IGListKit/IGListSectionControllerInternal.h>
+#import "IGListSectionControllerInternal.h"
 
 @interface IGListDisplayHandler ()
 

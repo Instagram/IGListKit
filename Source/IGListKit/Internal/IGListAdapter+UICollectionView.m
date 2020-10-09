@@ -8,9 +8,9 @@
 #import "IGListAdapter+UICollectionView.h"
 
 #import <IGListDiffKit/IGListAssert.h>
-#import <IGListKit/IGListAdapterInternal.h>
+#import "IGListAdapterInternal.h"
 #import <IGListKit/IGListSectionController.h>
-#import <IGListKit/IGListSectionControllerInternal.h>
+#import "IGListSectionControllerInternal.h"
 
 #import "IGListAdapterInternal.h"
 

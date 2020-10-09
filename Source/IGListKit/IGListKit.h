@@ -17,7 +17,7 @@ FOUNDATION_EXPORT double IGListKitVersionNumber;
  */
 FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 
-#if TARGET_OS_EMBEDDED || TARGET_OS_SIMULATOR
+#if TARGET_OS_EMBEDDED || TARGET_OS_SIMULATOR || TARGET_OS_MACCATALYST
 
 // iOS and tvOS only:
 

@@ -11,9 +11,9 @@ let package = Package(
         .library(name: "IGListDiffKit",
                  type: .static ,
                  targets: ["IGListDiffKit"]),
-//        .library(name: "IGListKit",
-//                 type: .static,
-//                 targets: ["IGListKit"]),
+        .library(name: "IGListKit",
+                 type: .static,
+                 targets: ["IGListKit"]),
 //        .library(name: "IGListSwiftKit",
 //                 type: .static,
 //                 targets: ["IGListSwiftKit"]),
@@ -29,22 +29,23 @@ let package = Package(
                 .headerSearchPath("Internal")
             ]
         ),
-//        .target(
-//            name: "IGListKit",
-//            dependencies: ["IGListDiffKit"],
-//            path: "Source/IGListKit",
-//            cSettings: [
-//                .headerSearchPath("../IGListDiffKit/Internal"),
-//                .headerSearchPath("IGListDiffKit/Internal"),
-//                .headerSearchPath("Internal")
-//            ]
-//        ),
+        .target(
+            name: "IGListKit",
+            path: "Source/IGListKit",
+            publicHeadersPath: ".",
+            cSettings: [
+                .headerSearchPath("../"),
+                .headerSearchPath("../IGListDiffKit/Internal"),
+                .headerSearchPath("../IGListDiffKit/"),
+                .headerSearchPath("Internal"),
+            ]
+        ),
 //        .target(
 //            name: "IGListSwiftKit",
 //            dependencies: ["IGListKit"],
 //            path: "Source/IGListSwiftKit"
 //        ),
     ],
-    cLanguageStandard: .gnu11,
-    cxxLanguageStandard: .gnucxx14
+    cLanguageStandard: .c11,
+    cxxLanguageStandard: .cxx11
 )
