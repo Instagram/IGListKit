@@ -7,9 +7,9 @@
 
 #import "IGListAdapterInternal.h"
 
-#import <IGListDiffKit/IGListAssert.h>
-#import <IGListKit/IGListAdapterUpdater.h>
-#import <IGListKit/IGListSupplementaryViewSource.h>
+#import "IGListAssert.h"
+#import "IGListAdapterUpdater.h"
+#import "IGListSupplementaryViewSource.h"
 
 #import "IGListArrayUtilsInternal.h"
 #import "IGListDebugger.h"

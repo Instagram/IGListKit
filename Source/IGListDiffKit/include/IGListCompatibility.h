@@ -5,10 +5,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import "IGListAdapterUpdater.h"
+#import <TargetConditionals.h>
 
-@interface IGListAdapterUpdater (DebugDescription)
-
-- (NSArray<NSString *> *)debugDescriptionLines;
-
-@end
+#if TARGET_OS_EMBEDDED || TARGET_OS_SIMULATOR || TARGET_OS_MACCATALYST
+#import <UIKit/UIKit.h>
+#else
+#import <Cocoa/Cocoa.h>
+#endif

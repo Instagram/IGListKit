@@ -7,9 +7,14 @@
 
 #import <Foundation/Foundation.h>
 
+#if SWIFT_PACKAGE || USE_PACKAGE_FROM_XCODE
+#import "IGListMacros.h"
+#else
 #import <IGListDiffKit/IGListMacros.h>
-#import <IGListKit/IGListUpdatingDelegate.h>
-#import <IGListKit/IGListUpdatingDelegateExperimental.h>
+#endif
+
+#import "IGListUpdatingDelegate.h"
+#import "IGListUpdatingDelegateExperimental.h"
 
 #import "IGListUpdateTransactable.h"
 

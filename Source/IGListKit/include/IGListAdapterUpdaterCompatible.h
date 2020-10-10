@@ -7,9 +7,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListKit/IGListUpdatingDelegate.h>
+#import "IGListUpdatingDelegate.h"
+#if SWIFT_PACKAGE || USE_PACKAGE_FROM_XCODE
+#import "IGListExperiments.h"
+#else
 #import <IGListDiffKit/IGListExperiments.h>
-#import <IGListKit/IGListAdapterUpdaterDelegate.h>
+#endif
+#import "IGListAdapterUpdaterDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

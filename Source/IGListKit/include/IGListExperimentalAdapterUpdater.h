@@ -7,12 +7,20 @@
 
 #import <UIKit/UIKit.h>
 
+#if SWIFT_PACKAGE || USE_PACKAGE_FROM_XCODE
+#import "IGListMacros.h"
+#else
 #import <IGListDiffKit/IGListMacros.h>
-#import <IGListKit/IGListAdapterUpdaterCompatible.h>
+#endif
+
+#import "IGListAdapterUpdaterCompatible.h"
+#import "IGListUpdatingDelegateExperimental.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
+ Temporary class to test a more reliable, performant, and cleaner `IGListAdapterUpdater`.
+
  An `IGListAdapterUpdater` is a concrete type that conforms to `IGListUpdatingDelegate`.
  It is an out-of-box updater for `IGListAdapter` objects to use.
 
@@ -21,8 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
  `-performUpdateWithCollectionView:fromObjects:toObjects:completion:`.
  */
 IGLK_SUBCLASSING_RESTRICTED
-NS_SWIFT_NAME(ListAdapterUpdater)
-@interface IGListAdapterUpdater : NSObject <IGListAdapterUpdaterCompatible>
+NS_SWIFT_NAME(ListExperimentalAdapterUpdater)
+@interface IGListExperimentalAdapterUpdater : NSObject <IGListAdapterUpdaterCompatible, IGListUpdatingDelegateExperimental>
 
 @end
 

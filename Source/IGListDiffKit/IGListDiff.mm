@@ -11,7 +11,7 @@
 #import <unordered_map>
 #import <vector>
 
-#import <IGListDiffKit/IGListCompatibility.h>
+#import "IGListCompatibility.h"
 
 #import "IGListIndexPathResultInternal.h"
 #import "IGListIndexSetResultInternal.h"

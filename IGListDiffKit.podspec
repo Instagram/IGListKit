@@ -22,6 +22,7 @@ Pod::Spec.new do |s|
 
   s.source_files = 'Source/IGListDiffKit/**/*.{h,m,mm}'
   s.private_header_files = 'Source/IGListDiffKit/Internal/*.h'
+  s.public_header_files = 'Source/IGListDiffKit/include/*.h'
 
   s.requires_arc = true
 

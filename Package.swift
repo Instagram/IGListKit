@@ -22,37 +22,26 @@ let package = Package(
         .target(
             name: "IGListDiffKit",
             path: "Source/IGListDiffKit",
-            publicHeadersPath: ".",
             cSettings: [
-                .headerSearchPath("../"),
-                .headerSearchPath("../Internal"),
                 .headerSearchPath("Internal")
             ]
         ),
         .target(
             name: "IGListKit",
+            dependencies: ["IGListDiffKit"],
             path: "Source/IGListKit",
-            publicHeadersPath: ".",
             cSettings: [
-                .headerSearchPath("../"),
                 .headerSearchPath("../IGListDiffKit/Internal"),
-                .headerSearchPath("../IGListDiffKit/"),
                 .headerSearchPath("Internal"),
+                .define("USE_PACKAGE_FROM_XCODE", to: "1"),
             ]
         ),
         .target(
             name: "IGListSwiftKit",
-            dependencies: ["IGListKit", "IGListDiffKit"],
-            path: "Source/IGListSwiftKit",
-            cSettings: [
-                .headerSearchPath("../"),
-                .headerSearchPath("../IGListDiffKit/Internal"),
-                .headerSearchPath("../IGListDiffKit/"),
-                .headerSearchPath("Internal"),
-                .define("USE_SWIFT_PACKAGE_FROM_XCODE", to: "1"),
-            ]
+            dependencies: ["IGListKit"],
+            path: "Source/IGListSwiftKit"
         ),
     ],
-    cLanguageStandard: .c11,
+    cLanguageStandard: .gnu99,
     cxxLanguageStandard: .cxx11
 )
