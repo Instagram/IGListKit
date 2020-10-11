@@ -21,18 +21,14 @@ let package = Package(
     targets: [
         .target(
             name: "IGListDiffKit",
-            path: "Source/IGListDiffKit",
-            cSettings: [
-                .headerSearchPath("Internal")
-            ]
+            path: "Source/IGListDiffKit"
         ),
         .target(
             name: "IGListKit",
             dependencies: ["IGListDiffKit"],
             path: "Source/IGListKit",
             cSettings: [
-                .headerSearchPath("../IGListDiffKit/Internal"),
-                .headerSearchPath("Internal"),
+                .headerSearchPath("."),
                 .define("USE_PACKAGE_FROM_XCODE", to: "1"),
             ]
         ),
