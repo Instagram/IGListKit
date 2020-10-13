@@ -31,9 +31,7 @@ let package = Package(
             dependencies: ["IGListDiffKit"],
             path: "Source/IGListKit",
             cSettings: [
-                .headerSearchPath("../IGListDiffKit/Internal"),
                 .headerSearchPath("Internal"),
-                .define("USE_PACKAGE_FROM_XCODE", to: "1"),
             ]
         ),
         .target(

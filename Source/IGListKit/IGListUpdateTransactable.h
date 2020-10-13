@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#if SWIFT_PACKAGE || USE_PACKAGE_FROM_XCODE
+#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
 #import "IGListExperiments.h"
 #else
 #import <IGListDiffKit/IGListExperiments.h>
