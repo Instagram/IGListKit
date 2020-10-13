@@ -95,7 +95,9 @@
 }
 
 - (NSInteger)sectionForObject:(id)object {
-    IGParameterAssert(object != nil);
+    if (object == nil) {
+        return NSNotFound;
+    }
 
     id sectionController = [self sectionControllerForObject:object];
     if (sectionController == nil) {

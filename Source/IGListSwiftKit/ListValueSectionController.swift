@@ -23,12 +23,11 @@ open class ListValueSectionController<Value: ListIdentifiable>: ListSectionContr
     /// Subclasses of `ListValueSectionController` may not override `didUpdate(to:)` for objects.
     /// Instead, they must use the overload for generic values.
     public final override func didUpdate(to object: Any) {
-        if let value = Value(diffable: object) {
-            self.value = value
-            didUpdate(to: value)
-        } else {
+        guard let value = Value(diffable: object) else {
             fatalError("Expected object for value section controller to be a boxed \(Value.self), but it was \(object)")
         }
+        self.value = value
+        didUpdate(to: value)
     }
 
     /// Updates the section controller to a new value.
