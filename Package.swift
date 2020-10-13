@@ -21,18 +21,12 @@ let package = Package(
     targets: [
         .target(
             name: "IGListDiffKit",
-            path: "Source/IGListDiffKit",
-            cSettings: [
-                .headerSearchPath("Internal")
-            ]
+            path: "Source/IGListDiffKit"
         ),
         .target(
             name: "IGListKit",
             dependencies: ["IGListDiffKit"],
-            path: "Source/IGListKit",
-            cSettings: [
-                .headerSearchPath("Internal"),
-            ]
+            path: "Source/IGListKit"
         ),
         .target(
             name: "IGListSwiftKit",
