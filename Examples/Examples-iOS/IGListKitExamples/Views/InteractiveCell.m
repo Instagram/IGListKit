@@ -31,7 +31,13 @@
 }
 
 - (void)setupSubviews {
-    UIColor *buttonTitleColor = [UIColor colorWithRed:28/255.0 green:30/255.0 blue:28/255.0 alpha:1.0];
+    UIColor *buttonTitleColor;
+    if (@available(iOS 13.0, *)) {
+        buttonTitleColor = [UIColor labelColor];
+    } else {
+        buttonTitleColor = [UIColor colorWithRed:28/255.0 green:30/255.0 blue:28/255.0 alpha:1.0];
+    }
+
     UIFont *titleFont = [UIFont systemFontOfSize:12.0];
 
     self.likeButton = [[UIButton alloc] init];

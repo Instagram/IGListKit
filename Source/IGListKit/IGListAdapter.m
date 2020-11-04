@@ -606,21 +606,40 @@
 
 - (NSArray *)visibleObjects {
     IGAssertMainThread();
-    NSArray<UICollectionViewCell *> *visibleCells = [self.collectionView visibleCells];
-    NSMutableSet *visibleObjects = [NSMutableSet new];
-    for (UICollectionViewCell *cell in visibleCells) {
-        IGListSectionController *sectionController = [self sectionControllerForView:cell];
-        IGAssert(sectionController != nil, @"Section controller nil for cell %@", cell);
-        if (sectionController != nil) {
-            const NSInteger section = [self sectionForSectionController:sectionController];
+    
+    if (IGListExperimentEnabled(_experiments, IGListExperimentSkipViewSectionControllerMap)) {
+        NSArray<NSIndexPath *> *visibleIndexPaths = [self.collectionView indexPathsForVisibleItems];
+        NSMutableIndexSet *visibleSections = [NSMutableIndexSet new];
+        [visibleIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull indexPath, NSUInteger idx, BOOL * _Nonnull stop) {
+            [visibleSections addIndex:indexPath.section];
+        }];
+        
+        NSMutableArray *visibleObjects = [NSMutableArray new];
+        [visibleSections enumerateIndexesUsingBlock:^(NSUInteger section, BOOL * _Nonnull stop) {
             id object = [self objectAtSection:section];
-            IGAssert(object != nil, @"Object not found for section controller %@ at section %li", sectionController, (long)section);
+            IGAssert(object != nil, @"Object not found at section %li", (long)section);
             if (object != nil) {
                 [visibleObjects addObject:object];
             }
+        }];
+        return visibleObjects;
+    } else {
+        NSArray<UICollectionViewCell *> *visibleCells = [self.collectionView visibleCells];
+        NSMutableSet *visibleObjects = [NSMutableSet new];
+        for (UICollectionViewCell *cell in visibleCells) {
+            IGListSectionController *sectionController = [self _sectionControllerForCell:cell];
+            IGAssert(sectionController != nil, @"Section controller nil for cell %@", cell);
+            if (sectionController != nil) {
+                const NSInteger section = [self sectionForSectionController:sectionController];
+                id object = [self objectAtSection:section];
+                IGAssert(object != nil, @"Object not found for section controller %@ at section %li", sectionController, (long)section);
+                if (object != nil) {
+                    [visibleObjects addObject:object];
+                }
+            }
         }
+        return [visibleObjects allObjects];
     }
-    return [visibleObjects allObjects];
 }
 
 - (NSArray<UICollectionViewCell *> *)visibleCellsForObject:(id)object {
@@ -894,6 +913,21 @@
     return [_viewSectionControllerMap objectForKey:view];
 }
 
+- (nullable IGListSectionController *)_sectionControllerForCell:(UICollectionViewCell *)cell {
+    IGAssertMainThread();
+    if (IGListExperimentEnabled(_experiments, IGListExperimentSkipViewSectionControllerMap)) {
+        NSIndexPath *indexPath = [_collectionView indexPathForCell:cell];
+        if (indexPath != nil) {
+            NSInteger section = indexPath.section;
+            return [self.sectionMap sectionControllerForSection:section];
+        } else {
+            return nil;
+        }
+    } else {
+        return [_viewSectionControllerMap objectForKey:cell];
+    }
+}
+
 - (void)removeMapForView:(UICollectionReusableView *)view {
     IGAssertMainThread();
     [_viewSectionControllerMap removeObjectForKey:view];
@@ -1040,8 +1074,15 @@
         // only return a cell if it belongs to the section controller
         // this association is created in -collectionView:cellForItemAtIndexPath:
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-        if ([self sectionControllerForView:cell] == sectionController) {
-            return cell;
+        
+        if (IGListExperimentEnabled(_experiments, IGListExperimentSkipViewSectionControllerMap)) {
+            if ([self sectionControllerForSection:indexPath.section] == sectionController) {
+                return cell;
+            }
+        } else {
+            if ([self _sectionControllerForCell:cell] == sectionController) {
+                return cell;
+            }
         }
     }
     return nil;

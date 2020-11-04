@@ -19,7 +19,6 @@ final class AnnouncingDepsViewController: UIViewController, ListAdapterDataSourc
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self

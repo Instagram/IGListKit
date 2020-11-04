@@ -14,7 +14,6 @@ final class CalendarDayCell: UICollectionViewCell {
         let view = UILabel()
         view.backgroundColor = .clear
         view.textAlignment = .center
-        view.textColor = .black
         view.font = .boldSystemFont(ofSize: 16)
         view.layer.borderWidth = 2
         view.clipsToBounds = true
