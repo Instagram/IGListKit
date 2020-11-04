@@ -74,6 +74,18 @@ For [Carthage](https://github.com/Carthage/Carthage), add the following to your 
 github "Instagram/IGListKit" ~> 4.0.0
 ```
 
+### Swift Package Manager
+
+For [Swift Package Manager](https://swift.org/package-manager/):
+
+```
+To integrate using Xcode:
+
+File -> Swift Packages -> Add Package Dependency
+
+Enter package URL: https://github.com/Instagram/IGListKit, and select the latest release.
+```
+
 > For advanced usage, see our [Installation Guide](https://instagram.github.io/IGListKit/installation.html).
 
 ## Getting Started
