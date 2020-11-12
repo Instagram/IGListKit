@@ -614,6 +614,19 @@
     XCTAssertEqualObjects(visibleObjects, expectedObjects);
 }
 
+- (void)test_whenAdapterUpdated_withSkipViewSectionControllerMap_withObjectsOverflow_thatVisibleObjectsIsSubsetOfAllObjects {
+    self.adapter.experiments |= IGListExperimentSkipViewSectionControllerMap;
+    // each section controller returns n items sized 100x10
+    self.dataSource.objects = @[@1, @2, @3, @4, @5, @6];
+    [self.adapter reloadDataWithCompletion:nil];
+    self.collectionView.contentOffset = CGPointMake(0, 30);
+    [self.collectionView layoutIfNeeded];
+
+    NSArray *visibleObjects = [[self.adapter visibleObjects] sortedArrayUsingSelector:@selector(compare:)];
+    NSArray *expectedObjects = @[@3, @4, @5];
+    XCTAssertEqualObjects(visibleObjects, expectedObjects);
+}
+
 - (void)test_whenAdapterUpdated_thatVisibleCellsForObjectAreFound {
     // each section controller returns n items sized 100x10
     self.dataSource.objects = @[@2, @10, @5];
@@ -933,7 +946,7 @@
 - (void)test_whenQueryingSectionControllerForSection_thatControllerReturned {
 	self.dataSource.objects = @[@0, @1, @2];
 	[self.adapter reloadDataWithCompletion:nil];
-	
+
 	XCTAssertEqual([self.adapter sectionControllerForSection:0], [self.adapter sectionControllerForObject:@0]);
 	XCTAssertEqual([self.adapter sectionControllerForSection:1], [self.adapter sectionControllerForObject:@1]);
 	XCTAssertEqual([self.adapter sectionControllerForSection:2], [self.adapter sectionControllerForObject:@2]);

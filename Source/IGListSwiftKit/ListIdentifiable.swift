@@ -33,11 +33,10 @@ public extension ListIdentifiable {
 
     // TODO(natesm): Should this be a public API? It is for now.
     init?(diffable: Any) {
-        if let value = (diffable as? ListDiffableValueBox<Self>)?.value {
-            self = value
-        } else {
+        guard let value = (diffable as? ListDiffableValueBox<Self>)?.value else {
             return nil
         }
+        self = value
     }
 }
 
@@ -63,10 +62,9 @@ private final class ListDiffableValueBox<Value: ListIdentifiable>: NSObject, Lis
     }
 
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        if let other = object as? ListDiffableValueBox<Value> {
-            return value == other.value
-        } else {
+        guard let other = object as? ListDiffableValueBox<Value> else {
             return false
         }
+        return value == other.value
     }
 }
