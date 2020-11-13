@@ -80,6 +80,10 @@ void IGListSectionControllerPopThread(void) {
 
 - (void)didUpdateToObject:(id)object {}
 
+- (BOOL)shouldSelectItemAtIndex:(NSInteger)index {
+    return YES;
+}
+
 - (void)didSelectItemAtIndex:(NSInteger)index {}
 
 - (void)didDeselectItemAtIndex:(NSInteger)index {}
