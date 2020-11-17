@@ -175,7 +175,7 @@ jobs:
     strategy:
       matrix:
         destination: ["platform=iOS Simulator,name=iPhone 12 Pro", "platform=macOS,variant=Mac Catalyst", "platform=tvOS Simulator,name=Apple TV 4k"]
-        scheme: ["IGListDiffKit", "IGListKit", "IGListSwiftKit"]
+        scheme: ["IGListKit"]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
