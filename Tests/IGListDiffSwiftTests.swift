@@ -6,7 +6,7 @@
  */
 
 import XCTest
-import IGListKit
+import IGListDiffKit
 
 class SwiftClass: ListDiffable {
 
