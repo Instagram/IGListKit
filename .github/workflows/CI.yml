@@ -49,7 +49,7 @@ jobs:
       SCHEME_NAME: IGListKit
     strategy:
       matrix:
-        destination: ["OS=14.2,name=iPhone 12 Pro"] #, "OS=13.7,name=iPhone 11 Pro", "OS=12.4,name=iPhone XS", "OS=11.4,name=iPhone X", "OS=10.3.1,name=iPhone SE"]
+        destination: ["name=iPhone 12 Pro"]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -115,40 +115,19 @@ jobs:
       - name: Carthage build framework
         run: carthage build --no-skip-current
 
-  # Danger:
-  #   name: Run "Danger" validation
-  #   runs-on: macOS-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-
-  #     - name: Cache RubyGems
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: vendor/bundle
-  #         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-  #         restore-keys: |
-  #           ${{ runner.os }}-gems-
-
-  #     - name: Install ruby gems.
-  #       run: bundle install
-
-  #     - name: Danger
-  #       run: bundle exec danger --verbose
-
   Build-Examples:
     name: Build Examples and UI tests.
     runs-on: macOS-latest
     env: 
       DEVELOPER_DIR: /Applications/Xcode_12.1.1.app/Contents/Developer
       IOS_EXAMPLE_WORKSPACE: Examples/Examples-iOS/IGListKitExamples.xcworkspace
-      TVOS_EXAMPLE_WORKSPACE: Examples/Examples-iOS/IGListKitExamples.xcworkspace
+      TVOS_EXAMPLE_WORKSPACE: Examples/Examples-tvOS/IGListKitExamples.xcworkspace
       MACOS_EXAMPLE_WORKSPACE: Examples/Examples-macOS/IGListKitExamples.xcworkspace
       EXAMPLE_SCHEME: IGListKitExamples
     strategy:
       matrix:
-        iosDestination: ["OS=14.2,name=iPhone 12 Pro"]
-        tvOSDestination: ["tvOS Simulator,OS=14.2,name=Apple TV 4K"]
+        iosDestination: ["name=iPhone 12 Pro"]
+        tvOSDestination: ["name=Apple TV 4K"]
         macOSDestination: ["platform=macOS"]
     steps:
       - name: Checkout
@@ -168,22 +147,22 @@ jobs:
       - name: Prepare local pods
         run: bash scripts/setup.sh
 
-      - name: iOS Example - ${{ matrix.iosDestination }}
+      - name: Build iOS Example - ${{ matrix.iosDestination }}
         run: |
           set -o pipefail
           xcodebuild build -workspace "${{ env.IOS_EXAMPLE_WORKSPACE }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
 
-      - name: iOS Example UI Tests - ${{ matrix.iosDestination }}
+      - name: Run iOS Example's UI Tests - ${{ matrix.iosDestination }}
         run: |
           set -o pipefail
           xcodebuild build test -workspace "${{ env.IOS_EXAMPLE_WORKSPACE }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
 
-      - name: tvOS Example - ${{ matrix.tvOSDestination }}
+      - name: Build tvOS Example - ${{ matrix.tvOSDestination }}
         run: |
           set -o pipefail
           xcodebuild build -workspace "${{ env.TVOS_EXAMPLE_WORKSPACE }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.tvOSDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
 
-      - name: macOS Example - ${{ matrix.macOSDestination }}
+      - name: Build macOS Example - ${{ matrix.macOSDestination }}
         run: |
           set -o pipefail
           xcodebuild build -workspace "${{ env.MACOS_EXAMPLE_WORKSPACE }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.macOSDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
