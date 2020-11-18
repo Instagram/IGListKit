@@ -189,3 +189,33 @@ jobs:
           rm -rf IGListKit.xcodeproj/
           rm -rf IGListKit.xcworkspace/
           xcodebuild clean build -scheme "${{ matrix.scheme }}" -destination "${{ matrix.destination }}"
+
+  Build-iOS-SPM-Xcode-Example:
+    name: Build iOS Example integrated via Xcode's SPM.
+    runs-on: macOS-latest
+    env: 
+      DEVELOPER_DIR: /Applications/Xcode_12.1.1.app/Contents/Developer
+      IOS_EXAMPLE_PROJECT: Examples/Examples-iOS-SPM-Xcode/Examples-iOS-SPM-Xcode.xcodeproj
+      EXAMPLE_SCHEME: Examples-iOS-SPM-Xcode
+    strategy:
+      matrix:
+        iosDestination: ["name=iPhone 12 Pro"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache RubyGems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Install ruby gems.
+        run: bundle install
+
+      - name: Build iOS Example - ${{ matrix.iosDestination }}
+        run: |
+          set -o pipefail
+          xcodebuild clean build -project "${{ env.IOS_EXAMPLE_PROJECT }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
