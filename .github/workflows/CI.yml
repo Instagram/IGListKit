@@ -112,6 +112,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Remove Examples folder
+        run: rm -rf Examples/
+
       - name: Carthage build framework
         run: carthage build --no-skip-current
 
