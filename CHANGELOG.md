@@ -16,6 +16,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Enhancements
 
+- Added GitHub workflow which can automatically create GitHub release and attach binary framework for Carthage users so they can pull it instead of building from source.
+
 - Introduce `IGListSwiftKit`, with Swift refinements for `dequeueReusableCellOfClass` methods. [Koen Punt](https://github.com/koenpunt) [(#1388)](https://github.com/Instagram/IGListKit/pull/1388).
 
 - Added `APPLICATION_EXTENSION_API_ONLY` support for `IGListDiffKit` [Peter Meyers](https://github.com/pm-dev) [(#1422)](https://github.com/Instagram/IGListKit/pull/1422)
