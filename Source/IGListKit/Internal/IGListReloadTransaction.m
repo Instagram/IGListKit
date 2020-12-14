@@ -7,7 +7,7 @@
 
 #import "IGListReloadTransaction.h"
 
-#import <IGListKit/IGListAdapterUpdaterDelegate.h>
+#import "IGListAdapterUpdaterDelegate.h"
 
 @interface IGListReloadTransaction ()
 // Given

@@ -7,14 +7,20 @@
 
 #import <UIKit/UIKit.h>
 
+#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
+#import "IGListExperiments.h"
+#import "IGListMacros.h"
+#else
 #import <IGListDiffKit/IGListExperiments.h>
 #import <IGListDiffKit/IGListMacros.h>
-#import <IGListKit/IGListAdapterDataSource.h>
-#import <IGListKit/IGListAdapterDelegate.h>
-#import <IGListKit/IGListAdapterMoveDelegate.h>
-#import <IGListKit/IGListAdapterPerformanceDelegate.h>
-#import <IGListKit/IGListAdapterUpdateListener.h>
-#import <IGListKit/IGListCollectionContext.h>
+#endif
+
+#import "IGListAdapterDataSource.h"
+#import "IGListAdapterDelegate.h"
+#import "IGListAdapterMoveDelegate.h"
+#import "IGListAdapterPerformanceDelegate.h"
+#import "IGListAdapterUpdateListener.h"
+#import "IGListCollectionContext.h"
 
 @protocol IGListUpdatingDelegate;
 
