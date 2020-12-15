@@ -27,22 +27,22 @@
 
 ----------------
 
-一个数据驱动的“UICollectionView”框架，用于构建快速灵活的列表。
+一个数据驱动的`UICollectionView`框架，用于构建快速灵活的列表。
 
 |         | 主要特性  |
 ----------|-----------------
-&#128581; | 不要直接调用 `performBatchUpdates(_:, completion:)` 或 `reloadData()`
-&#127968; | 更好的可复用cell和组件体系结构
-&#128288; | 创建具有多个数据类型的集合
-&#128273; | 解耦扩散算法
-&#9989;   | 全单元测试
-&#128269; | 自定义差异行为模型的
-&#128241; | 简化 `UICollectionView`核心
-&#128640; | 可扩展API
-&#128038; | Objective-C编写,同时完全支持Swift
+&#128581; | 无须直接调用 `performBatchUpdates(_:, completion:)` 或 `reloadData()`
+&#127968; | 更好的可复用 cell 和组件体系结构
+&#128288; | 创建具有多个数据类型的列表
+&#128273; | 解耦的 Diff 算法
+&#9989;   | 完全的单元测试
+&#128269; | 可自定义数据模型的 Diff 行为
+&#128241; | 简化并维持`UICollectionView`的核心特性
+&#128640; | 可扩展的 API 设计
+&#128038; | Objective-C 编写,同时完全支持 Swift
 
-`IGListKit`由[Instagram 工程师](https://engineering.instagram.com/) 创建 并且&#10084;&#65039; 维护.
-我们在Instagram中使用开源的`master`主版本.
+`IGListKit`由 [Instagram 工程师](https://engineering.instagram.com/) 创建 并且&#10084;&#65039; 维护。
+我们在 Instagram 中使用开源的`master`主版本。
 ## 多语言翻译
 
 [英文README](README.md)
@@ -59,7 +59,7 @@
 
 ### CocoaPods
 
-[CocoaPods](https://cocoapods.org)优选安装方法. 添加如下到 `Podfile`文件中:
+推荐使用[CocoaPods](https://cocoapods.org)来进行安装，只需添加如下语句到你的`Podfile`文件中:
 
 ```ruby
 pod 'IGListKit', '~> 3.0'
@@ -67,13 +67,13 @@ pod 'IGListKit', '~> 3.0'
 
 ### Carthage
 
-针对[Carthage](https://github.com/Carthage/Carthage), 添加如下到 `Cartfile`文件中:
+对于[Carthage](https://github.com/Carthage/Carthage), 添加如下到`Cartfile`文件中:
 
 ```ogdl
 github "Instagram/IGListKit" ~> 3.0
 ```
 
-> 对于高级用法, 查阅 [安装指南](https://instagram.github.io/IGListKit/installation.html).
+> 对于高级用法, 查阅 [安装指南](https://instagram.github.io/IGListKit/installation.html)。
 
 ## 入门指南
 
@@ -92,22 +92,22 @@ $ ./scripts/setup.sh
 
 ## 文档
 
-[这里可以查阅文档](https://instagram.github.io/IGListKit). 文档由[jazzy](https://github.com/realm/jazzy)生成, 托管在 [GitHub-Pages](https://pages.github.com).
+[这里可以查阅文档](https://instagram.github.io/IGListKit)。文档由[jazzy](https://github.com/realm/jazzy)生成，托管在 [GitHub-Pages](https://pages.github.com)。
 
-运行位于数据仓root目录 `./scripts/build_docs.sh`生成文档.
+运行位于仓库根目录下的`./scripts/build_docs.sh`脚本来生成文档。
 
 ## 远景
 
-For the long-term goals and "vision" of `IGListKit`, please read our [Vision](https://github.com/Instagram/IGListKit/blob/master/Guides/VISION.md) doc.
+想要了解`IGListKit`的长期目标和愿景，请阅读[Vision](https://github.com/Instagram/IGListKit/blob/master/Guides/VISION.md)。
 
 ## 贡献
 
-Please see the [CONTRIBUTING](https://github.com/Instagram/IGListKit/blob/master/.github/CONTRIBUTING.md) file for how to help. At Instagram, we sync the open source version of `IGListKit` daily, so we're always testing the latest changes. But that requires all changes be thoroughly tested and follow our style guide.
+请查看[CONTRIBUTING](https://github.com/Instagram/IGListKit/blob/master/.github/CONTRIBUTING.md)来了解如何参与贡献。在 Instagram，我们每日都会同步开源版本的`IGListKit`，因此我们总是在测试最新的改动。但是这也需要所有的改动都需要经历完全的测试，并且遵守我们的开发风格。
 
-We have a set of [starter tasks](https://github.com/Instagram/IGListKit/issues?q=is%3Aissue+is%3Aopen+label%3Astarter-task) that are great for beginners to jump in on and start contributing.
+我们有一系列[新人任务](https://github.com/Instagram/IGListKit/issues?q=is%3Aissue+is%3Aopen+label%3Astarter-task)，来帮助新人学习如何参入其中。
 
 ## License
 
-`IGListKit` is [MIT-licensed](./LICENSE).
+`IGListKit` 遵循[MIT-licensed](./LICENSE)。
 
-The files in the `/Examples/` directory are licensed under a separate license as specified in each file. Documentation is licensed [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/).
+`/Examples/`目录下的文件，在文档里指明了它们各自所遵循的协议。文档遵循[CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)。
