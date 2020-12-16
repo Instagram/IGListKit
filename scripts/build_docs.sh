@@ -25,7 +25,7 @@ jazzy \
     --sdk iphonesimulator \
     --module 'IGListKit' \
     --framework-root $SOURCEDIR/ \
-    --umbrella-header $SOURCEDIR/$SOURCE_TMP/IGListKit.h \
+    --umbrella-header $SOURCEDIR/$SOURCE_TMP/include/IGListKit.h \
     --readme README.md \
     --documentation "Guides/*.md" \
     --output docs/

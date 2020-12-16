@@ -7,8 +7,8 @@
 
 #import "IGListBindingSectionController.h"
 
-#import <IGListDiffKit/IGListAssert.h>
-#import <IGListKit/IGListBindable.h>
+#import "IGListAssert.h"
+#import "IGListBindable.h"
 
 #import "IGListArrayUtilsInternal.h"
 

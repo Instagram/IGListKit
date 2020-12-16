@@ -1,0 +1,224 @@
+name: "IGListKit CI"
+
+on: 
+  push:
+    branches: 
+      - master
+  pull_request:
+    branches: 
+      - '*'
+
+jobs:
+  macOS:
+    name: Unit Test macOS
+    runs-on: macOS-latest
+    env: 
+      DEVELOPER_DIR: /Applications/Xcode_12.1.1.app/Contents/Developer
+      WORKSPACE_NAME: IGListKit.xcworkspace
+      SCHEME_NAME: IGListKit-macOS
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache RubyGems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Install ruby gems.
+        run: bundle install
+
+      - name: Run unit tests for macOS
+      #DEBUG locally
+      # xcodebuild build build-for-testing -workspace "IGListKit.xcworkspace" -scheme "IGListKit-macOS" -destination "platform=macOS" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+      # xcodebuild analyze test-without-building -workspace "IGListKit.xcworkspace" -scheme "IGListKit-macOS" -destination "platform=macOS" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+        run: |
+          set -o pipefail
+          xcodebuild build build-for-testing -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "platform=macOS" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+          xcodebuild analyze test-without-building -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "platform=macOS" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+
+  iOS:
+    name: Unit Test iOS 
+    runs-on: macOS-latest
+    env: 
+      DEVELOPER_DIR: /Applications/Xcode_12.1.1.app/Contents/Developer
+      WORKSPACE_NAME: IGListKit.xcworkspace
+      SCHEME_NAME: IGListKit
+    strategy:
+      matrix:
+        destination: ["name=iPhone 12 Pro"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache RubyGems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Install ruby gems.
+        run: bundle install
+
+      - name: iOS - ${{ matrix.destination }}
+      #DEBUG locally
+      # xcodebuild build build-for-testing -workspace "IGListKit.xcworkspace" -scheme "IGListKit" -destination "OS=14.1,name=iPhone 12 Pro" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+      # xcodebuild analyze test-without-building -workspace "IGListKit.xcworkspace" -scheme "IGListKit" -destination "OS=14.1,name=iPhone 12 Pro" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+        run: |
+          set -o pipefail
+          xcodebuild build build-for-testing -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+          xcodebuild analyze test-without-building -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+
+  Cocoapods:
+    name: Cocoapods Lint 
+    runs-on: macOS-latest
+    env: 
+      DEVELOPER_DIR: /Applications/Xcode_12.1.1.app/Contents/Developer
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache RubyGems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Install ruby gems.
+        run: bundle install
+
+      - name: Run IGListDiffKit podspec lint
+        run: bundle exec pod lib lint IGListDiffKit.podspec --allow-warnings
+
+      - name: Run IGListKit podspec lint
+        run: bundle exec pod lib lint IGListKit.podspec --allow-warnings "--include-podspecs=IGListDiffKit.podspec"
+
+      - name: Run IGListSwiftKit podspec lint
+        run: bundle exec pod lib lint IGListSwiftKit.podspec --allow-warnings "--include-podspecs=*.podspec"
+
+  Carthage:
+    name: Verify Carthage build 
+    runs-on: macOS-latest
+    env: 
+      DEVELOPER_DIR: /Applications/Xcode_11.7.app/Contents/Developer
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Remove Examples folder
+        run: rm -rf Examples/
+
+      - name: Carthage build framework
+        run: carthage build --no-skip-current
+
+  Build-Examples:
+    name: Build Examples and UI tests.
+    runs-on: macOS-latest
+    env: 
+      DEVELOPER_DIR: /Applications/Xcode_12.1.1.app/Contents/Developer
+      IOS_EXAMPLE_WORKSPACE: Examples/Examples-iOS/IGListKitExamples.xcworkspace
+      TVOS_EXAMPLE_WORKSPACE: Examples/Examples-tvOS/IGListKitExamples.xcworkspace
+      MACOS_EXAMPLE_WORKSPACE: Examples/Examples-macOS/IGListKitExamples.xcworkspace
+      EXAMPLE_SCHEME: IGListKitExamples
+    strategy:
+      matrix:
+        iosDestination: ["name=iPhone 12 Pro"]
+        tvOSDestination: ["name=Apple TV 4K"]
+        macOSDestination: ["platform=macOS"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache RubyGems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Install ruby gems.
+        run: bundle install
+
+      - name: Prepare local pods
+        run: bash scripts/setup.sh
+
+      - name: Build iOS Example - ${{ matrix.iosDestination }}
+        run: |
+          set -o pipefail
+          xcodebuild build -workspace "${{ env.IOS_EXAMPLE_WORKSPACE }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+
+      - name: Run iOS Example's UI Tests - ${{ matrix.iosDestination }}
+        run: |
+          set -o pipefail
+          xcodebuild build test -workspace "${{ env.IOS_EXAMPLE_WORKSPACE }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+
+      - name: Build tvOS Example - ${{ matrix.tvOSDestination }}
+        run: |
+          set -o pipefail
+          xcodebuild build -workspace "${{ env.TVOS_EXAMPLE_WORKSPACE }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.tvOSDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+
+      - name: Build macOS Example - ${{ matrix.macOSDestination }}
+        run: |
+          set -o pipefail
+          xcodebuild build -workspace "${{ env.MACOS_EXAMPLE_WORKSPACE }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.macOSDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+
+  SPM:
+    name: Build from SPM manifest
+    runs-on: macOS-latest
+    env: 
+      DEVELOPER_DIR: /Applications/Xcode_12.1.1.app/Contents/Developer
+    strategy:
+      matrix:
+        destination: ["platform=iOS Simulator,name=iPhone 12 Pro", "platform=macOS,variant=Mac Catalyst", "platform=tvOS Simulator,name=Apple TV 4k"]
+        scheme: ["IGListKit"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      # Starting from Xcode 11 `xcodebuild` supports SwiftPM packages out of the box
+      # to test that we have  valid swift package we need to remove existing *.xcodeproj/xcworkspace
+      # `xcodebuild` will invoke Package.swift. 
+      - name: spm's xcodebuild - ${{ matrix.destination }}
+        run: |
+          set -o pipefail
+          rm -rf IGListKit.xcodeproj/
+          rm -rf IGListKit.xcworkspace/
+          xcodebuild clean build -scheme "${{ matrix.scheme }}" -destination "${{ matrix.destination }}"
+
+  Build-iOS-SPM-Xcode-Example:
+    name: Build iOS Example integrated via Xcode's SPM.
+    runs-on: macOS-latest
+    env: 
+      DEVELOPER_DIR: /Applications/Xcode_12.1.1.app/Contents/Developer
+      IOS_EXAMPLE_PROJECT: Examples/Examples-iOS-SPM-Xcode/Examples-iOS-SPM-Xcode.xcodeproj
+      EXAMPLE_SCHEME: Examples-iOS-SPM-Xcode
+    strategy:
+      matrix:
+        iosDestination: ["name=iPhone 12 Pro"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache RubyGems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Install ruby gems.
+        run: bundle install
+
+      - name: Build iOS Example - ${{ matrix.iosDestination }}
+        run: |
+          set -o pipefail
+          xcodebuild clean build -project "${{ env.IOS_EXAMPLE_PROJECT }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" -configuration Release ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c

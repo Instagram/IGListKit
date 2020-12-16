@@ -23,17 +23,12 @@ Pod::Spec.new do |s|
   s.dependency 'IGListDiffKit', "= #{s.version}"
 
   [s.ios, s.tvos].each do |os|
-    os.source_files = [
-      'Source/IGListDiffKit/Internal/*.h',
-      'Source/IGListKit/**/*.{h,m,mm}',
-    ]
-    os.private_header_files = [
-      'Source/IGListDiffKit/Internal/*.h',
-      'Source/IGListKit/Internal/*.h',
-    ]
+    os.source_files = 'Source/IGListKit/**/*.{h,m,mm}'
+    os.public_header_files = 'Source/IGListKit/include/*.h'
+    os.private_header_files = 'Source/IGListKit/*.h'
   end
 
-  s.osx.source_files = 'Source/IGListKit/IGListKit.h'
+  s.osx.source_files = 'Source/IGListKit/include/IGListKit.h'
 
   s.requires_arc = true
 

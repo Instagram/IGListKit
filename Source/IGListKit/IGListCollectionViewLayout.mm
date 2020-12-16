@@ -10,8 +10,8 @@
 
 #import <vector>
 
-#import <IGListDiffKit/IGListAssert.h>
-#import <IGListKit/IGListCollectionViewDelegateLayout.h>
+#import "IGListAssert.h"
+#import "IGListCollectionViewDelegateLayout.h"
 
 #import "UIScrollView+IGListKit.h"
 
