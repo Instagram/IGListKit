@@ -76,6 +76,15 @@ NS_SWIFT_NAME(ListSectionController)
 - (void)didUpdateToObject:(id)object;
 
 /**
+ Asks the section controller if the cell at the specified index path should be selected
+
+ @param index The index of cell to be selected.
+
+ @note The default implementation returns YES. **Calling super is not required.**
+ */
+- (BOOL)shouldSelectItemAtIndex:(NSInteger)index;
+
+/**
  Tells the section controller that the cell at the specified index path was selected.
 
  @param index The index of the selected cell.
