@@ -15,7 +15,6 @@
 #import "IGListAdapterInternal.h"
 #import "IGListTestAdapterDataSource.h"
 #import "IGListTestSection.h"
-#import "IGListWorkingRangeHandler.h"
 
 @interface _IGTestWorkingRangeAdapterDataSource : NSObject <IGListAdapterDataSource>
 

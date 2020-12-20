@@ -9,12 +9,9 @@
 
 #import <OCMock/OCMock.h>
 
-#import <IGListKit/IGListKit.h>
-
 #import "IGListAdapterInternal.h"
 #import "IGListAdapterUpdateTester.h"
 #import "IGListTestCase.h"
-#import "IGListTestHelpers.h"
 #import "IGListTestOffsettingLayout.h"
 #import "IGTestCell.h"
 #import "IGTestDelegateController.h"

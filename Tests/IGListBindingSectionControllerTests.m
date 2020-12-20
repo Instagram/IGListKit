@@ -7,8 +7,6 @@
 
 #import <XCTest/XCTest.h>
 
-#import <OCMock/OCMock.h>
-
 #import <IGListKit/IGListKit.h>
 
 #import "IGListAdapterInternal.h"
@@ -21,7 +19,6 @@
 #import "IGTestInvalidateLayoutDataSource.h"
 #import "IGTestInvalidateLayoutObject.h"
 #import "IGTestNumberBindableCell.h"
-#import "IGTestObject.h"
 #import "IGTestStringBindableCell.h"
 
 @interface IGListBindingSectionControllerTests : IGListTestCase

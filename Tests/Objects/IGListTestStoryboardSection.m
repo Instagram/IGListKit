@@ -7,8 +7,6 @@
 
 #import "IGListTestStoryboardSection.h"
 
-#import "IGTestStoryboardCell.h"
-
 @implementation IGListTestStoryboardSection
 
 - (NSInteger)numberOfItems {

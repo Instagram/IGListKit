@@ -9,7 +9,6 @@
 
 #import <IGListDiffKit/IGListAssert.h>
 #import <IGListKit/IGListAdapter.h>
-#import <IGListKit/IGListDisplayDelegate.h>
 #import <IGListKit/IGListSectionController.h>
 #import <IGListKit/IGListSectionControllerInternal.h>
 

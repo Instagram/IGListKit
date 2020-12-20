@@ -12,8 +12,6 @@
 #import <IGListKit/IGListKit.h>
 
 #import "IGListAdapterInternal.h"
-#import "IGListDisplayHandler.h"
-#import "IGListTestAdapterDataSource.h"
 #import "IGListTestSection.h"
 
 @interface IGListDisplayHandlerTests : XCTestCase

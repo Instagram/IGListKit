@@ -7,8 +7,6 @@
 
 #import "IGTestStoryboardViewController.h"
 
-#import "IGTestStoryboardCell.h"
-
 @interface IGTestStoryboardViewController ()
 
 @end
