@@ -20,9 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(ListBindingSingleSectionController)
 @interface IGListBindingSingleSectionController<__covariant ViewModel : id<IGListDiffable>, Cell : UICollectionViewCell *> : IGListSectionController
 
-// Testing the stability of this infra. Defaults to NO.
-@property (nonatomic, readwrite, assign) BOOL enabledCellConfigurationDuringUpdate;
-
 #pragma mark - Subclass
 
 // Required to be implemented by subclass.
