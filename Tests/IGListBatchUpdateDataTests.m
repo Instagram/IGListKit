@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -7,7 +7,8 @@
 
 #import <XCTest/XCTest.h>
 
-#import <IGListKit/IGListBatchUpdateData.h>
+#import <IGListDiffKit/IGListBatchUpdateData.h>
+
 #import "IGListMoveIndexPathInternal.h"
 
 // IGListMoveIndexInternal.h
@@ -136,6 +137,18 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
     XCTAssertEqual(result.insertSections.count, 0);
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@2]));
     XCTAssertEqualObjects(result.moveSections.anyObject, newMove(0, 2));
+}
+
+- (void)test_whenDeletingSameIndexPathMultipleTimes_thatResultDropsTheDuplicates {
+    IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
+                                                                           deleteSections:indexSet(@[])
+                                                                             moveSections:[NSSet new]
+                                                                         insertIndexPaths:@[]
+                                                                         deleteIndexPaths:@[newPath(2, 0), newPath(2, 0)]
+                                                                         updateIndexPaths:@[]
+                                                                           moveIndexPaths:@[]];
+
+    XCTAssertEqualObjects(result.deleteIndexPaths, @[newPath(2, 0)]);
 }
 
 @end

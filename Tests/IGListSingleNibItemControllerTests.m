@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -7,9 +7,9 @@
 
 #import <XCTest/XCTest.h>
 
+#import "IGListTestCase.h"
 #import "IGTestCell.h"
 #import "IGTestSingleNibItemDataSource.h"
-#import "IGListTestCase.h"
 
 @interface IGListSingleNibSectionControllerTests : IGListTestCase
 @end
@@ -18,6 +18,7 @@
 
 - (void)setUp {
     self.dataSource = [IGTestSingleNibItemDataSource new];
+    self.frame = CGRectMake(0, 0, 100, 1000);
     [super setUp];
 }
 

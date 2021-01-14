@@ -1,23 +1,25 @@
+# Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
+
 Feature: Outputting Value Objects implementing IGListDiffable
 
   @announce
   Scenario: Generating a value object, which correctly implements IGListDiffable using the specified diffIdentifier
-    Given a file named "project/values/Test.value" with:
+    Given a file named "project/values/IGListDiffableTest.value" with:
       """
-      Test includes(IGListDiffable) {
+      IGListDiffableTest includes(IGListDiffable) {
         CGRect someRect
-        %diffIdentifier
-        NSString *stringOne
+        %diffIdentifier NSString *stringOne
       }
       """
     When I run `../../bin/generate project`
-    Then the file "project/values/Test.h" should contain:
+    Then the file "project/values/IGListDiffableTest.h" should contain:
       """
+
       #import <Foundation/Foundation.h>
       #import <CoreGraphics/CGGeometry.h>
       #import <IGListKit/IGListDiffable.h>
 
-      @interface Test : NSObject <IGListDiffable, NSCopying>
+      @interface IGListDiffableTest : NSObject <IGListDiffable, NSCopying>
 
       @property (nonatomic, readonly) CGRect someRect;
       @property (nonatomic, readonly, copy) NSString *stringOne;
@@ -31,89 +33,37 @@ Feature: Outputting Value Objects implementing IGListDiffable
       @end
 
       """
-   And the file "project/values/Test.m" should contain:
+    And the file "project/values/IGListDiffableTest.m" should contain:
       """
-      @implementation Test
-
-      - (instancetype)initWithSomeRect:(CGRect)someRect stringOne:(NSString *)stringOne
-      {
-        if ((self = [super init])) {
-          _someRect = someRect;
-          _stringOne = [stringOne copy];
-        }
-
-        return self;
-      }
-
-      - (id)copyWithZone:(nullable NSZone *)zone
-      {
-        return self;
-      }
-
-      - (NSString *)description
-      {
-        return [NSString stringWithFormat:@"%@ - \n\t someRect: %@; \n\t stringOne: %@; \n", [super description], NSStringFromCGRect(_someRect), _stringOne];
-      }
-
       - (id<NSObject>)diffIdentifier
       {
         return _stringOne;
       }
-
-      - (NSUInteger)hash
-      {
-        NSUInteger subhashes[] = {HashCGFloat(_someRect.origin.x), HashCGFloat(_someRect.origin.y), HashCGFloat(_someRect.size.width), HashCGFloat(_someRect.size.height), [_stringOne hash]};
-        NSUInteger result = subhashes[0];
-        for (int ii = 1; ii < 5; ++ii) {
-          unsigned long long base = (((unsigned long long)result) << 32 | subhashes[ii]);
-          base = (~base) + (base << 18);
-          base ^= (base >> 31);
-          base *=  21;
-          base ^= (base >> 11);
-          base += (base << 6);
-          base ^= (base >> 22);
-          result = base;
-        }
-        return result;
-      }
-
-      - (BOOL)isEqual:(Test *)object
-      {
-        if (self == object) {
-          return YES;
-        } else if (object == nil || ![object isKindOfClass:[self class]]) {
-          return NO;
-        }
-        return
-          CGRectEqualToRect(_someRect, object->_someRect) &&
-          (_stringOne == object->_stringOne ? YES : [_stringOne isEqual:object->_stringOne]);
-      }
-
+      """
+    And the file "project/values/IGListDiffableTest.m" should contain:
+      """
       - (BOOL)isEqualToDiffableObject:(nullable id)object
       {
         return [self isEqual:object];
       }
-
-      @end
-
       """
 
   Scenario: Generating a value object, which correctly implements IGListDiffable using a CGRect property
-    Given a file named "project/values/Test.value" with:
+    Given a file named "project/values/IGListDiffableTest2.value" with:
       """
-      Test includes(IGListDiffable) {
-        %diffIdentifier
-        CGRect someRect
+      IGListDiffableTest2 includes(IGListDiffable) {
+        %diffIdentifier CGRect someRect
       }
       """
     When I run `../../bin/generate project`
-    Then the file "project/values/Test.h" should contain:
+    Then the file "project/values/IGListDiffableTest2.h" should contain:
       """
+
       #import <Foundation/Foundation.h>
       #import <CoreGraphics/CGGeometry.h>
       #import <IGListKit/IGListDiffable.h>
 
-      @interface Test : NSObject <IGListDiffable, NSCopying>
+      @interface IGListDiffableTest2 : NSObject <IGListDiffable, NSCopying>
 
       @property (nonatomic, readonly) CGRect someRect;
 
@@ -124,106 +74,60 @@ Feature: Outputting Value Objects implementing IGListDiffable
       - (instancetype)initWithSomeRect:(CGRect)someRect NS_DESIGNATED_INITIALIZER;
 
       @end
-
       """
-   And the file "project/values/Test.m" should contain:
+    And the file "project/values/IGListDiffableTest2.m" should contain:
       """
-      @implementation Test
-
-      - (instancetype)initWithSomeRect:(CGRect)someRect
-      {
-        if ((self = [super init])) {
-          _someRect = someRect;
-        }
-
-        return self;
-      }
-
-      - (id)copyWithZone:(nullable NSZone *)zone
-      {
-        return self;
-      }
-
-      - (NSString *)description
-      {
-        return [NSString stringWithFormat:@"%@ - \n\t someRect: %@; \n", [super description], NSStringFromCGRect(_someRect)];
-      }
-
       - (id<NSObject>)diffIdentifier
       {
         return [NSValue valueWithCGRect:_someRect];
       }
-
-      - (NSUInteger)hash
-      {
-        NSUInteger subhashes[] = {HashCGFloat(_someRect.origin.x), HashCGFloat(_someRect.origin.y), HashCGFloat(_someRect.size.width), HashCGFloat(_someRect.size.height)};
-        NSUInteger result = subhashes[0];
-        for (int ii = 1; ii < 4; ++ii) {
-          unsigned long long base = (((unsigned long long)result) << 32 | subhashes[ii]);
-          base = (~base) + (base << 18);
-          base ^= (base >> 31);
-          base *=  21;
-          base ^= (base >> 11);
-          base += (base << 6);
-          base ^= (base >> 22);
-          result = base;
-        }
-        return result;
-      }
-
-      - (BOOL)isEqual:(Test *)object
-      {
-        if (self == object) {
-          return YES;
-        } else if (object == nil || ![object isKindOfClass:[self class]]) {
-          return NO;
-        }
-        return
-          CGRectEqualToRect(_someRect, object->_someRect);
-      }
-
+      """
+    And the file "project/values/IGListDiffableTest2.m" should contain:
+      """
       - (BOOL)isEqualToDiffableObject:(nullable id)object
       {
         return [self isEqual:object];
       }
-
-      @end
-
       """
 
   Scenario: Generating a value object, which correctly implements IGListDiffable using an NSInteger property
-    Given a file named "project/values/Test.value" with:
+    Given a file named "project/values/IGListDiffableTest3.value" with:
       """
-      Test includes(IGListDiffable) {
-        %diffIdentifier
-        NSInteger count
+      IGListDiffableTest3 includes(IGListDiffable) {
+        %diffIdentifier NSInteger count
       }
       """
     When I run `../../bin/generate project`
-    Then the file "project/values/Test.m" should contain:
+    Then the file "project/values/IGListDiffableTest3.m" should contain:
       """
       - (id<NSObject>)diffIdentifier
       {
         return @(_count);
       }
-
+      """
+    And the file "project/values/IGListDiffableTest3.m" should contain:
+      """
+      - (BOOL)isEqualToDiffableObject:(nullable id)object
+      {
+        return [self isEqual:object];
+      }
       """
 
   Scenario: Generating a value object, which correctly implements IGListDiffable defaulting to self as diffIdentifier
-    Given a file named "project/values/Test.value" with:
+    Given a file named "project/values/IGListDiffableTest4.value" with:
       """
-      Test includes(IGListDiffable) {
+      IGListDiffableTest4 includes(IGListDiffable) {
         CGRect someRect
       }
       """
     When I run `../../bin/generate project`
-    Then the file "project/values/Test.h" should contain:
+    Then the file "project/values/IGListDiffableTest4.h" should contain:
       """
       #import <Foundation/Foundation.h>
       #import <CoreGraphics/CGGeometry.h>
       #import <IGListKit/IGListDiffable.h>
 
-      @interface Test : NSObject <IGListDiffable, NSCopying>
+      @interface IGListDiffableTest4 : NSObject <IGListDiffable, NSCopying>
 
       @property (nonatomic, readonly) CGRect someRect;
 
@@ -236,67 +140,17 @@ Feature: Outputting Value Objects implementing IGListDiffable
       @end
 
       """
-   And the file "project/values/Test.m" should contain:
+   And the file "project/values/IGListDiffableTest4.m" should contain:
       """
-      @implementation Test
-
-      - (instancetype)initWithSomeRect:(CGRect)someRect
-      {
-        if ((self = [super init])) {
-          _someRect = someRect;
-        }
-
-        return self;
-      }
-
-      - (id)copyWithZone:(nullable NSZone *)zone
-      {
-        return self;
-      }
-
-      - (NSString *)description
-      {
-        return [NSString stringWithFormat:@"%@ - \n\t someRect: %@; \n", [super description], NSStringFromCGRect(_someRect)];
-      }
-
       - (id<NSObject>)diffIdentifier
       {
         return self;
       }
-
-      - (NSUInteger)hash
-      {
-        NSUInteger subhashes[] = {HashCGFloat(_someRect.origin.x), HashCGFloat(_someRect.origin.y), HashCGFloat(_someRect.size.width), HashCGFloat(_someRect.size.height)};
-        NSUInteger result = subhashes[0];
-        for (int ii = 1; ii < 4; ++ii) {
-          unsigned long long base = (((unsigned long long)result) << 32 | subhashes[ii]);
-          base = (~base) + (base << 18);
-          base ^= (base >> 31);
-          base *=  21;
-          base ^= (base >> 11);
-          base += (base << 6);
-          base ^= (base >> 22);
-          result = base;
-        }
-        return result;
-      }
-
-      - (BOOL)isEqual:(Test *)object
-      {
-        if (self == object) {
-          return YES;
-        } else if (object == nil || ![object isKindOfClass:[self class]]) {
-          return NO;
-        }
-        return
-          CGRectEqualToRect(_someRect, object->_someRect);
-      }
-
+      """
+   And the file "project/values/IGListDiffableTest4.m" should contain:
+      """
       - (BOOL)isEqualToDiffableObject:(nullable id)object
       {
         return [self isEqual:object];
       }
-
-      @end
-
       """

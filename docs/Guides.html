@@ -10,6 +10,7 @@
     
   </head>
   <body>
+    <a name="//apple_ref/objc/Section/Guides" class="dashAnchor"></a>
     <a title="Guides  Reference"></a>
     <header>
       <div class="content-wrapper">
@@ -34,7 +35,7 @@
                 <a href="best-practices-and-faq.html">Best Practices and FAQ</a>
               </li>
               <li class="nav-group-task">
-                <a href="generating-your-models.html">Generating your models</a>
+                <a href="generating-your-models-using-remodel.html">Generating your models using remodel</a>
               </li>
               <li class="nav-group-task">
                 <a href="getting-started.html">Getting Started</a>
@@ -107,9 +108,6 @@
               <li class="nav-group-task">
                 <a href="Classes/IGListSingleSectionController.html">IGListSingleSectionController</a>
               </li>
-              <li class="nav-group-task">
-                <a href="Classes/IGListStackedSectionController.html">IGListStackedSectionController</a>
-              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -150,6 +148,9 @@
                 <a href="Protocols/IGListAdapterMoveDelegate.html">IGListAdapterMoveDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterPerformanceDelegate.html">IGListAdapterPerformanceDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
               </li>
               <li class="nav-group-task">
@@ -172,6 +173,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListCollectionViewLayoutCompatible.html">IGListCollectionViewLayoutCompatible</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListDiffable.html">IGListDiffable</a>
@@ -200,31 +204,37 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Type Definitions.html">Type Definitions</a>
+            <a href="Type%20Definitions.html">Type Definitions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
+                <a href="Type%20Definitions/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
+                <a href="Type%20Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
+                <a href="Type%20Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a>
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a>
               </li>
             </ul>
           </li>
@@ -248,6 +258,14 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -258,11 +276,141 @@
 
           </section>
           <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/documentation.Generating your models using remodel"></a>
+                    <a name="//apple_ref/objc/Guide/Generating your models using remodel" class="dashAnchor"></a>
+                    <a class="direct-link" href="generating-your-models-using-remodel.html">Generating your models using remodel</a>
+                    </code>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/documentation.IGListDiffable and Equality"></a>
+                    <a name="//apple_ref/objc/Guide/IGListDiffable and Equality" class="dashAnchor"></a>
+                    <a class="direct-link" href="iglistdiffable-and-equality.html">IGListDiffable and Equality</a>
+                    </code>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/documentation.Migration"></a>
+                    <a name="//apple_ref/objc/Guide/Migration" class="dashAnchor"></a>
+                    <a class="direct-link" href="migration.html">Migration</a>
+                    </code>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/documentation.Working with UICollectionView"></a>
+                    <a name="//apple_ref/objc/Guide/Working with UICollectionView" class="dashAnchor"></a>
+                    <a class="direct-link" href="working-with-uicollectionview.html">Working with UICollectionView</a>
+                    </code>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/documentation.Working with Core Data"></a>
+                    <a name="//apple_ref/objc/Guide/Working with Core Data" class="dashAnchor"></a>
+                    <a class="direct-link" href="working-with-core-data.html">Working with Core Data</a>
+                    </code>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/documentation.Getting Started"></a>
+                    <a name="//apple_ref/objc/Guide/Getting Started" class="dashAnchor"></a>
+                    <a class="direct-link" href="getting-started.html">Getting Started</a>
+                    </code>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/documentation.VISION"></a>
+                    <a name="//apple_ref/objc/Guide/VISION" class="dashAnchor"></a>
+                    <a class="direct-link" href="vision.html">VISION</a>
+                    </code>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/documentation.Best Practices and FAQ"></a>
+                    <a name="//apple_ref/objc/Guide/Best Practices and FAQ" class="dashAnchor"></a>
+                    <a class="direct-link" href="best-practices-and-faq.html">Best Practices and FAQ</a>
+                    </code>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/documentation.Installation"></a>
+                    <a name="//apple_ref/objc/Guide/Installation" class="dashAnchor"></a>
+                    <a class="direct-link" href="installation.html">Installation</a>
+                    </code>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/documentation.Modeling and Binding"></a>
+                    <a name="//apple_ref/objc/Guide/Modeling and Binding" class="dashAnchor"></a>
+                    <a class="direct-link" href="modeling-and-binding.html">Modeling and Binding</a>
+                    </code>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-05-01)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2019 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2019-11-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

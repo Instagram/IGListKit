@@ -34,7 +34,7 @@
                 <a href="best-practices-and-faq.html">Best Practices and FAQ</a>
               </li>
               <li class="nav-group-task">
-                <a href="generating-your-models.html">Generating your models</a>
+                <a href="generating-your-models-using-remodel.html">Generating your models using remodel</a>
               </li>
               <li class="nav-group-task">
                 <a href="getting-started.html">Getting Started</a>
@@ -107,9 +107,6 @@
               <li class="nav-group-task">
                 <a href="Classes/IGListSingleSectionController.html">IGListSingleSectionController</a>
               </li>
-              <li class="nav-group-task">
-                <a href="Classes/IGListStackedSectionController.html">IGListStackedSectionController</a>
-              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -150,6 +147,9 @@
                 <a href="Protocols/IGListAdapterMoveDelegate.html">IGListAdapterMoveDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="Protocols/IGListAdapterPerformanceDelegate.html">IGListAdapterPerformanceDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
               </li>
               <li class="nav-group-task">
@@ -172,6 +172,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/IGListCollectionViewLayoutCompatible.html">IGListCollectionViewLayoutCompatible</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/IGListDiffable.html">IGListDiffable</a>
@@ -200,31 +203,37 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Type Definitions.html">Type Definitions</a>
+            <a href="Type%20Definitions.html">Type Definitions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
+                <a href="Type%20Definitions/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
+                <a href="Type%20Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
+                <a href="Type%20Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a>
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a>
               </li>
             </ul>
           </li>
@@ -245,6 +254,14 @@
               </li>
               <li class="nav-group-task">
                 <a href="Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a>
               </li>
             </ul>
           </li>
@@ -272,7 +289,7 @@
 
 <p>Take a look at the following Instagram-inspired list element design:</p>
 
-<p><img src="../Resources/modeling-design.png" alt="Design Specs"></p>
+<p><img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/modeling-design.png" alt="Design Specs"></p>
 
 <p>You can already start mentally modelling your data:</p>
 
@@ -500,7 +517,7 @@ final class ActionViewModel: ListDiffable {
 
 <p>Let&rsquo;s start using these models to power cells using <code>ListBindingSectionController</code>. This controller takes a top-level model (<code>Post</code>), asks its data source for an array of diffable view models (our view models above), then binds those view models to cells (provided in the starter project).</p>
 
-<p><img src="../Resources/binding-flow.png" alt="Binding Flow"></p>
+<p><img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/binding-flow.png" alt="Binding Flow"></p>
 
 <p>Create <strong>PostSectionController.swift</strong> and add the following code:</p>
 <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">PostSectionController</span><span class="p">:</span> <span class="kt">ListBindingSectionController</span><span class="o">&lt;</span><span class="kt">Post</span><span class="o">&gt;</span><span class="p">,</span>
@@ -736,7 +753,7 @@ final class CommentCell: UICollectionViewCell, ListBindable {
 
 <p><strong>Build and run</strong> the sample app to see your post show up!</p>
 
-<p><img src="../Resources/modeling-working.png" alt="Working in the Simulator"></p>
+<p><img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/modeling-working.png" alt="Working in the Simulator"></p>
 <h2 id='handling-cell-actions' class='heading'>Handling Cell Actions</h2>
 
 <p>This design should respond to tapping the heart icon on the <code>ActionCell</code>. In order to do that, you need to handle taps on the <code>UIButton</code>, then forward the event to the <code>PostSectionController</code>:</p>
@@ -818,7 +835,7 @@ final class CommentCell: UICollectionViewCell, ListBindable {
 <p><strong>Build and run</strong> the app, tap on the heart button, and see your likes increment!</p>
 
 <p align="center">
-  <img src="../Resources/modeling-likes.gif" width=300  />
+  <img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/modeling-likes.gif" width=300  />
 </p>
 <h2 id='wrapping-up' class='heading'>Wrapping up</h2>
 
@@ -833,8 +850,8 @@ final class CommentCell: UICollectionViewCell, ListBindable {
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-05-01)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2019 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2019-11-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

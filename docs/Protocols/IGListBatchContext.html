@@ -35,7 +35,7 @@
                 <a href="../best-practices-and-faq.html">Best Practices and FAQ</a>
               </li>
               <li class="nav-group-task">
-                <a href="../generating-your-models.html">Generating your models</a>
+                <a href="../generating-your-models-using-remodel.html">Generating your models using remodel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../getting-started.html">Getting Started</a>
@@ -108,9 +108,6 @@
               <li class="nav-group-task">
                 <a href="../Classes/IGListSingleSectionController.html">IGListSingleSectionController</a>
               </li>
-              <li class="nav-group-task">
-                <a href="../Classes/IGListStackedSectionController.html">IGListStackedSectionController</a>
-              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -151,6 +148,9 @@
                 <a href="../Protocols/IGListAdapterMoveDelegate.html">IGListAdapterMoveDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/IGListAdapterPerformanceDelegate.html">IGListAdapterPerformanceDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/IGListAdapterUpdateListener.html">IGListAdapterUpdateListener</a>
               </li>
               <li class="nav-group-task">
@@ -173,6 +173,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListCollectionViewDelegateLayout.html">IGListCollectionViewDelegateLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IGListCollectionViewLayoutCompatible.html">IGListCollectionViewLayoutCompatible</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/IGListDiffable.html">IGListDiffable</a>
@@ -201,31 +204,37 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Type Definitions.html">Type Definitions</a>
+            <a href="../Type%20Definitions.html">Type Definitions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
+                <a href="../Type%20Definitions/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
+                <a href="../Type%20Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellConfigureBlock">IGListSingleSectionCellConfigureBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
+                <a href="../Type%20Definitions.html#/c:IGListSingleSectionController.h@T@IGListSingleSectionCellSizeBlock">IGListSingleSectionCellSizeBlock</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Type Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a>
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a>
               </li>
             </ul>
           </li>
@@ -246,6 +255,14 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a>
               </li>
             </ul>
           </li>
@@ -454,6 +471,71 @@ reload everything within the section.</p>
                               <td>
                                 <div>
                                   <p>The indexes of items that need deleting.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListBatchContext(im)invalidateLayoutInSectionController:atIndexes:"></a>
+                    <a name="//apple_ref/objc/Method/-invalidateLayoutInSectionController:atIndexes:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListBatchContext(im)invalidateLayoutInSectionController:atIndexes:">-invalidateLayoutInSectionController:atIndexes:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invalidates layouts of cells at specific in the section controller.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">invalidateLayoutInSectionController</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span>
+                                  <span class="nf">atIndexes</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexes</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">invalidateLayout</span><span class="p">(</span><span class="k">in</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexes</span><span class="p">:</span> <span class="kt">IndexSet</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sectionController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The section controller who&rsquo;s cells need invalidating.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexes</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The indexes of items that need invalidating.</p>
                                 </div>
                               </td>
                             </tr>
@@ -769,10 +851,10 @@ reload everything within the section.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="nf">revertInvalidInteractiveMoveFromIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">sourceIndexPath</span>
-                              <span class="nf">toIndexPath</span><span class="p">:</span>
-                                  <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">destinationIndexPath</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">revertInvalidInteractiveMoveFromIndexPath</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">sourceIndexPath</span>
+                                      <span class="nf">toIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span>
+                                                      <span class="n">destinationIndexPath</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -820,8 +902,8 @@ reload everything within the section.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2018-05-01)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2019 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2019-11-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

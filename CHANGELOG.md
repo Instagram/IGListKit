@@ -2,43 +2,111 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
-4.0.0 (upcoming release)
+
+5.0.0 (upcoming release)
 -----
+
 ### Breaking Changes
 
-- All `IGListBindingSectionControllerSelectionDelegate` methods are now required. [Bofei Zhu] (https://github.com/zhubofei) [(#1186)](https://github.com/Instagram/IGListKit/pull/1186)
+- Removed unneeded diffing functions `IGListDiffExperiment(...)` and `IGListDiffPathsExperiment(...)`. [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
-- Renamed `[IGListAdapterUpdatingDelegate listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:]` to `[IGListAdapterUpdatingDelegate listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:fromObjects:toObjects:listIndexSetResult:]` to include more supporting info on updated objects. [Jeremy Cohen] (https://github.com/jeremycohen) (tbd)
+- `ListSectionController.collectionContext` and `ListGenericSectionController.object` are now implicitly-unwrapped optionals in Swift. [Nate Stedman](https://github.com/natestedman) (tbd)
 
-- Renamed `[IGListAdapterUpdatingDelegatelistAdapterUpdater:collectionView:willCrashWithException:fromObjects:toObjects:updates:]` to `[ IGListAdapterUpdatingDelegatelistAdapterUpdater:collectionView:willCrashWithException:fromObjects:toObjects:diffResult:updates:]` to include diff result info. [Zhisheng Huang] (https://github.com/lorixx) (tbd)
+- The argument of `IGListGenericSectionController`'s `-didUpdateToObject:` is now generic, not `id`. [Nate Stedman](https://github.com/natestedman) (tbd)
 
 ### Enhancements
 
-- Added `IGListCollectionScrollingTraits` for exposing `UICollectionView` scrolling traits to section controllers via `IGListCollectionContext`. [Adam Stern](https://github.com/adamastern) (tbd)
+- Added `shouldSelectItemAtIndex:` to `IGListSectionController` . [dirtmelon](https://github.com/dirtmelon)
 
--  `IGListBindingSectionController` no longer asserts when reloading the entire section. A warning message is now logged if the entire section is going to be reloaded. [Jeff Bailey](https://github.com/jeffbailey) (#1213)
+- Introduce `IGListSwiftKit`, with Swift refinements for `dequeueReusableCellOfClass` methods. [Koen Punt](https://github.com/koenpunt) [(#1388)](https://github.com/Instagram/IGListKit/pull/1388).
 
-- Added `preferItemReloadsForSectionReloads` in IGListAdapterUpdater so that the item updates are invoked with the proper collectionView animation, instead of using the delete+insert section operation when the number of items is unchanged. [Zhisheng Huang](https://github.com/lorixx) (tbd)
+- Added `APPLICATION_EXTENSION_API_ONLY` support for `IGListDiffKit` [Peter Meyers](https://github.com/pm-dev) [(#1422)](https://github.com/Instagram/IGListKit/pull/1422)
+
+-  Improved performance by deferring requesting objects from the `IGListAdapterDataSource` until just before diffing is executed. If n updates are coalesced into one, this results in just a single request for objects from the data source. Shipped with experiment `IGListExperimentDeferredToObjectCreation` from Ryan Nystrom.  [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
+- Improved performance by using `reloadData` when there are too many diffing updates. Shipped with experiment `IGListExperimentReloadDataFallback` from Ryan Nystrom. [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
 ### Fixes
 
-- Fixed crash when the data source is nil before calling `-[IGListAdapterUpdater performUpdateWithCollectionViewBlock:fromObjects:toObjectsBlock:animated:objectTransitionBlock:completion:]`. [Zhisheng Huang](https://github.com/lorixx) (tbd)
+- `IGListCollectionViewLayout` should get the section/index counts via `UICollectionView` to stay in sync, instead of the `dataSource` [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
-- Experimental fix to get the `UICollectionView` for batch updating immediately before applying the update. [Ryan Nystrom](https://github.com/rnystrom) (tbd)
+- Remove `[collectionView layoutIfNeeded]` before scrolling in `[IGListAdapter scrollToObject...]` to avoid creating off-screen cells. [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
-- `[IGListAdapterUpdater performBatchUpdatesWithCollectionViewBlock:]` and `[IGListAdapterUpdater performReloadDataWithCollectionViewBlock:]` clean state and run completion blocks if their `UICollectionView` is nil. [Brandon Darin](https://github.com/jbd1030) (tbd)
+- Remove `[collectionView layoutIfNeeded]` before updating in `[IGListAdapterUpdater performBatchUpdates...]` to fix occasional glitches. [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
-- Ensuring view models with duplicate diff identifiers are removed when view models are first requested by `IGListBindingSectionController` [Adam Stern](https://github.com/adamastern) (tbd)
+- Fixed `IGListAdapterUpdaterDelegate` by 1) calling `willReloadDataWithCollectionView` on fallback reloads and 2) making sure `willPerformBatchUpdatesWithCollectionView` is only called when performing a batch update. [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
-- Fixed `[IGListAdapterUpdater reloadItemInCollectionView:fromIndexPath:toIndexPath:]` does not call delegate when not inside a batch update. [Bofei Zhu] (https://github.com/zhubofei) [(#1211)](https://github.com/Instagram/IGListKit/pull/1211)
+- Fixed missing update when calling `performUpdatesAnimated` multiple times quickly and using the `reloadDataFallback()`. [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
-- Log instead of assert for duplicate diff identifiers to make code testable. [Adam Stern](https://github.com/adamastern) (tbd)
+- Request the `UICollectionView` until just-before we update. This way if the `UICollectionView` is changed between update-queue and execution, we guarantee the update is performed on the correct view. Ship with experiment `IGListExperimentGetCollectionViewAtUpdate` from Ryan Nystrom. [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
+4.0.0
+-----
+### Breaking Changes
+
+- Added Swift annotation name to `IGListAdapterDelegate` which removes `IG` prefix. The new name for Swift clients is `ListAdapterDelegate`. [Andrea Antonioni](https://github.com/andreaantonioni) [(#1116)](https://github.com/Instagram/IGListKit/pull/1116)
+
+- Remove support for iOS 8 [Ian Perry](https://github.com/iperry90) [(#1381)](https://github.com/Instagram/IGListKit/pull/1381)
+
+- `IGListKit` has been split into `IGListKit` and `IGListDiffKit` for Xcode and Carthage builds. Cocoapods continues to use an all-inclusive `IGListKit` podspec. [Nate Stedman](https://github.com/natestedman) [(#1377)](https://github.com/Instagram/IGListKit/pull/1377)
+
+- Remove `coalescanceTime` from IGListAdapterUpdate, since it increase crash rate. [Zhisheng Huang](https://github.com/lorixx) [(2f76e8c)](https://github.com/Instagram/IGListKit/commit/2f76e8ce684bf7cea75ee52f25d4ea0af3e0081b)
+
+- All `IGListBindingSectionControllerSelectionDelegate` methods are now required. [Bofei Zhu](https://github.com/zhubofei) [(#1186)](https://github.com/Instagram/IGListKit/pull/1186)
+
+- Renamed `[IGListAdapterUpdatingDelegate listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:]` to `[IGListAdapterUpdatingDelegate listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:fromObjects:toObjects:listIndexSetResult:]` to include more supporting info on updated objects. [Jeremy Cohen](https://github.com/jeremycohen) [(b200dda)](https://github.com/Instagram/IGListKit/commit/b200ddacf59547641d77e31d313566c78944a67b)
+
+- Renamed `[IGListAdapterUpdatingDelegatelistAdapterUpdater:collectionView:willCrashWithException:fromObjects:toObjects:updates:]` to `[ IGListAdapterUpdatingDelegatelistAdapterUpdater:collectionView:willCrashWithException:fromObjects:toObjects:diffResult:updates:]` to include diff result info. [Zhisheng Huang](https://github.com/lorixx) [(039e77e)](https://github.com/Instagram/IGListKit/commit/039e77e3593251c8711497f76ab25857d641ecee)
+
+- Remove `IGListStackedSectionController`. [Hanton Yang](https://github.com/hanton) [(#1355)](https://github.com/Instagram/IGListKit/pull/1355)
+
+### Enhancements
+
+- Added `IGListCollectionScrollingTraits` for exposing `UICollectionView` scrolling traits to section controllers via `IGListCollectionContext`. [Adam Stern](https://github.com/adamastern) [(b4c8ea1)](https://github.com/Instagram/IGListKit/commit/b4c8ea180f3bbda8b7995da758fbec58bf7214a8)
+
+-  `IGListBindingSectionController` no longer asserts when reloading the entire section. A warning message is now logged if the entire section is going to be reloaded. [Jeff Bailey](https://github.com/jeffbailey) [(#1213)](https://github.com/Instagram/IGListKit/pull/1213)
+
+- Added `preferItemReloadsForSectionReloads` in IGListAdapterUpdater so that the item updates are invoked with the proper collectionView animation, instead of using the delete+insert section operation when the number of items is unchanged. [Zhisheng Huang](https://github.com/lorixx) [(f699ea0)](https://github.com/Instagram/IGListKit/commit/f699ea0e17a8cc6335285dc9f86fb80a0ad49700)
+
+- Created `IGListAdapterPerformanceDelegate` for IGListAdapter to be able to measure how long some operations take across all section controllers. For example, how long it takes to dequeue a cell. [Maxime Ollivier](https://github.com/maxoll) [(4662454)](https://github.com/Instagram/IGListKit/commit/4662454c4aedbc5d3bed0cb386f2ef93de40ba51)
+
+- Update CocoaPods integration to use the CocoaPods specs CDN [Koen Punt](https://github.com/koenpunt) [(#1386)](https://github.com/Instagram/IGListKit/pull/1386)
+
+- Remove useless system version code [Kinarobin](https://github.com/kinarobin) [(#1386)](https://github.com/Instagram/IGListKit/pull/1396)
+
+### Fixes
+
+- Fixed bug with layouts inconsistency in `updateAnimated:completion` of IGListBindingSectionController. [Qinghua Hong](https://github.com/qhhonx) [(#1285)](https://github.com/Instagram/IGListKit/pull/1285)
+
+- Fixed bug with `-[IGListAdapter scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:animated:]` where the content inset(bottom/right) of the collection view was incorrectly being applied to the final offset and was inconsistent with the content inset(top/left) of the collection view being applied. [Qinghua Hong](https://github.com/qhhonx) [(#1284)](https://github.com/Instagram/IGListKit/pull/1284)
+
+- Fixed crash when the data source is nil before calling `-[IGListAdapterUpdater performUpdateWithCollectionViewBlock:fromObjects:toObjectsBlock:animated:objectTransitionBlock:completion:]`. [Zhisheng Huang](https://github.com/lorixx) [(6cdd112)](https://github.com/Instagram/IGListKit/commit/6cdd112790f13a683d3e061a7646f2c3549cc4dd)
+
+- Experimental fix to get the `UICollectionView` for batch updating immediately before applying the update. [Ryan Nystrom](https://github.com/rnystrom) [(583efb9)](https://github.com/Instagram/IGListKit/commit/583efb936b0ba4d8beac0678b145aa5aff8ac12b)
+
+- Fixed bug with `IGListDiff.mm` where arrays of `NSIndexPath`, instead of `NSIndexPath`, were incorrectly set as objects for the IndexPathMaps. [Bofei Zhu](https://github.com/zhubofei) [(#1205)](https://github.com/Instagram/IGListKit/pull/1205)
+
+- `[IGListAdapterUpdater performBatchUpdatesWithCollectionViewBlock:]` and `[IGListAdapterUpdater performReloadDataWithCollectionViewBlock:]` clean state and run completion blocks if their `UICollectionView` is nil. [Brandon Darin](https://github.com/jbd1030) [(290d592)](https://github.com/Instagram/IGListKit/commit/290d592983713c3ef82eb4950ba773a0059563a2)
+
+- Ensuring view models with duplicate diff identifiers are removed when view models are first requested by `IGListBindingSectionController` [Adam Stern](https://github.com/adamastern) [(a1ee4c1)](https://github.com/Instagram/IGListKit/commit/a1ee4c19f7a6cbd9899dba82deb5fb3ece669e9c)
+
+- Fixed `[IGListAdapterUpdater reloadItemInCollectionView:fromIndexPath:toIndexPath:]` does not call delegate when not inside a batch update. [Bofei Zhu](https://github.com/zhubofei) [(#1211)](https://github.com/Instagram/IGListKit/pull/1211)
+
+- Log instead of assert for duplicate diff identifiers to make code testable. [Adam Stern](https://github.com/adamastern) [(bee2178)](https://github.com/Instagram/IGListKit/commit/bee2178443ffcaff1d9135c4e094f74240433a62)
 
 - Removed `nibName` argument from `IGListReusableViewIdentifier`. [Trung Duc](https://github.com/trungducc) [(#1223)](https://github.com/Instagram/IGListKit/issues/1223)
 
-- Fixed crash when using `-[IGListCollectionContext dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:]` [Jeremy Lawrence](https://github.com/ziewvater) (tbd)
+- Fixed crash when using `-[IGListCollectionContext dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:]` [Jeremy Lawrence](https://github.com/ziewvater) [(3b19cfb)](https://github.com/Instagram/IGListKit/commit/3b19cfb9d742d1fd97540bd8cf42c3552ab47de9)
 
-- Fixed logic flaw in `[IGListCollectionViewLayout shouldInvalidateLayoutForBoundsChange:]`. [Allen Hsu](https://github.com/allenhsu) (tbd)
+- Added missing method override to `IGListBindingSectionController` that updates the internal `viewModels` array after moving a cell. [Dennis Müller](https://github.com/d3mueller) [(#1262)](https://github.com/Instagram/IGListKit/issues/1262)
+
+- Fixed logic flaw in `[IGListCollectionViewLayout shouldInvalidateLayoutForBoundsChange:]`. [Allen Hsu](https://github.com/allenhsu) [(#1236)](https://github.com/Instagram/IGListKit/pull/1236)
+
+- Fixed crash when calling `[UICollectionView layoutAttributesForSupplementaryElementOfKind...]` with `IGListCollectionViewLayout` and the section controller doesn't actually return a supplementary view [Maxime Ollivier](https://github.com/maxolls) [(cddb297)](https://github.com/Instagram/IGListKit/commit/cddb29799c5393f3c1a1ab7e9c072208e8c23225)
+
+- Added `IGListExperimentAvoidLayoutOnScrollToObject` to avoid creating off-screen cells when calling `[IGListAdapter scrollToObject ...]`. [Maxime Ollivier](https://github.com/maxolls) [(6faddd9)](https://github.com/Instagram/IGListKit/commit/6faddd99c95428cf42bb38684464b458ef1455c0)
+
+- Added `IGListExperimentFixIndexPathImbalance` to test fixing a crash when inserting and deleting the same NSIndexPath multiple times. [Maxime Ollivier](https://github.com/maxolls) [(7824698)](https://github.com/Instagram/IGListKit/commit/78246986108e7caf73111fe784057cc107ee67f1)
 
 3.4.0
 -----
@@ -75,6 +143,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 - `-[IGListSectionController didSelectItemAtIndex:]` is now called when a `scrollViewDelegate` or `collectionViewDelegate` is set. [Ryan Nystrom](https://github.com/rnystrom) [(#1108)](https://github.com/Instagram/IGListKit/pull/1108)
 
 - Fixed binding section controllers failing to update their cells when the section controller's section changes. [Chrisna Aing](https://github.com/ccrazy88) [(#1144)](https://github.com/Instagram/IGListKit/pull/1144)
+
+- Fixed a bug caused when applying interactive reordering on a single section item while dragging it through the last spot of the collection view and back to some (non-last) target position. [Ofir Gluzman](https://github.com/ofirgluzman) [#1289](https://github.com/Instagram/IGListKit/pull/1289)
 
 3.2.0
 -----

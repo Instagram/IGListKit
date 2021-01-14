@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -7,11 +7,11 @@
 
 #import "IGTestDiffingSectionController.h"
 
+#import "IGTestCell.h"
 #import "IGTestDiffingObject.h"
-#import "IGTestStringBindableCell.h"
 #import "IGTestNumberBindableCell.h"
 #import "IGTestObject.h"
-#import "IGTestCell.h"
+#import "IGTestStringBindableCell.h"
 
 @implementation IGTestDiffingSectionController
 

@@ -1,23 +1,20 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant 
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import "IGListDiffTests.h"
 
-#import <XCTest/XCTest.h>
 #import <Foundation/Foundation.h>
+#import <XCTest/XCTest.h>
 
-#import <IGListKit/IGListDiff.h>
-#import <IGListKit/IGListExperiments.h>
+#import <IGListDiffKit/IGListDiff.h>
+
 #import "IGListIndexSetResultInternal.h"
 #import "IGListMoveIndexInternal.h"
 #import "IGListMoveIndexPathInternal.h"
-
 #import "IGTestObject.h"
 
 #define genIndexPath(i, s) [NSIndexPath indexPathForItem:i inSection:s]
@@ -63,6 +60,14 @@ static NSArray *sorted(NSArray *arr) {
     IGListIndexSetResult *result = IGListDiff(o, n, IGListDiffEquality);
     XCTAssertEqualObjects(result.deletes, [NSIndexSet indexSetWithIndex:0]);
     XCTAssertEqual([result changeCount], 1);
+}
+
+- (void)test_whenDiffingToEmptyArray_thatOldIndexPathsAreCorrect {
+    NSArray *o = @[@1, @2];
+    NSArray *n = @[];
+    IGListIndexPathResult *result = IGListDiffPaths(0, 1, o, n, IGListDiffEquality);
+    XCTAssertEqualObjects([result oldIndexPathForIdentifier:@1], [NSIndexPath indexPathForItem:0 inSection:0]);
+    XCTAssertEqualObjects([result oldIndexPathForIdentifier:@2], [NSIndexPath indexPathForItem:1 inSection:0]);
 }
 
 - (void)test_whenSwappingObjects_thatResultHasMoves {
@@ -403,5 +408,4 @@ static NSArray *sorted(NSArray *arr) {
     NSArray *expectedInserts = @[genIndexPath(0, 1), genIndexPath(3, 1), genIndexPath(4, 1), genIndexPath(5, 1)];
     XCTAssertEqualObjects(sorted(result.inserts), expectedInserts);
 }
-
 @end

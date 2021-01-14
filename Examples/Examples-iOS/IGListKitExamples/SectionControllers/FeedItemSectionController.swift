@@ -1,18 +1,12 @@
-/**
- Copyright (c) Facebook, Inc. and its affiliates.
-
- The examples provided by Facebook are for non-commercial testing and evaluation
- purposes only. Facebook reserves all rights not expressly granted.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
- ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/*
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 import IGListKit
+import IGListSwiftKit
 
 final class FeedItemSectionController: ListSectionController, ListSupplementaryViewSource {
 
@@ -34,7 +28,7 @@ final class FeedItemSectionController: ListSectionController, ListSupplementaryV
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: LabelCell.self, for: self, at: index) as? LabelCell else {
+        guard let cell: LabelCell = collectionContext?.dequeueReusableCell(for: self, at: index) else {
             fatalError()
         }
         cell.text = feedItem.comments[index]
@@ -48,14 +42,14 @@ final class FeedItemSectionController: ListSectionController, ListSupplementaryV
     // MARK: ListSupplementaryViewSource
 
     func supportedElementKinds() -> [String] {
-        return [UICollectionElementKindSectionHeader, UICollectionElementKindSectionFooter]
+        return [UICollectionView.elementKindSectionHeader, UICollectionView.elementKindSectionFooter]
     }
 
     func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
         switch elementKind {
-        case UICollectionElementKindSectionHeader:
+        case UICollectionView.elementKindSectionHeader:
             return userHeaderView(atIndex: index)
-        case UICollectionElementKindSectionFooter:
+        case UICollectionView.elementKindSectionFooter:
             return userFooterView(atIndex: index)
         default:
             fatalError()
@@ -68,7 +62,7 @@ final class FeedItemSectionController: ListSectionController, ListSupplementaryV
 
     // MARK: Private
     private func userHeaderView(atIndex index: Int) -> UICollectionReusableView {
-        guard let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
+        guard let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
                                                                              for: self,
                                                                              nibName: "UserHeaderView",
                                                                              bundle: nil,
@@ -81,7 +75,7 @@ final class FeedItemSectionController: ListSectionController, ListSupplementaryV
     }
 
     private func userFooterView(atIndex index: Int) -> UICollectionReusableView {
-        guard let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter,
+        guard let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter,
                                                                              for: self,
                                                                              nibName: "UserFooterView",
                                                                              bundle: nil,

@@ -1,15 +1,8 @@
-/**
- Copyright (c) Facebook, Inc. and its affiliates.
- 
- The examples provided by Facebook are for non-commercial testing and evaluation
- purposes only. Facebook reserves all rights not expressly granted.
- 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
- ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/*
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import "CommentCell.h"
@@ -44,7 +37,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
+
     CGFloat left = 8.0;
     CGRect bounds = self.contentView.bounds;
     self.commentLabel.frame = CGRectMake(left, 0, bounds.size.width - left * 2.0, bounds.size.height);
@@ -52,7 +45,7 @@
 
 - (void)setComment:(NSString *)comment {
     _comment = [comment copy];
-    
+
     self.commentLabel.text = _comment;
 }
 

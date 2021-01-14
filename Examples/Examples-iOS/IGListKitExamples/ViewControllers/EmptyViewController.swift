@@ -1,15 +1,8 @@
-/**
- Copyright (c) Facebook, Inc. and its affiliates.
-
- The examples provided by Facebook are for non-commercial testing and evaluation
- purposes only. Facebook reserves all rights not expressly granted.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
- ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/*
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 import IGListKit
@@ -21,7 +14,11 @@ final class EmptyViewController: UIViewController, ListAdapterDataSource, Remove
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
 
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.backgroundColor = UIColor.secondaryBackground
+        return collectionView
+    }()
 
     let emptyLabel: UILabel = {
         let label = UILabel()
@@ -38,12 +35,9 @@ final class EmptyViewController: UIViewController, ListAdapterDataSource, Remove
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: #selector(EmptyViewController.onAdd))
-
-        collectionView.backgroundColor = UIColor(white: 0.9, alpha: 1)
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
@@ -80,7 +74,7 @@ final class EmptyViewController: UIViewController, ListAdapterDataSource, Remove
 
     func removeSectionControllerWantsRemoved(_ sectionController: RemoveSectionController) {
         let section = adapter.section(for: sectionController)
-        guard let object = adapter.object(atSection: section) as? Int, let index = data.index(of: object) else { return }
+        guard let object = adapter.object(atSection: section) as? Int, let index = data.firstIndex(of: object) else { return }
         data.remove(at: index)
         adapter.performUpdates(animated: true, completion: nil)
     }

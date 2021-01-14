@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
@@ -11,7 +11,7 @@
 
 @interface IGTestStoryboardSupplementarySource : NSObject <IGListSupplementaryViewSource>
 
-@property (nonatomic, strong, readwrite) NSArray<NSString *> *supportedElementKinds;
+@property (nonatomic, copy, readwrite) NSArray<NSString *> *supportedElementKinds;
 
 @property (nonatomic, weak) id<IGListCollectionContext> collectionContext;
 

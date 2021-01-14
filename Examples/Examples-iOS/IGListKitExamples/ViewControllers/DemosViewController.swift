@@ -1,15 +1,8 @@
-/**
- Copyright (c) Facebook, Inc. and its affiliates.
-
- The examples provided by Facebook are for non-commercial testing and evaluation
- purposes only. Facebook reserves all rights not expressly granted.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
- ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/*
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 import IGListKit
@@ -51,8 +44,6 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
                  controllerClass: SelfSizingCellsViewController.self),
         DemoItem(name: "Display delegate",
                  controllerClass: DisplayViewController.self),
-        DemoItem(name: "Stacked Section Controllers",
-                 controllerClass: StackedViewController.self),
         DemoItem(name: "Objc Demo",
                  controllerClass: ObjcDemoViewController.self),
         DemoItem(name: "Objc Generated Model Demo",
@@ -62,9 +53,7 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
         DemoItem(name: "Dependency Injection",
                  controllerClass: AnnouncingDepsViewController.self),
         DemoItem(name: "Reorder Cells",
-                 controllerClass: ReorderableViewController.self),
-        DemoItem(name: "Reorder Stacked Section Controllers",
-                 controllerClass: ReorderableStackedViewController.self)
+                 controllerClass: ReorderableViewController.self)
     ]
 
     override func viewDidLoad() {
