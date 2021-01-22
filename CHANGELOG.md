@@ -36,6 +36,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 - (void)performDataSourceChange:(IGListDataSourceChangeBlock)block;
 ```
 
+- Removed `allowsBackgroundReloading` from `IGListAdapterUpdater` because it's causing performance issues and other bugs. [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
 ### Enhancements
 
 - Added `shouldSelectItemAtIndex:` to `IGListSectionController` . [dirtmelon](https://github.com/dirtmelon)

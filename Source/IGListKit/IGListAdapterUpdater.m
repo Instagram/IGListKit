@@ -31,7 +31,6 @@
 @synthesize sectionMovesAsDeletesInserts = _sectionMovesAsDeletesInserts;
 @synthesize singleItemSectionUpdates = _singleItemSectionUpdates;
 @synthesize preferItemReloadsForSectionReloads = _preferItemReloadsForSectionReloads;
-@synthesize allowsBackgroundReloading = _allowsBackgroundReloading;
 @synthesize allowsReloadingOnTooManyUpdates = _allowsReloadingOnTooManyUpdates;
 @synthesize experiments = _experiments;
 
@@ -40,7 +39,6 @@
 
     if (self = [super init]) {
         _transactionBuilder = [IGListUpdateTransactionBuilder new];
-        _allowsBackgroundReloading = YES;
         _allowsReloadingOnTooManyUpdates = YES;
     }
     return self;
@@ -91,7 +89,6 @@
         .sectionMovesAsDeletesInserts = _sectionMovesAsDeletesInserts,
         .singleItemSectionUpdates = _singleItemSectionUpdates,
         .preferItemReloadsForSectionReloads = _preferItemReloadsForSectionReloads,
-        .allowsBackgroundReloading = _allowsBackgroundReloading,
         .allowsReloadingOnTooManyUpdates = _allowsReloadingOnTooManyUpdates,
         .experiments = _experiments,
     };

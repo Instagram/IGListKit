@@ -22,7 +22,6 @@
         [NSString stringWithFormat:@"sectionMovesAsDeletesInserts: %@", IGListDebugBOOL(self.sectionMovesAsDeletesInserts)],
         [NSString stringWithFormat:@"singleItemSectionUpdates: %@", IGListDebugBOOL(self.singleItemSectionUpdates)],
         [NSString stringWithFormat:@"preferItemReloadsForSectionReloads: %@", IGListDebugBOOL(self.preferItemReloadsForSectionReloads)],
-        [NSString stringWithFormat:@"allowsBackgroundReloading: %@", IGListDebugBOOL(self.allowsBackgroundReloading)],
         [NSString stringWithFormat:@"allowsReloadingOnTooManyUpdates: %@", IGListDebugBOOL(self.allowsReloadingOnTooManyUpdates)]
     ];
     [debug addObjectsFromArray:IGListDebugIndentedLines(options)];

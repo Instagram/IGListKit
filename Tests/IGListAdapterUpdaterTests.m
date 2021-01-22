@@ -533,7 +533,6 @@
 }
 
 - (void)test_whenCollectionViewNotInWindow_andBackgroundReloadFlag_isSetNO_diffHappens {
-    self.updater.allowsBackgroundReloading = NO;
     [self.collectionView removeFromSuperview];
 
     id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
@@ -546,57 +545,6 @@
     [[mockDelegate expect] listAdapterUpdater:self.updater didPerformBatchUpdates:OCMOCK_ANY collectionView:self.collectionView];
 
     XCTestExpectation *expectation = genExpectation;
-    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock]
-                                              animated:NO
-                                      sectionDataBlock:[self dataBlockFromObjects:self.dataSource.sections toObjects:to]
-                                 applySectionDataBlock:self.applySectionDataBlock
-                                            completion:^(BOOL finished) {
-        [expectation fulfill];
-    }];
-    waitExpectation;
-    [mockDelegate verify];
-}
-
-- (void)test_whenCollectionViewNotInWindow_andBackgroundReloadFlag_isDefaultYES_fallbackToReload {
-    [self.collectionView removeFromSuperview];
-
-    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
-    self.updater.delegate = mockDelegate;
-
-    [mockDelegate setExpectationOrderMatters:YES];
-    [[mockDelegate expect] listAdapterUpdater:self.updater willReloadDataWithCollectionView:self.collectionView isFallbackReload:YES];
-    [[mockDelegate expect] listAdapterUpdater:self.updater didReloadDataWithCollectionView:self.collectionView isFallbackReload:YES];
-
-    XCTestExpectation *expectation = genExpectation;
-    NSArray *to = @[
-        [IGSectionObject sectionWithObjects:@[]]
-    ];
-    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock]
-                                              animated:NO
-                                      sectionDataBlock:[self dataBlockFromObjects:self.dataSource.sections toObjects:to]
-                                 applySectionDataBlock:self.applySectionDataBlock
-                                            completion:^(BOOL finished) {
-        [expectation fulfill];
-    }];
-    waitExpectation;
-    [mockDelegate verify];
-}
-
-- (void)test_whenCollectionViewNotInWindow_andBackgroundReloadFlag_isDefaultYES_andDataSourceWasSetToNilBefore_fallbackToReload {
-    [self.collectionView removeFromSuperview];
-
-    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
-    self.updater.delegate = mockDelegate;
-
-    [mockDelegate setExpectationOrderMatters:YES];
-    [[mockDelegate expect] listAdapterUpdater:self.updater willReloadDataWithCollectionView:self.collectionView isFallbackReload:YES];
-    [[mockDelegate expect] listAdapterUpdater:self.updater didReloadDataWithCollectionView:self.collectionView isFallbackReload:YES];
-
-    XCTestExpectation *expectation = genExpectation;
-    NSArray *to = @[
-        [IGSectionObject sectionWithObjects:@[]]
-    ];
-    self.collectionView.dataSource = nil;
     [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock]
                                               animated:NO
                                       sectionDataBlock:[self dataBlockFromObjects:self.dataSource.sections toObjects:to]

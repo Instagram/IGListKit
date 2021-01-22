@@ -95,13 +95,6 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
     // disables multiple performBatchUpdates: from happening at the same time
     self.state = IGListBatchUpdateStateQueuedBatchUpdate;
 
-    // if the collection view isn't in a visible window, skip diffing and batch updating. execute all transition blocks,
-    // reload data, execute completion blocks, and get outta here
-    if (self.config.allowsBackgroundReloading && self.collectionView.window == nil) {
-        [self _reload];
-        return;
-    }
-
     [self _diff];
 }
 
