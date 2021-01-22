@@ -12,7 +12,7 @@
 
 #import "IGListUpdateTransactable.h"
 
-@protocol IGListAdapterUpdaterCompatible;
+@class IGListAdapterUpdater;
 @protocol IGListAdapterUpdaterDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -79,7 +79,7 @@ Change the `UICollectionView` dataSource
  */
 - (nullable id<IGListUpdateTransactable>)buildWithConfig:(IGListUpdateTransactationConfig)config
                                                 delegate:(nullable id<IGListAdapterUpdaterDelegate>)delegate
-                                                 updater:(id<IGListAdapterUpdaterCompatible>)updater;
+                                                 updater:(IGListAdapterUpdater *)updater;
 
 - (BOOL)hasChanges;
 

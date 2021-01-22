@@ -29,7 +29,7 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
 @interface IGListBatchUpdateTransaction ()
 // Given
 @property (nonatomic, copy, readonly) UICollectionView *collectionView;
-@property (nonatomic, weak, readonly) id<IGListAdapterUpdaterCompatible> updater;
+@property (nonatomic, weak, readonly) IGListAdapterUpdater *updater;
 @property (nonatomic, weak, readonly, nullable) id<IGListAdapterUpdaterDelegate> delegate;
 @property (nonatomic, assign, readonly) IGListUpdateTransactationConfig config;
 @property (nonatomic, assign, readonly) BOOL animated;
@@ -48,7 +48,7 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
 @implementation IGListBatchUpdateTransaction
 
 - (instancetype)initWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                                    updater:(id<IGListAdapterUpdaterCompatible>)updater
+                                    updater:(IGListAdapterUpdater *)updater
                                    delegate:(id<IGListAdapterUpdaterDelegate>)delegate
                                      config:(IGListUpdateTransactationConfig)config
                                    animated:(BOOL)animated

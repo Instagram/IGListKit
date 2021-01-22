@@ -140,7 +140,7 @@ typedef NS_ENUM (NSInteger, IGListUpdateTransactionBuilderMode) {
 
 - (nullable id<IGListUpdateTransactable>)buildWithConfig:(IGListUpdateTransactationConfig)config
                                                 delegate:(nullable id<IGListAdapterUpdaterDelegate>)delegate
-                                                 updater:(id<IGListAdapterUpdaterCompatible>)updater {
+                                                 updater:(IGListAdapterUpdater *)updater {
     IGListCollectionViewBlock collectionViewBlock = self.collectionViewBlock;
     if (!collectionViewBlock) {
         return nil;
