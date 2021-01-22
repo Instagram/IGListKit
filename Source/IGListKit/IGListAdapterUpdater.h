@@ -70,6 +70,13 @@ NS_SWIFT_NAME(ListAdapterUpdater)
 @property (nonatomic, assign) BOOL allowsReloadingOnTooManyUpdates;
 
 /**
+ Allow the diffing to be performed on a background thread.
+
+ Default is NO.
+ */
+@property (nonatomic, assign) BOOL allowsBackgroundDiffing;
+
+/**
  A bitmask of experiments to conduct on the updater.
  */
 @property (nonatomic, assign) IGListExperiment experiments;

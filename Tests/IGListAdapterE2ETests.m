@@ -2377,7 +2377,7 @@
 
 - (void)test_whenSchedulingSectionUpdate_thenBeginDiffing_thenChangeCollectionView_thatLastestDataIsApplied {
     IGListAdapterUpdater *updater = (IGListAdapterUpdater *)self.updater;
-    updater.experiments |= IGListExperimentBackgroundDiffing;
+    updater.allowsBackgroundDiffing = YES;
 
     [self setupWithObjects:@[
         genTestObject(@0, @"Foo")
@@ -2437,7 +2437,7 @@
 
 - (void)test_whenSchedulingSectionUpdate_thenBeginDiffing_thenChangeTheDataSource_thatLastestDataIsApplied {
     IGListAdapterUpdater *updater = (IGListAdapterUpdater *)self.updater;
-    updater.experiments |= IGListExperimentBackgroundDiffing;
+    updater.allowsBackgroundDiffing = YES;
 
     [self setupWithObjects:@[
         genTestObject(@0, @"Foo")

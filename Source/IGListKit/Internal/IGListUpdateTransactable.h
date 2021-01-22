@@ -20,6 +20,7 @@ typedef struct {
     BOOL singleItemSectionUpdates;
     BOOL preferItemReloadsForSectionReloads;
     BOOL allowsReloadingOnTooManyUpdates;
+    BOOL allowsBackgroundDiffing;
     IGListExperiment experiments;
 } IGListUpdateTransactationConfig;
 

@@ -868,7 +868,7 @@
 }
 
 - (void)test_whenPerformingUpdate_thatCallsDiffingDelegate {
-    self.updater.experiments |= IGListExperimentBackgroundDiffing;
+    self.updater.allowsBackgroundDiffing = YES;
 
     NSArray *from = @[
         [IGSectionObject sectionWithObjects:@[] identifier:@"0"]
