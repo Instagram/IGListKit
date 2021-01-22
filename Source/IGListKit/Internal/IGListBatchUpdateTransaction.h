@@ -26,8 +26,8 @@ IGLK_SUBCLASSING_RESTRICTED
                                    delegate:(nullable id<IGListAdapterUpdaterDelegate>)delegate
                                      config:(IGListUpdateTransactationConfig)config
                                    animated:(BOOL)animated
-                                  dataBlock:(nullable IGListTransitionDataBlock)dataBlock
-                             applyDataBlock:(nullable IGListTransitionDataApplyBlock)applyDataBlock
+                           sectionDataBlock:(nullable IGListTransitionDataBlock)sectionDataBlock
+                      applySectionDataBlock:(nullable IGListTransitionDataApplyBlock)applySectionDataBlock
                            itemUpdateBlocks:(NSArray<IGListItemUpdateBlock> *)itemUpdateBlocks
                            completionBlocks:(NSArray<IGListUpdatingCompletion> *)completionBlocks NS_DESIGNATED_INITIALIZER;
 

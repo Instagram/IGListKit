@@ -26,14 +26,14 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @param animated A flag indicating if the transition should be animated.
  @param collectionViewBlock A block returning the collecion view to perform updates on.
- @param dataBlock A block which returns the transition data
- @param applyDataBlock A block that applies the data passed from the `dataBlock` block
+ @param sectionDataBlock A block which returns the transition data
+ @param applySectionDataBlock A block that applies the data passed from the `sectionDataBlock` block
  @param completion A completion block to execute when the update is finished.
 */
 - (void)addSectionBatchUpdateAnimated:(BOOL)animated
                   collectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                            dataBlock:(IGListTransitionDataBlock)dataBlock
-                       applyDataBlock:(IGListTransitionDataApplyBlock)applyDataBlock
+                     sectionDataBlock:(IGListTransitionDataBlock)sectionDataBlock
+                applySectionDataBlock:(IGListTransitionDataApplyBlock)applySectionDataBlock
                            completion:(nullable IGListUpdatingCompletion)completion;
 
 /**
