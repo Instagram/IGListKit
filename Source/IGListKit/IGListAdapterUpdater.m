@@ -90,6 +90,7 @@
         .singleItemSectionUpdates = _singleItemSectionUpdates,
         .preferItemReloadsForSectionReloads = _preferItemReloadsForSectionReloads,
         .allowsReloadingOnTooManyUpdates = _allowsReloadingOnTooManyUpdates,
+        .allowsBackgroundDiffing = _allowsBackgroundDiffing,
         .experiments = _experiments,
     };
 

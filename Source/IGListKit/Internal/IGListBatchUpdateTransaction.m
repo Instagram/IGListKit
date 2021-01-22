@@ -102,7 +102,7 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
     IGListTransitionData *data = self.sectionData;
     [self.delegate listAdapterUpdater:self.updater willDiffFromObjects:data.fromObjects toObjects:data.toObjects];
 
-    const BOOL onBackground = IGListExperimentEnabled(self.config.experiments, IGListExperimentBackgroundDiffing);
+    const BOOL onBackground = self.config.allowsBackgroundDiffing;
     if (onBackground) {
         __weak __typeof__(self) weakSelf = self;
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
