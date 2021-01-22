@@ -15,7 +15,6 @@
 #import "IGListDebugger.h"
 #import "IGListSectionControllerInternal.h"
 #import "IGListTransitionData.h"
-#import "IGListUpdatedObjectContainer.h"
 #import "IGListUpdatingDelegateExperimental.h"
 #import "UICollectionViewLayout+InteractiveReordering.h"
 #import "UIScrollView+IGListKit.h"
@@ -710,17 +709,8 @@
     }
 #endif
 
-    NSMutableArray<IGListSectionController *> *sectionControllers;
-    NSMutableArray *validObjects;
-
-    if (IGListExperimentEnabled(_experiments, IGListExperimentArrayAndSetOptimization)) {
-        // Experiment: Pass the capacity count, so that arrays don't have to re-size.
-        sectionControllers = [[NSMutableArray alloc] initWithCapacity:objects.count];
-        validObjects = [[NSMutableArray alloc] initWithCapacity:objects.count];
-    } else {
-        sectionControllers = [NSMutableArray new];
-        validObjects = [NSMutableArray new];
-    }
+    NSMutableArray<IGListSectionController *> *sectionControllers = [[NSMutableArray alloc] initWithCapacity:objects.count];
+    NSMutableArray *validObjects = [[NSMutableArray alloc] initWithCapacity:objects.count];
 
     // push the view controller and collection context into a local thread container so they are available on init
     // for IGListSectionController subclasses after calling [super init]
@@ -776,14 +766,8 @@
 
     IGListSectionMap *map = self.sectionMap;
 
-    id<IGListUpdatedObjectContainer> updatedObjects;
-    if (IGListExperimentEnabled(_experiments, IGListExperimentArrayAndSetOptimization)) {
-        // Experiment: Avoid using a set, so that we don't need to deal with hashes and equality. The updater
-        // should have dealt with duplicates already.
-        updatedObjects = [NSMutableArray new];
-    } else {
-        updatedObjects = [NSMutableSet new];
-    }
+    // Note: We use an array, instead of a set, because the updater should have dealt with duplicates already.
+    NSMutableArray *updatedObjects = [NSMutableArray new];
 
     for (id object in data.toObjects) {
         // check if the item has changed instances or is new
