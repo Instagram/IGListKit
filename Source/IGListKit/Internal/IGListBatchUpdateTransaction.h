@@ -9,7 +9,6 @@
 
 #import <IGListDiffKit/IGListMacros.h>
 #import <IGListKit/IGListUpdatingDelegate.h>
-#import <IGListKit/IGListUpdatingDelegateExperimental.h>
 
 #import "IGListUpdateTransactable.h"
 
