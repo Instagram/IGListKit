@@ -141,8 +141,11 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
             [self _bail];
         } else if (diffResult.changeCount > 100 && self.config.allowsReloadingOnTooManyUpdates) {
             [self _reload];
-        } else if (!_validateCollectionViewSectionCount(self.collectionView, self.data, self.config)) {
-            IGFailAssert(@"The UICollectionView's data didn't match the IGListAdapter's data, so we can't performBatchUpdates. Falling back to reloadData.");
+        } else if (self.data && [self.collectionView numberOfSections] != self.data.fromObjects.count) {
+            // If data is nil, there are no section updates.
+            IGFailAssert(@"The UICollectionView's section count (%i) didn't match the IGListAdapter's count (%i), so we can't performBatchUpdates. Falling back to reloadData.",
+                         [self.collectionView numberOfSections],
+                         self.data.fromObjects.count);
             [self _reload];
         } else {
             [self _applyDiff:diffResult];
@@ -346,17 +349,6 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
         _inUpdateCompletionBlocks = [NSMutableArray new];
     }
     [_inUpdateCompletionBlocks addObject:completion];
-}
-
-#pragma mark - Helpers
-
-static BOOL _validateCollectionViewSectionCount(UICollectionView *collectionView, IGListTransitionData *data, IGListUpdateTransactationConfig config) {
-    // If data is nil, there is no section updates.
-    if (IGListExperimentEnabled(config.experiments, IGListExperimentSectionCountValidation) && data) {
-        return [collectionView numberOfSections] == data.fromObjects.count;
-    } else {
-        return YES;
-    }
 }
 
 @end
