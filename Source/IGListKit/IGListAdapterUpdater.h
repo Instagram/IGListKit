@@ -63,19 +63,6 @@ NS_SWIFT_NAME(ListAdapterUpdater)
 @property (nonatomic, assign) BOOL preferItemReloadsForSectionReloads;
 
 /**
- A flag indicating whether this updater should skip diffing and simply call
- `reloadData` for updates when the collection view is not in a window. The default value is `YES`.
-
- Default is YES.
-
- @note This will result in better performance, but will not generate the same delegate
- callbacks. If using a custom layout, it will not receive `prepareForCollectionViewUpdates:`.
-
- @warning On iOS < 8.3, this behavior is unsupported and will always be treated as `NO`.
- */
-@property (nonatomic, assign) BOOL allowsBackgroundReloading;
-
-/**
  If there's more than 100 diff updates, fallback to using `reloadData` to avoid stalling the main thread.
 
  Default is YES.
