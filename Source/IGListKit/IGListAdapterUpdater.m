@@ -147,16 +147,6 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     return functions;
 }
 
-- (void)performUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                                 fromObjects:(NSArray *)fromObjects
-                              toObjectsBlock:(IGListToObjectBlock)toObjectsBlock
-                                    animated:(BOOL)animated
-                       objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
-                                  completion:(IGListUpdatingCompletion)completion {
-    IGFailAssert(@"IGListExperimentalAdapterUpdater works with IGListUpdatingDelegateExperimental and doesn't implement the regular -performUpdateWithCollectionViewBlock method");
-    completion(NO);
-}
-
 - (void)performExperimentalUpdateAnimated:(BOOL)animated
                       collectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
                                 dataBlock:(IGListTransitionDataBlock)dataBlock
