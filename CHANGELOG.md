@@ -14,6 +14,28 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - The argument of `IGListGenericSectionController`'s `-didUpdateToObject:` is now generic, not `id`. [Nate Stedman](https://github.com/natestedman) (tbd)
 
+- Updated  `IGListUpdatingDelegate`, including a new method to safely perform `[IGListAdapter setDataSource:]` and changes to `-performUpdateWithCollectionViewBlock` that allows section-controllers to be created before the diffing (and therefore use a more accurate `toObjects` array) [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
+```objc
+// OLD
+- (void)performUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
+                                 fromObjects:(nullable NSArray<id <IGListDiffable>> *)fromObjects
+                              toObjectsBlock:(nullable IGListToObjectBlock)toObjectsBlock
+                                    animated:(BOOL)animated
+                       objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
+                                  completion:(nullable IGListUpdatingCompletion)completion;
+
+// NEW
+- (void)performUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
+                                    animated:(BOOL)animated
+                            sectionDataBlock:(IGListTransitionDataBlock)sectionDataBlock
+                       applySectionDataBlock:(IGListTransitionDataApplyBlock)applySectionDataBlock
+                                  completion:(nullable IGListUpdatingCompletion)completion;
+
+// NEW
+- (void)performDataSourceChange:(IGListDataSourceChangeBlock)block;
+```
+
 ### Enhancements
 
 - Added `shouldSelectItemAtIndex:` to `IGListSectionController` . [dirtmelon](https://github.com/dirtmelon)
@@ -27,6 +49,18 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 - Improved performance by using `reloadData` when there are too many diffing updates. Shipped with experiment `IGListExperimentReloadDataFallback` from Ryan Nystrom. [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
 - Small performance improvement by replacing `NSSet` with `NSArray` during the data update to avoid unnecessary hashing, especially when dealing with lots of large objects with non trivial hashes. [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
+- Lazy initialize the `-emptyViewForListAdapter:` [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
+- Updated  `IGListAdapterUpdater` to be safer, more performant, and better organized! [Maxime Ollivier](https://github.com/maxolls) (tbd)
+   - Safely handles `[IGListAdapter setDataSource:]` by also invalidating the `UICollectionView` data.
+   - Safely handles `[IGListAdapter setCollectionView:]` by cancelling on-going transactions.
+   - Safely handles returning nil `IGListSectionController` from `IGListAdapterDataSource` by dumping objects that don't have a controller before the diffing.
+   - Checks that the `UICollectionView` section count matches the `IGListAdapter` before committing the update, otherwise fallback to a reload.
+   - Schedules an update block (`dispatch_async`) only when needed, instead of scheduling on every single call to `-performUpdateWithCollectionViewBlock`.
+   - Wraps each update in a `transaction` that can be easily cancelled.
+   - Uses methods instead of blocks to make the callstack easier to read in crash reports.
+   - Unblocks `IGListExperimentBackgroundDiffing` 
 
 ### Fixes
 
