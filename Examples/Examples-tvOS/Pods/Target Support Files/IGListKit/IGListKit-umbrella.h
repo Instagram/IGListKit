@@ -32,7 +32,6 @@
 #import "IGListCollectionViewLayout.h"
 #import "IGListCollectionViewLayoutCompatible.h"
 #import "IGListDisplayDelegate.h"
-#import "IGListExperimentalAdapterUpdater.h"
 #import "IGListGenericSectionController.h"
 #import "IGListKit.h"
 #import "IGListReloadDataUpdater.h"
@@ -48,4 +47,3 @@
 
 FOUNDATION_EXPORT double IGListKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
-

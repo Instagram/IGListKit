@@ -5,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <IGListKit/IGListExperimentalAdapterUpdater.h>
+#import <IGListKit/IGListAdapterUpdater.h>
 
-@interface IGListExperimentalAdapterUpdater (DebugDescription)
+@interface IGListAdapterUpdater (DebugDescription)
 
 - (NSArray<NSString *> *)debugDescriptionLines;
 

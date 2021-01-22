@@ -20,7 +20,7 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentBackgroundDiffing = 1 << 2,
     /// Test invalidating layout when cell reloads/updates in IGListBindingSectionController.
     IGListExperimentInvalidateLayoutForUpdates = 1 << 3,
-    /// Test skipping performBatchUpdate if we don't have any updates. `IGListExperimentalAdapterUpdater` only.
+    /// Test skipping performBatchUpdate if we don't have any updates.
     IGListExperimentSkipPerformUpdateIfPossible = 1 << 4,
     /// Test skipping creating {view : section controller} map, which has inconsistency issue.
     IGListExperimentSkipViewSectionControllerMap = 1 << 5

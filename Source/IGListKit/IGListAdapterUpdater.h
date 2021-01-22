@@ -9,6 +9,7 @@
 
 #import <IGListDiffKit/IGListMacros.h>
 #import <IGListKit/IGListAdapterUpdaterCompatible.h>
+#import <IGListKit/IGListUpdatingDelegateExperimental.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 IGLK_SUBCLASSING_RESTRICTED
 NS_SWIFT_NAME(ListAdapterUpdater)
-@interface IGListAdapterUpdater : NSObject <IGListAdapterUpdaterCompatible>
+@interface IGListAdapterUpdater : NSObject <IGListAdapterUpdaterCompatible, IGListUpdatingDelegateExperimental>
 
 @end
 
