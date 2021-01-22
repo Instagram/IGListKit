@@ -350,7 +350,7 @@
     [self _enterBatchUpdates];
 
     __weak __typeof__(self) weakSelf = self;
-    IGListTransitionDataBlock dataBlock = ^IGListTransitionData *{
+    IGListTransitionDataBlock sectionDataBlock = ^IGListTransitionData *{
         __typeof__(self) strongSelf = weakSelf;
         if (strongSelf == nil) {
             return nil;
@@ -359,7 +359,7 @@
         return [strongSelf _generateTransitionDataWithObjects:toObjects dataSource:dataSource];
     };
 
-    IGListTransitionDataApplyBlock applyDataBlock = ^void(IGListTransitionData *data) {
+    IGListTransitionDataApplyBlock applySectionDataBlock = ^void(IGListTransitionData *data) {
         __typeof__(self) strongSelf = weakSelf;
         if (strongSelf == nil) {
             return;
@@ -384,11 +384,11 @@
         [strongSelf _exitBatchUpdates];
     };
 
-    [updater performExperimentalUpdateAnimated:animated
-                           collectionViewBlock:[self _collectionViewBlock]
-                                     dataBlock:dataBlock
-                                applyDataBlock:applyDataBlock
-                                    completion:outerCompletionBlock];
+    [updater performUpdateWithCollectionViewBlock:[self _collectionViewBlock]
+                                         animated:animated
+                                 sectionDataBlock:sectionDataBlock
+                            applySectionDataBlock:applySectionDataBlock
+                                       completion:outerCompletionBlock];
 }
 
 - (void)reloadDataWithCompletion:(nullable IGListUpdaterCompletion)completion {

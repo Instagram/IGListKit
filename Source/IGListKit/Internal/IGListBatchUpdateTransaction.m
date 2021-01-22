@@ -33,8 +33,8 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
 @property (nonatomic, weak, readonly, nullable) id<IGListAdapterUpdaterDelegate> delegate;
 @property (nonatomic, assign, readonly) IGListUpdateTransactationConfig config;
 @property (nonatomic, assign, readonly) BOOL animated;
-@property (nonatomic, copy, readonly, nullable) IGListTransitionData *data;
-@property (nonatomic, copy, readonly, nullable) IGListTransitionDataApplyBlock applyDataBlock;
+@property (nonatomic, copy, readonly, nullable) IGListTransitionData *sectionData;
+@property (nonatomic, copy, readonly, nullable) IGListTransitionDataApplyBlock applySectionDataBlock;
 @property (nonatomic, copy, readonly) NSArray<IGListItemUpdateBlock> *itemUpdateBlocks;
 @property (nonatomic, copy, readonly) NSArray<IGListUpdatingCompletion> *completionBlocks;
 // Internal
@@ -52,8 +52,8 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
                                    delegate:(id<IGListAdapterUpdaterDelegate>)delegate
                                      config:(IGListUpdateTransactationConfig)config
                                    animated:(BOOL)animated
-                                  dataBlock:(IGListTransitionDataBlock)dataBlock
-                             applyDataBlock:(IGListTransitionDataApplyBlock)applyDataBlock
+                           sectionDataBlock:(IGListTransitionDataBlock)sectionDataBlock
+                      applySectionDataBlock:(IGListTransitionDataApplyBlock)applySectionDataBlock
                            itemUpdateBlocks:(NSArray<IGListItemUpdateBlock> *)itemUpdateBlocks
                            completionBlocks:(NSArray<IGListUpdatingCompletion> *)completionBlocks {
     if (self = [super init]) {
@@ -62,8 +62,8 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
         _delegate = delegate;
         _config = config;
         _animated = animated;
-        _data = dataBlock ? dataBlock() : nil;
-        _applyDataBlock = [applyDataBlock copy];
+        _sectionData = sectionDataBlock ? sectionDataBlock() : nil;
+        _applySectionDataBlock = [applySectionDataBlock copy];
         _itemUpdateBlocks = [itemUpdateBlocks copy];
         _completionBlocks = [completionBlocks copy];
 
@@ -84,7 +84,7 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
     }
 
 #ifdef DEBUG
-    for (id obj in self.data.toObjects) {
+    for (id obj in self.sectionData.toObjects) {
         IGAssert([obj conformsToProtocol:@protocol(IGListDiffable)],
                  @"In order to use IGListAdapterUpdater, object %@ must conform to IGListDiffable", obj);
         IGAssert([obj diffIdentifier] != nil,
@@ -106,7 +106,7 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
 }
 
 - (void)_diff {
-    IGListTransitionData *data = self.data;
+    IGListTransitionData *data = self.sectionData;
     [self.delegate listAdapterUpdater:self.updater willDiffFromObjects:data.fromObjects toObjects:data.toObjects];
 
     const BOOL onBackground = IGListExperimentEnabled(self.config.experiments, IGListExperimentBackgroundDiffing);
@@ -141,11 +141,11 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
             [self _bail];
         } else if (diffResult.changeCount > 100 && self.config.allowsReloadingOnTooManyUpdates) {
             [self _reload];
-        } else if (self.data && [self.collectionView numberOfSections] != self.data.fromObjects.count) {
+        } else if (self.sectionData && [self.collectionView numberOfSections] != self.sectionData.fromObjects.count) {
             // If data is nil, there are no section updates.
             IGFailAssert(@"The UICollectionView's section count (%i) didn't match the IGListAdapter's count (%i), so we can't performBatchUpdates. Falling back to reloadData.",
                          [self.collectionView numberOfSections],
-                         self.data.fromObjects.count);
+                         self.sectionData.fromObjects.count);
             [self _reload];
         } else {
             [self _applyDiff:diffResult];
@@ -154,8 +154,8 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
         [self.delegate listAdapterUpdater:self.updater
                            collectionView:self.collectionView
                    willCrashWithException:exception
-                              fromObjects:self.data.fromObjects
-                                toObjects:self.data.toObjects
+                              fromObjects:self.sectionData.fromObjects
+                                toObjects:self.sectionData.toObjects
                                diffResult:diffResult
                                   updates:(id)_actualCollectionViewUpdates];
         @throw exception;
@@ -165,8 +165,8 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
 - (void)_applyDiff:(IGListIndexSetResult *)diffResult {
     [self.delegate listAdapterUpdater:self.updater
 willPerformBatchUpdatesWithCollectionView:self.collectionView
-                          fromObjects:self.data.fromObjects
-                            toObjects:self.data.toObjects
+                          fromObjects:self.sectionData.fromObjects
+                            toObjects:self.sectionData.toObjects
                    listIndexSetResult:diffResult
                              animated:self.animated];
 
@@ -222,8 +222,8 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
     // run the update block so that the adapter can set its items. this makes sure that just before the update is
     // committed that the data source is updated to the /latest/ "toObjects". this makes the data source in sync
     // with the items that the updater is transitioning to
-    if (self.applyDataBlock != nil && self.data != nil) {
-        self.applyDataBlock((IGListTransitionData *)self.data);
+    if (self.applySectionDataBlock != nil && self.sectionData != nil) {
+        self.applySectionDataBlock((IGListTransitionData *)self.sectionData);
     }
 
     // execute each item update block which should make calls like insert, delete, and reload for index paths
@@ -261,7 +261,7 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
                                                                               self.inUpdateItemCollector.itemDeletes,
                                                                               self.inUpdateItemCollector.itemReloads,
                                                                               self.inUpdateItemCollector.itemMoves,
-                                                                              self.data.fromObjects ?: @[],
+                                                                              self.sectionData.fromObjects ?: @[],
                                                                               self.config.sectionMovesAsDeletesInserts,
                                                                               self.config.preferItemReloadsForSectionReloads);
     }

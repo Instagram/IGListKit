@@ -63,7 +63,7 @@
 
     // dispatch_async to give the main queue time to collect more batch updates so that a minimum amount of work
     // (diffing, etc) is done on main. dispatch_async does not garauntee a full runloop turn will pass though.
-    // see -performUpdateWithCollectionView:fromObjects:toObjects:animated:objectTransitionBlock:completion: for more
+    // see -performUpdateWithCollectionViewBlock:animated:sectionDataBlock:applySectionDataBlock:completion: for more
     // details on how coalescence is done.
     self.hasQueuedUpdate = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -147,21 +147,21 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     return functions;
 }
 
-- (void)performExperimentalUpdateAnimated:(BOOL)animated
-                      collectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                                dataBlock:(IGListTransitionDataBlock)dataBlock
-                           applyDataBlock:(IGListTransitionDataApplyBlock)applyDataBlock
-                               completion:(IGListUpdatingCompletion)completion {
+- (void)performUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
+                                    animated:(BOOL)animated
+                            sectionDataBlock:(IGListTransitionDataBlock)sectionDataBlock
+                       applySectionDataBlock:(IGListTransitionDataApplyBlock)applySectionDataBlock
+                                  completion:(nullable IGListUpdatingCompletion)completion {
     IGAssertMainThread();
     IGParameterAssert(collectionViewBlock != nil);
-    IGParameterAssert(dataBlock != nil);
-    IGParameterAssert(applyDataBlock != nil);
+    IGParameterAssert(sectionDataBlock != nil);
+    IGParameterAssert(applySectionDataBlock != nil);
 
     [self.transactionBuilder addSectionBatchUpdateAnimated:animated
-                                      collectionViewBlock:collectionViewBlock
-                                                dataBlock:dataBlock
-                                           applyDataBlock:applyDataBlock
-                                               completion:completion];
+                                       collectionViewBlock:collectionViewBlock
+                                          sectionDataBlock:sectionDataBlock
+                                     applySectionDataBlock:applySectionDataBlock
+                                                completion:completion];
 
     [self _queueUpdateIfNeeded];
 }

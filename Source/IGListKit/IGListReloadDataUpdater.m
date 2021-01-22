@@ -15,14 +15,14 @@
     return [NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsObjectPersonality];
 }
 
-- (void)performExperimentalUpdateAnimated:(BOOL)animated
-                      collectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                                dataBlock:(IGListTransitionDataBlock)dataBlock
-                           applyDataBlock:(IGListTransitionDataApplyBlock)applyDataBlock
-                               completion:(nullable IGListUpdatingCompletion)completion {
-    IGListTransitionData *sectionData = dataBlock ? dataBlock() : nil;
-    if (sectionData != nil) {
-        applyDataBlock(sectionData);
+- (void)performUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
+                                    animated:(BOOL)animated
+                            sectionDataBlock:(IGListTransitionDataBlock)sectionDataBlock
+                       applySectionDataBlock:(IGListTransitionDataApplyBlock)applySectionDataBlock
+                                  completion:(nullable IGListUpdatingCompletion)completion {
+    IGListTransitionData *sectionData = sectionDataBlock ? sectionDataBlock() : nil;
+    if (sectionData != nil && applySectionDataBlock != nil) {
+        applySectionDataBlock(sectionData);
     }
     [self _synchronousReloadDataWithCollectionView:collectionViewBlock()];
     if (completion) {

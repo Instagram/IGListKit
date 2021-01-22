@@ -84,24 +84,24 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
 /**
  Perform a **section** update from an old array of objects to a new one.
 
- @param animated A flag indicating if the transition should be animated.
  @param collectionViewBlock A block returning the collecion view to perform updates on.
- @param dataBlock  A block that returns the section information (ex: from and to objects)
- @param applyDataBlock A block that must be called when the adapter applies changes to the collection view.
+ @param animated A flag indicating if the transition should be animated.
+ @param sectionDataBlock  A block that returns the section information (ex: from and to objects)
+ @param applySectionDataBlock A block that must be called when the adapter applies changes to the collection view.
  @param completion A completion block to execute when the update is finished.
 
  @note Implementations determine how to transition between objects. You can perform a diff on the objects, reload
  each section, or simply call `-reloadData` on the collection view. In the end, the collection view must be setup with a
  section for each object in the `toObjects` array.
 
- The `applyDataBlock` block should be called prior to making any `UICollectionView` updates, passing in the `toObjects`
+ The `applySectionDataBlock` block should be called prior to making any `UICollectionView` updates, passing in the `toObjects`
  that the updater is applying.
  */
-- (void)performExperimentalUpdateAnimated:(BOOL)animated
-                      collectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                                dataBlock:(IGListTransitionDataBlock)dataBlock
-                           applyDataBlock:(IGListTransitionDataApplyBlock)applyDataBlock
-                               completion:(nullable IGListUpdatingCompletion)completion;
+- (void)performUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
+                                    animated:(BOOL)animated
+                            sectionDataBlock:(IGListTransitionDataBlock)sectionDataBlock
+                       applySectionDataBlock:(IGListTransitionDataApplyBlock)applySectionDataBlock
+                                  completion:(nullable IGListUpdatingCompletion)completion;
 
 /**
  Perform an **item** update block in the collection view.
