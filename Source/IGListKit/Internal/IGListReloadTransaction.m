@@ -12,7 +12,7 @@
 @interface IGListReloadTransaction ()
 // Given
 @property (nonatomic, copy, readonly) UICollectionView *collectionView;
-@property (nonatomic, weak, readonly) id<IGListAdapterUpdaterCompatible> updater;
+@property (nonatomic, weak, readonly) IGListAdapterUpdater *updater;
 @property (nonatomic, weak, readonly, nullable) id<IGListAdapterUpdaterDelegate> delegate;
 @property (nonatomic, copy, readonly) IGListReloadUpdateBlock reloadBlock;
 @property (nonatomic, copy, readonly) NSArray<IGListItemUpdateBlock> *itemUpdateBlocks;
@@ -25,7 +25,7 @@
 @implementation IGListReloadTransaction
 
 - (instancetype)initWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                                    updater:(id<IGListAdapterUpdaterCompatible>)updater
+                                    updater:(IGListAdapterUpdater *)updater
                                    delegate:(id<IGListAdapterUpdaterDelegate>)delegate
                                 reloadBlock:(IGListReloadUpdateBlock)reloadBlock
                            itemUpdateBlocks:(NSArray<IGListItemUpdateBlock> *)itemUpdateBlocks

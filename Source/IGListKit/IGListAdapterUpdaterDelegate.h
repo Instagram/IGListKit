@@ -9,9 +9,9 @@
 
 #import <IGListDiffKit/IGListBatchUpdateData.h>
 
+@class IGListAdapterUpdater;
 @class IGListIndexSetResult;
 @protocol IGListDiffable;
-@protocol IGListAdapterUpdaterCompatible;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,7 +28,7 @@ NS_SWIFT_NAME(ListAdapterUpdaterDelegate)
  @param fromObjects The items transitioned from in the batch updates, if any.
  @param toObjects The items transitioned to in the batch updates, if any.
  */
-- (void)listAdapterUpdater:(id<IGListAdapterUpdaterCompatible>)listAdapterUpdater
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
        willDiffFromObjects:(nullable NSArray <id<IGListDiffable>> *)fromObjects
                  toObjects:(nullable NSArray <id<IGListDiffable>> *)toObjects;
 
@@ -39,7 +39,7 @@ NS_SWIFT_NAME(ListAdapterUpdaterDelegate)
  @param listIndexSetResults The diffing result of indices to be inserted/removed/updated/moved/etc.
  @param onBackgroundThread Was the diffing performed on a background thread
  */
-- (void)listAdapterUpdater:(id<IGListAdapterUpdaterCompatible>)listAdapterUpdater
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
         didDiffWithResults:(nullable IGListIndexSetResult *)listIndexSetResults
         onBackgroundThread:(BOOL)onBackgroundThread;
 
@@ -53,7 +53,7 @@ NS_SWIFT_NAME(ListAdapterUpdaterDelegate)
  @param listIndexSetResults The diffing result of indices to be inserted/removed/updated/moved/etc.
  @param animated Is the cell transtion animated
  */
-- (void)               listAdapterUpdater:(id<IGListAdapterUpdaterCompatible>)listAdapterUpdater
+- (void)               listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
 willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
                               fromObjects:(nullable NSArray <id<IGListDiffable>> *)fromObjects
                                 toObjects:(nullable NSArray <id<IGListDiffable>> *)toObjects
@@ -69,7 +69,7 @@ willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
 
  @note This event is called in the completion block of the batch update.
  */
-- (void)listAdapterUpdater:(id<IGListAdapterUpdaterCompatible>)listAdapterUpdater
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
     didPerformBatchUpdates:(IGListBatchUpdateData *)updates
             collectionView:(UICollectionView *)collectionView;
 
@@ -82,7 +82,7 @@ willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
 
  @note This event is only sent when outside of `-[UICollectionView performBatchUpdates:completion:]`.
  */
-- (void)listAdapterUpdater:(id<IGListAdapterUpdaterCompatible>)listAdapterUpdater
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
       willInsertIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
             collectionView:(UICollectionView *)collectionView;
 
@@ -95,7 +95,7 @@ willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
 
  @note This event is only sent when outside of `-[UICollectionView performBatchUpdates:completion:]`.
  */
-- (void)listAdapterUpdater:(id<IGListAdapterUpdaterCompatible>)listAdapterUpdater
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
       willDeleteIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
             collectionView:(UICollectionView *)collectionView;
 
@@ -109,7 +109,7 @@ willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
 
  @note This event is only sent when outside of `-[UICollectionView performBatchUpdates:completion:]`.
  */
-- (void)listAdapterUpdater:(id<IGListAdapterUpdaterCompatible>)listAdapterUpdater
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
      willMoveFromIndexPath:(NSIndexPath *)fromIndexPath
                toIndexPath:(NSIndexPath *)toIndexPath
             collectionView:(UICollectionView *)collectionView;
@@ -123,7 +123,7 @@ willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
 
  @note This event is only sent when outside of `-[UICollectionView performBatchUpdates:completion:]`.
  */
-- (void)listAdapterUpdater:(id<IGListAdapterUpdaterCompatible>)listAdapterUpdater
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
       willReloadIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
             collectionView:(UICollectionView *)collectionView;
 
@@ -136,7 +136,7 @@ willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
 
  @note This event is only sent when outside of `-[UICollectionView performBatchUpdates:completion:]`.
  */
-- (void)listAdapterUpdater:(id<IGListAdapterUpdaterCompatible>)listAdapterUpdater
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
         willReloadSections:(NSIndexSet *)sections
             collectionView:(UICollectionView *)collectionView;
 
@@ -147,7 +147,7 @@ willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
  @param collectionView The collection view that will be reloaded.
  @param isFallbackReload The reload was a fallback because we could not performBatchUpdate
  */
-- (void)listAdapterUpdater:(id<IGListAdapterUpdaterCompatible>)listAdapterUpdater willReloadDataWithCollectionView:(UICollectionView *)collectionView isFallbackReload:(BOOL)isFallbackReload;
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater willReloadDataWithCollectionView:(UICollectionView *)collectionView isFallbackReload:(BOOL)isFallbackReload;
 
 /**
  Notifies the delegate that the updater successfully called `-[UICollectionView reloadData]`.
@@ -156,7 +156,7 @@ willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
  @param collectionView The collection view that reloaded.
  @param isFallbackReload The reload was a fallback because we could not performBatchUpdate
  */
-- (void)listAdapterUpdater:(id<IGListAdapterUpdaterCompatible>)listAdapterUpdater didReloadDataWithCollectionView:(UICollectionView *)collectionView isFallbackReload:(BOOL)isFallbackReload;
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater didReloadDataWithCollectionView:(UICollectionView *)collectionView isFallbackReload:(BOOL)isFallbackReload;
 
 /**
  Notifies the delegate that the collection view threw an exception in `-[UICollectionView performBatchUpdates:completion:]`.
@@ -169,7 +169,7 @@ willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
  @param diffResult The diff result that were computed from `fromObjects` and `toObjects`.
  @param updates The batch updates that were applied to the collection view.
  */
-- (void)listAdapterUpdater:(id<IGListAdapterUpdaterCompatible>)listAdapterUpdater
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
             collectionView:(UICollectionView *)collectionView
     willCrashWithException:(NSException *)exception
                fromObjects:(nullable NSArray *)fromObjects
@@ -183,7 +183,7 @@ Notifies the delegate that the updater finished without performing any batch upd
 @param listAdapterUpdater The adapter updater owning the transition.
 @param collectionView The collection view that reloaded.
 */
-- (void)listAdapterUpdater:(id<IGListAdapterUpdaterCompatible>)listAdapterUpdater didFinishWithoutUpdatesWithCollectionView:(nullable UICollectionView *)collectionView;
+- (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater didFinishWithoutUpdatesWithCollectionView:(nullable UICollectionView *)collectionView;
 
 @end
 

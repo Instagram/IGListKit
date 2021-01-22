@@ -12,7 +12,7 @@
 
 #import "IGListUpdateTransactable.h"
 
-@protocol IGListAdapterUpdaterCompatible;
+@class IGListAdapterUpdater;
 @protocol IGListAdapterUpdaterDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -22,7 +22,7 @@ IGLK_SUBCLASSING_RESTRICTED
 @interface IGListBatchUpdateTransaction : NSObject <IGListUpdateTransactable>
 
 - (instancetype)initWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                                    updater:(id<IGListAdapterUpdaterCompatible>)updater
+                                    updater:(IGListAdapterUpdater *)updater
                                    delegate:(nullable id<IGListAdapterUpdaterDelegate>)delegate
                                      config:(IGListUpdateTransactationConfig)config
                                    animated:(BOOL)animated
