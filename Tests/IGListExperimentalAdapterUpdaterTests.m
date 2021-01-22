@@ -959,8 +959,6 @@
 }
 
 - (void)test_whenCollectionViewSectionCountIsIncorrect_thatDoesNotCrash {
-    self.updater.experiments |= IGListExperimentSectionCountValidation;
-
     NSArray *from = @[
         [IGSectionObject sectionWithObjects:@[]]
     ];
