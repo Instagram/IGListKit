@@ -53,9 +53,41 @@ extension ListCollectionContext {
     ) -> T {
         guard let cell = self.dequeueReusableCell(
             of: T.self,
-            for: sectionController, at: index
+            for: sectionController,
+            at: index
         ) as? T else {
             fatalError()
+        }
+
+        return cell
+    }
+
+    /**
+     Dequeues a cell from the collection view reuse pool.
+
+     - Parameters:
+         - nibName: The name of the nib file.
+         - bundle: The bundle in which to search for the nib file. If `nil`, this method searches the main bundle.
+         - sectionController: The section controller requesting this information.
+         - index: The index of the cell.
+
+     - Returns: A cell dequeued from the reuse pool or a newly created one.
+
+     - Note: This method uses the nib name as the reuse identifier.
+     */
+    public func dequeueReusableCell<T: UICollectionViewCell>(
+        withNibName nibName: String,
+        bundle: Bundle?,
+        for sectionController: ListSectionController,
+        at index: Int
+    ) -> T {
+        guard let cell = self.dequeueReusableCell(
+                withNibName: nibName,
+                bundle: bundle,
+                for: sectionController,
+                at: index
+        ) as? T else {
+            fatalError("A nib named \"\(nibName)\" was not found in \(bundle)")
         }
 
         return cell

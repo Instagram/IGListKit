@@ -178,7 +178,7 @@ NS_SWIFT_NAME(ListCollectionContext)
 
  @return A cell dequeued from the reuse pool or a newly created one.
 
- @note This method uses a string representation of the cell class as the identifier.
+ @note This method uses the nib name as the reuse identifier.
  */
 - (__kindof UICollectionViewCell *)dequeueReusableCellWithNibName:(NSString *)nibName
                                                            bundle:(nullable NSBundle *)bundle
