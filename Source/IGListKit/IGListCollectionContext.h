@@ -208,7 +208,7 @@ NS_SWIFT_NAME(ListCollectionContext)
 
  @return A supplementary view dequeued from the reuse pool or a newly created one.
 
- @note This method uses a string representation of the view class as the identifier.
+ @note This method uses a string representation of the view class and the kind as the identifier.
  */
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
                                                          forSectionController:(IGListSectionController *)sectionController
