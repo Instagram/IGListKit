@@ -147,7 +147,7 @@ extension ListCollectionContext {
 
         return supplementaryView
     }
-    
+
     /**
      Dequeues a supplementary view from the collection view reuse pool.
 
@@ -173,7 +173,41 @@ extension ListCollectionContext {
         ) as? T else {
             fatalError()
         }
-        
+
+        return supplementaryView
+    }
+
+    /**
+     Dequeues a supplementary view from the collection view reuse pool.
+
+     - Parameters:
+         - elementKind: The kind of supplementary view.
+         - sectionController: The section controller requesting this information.
+         - nibName: The name of the nib file.
+         - bundle: The bundle in which to search for the nib file. If `nil`, this method searches the main bundle.
+         - index: The index of the supplementary view.
+
+     - Returns: A supplementary view dequeued from the reuse pool or a newly created one.
+
+     - Note: This method uses the nib name as the reuse identifier.
+     */
+    public func dequeueReusableSupplementaryView<T: UICollectionReusableView>(
+        ofKind elementKind: String,
+        forSectionController sectionController: ListSectionController,
+        nibName: String,
+        bundle: Bundle?,
+        atIndex index: Int
+    ) -> T {
+        guard let supplementaryView = self.dequeueReusableSupplementaryView(
+            ofKind: elementKind,
+            for: sectionController,
+            nibName: nibName,
+            bundle: bundle,
+            at: index
+        ) as? T else {
+            fatalError()
+        }
+
         return supplementaryView
     }
 }
