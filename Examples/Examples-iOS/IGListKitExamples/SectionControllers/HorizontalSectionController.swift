@@ -24,12 +24,7 @@ final class HorizontalSectionController: ListSectionController, ListAdapterDataS
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell: EmbeddedCollectionViewCell = collectionContext?.dequeueReusableCell(
-            for: self,
-            at: index
-        ) else {
-            fatalError()
-        }
+        let cell: EmbeddedCollectionViewCell = collectionContext.dequeueReusableCell(for: self, at: index)
         adapter.collectionView = cell.collectionView
         return cell
     }

@@ -28,9 +28,7 @@ final class FeedItemSectionController: ListSectionController, ListSupplementaryV
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell: LabelCell = collectionContext?.dequeueReusableCell(for: self, at: index) else {
-            fatalError()
-        }
+        let cell: LabelCell = collectionContext.dequeueReusableCell(for: self, at: index)
         cell.text = feedItem.comments[index]
         return cell
     }
@@ -62,27 +60,24 @@ final class FeedItemSectionController: ListSectionController, ListSupplementaryV
 
     // MARK: Private
     private func userHeaderView(atIndex index: Int) -> UICollectionReusableView {
-        guard let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
-                                                                             for: self,
-                                                                             nibName: "UserHeaderView",
-                                                                             bundle: nil,
-                                                                             at: index) as? UserHeaderView else {
-                                                                                fatalError()
-        }
+        let view: UserHeaderView = collectionContext.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            forSectionController: self,
+            nibName: "UserHeaderView",
+            bundle: nil,
+            atIndex: index)
         view.handle = "@" + feedItem.user.handle
         view.name = feedItem.user.name
         return view
     }
 
     private func userFooterView(atIndex index: Int) -> UICollectionReusableView {
-        guard let view = collectionContext?.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter,
-                                                                             for: self,
-                                                                             nibName: "UserFooterView",
-                                                                             bundle: nil,
-                                                                             at: index) as? UserFooterView else {
-                                                                                fatalError()
-        }
-
+        let view: UserFooterView = collectionContext.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionFooter,
+            forSectionController: self,
+            nibName: "UserFooterView",
+            bundle: nil,
+            atIndex: index)
         view.commentsCount = "\(feedItem.comments.count)"
         return view
     }
