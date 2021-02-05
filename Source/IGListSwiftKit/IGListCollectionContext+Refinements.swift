@@ -147,4 +147,33 @@ extension ListCollectionContext {
 
         return supplementaryView
     }
+    
+    /**
+     Dequeues a supplementary view from the collection view reuse pool.
+
+     - Parameters:
+         - elementKind: The kind of supplementary view.
+         - identifier: The identifier of the supplementary view in storyboard.
+         - sectionController: The section controller requesting this information.
+         - index: The index of the supplementary view.
+
+     - Returns: A supplementary view dequeued from the reuse pool or a newly created one.
+     */
+    public func dequeueReusableSupplementaryViewFromStoryboard<T: UICollectionReusableView>(
+        ofKind elementKind: String,
+        withIdentifier identifier: String,
+        forSectionController sectionController: ListSectionController,
+        atIndex index: Int
+    ) -> T {
+        guard let supplementaryView = self.dequeueReusableSupplementaryView(
+            fromStoryboardOfKind: elementKind,
+            withIdentifier: identifier,
+            for: sectionController,
+            at: index
+        ) as? T else {
+            fatalError()
+        }
+        
+        return supplementaryView
+    }
 }
