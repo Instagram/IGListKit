@@ -92,4 +92,30 @@ extension ListCollectionContext {
 
         return cell
     }
+
+    /**
+     Dequeues a storyboard prototype cell from the collection view reuse pool.
+
+     - Parameters:
+         - identifier: The identifier of the cell prototype in storyboard.
+         - sectionController: The section controller requesting this information.
+         - index: The index of the cell.
+
+     - Returns: A cell dequeued from the reuse pool or a newly created one.
+     */
+    public func dequeueReusableCellFromStoryboard<T: UICollectionViewCell>(
+        withIdentifier reuseIdentifier: String,
+        for sectionController: ListSectionController,
+        at index: Int
+    ) -> T {
+        guard let cell = self.dequeueReusableCellFromStoryboard(
+            withIdentifier: reuseIdentifier,
+            for: sectionController,
+            at: index
+        ) as? T else {
+            fatalError("A cell with the identifier \"\(reuseIdentifier)\" was not found in the storyboard")
+        }
+
+        return cell
+    }
 }
