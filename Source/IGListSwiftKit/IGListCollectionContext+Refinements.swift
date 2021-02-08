@@ -87,7 +87,7 @@ extension ListCollectionContext {
                 for: sectionController,
                 at: index
         ) as? T else {
-            fatalError("A nib named \"\(nibName)\" was not found in \(bundle)")
+            fatalError("A nib named \"\(nibName)\" was not found in \(String(describing:bundle))")
         }
 
         return cell
