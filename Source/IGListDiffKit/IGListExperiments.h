@@ -16,18 +16,12 @@ NS_SWIFT_NAME(ListExperiment)
 typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     /// Specifies no experiments.
     IGListExperimentNone = 1 << 1,
-    /// Test updater diffing performed on a background queue.
-    IGListExperimentBackgroundDiffing = 1 << 2,
     /// Test invalidating layout when cell reloads/updates in IGListBindingSectionController.
-    IGListExperimentInvalidateLayoutForUpdates = 1 << 3,
-    /// Test array and set optimization on update
-    IGListExperimentArrayAndSetOptimization = 1 << 4,
-    /// Test validating the collectionView count just before performBatchUpdate. `IGListExperimentalAdapterUpdater` only.
-    IGListExperimentSectionCountValidation = 1 << 5,
-    /// Test skipping performBatchUpdate if we don't have any updates. `IGListExperimentalAdapterUpdater` only.
-    IGListExperimentSkipPerformUpdateIfPossible = 1 << 6,
+    IGListExperimentInvalidateLayoutForUpdates = 1 << 2,
+    /// Test skipping performBatchUpdate if we don't have any updates.
+    IGListExperimentSkipPerformUpdateIfPossible = 1 << 3,
     /// Test skipping creating {view : section controller} map, which has inconsistency issue.
-    IGListExperimentSkipViewSectionControllerMap = 1 << 7
+    IGListExperimentSkipViewSectionControllerMap = 1 << 4
 };
 
 /**

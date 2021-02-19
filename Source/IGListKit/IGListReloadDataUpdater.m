@@ -16,14 +16,13 @@
 }
 
 - (void)performUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                            fromObjects:(NSArray *)fromObjects
-                         toObjectsBlock:(IGListToObjectBlock)toObjectsBlock
-                               animated:(BOOL)animated
-                  objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
-                             completion:(IGListUpdatingCompletion)completion {
-    if (toObjectsBlock != nil) {
-        NSArray *toObjects = toObjectsBlock() ?: @[];
-        objectTransitionBlock(toObjects);
+                                    animated:(BOOL)animated
+                            sectionDataBlock:(IGListTransitionDataBlock)sectionDataBlock
+                       applySectionDataBlock:(IGListTransitionDataApplyBlock)applySectionDataBlock
+                                  completion:(nullable IGListUpdatingCompletion)completion {
+    IGListTransitionData *sectionData = sectionDataBlock ? sectionDataBlock() : nil;
+    if (sectionData != nil && applySectionDataBlock != nil) {
+        applySectionDataBlock(sectionData);
     }
     [self _synchronousReloadDataWithCollectionView:collectionViewBlock()];
     if (completion) {
@@ -36,6 +35,20 @@
                             itemUpdates:(IGListItemUpdateBlock)itemUpdates
                              completion:(IGListUpdatingCompletion)completion {
     itemUpdates();
+    [self _synchronousReloadDataWithCollectionView:collectionViewBlock()];
+    if (completion) {
+        completion(YES);
+    }
+}
+
+- (void)performDataSourceChange:(IGListDataSourceChangeBlock)block {
+    // A `UICollectionView` dataSource change will automatically invalidate
+    // its data, so no need to do anything else.
+    block();
+}
+
+- (void)reloadDataWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock reloadUpdateBlock:(IGListReloadUpdateBlock)reloadUpdateBlock completion:(IGListUpdatingCompletion)completion {
+    reloadUpdateBlock();
     [self _synchronousReloadDataWithCollectionView:collectionViewBlock()];
     if (completion) {
         completion(YES);
@@ -60,14 +73,6 @@
 
 - (void)moveSectionInCollectionView:(UICollectionView *)collectionView fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
     [self _synchronousReloadDataWithCollectionView:collectionView];
-}
-
-- (void)reloadDataWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock reloadUpdateBlock:(IGListReloadUpdateBlock)reloadUpdateBlock completion:(IGListUpdatingCompletion)completion {
-    reloadUpdateBlock();
-    [self _synchronousReloadDataWithCollectionView:collectionViewBlock()];
-    if (completion) {
-        completion(YES);
-    }
 }
 
 - (void)reloadCollectionView:(UICollectionView *)collectionView sections:(NSIndexSet *)sections {

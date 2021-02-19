@@ -43,7 +43,7 @@ final class WorkingRangeSectionController: ListSectionController, ListWorkingRan
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cellClass: UICollectionViewCell.Type = index == 0 ? LabelCell.self : ImageCell.self
-        let cell = collectionContext!.dequeueReusableCell(of: cellClass, for: self, at: index)
+        let cell = collectionContext.dequeueReusableCell(of: cellClass, for: self, at: index)
         if let cell = cell as? LabelCell {
             cell.text = urlString
         } else if let cell = cell as? ImageCell {

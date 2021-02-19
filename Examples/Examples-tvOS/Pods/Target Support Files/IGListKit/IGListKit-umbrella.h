@@ -17,7 +17,6 @@
 #import "IGListAdapterPerformanceDelegate.h"
 #import "IGListAdapterUpdateListener.h"
 #import "IGListAdapterUpdater.h"
-#import "IGListAdapterUpdaterCompatible.h"
 #import "IGListAdapterUpdaterDelegate.h"
 #import "IGListBatchContext.h"
 #import "IGListBindable.h"
@@ -32,7 +31,6 @@
 #import "IGListCollectionViewLayout.h"
 #import "IGListCollectionViewLayoutCompatible.h"
 #import "IGListDisplayDelegate.h"
-#import "IGListExperimentalAdapterUpdater.h"
 #import "IGListGenericSectionController.h"
 #import "IGListKit.h"
 #import "IGListReloadDataUpdater.h"
@@ -43,7 +41,6 @@
 #import "IGListTransitionData.h"
 #import "IGListTransitionDelegate.h"
 #import "IGListUpdatingDelegate.h"
-#import "IGListUpdatingDelegateExperimental.h"
 #import "IGListWorkingRangeDelegate.h"
 
 FOUNDATION_EXPORT double IGListKitVersionNumber;

@@ -10,30 +10,27 @@
 #import "IGListAdapterUpdaterInternal.h"
 #import "IGListBatchUpdateData+DebugDescription.h"
 #import "IGListDebuggingUtilities.h"
-
-#if defined(IGLK_DEBUG_DESCRIPTION_ENABLED) && IGLK_DEBUG_DESCRIPTION_ENABLED
-static NSMutableArray *linesFromObjects(NSArray *objects) {
-    NSMutableArray *lines = [NSMutableArray new];
-    for (id object in objects) {
-        [lines addObject:[NSString stringWithFormat:@"Object %p of type %@ with identifier %@",
-                          object, NSStringFromClass([object class]), [object diffIdentifier]]];
-    }
-    return lines;
-}
-#endif // #if IGLK_DEBUG_DESCRIPTION_ENABLED
+#import "IGListUpdateTransactable.h"
 
 @implementation IGListAdapterUpdater (DebugDescription)
 
 - (NSArray<NSString *> *)debugDescriptionLines {
     NSMutableArray *debug = [NSMutableArray new];
 #if defined(IGLK_DEBUG_DESCRIPTION_ENABLED) && IGLK_DEBUG_DESCRIPTION_ENABLED
-    [debug addObject:[NSString stringWithFormat:@"Section moves as deletes+inserts: %@", IGListDebugBOOL(self.sectionMovesAsDeletesInserts)]];
-    [debug addObject:[NSString stringWithFormat:@"Allows background reloading: %@", IGListDebugBOOL(self.allowsBackgroundReloading)]];
-    [debug addObject:[NSString stringWithFormat:@"Has queued reload data: %@", IGListDebugBOOL(self.hasQueuedReloadData)]];
-    [debug addObject:[NSString stringWithFormat:@"Queued update is animated: %@", IGListDebugBOOL(self.queuedUpdateIsAnimated)]];
+    [debug addObject:@"Options:"];
+    NSArray<NSString *> *options = @[
+        [NSString stringWithFormat:@"sectionMovesAsDeletesInserts: %@", IGListDebugBOOL(self.sectionMovesAsDeletesInserts)],
+        [NSString stringWithFormat:@"singleItemSectionUpdates: %@", IGListDebugBOOL(self.singleItemSectionUpdates)],
+        [NSString stringWithFormat:@"preferItemReloadsForSectionReloads: %@", IGListDebugBOOL(self.preferItemReloadsForSectionReloads)],
+        [NSString stringWithFormat:@"allowsReloadingOnTooManyUpdates: %@", IGListDebugBOOL(self.allowsReloadingOnTooManyUpdates)],
+        [NSString stringWithFormat:@"allowsBackgroundDiffing: %@", IGListDebugBOOL(self.allowsBackgroundDiffing)]
+    ];
+    [debug addObjectsFromArray:IGListDebugIndentedLines(options)];
+
+    const IGListBatchUpdateState state = self.transaction ? [self.transaction state] : IGListBatchUpdateStateIdle;
 
     NSString *stateString;
-    switch (self.state) {
+    switch (state) {
         case IGListBatchUpdateStateIdle:
             stateString = @"Idle";
             break;
@@ -49,25 +46,6 @@ static NSMutableArray *linesFromObjects(NSArray *objects) {
     }
     [debug addObject:[NSString stringWithFormat:@"State: %@", stateString]];
 
-    if (self.applyingUpdateData != nil) {
-        [debug addObject:@"Batch update data:"];
-        [debug addObjectsFromArray:IGListDebugIndentedLines([self.applyingUpdateData debugDescriptionLines])];
-    }
-
-    if (self.fromObjects != nil) {
-        [debug addObject:@"From objects:"];
-        [debug addObjectsFromArray:IGListDebugIndentedLines(linesFromObjects(self.fromObjects))];
-    }
-
-    if (self.toObjectsBlock != nil) {
-        [debug addObject:@"To objects:"];
-        [debug addObjectsFromArray:IGListDebugIndentedLines(linesFromObjects(self.toObjectsBlock()))];
-    }
-
-    if (self.pendingTransitionToObjects != nil) {
-        [debug addObject:@"Pending objects:"];
-        [debug addObjectsFromArray:IGListDebugIndentedLines(linesFromObjects(self.pendingTransitionToObjects))];
-    }
 #endif // #if IGLK_DEBUG_DESCRIPTION_ENABLED
     return debug;
 }

@@ -9,11 +9,10 @@
 
 #import <IGListDiffKit/IGListMacros.h>
 #import <IGListKit/IGListUpdatingDelegate.h>
-#import <IGListKit/IGListUpdatingDelegateExperimental.h>
 
 #import "IGListUpdateTransactable.h"
 
-@protocol IGListAdapterUpdaterCompatible;
+@class IGListAdapterUpdater;
 @protocol IGListAdapterUpdaterDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -23,12 +22,12 @@ IGLK_SUBCLASSING_RESTRICTED
 @interface IGListBatchUpdateTransaction : NSObject <IGListUpdateTransactable>
 
 - (instancetype)initWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                                    updater:(id<IGListAdapterUpdaterCompatible>)updater
+                                    updater:(IGListAdapterUpdater *)updater
                                    delegate:(nullable id<IGListAdapterUpdaterDelegate>)delegate
                                      config:(IGListUpdateTransactationConfig)config
                                    animated:(BOOL)animated
-                                  dataBlock:(nullable IGListTransitionDataBlock)dataBlock
-                             applyDataBlock:(nullable IGListTransitionDataApplyBlock)applyDataBlock
+                           sectionDataBlock:(nullable IGListTransitionDataBlock)sectionDataBlock
+                      applySectionDataBlock:(nullable IGListTransitionDataApplyBlock)applySectionDataBlock
                            itemUpdateBlocks:(NSArray<IGListItemUpdateBlock> *)itemUpdateBlocks
                            completionBlocks:(NSArray<IGListUpdatingCompletion> *)completionBlocks NS_DESIGNATED_INITIALIZER;
 

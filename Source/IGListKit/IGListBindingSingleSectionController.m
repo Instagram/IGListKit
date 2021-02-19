@@ -74,10 +74,8 @@
     }
     _item = object;
 
-    if (_enabledCellConfigurationDuringUpdate) {
-        if (_displayingCell) {
-            [self configureCell:_displayingCell withViewModel:_item];
-        }
+    if (_displayingCell) {
+        [self configureCell:_displayingCell withViewModel:_item];
     }
 }
 

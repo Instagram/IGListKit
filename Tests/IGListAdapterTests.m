@@ -174,8 +174,8 @@
     ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = background;
     __block BOOL executed = NO;
     [self.adapter reloadDataWithCompletion:^(BOOL finished) {
-        XCTAssertTrue(self.adapter.collectionView.backgroundView.hidden, @"Background view should be hidden");
-        XCTAssertEqualObjects(background, self.adapter.collectionView.backgroundView, @"Background view not correctly assigned");
+        UIView *backgroundViewAfterReload = self.adapter.collectionView.backgroundView;
+        XCTAssertTrue(!backgroundViewAfterReload || backgroundViewAfterReload.hidden, @"Background view should be hidden");
 
         self.dataSource.objects = @[];
         [self.adapter reloadDataWithCompletion:^(BOOL finished2) {
@@ -356,7 +356,8 @@
     self.dataSource.objects = @[@1];
     ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
-    XCTAssertTrue(self.collectionView.backgroundView.hidden);
+    UIView *backgroundView = self.adapter.collectionView.backgroundView;
+    XCTAssertTrue(!backgroundView || backgroundView.hidden);
     IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(1)];
     sectionController.items = 0;
     [self.adapter deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
@@ -378,7 +379,8 @@
     self.dataSource.objects = @[@1, @2];
     ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
-    XCTAssertTrue(self.collectionView.backgroundView.hidden);
+    UIView *backgroundView = self.adapter.collectionView.backgroundView;
+    XCTAssertTrue(!backgroundView || backgroundView.hidden);
     IGListTestSection *firstSectionController = [self.adapter sectionControllerForObject:@(1)];
     IGListTestSection *secondSectionController = [self.adapter sectionControllerForObject:@(2)];
     XCTestExpectation *expectation =  [self expectationWithDescription:NSStringFromSelector(_cmd)];

@@ -25,8 +25,8 @@ typedef NS_ENUM (NSInteger, IGListUpdateTransactionBuilderMode) {
 
 @interface IGListUpdateTransactionBuilder ()
 // Batch updates
-@property (nonatomic, copy, readwrite, nullable) IGListTransitionDataBlock dataBlock;
-@property (nonatomic, copy, readwrite, nullable) IGListTransitionDataApplyBlock applyDataBlock;
+@property (nonatomic, copy, readwrite, nullable) IGListTransitionDataBlock sectionDataBlock;
+@property (nonatomic, copy, readwrite, nullable) IGListTransitionDataApplyBlock applySectionDataBlock;
 @property (nonatomic, strong, readonly) NSMutableArray<IGListItemUpdateBlock> *itemUpdateBlocks;
 @property (nonatomic, assign, readwrite) BOOL animated;
 // Reload
@@ -54,8 +54,8 @@ typedef NS_ENUM (NSInteger, IGListUpdateTransactionBuilderMode) {
 
 - (void)addSectionBatchUpdateAnimated:(BOOL)animated
                   collectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                            dataBlock:(IGListTransitionDataBlock)dataBlock
-                       applyDataBlock:(IGListTransitionDataApplyBlock)applyDataBlock
+                     sectionDataBlock:(IGListTransitionDataBlock)sectionDataBlock
+                applySectionDataBlock:(IGListTransitionDataApplyBlock)applySectionDataBlock
                            completion:(IGListUpdatingCompletion)completion {
     self.mode = MAX(self.mode, IGListUpdateTransactionBuilderModeBatchUpdate);
 
@@ -64,11 +64,11 @@ typedef NS_ENUM (NSInteger, IGListUpdateTransactionBuilderMode) {
     self.animated = self.animated && animated;
     self.collectionViewBlock = collectionViewBlock;
 
-    // will call the dataBlock after the dispatch
-    self.dataBlock = dataBlock;
+    // will call the sectionDataBlock after the dispatch
+    self.sectionDataBlock = sectionDataBlock;
 
     // always use the last update block, even though this should always do the exact same thing
-    self.applyDataBlock = applyDataBlock;
+    self.applySectionDataBlock = applySectionDataBlock;
 
     IGListUpdatingCompletion localCompletion = completion;
     if (localCompletion) {
@@ -124,8 +124,8 @@ typedef NS_ENUM (NSInteger, IGListUpdateTransactionBuilderMode) {
 
     // Section update
     self.animated = self.animated && builder.animated;
-    self.dataBlock = self.dataBlock ?: builder.dataBlock;
-    self.applyDataBlock = self.applyDataBlock ?: builder.applyDataBlock;
+    self.sectionDataBlock = self.sectionDataBlock ?: builder.sectionDataBlock;
+    self.applySectionDataBlock = self.applySectionDataBlock ?: builder.applySectionDataBlock;
 
     // Item updates
     [self.itemUpdateBlocks addObjectsFromArray:builder.itemUpdateBlocks];
@@ -140,7 +140,7 @@ typedef NS_ENUM (NSInteger, IGListUpdateTransactionBuilderMode) {
 
 - (nullable id<IGListUpdateTransactable>)buildWithConfig:(IGListUpdateTransactationConfig)config
                                                 delegate:(nullable id<IGListAdapterUpdaterDelegate>)delegate
-                                                 updater:(id<IGListAdapterUpdaterCompatible>)updater {
+                                                 updater:(IGListAdapterUpdater *)updater {
     IGListCollectionViewBlock collectionViewBlock = self.collectionViewBlock;
     if (!collectionViewBlock) {
         return nil;
@@ -153,8 +153,8 @@ typedef NS_ENUM (NSInteger, IGListUpdateTransactionBuilderMode) {
                                                                             delegate:delegate
                                                                               config:config
                                                                             animated:self.animated
-                                                                           dataBlock:self.dataBlock
-                                                                      applyDataBlock:self.applyDataBlock
+                                                                    sectionDataBlock:self.sectionDataBlock
+                                                               applySectionDataBlock:self.applySectionDataBlock
                                                                     itemUpdateBlocks:self.itemUpdateBlocks
                                                                     completionBlocks:self.completionBlocks];
         }
@@ -186,7 +186,7 @@ typedef NS_ENUM (NSInteger, IGListUpdateTransactionBuilderMode) {
     return self.mode == IGListUpdateTransactionBuilderModeReload
     || self.mode == IGListUpdateTransactionBuilderModeDataSourceChange
     || self.itemUpdateBlocks.count > 0
-    || self.dataBlock != nil;
+    || self.sectionDataBlock != nil;
 }
 
 @end

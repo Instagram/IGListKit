@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class IGListTransitionData;
 @protocol IGListDiffable;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -47,6 +48,18 @@ typedef UICollectionView * _Nullable (^IGListCollectionViewBlock)(void);
 NS_SWIFT_NAME(ListDataSourceChangeBlock)
 typedef void (^IGListDataSourceChangeBlock)(void);
 
+/// A block that returns the `IGListTransitionData` needed before an update.
+NS_SWIFT_NAME(ListTransitionDataBlock)
+typedef IGListTransitionData * _Nullable (^IGListTransitionDataBlock)(void);
+
+/**
+ A block to be called when the adapter applies changes to the collection view.
+
+ @param data The new data that contains the from/to objects.
+ */
+NS_SWIFT_NAME(ListTransitionDataApplyBlock)
+typedef void (^IGListTransitionDataApplyBlock)(IGListTransitionData *data);
+
 /**
  Implement this protocol in order to handle both section and row based update events. Implementation should forward or
  coalesce these events to a backing store or collection.
@@ -69,28 +82,58 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
 - (NSPointerFunctions *)objectLookupPointerFunctions;
 
 /**
- Tells the delegate to perform a section transition from an old array of objects to a new one.
+ Perform a **section** update from an old array of objects to a new one.
 
  @param collectionViewBlock A block returning the collecion view to perform updates on.
- @param fromObjects The previous objects in the collection view. Objects must conform to `IGListDiffable`.
- @param toObjectsBlock A block returning the new objects in the collection view. Objects must conform to `IGListDiffable`.
  @param animated A flag indicating if the transition should be animated.
- @param objectTransitionBlock A block that must be called when the adapter applies changes to the collection view.
+ @param sectionDataBlock  A block that returns the section information (ex: from and to objects)
+ @param applySectionDataBlock A block that must be called when the adapter applies changes to the collection view.
  @param completion A completion block to execute when the update is finished.
 
  @note Implementations determine how to transition between objects. You can perform a diff on the objects, reload
  each section, or simply call `-reloadData` on the collection view. In the end, the collection view must be setup with a
  section for each object in the `toObjects` array.
 
- The `objectTransitionBlock` block should be called prior to making any `UICollectionView` updates, passing in the `toObjects`
+ The `applySectionDataBlock` block should be called prior to making any `UICollectionView` updates, passing in the `toObjects`
  that the updater is applying.
  */
 - (void)performUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                                 fromObjects:(nullable NSArray<id <IGListDiffable>> *)fromObjects
-                              toObjectsBlock:(nullable IGListToObjectBlock)toObjectsBlock
                                     animated:(BOOL)animated
-                       objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
+                            sectionDataBlock:(IGListTransitionDataBlock)sectionDataBlock
+                       applySectionDataBlock:(IGListTransitionDataApplyBlock)applySectionDataBlock
                                   completion:(nullable IGListUpdatingCompletion)completion;
+
+/**
+ Perform an **item** update block in the collection view.
+
+ @param collectionViewBlock A block returning the collecion view to perform updates on.
+ @param animated A flag indicating if the transition should be animated.
+ @param itemUpdates A block containing all of the updates.
+ @param completion A completion block to execute when the update is finished.
+ */
+- (void)performUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
+                                    animated:(BOOL)animated
+                                 itemUpdates:(IGListItemUpdateBlock)itemUpdates
+                                  completion:(nullable IGListUpdatingCompletion)completion;
+
+/**
+ Perform a `[UICollectionView setDataSource:...]` swap within this block. It gives the updater the chance to cancel or
+ execute any on-going updates. The block should be executed synchronously.
+
+ @param block The block that will actuallty change the `dataSource`
+ */
+- (void)performDataSourceChange:(IGListDataSourceChangeBlock)block;
+
+/**
+ Completely reload data in the collection.
+
+ @param collectionViewBlock A block returning the collecion view to reload.
+ @param reloadUpdateBlock A block that must be called when the adapter reloads the collection view.
+ @param completion A completion block to execute when the reload is finished.
+ */
+- (void)reloadDataWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
+                        reloadUpdateBlock:(IGListReloadUpdateBlock)reloadUpdateBlock
+                               completion:(nullable IGListUpdatingCompletion)completion;
 
 /**
  Tells the delegate to perform item inserts at the given index paths.
@@ -146,36 +189,12 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
                             toIndex:(NSInteger)toIndex;
 
 /**
- Completely reload data in the collection.
-
- @param collectionViewBlock A block returning the collecion view to reload.
- @param reloadUpdateBlock A block that must be called when the adapter reloads the collection view.
- @param completion A completion block to execute when the reload is finished.
- */
-- (void)reloadDataWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                        reloadUpdateBlock:(IGListReloadUpdateBlock)reloadUpdateBlock
-                               completion:(nullable IGListUpdatingCompletion)completion;
-
-/**
  Completely reload each section in the collection view.
 
  @param collectionView The collection view to reload.
  @param sections The sections to reload.
  */
 - (void)reloadCollectionView:(UICollectionView *)collectionView sections:(NSIndexSet *)sections;
-
-/**
- Perform an item update block in the collection view.
-
- @param collectionViewBlock A block returning the collecion view to perform updates on.
- @param animated A flag indicating if the transition should be animated.
- @param itemUpdates A block containing all of the updates.
- @param completion A completion block to execute when the update is finished.
- */
-- (void)performUpdateWithCollectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                                    animated:(BOOL)animated
-                                 itemUpdates:(IGListItemUpdateBlock)itemUpdates
-                                  completion:(nullable IGListUpdatingCompletion)completion;
 
 @end
 

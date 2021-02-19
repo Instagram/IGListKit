@@ -23,9 +23,10 @@ final class UserSectionController: ListSectionController {
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell: DetailLabelCell = collectionContext?.dequeueReusableCell(for: self, at: index) else {
-            fatalError()
-        }
+        let cell: DetailLabelCell = collectionContext.dequeueReusableCell(
+            for: self,
+            at: index
+        )
         cell.title = user?.name
         cell.detail = "@" + (user?.handle ?? "")
         return cell

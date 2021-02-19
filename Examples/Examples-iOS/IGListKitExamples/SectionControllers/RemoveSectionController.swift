@@ -27,9 +27,7 @@ final class RemoveSectionController: ListSectionController, RemoveCellDelegate {
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell: RemoveCell = collectionContext?.dequeueReusableCell(for: self, at: index) else {
-            fatalError()
-        }
+        let cell: RemoveCell = collectionContext.dequeueReusableCell(for: self, at: index)
         cell.text = "Cell: \((number ?? 0) + 1)"
         cell.delegate = self
         return cell

@@ -9,11 +9,10 @@
 
 #import <IGListDiffKit/IGListMacros.h>
 #import <IGListKit/IGListUpdatingDelegate.h>
-#import <IGListKit/IGListUpdatingDelegateExperimental.h>
 
 #import "IGListUpdateTransactable.h"
 
-@protocol IGListAdapterUpdaterCompatible;
+@class IGListAdapterUpdater;
 @protocol IGListAdapterUpdaterDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -27,14 +26,14 @@ IGLK_SUBCLASSING_RESTRICTED
 
  @param animated A flag indicating if the transition should be animated.
  @param collectionViewBlock A block returning the collecion view to perform updates on.
- @param dataBlock A block which returns the transition data
- @param applyDataBlock A block that applies the data passed from the `dataBlock` block
+ @param sectionDataBlock A block which returns the transition data
+ @param applySectionDataBlock A block that applies the data passed from the `sectionDataBlock` block
  @param completion A completion block to execute when the update is finished.
 */
 - (void)addSectionBatchUpdateAnimated:(BOOL)animated
                   collectionViewBlock:(IGListCollectionViewBlock)collectionViewBlock
-                            dataBlock:(IGListTransitionDataBlock)dataBlock
-                       applyDataBlock:(IGListTransitionDataApplyBlock)applyDataBlock
+                     sectionDataBlock:(IGListTransitionDataBlock)sectionDataBlock
+                applySectionDataBlock:(IGListTransitionDataApplyBlock)applySectionDataBlock
                            completion:(nullable IGListUpdatingCompletion)completion;
 
 /**
@@ -80,7 +79,7 @@ Change the `UICollectionView` dataSource
  */
 - (nullable id<IGListUpdateTransactable>)buildWithConfig:(IGListUpdateTransactationConfig)config
                                                 delegate:(nullable id<IGListAdapterUpdaterDelegate>)delegate
-                                                 updater:(id<IGListAdapterUpdaterCompatible>)updater;
+                                                 updater:(IGListAdapterUpdater *)updater;
 
 - (BOOL)hasChanges;
 
