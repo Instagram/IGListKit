@@ -42,7 +42,7 @@ Feature: Outputting Value Objects implementing IGListDiffable
       """
     And the file "project/values/IGListDiffableTest.m" should contain:
       """
-      - (BOOL)isEqualToDiffableObject:(nullable id)object
+      - (BOOL)isEqualToDiffableObject:(nullable id<IGListDiffable>)object
       {
         return [self isEqual:object];
       }
@@ -84,7 +84,7 @@ Feature: Outputting Value Objects implementing IGListDiffable
       """
     And the file "project/values/IGListDiffableTest2.m" should contain:
       """
-      - (BOOL)isEqualToDiffableObject:(nullable id)object
+      - (BOOL)isEqualToDiffableObject:(nullable id<IGListDiffable>)object
       {
         return [self isEqual:object];
       }
@@ -107,7 +107,7 @@ Feature: Outputting Value Objects implementing IGListDiffable
       """
     And the file "project/values/IGListDiffableTest3.m" should contain:
       """
-      - (BOOL)isEqualToDiffableObject:(nullable id)object
+      - (BOOL)isEqualToDiffableObject:(nullable id<IGListDiffable>)object
       {
         return [self isEqual:object];
       }
@@ -149,7 +149,7 @@ Feature: Outputting Value Objects implementing IGListDiffable
       """
    And the file "project/values/IGListDiffableTest4.m" should contain:
       """
-      - (BOOL)isEqualToDiffableObject:(nullable id)object
+      - (BOOL)isEqualToDiffableObject:(nullable id<IGListDiffable>)object
       {
         return [self isEqual:object];
       }

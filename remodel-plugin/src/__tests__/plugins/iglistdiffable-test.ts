@@ -31,8 +31,8 @@ function igListDiffableIsEqualMethod(): ObjC.Method {
           name: 'object',
           modifiers: [ObjC.KeywordArgumentModifier.Nullable()],
           type: {
-            name: 'id',
-            reference: 'id',
+            name: 'id<IGListDiffable>',
+            reference: 'id<IGListDiffable>',
           },
         }),
       },
