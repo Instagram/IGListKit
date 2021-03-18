@@ -114,7 +114,7 @@ and
   return _uniqueId;
 }
 
-- (BOOL)isEqualToDiffableObject:(nullable id)object
+- (BOOL)isEqualToDiffableObject:(nullable id<IGListDiffable>)object
 {
   return [self isEqual:object];
 }
