@@ -94,6 +94,7 @@
 
     if (!transaction) {
         // If we don't have enough information, we might not be able to create a transaction.
+        self.lastTransactionBuilder = nil;
         return;
     }
 
