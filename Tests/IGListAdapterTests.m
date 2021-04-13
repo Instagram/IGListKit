@@ -348,7 +348,7 @@
     ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertFalse(self.collectionView.backgroundView.hidden);
-    IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(0)];
+    IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@0];
     sectionController.items = 1;
     [self.adapter insertInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
     XCTAssertTrue(self.collectionView.backgroundView.hidden);
@@ -360,7 +360,7 @@
     [self.adapter reloadDataWithCompletion:nil];
     UIView *backgroundView = self.adapter.collectionView.backgroundView;
     XCTAssertTrue(!backgroundView || backgroundView.hidden);
-    IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(1)];
+    IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@1];
     sectionController.items = 0;
     [self.adapter deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
     XCTAssertFalse(self.collectionView.backgroundView.hidden);
@@ -371,7 +371,7 @@
     ((IGListTestAdapterDataSource *)self.dataSource).backgroundView = [UIView new];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertFalse(self.collectionView.backgroundView.hidden);
-    IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@(0)];
+    IGListTestSection *sectionController = [self.adapter sectionControllerForObject:@0];
     sectionController.items = 2;
     [self.adapter reloadSectionController:sectionController];
     XCTAssertTrue(self.collectionView.backgroundView.hidden);
@@ -383,8 +383,8 @@
     [self.adapter reloadDataWithCompletion:nil];
     UIView *backgroundView = self.adapter.collectionView.backgroundView;
     XCTAssertTrue(!backgroundView || backgroundView.hidden);
-    IGListTestSection *firstSectionController = [self.adapter sectionControllerForObject:@(1)];
-    IGListTestSection *secondSectionController = [self.adapter sectionControllerForObject:@(2)];
+    IGListTestSection *firstSectionController = [self.adapter sectionControllerForObject:@1];
+    IGListTestSection *secondSectionController = [self.adapter sectionControllerForObject:@2];
     XCTestExpectation *expectation =  [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adapter performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
         firstSectionController.items = 0;
