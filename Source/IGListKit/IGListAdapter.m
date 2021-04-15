@@ -943,6 +943,10 @@
     return UIEdgeInsetsInsetRect(collectionView.bounds, collectionView.ig_contentInset).size;
 }
 
+- (CGPoint)containerContentOffset {
+    return self.collectionView.contentOffset;
+}
+
 - (IGListCollectionScrollingTraits)scrollingTraits {
     UICollectionView *collectionView = self.collectionView;
     return (IGListCollectionScrollingTraits) {
