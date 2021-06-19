@@ -117,7 +117,7 @@ typedef std::unordered_set<_IGListWorkingRangeHandlerIndexPath, _IGListWorkingRa
     }
 
     // Build the current set of working range section controllers
-    _IGListWorkingRangeSectionControllerSet workingRangeSectionControllers (visibleSectionSet.size());
+    _IGListWorkingRangeSectionControllerSet workingRangeSectionControllers (MAX(visibleSectionSet.size(), 1));
     for (NSInteger idx = start; idx < end; idx++) {
         id item = [listAdapter objectAtSection:idx];
         IGListSectionController *sectionController = [listAdapter sectionControllerForObject:item];
