@@ -7,10 +7,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListDiffKit/IGListMacros.h>
-#import <IGListKit/IGListBindingSectionControllerDataSource.h>
-#import <IGListKit/IGListBindingSectionControllerSelectionDelegate.h>
-#import <IGListKit/IGListSectionController.h>
+#import "IGListMacros.h"
+#import "IGListBindingSectionControllerDataSource.h"
+#import "IGListBindingSectionControllerSelectionDelegate.h"
+#import "IGListSectionController.h"
 
 @protocol IGListDiffable;
 

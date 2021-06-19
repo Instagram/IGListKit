@@ -7,10 +7,16 @@
 
 #import <UIKit/UIKit.h>
 
+#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
+#import "IGListMacros.h"
+#import "IGListExperiments.h"
+#else
 #import <IGListDiffKit/IGListMacros.h>
-#import <IGListKit/IGListUpdatingDelegate.h>
 #import <IGListDiffKit/IGListExperiments.h>
-#import <IGListKit/IGListAdapterUpdaterDelegate.h>
+#endif
+#import "IGListUpdatingDelegate.h"
+#import "IGListAdapterUpdaterDelegate.h"
+#import "IGListAdapterUpdaterCompatible.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

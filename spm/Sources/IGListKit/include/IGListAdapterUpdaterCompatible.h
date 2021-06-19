@@ -1,0 +1,1 @@
+../../../../Source/IGListKit/IGListAdapterUpdaterCompatible.h

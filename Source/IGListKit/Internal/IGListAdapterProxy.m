@@ -7,7 +7,7 @@
 
 #import "IGListAdapterProxy.h"
 
-#import <IGListDiffKit/IGListAssert.h>
+#import "IGListAssert.h"
 
 #import "IGListCollectionViewDelegateLayout.h"
 

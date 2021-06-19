@@ -7,10 +7,17 @@
 
 #import "IGListAdapterUpdaterHelpers.h"
 
+#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
+#import "IGListAssert.h"
+#import "IGListBatchUpdateData.h"
+#import "IGListDiffable.h"
+#import "IGListIndexSetResult.h"
+#else
 #import <IGListDiffKit/IGListAssert.h>
 #import <IGListDiffKit/IGListBatchUpdateData.h>
 #import <IGListDiffKit/IGListDiffable.h>
 #import <IGListDiffKit/IGListIndexSetResult.h>
+#endif
 
 #import "IGListReloadIndexPath.h"
 #import "UICollectionView+IGListBatchUpdateData.h"

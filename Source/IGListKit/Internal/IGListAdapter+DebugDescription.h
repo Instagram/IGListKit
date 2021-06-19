@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <IGListKit/IGListAdapter.h>
+#import "IGListAdapter.h"
 
 @interface IGListAdapter (DebugDescription)
 

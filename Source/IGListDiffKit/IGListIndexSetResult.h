@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListDiffKit/IGListMoveIndex.h>
+#import "IGListMoveIndex.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,0 +1,1 @@
+../../../../Source/IGListKit/IGListCollectionScrollingTraits.h

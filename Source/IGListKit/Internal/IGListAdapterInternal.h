@@ -5,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <IGListKit/IGListAdapter.h>
-#import <IGListKit/IGListBatchContext.h>
-#import <IGListKit/IGListCollectionContext.h>
+#import "IGListAdapter.h"
+#import "IGListBatchContext.h"
+#import "IGListCollectionContext.h"
 
 #import "IGListAdapter+UICollectionView.h"
 #import "IGListAdapterProxy.h"
