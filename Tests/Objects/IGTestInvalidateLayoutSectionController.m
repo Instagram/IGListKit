@@ -10,7 +10,6 @@
 #import "IGLayoutTestItem.h"
 #import "IGTestCell.h"
 #import "IGTestInvalidateLayoutObject.h"
-#import "IGTestObject.h"
 
 @implementation IGTestInvalidateLayoutSectionController
 

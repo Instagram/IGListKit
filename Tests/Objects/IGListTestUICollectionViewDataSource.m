@@ -7,8 +7,6 @@
 
 #import "IGListTestUICollectionViewDataSource.h"
 
-#import <IGListDiffKit/IGListAssert.h>
-
 @implementation IGSectionObject {
     NSString *_identifier;
     BOOL _usesIdentifierForDiffable;

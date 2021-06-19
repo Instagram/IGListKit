@@ -7,9 +7,6 @@
 
 #import "IGListDiffTests.h"
 
-#import <Foundation/Foundation.h>
-#import <XCTest/XCTest.h>
-
 #import <IGListDiffKit/IGListDiff.h>
 
 #import "IGListIndexSetResultInternal.h"

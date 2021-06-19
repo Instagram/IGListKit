@@ -10,7 +10,6 @@
 #import "IGTestCell.h"
 #import "IGTestDiffingObject.h"
 #import "IGTestNumberBindableCell.h"
-#import "IGTestObject.h"
 #import "IGTestStringBindableCell.h"
 
 @implementation IGTestDiffingSectionController

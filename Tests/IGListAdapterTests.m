@@ -18,8 +18,6 @@
 #import "IGListTestAdapterDataSource.h"
 #import "IGListTestAdapterHorizontalDataSource.h"
 #import "IGListTestAdapterReorderingDataSource.h"
-#import "IGListTestCase.h"
-#import "IGListTestOffsettingLayout.h"
 #import "IGListTestSection.h"
 #import "IGTestNibSupplementaryView.h"
 #import "IGTestReorderableSection.h"
