@@ -46,6 +46,9 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
     __block NSArray<id<IGListDiffable>> *oldViewModels = nil;
 
     id<IGListCollectionContext> collectionContext = self.collectionContext;
+    if (self.collectionContext == nil) {
+        self.state = IGListDiffingSectionStateIdle;
+    }
     [self.collectionContext performBatchAnimated:animated updates:^(id<IGListBatchContext> batchContext) {
         if (self.state != IGListDiffingSectionStateUpdateQueued) {
             return;
