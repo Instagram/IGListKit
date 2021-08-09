@@ -533,14 +533,14 @@
 
 - (NSArray *)visibleObjects {
     IGAssertMainThread();
-    
+
     if (IGListExperimentEnabled(_experiments, IGListExperimentSkipViewSectionControllerMap)) {
         NSArray<NSIndexPath *> *visibleIndexPaths = [self.collectionView indexPathsForVisibleItems];
         NSMutableIndexSet *visibleSections = [NSMutableIndexSet new];
         [visibleIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull indexPath, NSUInteger idx, BOOL * _Nonnull stop) {
             [visibleSections addIndex:indexPath.section];
         }];
-        
+
         NSMutableArray *visibleObjects = [NSMutableArray new];
         [visibleSections enumerateIndexesUsingBlock:^(NSUInteger section, BOOL * _Nonnull stop) {
             id object = [self objectAtSection:section];
@@ -990,7 +990,7 @@
         // only return a cell if it belongs to the section controller
         // this association is created in -collectionView:cellForItemAtIndexPath:
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-        
+
         if (IGListExperimentEnabled(_experiments, IGListExperimentSkipViewSectionControllerMap)) {
             if ([self sectionControllerForSection:indexPath.section] == sectionController) {
                 return cell;
