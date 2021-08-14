@@ -61,6 +61,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Enhancements
 
+- Added [Mac Catalyst](https://developer.apple.com/mac-catalyst/) support. [Petro Rovenskyy](https://github.com/3a4oT/) 
+
 - Added `shouldSelectItemAtIndex:` to `IGListSectionController` . [dirtmelon](https://github.com/dirtmelon)
 
 - Introduce `IGListSwiftKit`, with Swift refinements for `dequeueReusableCellOfClass` methods. [Koen Punt](https://github.com/koenpunt) [(#1388)](https://github.com/Instagram/IGListKit/pull/1388).
@@ -72,6 +74,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 - Improved performance by using `reloadData` when there are too many diffing updates. Shipped with experiment `IGListExperimentReloadDataFallback` from Ryan Nystrom. [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
 - Small performance improvement by replacing `NSSet` with `NSArray` during the data update to avoid unnecessary hashing, especially when dealing with lots of large objects with non trivial hashes. [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
+- Repaired Swift Package Manager support. [Petro Rovenskyy](https://github.com/3a4oT/)
 
 - Lazy initialize the `-emptyViewForListAdapter:` [Maxime Ollivier](https://github.com/maxolls) (tbd)
 

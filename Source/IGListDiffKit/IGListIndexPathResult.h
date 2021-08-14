@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListDiffKit/IGListMoveIndexPath.h>
+#import "IGListMoveIndexPath.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +16,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(ListIndexPathResult)
 @interface IGListIndexPathResult : NSObject
+
+- (instancetype)initWithInserts:(NSArray<NSIndexPath *> *)inserts
+                        deletes:(NSArray<NSIndexPath *> *)deletes
+                        updates:(NSArray<NSIndexPath *> *)updates
+                          moves:(NSArray<IGListMoveIndexPath *> *)moves
+                oldIndexPathMap:(NSMapTable<id<NSObject>, NSIndexPath *> *)oldIndexPathMap
+                newIndexPathMap:(NSMapTable<id<NSObject>, NSIndexPath *> *)newIndexPathMap;
+
+@property (nonatomic, assign, readonly) NSInteger changeCount;
 
 /**
  The index paths inserted into the new collection.

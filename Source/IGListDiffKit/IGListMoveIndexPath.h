@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(ListMoveIndexPath)
 @interface IGListMoveIndexPath : NSObject
 
+- (instancetype)initWithFrom:(NSIndexPath *)from to:(NSIndexPath *)to NS_DESIGNATED_INITIALIZER;
+
 /**
  An index path in the old collection.
  */

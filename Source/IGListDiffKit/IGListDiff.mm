@@ -7,18 +7,20 @@
 
 #import "IGListDiff.h"
 
+#if __has_include(<UIKit/UIKit.h>)
 #import <UIKit/UIKit.h>
+#endif
 
 #import <stack>
 #import <unordered_map>
 #import <vector>
 
-#import <IGListDiffKit/IGListCompatibility.h>
+#import "IGListCompatibility.h"
 
-#import "IGListIndexPathResultInternal.h"
-#import "IGListIndexSetResultInternal.h"
-#import "IGListMoveIndexInternal.h"
-#import "IGListMoveIndexPathInternal.h"
+#import "IGListIndexPathResult.h"
+#import "IGListIndexSetResult.h"
+#import "IGListMoveIndex.h"
+#import "IGListMoveIndexPath.h"
 
 using namespace std;
 

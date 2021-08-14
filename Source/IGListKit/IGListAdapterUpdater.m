@@ -7,11 +7,17 @@
 
 #import "IGListAdapterUpdater.h"
 
+#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
+#import "IGListAssert.h"
+#import "IGListIndexSetResult.h"
+#import "IGListMoveIndexPath.h"
+#else
 #import <IGListDiffKit/IGListAssert.h>
+#import <IGListDiffKit/IGListIndexSetResult.h>
+#import <IGListDiffKit/IGListMoveIndexPath.h>
+#endif
 
 #import "IGListAdapterUpdaterHelpers.h"
-#import "IGListIndexSetResultInternal.h"
-#import "IGListMoveIndexPathInternal.h"
 #import "IGListReloadIndexPath.h"
 #import "IGListTransitionData.h"
 #import "IGListUpdateTransactable.h"

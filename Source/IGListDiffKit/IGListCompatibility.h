@@ -7,7 +7,7 @@
 
 #import <TargetConditionals.h>
 
-#if TARGET_OS_EMBEDDED || TARGET_OS_SIMULATOR
+#if TARGET_OS_EMBEDDED || TARGET_OS_SIMULATOR || TARGET_OS_MACCATALYST
 #import <UIKit/UIKit.h>
 #else
 #import <Cocoa/Cocoa.h>

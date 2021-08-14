@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListDiffKit/IGListMoveIndex.h>
+#import "IGListMoveIndex.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +16,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(ListIndexSetResult)
 @interface IGListIndexSetResult : NSObject
+
+- (instancetype)initWithInserts:(NSIndexSet *)inserts
+                        deletes:(NSIndexSet *)deletes
+                        updates:(NSIndexSet *)updates
+                          moves:(NSArray<IGListMoveIndex *> *)moves
+                    oldIndexMap:(NSMapTable<id<NSObject>, NSNumber *> *)oldIndexMap
+                    newIndexMap:(NSMapTable<id<NSObject>, NSNumber *> *)newIndexMap;
+
+@property (nonatomic, assign, readonly) NSInteger changeCount;
 
 /**
  The indexes inserted into the new collection.

@@ -6,7 +6,6 @@
  */
 
 #import "IGListIndexSetResult.h"
-#import "IGListIndexSetResultInternal.h"
 
 @implementation IGListIndexSetResult {
     NSMapTable<id<NSObject>, NSNumber *> *_oldIndexMap;

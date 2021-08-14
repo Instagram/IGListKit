@@ -7,15 +7,24 @@
 
 #import "IGListBatchUpdateTransaction.h"
 
+#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
+#import "IGListAssert.h"
+#import "IGListDiffable.h"
+#import "IGListDiff.h"
+#import "IGListIndexSetResult.h"
+#import "IGListMoveIndexPath.h"
+#else
 #import <IGListDiffKit/IGListAssert.h>
 #import <IGListDiffKit/IGListDiffable.h>
 #import <IGListDiffKit/IGListDiff.h>
-#import <IGListKit/IGListAdapterUpdaterDelegate.h>
+#import <IGListDiffKit/IGListIndexSetResult.h>
+#import <IGListDiffKit/IGListMoveIndexPath.h>
+#endif
+
+#import "IGListAdapterUpdaterDelegate.h"
 
 #import "IGListAdapterUpdaterHelpers.h"
-#import "IGListIndexSetResultInternal.h"
 #import "IGListItemUpdatesCollector.h"
-#import "IGListMoveIndexPathInternal.h"
 #import "IGListReloadIndexPath.h"
 #import "IGListTransitionData.h"
 #import "UICollectionView+IGListBatchUpdateData.h"
