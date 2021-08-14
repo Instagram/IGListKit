@@ -40,6 +40,25 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Introducing `allowsBackgroundDiffing` on `IGListAdapterUpdater`! This property lets the updater perform the diffing on a background thread. Originally introduced by Ryan Nystrom a while back. [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
+- Updated `scrollToObject:` method in `IGListAdapter` to include a new parameter `additionalOffset` to handle shifting the final scroll position by some vertical or horizontal offset depending on the scroll direction. This allows the object to be shown at the correct position when it is scrolled to in a list with sticky headers.
+
+```objc
+// OLD
+- (void)scrollToObject:(id)object
+    supplementaryKinds:(nullable NSArray<NSString *> *)supplementaryKinds
+       scrollDirection:(UICollectionViewScrollDirection)scrollDirection
+        scrollPosition:(UICollectionViewScrollPosition)scrollPosition
+              animated:(BOOL)animated;
+
+// NEW
+- (void)scrollToObject:(id)object
+    supplementaryKinds:(nullable NSArray<NSString *> *)supplementaryKinds
+       scrollDirection:(UICollectionViewScrollDirection)scrollDirection
+        scrollPosition:(UICollectionViewScrollPosition)scrollPosition
+      additionalOffset:(CGPoint)additionalOffset
+              animated:(BOOL)animated;
+```
+
 ### Enhancements
 
 - Added `shouldSelectItemAtIndex:` to `IGListSectionController` . [dirtmelon](https://github.com/dirtmelon)
