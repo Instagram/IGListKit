@@ -7,7 +7,7 @@
 
 #import "IGListDiff.h"
 
-#import <UIKit/UIKit.h>
+#import "IGListCompatibility.h"
 
 #import <stack>
 #import <unordered_map>
