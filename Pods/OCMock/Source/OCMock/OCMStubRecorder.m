@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2004-2016 Erik Doernenburg and contributors
+ *  Copyright (c) 2004-2020 Erik Doernenburg and contributors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use these files except in compliance with the License. You may obtain
@@ -16,14 +16,13 @@
 
 #import "OCMStubRecorder.h"
 #import "OCClassMockObject.h"
-#import "OCMReturnValueProvider.h"
+#import "OCMObjectReturnValueProvider.h"
 #import "OCMBoxedReturnValueProvider.h"
 #import "OCMExceptionReturnValueProvider.h"
 #import "OCMIndirectReturnValueProvider.h"
 #import "OCMNotificationPoster.h"
 #import "OCMBlockCaller.h"
 #import "OCMRealObjectForwarder.h"
-#import "OCMFunctions.h"
 #import "OCMInvocationStub.h"
 
 
@@ -51,20 +50,29 @@
 
 - (id)andReturn:(id)anObject
 {
-	[[self stub] addInvocationAction:[[[OCMReturnValueProvider alloc] initWithValue:anObject] autorelease]];
-	return self;
+    id action;
+    if(anObject == mockObject)
+    {
+        action = [[[OCMNonRetainingObjectReturnValueProvider alloc] initWithValue:anObject] autorelease];
+    }
+    else
+    {
+        action = [[[OCMObjectReturnValueProvider alloc] initWithValue:anObject] autorelease];
+    }
+    [[self stub] addInvocationAction:action];
+    return self;
 }
 
 - (id)andReturnValue:(NSValue *)aValue
 {
     [[self stub] addInvocationAction:[[[OCMBoxedReturnValueProvider alloc] initWithValue:aValue] autorelease]];
-	return self;
+    return self;
 }
 
 - (id)andThrow:(NSException *)anException
 {
     [[self stub] addInvocationAction:[[[OCMExceptionReturnValueProvider alloc] initWithValue:anException] autorelease]];
-	return self;
+    return self;
 }
 
 - (id)andPost:(NSNotification *)aNotification
@@ -82,7 +90,7 @@
 - (id)andDo:(void (^)(NSInvocation *))aBlock 
 {
     [[self stub] addInvocationAction:[[[OCMBlockCaller alloc] initWithCallBlock:aBlock] autorelease]];
-	return self;
+    return self;
 }
 
 - (id)andForwardToRealObject
@@ -114,7 +122,7 @@
     {
         if(OCMIsObjectType([aValue objCType]))
         {
-            NSValue *objValue = nil;
+            id objValue = nil;
             [aValue getValue:&objValue];
             return [self andReturn:objValue];
         }

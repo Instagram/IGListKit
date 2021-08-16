@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2009-2016 Erik Doernenburg and contributors
+ *  Copyright (c) 2009-2020 Erik Doernenburg and contributors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use these files except in compliance with the License. You may obtain
@@ -18,7 +18,8 @@
 
 @interface OCPartialMockObject : OCClassMockObject 
 {
-	NSObject	*realObject;
+	NSObject		*realObject;
+	NSInvocation	*invocationFromMock;
 }
 
 - (id)initWithObject:(NSObject *)anObject;

@@ -20,6 +20,8 @@
 #import "OCMStubRecorder.h"
 #import "NSNotificationCenter+OCMAdditions.h"
 #import "OCMFunctions.h"
+#import "OCMVerifier.h"
+#import "OCMQuantifier.h"
 
 FOUNDATION_EXPORT double OCMockVersionNumber;
 FOUNDATION_EXPORT const unsigned char OCMockVersionString[];

@@ -906,7 +906,7 @@
     [mockDelegate verify];
 }
 
-- (void)test_whenCollectionViewSectionCountIsIncorrect_thatDoesNotCrash {
+- (void)_test_whenCollectionViewSectionCountIsIncorrect_thatDoesNotCrash {
     NSArray *from = @[
         [IGSectionObject sectionWithObjects:@[]]
     ];

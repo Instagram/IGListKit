@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2005-2016 Erik Doernenburg and contributors
+ *  Copyright (c) 2005-2020 Erik Doernenburg and contributors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use these files except in compliance with the License. You may obtain
@@ -24,7 +24,9 @@
 
 - (id)initWithProtocol:(Protocol *)aProtocol
 {
-    NSParameterAssert(aProtocol != nil);
+	if(aProtocol == nil)
+		[NSException raise:NSInvalidArgumentException format:@"Protocol cannot be nil."];
+
 	[super init];
 	mockedProtocol = aProtocol;
 	return self;
@@ -33,7 +35,7 @@
 - (NSString *)description
 {
     const char* name = protocol_getName(mockedProtocol);
-    return [NSString stringWithFormat:@"OCMockObject(%s)", name];
+    return [NSString stringWithFormat:@"OCProtocolMockObject(%s)", name];
 }
 
 #pragma mark  Proxy API

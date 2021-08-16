@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2009-2016 Erik Doernenburg and contributors
+ *  Copyright (c) 2009-2020 Erik Doernenburg and contributors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use these files except in compliance with the License. You may obtain
@@ -111,30 +111,6 @@
 
 #pragma mark    Signatures for blocks
 
-struct OCMBlockDef
-{
-    void *isa; // initialized to &_NSConcreteStackBlock or &_NSConcreteGlobalBlock
-    int flags;
-    int reserved;
-    void (*invoke)(void *, ...);
-    struct block_descriptor {
-        unsigned long int reserved;                 // NULL
-        unsigned long int size;                     // sizeof(struct Block_literal_1)
-        // optional helper functions
-        void (*copy_helper)(void *dst, void *src);  // IFF (1<<25)
-        void (*dispose_helper)(void *src);          // IFF (1<<25)
-        // required ABI.2010.3.16
-        const char *signature;                      // IFF (1<<30)
-    } *descriptor;
-};
-
-enum
-{
-    OCMBlockDescriptionFlagsHasCopyDispose = (1 << 25),
-    OCMBlockDescriptionFlagsHasSignature   = (1 << 30)
-};
-
-
 + (NSMethodSignature *)signatureForBlock:(id)block
 {
     /* For a more complete implementation of parsing the block data structure see:
@@ -142,7 +118,7 @@ enum
      * https://github.com/ebf/CTObjectiveCRuntimeAdditions/tree/master/CTObjectiveCRuntimeAdditions/CTObjectiveCRuntimeAdditions
      */
 
-    struct OCMBlockDef *blockRef = (__bridge struct OCMBlockDef *)block;
+    struct OCMBlockDef *blockRef = (__bridge struct OCMBlockDef *) block;
 
     if(!(blockRef->flags & OCMBlockDescriptionFlagsHasSignature))
         return nil;
@@ -152,11 +128,11 @@ enum
     signatureLocation += sizeof(unsigned long int);
     if(blockRef->flags & OCMBlockDescriptionFlagsHasCopyDispose)
     {
-        signatureLocation += sizeof(void(*)(void *dst, void *src));
+        signatureLocation += sizeof(void (*)(void *dst, void *src));
         signatureLocation += sizeof(void (*)(void *src));
     }
 
-    const char *signature = (*(const char **)signatureLocation);
+    const char *signature = (*(const char **) signatureLocation);
     return [NSMethodSignature signatureWithObjCTypes:signature];
 }
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2014-2016 Erik Doernenburg and contributors
+ *  Copyright (c) 2014-2020 Erik Doernenburg and contributors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use these files except in compliance with the License. You may obtain
@@ -37,10 +37,18 @@
     return isSatisfied;
 }
 
+- (void)addInvocationAction:(id)anAction
+{
+    if(matchAndReject)
+    {
+        [NSException raise:NSInternalInconsistencyException format:@"%@: cannot add action to a reject stub; got %@",
+                [self description], anAction];
+    }
+    [super addInvocationAction:anAction];
+}
+
 - (void)handleInvocation:(NSInvocation *)anInvocation
 {
-   [super handleInvocation:anInvocation];
-
     if(matchAndReject)
     {
         isSatisfied = NO;
@@ -49,8 +57,11 @@
     }
     else
     {
+        [super handleInvocation:anInvocation];
         isSatisfied = YES;
     }
 }
+
+
 
 @end
