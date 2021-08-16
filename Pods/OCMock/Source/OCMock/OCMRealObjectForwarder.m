@@ -15,9 +15,10 @@
  */
 
 #import <objc/runtime.h>
-#import "OCPartialMockObject.h"
 #import "OCMRealObjectForwarder.h"
+#import "OCPartialMockObject.h"
 #import "OCMFunctionsPrivate.h"
+#import "NSInvocation+OCMAdditions.h"
 
 
 @implementation OCMRealObjectForwarder
@@ -26,22 +27,37 @@
 {
 	id invocationTarget = [anInvocation target];
 
-    [anInvocation setSelector:OCMAliasForOriginalSelector([anInvocation selector])];
-	if ([invocationTarget isProxy])
+	BOOL isInInitFamily = [anInvocation methodIsInInitFamily];
+	BOOL isInCreateFamily = isInInitFamily ? NO : [anInvocation methodIsInCreateFamily];
+
+	[anInvocation setSelector:OCMAliasForOriginalSelector([anInvocation selector])];
+	if([invocationTarget isProxy])
 	{
-	    if (class_getInstanceMethod([invocationTarget mockObjectClass], @selector(realObject)))
-	    {
-	        // the method has been invoked on the mock, we need to change the target to the real object
-	        [anInvocation setTarget:[(OCPartialMockObject *)invocationTarget realObject]];
-	    }
-	    else
-	    {
-	        [NSException raise:NSInternalInconsistencyException
-	                    format:@"Method andForwardToRealObject can only be used with partial mocks and class methods."];
-	    }
+	    if(!class_getInstanceMethod([invocationTarget mockObjectClass], @selector(realObject)))
+			[NSException raise:NSInternalInconsistencyException format:@"Method andForwardToRealObject can only be used with partial mocks and class methods."];
+
+		NSObject *realObject = [(OCPartialMockObject *) invocationTarget realObject];
+		[anInvocation setTarget:realObject];
+		if(isInInitFamily)
+		{
+			// The init method of the real object will "consume" self, but because the method was
+			// invoked on the mock and not the real object a corresponding retain is missing; so
+			// we do this here.
+			[realObject retain];
+		}
 	}
 
 	[anInvocation invoke];
+
+	if(isInInitFamily || isInCreateFamily)
+	{
+	    // After invoking the method on the real object the return value's retain count is correct,
+	    // but because we have a chain of handlers for an invocation and we handle the retain count
+	    // adjustments at the end in the stub, we undo the additional retains here.
+	    id returnVal;
+		[anInvocation getReturnValue:&returnVal];
+		[returnVal autorelease];
+	}
 }
 
 

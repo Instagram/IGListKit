@@ -41,7 +41,7 @@
 + (id)niceMockForClass:(Class)aClass;
 + (id)niceMockForProtocol:(Protocol *)aProtocol;
 
-+ (id)observerMock;
++ (id)observerMock __deprecated_msg("Please use XCTNSNotificationExpectation instead.");
 
 - (instancetype)init;
 

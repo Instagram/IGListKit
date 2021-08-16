@@ -15,7 +15,9 @@
  */
 
 #import "OCMExpectationRecorder.h"
+#import "OCMockObject.h"
 #import "OCMInvocationExpectation.h"
+
 
 @implementation OCMExpectationRecorder
 

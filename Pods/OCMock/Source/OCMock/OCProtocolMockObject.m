@@ -15,8 +15,8 @@
  */
 
 #import <objc/runtime.h>
-#import "NSMethodSignature+OCMAdditions.h"
 #import "OCProtocolMockObject.h"
+
 
 @implementation OCProtocolMockObject
 

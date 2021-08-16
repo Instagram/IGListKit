@@ -1,3 +1,4 @@
+#import <limits.h>
 /*
  *  Copyright (c) 2007-2020 Erik Doernenburg and contributors
  *
@@ -14,7 +15,7 @@
  *  under the License.
  */
 
-#import <OCMock/OCMConstraint.h>
+#import "OCMConstraint.h"
 
 
 @implementation OCMConstraint
@@ -29,7 +30,7 @@
 	return NO;
 }
 
-- (id)copyWithZone:(struct _NSZone *)zone
+- (id)copyWithZone:(struct _NSZone *)zone __unused
 {
     return [self retain];
 }

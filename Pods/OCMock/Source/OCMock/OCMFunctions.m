@@ -15,10 +15,13 @@
  */
 
 #import <objc/runtime.h>
+#if !TARGET_OS_WATCH
+#import <XCTest/XCTest.h>
+#endif
 #import "OCMFunctionsPrivate.h"
-#import "OCMLocation.h"
 #import "OCClassMockObject.h"
 #import "OCPartialMockObject.h"
+#import "OCMLocation.h"
 
 
 #pragma mark  Known private API
@@ -121,51 +124,51 @@ CFNumberType OCMNumberTypeForObjCType(const char *objcType)
 
 static BOOL ParseStructType(const char *type, const char **typeEnd, const char **typeNameEnd, const char **typeEqualSign)
 {
-  if (type[0] != '{' && type[0] != '(')
-      return NO;
+    if (type[0] != '{' && type[0] != '(')
+        return NO;
 
-  *typeNameEnd = NULL;
-  *typeEqualSign = NULL;
+    *typeNameEnd = NULL;
+    *typeEqualSign = NULL;
 
-  const char endChar = type[0] == '{' ? '}' : ')';
-  for (const char* ptr = type + 1; *ptr; ++ptr) {
-      switch (*ptr) {
-          case '(':
-          case '{':
-          {
-              const char *subTypeEnd;
-              const char *subTypeNameEnd;
-              const char *subTypeEqualSign;
-              if (!ParseStructType(ptr, &subTypeEnd, &subTypeNameEnd, &subTypeEqualSign))
-                  return NO;
-              ptr = subTypeEnd;
-              break;
-          }
-          case '=':
-          {
-              if (!*typeEqualSign) {
-                  *typeNameEnd = ptr;
-                  *typeEqualSign = ptr;
-              }
-              break;
-          }
-          case ')':
-          case '}':
-          {
-              if (*ptr == endChar) {
-                  *typeEnd = ptr;
-                  if (!*typeNameEnd)
-                      *typeNameEnd = ptr;
-                  return YES;
-              }
-              break;
-          }
-          default:
-              break;
-      }
-  }
+    const char endChar = type[0] == '{' ? '}' : ')';
+    for (const char* ptr = type + 1; *ptr; ++ptr) {
+        switch (*ptr) {
+            case '(':
+            case '{':
+            {
+                const char *subTypeEnd;
+                const char *subTypeNameEnd;
+                const char *subTypeEqualSign;
+                if (!ParseStructType(ptr, &subTypeEnd, &subTypeNameEnd, &subTypeEqualSign))
+                    return NO;
+                ptr = subTypeEnd;
+                break;
+            }
+            case '=':
+            {
+                if (!*typeEqualSign) {
+                    *typeNameEnd = ptr;
+                    *typeEqualSign = ptr;
+                }
+                break;
+            }
+            case ')':
+            case '}':
+            {
+                if (*ptr == endChar) {
+                    *typeEnd = ptr;
+                    if (!*typeNameEnd)
+                        *typeNameEnd = ptr;
+                    return YES;
+                }
+                break;
+            }
+            default:
+                break;
+        }
+    }
 
-  return NO;
+    return NO;
 }
 
 
@@ -220,8 +223,8 @@ static BOOL OCMEqualTypesAllowingOpaqueStructsInternal(const char *type1, const 
 
             /* If the names are not equal and neither of the names is a question mark, return NO */
             if ((type1NameLen != type2NameLen || strncmp(type1, type2, type1NameLen)) &&
-                !((type1NameLen == 2) && (type1[1] == '?')) && !((type2NameLen == 2) && (type2[1] == '?')) &&
-                !(type1NameLen == 1 || type2NameLen == 1))
+                    !((type1NameLen == 2) && (type1[1] == '?')) && !((type2NameLen == 2) && (type2[1] == '?')) &&
+                    !(type1NameLen == 1 || type2NameLen == 1))
                 return NO;
 
             /* If the same name, and at least one is opaque, that is close enough. */
@@ -302,7 +305,7 @@ BOOL OCMIsNilValue(const char *objectCType, const void *value, size_t valueSize)
     for(size_t i = 0; i < valueSize; i++)
         if(((const char *)value)[i] != 0)
             return NO;
-    
+
     // Depending on the compilation settings of the file where the return value gets recorded,
     // nil and Nil get potentially different encodings. Check all known encodings.
     if((strcmp(objectCType, @encode(void *))    == 0) ||    // Standard Objective-C
@@ -328,11 +331,27 @@ BOOL OCMIsApplePrivateMethod(Class cls, SEL sel)
             ([selName hasPrefix:@"_"] || [selName hasSuffix:@"_"]);
 }
 
+BOOL OCMIsBlock(id potentialBlock)
+{
+    static Class blockClass;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^
+    {
+        blockClass = [^{} class];
+        Class nsObjectClass = [NSObject class];
+        while([blockClass superclass] != nsObjectClass)
+        {
+            blockClass = [blockClass superclass];
+            NSCAssert(blockClass != nil, @"Blocks are expected to inherit from NSObject.");
+        }
+    });
+    return [potentialBlock isKindOfClass:blockClass];
+}
 
 BOOL OCMIsNonEscapingBlock(id block)
 {
     struct OCMBlockDef *blockRef = (__bridge struct OCMBlockDef *)block;
-    return (blockRef->flags & OCMBlockIsNoEscape) != 0;
+    return OCMIsBlock(block) && (blockRef->flags & OCMBlockIsNoEscape) != 0;
 }
 
 
@@ -348,11 +367,6 @@ Class OCMCreateSubclass(Class class, void *ref)
     return subclass;
 }
 
-BOOL OCMIsMockSubclass(Class cls)
-{
-    return [NSStringFromClass(cls) hasPrefix:OCMSubclassPrefix];
-}
-
 void OCMDisposeSubclass(Class cls)
 {
     if(!OCMIsMockSubclass(cls))
@@ -360,6 +374,21 @@ void OCMDisposeSubclass(Class cls)
         [NSException raise:NSInvalidArgumentException format:@"Not a mock subclass; found %@\nThe subclass dynamically created by OCMock has been replaced by another class. This can happen when KVO or CoreData create their own dynamic subclass after OCMock created its subclass.\nYou will need to reorder initialization and/or teardown so that classes are created and disposed of in the right order.", NSStringFromClass(cls)];
     }
     objc_disposeClassPair(cls);
+}
+
+BOOL OCMIsMockSubclass(Class cls)
+{
+    return [NSStringFromClass(cls) hasPrefix:OCMSubclassPrefix];
+}
+
+BOOL OCMIsSubclassOfMockClass(Class cls)
+{
+    for(; cls != nil; cls = class_getSuperclass(cls))
+    {
+        if(OCMIsMockSubclass(cls))
+            return YES;
+    }
+    return NO;
 }
 
 
@@ -434,7 +463,20 @@ OCPartialMockObject *OCMGetAssociatedMockForObject(id anObject)
 void OCMReportFailure(OCMLocation *loc, NSString *description)
 {
     id testCase = [loc testCase];
-    if((testCase != nil) && [testCase respondsToSelector:@selector(recordFailureWithDescription:inFile:atLine:expected:)])
+#ifdef __IPHONE_14_0    // this is actually a test for Xcode 12; see issue #472
+#if !TARGET_OS_WATCH
+    if((testCase != nil) && [testCase respondsToSelector:@selector(recordIssue:)])
+    {
+        XCTSourceCodeLocation *xctloc = [[[XCTSourceCodeLocation alloc] initWithFilePath:[loc file] lineNumber:[loc line]] autorelease];
+        XCTSourceCodeContext *xctctx = [[[XCTSourceCodeContext alloc] initWithLocation:xctloc] autorelease];
+        XCTIssue *issue = [[[XCTIssue alloc] initWithType:XCTIssueTypeAssertionFailure compactDescription:description
+                detailedDescription:nil sourceCodeContext:xctctx associatedError:nil attachments:[NSArray array]] autorelease];
+        [testCase recordIssue:issue];
+    }
+    else
+#endif
+#endif
+         if((testCase != nil) && [testCase respondsToSelector:@selector(recordFailureWithDescription:inFile:atLine:expected:)])
     {
         [testCase recordFailureWithDescription:description inFile:[loc file] atLine:[loc line] expected:NO];
     }

@@ -15,10 +15,11 @@
  */
 
 #import <objc/runtime.h>
-#import <OCMock/OCMArg.h>
-#import <OCMock/OCMConstraint.h>
-#import "OCMPassByRefSetter.h"
+#import "OCMArg.h"
 #import "OCMBlockArgCaller.h"
+#import "OCMConstraint.h"
+#import "OCMPassByRefSetter.h"
+
 
 @implementation OCMArg
 

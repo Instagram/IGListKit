@@ -15,12 +15,12 @@
  */
 
 #import <objc/runtime.h>
-#import <OCMock/OCMArg.h>
-#import <OCMock/OCMConstraint.h>
-#import "OCMPassByRefSetter.h"
-#import "NSInvocation+OCMAdditions.h"
 #import "OCMInvocationMatcher.h"
+#import "OCMArg.h"
+#import "OCMConstraint.h"
+#import "OCMPassByRefSetter.h"
 #import "OCMFunctionsPrivate.h"
+#import "NSInvocation+OCMAdditions.h"
 
 
 @interface NSObject(HCMatcherDummy)

@@ -20,10 +20,15 @@
 
 @implementation NSNotificationCenter(OCMAdditions)
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 - (void)addMockObserver:(OCObserverMockObject *)notificationObserver name:(NSString *)notificationName object:(id)notificationSender
 {
     [notificationObserver autoRemoveFromCenter:self];
 	[self addObserver:notificationObserver selector:@selector(handleNotification:) name:notificationName object:notificationSender];
 }
+
+#pragma clang diagnostic pop
 
 @end

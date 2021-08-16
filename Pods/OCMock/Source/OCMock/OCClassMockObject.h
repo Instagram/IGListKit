@@ -14,7 +14,7 @@
  *  under the License.
  */
 
-#import <OCMock/OCMockObject.h>
+#import "OCMockObject.h"
 
 @interface OCClassMockObject : OCMockObject 
 {
@@ -27,5 +27,7 @@
 
 - (Class)mockedClass;
 - (Class)mockObjectClass;  // since -class returns the mockedClass
+
+- (void)assertClassIsSupported:(Class)aClass;
 
 @end

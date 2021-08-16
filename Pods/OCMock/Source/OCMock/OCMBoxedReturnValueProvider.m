@@ -23,14 +23,16 @@
 
 - (void)handleInvocation:(NSInvocation *)anInvocation
 {
-	const char *returnType = [[anInvocation methodSignature] methodReturnType];
-    NSUInteger returnTypeSize = [[anInvocation methodSignature] methodReturnLength];
-    char valueBuffer[returnTypeSize];
+    NSUInteger valueSize = 0;
     NSValue *returnValueAsNSValue = (NSValue *)returnValue;
+    NSGetSizeAndAlignment([returnValueAsNSValue objCType], &valueSize, NULL);
+    char valueBuffer[valueSize];
     [returnValueAsNSValue getValue:valueBuffer];
 
+    const char *returnType = [[anInvocation methodSignature] methodReturnType];
+
     if([self isMethodReturnType:returnType compatibleWithValueType:[returnValueAsNSValue objCType]
-                value:valueBuffer valueSize:returnTypeSize])
+                value:valueBuffer valueSize:valueSize])
     {
         [anInvocation setReturnValue:valueBuffer];
     }
