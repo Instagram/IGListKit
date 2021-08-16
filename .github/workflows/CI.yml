@@ -29,8 +29,8 @@ jobs:
             ${{ runner.os }}-gems-
 
       - name: Install ruby gems.
-        run: bundle install
-
+        run: bundle install --full-index
+        
       - name: Run unit tests for macOS
         run: |
           set -o pipefail
