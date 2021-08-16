@@ -7,8 +7,6 @@
 
 #import "IGListBatchUpdateData.h"
 
-#import <UIKit/UIKit.h>
-
 #import <unordered_map>
 
 #import <IGListDiffKit/IGListAssert.h>
