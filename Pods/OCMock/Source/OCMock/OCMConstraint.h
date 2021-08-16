@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2007-2016 Erik Doernenburg and contributors
+ *  Copyright (c) 2007-2020 Erik Doernenburg and contributors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use these files except in compliance with the License. You may obtain
@@ -66,6 +66,7 @@
 
 @end
 
-
+#ifndef OCM_DISABLE_SHORT_SYNTAX
 #define CONSTRAINT(aSelector) [OCMConstraint constraintWithSelector:aSelector onObject:self]
 #define CONSTRAINTV(aSelector, aValue) [OCMConstraint constraintWithSelector:aSelector onObject:self withValue:(aValue)]
+#endif

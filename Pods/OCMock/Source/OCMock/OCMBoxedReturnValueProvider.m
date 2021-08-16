@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2009-2016 Erik Doernenburg and contributors
+ *  Copyright (c) 2009-2020 Erik Doernenburg and contributors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use these files except in compliance with the License. You may obtain
@@ -18,6 +18,7 @@
 #import "OCMFunctionsPrivate.h"
 #import "NSValue+OCMAdditions.h"
 
+
 @implementation OCMBoxedReturnValueProvider
 
 - (void)handleInvocation:(NSInvocation *)anInvocation
@@ -26,10 +27,11 @@
     NSUInteger returnTypeSize = [[anInvocation methodSignature] methodReturnLength];
     char valueBuffer[returnTypeSize];
     NSValue *returnValueAsNSValue = (NSValue *)returnValue;
+    [returnValueAsNSValue getValue:valueBuffer];
 
-    if([self isMethodReturnType:returnType compatibleWithValueType:[returnValueAsNSValue objCType]])
+    if([self isMethodReturnType:returnType compatibleWithValueType:[returnValueAsNSValue objCType]
+                value:valueBuffer valueSize:returnTypeSize])
     {
-        [returnValueAsNSValue getValue:valueBuffer];
         [anInvocation setReturnValue:valueBuffer];
     }
     else if([returnValueAsNSValue getBytes:valueBuffer objCType:returnType])
@@ -43,16 +45,15 @@
     }
 }
 
-
-- (BOOL)isMethodReturnType:(const char *)returnType compatibleWithValueType:(const char *)valueType
+- (BOOL)isMethodReturnType:(const char *)returnType compatibleWithValueType:(const char *)valueType value:(const void *)value valueSize:(size_t)valueSize
 {
     /* Same types are obviously compatible */
     if(strcmp(returnType, valueType) == 0)
         return YES;
 
-    /* Allow void* for methods that return id, mainly to be able to handle nil */
-    if(strcmp(returnType, @encode(id)) == 0 && strcmp(valueType, @encode(void *)) == 0)
-        return YES;
+    /* Special treatment for nil and Nil */
+    if(strcmp(returnType, @encode(id)) == 0 || strcmp(returnType, @encode(Class)) == 0)
+        return OCMIsNilValue(valueType, value, valueSize);
 
     return OCMEqualTypesAllowingOpaqueStructs(returnType, valueType);
 }

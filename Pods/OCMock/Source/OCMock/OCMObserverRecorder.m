@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2009-2016 Erik Doernenburg and contributors
+ *  Copyright (c) 2009-2020 Erik Doernenburg and contributors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use these files except in compliance with the License. You may obtain
@@ -18,6 +18,8 @@
 #import <OCMock/OCMConstraint.h>
 #import "NSInvocation+OCMAdditions.h"
 #import "OCMObserverRecorder.h"
+#import "OCMMacroState.h"
+#import "OCMStubRecorder.h"
 
 @interface NSObject(HCMatcherDummy)
 - (BOOL)matches:(id)item;
@@ -34,6 +36,11 @@
 {
 	[recordedNotification release];
 	[super dealloc];
+}
+
+- (BOOL)didRecordInvocation
+{
+	return YES; // Needed for macro use, and recorder can only end up in macro state if it was used.
 }
 
 

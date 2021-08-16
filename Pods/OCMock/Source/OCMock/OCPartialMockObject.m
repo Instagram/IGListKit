@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2009-2016 Erik Doernenburg and contributors
+ *  Copyright (c) 2009-2020 Erik Doernenburg and contributors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use these files except in compliance with the License. You may obtain
@@ -21,6 +21,7 @@
 #import "NSObject+OCMAdditions.h"
 #import "OCMFunctionsPrivate.h"
 #import "OCMInvocationStub.h"
+#import "NSInvocation+OCMAdditions.h"
 
 
 @implementation OCPartialMockObject
@@ -29,20 +30,15 @@
 
 - (id)initWithObject:(NSObject *)anObject
 {
-    NSParameterAssert(anObject != nil);
+    if(anObject == nil)
+        [NSException raise:NSInvalidArgumentException format:@"Object cannot be nil."];
+
     Class const class = [self classToSubclassForObject:anObject];
     [self assertClassIsSupported:class];
 	[super initWithClass:class];
 	realObject = [anObject retain];
     [self prepareObjectForInstanceMethodMocking];
 	return self;
-}
-
-- (void)dealloc
-{
-	[self stopMocking];
-	[realObject release];
-	[super dealloc];
 }
 
 - (NSString *)description
@@ -97,7 +93,7 @@
         object_setClass(realObject, [self mockedClass]);
         [realObject release];
         realObject = nil;
-        objc_disposeClassPair(partialMockClass);
+        OCMDisposeSubclass(partialMockClass);
     }
     [super stopMocking];
 }
@@ -109,9 +105,44 @@
         [self setupForwarderForSelector:[[aStub recordedInvocation] selector]];
 }
 
+- (void)addInvocation:(NSInvocation *)anInvocation
+{
+    // If the mock invokes a method on the real object we end up here a second time, but because
+    // the mock has added the invocation already we do not want to add it again.
+    if((invocationFromMock == nil) || ([anInvocation selector] != [invocationFromMock selector]))
+        [super addInvocation:anInvocation];
+}
+
 - (void)handleUnRecordedInvocation:(NSInvocation *)anInvocation
 {
+	// In the case of an init that is called on a mock we must return the mock instance and
+	// not the realObject if the underlying init returns the realObject because at the call site
+	// ARC will have retained the target and the release/retain count must balance. If we return
+	// the realObject, then realObject will be over released and the mock will leak. Equally if
+	// we are called on the realObject we need to make sure not to return the mock.
+	id targetReceivingInit = nil;
+	if([anInvocation methodIsInInitFamily])
+	{
+		targetReceivingInit = [anInvocation target];
+		[realObject retain];
+	}
+
+	invocationFromMock = anInvocation;
 	[anInvocation invokeWithTarget:realObject];
+    invocationFromMock = nil;
+
+	if(targetReceivingInit)
+	{
+		id returnVal;
+		[anInvocation getReturnValue:&returnVal];
+		if(returnVal == realObject)
+		{
+			[anInvocation setReturnValue:&self];
+			[realObject release];
+			[self retain];
+		}
+		[targetReceivingInit release];
+	}
 }
 
 
@@ -123,7 +154,7 @@
 
     /* dynamically create a subclass and set it as the class of the object */
     Class subclass = OCMCreateSubclass(mockedClass, realObject);
-	object_setClass(realObject, subclass);
+    object_setClass(realObject, subclass);
 
     /* point forwardInvocation: of the object to the implementation in the mock */
 	Method myForwardMethod = class_getInstanceMethod([self mockObjectClass], @selector(forwardInvocationForRealObject:));
@@ -147,14 +178,9 @@
     NSArray *methodBlackList = @[@"class", @"forwardingTargetForSelector:", @"methodSignatureForSelector:", @"forwardInvocation:",
             @"allowsWeakReference", @"retainWeakReference", @"isBlock", @"retainCount", @"retain", @"release", @"autorelease"];
     [NSObject enumerateMethodsInClass:mockedClass usingBlock:^(Class cls, SEL sel) {
-        if((cls == [NSObject class]) || (cls == [NSProxy class]))
+        if(OCMIsAppleBaseClass(cls) || OCMIsApplePrivateMethod(cls, sel))
             return;
-        NSString *className = NSStringFromClass(cls);
-        NSString *selName = NSStringFromSelector(sel);
-        if(([className hasPrefix:@"NS"] || [className hasPrefix:@"UI"]) &&
-           ([selName hasPrefix:@"_"] || [selName hasSuffix:@"_"]))
-            return;
-        if([methodBlackList containsObject:selName])
+        if([methodBlackList containsObject:NSStringFromSelector(sel)])
             return;
         @try
         {
@@ -174,9 +200,9 @@
         return;
 
     Method originalMethod = class_getInstanceMethod(mockedClass, sel);
-	IMP originalIMP = method_getImplementation(originalMethod);
-    const char *types = method_getTypeEncoding(originalMethod);
     /* Might be NULL if the selector is forwarded to another class */
+    IMP originalIMP = (originalMethod != NULL) ? method_getImplementation(originalMethod) : NULL;
+    const char *types = (originalMethod != NULL) ? method_getTypeEncoding(originalMethod) : NULL;
     // TODO: check the fallback implementation is actually sufficient
     if(types == NULL)
         types = ([[mockedClass instanceMethodSignatureForSelector:sel] fullObjCTypes]);
@@ -225,11 +251,31 @@
     if(mock == nil)
         [NSException raise:NSInternalInconsistencyException format:@"No partial mock for object %p", self];
 
-	if([mock handleInvocation:anInvocation] == NO)
+    if([mock handleInvocation:anInvocation] == NO)
     {
         [anInvocation setSelector:OCMAliasForOriginalSelector([anInvocation selector])];
         [anInvocation invoke];
     }
+}
+
+
+#pragma mark    Verification handling
+
+- (NSString *)descriptionForVerificationFailureWithMatcher:(OCMInvocationMatcher *)matcher quantifier:(OCMQuantifier *)quantifier invocationCount:(NSUInteger)count
+{
+    SEL matcherSel = [[matcher recordedInvocation] selector];
+    __block BOOL stubbingMightHelp = NO;
+    [NSObject enumerateMethodsInClass:mockedClass usingBlock:^(Class cls, SEL sel) {
+        if(sel == matcherSel)
+            stubbingMightHelp = OCMIsAppleBaseClass(cls) || OCMIsApplePrivateMethod(cls, sel);
+    }];
+
+    NSString *description = [super descriptionForVerificationFailureWithMatcher:matcher quantifier:quantifier invocationCount:count];
+    if(stubbingMightHelp)
+    {
+        description = [description stringByAppendingFormat:@" Adding a stub for the method may resolve the issue, e.g. `OCMStub([mockObject %@]).andForwardToRealObject()`", [matcher description]];
+    }
+    return description;
 }
 
 

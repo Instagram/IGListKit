@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2014-2016 Erik Doernenburg and contributors
+ *  Copyright (c) 2014-2020 Erik Doernenburg and contributors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use these files except in compliance with the License. You may obtain
@@ -16,10 +16,7 @@
 
 #import "OCMMacroState.h"
 #import "OCMStubRecorder.h"
-#import "OCMockObject.h"
 #import "OCMExpectationRecorder.h"
-#import "OCMVerifier.h"
-#import "OCMInvocationMatcher.h"
 
 
 @implementation OCMMacroState
@@ -40,9 +37,18 @@ static NSString *const OCMGlobalStateKey = @"OCMGlobalStateKey";
 {
     NSMutableDictionary *threadDictionary = [NSThread currentThread].threadDictionary;
     OCMMacroState *globalState = threadDictionary[OCMGlobalStateKey];
-    OCMStubRecorder *recorder = [(OCMStubRecorder *)[globalState recorder] retain];
+    OCMStubRecorder *recorder = [[(OCMStubRecorder *)[globalState recorder] retain] autorelease];
+    BOOL didThrow = [globalState invocationDidThrow];
     [threadDictionary removeObjectForKey:OCMGlobalStateKey];
-    return [recorder autorelease];
+	if(didThrow == NO && [recorder didRecordInvocation] == NO)
+	{
+		[NSException raise:NSInternalInconsistencyException
+					format:@"Did not record an invocation in OCMStub/OCMExpect/OCMReject.\n"
+						   @"Possible causes are:\n"
+						   @"- The receiver is not a mock object.\n"
+						   @"- The selector conflicts with a selector implemented by OCMStubRecorder/OCMExpectationRecorder."];
+	}
+    return recorder;
 }
 
 
@@ -63,7 +69,6 @@ static NSString *const OCMGlobalStateKey = @"OCMGlobalStateKey";
 + (void)beginRejectMacro
 {
     OCMExpectationRecorder *recorder = [[[OCMExpectationRecorder alloc] init] autorelease];
-    [recorder never];
     OCMMacroState *macroState = [[OCMMacroState alloc] initWithRecorder:recorder];
     [NSThread currentThread].threadDictionary[OCMGlobalStateKey] = macroState;
     [macroState release];
@@ -71,14 +76,24 @@ static NSString *const OCMGlobalStateKey = @"OCMGlobalStateKey";
 
 + (OCMStubRecorder *)endRejectMacro
 {
+    OCMMacroState *globalState = [NSThread currentThread].threadDictionary[OCMGlobalStateKey];
+    // Calling never after the invocation to avoid running afoul of ARC's expectations on
+    // return values from init methods.
+    [(OCMExpectationRecorder *)[globalState recorder] never];
     return [self endStubMacro];
 }
 
 
 + (void)beginVerifyMacroAtLocation:(OCMLocation *)aLocation
 {
+    return [self beginVerifyMacroAtLocation:aLocation withQuantifier:nil];
+}
+
++ (void)beginVerifyMacroAtLocation:(OCMLocation *)aLocation withQuantifier:(OCMQuantifier *)quantifier
+{
     OCMVerifier *recorder = [[[OCMVerifier alloc] init] autorelease];
     [recorder setLocation:aLocation];
+    [recorder setQuantifier:quantifier];
     OCMMacroState *macroState = [[OCMMacroState alloc] initWithRecorder:recorder];
     [NSThread currentThread].threadDictionary[OCMGlobalStateKey] = macroState;
     [macroState release];
@@ -86,7 +101,19 @@ static NSString *const OCMGlobalStateKey = @"OCMGlobalStateKey";
 
 + (void)endVerifyMacro
 {
-    [[NSThread currentThread].threadDictionary removeObjectForKey:OCMGlobalStateKey];
+	NSMutableDictionary *threadDictionary = [NSThread currentThread].threadDictionary;
+	OCMMacroState *globalState = threadDictionary[OCMGlobalStateKey];
+	OCMVerifier *verifier = [[(OCMVerifier *)[globalState recorder] retain] autorelease];
+    BOOL didThrow = [globalState invocationDidThrow];
+	[threadDictionary removeObjectForKey:OCMGlobalStateKey];
+	if(didThrow == NO && [verifier didRecordInvocation] == NO)
+    {
+        [NSException raise:NSInternalInconsistencyException
+                    format:@"Did not record an invocation in OCMVerify.\n"
+                           @"Possible causes are:\n"
+                           @"- The receiver is not a mock object.\n"
+                           @"- The selector conflicts with a selector implemented by OCMVerifier."];
+    }
 }
 
 
@@ -102,7 +129,7 @@ static NSString *const OCMGlobalStateKey = @"OCMGlobalStateKey";
 
 - (id)initWithRecorder:(OCMRecorder *)aRecorder
 {
-    if ((self = [super init]))
+    if((self = [super init]))
     {
         recorder = [aRecorder retain];
     }
@@ -113,13 +140,30 @@ static NSString *const OCMGlobalStateKey = @"OCMGlobalStateKey";
 - (void)dealloc
 {
     [recorder release];
-    NSAssert([NSThread currentThread].threadDictionary[OCMGlobalStateKey] != self, @"Unexpected dealloc while set as the global state");
+    if([NSThread currentThread].threadDictionary[OCMGlobalStateKey] == self)
+        [NSException raise:NSInternalInconsistencyException format:@"Unexpected dealloc while set as the global state"];
     [super dealloc];
+}
+
+- (void)setRecorder:(OCMRecorder *)aRecorder
+{
+    [recorder autorelease];
+    recorder = [aRecorder retain];
 }
 
 - (OCMRecorder *)recorder
 {
     return recorder;
+}
+
+- (void)setInvocationDidThrow:(BOOL)flag
+{
+    invocationDidThrow = flag;
+}
+
+- (BOOL)invocationDidThrow
+{
+    return invocationDidThrow;
 }
 
 

@@ -6,6 +6,7 @@
 */
 
 import IGListKit
+import Foundation
 
 extension ListSingleSectionController {
     /**

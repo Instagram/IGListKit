@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2004-2016 Erik Doernenburg and contributors
+ *  Copyright (c) 2004-2020 Erik Doernenburg and contributors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use these files except in compliance with the License. You may obtain
@@ -95,7 +95,13 @@
         [recorder setMockObject:self];
         return (id)[recorder init];
     }
-    
+
+	// skip initialisation when init is called again, which can happen when stubbing alloc/init
+    if(stubs != nil)
+    {
+        return self;
+    }
+
 	// no [super init], we're inheriting from NSProxy
 	expectationOrderMatters = NO;
 	stubs = [[NSMutableArray alloc] init];
@@ -121,9 +127,21 @@
 
 - (void)addStub:(OCMInvocationStub *)aStub
 {
+    [self assertInvocationsArrayIsPresent];
     @synchronized(stubs)
     {
         [stubs addObject:aStub];
+    }
+}
+
+- (OCMInvocationStub *)stubForInvocation:(NSInvocation *)anInvocation
+{
+    @synchronized(stubs)
+    {
+        for(OCMInvocationStub *stub in stubs)
+            if([stub matchesInvocation:anInvocation])
+                return stub;
+        return nil;
     }
 }
 
@@ -132,6 +150,29 @@
     @synchronized(expectations)
     {
         [expectations addObject:anExpectation];
+    }
+}
+
+- (void)assertInvocationsArrayIsPresent
+{
+    if(invocations == nil)
+    {
+        [NSException raise:NSInternalInconsistencyException format:@"** Cannot use mock object %@ at %p. This error usually occurs when a mock object is used after stopMocking has been called on it. In most cases it is not necessary to call stopMocking. If you know you have to, please make sure that the mock object is not used afterwards.", [self description], (void *)self];
+    }
+}
+
+- (void)addInvocation:(NSInvocation *)anInvocation
+{
+    @synchronized(invocations)
+    {
+        // We can't do a normal retain arguments on anInvocation because its target/arguments/return
+        // value could be self. That would produce a retain cycle self->invocations->anInvocation->self.
+        // However we need to retain everything on anInvocation that isn't self because we expect them to
+        // stick around after this method returns. Use our special method to retain just what's needed.
+        // This still doesn't completely prevent retain cycles since any of the arguments could have a
+        // strong reference to self. Those will have to be broken with manual calls to -stopMocking.
+        [anInvocation retainObjectArgumentsExcludingObject:self];
+        [invocations addObject:anInvocation];
     }
 }
 
@@ -145,7 +186,16 @@
 
 - (void)stopMocking
 {
-    // no-op for mock objects that are not class object or partial mocks
+    // invocations can contain objects that clients expect to be deallocated by now,
+    // and they can also have a strong reference to self, creating a retain cycle. Get
+    // rid of all of the invocations to hopefully let their objects deallocate, and to
+    // break any retain cycles involving self.
+    @synchronized(invocations)
+    {
+        [invocations removeAllObjects];
+        [invocations autorelease];
+        invocations = nil;
+    }
 }
 
 
@@ -253,18 +303,42 @@
 
 - (void)verifyInvocation:(OCMInvocationMatcher *)matcher atLocation:(OCMLocation *)location
 {
+    [self verifyInvocation:matcher withQuantifier:nil atLocation:location];
+}
+
+- (void)verifyInvocation:(OCMInvocationMatcher *)matcher withQuantifier:(OCMQuantifier *)quantifier atLocation:(OCMLocation *)location
+{
+    NSUInteger count = 0;
+    [self assertInvocationsArrayIsPresent];
     @synchronized(invocations)
     {
         for(NSInvocation *invocation in invocations)
         {
             if([matcher matchesInvocation:invocation])
-                return;
+                count += 1;
         }
     }
-    NSString *description = [NSString stringWithFormat:@"%@: Method %@ was not invoked.",
-     [self description], [matcher description]];
+    if(quantifier == nil)
+        quantifier = [OCMQuantifier atLeast:1];
+    if(![quantifier isValidCount:count])
+    {
+        NSString *description = [self descriptionForVerificationFailureWithMatcher:matcher quantifier:quantifier invocationCount:count];
+        OCMReportFailure(location, description);
+    }
+}
 
-    OCMReportFailure(location, description);
+- (NSString *)descriptionForVerificationFailureWithMatcher:(OCMInvocationMatcher *)matcher quantifier:(OCMQuantifier *)quantifier invocationCount:(NSUInteger)count
+{
+    NSString *actualDescription = nil;
+    switch(count)
+    {
+        case 0:  actualDescription = @"not invoked";  break;
+        case 1:  actualDescription = @"invoked once"; break;
+        default: actualDescription = [NSString stringWithFormat:@"invoked %lu times", (unsigned long)count]; break;
+    }
+
+    return [NSString stringWithFormat:@"%@: Method `%@` was %@; but was expected %@.",
+            [self description], [matcher description], actualDescription, [quantifier description]];
 }
 
 
@@ -276,6 +350,11 @@
     {
         OCMRecorder *recorder = [[OCMMacroState globalState] recorder];
         [recorder setMockObject:self];
+        // In order for ARC to work correctly, the recorder has to set up return values for
+        // methods in the init family of methods. If the mock forwards a method to the recorder
+        // that it will record, i.e. a method that the recorder does not implement, then the
+        // recorder must set the mock as the return value. Otherwise it must use itself.
+        [recorder setShouldReturnMockFromInit:(class_getInstanceMethod(object_getClass(recorder), aSelector) == NO)];
         return recorder;
     }
     return nil;
@@ -320,30 +399,15 @@
 
 - (BOOL)handleInvocation:(NSInvocation *)anInvocation
 {
-    @synchronized(invocations)
-    {
-        // We can't do a normal retain arguments on anInvocation because its target/arguments/return
-        // value could be self. That would produce a retain cycle self->invocations->anInvocation->self.
-        // However we need to retain everything on anInvocation that isn't self because we expect them to
-        // stick around after this method returns. Use our special method to retain just what's needed.
-        [anInvocation retainObjectArgumentsExcludingObject:self];
-        [invocations addObject:anInvocation];
-    }
+    [self assertInvocationsArrayIsPresent];
+    [self addInvocation:anInvocation];
 
-    OCMInvocationStub *stub = nil;
-    @synchronized(stubs)
-    {
-        for(stub in stubs)
-        {
-            // If the stub forwards its invocation to the real object, then we don't want to do handleInvocation: yet, since forwarding the invocation to the real object could call a method that is expected to happen after this one, which is bad if expectationOrderMatters is YES
-            if([stub matchesInvocation:anInvocation])
-                break;
-        }
-        // Retain the stub in case it ends up being removed from stubs and expectations, since we still have to call handleInvocation on the stub at the end
-        [stub retain];
-    }
+    OCMInvocationStub *stub = [self stubForInvocation:anInvocation];
     if(stub == nil)
         return NO;
+
+    // Retain the stub in case it ends up being removed because we still need it at the end for handleInvocation:
+    [stub retain];
 
     BOOL removeStub = NO;
     @synchronized(expectations)
@@ -357,7 +421,10 @@
                              [self description], [stub description], [[expectations objectAtIndex:0] description]];
             }
 
-            // We can't check isSatisfied yet, since the stub won't be satisfied until we call handleInvocation:, and we don't want to call handleInvocation: yes for the reason in the comment above, since we'll still have the current expectation in the expectations array, which will cause an exception if expectationOrderMatters is YES and we're not ready for any future expected methods to be called yet
+            // We can't check isSatisfied yet, since the stub won't be satisfied until we call
+            // handleInvocation: since we'll still have the current expectation in the expectations array, which
+            // will cause an exception if expectationOrderMatters is YES and we're not ready for any future
+            // expected methods to be called yet
             if(![(OCMInvocationExpectation *)stub isMatchAndReject])
             {
                 [expectations removeObject:stub];
@@ -372,8 +439,15 @@
             [stubs removeObject:stub];
         }
     }
-    [stub handleInvocation:anInvocation];
-    [stub release];
+
+    @try
+    {
+        [stub handleInvocation:anInvocation];
+    }
+    @finally
+    {
+        [stub release];
+    }
 
     return YES;
 }
