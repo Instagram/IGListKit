@@ -15,11 +15,9 @@
  */
 
 #import <objc/runtime.h>
-#import <OCMock/OCMConstraint.h>
-#import "NSInvocation+OCMAdditions.h"
 #import "OCMObserverRecorder.h"
-#import "OCMMacroState.h"
-#import "OCMStubRecorder.h"
+#import "OCMConstraint.h"
+
 
 @interface NSObject(HCMatcherDummy)
 - (BOOL)matches:(id)item;

@@ -16,15 +16,17 @@
 
 #import "OCMStubRecorder.h"
 #import "OCClassMockObject.h"
-#import "OCMObjectReturnValueProvider.h"
+#import "OCMInvocationStub.h"
+#import "OCMBlockCaller.h"
 #import "OCMBoxedReturnValueProvider.h"
 #import "OCMExceptionReturnValueProvider.h"
 #import "OCMIndirectReturnValueProvider.h"
 #import "OCMNotificationPoster.h"
-#import "OCMBlockCaller.h"
 #import "OCMRealObjectForwarder.h"
-#import "OCMInvocationStub.h"
 
+#if !TARGET_OS_WATCH
+#import <XCTest/XCTest.h>
+#endif
 
 @implementation OCMStubRecorder
 
@@ -99,6 +101,15 @@
     return self;
 }
 
+#if !TARGET_OS_WATCH
+- (id)andFulfill:(XCTestExpectation *)expectation
+{
+    return [self andDo:^(NSInvocation *invocation)
+    {
+        [expectation fulfill];
+    }];
+}
+#endif
 
 #pragma mark Finishing recording
 
@@ -123,7 +134,7 @@
         if(OCMIsObjectType([aValue objCType]))
         {
             id objValue = nil;
-            [aValue getValue:&objValue];
+            [aValue getValue:&objValue]; // TODO: deprecated but replacement available in 10.13 only
             return [self andReturn:objValue];
         }
         else
@@ -131,7 +142,7 @@
             return [self andReturnValue:aValue];
         }
     };
-    return [[theBlock copy] autorelease];
+    return (id)[[theBlock copy] autorelease];
 }
 
 
@@ -143,7 +154,7 @@
     {
         return [self andThrow:anException];
     };
-    return [[theBlock copy] autorelease];
+    return (id)[[theBlock copy] autorelease];
 }
 
 
@@ -155,7 +166,7 @@
     {
         return [self andPost:aNotification];
     };
-    return [[theBlock copy] autorelease];
+    return (id)[[theBlock copy] autorelease];
 }
 
 
@@ -167,7 +178,7 @@
     {
         return [self andCall:aSelector onObject:anObject];
     };
-    return [[theBlock copy] autorelease];
+    return (id)[[theBlock copy] autorelease];
 }
 
 
@@ -179,7 +190,7 @@
     {
         return [self andDo:blockToCall];
     };
-    return [[theBlock copy] autorelease];
+    return (id)[[theBlock copy] autorelease];
 }
 
 
@@ -191,8 +202,21 @@
     {
         return [self andForwardToRealObject];
     };
-    return [[theBlock copy] autorelease];
+    return (id)[[theBlock copy] autorelease];
 }
 
+#if !TARGET_OS_WATCH
+
+@dynamic _andFulfill;
+
+- (OCMStubRecorder * (^)(XCTestExpectation *))_andFulfill
+{
+    id (^theBlock)(XCTestExpectation *) = ^ (XCTestExpectation *expectation)
+    {
+        return [self andFulfill:expectation];
+    };
+    return (id)[[theBlock copy] autorelease];
+}
+#endif
 
 @end

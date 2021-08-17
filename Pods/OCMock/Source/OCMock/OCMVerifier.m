@@ -35,7 +35,7 @@
     return self;
 }
 
-- (instancetype)withQuantifier:(OCMQuantifier *)quantifier
+- (id)withQuantifier:(OCMQuantifier *)quantifier
 {
     [self setQuantifier:quantifier];
     return self;

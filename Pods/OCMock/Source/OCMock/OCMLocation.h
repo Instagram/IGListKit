@@ -15,8 +15,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "OCMFunctions.h"
-
+#import <OCMock/OCMFunctions.h>
 
 @interface OCMLocation : NSObject
 {

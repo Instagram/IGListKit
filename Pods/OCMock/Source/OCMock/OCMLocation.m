@@ -16,6 +16,7 @@
 
 #import "OCMLocation.h"
 
+
 @implementation OCMLocation
 
 + (instancetype)locationWithTestCase:(id)aTestCase file:(NSString *)aFile line:(NSUInteger)aLine

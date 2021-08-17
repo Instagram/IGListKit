@@ -15,8 +15,8 @@
  */
 
 #import "OCMMacroState.h"
-#import "OCMStubRecorder.h"
 #import "OCMExpectationRecorder.h"
+#import "OCMVerifier.h"
 
 
 @implementation OCMMacroState

@@ -14,21 +14,20 @@
  *  under the License.
  */
 
-#import <OCMock/OCMockObject.h>
+#import "OCMockObject.h"
 #import "OCClassMockObject.h"
 #import "OCProtocolMockObject.h"
 #import "OCPartialMockObject.h"
 #import "OCObserverMockObject.h"
-#import "OCMStubRecorder.h"
-#import <OCMock/OCMLocation.h>
-#import "NSInvocation+OCMAdditions.h"
-#import "OCMInvocationMatcher.h"
-#import "OCMMacroState.h"
-#import "OCMFunctionsPrivate.h"
-#import "OCMVerifier.h"
-#import "OCMInvocationExpectation.h"
 #import "OCMExceptionReturnValueProvider.h"
 #import "OCMExpectationRecorder.h"
+#import "OCMInvocationExpectation.h"
+#import "OCMLocation.h"
+#import "OCMMacroState.h"
+#import "OCMQuantifier.h"
+#import "OCMVerifier.h"
+#import "OCMFunctionsPrivate.h"
+#import "NSInvocation+OCMAdditions.h"
 
 
 @implementation OCMockObject
@@ -100,6 +99,11 @@
     if(stubs != nil)
     {
         return self;
+    }
+
+    if([self class] == [OCMockObject class])
+    {
+        [NSException raise:NSInternalInconsistencyException format:@"*** Cannot create instances of OCMockObject. Please use one of the subclasses."];
     }
 
 	// no [super init], we're inheriting from NSProxy
