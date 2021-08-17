@@ -21,6 +21,7 @@
 
 #define UNSET_RETURN_VALUE_MARKER ((id)0x01234567)
 
+
 @implementation OCMInvocationStub
 
 - (id)init
@@ -51,8 +52,11 @@
 - (void)handleInvocation:(NSInvocation *)anInvocation
 {
     [self invokeArgActionsForInvocation:anInvocation];
+    id target = [anInvocation target];
 
-    if([anInvocation methodIsInInitFamily])
+    BOOL isInInitFamily = [anInvocation methodIsInInitFamily];
+    BOOL isInCreateFamily = isInInitFamily ? NO : [anInvocation methodIsInCreateFamily];
+    if(isInInitFamily || isInCreateFamily)
     {
         id returnVal = UNSET_RETURN_VALUE_MARKER;
         [anInvocation setReturnValue:&returnVal];
@@ -61,8 +65,19 @@
 
         [anInvocation getReturnValue:&returnVal];
         if(returnVal == UNSET_RETURN_VALUE_MARKER)
+            [NSException raise:NSInvalidArgumentException format:@"%@ was stubbed but no return value set. A return value is required for all alloc/copy/new/mutablecopy/init methods. If you intended to return nil, make this explicit with .andReturn(nil)", NSStringFromSelector([anInvocation selector])];
+
+        if(isInCreateFamily)
         {
-            [NSException raise:NSInvalidArgumentException format:@"%@ was stubbed but no return value set. A return value is required for an init method. If you intended to return nil, make this explicit with .andReturn(nil)", NSStringFromSelector([anInvocation selector])];
+            // methods that "create" an object return it with an extra retain count
+            [returnVal retain];
+        }
+        if(isInInitFamily)
+        {
+            // init family methods "consume" self and retain their return value. Do the retain
+            // first in case the return value and self are the same.
+            [returnVal retain];
+            [target release];
         }
     }
     else

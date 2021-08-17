@@ -14,7 +14,7 @@
  *  under the License.
  */
 
-#import <OCMock/OCMock.h>
+#import "OCMStubRecorder.h"
 
 @interface OCMExpectationRecorder : OCMStubRecorder
 

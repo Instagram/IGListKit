@@ -16,7 +16,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface OCMConstraint : NSObject 
 
 + (instancetype)constraint;

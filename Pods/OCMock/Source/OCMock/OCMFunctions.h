@@ -25,3 +25,4 @@
 
 
 OCMOCK_EXTERN BOOL OCMIsObjectType(const char *objCType);
+OCMOCK_EXTERN BOOL OCMIsSubclassOfMockClass(Class cls);

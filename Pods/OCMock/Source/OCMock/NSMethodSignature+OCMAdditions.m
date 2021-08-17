@@ -14,9 +14,9 @@
  *  under the License.
  */
 
+#import <objc/runtime.h>
 #import "NSMethodSignature+OCMAdditions.h"
 #import "OCMFunctionsPrivate.h"
-#import <objc/runtime.h>
 
 
 @implementation NSMethodSignature(OCMAdditions)

@@ -14,7 +14,7 @@
  *  under the License.
  */
 
-#import "OCMRecorder.h"
+#import <OCMock/OCMRecorder.h>
 
 @class OCMLocation;
 @class OCMQuantifier;
@@ -24,6 +24,6 @@
 @property(strong) OCMLocation *location;
 @property(strong) OCMQuantifier *quantifier;
 
-- (instancetype)withQuantifier:(OCMQuantifier *)quantifier;
+- (id)withQuantifier:(OCMQuantifier *)quantifier;
 
 @end

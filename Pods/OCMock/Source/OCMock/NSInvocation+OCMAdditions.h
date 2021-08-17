@@ -47,10 +47,6 @@
 - (NSString *)selectorDescriptionAtIndex:(NSInteger)anInt;
 
 - (BOOL)methodIsInInitFamily;
-- (BOOL)methodIsInAllocFamily;
-- (BOOL)methodIsInCopyFamily;
-- (BOOL)methodIsInMutableCopyFamily;
-- (BOOL)methodIsInNewFamily;
-
+- (BOOL)methodIsInCreateFamily;
 
 @end

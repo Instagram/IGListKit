@@ -48,6 +48,7 @@ OCPartialMockObject *OCMGetAssociatedMockForObject(id anObject);
 
 void OCMReportFailure(OCMLocation *loc, NSString *description);
 
+BOOL OCMIsBlock(id potentialBlock);
 BOOL OCMIsNonEscapingBlock(id block);
 
 

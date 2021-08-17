@@ -15,14 +15,15 @@
  */
 
 #import "OCObserverMockObject.h"
-#import "OCMObserverRecorder.h"
 #import "OCMLocation.h"
-#import "OCMFunctionsPrivate.h"
 #import "OCMMacroState.h"
-#import "OCMRecorder.h"
+#import "OCMObserverRecorder.h"
+#import "OCMFunctionsPrivate.h"
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 @implementation OCObserverMockObject
+#pragma clang diagnostic pop
 
 #pragma mark  Initialisers, description, accessors, etc.
 
