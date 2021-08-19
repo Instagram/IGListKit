@@ -5,7 +5,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
 #import "IGListCompatibility.h"
+#else
+#import <IGListDiffKit/IGListCompatibility.h>
+#endif
 
 /**
  * Project version number for IGListKit.
@@ -52,6 +56,7 @@ FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 
 // Shared (iOS, tvOS, macOS compatible):
 
+#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
 #import "IGListAssert.h"
 #import "IGListBatchUpdateData.h"
 #import "IGListDiff.h"
@@ -63,4 +68,16 @@ FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 #import "IGListMoveIndexPath.h"
 #import "NSNumber+IGListDiffable.h"
 #import "NSString+IGListDiffable.h"
-
+#else
+#import <IGListDiffKit/IGListAssert.h>
+#import <IGListDiffKit/IGListBatchUpdateData.h>
+#import <IGListDiffKit/IGListDiff.h>
+#import <IGListDiffKit/IGListDiffable.h>
+#import <IGListDiffKit/IGListExperiments.h>
+#import <IGListDiffKit/IGListIndexPathResult.h>
+#import <IGListDiffKit/IGListIndexSetResult.h>
+#import <IGListDiffKit/IGListMoveIndex.h>
+#import <IGListDiffKit/IGListMoveIndexPath.h>
+#import <IGListDiffKit/NSNumber+IGListDiffable.h>
+#import <IGListDiffKit/NSString+IGListDiffable.h>
+#endif
