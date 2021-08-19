@@ -11,9 +11,9 @@ on:
 jobs:
   macOS:
     name: Unit Test macOS
-    runs-on: macOS-latest
+    runs-on: macos-11
     env: 
-      DEVELOPER_DIR: /Applications/Xcode_12.5.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_12.5.1.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       SCHEME_NAME: IGListKit-macOS
     steps:
@@ -39,9 +39,9 @@ jobs:
 
   iOS:
     name: Unit Test iOS 
-    runs-on: macOS-latest
+    runs-on: macos-11
     env: 
-      DEVELOPER_DIR: /Applications/Xcode_12.5.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_12.5.1.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       SCHEME_NAME: IGListKit
     strategy:
@@ -70,9 +70,9 @@ jobs:
 
   Cocoapods:
     name: Cocoapods Lint 
-    runs-on: macOS-latest
+    runs-on: macos-11
     env: 
-      DEVELOPER_DIR: /Applications/Xcode_12.5.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_12.5.1.app
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -97,11 +97,23 @@ jobs:
       - name: Run IGListSwiftKit podspec lint
         run: bundle exec pod lib lint IGListSwiftKit.podspec --allow-warnings "--include-podspecs=*.podspec"
 
-  Carthage:
-    name: Verify Carthage build 
-    runs-on: macOS-latest
+  Carthage-XCFramework:
+    name: Verify Carthage build XCFramework 
+    runs-on: macos-11
     env: 
-      DEVELOPER_DIR: /Applications/Xcode_12.5.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_12.5.1.app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Carthage build framework
+        run: carthage build --no-skip-current --use-xcframeworks
+
+  Carthage-Legacy-Lipo-Binaries:
+    name: Verify Carthage build lipo binaries 
+    runs-on: macos-11
+    env: 
+      DEVELOPER_DIR: /Applications/Xcode_11.7.app
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -111,9 +123,9 @@ jobs:
 
   Build-Examples:
     name: Build Examples and UI tests.
-    runs-on: macOS-latest
+    runs-on: macos-11
     env: 
-      DEVELOPER_DIR: /Applications/Xcode_12.5.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_12.5.1.app
       IOS_EXAMPLE_WORKSPACE: Examples/Examples-iOS/IGListKitExamples.xcworkspace
       TVOS_EXAMPLE_WORKSPACE: Examples/Examples-tvOS/IGListKitExamples.xcworkspace
       MACOS_EXAMPLE_WORKSPACE: Examples/Examples-macOS/IGListKitExamples.xcworkspace
