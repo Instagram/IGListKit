@@ -7,7 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
 #import "IGListDiffable.h"
+#else
+#import <IGListDiffKit/IGListDiffable.h>
+#endif
+
 
 @class IGListAdapter;
 @class IGListSectionController;
