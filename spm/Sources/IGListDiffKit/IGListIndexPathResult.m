@@ -1,0 +1,1 @@
+../../../Source/IGListDiffKit/IGListIndexPathResult.m

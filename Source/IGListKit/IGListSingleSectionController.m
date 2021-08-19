@@ -7,7 +7,7 @@
 
 #import "IGListSingleSectionController.h"
 
-#import <IGListDiffKit/IGListAssert.h>
+#import "IGListAssert.h"
 
 @interface IGListSingleSectionController ()
 

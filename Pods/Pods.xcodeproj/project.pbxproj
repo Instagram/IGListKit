@@ -594,8 +594,8 @@
 				8C29DE86530C0962523F120DF8F65A76 /* OCMNotificationPoster.h in Headers */,
 				9AC48C4340D00A090D77BDA9A7FD0459 /* OCMObjectReturnValueProvider.h in Headers */,
 				51391A61E607C64E5F6E7508BCA7EFD6 /* OCMObserverRecorder.h in Headers */,
-				135FD928295095E72660758032C5E1E9 /* OCMock.h in Headers */,
 				A5E385CDE7B218E0C8B84415A689A5D5 /* OCMock-tvOS-umbrella.h in Headers */,
+				135FD928295095E72660758032C5E1E9 /* OCMock.h in Headers */,
 				0D821A0809F762D920B313F97AFA2E21 /* OCMockMacros.h in Headers */,
 				78F3DC2D7690CFEB3E43D0126D579719 /* OCMockObject.h in Headers */,
 				A4B09D57DE918C08D9973E94B2456075 /* OCMPassByRefSetter.h in Headers */,
@@ -640,8 +640,8 @@
 				6B9A9B9E9DE89A143453903D58D2AF8D /* OCMNotificationPoster.h in Headers */,
 				82B4027D60DCCFDF47B7866A8D4723C7 /* OCMObjectReturnValueProvider.h in Headers */,
 				07428DE24B83470C075C781BE19BAE20 /* OCMObserverRecorder.h in Headers */,
-				B81481CE0869BA8511800DD6584169EC /* OCMock.h in Headers */,
 				E2601A5B26FB56226853C3C46998B6A2 /* OCMock-iOS-umbrella.h in Headers */,
+				B81481CE0869BA8511800DD6584169EC /* OCMock.h in Headers */,
 				80B0BA873CCF8F8D05511916B914954A /* OCMockMacros.h in Headers */,
 				089E51BF9C008B96AED34DC2424AC7E1 /* OCMockObject.h in Headers */,
 				64B238C298E5EF79A47E9ABD5192414F /* OCMPassByRefSetter.h in Headers */,
@@ -739,8 +739,8 @@
 		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -927,6 +927,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "Target Support Files/OCMock-tvOS/OCMock-tvOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/OCMock-tvOS/OCMock-tvOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -958,6 +959,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "Target Support Files/OCMock-iOS/OCMock-iOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/OCMock-iOS/OCMock-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -989,6 +991,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "Target Support Files/OCMock-tvOS/OCMock-tvOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/OCMock-tvOS/OCMock-tvOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1179,6 +1182,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "Target Support Files/OCMock-iOS/OCMock-iOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/OCMock-iOS/OCMock-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

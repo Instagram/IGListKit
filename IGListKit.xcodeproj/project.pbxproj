@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A8928F926CDA521003FABD8 /* IGListUpdateTransactionBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B22E722502AAC30055DC2F /* IGListUpdateTransactionBuilder.m */; };
+		0A8928FA26CDA53B003FABD8 /* IGListUpdateTransactionBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B22E7D2502AAC40055DC2F /* IGListUpdateTransactionBuilder.h */; };
+		0A8928FB26CDA591003FABD8 /* IGListReloadTransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B22E762502AAC30055DC2F /* IGListReloadTransaction.h */; };
+		0A8928FC26CDA5BD003FABD8 /* IGListReloadTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B22E7E2502AAC40055DC2F /* IGListReloadTransaction.m */; };
+		0A8928FD26CDA5E1003FABD8 /* IGListDataSourceChangeTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B22E792502AAC30055DC2F /* IGListDataSourceChangeTransaction.m */; };
+		0A8928FE26CDA5EA003FABD8 /* IGListDataSourceChangeTransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B22E742502AAC30055DC2F /* IGListDataSourceChangeTransaction.h */; };
+		0A8928FF26CDA62C003FABD8 /* IGListBatchUpdateTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B22E712502AAC20055DC2F /* IGListBatchUpdateTransaction.m */; };
+		0A89290026CDA632003FABD8 /* IGListBatchUpdateTransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B22E7B2502AAC40055DC2F /* IGListBatchUpdateTransaction.h */; };
+		0A89290126CDA666003FABD8 /* IGListItemUpdatesCollector.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B22E7C2502AAC40055DC2F /* IGListItemUpdatesCollector.h */; };
+		0A89290226CDA672003FABD8 /* IGListItemUpdatesCollector.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B22E752502AAC30055DC2F /* IGListItemUpdatesCollector.m */; };
 		0B3B93611E08E38C008390ED /* IGListBatchUpdateDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE51D870EDC007C7F66 /* IGListBatchUpdateDataTests.m */; };
 		0B40C5F31E01CB8200378109 /* IGReloadDataUpdaterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2997D4961DF5FC0B005A5DD2 /* IGReloadDataUpdaterTests.m */; };
 		13DF01731FA0FD400092A320 /* IGListTestAdapterReorderingDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 13DF01721FA0FD400092A320 /* IGListTestAdapterReorderingDataSource.m */; };
@@ -66,21 +76,6 @@
 		401B5E63230111EC004099D5 /* IGTestNibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 294369B01DB1B7AE0025F6E7 /* IGTestNibCell.xib */; };
 		401B5E64230111F3004099D5 /* IGTestNibSupplementaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2904861C1DCD02140007F41D /* IGTestNibSupplementaryView.xib */; };
 		401B5E65230111F7004099D5 /* IGTestStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 821BC4C21DB8CAE900172ED0 /* IGTestStoryboard.storyboard */; };
-		47F8D49D26CAF5B500D626FE /* IGListBatchUpdateTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B22E712502AAC20055DC2F /* IGListBatchUpdateTransaction.m */; };
-		47F8D49E26CAF5B500D626FE /* IGListDataSourceChangeTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B22E792502AAC30055DC2F /* IGListDataSourceChangeTransaction.m */; };
-		47F8D49F26CAF5B500D626FE /* IGListItemUpdatesCollector.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B22E752502AAC30055DC2F /* IGListItemUpdatesCollector.m */; };
-		47F8D4A026CAF5B500D626FE /* IGListReloadTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B22E7E2502AAC40055DC2F /* IGListReloadTransaction.m */; };
-		47F8D4A126CAF5B500D626FE /* IGListUpdateTransactionBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B22E722502AAC30055DC2F /* IGListUpdateTransactionBuilder.m */; };
-		47F8D4A226CAF5D900D626FE /* IGListBatchUpdateTransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B22E7B2502AAC40055DC2F /* IGListBatchUpdateTransaction.h */; };
-		47F8D4A326CAF5DA00D626FE /* IGListDataSourceChangeTransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B22E742502AAC30055DC2F /* IGListDataSourceChangeTransaction.h */; };
-		47F8D4A426CAF5DA00D626FE /* IGListItemUpdatesCollector.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B22E7C2502AAC40055DC2F /* IGListItemUpdatesCollector.h */; };
-		47F8D4A526CAF5DA00D626FE /* IGListReloadTransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B22E762502AAC30055DC2F /* IGListReloadTransaction.h */; };
-		47F8D4A626CAF5DA00D626FE /* IGListUpdateTransactable.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B22E732502AAC30055DC2F /* IGListUpdateTransactable.h */; };
-		47F8D4A726CAF5DA00D626FE /* IGListUpdateTransactionBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B22E7D2502AAC40055DC2F /* IGListUpdateTransactionBuilder.h */; };
-		47F8D4AA26CAF73200D626FE /* ListValueSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F8D4A826CAF73200D626FE /* ListValueSectionController.swift */; };
-		47F8D4AB26CAF73200D626FE /* ListValueSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F8D4A826CAF73200D626FE /* ListValueSectionController.swift */; };
-		47F8D4AC26CAF73200D626FE /* ListIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F8D4A926CAF73200D626FE /* ListIdentifiable.swift */; };
-		47F8D4AD26CAF73200D626FE /* ListIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F8D4A926CAF73200D626FE /* ListIdentifiable.swift */; };
 		57B22E6C2502AAB20055DC2F /* IGListTransitionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B22E662502AAB10055DC2F /* IGListTransitionData.m */; };
 		57B22E6F2502AAB20055DC2F /* IGListTransitionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B22E692502AAB10055DC2F /* IGListTransitionData.h */; };
 		57B22E7F2502AAC40055DC2F /* IGListBatchUpdateTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B22E712502AAC20055DC2F /* IGListBatchUpdateTransaction.m */; };
@@ -539,8 +534,6 @@
 		29DA5CA61EA7D37000113926 /* IGListTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListTestCase.m; sourceTree = "<group>"; };
 		29DA5CA91EA7D39B00113926 /* IGListTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListTestCase.h; sourceTree = "<group>"; };
 		29DA5CAA1EA7D3FF00113926 /* IGListTestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListTestHelpers.h; sourceTree = "<group>"; };
-		47F8D4A826CAF73200D626FE /* ListValueSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListValueSectionController.swift; sourceTree = "<group>"; };
-		47F8D4A926CAF73200D626FE /* ListIdentifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListIdentifiable.swift; sourceTree = "<group>"; };
 		57B22E662502AAB10055DC2F /* IGListTransitionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListTransitionData.m; sourceTree = "<group>"; };
 		57B22E692502AAB10055DC2F /* IGListTransitionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGListTransitionData.h; sourceTree = "<group>"; };
 		57B22E712502AAC20055DC2F /* IGListBatchUpdateTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListBatchUpdateTransaction.m; sourceTree = "<group>"; };
@@ -1027,8 +1020,6 @@
 		7A92EA9823A8A42000E5A13D /* IGListSwiftKit */ = {
 			isa = PBXGroup;
 			children = (
-				47F8D4A926CAF73200D626FE /* ListIdentifiable.swift */,
-				47F8D4A826CAF73200D626FE /* ListValueSectionController.swift */,
 				7A92EA9923A8A42000E5A13D /* IGListSwiftKit.h */,
 				7A92EA9F23A8A43D00E5A13D /* IGListCollectionContext+Refinements.swift */,
 				7AEA8E5C25BF715C00971591 /* IGListSingleSectionController+Refinements.swift */,
@@ -1313,15 +1304,14 @@
 				7A02CEFB2361511100B49FAE /* IGListDisplayDelegate.h in Headers */,
 				7A02CF4C2361511100B49FAE /* IGListSupplementaryViewSource.h in Headers */,
 				7A02CFA92361513600B49FAE /* UICollectionViewLayout+InteractiveReordering.h in Headers */,
-				47F8D4A226CAF5D900D626FE /* IGListBatchUpdateTransaction.h in Headers */,
-				47F8D4A326CAF5DA00D626FE /* IGListDataSourceChangeTransaction.h in Headers */,
-				47F8D4A426CAF5DA00D626FE /* IGListItemUpdatesCollector.h in Headers */,
-				47F8D4A526CAF5DA00D626FE /* IGListReloadTransaction.h in Headers */,
-				47F8D4A626CAF5DA00D626FE /* IGListUpdateTransactable.h in Headers */,
-				47F8D4A726CAF5DA00D626FE /* IGListUpdateTransactionBuilder.h in Headers */,
+				0A89290026CDA632003FABD8 /* IGListBatchUpdateTransaction.h in Headers */,
+				0A8928FB26CDA591003FABD8 /* IGListReloadTransaction.h in Headers */,
+				0A8928FA26CDA53B003FABD8 /* IGListUpdateTransactionBuilder.h in Headers */,
+				0A8928FE26CDA5EA003FABD8 /* IGListDataSourceChangeTransaction.h in Headers */,
 				7A02CF462361511100B49FAE /* IGListAdapterPerformanceDelegate.h in Headers */,
 				7A02CF0A2361511100B49FAE /* IGListBindingSectionControllerDataSource.h in Headers */,
 				7A02D0122361513600B49FAE /* UICollectionView+DebugDescription.h in Headers */,
+				0A89290126CDA666003FABD8 /* IGListItemUpdatesCollector.h in Headers */,
 				7A92EAB423A8A5FA00E5A13D /* IGListAdapterUpdaterHelpers.h in Headers */,
 				7A02CF0D2361511100B49FAE /* IGListCollectionContext.h in Headers */,
 				7A02CF372361511100B49FAE /* IGListAdapterDataSource.h in Headers */,
@@ -1590,6 +1580,8 @@
 				887D0B421D870D7F009E01F7 /* PBXTargetDependency */,
 			);
 			name = IGListKitTests;
+			packageProductDependencies = (
+			);
 			productName = IGListKitTests;
 			productReference = 887D0B3F1D870D7F009E01F7 /* IGListKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1700,6 +1692,8 @@
 				en,
 			);
 			mainGroup = 887D0B2C1D870D7E009E01F7;
+			packageReferences = (
+			);
 			productRefGroup = 887D0B371D870D7E009E01F7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1888,8 +1882,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47F8D4AA26CAF73200D626FE /* ListValueSectionController.swift in Sources */,
-				47F8D4AC26CAF73200D626FE /* ListIdentifiable.swift in Sources */,
 				7AEA8E5D25BF715C00971591 /* IGListSingleSectionController+Refinements.swift in Sources */,
 				7A92EAA023A8A43D00E5A13D /* IGListCollectionContext+Refinements.swift in Sources */,
 			);
@@ -1899,8 +1891,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47F8D4AB26CAF73200D626FE /* ListValueSectionController.swift in Sources */,
-				47F8D4AD26CAF73200D626FE /* ListIdentifiable.swift in Sources */,
 				7AEA8E5E25BF715C00971591 /* IGListSingleSectionController+Refinements.swift in Sources */,
 				7A92EAB123A8A50C00E5A13D /* IGListCollectionContext+Refinements.swift in Sources */,
 			);
@@ -1910,16 +1900,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47F8D49D26CAF5B500D626FE /* IGListBatchUpdateTransaction.m in Sources */,
-				47F8D49E26CAF5B500D626FE /* IGListDataSourceChangeTransaction.m in Sources */,
-				47F8D49F26CAF5B500D626FE /* IGListItemUpdatesCollector.m in Sources */,
-				47F8D4A026CAF5B500D626FE /* IGListReloadTransaction.m in Sources */,
-				47F8D4A126CAF5B500D626FE /* IGListUpdateTransactionBuilder.m in Sources */,
+				0A8928F926CDA521003FABD8 /* IGListUpdateTransactionBuilder.m in Sources */,
+				0A8928FF26CDA62C003FABD8 /* IGListBatchUpdateTransaction.m in Sources */,
+				0A89290226CDA672003FABD8 /* IGListItemUpdatesCollector.m in Sources */,
 				7A02CF492361511100B49FAE /* IGListSingleSectionController.m in Sources */,
 				7A02CFEB2361513600B49FAE /* IGListBatchUpdates.m in Sources */,
+				0A8928FC26CDA5BD003FABD8 /* IGListReloadTransaction.m in Sources */,
 				7A02CF132361511100B49FAE /* IGListGenericSectionController.m in Sources */,
 				7A02CFA62361513600B49FAE /* UICollectionView+IGListBatchUpdateData.m in Sources */,
 				7A02CFC42361513600B49FAE /* UICollectionView+DebugDescription.m in Sources */,
+				0A8928FD26CDA5E1003FABD8 /* IGListDataSourceChangeTransaction.m in Sources */,
 				7A02CFBE2361513600B49FAE /* IGListAdapterUpdater+DebugDescription.m in Sources */,
 				7A02CFAC2361513600B49FAE /* IGListReloadIndexPath.m in Sources */,
 				7A02CF5E2361511100B49FAE /* IGListSectionController.m in Sources */,
