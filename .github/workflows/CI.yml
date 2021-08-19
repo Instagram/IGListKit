@@ -96,6 +96,31 @@ jobs:
 
       - name: Run IGListSwiftKit podspec lint
         run: bundle exec pod lib lint IGListSwiftKit.podspec --allow-warnings "--include-podspecs=*.podspec"
+      
+  SPM-build-from-Package:
+    name: Verify SPM build by invoking `xcodebuild` on Package.swift
+    runs-on: macos-11
+    env: 
+      DEVELOPER_DIR: /Applications/Xcode_12.5.1.app
+      WORKSPACE_NAME: IGListKit.xcworkspace
+      PROJECT_NAME: IGListKit.xcodeproj
+      IOS_DESTINATION: "name=iPhone 12 Pro"
+    strategy:
+      matrix:
+        schemeName: ["IGListDiffKit",
+                      "IGListKit",
+                      "IGListSwiftKit"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Clean project's ${{ env.PROJECT_NAME }} and ${{ env.WORKSPACE_NAME }}
+        run: |
+          rm -rf "${{ env.WORKSPACE_NAME }}"
+          rm -rf "${{ env.PROJECT_NAME }}"
+
+      - name: Run ${{ matrix.schemeName}} using Package.swift
+        run: xcodebuild -scheme "${{ matrix.schemeName}}" build -destination "${{ env.IOS_DESTINATION }}" | xcpretty
 
   Carthage-XCFramework:
     name: Verify Carthage build XCFramework 
