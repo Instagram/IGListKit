@@ -7,10 +7,6 @@
 
 #import "IGListBatchUpdateData.h"
 
-#if __has_include(<UIKit/UIKit.h>)
-#import <UIKit/UIKit.h>
-#endif
-
 #import <unordered_map>
 
 #if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
