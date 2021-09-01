@@ -1,0 +1,1 @@
+../../../Source/IGListKit/Internal/IGListAdapter+DebugDescription.m
