@@ -7,11 +7,15 @@
 
 #import "IGListDisplayHandler.h"
 
+#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
+#import "IGListAssert.h"
+#else
 #import <IGListDiffKit/IGListAssert.h>
-#import <IGListKit/IGListAdapter.h>
-#import <IGListKit/IGListDisplayDelegate.h>
-#import <IGListKit/IGListSectionController.h>
-#import <IGListKit/IGListSectionControllerInternal.h>
+#endif
+#import "IGListAdapter.h"
+#import "IGListDisplayDelegate.h"
+#import "IGListSectionController.h"
+#import "IGListSectionControllerInternal.h"
 
 @interface IGListDisplayHandler ()
 

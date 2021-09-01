@@ -7,8 +7,13 @@
 
 #import <UIKit/UIKit.h>
 
+#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
+#import "IGListMacros.h"
+#else
 #import <IGListDiffKit/IGListMacros.h>
-#import <IGListKit/IGListUpdatingDelegate.h>
+#endif
+
+#import "IGListUpdatingDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

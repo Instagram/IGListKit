@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <IGListKit/IGListReloadDataUpdater.h>
+#import "IGListReloadDataUpdater.h"
 
 @implementation IGListReloadDataUpdater
 

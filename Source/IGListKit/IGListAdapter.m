@@ -7,9 +7,13 @@
 
 #import "IGListAdapterInternal.h"
 
+#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
+#import "IGListAssert.h"
+#else
 #import <IGListDiffKit/IGListAssert.h>
-#import <IGListKit/IGListAdapterUpdater.h>
-#import <IGListKit/IGListSupplementaryViewSource.h>
+#endif
+#import "IGListAdapterUpdater.h"
+#import "IGListSupplementaryViewSource.h"
 
 #import "IGListArrayUtilsInternal.h"
 #import "IGListDebugger.h"
