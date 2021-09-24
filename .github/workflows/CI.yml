@@ -31,6 +31,9 @@ jobs:
       - name: Install ruby gems.
         run: bundle install
 
+      - name: Install pods.
+        run: pod install
+
       - name: Run unit tests for macOS
         run: |
           set -o pipefail
@@ -61,6 +64,9 @@ jobs:
 
       - name: Install ruby gems.
         run: bundle install
+
+      - name: Install pods.
+        run: pod install
 
       - name: iOS - ${{ matrix.destination }}
         run: |
