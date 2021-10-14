@@ -18,6 +18,7 @@
 #import "IGListCollectionViewDelegateLayout.h"
 
 #import "UIScrollView+IGListKit.h"
+#import "IGListAdapter.h"
 
 static CGFloat UIEdgeInsetsLeadingInsetInDirection(UIEdgeInsets insets, UICollectionViewScrollDirection direction) {
     switch (direction) {
@@ -459,6 +460,21 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 #pragma mark - Private API
 
+- (NSString *)_classNameForDelegate:(id<UICollectionViewDelegateFlowLayout>)delegate sectionIndex:(NSInteger)section {
+    NSString *const delegateClassString = NSStringFromClass(delegate.class);
+    if ([delegateClassString isEqualToString:@"IGListAdapterProxy"] == NO) {
+        return delegateClassString;
+    }
+
+    id forwardingObject = [(id)delegate forwardingTargetForSelector:@selector(collectionView:layout:insetForSectionAtIndex:)];
+    if ([forwardingObject isKindOfClass:IGListAdapter.class] == NO) {
+        return NSStringFromClass([forwardingObject class]);
+    }
+
+    id sectionController = [forwardingObject sectionControllerForSection:section];
+    return NSStringFromClass([sectionController class]);
+}
+
 - (void)_calculateLayoutIfNeeded {
     if (_minimumInvalidatedSection == NSNotFound) {
         return;
@@ -532,13 +548,14 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
             IGAssert(CGSizeGetLengthInDirection(size, fixedDirection) <= paddedLengthInFixedDirection
                      || fabs(CGSizeGetLengthInDirection(size, fixedDirection) - paddedLengthInFixedDirection) < FLT_EPSILON,
-                     @"%@ of item %li in section %li (%.0f pt) must be less than or equal to container (%.0f pt) accounting for section insets %@",
+                     @"%@ of item %li in section %li (%.0f pt) must be less than or equal to container (%.0f pt) accounting for section insets %@. Delegate class: %@",
                      self.scrollDirection == UICollectionViewScrollDirectionVertical ? @"Width" : @"Height",
                      (long)item,
                      (long)section,
                      CGSizeGetLengthInDirection(size, fixedDirection),
                      CGRectGetLengthInDirection(contentInsetAdjustedCollectionViewBounds, fixedDirection),
-                     NSStringFromUIEdgeInsets(insets));
+                     NSStringFromUIEdgeInsets(insets),
+                     [self _classNameForDelegate:delegate sectionIndex:section]);
 
             CGFloat itemLengthInFixedDirection = MIN(CGSizeGetLengthInDirection(size, fixedDirection), paddedLengthInFixedDirection);
 
