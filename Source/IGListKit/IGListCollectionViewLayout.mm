@@ -462,16 +462,18 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
 - (NSString *)_classNameForDelegate:(id<UICollectionViewDelegateFlowLayout>)delegate sectionIndex:(NSInteger)section {
     NSString *const delegateClassString = NSStringFromClass(delegate.class);
-    if ([delegateClassString isEqualToString:@"IGListAdapterProxy"] == NO) {
+    const BOOL isListAdapter = [delegateClassString isEqualToString:@"IGListAdapter"];
+    const BOOL isListAdapterProxy = [delegateClassString isEqualToString:@"IGListAdapterProxy"];
+    if (isListAdapter == NO && isListAdapterProxy == NO) {
         return delegateClassString;
     }
 
-    id forwardingObject = [(id)delegate forwardingTargetForSelector:@selector(collectionView:layout:insetForSectionAtIndex:)];
+    const id forwardingObject = (isListAdapterProxy ? [(id)delegate forwardingTargetForSelector:@selector(collectionView:layout:insetForSectionAtIndex:)] : delegate);
     if ([forwardingObject isKindOfClass:IGListAdapter.class] == NO) {
         return NSStringFromClass([forwardingObject class]);
     }
 
-    id sectionController = [forwardingObject sectionControllerForSection:section];
+    const id sectionController = [forwardingObject sectionControllerForSection:section];
     return NSStringFromClass([sectionController class]);
 }
 
