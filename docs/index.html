@@ -8,13 +8,21 @@
     <script src="js/jquery.min.js" defer></script>
     <script src="js/jazzy.js" defer></script>
     
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a title="IGListKit  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (98% documented)</p>
+        <p><a href="index.html">IGListKit 4.1.0 Docs</a> (94% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -212,6 +220,9 @@
                 <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListDataSourceChangeBlock">IGListDataSourceChangeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
@@ -230,6 +241,12 @@
                 <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataApplyBlock">IGListTransitionDataApplyBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataBlock">IGListTransitionDataBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Type%20Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -244,13 +261,7 @@
                 <a href="Functions.html#/c:@F@IGListDiff">IGListDiff</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
               </li>
               <li class="nav-group-task">
                 <a href="Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
@@ -348,6 +359,9 @@
 
 <p><code>IGListKit</code> is built and maintained with &#10084;&#65039; by <a href="https://engineering.instagram.com/">Instagram engineering</a>.
 We use the open source version <code>master</code> branch in the Instagram app.</p>
+<h2 id='multilingual-translation' class='heading'>Multilingual translation</h2>
+
+<p><a href="README.zh.md">Chinese README</a></p>
 <h2 id='requirements' class='heading'>Requirements</h2>
 
 <ul>
@@ -368,21 +382,30 @@ We use the open source version <code>master</code> branch in the Instagram app.<
 <p>For <a href="https://github.com/Carthage/Carthage">Carthage</a>, add the following to your <code>Cartfile</code>:</p>
 <pre class="highlight plaintext"><code>github "Instagram/IGListKit" ~&gt; 4.0.0
 </code></pre>
+<h3 id='swift-package-manager' class='heading'>Swift Package Manager</h3>
+
+<p>For <a href="https://swift.org/package-manager/">Swift Package Manager</a>:</p>
+<pre class="highlight plaintext"><code>To integrate using Xcode:
+
+File -&gt; Swift Packages -&gt; Add Package Dependency
+
+Enter package URL: https://github.com/Instagram/IGListKit, and select the latest release.
+</code></pre>
 
 <blockquote>
 <p>For advanced usage, see our <a href="https://instagram.github.io/IGListKit/installation.html">Installation Guide</a>.</p>
 </blockquote>
 <h2 id='getting-started' class='heading'>Getting Started</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>git clone https://github.com/Instagram/IGListKit.git
-<span class="gp">$ </span><span class="nb">cd </span>IGListKit/
-<span class="gp">$ </span>./scripts/setup.sh
+<pre class="highlight shell"><code><span class="nv">$ </span>git clone https://github.com/Instagram/IGListKit.git
+<span class="nv">$ </span><span class="nb">cd </span>IGListKit/
+<span class="nv">$ </span>./scripts/setup.sh
 </code></pre>
 
 <ul>
 <li>Our <a href="https://instagram.github.io/IGListKit/getting-started.html">Getting Started guide</a></li>
 <li>Ray Wenderlich&rsquo;s <a href="https://www.raywenderlich.com/147162/iglistkit-tutorial-better-uicollectionviews">IGListKit Tutorial: Better UICollectionViews</a></li>
 <li>Our <a href="https://github.com/Instagram/IGListKit/tree/master/Examples">example projects</a></li>
-<li>Ryan Nystrom&rsquo;s <a href="https://realm.io/news/tryswift-ryan-nystrom-refactoring-at-scale-lessons-learned-rewriting-instagram-feed/">talk at try! Swift NYC</a> (Note: this talk was for an earlier version. Some APIs have changed.)</li>
+<li>Ryan Nystrom&rsquo;s <a href="https://academy.realm.io/posts/tryswift-ryan-nystrom-refactoring-at-scale-lessons-learned-rewriting-instagram-feed/">talk at try! Swift NYC</a>(Note: this talk was for an earlier version. Some APIs have changed.)</li>
 <li><a href="https://medium.com/cocoaacademymag/iglistkit-migrating-an-uitableview-to-iglistkitcollectionview-65a30cf9bac9">Migrating an UITableView to IGListCollectionView</a>, by Rodrigo Cavalcante</li>
 <li><a href="https://overflow.buffer.com/2017/04/10/keeping-data-fresh-buffer-ios-asyncdisplaykit-iglistkit-pusher/">Keeping data fresh in Buffer for iOS with AsyncDisplayKit, IGListKit &amp; Pusher</a>, Andy Yates, Buffer</li>
 </ul>
@@ -393,7 +416,7 @@ We use the open source version <code>master</code> branch in the Instagram app.<
 <p>To regenerate docs, run <code>./scripts/build_docs.sh</code> from the root directory in the repo.</p>
 <h2 id='vision' class='heading'>Vision</h2>
 
-<p>For the long-term goals and <q>vision</q> of <code>IGListKit</code>, please read our <a href="https://github.com/Instagram/IGListKit/blob/master/Guides/VISION.md">Vision</a> doc.</p>
+<p>For the long-term goals and &ldquo;vision&rdquo; of <code>IGListKit</code>, please read our <a href="https://github.com/Instagram/IGListKit/blob/master/Guides/VISION.md">Vision</a> doc.</p>
 <h2 id='contributing' class='heading'>Contributing</h2>
 
 <p>Please see the <a href="https://github.com/Instagram/IGListKit/blob/master/.github/CONTRIBUTING.md">CONTRIBUTING</a> file for how to help. At Instagram, we sync the open source version of <code>IGListKit</code> daily, so we&rsquo;re always testing the latest changes. But that requires all changes be thoroughly tested and follow our style guide.</p>
@@ -401,15 +424,15 @@ We use the open source version <code>master</code> branch in the Instagram app.<
 <p>We have a set of <a href="https://github.com/Instagram/IGListKit/issues?q=is%3Aissue+is%3Aopen+label%3Astarter-task">starter tasks</a> that are great for beginners to jump in on and start contributing.</p>
 <h2 id='license' class='heading'>License</h2>
 
-<p><code>IGListKit</code> is <a href="./LICENSE">MIT-licensed</a>.</p>
+<p><code>IGListKit</code> is <a href="./LICENSE.md">MIT-licensed</a>.</p>
 
 <p>The files in the <code>/Examples/</code> directory are licensed under a separate license as specified in each file. Documentation is licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a>.</p>
 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2019-11-20)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2021-10-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

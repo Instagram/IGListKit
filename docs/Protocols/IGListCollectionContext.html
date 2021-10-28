@@ -8,14 +8,22 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/objc/Protocol/IGListCollectionContext" class="dashAnchor"></a>
     <a title="IGListCollectionContext Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (98% documented)</p>
+        <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (94% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -213,6 +221,9 @@
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListDataSourceChangeBlock">IGListDataSourceChangeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
@@ -231,6 +242,12 @@
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataApplyBlock">IGListTransitionDataApplyBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataBlock">IGListTransitionDataBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type%20Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -245,13 +262,7 @@
                 <a href="../Functions.html#/c:@F@IGListDiff">IGListDiff</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
@@ -274,7 +285,13 @@
             <h1>IGListCollectionContext</h1>
               <div class="declaration">
                 <div class="language">
+                  <p class="aside-title">Objective-C</p>
                   <pre class="highlight objective_c"><code><span class="k">@protocol</span> <span class="nc">IGListCollectionContext</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+
+                </div>
+                <div class="language">
+                  <p class="aside-title">Swift</p>
+                  <pre class="highlight swift"><code><span class="kd">protocol</span> <span class="kt">ListCollectionContext</span> <span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
 
                 </div>
               </div>
@@ -305,7 +322,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGSize</span> <span class="n">containerSize</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">CGSize</span> <span class="n">containerSize</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -337,7 +354,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIEdgeInsets</span> <span class="n">containerInset</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">UIEdgeInsets</span> <span class="n">containerInset</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -369,7 +386,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIEdgeInsets</span> <span class="n">adjustedContainerInset</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">UIEdgeInsets</span> <span class="n">adjustedContainerInset</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -401,12 +418,44 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGSize</span> <span class="n">insetContainerSize</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">CGSize</span> <span class="n">insetContainerSize</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">insetContainerSize</span><span class="p">:</span> <span class="kt">CGSize</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(py)containerContentOffset"></a>
+                    <a name="//apple_ref/objc/Property/containerContentOffset" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(py)containerContentOffset">containerContentOffset</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The content offset of the collection view.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">CGPoint</span> <span class="n">containerContentOffset</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">containerContentOffset</span><span class="p">:</span> <span class="kt">CGPoint</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -433,7 +482,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Structs/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a></span> <span class="n">scrollingTraits</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n"><a href="../Structs/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a></span> <span class="n">scrollingTraits</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -465,7 +514,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="n">experiments</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="n">experiments</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -482,7 +531,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)containerSizeForSectionController:"></a>
                     <a name="//apple_ref/objc/Method/-containerSizeForSectionController:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)containerSizeForSectionController:">-containerSizeForSectionController:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)containerSizeForSectionController:">-containerSizeForSectionController:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -538,7 +587,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)indexForCell:sectionController:"></a>
                     <a name="//apple_ref/objc/Method/-indexForCell:sectionController:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)indexForCell:sectionController:">-indexForCell:sectionController:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)indexForCell:sectionController:">-indexForCell:<wbr>sectionController:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -606,7 +655,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)cellForItemAtIndex:sectionController:"></a>
                     <a name="//apple_ref/objc/Method/-cellForItemAtIndex:sectionController:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)cellForItemAtIndex:sectionController:">-cellForItemAtIndex:sectionController:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)cellForItemAtIndex:sectionController:">-cellForItemAtIndex:<wbr>sectionController:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -678,9 +727,66 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(im)fullyVisibleCellsForSectionController:"></a>
+                    <a name="//apple_ref/objc/Method/-fullyVisibleCellsForSectionController:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)fullyVisibleCellsForSectionController:">-fullyVisibleCellsForSectionController:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the fully visible cells for the given section controller.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">UICollectionViewCell</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span>
+    <span class="nf">fullyVisibleCellsForSectionController</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fullyVisibleCells</span><span class="p">(</span><span class="k">for</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UICollectionViewCell</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sectionController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The section controller requesting this information.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of fully visible cells, or an empty array if none are found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)visibleCellsForSectionController:"></a>
                     <a name="//apple_ref/objc/Method/-visibleCellsForSectionController:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)visibleCellsForSectionController:">-visibleCellsForSectionController:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)visibleCellsForSectionController:">-visibleCellsForSectionController:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -736,7 +842,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)visibleIndexPathsForSectionController:"></a>
                     <a name="//apple_ref/objc/Method/-visibleIndexPathsForSectionController:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)visibleIndexPathsForSectionController:">-visibleIndexPathsForSectionController:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)visibleIndexPathsForSectionController:">-visibleIndexPathsForSectionController:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -792,7 +898,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)deselectItemAtIndex:sectionController:animated:"></a>
                     <a name="//apple_ref/objc/Method/-deselectItemAtIndex:sectionController:animated:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)deselectItemAtIndex:sectionController:animated:">-deselectItemAtIndex:sectionController:animated:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)deselectItemAtIndex:sectionController:animated:">-deselectItemAtIndex:<wbr>sectionController:<wbr>animated:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -869,7 +975,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)selectItemAtIndex:sectionController:animated:scrollPosition:"></a>
                     <a name="//apple_ref/objc/Method/-selectItemAtIndex:sectionController:animated:scrollPosition:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)selectItemAtIndex:sectionController:animated:scrollPosition:">-selectItemAtIndex:sectionController:animated:scrollPosition:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)selectItemAtIndex:sectionController:animated:scrollPosition:">-selectItemAtIndex:<wbr>sectionController:<wbr>animated:<wbr>scrollPosition:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -959,7 +1065,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:"></a>
                     <a name="//apple_ref/objc/Method/-dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:">-dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeueReusableCellOfClass:withReuseIdentifier:forSectionController:atIndex:">-dequeueReusableCellOfClass:<wbr>withReuseIdentifier:<wbr>forSectionController:<wbr>atIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1060,7 +1166,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)dequeueReusableCellOfClass:forSectionController:atIndex:"></a>
                     <a name="//apple_ref/objc/Method/-dequeueReusableCellOfClass:forSectionController:atIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeueReusableCellOfClass:forSectionController:atIndex:">-dequeueReusableCellOfClass:forSectionController:atIndex:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeueReusableCellOfClass:forSectionController:atIndex:">-dequeueReusableCellOfClass:<wbr>forSectionController:<wbr>atIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1148,7 +1254,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)dequeueReusableCellWithNibName:bundle:forSectionController:atIndex:"></a>
                     <a name="//apple_ref/objc/Method/-dequeueReusableCellWithNibName:bundle:forSectionController:atIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeueReusableCellWithNibName:bundle:forSectionController:atIndex:">-dequeueReusableCellWithNibName:bundle:forSectionController:atIndex:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeueReusableCellWithNibName:bundle:forSectionController:atIndex:">-dequeueReusableCellWithNibName:<wbr>bundle:<wbr>forSectionController:<wbr>atIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1159,7 +1265,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                         <p>Dequeues a cell from the collection view reuse pool.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    <p>This method uses a string representation of the cell class as the identifier.</p>
+    <p>This method uses the nib name as the reuse identifier.</p>
 
 </div>
 
@@ -1249,7 +1355,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)dequeueReusableCellFromStoryboardWithIdentifier:forSectionController:atIndex:"></a>
                     <a name="//apple_ref/objc/Method/-dequeueReusableCellFromStoryboardWithIdentifier:forSectionController:atIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeueReusableCellFromStoryboardWithIdentifier:forSectionController:atIndex:">-dequeueReusableCellFromStoryboardWithIdentifier:forSectionController:atIndex:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeueReusableCellFromStoryboardWithIdentifier:forSectionController:atIndex:">-dequeueReusableCellFromStoryboardWithIdentifier:<wbr>forSectionController:<wbr>atIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1334,7 +1440,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)dequeueReusableSupplementaryViewOfKind:forSectionController:class:atIndex:"></a>
                     <a name="//apple_ref/objc/Method/-dequeueReusableSupplementaryViewOfKind:forSectionController:class:atIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeueReusableSupplementaryViewOfKind:forSectionController:class:atIndex:">-dequeueReusableSupplementaryViewOfKind:forSectionController:class:atIndex:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeueReusableSupplementaryViewOfKind:forSectionController:class:atIndex:">-dequeueReusableSupplementaryViewOfKind:<wbr>forSectionController:<wbr>class:<wbr>atIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1345,7 +1451,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                         <p>Dequeues a supplementary view from the collection view reuse pool.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    <p>This method uses a string representation of the view class as the identifier.</p>
+    <p>This method uses a string representation of the view class and the kind as the identifier.</p>
 
 </div>
 
@@ -1435,7 +1541,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)dequeueReusableSupplementaryViewFromStoryboardOfKind:withIdentifier:forSectionController:atIndex:"></a>
                     <a name="//apple_ref/objc/Method/-dequeueReusableSupplementaryViewFromStoryboardOfKind:withIdentifier:forSectionController:atIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeueReusableSupplementaryViewFromStoryboardOfKind:withIdentifier:forSectionController:atIndex:">-dequeueReusableSupplementaryViewFromStoryboardOfKind:withIdentifier:forSectionController:atIndex:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeueReusableSupplementaryViewFromStoryboardOfKind:withIdentifier:forSectionController:atIndex:">-dequeueReusableSupplementaryViewFromStoryboardOfKind:<wbr>withIdentifier:<wbr>forSectionController:<wbr>atIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1534,7 +1640,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)dequeueReusableSupplementaryViewOfKind:forSectionController:nibName:bundle:atIndex:"></a>
                     <a name="//apple_ref/objc/Method/-dequeueReusableSupplementaryViewOfKind:forSectionController:nibName:bundle:atIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeueReusableSupplementaryViewOfKind:forSectionController:nibName:bundle:atIndex:">-dequeueReusableSupplementaryViewOfKind:forSectionController:nibName:bundle:atIndex:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)dequeueReusableSupplementaryViewOfKind:forSectionController:nibName:bundle:atIndex:">-dequeueReusableSupplementaryViewOfKind:<wbr>forSectionController:<wbr>nibName:<wbr>bundle:<wbr>atIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1545,7 +1651,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                         <p>Dequeues a supplementary view from the collection view reuse pool.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    <p>This method uses a string representation of the view class as the identifier.</p>
+    <p>This method uses the nib name as the reuse identifier.</p>
 
 </div>
 
@@ -1648,7 +1754,7 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)invalidateLayoutForSectionController:completion:"></a>
                     <a name="//apple_ref/objc/Method/-invalidateLayoutForSectionController:completion:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)invalidateLayoutForSectionController:completion:">-invalidateLayoutForSectionController:completion:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)invalidateLayoutForSectionController:completion:">-invalidateLayoutForSectionController:<wbr>completion:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1678,7 +1784,7 @@ reflected in the cells immediately.</p>
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">invalidateLayout</span><span class="p">(</span><span class="k">for</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">invalidateLayout</span><span class="p">(</span><span class="k">for</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span> <span class="n">async</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -1721,7 +1827,7 @@ reflected in the cells immediately.</p>
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)performBatchAnimated:updates:completion:"></a>
                     <a name="//apple_ref/objc/Method/-performBatchAnimated:updates:completion:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)performBatchAnimated:updates:completion:">-performBatchAnimated:updates:completion:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)performBatchAnimated:updates:completion:">-performBatchAnimated:<wbr>updates:<wbr>completion:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1740,8 +1846,8 @@ block alongside changes on the context object.</p>
 <p>For example, inside your section controllers, you may want to delete <em>and</em> insert into the data source that backs your
 section controller. For example:</p>
 <pre class="highlight objective_c"><code><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">collectionContext</span> <span class="nf">performBatchItemUpdates</span><span class="p">:</span><span class="o">^</span> <span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">IGListBatchContext</span><span class="o">&gt;</span> <span class="n">batchContext</span><span class="o">&gt;</span><span class="p">){</span>
-  <span class="c1">// perform data source changes inside the update block
-</span>  <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">items</span> <span class="nf">addObject</span><span class="p">:</span><span class="n">newItem</span><span class="p">];</span>
+  <span class="c1">// perform data source changes inside the update block</span>
+  <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">items</span> <span class="nf">addObject</span><span class="p">:</span><span class="n">newItem</span><span class="p">];</span>
   <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">items</span> <span class="nf">removeObjectAtIndex</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
 
   <span class="n">NSIndexSet</span> <span class="o">*</span><span class="n">inserts</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSIndexSet</span> <span class="nf">indexSetWithIndex</span><span class="p">:[</span><span class="n">self</span><span class="p">.</span><span class="n">items</span> <span class="nf">count</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
@@ -1771,7 +1877,7 @@ synchronously, so you should make sure that your data source changes only when n
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">performBatch</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">updates</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">ListBatchContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">performBatch</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">updates</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">ListBatchContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="n">async</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -1826,7 +1932,7 @@ synchronously, so you should make sure that your data source changes only when n
                     <code>
                     <a name="/c:objc(pl)IGListCollectionContext(im)scrollToSectionController:atIndex:scrollPosition:animated:"></a>
                     <a name="//apple_ref/objc/Method/-scrollToSectionController:atIndex:scrollPosition:animated:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)scrollToSectionController:atIndex:scrollPosition:animated:">-scrollToSectionController:atIndex:scrollPosition:animated:</a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)scrollToSectionController:atIndex:scrollPosition:animated:">-scrollToSectionController:<wbr>atIndex:<wbr>scrollPosition:<wbr>animated:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1917,8 +2023,8 @@ synchronously, so you should make sure that your data source changes only when n
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2019-11-20)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2021-10-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
