@@ -8,14 +8,22 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/objc/Protocol/IGListAdapterDataSource" class="dashAnchor"></a>
     <a title="IGListAdapterDataSource Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (98% documented)</p>
+        <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (94% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -213,6 +221,9 @@
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListDataSourceChangeBlock">IGListDataSourceChangeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
@@ -231,6 +242,12 @@
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataApplyBlock">IGListTransitionDataApplyBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataBlock">IGListTransitionDataBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type%20Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -245,13 +262,7 @@
                 <a href="../Functions.html#/c:@F@IGListDiff">IGListDiff</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
@@ -274,7 +285,13 @@
             <h1>IGListAdapterDataSource</h1>
               <div class="declaration">
                 <div class="language">
+                  <p class="aside-title">Objective-C</p>
                   <pre class="highlight objective_c"><code><span class="k">@protocol</span> <span class="nc">IGListAdapterDataSource</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+
+                </div>
+                <div class="language">
+                  <p class="aside-title">Swift</p>
+                  <pre class="highlight swift"><code><span class="kd">protocol</span> <span class="kt">ListAdapterDataSource</span> <span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
 
                 </div>
               </div>
@@ -289,7 +306,7 @@
                     <code>
                     <a name="/c:objc(pl)IGListAdapterDataSource(im)objectsForListAdapter:"></a>
                     <a name="//apple_ref/objc/Method/-objectsForListAdapter:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListAdapterDataSource(im)objectsForListAdapter:">-objectsForListAdapter:</a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterDataSource(im)objectsForListAdapter:">-objectsForListAdapter:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -345,7 +362,7 @@
                     <code>
                     <a name="/c:objc(pl)IGListAdapterDataSource(im)listAdapter:sectionControllerForObject:"></a>
                     <a name="//apple_ref/objc/Method/-listAdapter:sectionControllerForObject:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListAdapterDataSource(im)listAdapter:sectionControllerForObject:">-listAdapter:sectionControllerForObject:</a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterDataSource(im)listAdapter:sectionControllerForObject:">-listAdapter:<wbr>sectionControllerForObject:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -424,7 +441,7 @@ guarantees this.</p>
                     <code>
                     <a name="/c:objc(pl)IGListAdapterDataSource(im)emptyViewForListAdapter:"></a>
                     <a name="//apple_ref/objc/Method/-emptyViewForListAdapter:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListAdapterDataSource(im)emptyViewForListAdapter:">-emptyViewForListAdapter:</a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterDataSource(im)emptyViewForListAdapter:">-emptyViewForListAdapter:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -487,8 +504,8 @@ adding the background view and maintaining its visibility.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2019-11-20)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2021-10-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

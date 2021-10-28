@@ -8,14 +8,22 @@
     <script src="js/jquery.min.js" defer></script>
     <script src="js/jazzy.js" defer></script>
     
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/objc/Section/Functions" class="dashAnchor"></a>
     <a title="Functions  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (98% documented)</p>
+        <p><a href="index.html">IGListKit 4.1.0 Docs</a> (94% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -213,6 +221,9 @@
                 <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListDataSourceChangeBlock">IGListDataSourceChangeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
@@ -231,6 +242,12 @@
                 <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataApplyBlock">IGListTransitionDataApplyBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataBlock">IGListTransitionDataBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Type%20Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -245,13 +262,7 @@
                 <a href="Functions.html#/c:@F@IGListDiff">IGListDiff</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
               </li>
               <li class="nav-group-task">
                 <a href="Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
@@ -465,10 +476,6 @@
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -537,236 +544,13 @@
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@F@IGListDiffExperiment"></a>
-                    <a name="//apple_ref/objc/Function/IGListDiffExperiment" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Performs an index diff with an experiment bitmask.</p>
-<div class="aside aside-see">
-    <p class="aside-title">See</p>
-    <p><code>IGListDiff()</code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">extern</span> <span class="n"><a href="Classes/IGListIndexSetResult.html">IGListIndexSetResult</a></span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">IGListDiffExperiment</span><span class="p">(</span>
-    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="n">oldArray</span><span class="p">,</span>
-    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="n">newArray</span><span class="p">,</span> <span class="n"><a href="Enums/IGListDiffOption.html">IGListDiffOption</a></span> <span class="n">option</span><span class="p">,</span>
-    <span class="n"><a href="Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="n">experiments</span><span class="p">)</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="kt">ListDiffExperiment</span><span class="p">(</span><span class="nv">oldArray</span><span class="p">:</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]?,</span> <span class="nv">newArray</span><span class="p">:</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]?,</span> <span class="nv">option</span><span class="p">:</span> <span class="kt"><a href="Enums/IGListDiffOption.html">IGListDiffOption</a></span><span class="p">,</span> <span class="nv">experiments</span><span class="p">:</span> <span class="kt"><a href="Enums/IGListExperiment.html">IGListExperiment</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ListIndexSetResult</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>oldArray</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The old array of objects.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>newArray</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The new array of objects.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>option</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Option to specify the type of diff.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>experiments</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Optional experiments.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>An index set result object contained the changed indexes.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@F@IGListDiffPathsExperiment"></a>
-                    <a name="//apple_ref/objc/Function/IGListDiffPathsExperiment" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Performs a index path diff with an experiment bitmask.</p>
-<div class="aside aside-see">
-    <p class="aside-title">See</p>
-    <p><code>IGListDiffPaths()</code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">extern</span> <span class="n"><a href="Classes/IGListIndexPathResult.html">IGListIndexPathResult</a></span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">IGListDiffPathsExperiment</span><span class="p">(</span>
-    <span class="n">NSInteger</span> <span class="n">fromSection</span><span class="p">,</span> <span class="n">NSInteger</span> <span class="n">toSection</span><span class="p">,</span>
-    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="n">oldArray</span><span class="p">,</span>
-    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="n">newArray</span><span class="p">,</span> <span class="n"><a href="Enums/IGListDiffOption.html">IGListDiffOption</a></span> <span class="n">option</span><span class="p">,</span>
-    <span class="n"><a href="Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="n">experiments</span><span class="p">)</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="kt">ListDiffPathsExperiment</span><span class="p">(</span><span class="nv">fromSection</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">toSection</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">oldArray</span><span class="p">:</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]?,</span> <span class="nv">newArray</span><span class="p">:</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]?,</span> <span class="nv">option</span><span class="p">:</span> <span class="kt"><a href="Enums/IGListDiffOption.html">IGListDiffOption</a></span><span class="p">,</span> <span class="nv">experiments</span><span class="p">:</span> <span class="kt"><a href="Enums/IGListExperiment.html">IGListExperiment</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ListIndexPathResult</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>fromSection</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The old section.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>toSection</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The new section.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>oldArray</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The old array of objects.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>newArray</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The new array of objects.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>option</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Option to specify the type of diff.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>experiments</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Optional experiments.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>An index path result object containing the changed indexPaths.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2019-11-20)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2021-10-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

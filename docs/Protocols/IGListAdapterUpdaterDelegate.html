@@ -8,14 +8,22 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/objc/Protocol/IGListAdapterUpdaterDelegate" class="dashAnchor"></a>
     <a title="IGListAdapterUpdaterDelegate Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (98% documented)</p>
+        <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (94% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -213,6 +221,9 @@
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListDataSourceChangeBlock">IGListDataSourceChangeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
@@ -231,6 +242,12 @@
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataApplyBlock">IGListTransitionDataApplyBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataBlock">IGListTransitionDataBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type%20Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -245,13 +262,7 @@
                 <a href="../Functions.html#/c:@F@IGListDiff">IGListDiff</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
@@ -274,7 +285,13 @@
             <h1>IGListAdapterUpdaterDelegate</h1>
               <div class="declaration">
                 <div class="language">
+                  <p class="aside-title">Objective-C</p>
                   <pre class="highlight objective_c"><code><span class="k">@protocol</span> <span class="nc">IGListAdapterUpdaterDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+
+                </div>
+                <div class="language">
+                  <p class="aside-title">Swift</p>
+                  <pre class="highlight swift"><code><span class="kd">protocol</span> <span class="kt">ListAdapterUpdaterDelegate</span> <span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
 
                 </div>
               </div>
@@ -287,9 +304,158 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:fromObjects:toObjects:listIndexSetResult:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:fromObjects:toObjects:listIndexSetResult:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:fromObjects:toObjects:listIndexSetResult:">-listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:fromObjects:toObjects:listIndexSetResult:</a>
+                    <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willDiffFromObjects:toObjects:"></a>
+                    <a name="//apple_ref/objc/Method/-listAdapterUpdater:willDiffFromObjects:toObjects:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willDiffFromObjects:toObjects:">-listAdapterUpdater:<wbr>willDiffFromObjects:<wbr>toObjects:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Notifies the delegate that the updater is about to beging diffing.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
+       <span class="nf">willDiffFromObjects</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">fromObjects</span>
+                 <span class="nf">toObjects</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">toObjects</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>listAdapterUpdater</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The adapter updater owning the transition.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fromObjects</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The items transitioned from in the batch updates, if any.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>toObjects</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The items transitioned to in the batch updates, if any.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:didDiffWithResults:onBackgroundThread:"></a>
+                    <a name="//apple_ref/objc/Method/-listAdapterUpdater:didDiffWithResults:onBackgroundThread:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:didDiffWithResults:onBackgroundThread:">-listAdapterUpdater:<wbr>didDiffWithResults:<wbr>onBackgroundThread:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Notifies the delegate that the updater finished diffing.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
+        <span class="nf">didDiffWithResults</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/IGListIndexSetResult.html">IGListIndexSetResult</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listIndexSetResults</span>
+        <span class="nf">onBackgroundThread</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">onBackgroundThread</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">didDiffWithResults</span> <span class="nv">listIndexSetResults</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListIndexSetResult.html">IGListIndexSetResult</a></span><span class="p">?,</span> <span class="nv">onBackgroundThread</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>listAdapterUpdater</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The adapter updater owning the transition.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>listIndexSetResults</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The diffing result of indices to be inserted/removed/updated/moved/etc.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onBackgroundThread</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Was the diffing performed on a background thread</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:fromObjects:toObjects:listIndexSetResult:animated:"></a>
+                    <a name="//apple_ref/objc/Method/-listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:fromObjects:toObjects:listIndexSetResult:animated:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willPerformBatchUpdatesWithCollectionView:fromObjects:toObjects:listIndexSetResult:animated:">-listAdapterUpdater:<wbr>willPerformBatchUpdatesWithCollectionView:<wbr>fromObjects:<wbr>toObjects:<wbr>listIndexSetResult:<wbr>animated:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -314,7 +480,8 @@
                                         <span class="p">(</span><span class="n">nullable</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="p">)</span>
                                             <span class="n">toObjects</span>
                            <span class="n">listIndexSetResult</span><span class="o">:</span><span class="p">(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/IGListIndexSetResult.html">IGListIndexSetResult</a></span> <span class="o">*</span><span class="p">)</span>
-                                                  <span class="n">listIndexSetResults</span><span class="p">;</span></code></pre>
+                                                  <span class="n">listIndexSetResults</span>
+                                     <span class="n">animated</span><span class="o">:</span><span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">animated</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -382,6 +549,18 @@
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>animated</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Is the cell transtion animated</p>
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -393,7 +572,7 @@
                     <code>
                     <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:didPerformBatchUpdates:collectionView:"></a>
                     <a name="//apple_ref/objc/Method/-listAdapterUpdater:didPerformBatchUpdates:collectionView:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:didPerformBatchUpdates:collectionView:">-listAdapterUpdater:didPerformBatchUpdates:collectionView:</a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:didPerformBatchUpdates:collectionView:">-listAdapterUpdater:<wbr>didPerformBatchUpdates:<wbr>collectionView:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -475,7 +654,7 @@
                     <code>
                     <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willInsertIndexPaths:collectionView:"></a>
                     <a name="//apple_ref/objc/Method/-listAdapterUpdater:willInsertIndexPaths:collectionView:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willInsertIndexPaths:collectionView:">-listAdapterUpdater:willInsertIndexPaths:collectionView:</a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willInsertIndexPaths:collectionView:">-listAdapterUpdater:<wbr>willInsertIndexPaths:<wbr>collectionView:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -557,7 +736,7 @@
                     <code>
                     <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willDeleteIndexPaths:collectionView:"></a>
                     <a name="//apple_ref/objc/Method/-listAdapterUpdater:willDeleteIndexPaths:collectionView:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willDeleteIndexPaths:collectionView:">-listAdapterUpdater:willDeleteIndexPaths:collectionView:</a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willDeleteIndexPaths:collectionView:">-listAdapterUpdater:<wbr>willDeleteIndexPaths:<wbr>collectionView:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -639,7 +818,7 @@
                     <code>
                     <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willMoveFromIndexPath:toIndexPath:collectionView:"></a>
                     <a name="//apple_ref/objc/Method/-listAdapterUpdater:willMoveFromIndexPath:toIndexPath:collectionView:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willMoveFromIndexPath:toIndexPath:collectionView:">-listAdapterUpdater:willMoveFromIndexPath:toIndexPath:collectionView:</a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willMoveFromIndexPath:toIndexPath:collectionView:">-listAdapterUpdater:<wbr>willMoveFromIndexPath:<wbr>toIndexPath:<wbr>collectionView:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -734,7 +913,7 @@
                     <code>
                     <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willReloadIndexPaths:collectionView:"></a>
                     <a name="//apple_ref/objc/Method/-listAdapterUpdater:willReloadIndexPaths:collectionView:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willReloadIndexPaths:collectionView:">-listAdapterUpdater:willReloadIndexPaths:collectionView:</a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willReloadIndexPaths:collectionView:">-listAdapterUpdater:<wbr>willReloadIndexPaths:<wbr>collectionView:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -816,7 +995,7 @@
                     <code>
                     <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willReloadSections:collectionView:"></a>
                     <a name="//apple_ref/objc/Method/-listAdapterUpdater:willReloadSections:collectionView:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willReloadSections:collectionView:">-listAdapterUpdater:willReloadSections:collectionView:</a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willReloadSections:collectionView:">-listAdapterUpdater:<wbr>willReloadSections:<wbr>collectionView:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -896,9 +1075,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willReloadDataWithCollectionView:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapterUpdater:willReloadDataWithCollectionView:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willReloadDataWithCollectionView:">-listAdapterUpdater:willReloadDataWithCollectionView:</a>
+                    <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willReloadDataWithCollectionView:isFallbackReload:"></a>
+                    <a name="//apple_ref/objc/Method/-listAdapterUpdater:willReloadDataWithCollectionView:isFallbackReload:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:willReloadDataWithCollectionView:isFallbackReload:">-listAdapterUpdater:<wbr>willReloadDataWithCollectionView:<wbr>isFallbackReload:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -914,12 +1093,13 @@
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
-    <span class="nf">willReloadDataWithCollectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
+    <span class="nf">willReloadDataWithCollectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span>
+                    <span class="nf">isFallbackReload</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">isFallbackReload</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willReloadDataWith</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willReloadDataWith</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="nv">isFallbackReload</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -951,6 +1131,18 @@
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isFallbackReload</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The reload was a fallback because we could not performBatchUpdate</p>
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -960,9 +1152,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:didReloadDataWithCollectionView:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapterUpdater:didReloadDataWithCollectionView:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:didReloadDataWithCollectionView:">-listAdapterUpdater:didReloadDataWithCollectionView:</a>
+                    <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:didReloadDataWithCollectionView:isFallbackReload:"></a>
+                    <a name="//apple_ref/objc/Method/-listAdapterUpdater:didReloadDataWithCollectionView:isFallbackReload:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:didReloadDataWithCollectionView:isFallbackReload:">-listAdapterUpdater:<wbr>didReloadDataWithCollectionView:<wbr>isFallbackReload:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -978,12 +1170,13 @@
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
-    <span class="nf">didReloadDataWithCollectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
+    <span class="nf">didReloadDataWithCollectionView</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span>
+                   <span class="nf">isFallbackReload</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">isFallbackReload</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">didReloadDataWith</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">didReloadDataWith</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="nv">isFallbackReload</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1015,6 +1208,18 @@
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isFallbackReload</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The reload was a fallback because we could not performBatchUpdate</p>
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -1026,7 +1231,7 @@
                     <code>
                     <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:collectionView:willCrashWithException:fromObjects:toObjects:diffResult:updates:"></a>
                     <a name="//apple_ref/objc/Method/-listAdapterUpdater:collectionView:willCrashWithException:fromObjects:toObjects:diffResult:updates:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:collectionView:willCrashWithException:fromObjects:toObjects:diffResult:updates:">-listAdapterUpdater:collectionView:willCrashWithException:fromObjects:toObjects:diffResult:updates:</a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:collectionView:willCrashWithException:fromObjects:toObjects:diffResult:updates:">-listAdapterUpdater:<wbr>collectionView:<wbr>willCrashWithException:<wbr>fromObjects:<wbr>toObjects:<wbr>diffResult:<wbr>updates:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1150,13 +1355,78 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:didFinishWithoutUpdatesWithCollectionView:"></a>
+                    <a name="//apple_ref/objc/Method/-listAdapterUpdater:didFinishWithoutUpdatesWithCollectionView:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterUpdaterDelegate(im)listAdapterUpdater:didFinishWithoutUpdatesWithCollectionView:">-listAdapterUpdater:<wbr>didFinishWithoutUpdatesWithCollectionView:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Notifies the delegate that the updater finished without performing any batch updates or reloads</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapterUpdater</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapterUpdater</span>
+    <span class="nf">didFinishWithoutUpdatesWithCollectionView</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">nullable</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">didFinishWithoutUpdatesWith</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>listAdapterUpdater</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The adapter updater owning the transition.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collectionView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The collection view that reloaded.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2019-11-20)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2021-10-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

@@ -8,14 +8,22 @@
     <script src="js/jquery.min.js" defer></script>
     <script src="js/jazzy.js" defer></script>
     
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/objc/Section/Classes" class="dashAnchor"></a>
     <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (98% documented)</p>
+        <p><a href="index.html">IGListKit 4.1.0 Docs</a> (94% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -213,6 +221,9 @@
                 <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListDataSourceChangeBlock">IGListDataSourceChangeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
@@ -231,6 +242,12 @@
                 <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataApplyBlock">IGListTransitionDataApplyBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataBlock">IGListTransitionDataBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Type%20Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -245,13 +262,7 @@
                 <a href="Functions.html#/c:@F@IGListDiff">IGListDiff</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
               </li>
               <li class="nav-group-task">
                 <a href="Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
@@ -291,7 +302,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An instance of <code>IGListBatchUpdateData</code> takes section indexes and item index paths 
+                        <p>An instance of <code>IGListBatchUpdateData</code> takes section indexes and item index paths
 and performs cleanup on init in order to perform a crash-free
 update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
 
@@ -314,10 +325,6 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -352,10 +359,6 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -390,10 +393,6 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -428,10 +427,6 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -466,10 +461,6 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -484,7 +475,7 @@ update via <code>-[UICollectionView performBatchUpdates:completion:]</code>.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p><code>IGListAdapter</code> objects provide an abstraction for feeds of objects in a <code>UICollectionView</code> by breaking each object
-into individual sections, called <q>section controllers</q>. These controllers (objects subclassing to
+into individual sections, called &ldquo;section controllers&rdquo;. These controllers (objects subclassing to
 <code><a href="Classes/IGListSectionController.html">IGListSectionController</a></code>) act as a data source and delegate for each section.</p>
 
 <p>Feed implementations must act as the data source for an <code>IGListAdapter</code> in order to drive the objects and section
@@ -509,10 +500,6 @@ controllers in a collection view.</p>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -530,8 +517,8 @@ controllers in a collection view.</p>
 It is an out-of-box updater for <code><a href="Classes/IGListAdapter.html">IGListAdapter</a></code> objects to use.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    This updater performs re-entrant, coalesced updating for a list. It also uses a least-minimal diff 
-for calculating UI updates when <code><a href="Classes/IGListAdapter.html">IGListAdapter</a></code> calls 
+    This updater performs re-entrant, coalesced updating for a list. It also uses a least-minimal diff
+for calculating UI updates when <code><a href="Classes/IGListAdapter.html">IGListAdapter</a></code> calls
 <code>-performUpdateWithCollectionView:fromObjects:toObjects:completion:</code>.
 
 </div>
@@ -555,10 +542,6 @@ for calculating UI updates when <code><a href="Classes/IGListAdapter.html">IGLis
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -572,7 +555,7 @@ for calculating UI updates when <code><a href="Classes/IGListAdapter.html">IGLis
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This section controller uses a data source to transform its <q>top level</q> object into an array of diffable view models.
+                        <p>This section controller uses a data source to transform its &ldquo;top level&rdquo; object into an array of diffable view models.
 It then automatically binds each view model to cells via the <code><a href="Protocols/IGListBindable.html">IGListBindable</a></code> protocol.</p>
 
 <p>Models used with <code>IGListBindingSectionController</code> should take special care to always return <code>YES</code> for identical
@@ -614,10 +597,6 @@ instance has already been checked.</p>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -661,10 +640,6 @@ missing information to re-calculate only the modified layout attributes.
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -698,7 +673,7 @@ care must be taken not to stall the main thread in sizing delegate methods.</p>
 </code></pre>
 
 <p>In a vertically scrolling layout, sections and items are put into the same horizontal row until the max-x position
-of an item extends beyond the width of the collection view. When that happens, the item is <q>newlined</q> to the next row.
+of an item extends beyond the width of the collection view. When that happens, the item is &ldquo;newlined&rdquo; to the next row.
 The y position of that row is determined by the maximum height (including section insets) of the section/item of the previous row.</p>
 
 <p>Ex. of a section (2,0) with a large width causing a newline.</p>
@@ -726,7 +701,7 @@ section.</p>
 <p>Interitem spacing applies to items and sections within the same row. Line spacing only applies to items within the same
 section.</p>
 
-<p>In a horizontally scrolling layout, sections and items are flowed vertically until they need to be <q>newlined</q> to the 
+<p>In a horizontally scrolling layout, sections and items are flowed vertically until they need to be &ldquo;newlined&rdquo; to the
 next column. Headers, if used, are stretched to the height of the collection view, minus the section insets.</p>
 
 <p>Please see the unit tests for more configuration examples and expected output.</p>
@@ -751,10 +726,6 @@ next column. Headers, if used, are stretched to the height of the collection vie
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -791,10 +762,6 @@ next column. Headers, if used, are stretched to the height of the collection vie
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -834,10 +801,6 @@ It is an out-of-box updater for <code><a href="Classes/IGListAdapter.html">IGLis
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -872,10 +835,6 @@ It is an out-of-box updater for <code><a href="Classes/IGListAdapter.html">IGLis
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -917,8 +876,8 @@ simpler architecture.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2019-11-20)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2021-10-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

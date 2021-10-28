@@ -8,14 +8,22 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/objc/Class/IGListSectionController" class="dashAnchor"></a>
     <a title="IGListSectionController Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (98% documented)</p>
+        <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (94% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -213,6 +221,9 @@
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListDataSourceChangeBlock">IGListDataSourceChangeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
@@ -231,6 +242,12 @@
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataApplyBlock">IGListTransitionDataApplyBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataBlock">IGListTransitionDataBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type%20Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -245,13 +262,7 @@
                 <a href="../Functions.html#/c:@F@IGListDiff">IGListDiff</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
@@ -274,8 +285,14 @@
             <h1>IGListSectionController</h1>
               <div class="declaration">
                 <div class="language">
+                  <p class="aside-title">Objective-C</p>
                   <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListSectionController</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
+
+                </div>
+                <div class="language">
+                  <p class="aside-title">Swift</p>
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListSectionController</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                 </div>
               </div>
@@ -301,7 +318,7 @@
                         <p>Returns the number of items in the section.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    <p>The count returned is used to drive the number of cells displayed for this section controller. The default 
+    <p>The count returned is used to drive the number of cells displayed for this section controller. The default
 implementation returns 1. <strong>Calling super is not required.</strong></p>
 
 </div>
@@ -332,7 +349,7 @@ implementation returns 1. <strong>Calling super is not required.</strong></p>
                     <code>
                     <a name="/c:objc(cs)IGListSectionController(im)sizeForItemAtIndex:"></a>
                     <a name="//apple_ref/objc/Method/-sizeForItemAtIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)sizeForItemAtIndex:">-sizeForItemAtIndex:</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)sizeForItemAtIndex:">-sizeForItemAtIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -395,7 +412,7 @@ implementation returns size zero. <strong>Calling super is not required.</strong
                     <code>
                     <a name="/c:objc(cs)IGListSectionController(im)cellForItemAtIndex:"></a>
                     <a name="//apple_ref/objc/Method/-cellForItemAtIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)cellForItemAtIndex:">-cellForItemAtIndex:</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)cellForItemAtIndex:">-cellForItemAtIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -411,8 +428,7 @@ will be used on screen. You should never allocate new cells in this method, inst
 one of the dequeue methods on the IGListCollectionContext. The default implementation will assert. <strong>You must override
 this method without calling super.</strong></p>
 
-</div>
-<div class="aside aside-warning">
+</div><div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     <p>Don&rsquo;t call this method to obtain a reference to currently dequeued cells: a new cell will be dequeued
 and returned, rather than the existing cell that you may have intended to retrieve. Instead, you can call
@@ -465,7 +481,7 @@ and returned, rather than the existing cell that you may have intended to retrie
                     <code>
                     <a name="/c:objc(cs)IGListSectionController(im)didUpdateToObject:"></a>
                     <a name="//apple_ref/objc/Method/-didUpdateToObject:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)didUpdateToObject:">-didUpdateToObject:</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)didUpdateToObject:">-didUpdateToObject:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -521,9 +537,65 @@ object. <strong>Calling super is not required.</strong></p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/c:objc(cs)IGListSectionController(im)shouldSelectItemAtIndex:"></a>
+                    <a name="//apple_ref/objc/Method/-shouldSelectItemAtIndex:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)shouldSelectItemAtIndex:">-shouldSelectItemAtIndex:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asks the section controller if the cell at the specified index path should be selected</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>The default implementation returns YES. <strong>Calling super is not required.</strong></p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">shouldSelectItemAtIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">index</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">shouldSelectItem</span><span class="p">(</span><span class="n">at</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of cell to be selected.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/c:objc(cs)IGListSectionController(im)didSelectItemAtIndex:"></a>
                     <a name="//apple_ref/objc/Method/-didSelectItemAtIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)didSelectItemAtIndex:">-didSelectItemAtIndex:</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)didSelectItemAtIndex:">-didSelectItemAtIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -579,7 +651,7 @@ object. <strong>Calling super is not required.</strong></p>
                     <code>
                     <a name="/c:objc(cs)IGListSectionController(im)didDeselectItemAtIndex:"></a>
                     <a name="//apple_ref/objc/Method/-didDeselectItemAtIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)didDeselectItemAtIndex:">-didDeselectItemAtIndex:</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)didDeselectItemAtIndex:">-didDeselectItemAtIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -635,7 +707,7 @@ object. <strong>Calling super is not required.</strong></p>
                     <code>
                     <a name="/c:objc(cs)IGListSectionController(im)didHighlightItemAtIndex:"></a>
                     <a name="//apple_ref/objc/Method/-didHighlightItemAtIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)didHighlightItemAtIndex:">-didHighlightItemAtIndex:</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)didHighlightItemAtIndex:">-didHighlightItemAtIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -691,7 +763,7 @@ object. <strong>Calling super is not required.</strong></p>
                     <code>
                     <a name="/c:objc(cs)IGListSectionController(im)didUnhighlightItemAtIndex:"></a>
                     <a name="//apple_ref/objc/Method/-didUnhighlightItemAtIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)didUnhighlightItemAtIndex:">-didUnhighlightItemAtIndex:</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)didUnhighlightItemAtIndex:">-didUnhighlightItemAtIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -747,7 +819,7 @@ object. <strong>Calling super is not required.</strong></p>
                     <code>
                     <a name="/c:objc(cs)IGListSectionController(im)canMoveItemAtIndex:"></a>
                     <a name="//apple_ref/objc/Method/-canMoveItemAtIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)canMoveItemAtIndex:">-canMoveItemAtIndex:</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)canMoveItemAtIndex:">-canMoveItemAtIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -808,7 +880,7 @@ themselves when sections contain only one item. The default implementation retur
                     <code>
                     <a name="/c:objc(cs)IGListSectionController(im)moveObjectFromIndex:toIndex:"></a>
                     <a name="//apple_ref/objc/Method/-moveObjectFromIndex:toIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)moveObjectFromIndex:toIndex:">-moveObjectFromIndex:toIndex:</a>
+                    <a class="token" href="#/c:objc(cs)IGListSectionController(im)moveObjectFromIndex:toIndex:">-moveObjectFromIndex:<wbr>toIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -888,12 +960,11 @@ themselves when sections contain only one item. The default implementation retur
                         <p>The view controller housing the adapter that created this section controller.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    <p>Use this view controller to push, pop, present, or do other custom transitions. </p>
+    <p>Use this view controller to push, pop, present, or do other custom transitions.</p>
 
-</div>
-<div class="aside aside-warning">
+</div><div class="aside aside-warning">
     <p class="aside-title">Warning</p>
-    <p>It is considered very bad practice to cast this to a known view controller 
+    <p>It is considered very bad practice to cast this to a known view controller
 and call methods on it other than for navigations and transitions.</p>
 
 </div>
@@ -903,7 +974,7 @@ and call methods on it other than for navigations and transitions.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">UIViewController</span> <span class="o">*</span><span class="n">viewController</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">readonly</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">UIViewController</span> <span class="o">*</span><span class="n">viewController</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -928,22 +999,29 @@ and call methods on it other than for navigations and transitions.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A context object for interacting with the collection. </p>
+                        <p>A context object for interacting with the collection.</p>
 
 <p>Use this property for accessing the collection size, dequeuing cells, reloading, inserting, deleting, etc.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    When created outside of <code>-listAdapter:sectionControllerForObject:</code>, this object is temporarily <code>nil</code>
+after initialization. We bridge it to Swift as an implicitly-unwrapped Optional, so that idiomatic IGListKit
+code is not forced to handle nullability with explicit <code>as!</code> or <code>fatalError</code>, as using a non-<code>nil</code> instance
+of this object is essential for dequeueing cells.
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a></span><span class="o">&gt;</span>
-    <span class="n">collectionContext</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">readonly</span><span class="p">,</span> <span class="n">null_unspecified</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListCollectionContext.html">IGListCollectionContext</a></span><span class="o">&gt;</span> <span class="n">collectionContext</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">collectionContext</span><span class="p">:</span> <span class="kt">ListCollectionContext</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">collectionContext</span><span class="p">:</span> <span class="kt">ListCollectionContext</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -976,7 +1054,7 @@ It also relates to the <code>-[NSIndexPath section]</code> value for individual 
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">assign</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSInteger</span> <span class="n">section</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">NSInteger</span> <span class="n">section</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -1008,7 +1086,7 @@ It also relates to the <code>-[NSIndexPath section]</code> value for individual 
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">assign</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">isFirstSection</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">isFirstSection</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -1040,7 +1118,7 @@ It also relates to the <code>-[NSIndexPath section]</code> value for individual 
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">assign</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">isLastSection</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">isLastSection</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -1077,7 +1155,7 @@ It also relates to the <code>-[NSIndexPath section]</code> value for individual 
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIEdgeInsets</span> <span class="n">inset</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIEdgeInsets</span> <span class="n">inset</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -1114,7 +1192,7 @@ It also relates to the <code>-[NSIndexPath section]</code> value for individual 
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGFloat</span> <span class="n">minimumLineSpacing</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGFloat</span> <span class="n">minimumLineSpacing</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -1151,7 +1229,7 @@ It also relates to the <code>-[NSIndexPath section]</code> value for individual 
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGFloat</span> <span class="n">minimumInteritemSpacing</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">CGFloat</span> <span class="n">minimumInteritemSpacing</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -1188,8 +1266,7 @@ It also relates to the <code>-[NSIndexPath section]</code> value for individual 
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a></span><span class="o">&gt;</span>
-    <span class="n">supplementaryViewSource</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListSupplementaryViewSource.html">IGListSupplementaryViewSource</a></span><span class="o">&gt;</span> <span class="n">supplementaryViewSource</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -1230,8 +1307,7 @@ It also relates to the <code>-[NSIndexPath section]</code> value for individual 
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a></span><span class="o">&gt;</span>
-    <span class="n">displayDelegate</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDisplayDelegate.html">IGListDisplayDelegate</a></span><span class="o">&gt;</span> <span class="n">displayDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -1272,8 +1348,7 @@ It also relates to the <code>-[NSIndexPath section]</code> value for individual 
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListWorkingRangeDelegate.html">IGListWorkingRangeDelegate</a></span><span class="o">&gt;</span>
-    <span class="n">workingRangeDelegate</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListWorkingRangeDelegate.html">IGListWorkingRangeDelegate</a></span><span class="o">&gt;</span> <span class="n">workingRangeDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -1314,8 +1389,7 @@ It also relates to the <code>-[NSIndexPath section]</code> value for individual 
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a></span><span class="o">&gt;</span>
-    <span class="n">scrollDelegate</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListScrollDelegate.html">IGListScrollDelegate</a></span><span class="o">&gt;</span> <span class="n">scrollDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -1356,8 +1430,7 @@ It also relates to the <code>-[NSIndexPath section]</code> value for individual 
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a></span><span class="o">&gt;</span>
-    <span class="n">transitionDelegate</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListTransitionDelegate.html">IGListTransitionDelegate</a></span><span class="o">&gt;</span> <span class="n">transitionDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -1378,8 +1451,8 @@ It also relates to the <code>-[NSIndexPath section]</code> value for individual 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2019-11-20)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2021-10-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
