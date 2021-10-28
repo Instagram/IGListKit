@@ -8,13 +8,21 @@
     <script src="js/jquery.min.js" defer></script>
     <script src="js/jazzy.js" defer></script>
     
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a title="Migration  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (98% documented)</p>
+        <p><a href="index.html">IGListKit 4.1.0 Docs</a> (94% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -212,6 +220,9 @@
                 <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListDataSourceChangeBlock">IGListDataSourceChangeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
@@ -230,6 +241,12 @@
                 <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataApplyBlock">IGListTransitionDataApplyBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataBlock">IGListTransitionDataBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Type%20Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -244,13 +261,7 @@
                 <a href="Functions.html#/c:@F@IGListDiff">IGListDiff</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
               </li>
               <li class="nav-group-task">
                 <a href="Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
@@ -281,7 +292,7 @@
 <blockquote>
 <p><strong>NOTE:</strong> This release contains <em>a lot</em> of improvements and source-breaking API changes, especially for Swift clients. These are all noted in the full <a href="https://github.com/Instagram/IGListKit/releases/tag/3.0.0">release notes</a>.</p>
 </blockquote>
-<h3 id='q-ig-q-prefix-removed-for-swift' class='heading'><q>IG</q> prefix removed for Swift</h3>
+<h3 id='quot-ig-quot-prefix-removed-for-swift' class='heading'>&ldquo;IG&rdquo; prefix removed for Swift</h3>
 
 <p>We have improved how <code>IGListKit</code> APIs get imported into Swift. The <code>IG</code> prefix has been removed for Swift clients. For example, <code><a href="Classes/IGListSectionController.html">IGListSectionController</a></code> becomes <code>ListSectionController</code> instead. Along with other interoperability improvements, this makes <code>IGListKit</code> more readable in Swift.</p>
 
@@ -325,12 +336,12 @@
 <p>To fix some rare crashes, all item mutations must now be performed inside a batch block and done on the <code><a href="Protocols/IGListBatchContext.html">IGListBatchContext</a></code> object instead.</p>
 
 <p><strong>Objective-C</strong></p>
-<pre class="highlight objective_c"><code><span class="c1">// OLD
-</span><span class="n">self</span><span class="p">.</span><span class="n">expanded</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+<pre class="highlight objective_c"><code><span class="c1">// OLD</span>
+<span class="n">self</span><span class="p">.</span><span class="n">expanded</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
 <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">collectionContext</span> <span class="nf">insertInSectionController</span><span class="p">:</span><span class="n">self</span> <span class="nf">atIndexes</span><span class="p">:[</span><span class="n">NSIndexSet</span> <span class="nf">indexSetWithIndex</span><span class="p">:]];</span>
 
-<span class="c1">// NEW
-</span><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">collectionContext</span> <span class="nf">performBatchAnimated</span><span class="p">:</span><span class="nb">YES</span> <span class="nf">updates</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">IGListBatchContext</span><span class="o">&gt;</span> <span class="n">batchContext</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">// NEW</span>
+<span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">collectionContext</span> <span class="nf">performBatchAnimated</span><span class="p">:</span><span class="nb">YES</span> <span class="nf">updates</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">IGListBatchContext</span><span class="o">&gt;</span> <span class="n">batchContext</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">self</span><span class="p">.</span><span class="n">expanded</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
   <span class="p">[</span><span class="n">batchContext</span> <span class="nf">insertInSectionController</span><span class="p">:</span><span class="n">self</span> <span class="nf">atIndexes</span><span class="p">:[</span><span class="n">NSIndexSet</span> <span class="nf">indexSetWithIndex</span><span class="p">:</span><span class="mi">1</span><span class="p">]];</span>
 <span class="p">}</span> <span class="n">completion</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
@@ -359,15 +370,15 @@
 <p><strong>Objective-C</strong></p>
 <pre class="highlight objective_c"><code><span class="cp">#import &lt;IGListDiffKit/IGListDiffable.h&gt;
 </span>
-<span class="c1">// Header
-</span><span class="k">@interface</span> <span class="nc">MyModel</span> <span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span>
+<span class="c1">// Header</span>
+<span class="k">@interface</span> <span class="nc">MyModel</span> <span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span>
 
-<span class="c1">// Implementation
-</span><span class="o">-</span> <span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="n">diffIdentifier</span> <span class="p">{</span>
+<span class="c1">// Implementation</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="n">diffIdentifier</span> <span class="p">{</span>
   <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="o">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">isEqualToDiffableObject</span><span class="o">:</span><span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span><span class="p">)</span><span class="n">object</span> <span class="p">{</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">isEqualToDiffableObject</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">object</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">[</span><span class="n">self</span> <span class="nf">isEqual</span><span class="p">:</span><span class="n">object</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre>
@@ -391,8 +402,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2019-11-20)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2021-10-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

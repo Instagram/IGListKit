@@ -8,14 +8,22 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/objc/Class/IGListAdapter" class="dashAnchor"></a>
     <a title="IGListAdapter Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (98% documented)</p>
+        <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (94% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -213,6 +221,9 @@
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListDataSourceChangeBlock">IGListDataSourceChangeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
@@ -231,6 +242,12 @@
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataApplyBlock">IGListTransitionDataApplyBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataBlock">IGListTransitionDataBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type%20Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -245,13 +262,7 @@
                 <a href="../Functions.html#/c:@F@IGListDiff">IGListDiff</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
@@ -274,13 +285,19 @@
             <h1>IGListAdapter</h1>
               <div class="declaration">
                 <div class="language">
+                  <p class="aside-title">Objective-C</p>
                   <pre class="highlight objective_c"><code>
 <span class="k">@interface</span> <span class="nc">IGListAdapter</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                 </div>
+                <div class="language">
+                  <p class="aside-title">Swift</p>
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListAdapter</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                </div>
               </div>
             <p><code>IGListAdapter</code> objects provide an abstraction for feeds of objects in a <code>UICollectionView</code> by breaking each object
-into individual sections, called <q>section controllers</q>. These controllers (objects subclassing to
+into individual sections, called &ldquo;section controllers&rdquo;. These controllers (objects subclassing to
 <code><a href="../Classes/IGListSectionController.html">IGListSectionController</a></code>) act as a data source and delegate for each section.</p>
 
 <p>Feed implementations must act as the data source for an <code>IGListAdapter</code> in order to drive the objects and section
@@ -310,7 +327,7 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">UIViewController</span> <span class="o">*</span><span class="n">viewController</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">UIViewController</span> <span class="o">*</span><span class="n">viewController</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -347,7 +364,7 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="n">collectionView</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="n">collectionView</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -379,8 +396,7 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterDataSource.html">IGListAdapterDataSource</a></span><span class="o">&gt;</span>
-    <span class="n">dataSource</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterDataSource.html">IGListAdapterDataSource</a></span><span class="o">&gt;</span> <span class="n">dataSource</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -412,7 +428,7 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a></span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterDelegate.html">IGListAdapterDelegate</a></span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -449,8 +465,7 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">UICollectionViewDelegate</span><span class="o">&gt;</span>
-    <span class="n">collectionViewDelegate</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">UICollectionViewDelegate</span><span class="o">&gt;</span> <span class="n">collectionViewDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -482,8 +497,7 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">UIScrollViewDelegate</span><span class="o">&gt;</span>
-    <span class="n">scrollViewDelegate</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">UIScrollViewDelegate</span><span class="o">&gt;</span> <span class="n">scrollViewDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -520,8 +534,7 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterMoveDelegate.html">IGListAdapterMoveDelegate</a></span><span class="o">&gt;</span>
-    <span class="n">moveDelegate</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterMoveDelegate.html">IGListAdapterMoveDelegate</a></span><span class="o">&gt;</span> <span class="n">moveDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -553,8 +566,7 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterPerformanceDelegate.html">IGListAdapterPerformanceDelegate</a></span><span class="o">&gt;</span>
-    <span class="n">performanceDelegate</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListAdapterPerformanceDelegate.html">IGListAdapterPerformanceDelegate</a></span><span class="o">&gt;</span> <span class="n">performanceDelegate</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -586,8 +598,7 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
-    <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a></span><span class="o">&gt;</span> <span class="n">_Nonnull</span> <span class="n">updater</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListUpdatingDelegate.html">IGListUpdatingDelegate</a></span><span class="o">&gt;</span> <span class="n">_Nonnull</span> <span class="n">updater</span><span class="p">;</span></code></pre>
 
                         </div>
                       </div>
@@ -614,7 +625,7 @@ controllers in a collection view.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="n">experiments</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Enums/IGListExperiment.html">IGListExperiment</a></span> <span class="n">experiments</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -631,7 +642,7 @@ controllers in a collection view.</p>
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)initWithUpdater:viewController:workingRangeSize:"></a>
                     <a name="//apple_ref/objc/Method/-initWithUpdater:viewController:workingRangeSize:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)initWithUpdater:viewController:workingRangeSize:">-initWithUpdater:viewController:workingRangeSize:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)initWithUpdater:viewController:workingRangeSize:">-initWithUpdater:<wbr>viewController:<wbr>workingRangeSize:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -718,7 +729,7 @@ the range is updated as objects enter and exit the working range.</p>
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)initWithUpdater:viewController:"></a>
                     <a name="//apple_ref/objc/Method/-initWithUpdater:viewController:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)initWithUpdater:viewController:">-initWithUpdater:viewController:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)initWithUpdater:viewController:">-initWithUpdater:<wbr>viewController:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -782,7 +793,7 @@ the range is updated as objects enter and exit the working range.</p>
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)performUpdatesAnimated:completion:"></a>
                     <a name="//apple_ref/objc/Method/-performUpdatesAnimated:completion:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)performUpdatesAnimated:completion:">-performUpdatesAnimated:completion:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)performUpdatesAnimated:completion:">-performUpdatesAnimated:<wbr>completion:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -804,7 +815,7 @@ the range is updated as objects enter and exit the working range.</p>
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">performUpdates</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">ListUpdaterCompletion</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">performUpdates</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="n">async</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -847,7 +858,7 @@ the range is updated as objects enter and exit the working range.</p>
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)reloadDataWithCompletion:"></a>
                     <a name="//apple_ref/objc/Method/-reloadDataWithCompletion:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)reloadDataWithCompletion:">-reloadDataWithCompletion:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)reloadDataWithCompletion:">-reloadDataWithCompletion:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -873,7 +884,7 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reloadData</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kt">ListUpdaterCompletion</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reloadData</span><span class="p">()</span> <span class="n">async</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -904,7 +915,7 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)reloadObjects:"></a>
                     <a name="//apple_ref/objc/Method/-reloadObjects:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)reloadObjects:">-reloadObjects:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)reloadObjects:">-reloadObjects:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -955,7 +966,7 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)sectionControllerForSection:"></a>
                     <a name="//apple_ref/objc/Method/-sectionControllerForSection:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)sectionControllerForSection:">-sectionControllerForSection:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)sectionControllerForSection:">-sectionControllerForSection:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1011,7 +1022,7 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)sectionForSectionController:"></a>
                     <a name="//apple_ref/objc/Method/-sectionForSectionController:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)sectionForSectionController:">-sectionForSectionController:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)sectionForSectionController:">-sectionForSectionController:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1067,7 +1078,7 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)sectionControllerForObject:"></a>
                     <a name="//apple_ref/objc/Method/-sectionControllerForObject:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)sectionControllerForObject:">-sectionControllerForObject:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)sectionControllerForObject:">-sectionControllerForObject:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1128,7 +1139,7 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)objectForSectionController:"></a>
                     <a name="//apple_ref/objc/Method/-objectForSectionController:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)objectForSectionController:">-objectForSectionController:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)objectForSectionController:">-objectForSectionController:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1184,7 +1195,7 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)objectAtSection:"></a>
                     <a name="//apple_ref/objc/Method/-objectAtSection:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)objectAtSection:">-objectAtSection:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)objectAtSection:">-objectAtSection:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1239,7 +1250,7 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)sectionForObject:"></a>
                     <a name="//apple_ref/objc/Method/-sectionForObject:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)sectionForObject:">-sectionForObject:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)sectionForObject:">-sectionForObject:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1402,7 +1413,7 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)visibleCellsForObject:"></a>
                     <a name="//apple_ref/objc/Method/-visibleCellsForObject:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)visibleCellsForObject:">-visibleCellsForObject:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)visibleCellsForObject:">-visibleCellsForObject:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1456,9 +1467,9 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListAdapter(im)scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:animated:"></a>
-                    <a name="//apple_ref/objc/Method/-scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:animated:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:animated:">-scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:animated:</a>
+                    <a name="/c:objc(cs)IGListAdapter(im)scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:additionalOffset:animated:"></a>
+                    <a name="//apple_ref/objc/Method/-scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:additionalOffset:animated:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)scrollToObject:supplementaryKinds:scrollDirection:scrollPosition:additionalOffset:animated:">-scrollToObject:<wbr>supplementaryKinds:<wbr>scrollDirection:<wbr>scrollPosition:<wbr>additionalOffset:<wbr>animated:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1467,6 +1478,13 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Scrolls to the specified object in the list adapter.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>The additional offset amount is to shift the final scroll position by some horizontal or vertical amount
+depending on the scroll direction. This is necessary when scrolling to an object on a view with sticky headers, since
+the sticky header would otherwise cover the top portion of the object.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -1477,12 +1495,13 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
     <span class="nf">supplementaryKinds</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSString</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">supplementaryKinds</span>
        <span class="nf">scrollDirection</span><span class="p">:(</span><span class="n">UICollectionViewScrollDirection</span><span class="p">)</span><span class="nv">scrollDirection</span>
         <span class="nf">scrollPosition</span><span class="p">:(</span><span class="n">UICollectionViewScrollPosition</span><span class="p">)</span><span class="nv">scrollPosition</span>
+      <span class="nf">additionalOffset</span><span class="p">:(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">additionalOffset</span>
               <span class="nf">animated</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">scroll</span><span class="p">(</span><span class="n">to</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">supplementaryKinds</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?,</span> <span class="nv">scrollDirection</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="o">.</span><span class="kt">ScrollDirection</span><span class="p">,</span> <span class="nv">scrollPosition</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="o">.</span><span class="kt">ScrollPosition</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">scroll</span><span class="p">(</span><span class="n">to</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">supplementaryKinds</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?,</span> <span class="nv">scrollDirection</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="o">.</span><span class="kt">ScrollDirection</span><span class="p">,</span> <span class="nv">scrollPosition</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="o">.</span><span class="kt">ScrollPosition</span><span class="p">,</span> <span class="nv">additionalOffset</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1541,6 +1560,18 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                             <tr>
                               <td>
                                 <code>
+                                <em>additionalOffset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Additional offset amount from the scroll position.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
                                 <em>animated</em>
                                 </code>
                               </td>
@@ -1561,7 +1592,7 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)sizeForItemAtIndexPath:"></a>
                     <a name="//apple_ref/objc/Method/-sizeForItemAtIndexPath:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)sizeForItemAtIndexPath:">-sizeForItemAtIndexPath:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)sizeForItemAtIndexPath:">-sizeForItemAtIndexPath:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1597,7 +1628,8 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                               </td>
                               <td>
                                 <div>
-                                  <p>The index path of the cell.</p>
+                                  <p>The index path of the cell.
+å</p>
                                 </div>
                               </td>
                             </tr>
@@ -1616,7 +1648,7 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)sizeForSupplementaryViewOfKind:atIndexPath:"></a>
                     <a name="//apple_ref/objc/Method/-sizeForSupplementaryViewOfKind:atIndexPath:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)sizeForSupplementaryViewOfKind:atIndexPath:">-sizeForSupplementaryViewOfKind:atIndexPath:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)sizeForSupplementaryViewOfKind:atIndexPath:">-sizeForSupplementaryViewOfKind:<wbr>atIndexPath:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1684,7 +1716,7 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)addUpdateListener:"></a>
                     <a name="//apple_ref/objc/Method/-addUpdateListener:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)addUpdateListener:">-addUpdateListener:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)addUpdateListener:">-addUpdateListener:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1741,7 +1773,7 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                     <code>
                     <a name="/c:objc(cs)IGListAdapter(im)removeUpdateListener:"></a>
                     <a name="//apple_ref/objc/Method/-removeUpdateListener:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)removeUpdateListener:">-removeUpdateListener:</a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)removeUpdateListener:">-removeUpdateListener:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1793,8 +1825,8 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2019-11-20)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2021-10-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

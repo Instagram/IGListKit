@@ -8,14 +8,22 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/objc/Protocol/IGListUpdatingDelegate" class="dashAnchor"></a>
     <a title="IGListUpdatingDelegate Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit Docs</a> (98% documented)</p>
+        <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (94% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -213,6 +221,9 @@
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListDataSourceChangeBlock">IGListDataSourceChangeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
@@ -231,6 +242,12 @@
                 <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataApplyBlock">IGListTransitionDataApplyBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataBlock">IGListTransitionDataBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type%20Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -245,13 +262,7 @@
                 <a href="../Functions.html#/c:@F@IGListDiff">IGListDiff</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
@@ -274,7 +285,13 @@
             <h1>IGListUpdatingDelegate</h1>
               <div class="declaration">
                 <div class="language">
+                  <p class="aside-title">Objective-C</p>
                   <pre class="highlight objective_c"><code><span class="k">@protocol</span> <span class="nc">IGListUpdatingDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+
+                </div>
+                <div class="language">
+                  <p class="aside-title">Swift</p>
+                  <pre class="highlight swift"><code><span class="kd">protocol</span> <span class="kt">ListUpdatingDelegate</span> <span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
 
                 </div>
               </div>
@@ -301,8 +318,8 @@ coalesce these events to a backing store or collection.</p>
                         <p>Asks the delegate for the pointer functions for looking up an object in a collection.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    <p>Since the updating delegate is responsible for transitioning between object sets, it becomes the <q>source of
-truth</q> for how objects and their corresponding section controllers are mapped. This allows the updater to control if
+    <p>Since the updating delegate is responsible for transitioning between object sets, it becomes the &ldquo;source of
+truth&rdquo; for how objects and their corresponding section controllers are mapped. This allows the updater to control if
 objects are looked up by pointer, or more traditionally, with <code>-hash</code>/<code>-isEqual</code>.</p>
 
 </div>
@@ -334,9 +351,9 @@ objects are looked up by pointer, or more traditionally, with <code>-hash</code>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListUpdatingDelegate(im)performUpdateWithCollectionViewBlock:fromObjects:toObjectsBlock:animated:objectTransitionBlock:completion:"></a>
-                    <a name="//apple_ref/objc/Method/-performUpdateWithCollectionViewBlock:fromObjects:toObjectsBlock:animated:objectTransitionBlock:completion:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)performUpdateWithCollectionViewBlock:fromObjects:toObjectsBlock:animated:objectTransitionBlock:completion:">-performUpdateWithCollectionViewBlock:fromObjects:toObjectsBlock:animated:objectTransitionBlock:completion:</a>
+                    <a name="/c:objc(pl)IGListUpdatingDelegate(im)performUpdateWithCollectionViewBlock:animated:sectionDataBlock:applySectionDataBlock:completion:"></a>
+                    <a name="//apple_ref/objc/Method/-performUpdateWithCollectionViewBlock:animated:sectionDataBlock:applySectionDataBlock:completion:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)performUpdateWithCollectionViewBlock:animated:sectionDataBlock:applySectionDataBlock:completion:">-performUpdateWithCollectionViewBlock:<wbr>animated:<wbr>sectionDataBlock:<wbr>applySectionDataBlock:<wbr>completion:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -344,7 +361,7 @@ objects are looked up by pointer, or more traditionally, with <code>-hash</code>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Tells the delegate to perform a section transition from an old array of objects to a new one.</p>
+                        <p>Perform a <strong>section</strong> update from an old array of objects to a new one.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>Implementations determine how to transition between objects. You can perform a diff on the objects, reload
@@ -353,7 +370,7 @@ section for each object in the <code>toObjects</code> array.</p>
 
 </div>
 
-<p>The <code>objectTransitionBlock</code> block should be called prior to making any <code>UICollectionView</code> updates, passing in the <code>toObjects</code>
+<p>The <code>applySectionDataBlock</code> block should be called prior to making any <code>UICollectionView</code> updates, passing in the <code>toObjects</code>
 that the updater is applying.</p>
 
                       </div>
@@ -363,17 +380,19 @@ that the updater is applying.</p>
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">performUpdateWithCollectionViewBlock</span><span class="p">:</span>
             <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a></span><span class="p">)</span><span class="nv">collectionViewBlock</span>
-                                 <span class="nf">fromObjects</span><span class="p">:</span>
-                                     <span class="p">(</span><span class="n">nullable</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="p">)</span>
-                                         <span class="n">fromObjects</span>
-                              <span class="n">toObjectsBlock</span><span class="o">:</span>
-                                  <span class="p">(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a></span><span class="p">)</span><span class="n">toObjectsBlock</span>
-                                    <span class="n">animated</span><span class="o">:</span><span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">animated</span>
-                       <span class="n">objectTransitionBlock</span><span class="o">:</span>
-                           <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListObjectTransitionBlock">IGListObjectTransitionBlock</a></span><span class="p">)</span>
-                               <span class="n">objectTransitionBlock</span>
+                                    <span class="nf">animated</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+                            <span class="nf">sectionDataBlock</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataBlock">IGListTransitionDataBlock</a></span><span class="p">)</span>
+                                                 <span class="n">sectionDataBlock</span>
+                       <span class="n">applySectionDataBlock</span><span class="o">:</span>
+                           <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataApplyBlock">IGListTransitionDataApplyBlock</a></span><span class="p">)</span>
+                               <span class="n">applySectionDataBlock</span>
                                   <span class="n">completion</span><span class="o">:</span><span class="p">(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a></span><span class="p">)</span>
                                                  <span class="n">completion</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">performUpdate</span><span class="p">(</span><span class="nv">collectionViewBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListCollectionViewBlock</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">sectionDataBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListTransitionDataBlock</span><span class="p">,</span> <span class="nv">applySectionDataBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListTransitionDataApplyBlock</span><span class="p">)</span> <span class="n">async</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -396,30 +415,6 @@ that the updater is applying.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>fromObjects</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The previous objects in the collection view. Objects must conform to <code><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></code>.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>toObjectsBlock</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A block returning the new objects in the collection view. Objects must conform to <code><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></code>.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
                                 <em>animated</em>
                                 </code>
                               </td>
@@ -432,7 +427,19 @@ that the updater is applying.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>objectTransitionBlock</em>
+                                <em>sectionDataBlock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A block that returns the section information (ex: from and to objects)</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>applySectionDataBlock</em>
                                 </code>
                               </td>
                               <td>
@@ -462,9 +469,234 @@ that the updater is applying.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/c:objc(pl)IGListUpdatingDelegate(im)performUpdateWithCollectionViewBlock:animated:itemUpdates:completion:"></a>
+                    <a name="//apple_ref/objc/Method/-performUpdateWithCollectionViewBlock:animated:itemUpdates:completion:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)performUpdateWithCollectionViewBlock:animated:itemUpdates:completion:">-performUpdateWithCollectionViewBlock:<wbr>animated:<wbr>itemUpdates:<wbr>completion:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Perform an <strong>item</strong> update block in the collection view.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">performUpdateWithCollectionViewBlock</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a></span><span class="p">)</span><span class="nv">collectionViewBlock</span>
+                                    <span class="nf">animated</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+                                 <span class="nf">itemUpdates</span><span class="p">:</span>
+                                     <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a></span><span class="p">)</span><span class="nv">itemUpdates</span>
+                                  <span class="nf">completion</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a></span><span class="p">)</span>
+                                                 <span class="n">completion</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">performUpdate</span><span class="p">(</span><span class="nv">collectionViewBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListCollectionViewBlock</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">itemUpdates</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListItemUpdateBlock</span><span class="p">)</span> <span class="n">async</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collectionViewBlock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A block returning the collecion view to perform updates on.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>animated</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A flag indicating if the transition should be animated.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>itemUpdates</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A block containing all of the updates.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion block to execute when the update is finished.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListUpdatingDelegate(im)performDataSourceChange:"></a>
+                    <a name="//apple_ref/objc/Method/-performDataSourceChange:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)performDataSourceChange:">-performDataSourceChange:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Perform a <code>[UICollectionView setDataSource:...]</code> swap within this block. It gives the updater the chance to cancel or
+execute any on-going updates. The block should be executed synchronously.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">performDataSourceChange</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListDataSourceChangeBlock">IGListDataSourceChangeBlock</a></span><span class="p">)</span><span class="nv">block</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">performDataSourceChange</span><span class="p">(</span><span class="n">_</span> <span class="nv">block</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListDataSourceChangeBlock</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>block</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The block that will actuallty change the <code>dataSource</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListUpdatingDelegate(im)reloadDataWithCollectionViewBlock:reloadUpdateBlock:completion:"></a>
+                    <a name="//apple_ref/objc/Method/-reloadDataWithCollectionViewBlock:reloadUpdateBlock:completion:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)reloadDataWithCollectionViewBlock:reloadUpdateBlock:completion:">-reloadDataWithCollectionViewBlock:<wbr>reloadUpdateBlock:<wbr>completion:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completely reload data in the collection.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadDataWithCollectionViewBlock</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a></span><span class="p">)</span><span class="nv">collectionViewBlock</span>
+                        <span class="nf">reloadUpdateBlock</span><span class="p">:</span>
+                            <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a></span><span class="p">)</span><span class="nv">reloadUpdateBlock</span>
+                               <span class="nf">completion</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a></span><span class="p">)</span>
+                                              <span class="n">completion</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reloadData</span><span class="p">(</span><span class="nv">collectionViewBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListCollectionViewBlock</span><span class="p">,</span> <span class="n">reloadUpdate</span> <span class="nv">reloadUpdateBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListReloadUpdateBlock</span><span class="p">)</span> <span class="n">async</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collectionViewBlock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A block returning the collecion view to reload.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reloadUpdateBlock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A block that must be called when the adapter reloads the collection view.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion block to execute when the reload is finished.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/c:objc(pl)IGListUpdatingDelegate(im)insertItemsIntoCollectionView:indexPaths:"></a>
                     <a name="//apple_ref/objc/Method/-insertItemsIntoCollectionView:indexPaths:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)insertItemsIntoCollectionView:indexPaths:">-insertItemsIntoCollectionView:indexPaths:</a>
+                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)insertItemsIntoCollectionView:indexPaths:">-insertItemsIntoCollectionView:<wbr>indexPaths:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -529,7 +761,7 @@ that the updater is applying.</p>
                     <code>
                     <a name="/c:objc(pl)IGListUpdatingDelegate(im)deleteItemsFromCollectionView:indexPaths:"></a>
                     <a name="//apple_ref/objc/Method/-deleteItemsFromCollectionView:indexPaths:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)deleteItemsFromCollectionView:indexPaths:">-deleteItemsFromCollectionView:indexPaths:</a>
+                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)deleteItemsFromCollectionView:indexPaths:">-deleteItemsFromCollectionView:<wbr>indexPaths:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -594,7 +826,7 @@ that the updater is applying.</p>
                     <code>
                     <a name="/c:objc(pl)IGListUpdatingDelegate(im)moveItemInCollectionView:fromIndexPath:toIndexPath:"></a>
                     <a name="//apple_ref/objc/Method/-moveItemInCollectionView:fromIndexPath:toIndexPath:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)moveItemInCollectionView:fromIndexPath:toIndexPath:">-moveItemInCollectionView:fromIndexPath:toIndexPath:</a>
+                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)moveItemInCollectionView:fromIndexPath:toIndexPath:">-moveItemInCollectionView:<wbr>fromIndexPath:<wbr>toIndexPath:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -671,7 +903,7 @@ that the updater is applying.</p>
                     <code>
                     <a name="/c:objc(pl)IGListUpdatingDelegate(im)reloadItemInCollectionView:fromIndexPath:toIndexPath:"></a>
                     <a name="//apple_ref/objc/Method/-reloadItemInCollectionView:fromIndexPath:toIndexPath:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)reloadItemInCollectionView:fromIndexPath:toIndexPath:">-reloadItemInCollectionView:fromIndexPath:toIndexPath:</a>
+                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)reloadItemInCollectionView:fromIndexPath:toIndexPath:">-reloadItemInCollectionView:<wbr>fromIndexPath:<wbr>toIndexPath:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -755,7 +987,7 @@ destination of the reload to perform a safe transition.</p>
                     <code>
                     <a name="/c:objc(pl)IGListUpdatingDelegate(im)moveSectionInCollectionView:fromIndex:toIndex:"></a>
                     <a name="//apple_ref/objc/Method/-moveSectionInCollectionView:fromIndex:toIndex:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)moveSectionInCollectionView:fromIndex:toIndex:">-moveSectionInCollectionView:fromIndex:toIndex:</a>
+                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)moveSectionInCollectionView:fromIndex:toIndex:">-moveSectionInCollectionView:<wbr>fromIndex:<wbr>toIndex:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -830,89 +1062,9 @@ destination of the reload to perform a safe transition.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListUpdatingDelegate(im)reloadDataWithCollectionViewBlock:reloadUpdateBlock:completion:"></a>
-                    <a name="//apple_ref/objc/Method/-reloadDataWithCollectionViewBlock:reloadUpdateBlock:completion:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)reloadDataWithCollectionViewBlock:reloadUpdateBlock:completion:">-reloadDataWithCollectionViewBlock:reloadUpdateBlock:completion:</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Completely reload data in the collection.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">reloadDataWithCollectionViewBlock</span><span class="p">:</span>
-            <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a></span><span class="p">)</span><span class="nv">collectionViewBlock</span>
-                        <span class="nf">reloadUpdateBlock</span><span class="p">:</span>
-                            <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListReloadUpdateBlock">IGListReloadUpdateBlock</a></span><span class="p">)</span><span class="nv">reloadUpdateBlock</span>
-                               <span class="nf">completion</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a></span><span class="p">)</span>
-                                              <span class="n">completion</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reloadData</span><span class="p">(</span><span class="nv">collectionViewBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListCollectionViewBlock</span><span class="p">,</span> <span class="n">reloadUpdate</span> <span class="nv">reloadUpdateBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListReloadUpdateBlock</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">ListUpdatingCompletion</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>collectionViewBlock</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A block returning the collecion view to reload.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>reloadUpdateBlock</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A block that must be called when the adapter reloads the collection view.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>completion</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A completion block to execute when the reload is finished.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/c:objc(pl)IGListUpdatingDelegate(im)reloadCollectionView:sections:"></a>
                     <a name="//apple_ref/objc/Method/-reloadCollectionView:sections:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)reloadCollectionView:sections:">-reloadCollectionView:sections:</a>
+                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)reloadCollectionView:sections:">-reloadCollectionView:<wbr>sections:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -971,106 +1123,13 @@ destination of the reload to perform a safe transition.</p>
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(pl)IGListUpdatingDelegate(im)performUpdateWithCollectionViewBlock:animated:itemUpdates:completion:"></a>
-                    <a name="//apple_ref/objc/Method/-performUpdateWithCollectionViewBlock:animated:itemUpdates:completion:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListUpdatingDelegate(im)performUpdateWithCollectionViewBlock:animated:itemUpdates:completion:">-performUpdateWithCollectionViewBlock:animated:itemUpdates:completion:</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Perform an item update block in the collection view.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">performUpdateWithCollectionViewBlock</span><span class="p">:</span>
-            <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a></span><span class="p">)</span><span class="nv">collectionViewBlock</span>
-                                    <span class="nf">animated</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span>
-                                 <span class="nf">itemUpdates</span><span class="p">:</span>
-                                     <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a></span><span class="p">)</span><span class="nv">itemUpdates</span>
-                                  <span class="nf">completion</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListUpdatingCompletion">IGListUpdatingCompletion</a></span><span class="p">)</span>
-                                                 <span class="n">completion</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">performUpdate</span><span class="p">(</span><span class="nv">collectionViewBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListCollectionViewBlock</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">itemUpdates</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ListItemUpdateBlock</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">ListUpdatingCompletion</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>collectionViewBlock</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A block returning the collecion view to perform updates on.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>animated</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A flag indicating if the transition should be animated.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>itemUpdates</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A block containing all of the updates.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>completion</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A completion block to execute when the update is finished.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2019-11-20)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2021-10-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

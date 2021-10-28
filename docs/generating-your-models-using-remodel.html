@@ -8,13 +8,21 @@
     <script src="js/jquery.min.js" defer></script>
     <script src="js/jazzy.js" defer></script>
     
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a title="Generating your models using remodel  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit Docs</a> (98% documented)</p>
+        <p><a href="index.html">IGListKit 4.1.0 Docs</a> (94% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -212,6 +220,9 @@
                 <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListCollectionViewBlock">IGListCollectionViewBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListDataSourceChangeBlock">IGListDataSourceChangeBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListItemUpdateBlock">IGListItemUpdateBlock</a>
               </li>
               <li class="nav-group-task">
@@ -230,6 +241,12 @@
                 <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListToObjectBlock">IGListToObjectBlock</a>
               </li>
               <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataApplyBlock">IGListTransitionDataApplyBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type%20Definitions.html#/c:IGListUpdatingDelegate.h@T@IGListTransitionDataBlock">IGListTransitionDataBlock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Type%20Definitions.html#/c:IGListAdapter.h@T@IGListUpdaterCompletion">IGListUpdaterCompletion</a>
               </li>
               <li class="nav-group-task">
@@ -244,13 +261,7 @@
                 <a href="Functions.html#/c:@F@IGListDiff">IGListDiff</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/c:@F@IGListDiffExperiment">IGListDiffExperiment</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Functions.html#/c:@F@IGListDiffPaths">IGListDiffPaths</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Functions.html#/c:@F@IGListDiffPathsExperiment">IGListDiffPathsExperiment</a>
               </li>
               <li class="nav-group-task">
                 <a href="Functions.html#/c:IGListExperiments.h@F@IGListExperimentEnabled">IGListExperimentEnabled</a>
@@ -349,84 +360,84 @@ PersonModel includes(IGListDiffable) {
 <p><code>./bin/generate path/to/your/PersonModel.value</code></p>
 
 <p>This will generate the following Objective-C files in the same directory:</p>
-<pre class="highlight objective_c"><code><span class="c1">// PersonModel.h
-</span><span class="k">@interface</span> <span class="nc">PersonModel</span> <span class="p">:</span> <span class="nc">NSObject</span> <span class="o">&lt;</span><span class="n">IGListDiffable</span><span class="p">,</span> <span class="n">NSCopying</span><span class="o">&gt;</span>
+<pre class="highlight plaintext"><code>// PersonModel.h
+@interface PersonModel : NSObject &lt;IGListDiffable, NSCopying&gt;
 
-<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">,</span> <span class="n">copy</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">firstName</span><span class="p">;</span>
-<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">,</span> <span class="n">copy</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">lastName</span><span class="p">;</span>
-<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">,</span> <span class="n">copy</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">uniqueId</span><span class="p">;</span>
+@property (nonatomic, readonly, copy) NSString *firstName;
+@property (nonatomic, readonly, copy) NSString *lastName;
+@property (nonatomic, readonly, copy) NSString *uniqueId;
 
-<span class="k">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithFirstName</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">firstName</span> <span class="nf">lastName</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">lastName</span> <span class="nf">uniqueId</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">uniqueId</span><span class="p">;</span>
+- (instancetype)initWithFirstName:(NSString *)firstName lastName:(NSString *)lastName uniqueId:(NSString *)uniqueId;
 
-<span class="k">@end</span>
+@end
 </code></pre>
 
 <p>and</p>
-<pre class="highlight objective_c"><code><span class="c1">// PersonModel.m
-</span><span class="k">@implementation</span> <span class="nc">PersonModel</span>
+<pre class="highlight plaintext"><code>// PersonModel.m
+@implementation PersonModel
 
-<span class="k">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithFirstName</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">firstName</span> <span class="nf">lastName</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">lastName</span> <span class="nf">uniqueId</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">uniqueId</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">((</span><span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="nf">init</span><span class="p">]))</span> <span class="p">{</span>
-    <span class="n">_firstName</span> <span class="o">=</span> <span class="p">[</span><span class="n">firstName</span> <span class="nf">copy</span><span class="p">];</span>
-    <span class="n">_lastName</span> <span class="o">=</span> <span class="p">[</span><span class="n">lastName</span> <span class="nf">copy</span><span class="p">];</span>
-    <span class="n">_uniqueId</span> <span class="o">=</span> <span class="p">[</span><span class="n">uniqueId</span> <span class="nf">copy</span><span class="p">];</span>
-  <span class="p">}</span>
+- (instancetype)initWithFirstName:(NSString *)firstName lastName:(NSString *)lastName uniqueId:(NSString *)uniqueId
+{
+  if ((self = [super init])) {
+    _firstName = [firstName copy];
+    _lastName = [lastName copy];
+    _uniqueId = [uniqueId copy];
+  }
 
-  <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
-<span class="p">}</span>
+  return self;
+}
 
-<span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="n">diffIdentifier</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="n">_uniqueId</span><span class="p">;</span>
-<span class="p">}</span>
+- (id&lt;NSObject&gt;)diffIdentifier
+{
+  return _uniqueId;
+}
 
-<span class="o">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">isEqualToDiffableObject</span><span class="o">:</span><span class="p">(</span><span class="n">nullable</span> <span class="n">id</span><span class="p">)</span><span class="n">object</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="p">[</span><span class="n">self</span> <span class="nf">isEqual</span><span class="p">:</span><span class="n">object</span><span class="p">];</span>
-<span class="p">}</span>
+- (BOOL)isEqualToDiffableObject:(nullable id&lt;IGListDiffable&gt;)object
+{
+  return [self isEqual:object];
+}
 
-<span class="o">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">isEqual</span><span class="o">:</span><span class="p">(</span><span class="n">PersonModel</span> <span class="o">*</span><span class="p">)</span><span class="n">object</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">==</span> <span class="n">object</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
-  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">==</span> <span class="nb">nil</span> <span class="o">||</span> <span class="n">object</span> <span class="o">==</span> <span class="nb">nil</span> <span class="o">||</span> <span class="o">!</span><span class="p">[</span><span class="n">object</span> <span class="nf">isKindOfClass</span><span class="p">:[</span><span class="n">self</span> <span class="nf">class</span><span class="p">]])</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nb">NO</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span>
-    <span class="p">(</span><span class="n">_firstName</span> <span class="o">==</span> <span class="n">object</span><span class="o">-&gt;</span><span class="n">_firstName</span> <span class="p">?</span> <span class="nb">YES</span> <span class="p">:</span> <span class="p">[</span><span class="n">_firstName</span> <span class="nf">isEqual</span><span class="p">:</span><span class="n">object</span><span class="o">-&gt;</span><span class="n">_firstName</span><span class="p">])</span> <span class="o">&amp;&amp;</span>
-    <span class="p">(</span><span class="n">_lastName</span> <span class="o">==</span> <span class="n">object</span><span class="o">-&gt;</span><span class="n">_lastName</span> <span class="p">?</span> <span class="nb">YES</span> <span class="p">:</span> <span class="p">[</span><span class="n">_lastName</span> <span class="nf">isEqual</span><span class="p">:</span><span class="n">object</span><span class="o">-&gt;</span><span class="n">_lastName</span><span class="p">])</span> <span class="o">&amp;&amp;</span>
-    <span class="p">(</span><span class="n">_uniqueId</span> <span class="o">==</span> <span class="n">object</span><span class="o">-&gt;</span><span class="n">_uniqueId</span> <span class="p">?</span> <span class="nb">YES</span> <span class="p">:</span> <span class="p">[</span><span class="n">_uniqueId</span> <span class="nf">isEqual</span><span class="p">:</span><span class="n">object</span><span class="o">-&gt;</span><span class="n">_uniqueId</span><span class="p">]);</span>
-<span class="p">}</span>
+- (BOOL)isEqual:(PersonModel *)object
+{
+  if (self == object) {
+    return YES;
+  } else if (self == nil || object == nil || ![object isKindOfClass:[self class]]) {
+    return NO;
+  }
+  return
+    (_firstName == object-&gt;_firstName ? YES : [_firstName isEqual:object-&gt;_firstName]) &amp;&amp;
+    (_lastName == object-&gt;_lastName ? YES : [_lastName isEqual:object-&gt;_lastName]) &amp;&amp;
+    (_uniqueId == object-&gt;_uniqueId ? YES : [_uniqueId isEqual:object-&gt;_uniqueId]);
+}
 
-<span class="o">-</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="n">copyWithZone</span><span class="o">:</span><span class="p">(</span><span class="n">nullable</span> <span class="n">NSZone</span> <span class="o">*</span><span class="p">)</span><span class="n">zone</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
-<span class="p">}</span>
+- (id)copyWithZone:(nullable NSZone *)zone
+{
+  return self;
+}
 
-<span class="o">-</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">description</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"%@ - </span><span class="se">\n\t</span><span class="s"> firstName: %@; </span><span class="se">\n\t</span><span class="s"> lastName: %@; </span><span class="se">\n\t</span><span class="s"> uniqueId: %@; </span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">[</span><span class="n">super</span> <span class="nf">description</span><span class="p">],</span> <span class="n">_firstName</span><span class="p">,</span> <span class="n">_lastName</span><span class="p">,</span> <span class="n">_uniqueId</span><span class="p">];</span>
-<span class="p">}</span>
+- (NSString *)description
+{
+  return [NSString stringWithFormat:@"%@ - \n\t firstName: %@; \n\t lastName: %@; \n\t uniqueId: %@; \n", [super description], _firstName, _lastName, _uniqueId];
+}
 
-<span class="o">-</span> <span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="n">hash</span>
-<span class="p">{</span>
-  <span class="n">NSUInteger</span> <span class="n">subhashes</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{[</span><span class="n">_firstName</span> <span class="nf">hash</span><span class="p">],</span> <span class="p">[</span><span class="n">_lastName</span> <span class="nf">hash</span><span class="p">],</span> <span class="p">[</span><span class="n">_uniqueId</span> <span class="nf">hash</span><span class="p">]};</span>
-  <span class="n">NSUInteger</span> <span class="n">result</span> <span class="o">=</span> <span class="n">subhashes</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">ii</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">ii</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">ii</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">base</span> <span class="o">=</span> <span class="p">(((</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">result</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">32</span> <span class="o">|</span> <span class="n">subhashes</span><span class="p">[</span><span class="nf">ii</span><span class="p">]);</span>
-    <span class="n">base</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">base</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">base</span> <span class="o">&lt;&lt;</span> <span class="mi">18</span><span class="p">);</span>
-    <span class="n">base</span> <span class="o">^=</span> <span class="p">(</span><span class="n">base</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">);</span>
-    <span class="n">base</span> <span class="o">*=</span>  <span class="mi">21</span><span class="p">;</span>
-    <span class="n">base</span> <span class="o">^=</span> <span class="p">(</span><span class="n">base</span> <span class="o">&gt;&gt;</span> <span class="mi">11</span><span class="p">);</span>
-    <span class="n">base</span> <span class="o">+=</span> <span class="p">(</span><span class="n">base</span> <span class="o">&lt;&lt;</span> <span class="mi">6</span><span class="p">);</span>
-    <span class="n">base</span> <span class="o">^=</span> <span class="p">(</span><span class="n">base</span> <span class="o">&gt;&gt;</span> <span class="mi">22</span><span class="p">);</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">base</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
+- (NSUInteger)hash
+{
+  NSUInteger subhashes[] = {[_firstName hash], [_lastName hash], [_uniqueId hash]};
+  NSUInteger result = subhashes[0];
+  for (int ii = 1; ii &lt; 3; ++ii) {
+    unsigned long long base = (((unsigned long long)result) &lt;&lt; 32 | subhashes[ii]);
+    base = (~base) + (base &lt;&lt; 18);
+    base ^= (base &gt;&gt; 31);
+    base *=  21;
+    base ^= (base &gt;&gt; 11);
+    base += (base &lt;&lt; 6);
+    base ^= (base &gt;&gt; 22);
+    result = base;
+  }
+  return result;
+}
 
-<span class="k">@end</span>
+@end
 </code></pre>
 <h2 id='documentation' class='heading'>Documentation</h2>
 
@@ -435,8 +446,8 @@ PersonModel includes(IGListDiffable) {
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2019-11-20)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2021-10-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
