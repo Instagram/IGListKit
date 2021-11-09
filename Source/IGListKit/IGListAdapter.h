@@ -256,7 +256,7 @@ NS_SWIFT_NAME(ListAdapter)
  @param scrollPosition An option that specifies where the item should be positioned when scrolling finishes.
  @param additionalOffset Additional offset amount from the scroll position.
  @param animated A flag indicating if the scrolling should be animated.
- 
+
  @note The additional offset amount is to shift the final scroll position by some horizontal or vertical amount
  depending on the scroll direction. This is necessary when scrolling to an object on a view with sticky headers, since
  the sticky header would otherwise cover the top portion of the object.
@@ -267,6 +267,27 @@ NS_SWIFT_NAME(ListAdapter)
         scrollPosition:(UICollectionViewScrollPosition)scrollPosition
       additionalOffset:(CGFloat)additionalOffset
               animated:(BOOL)animated;
+
+/**
+ Returns the index path for the first visible cell that has been scrolled to.
+ This refers to the cell currently at the top/left (0, 0) of the collection view's frame,
+ inset by the collection view's contentInset top or left value if defined.
+
+ @return The index path of the cell or nil if not found.
+ */
+- (nullable NSIndexPath *)indexPathForFirstVisibleItem;
+
+/**
+ Gets the scroll offset of the first visible cell scrolled into in the collection view.
+ This refers to the cell currently at the top/left (0, 0) of the collection view's frame,
+ inset by the collection view's contentInset top or left value if defined.
+
+ @param scrollDirection  An option indicating the direction to scroll.
+
+ @return additionalOffset is the offset amount the first visible cell is shifted from the start of the cell,
+ the amount it has been scrolled into in the coordinates of the cell's bounds.
+ */
+- (CGFloat)offsetForFirstVisibleItemWithScrollDirection:(UICollectionViewScrollDirection)scrollDirection;
 
 /**
  Returns the size of a cell at the specified index path.
