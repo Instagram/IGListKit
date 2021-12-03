@@ -62,7 +62,7 @@
 推荐使用[CocoaPods](https://cocoapods.org)来进行安装，只需添加如下语句到你的`Podfile`文件中:
 
 ```ruby
-pod 'IGListKit', '~> 3.0'
+pod 'IGListKit', '~> 4.0.0'
 ```
 
 ### Carthage
