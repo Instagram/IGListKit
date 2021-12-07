@@ -7,11 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import "IGListExperiments.h"
-#else
-#import <IGListDiffKit/IGListExperiments.h>
-#endif
+@import IGListDiffKit;
 
 #import "IGListBatchUpdateState.h"
 #import "IGListUpdatingDelegate.h"

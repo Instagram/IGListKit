@@ -7,13 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import "IGListExperiments.h"
-#import "IGListMacros.h"
-#else
-#import <IGListDiffKit/IGListExperiments.h>
-#import <IGListDiffKit/IGListMacros.h>
-#endif
+@import IGListDiffKit;
 
 #import "IGListAdapterDataSource.h"
 #import "IGListAdapterDelegate.h"

@@ -7,11 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import "IGListMacros.h"
-#else
-#import <IGListDiffKit/IGListMacros.h>
-#endif
+@import IGListDiffKit;
 
 #import "IGListUpdatingDelegate.h"
 

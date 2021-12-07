@@ -416,6 +416,10 @@
 		88DF89881E010F5C00B1B9B4 /* IGListDiffResultTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 294AC6311DDE4C19002FCE5D /* IGListDiffResultTests.m */; };
 		88DF89891E010F6500B1B9B4 /* IGListDiffSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE61D870EDC007C7F66 /* IGListDiffSwiftTests.swift */; };
 		88DF898A1E010F7000B1B9B4 /* IGListDiffTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144EE81D870EDC007C7F66 /* IGListDiffTests.m */; };
+		BA4A65242760278F00FA5750 /* ListValueSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A65222760278F00FA5750 /* ListValueSectionController.swift */; };
+		BA4A65252760278F00FA5750 /* ListValueSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A65222760278F00FA5750 /* ListValueSectionController.swift */; };
+		BA4A65262760278F00FA5750 /* ListIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A65232760278F00FA5750 /* ListIdentifiable.swift */; };
+		BA4A65272760278F00FA5750 /* ListIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A65232760278F00FA5750 /* ListIdentifiable.swift */; };
 		DD468D380BBF350ACE7EA28B /* Pods_IGListKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB7195278D0BBB5DA88D36F /* Pods_IGListKitTests.framework */; };
 		E03DEA83255C9AAC00ACCAFC /* IGListTransitionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B22E692502AAB10055DC2F /* IGListTransitionData.h */; };
 		E03DEA8F255C9AB200ACCAFC /* IGListTransitionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B22E662502AAB10055DC2F /* IGListTransitionData.m */; };
@@ -484,7 +488,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		08F0B0FD0690F4FC46DDF21B /* Pods-IGListKit-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKit-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKit-tvOSTests/Pods-IGListKit-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		13DF01711FA0FD400092A320 /* IGListTestAdapterReorderingDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGListTestAdapterReorderingDataSource.h; sourceTree = "<group>"; };
 		13DF01721FA0FD400092A320 /* IGListTestAdapterReorderingDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IGListTestAdapterReorderingDataSource.m; sourceTree = "<group>"; };
 		13DF01751FA1000E0092A320 /* IGTestReorderableSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGTestReorderableSection.h; sourceTree = "<group>"; };
@@ -496,7 +499,6 @@
 		16B71CE922B0A08300FE96ED /* IGTestInvalidateLayoutObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGTestInvalidateLayoutObject.h; sourceTree = "<group>"; };
 		16B71CEA22B0A08300FE96ED /* IGTestInvalidateLayoutObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGTestInvalidateLayoutObject.m; sourceTree = "<group>"; };
 		1AB7195278D0BBB5DA88D36F /* Pods_IGListKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1D6BFC11D5380CB8311E1029 /* Pods-IGListKit-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKit-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKit-tvOSTests/Pods-IGListKit-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		26271C881DAE94E40073E116 /* IGTestSingleNibItemDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGTestSingleNibItemDataSource.h; sourceTree = "<group>"; };
 		26271C891DAE94E40073E116 /* IGTestSingleNibItemDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGTestSingleNibItemDataSource.m; sourceTree = "<group>"; };
 		26271C8B1DAE96740073E116 /* IGListSingleNibItemControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListSingleNibItemControllerTests.m; sourceTree = "<group>"; };
@@ -727,8 +729,8 @@
 		887D0B3F1D870D7F009E01F7 /* IGListKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IGListKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		887D0B571D870E1E009E01F7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88DF897C1E010E6A00B1B9B4 /* IGListKit-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IGListKit-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9574C58371B7A46F62E9AC24 /* Pods-IGListKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTests/Pods-IGListKitTests.release.xcconfig"; sourceTree = "<group>"; };
-		CA8726D7FF3608E20E9F7EC6 /* Pods-IGListKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTests/Pods-IGListKitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		BA4A65222760278F00FA5750 /* ListValueSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListValueSectionController.swift; sourceTree = "<group>"; };
+		BA4A65232760278F00FA5750 /* ListIdentifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListIdentifiable.swift; sourceTree = "<group>"; };
 		DD3152AC1DE227FA00AC9D2C /* IGListKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IGListKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E56B7B3320A9D7100071010C /* IGListCollectionScrollingTraitsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListCollectionScrollingTraitsTests.m; sourceTree = "<group>"; };
 		E8D312DF1FC472A60009FA2F /* IGListContentInsetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IGListContentInsetTests.m; sourceTree = "<group>"; };
@@ -843,17 +845,6 @@
 				821BC4C21DB8CAE900172ED0 /* IGTestStoryboard.storyboard */,
 			);
 			path = Assets;
-			sourceTree = "<group>";
-		};
-		30B5A6475AE0ACFF15B23D2B /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1D6BFC11D5380CB8311E1029 /* Pods-IGListKit-tvOSTests.debug.xcconfig */,
-				08F0B0FD0690F4FC46DDF21B /* Pods-IGListKit-tvOSTests.release.xcconfig */,
-				CA8726D7FF3608E20E9F7EC6 /* Pods-IGListKitTests.debug.xcconfig */,
-				9574C58371B7A46F62E9AC24 /* Pods-IGListKitTests.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		41882EBBC340173A8053E3AF /* Frameworks */ = {
@@ -1021,6 +1012,8 @@
 			isa = PBXGroup;
 			children = (
 				7A92EA9923A8A42000E5A13D /* IGListSwiftKit.h */,
+				BA4A65232760278F00FA5750 /* ListIdentifiable.swift */,
+				BA4A65222760278F00FA5750 /* ListValueSectionController.swift */,
 				7A92EA9F23A8A43D00E5A13D /* IGListCollectionContext+Refinements.swift */,
 				7AEA8E5C25BF715C00971591 /* IGListSingleSectionController+Refinements.swift */,
 			);
@@ -1114,7 +1107,6 @@
 			isa = PBXGroup;
 			children = (
 				41882EBBC340173A8053E3AF /* Frameworks */,
-				30B5A6475AE0ACFF15B23D2B /* Pods */,
 				887D0B371D870D7E009E01F7 /* Products */,
 				0B3B927E1E08D7F5008390ED /* Source */,
 				887D0B551D870E1E009E01F7 /* Tests */,
@@ -1882,6 +1874,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA4A65242760278F00FA5750 /* ListValueSectionController.swift in Sources */,
+				BA4A65262760278F00FA5750 /* ListIdentifiable.swift in Sources */,
 				7AEA8E5D25BF715C00971591 /* IGListSingleSectionController+Refinements.swift in Sources */,
 				7A92EAA023A8A43D00E5A13D /* IGListCollectionContext+Refinements.swift in Sources */,
 			);
@@ -1891,6 +1885,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA4A65252760278F00FA5750 /* ListValueSectionController.swift in Sources */,
+				BA4A65272760278F00FA5750 /* ListIdentifiable.swift in Sources */,
 				7AEA8E5E25BF715C00971591 /* IGListSingleSectionController+Refinements.swift in Sources */,
 				7A92EAB123A8A50C00E5A13D /* IGListCollectionContext+Refinements.swift in Sources */,
 			);
@@ -2519,7 +2515,6 @@
 		};
 		885FE1E71DC51A0D009CE2B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D6BFC11D5380CB8311E1029 /* Pods-IGListKit-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
@@ -2541,7 +2536,6 @@
 		};
 		885FE1E81DC51A0D009CE2B4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 08F0B0FD0690F4FC46DDF21B /* Pods-IGListKit-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
@@ -2617,6 +2611,11 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-fmodules";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fcxx-modules",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -2673,6 +2672,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "-fmodules";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fcxx-modules",
+				);
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2837,7 +2841,6 @@
 		};
 		887D0B4E1D870D7F009E01F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CA8726D7FF3608E20E9F7EC6 /* Pods-IGListKitTests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
@@ -2859,7 +2862,6 @@
 		};
 		887D0B4F1D870D7F009E01F7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9574C58371B7A46F62E9AC24 /* Pods-IGListKitTests.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;

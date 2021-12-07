@@ -9,24 +9,36 @@ let package = Package(
     ],
     products: [
         .library(name: "IGListDiffKit",
-                 type: .static ,
                  targets: ["IGListDiffKit"]),
         .library(name: "IGListKit",
-                 type: .static,
                  targets: ["IGListKit"]),
         .library(name: "IGListSwiftKit",
-                 type: .static,
                  targets: ["IGListSwiftKit"]),
     ],
     targets: [
         .target(
             name: "IGListDiffKit",
-            path: "spm/Sources/IGListDiffKit"
+            path: "Source/IGListDiffKit",
+            publicHeadersPath: "modulemap",
+            cSettings: [
+                .headerSearchPath("."),
+                .headerSearchPath("Internal"),
+                .unsafeFlags(["-xobjective-c++", "-fcxx-modules"])
+            ]
         ),
         .target(
             name: "IGListKit",
             dependencies: ["IGListDiffKit"],
-            path: "spm/Sources/IGListKit"
+            path: "Source/IGListKit",
+            publicHeadersPath: "modulemap",
+            cSettings: [
+                .headerSearchPath(".."),
+                .headerSearchPath("../IGListDiffKit"),
+                .headerSearchPath("../IGListDiffKit/Internal"),
+                .headerSearchPath("."),
+                .headerSearchPath("Internal"),
+                .unsafeFlags(["-xobjective-c++", "-fcxx-modules"])
+            ]
         ),
         .target(
             name: "IGListSwiftKit",

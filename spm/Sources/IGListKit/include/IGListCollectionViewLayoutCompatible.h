@@ -1,1 +1,0 @@
-../../../../Source/IGListKit/IGListCollectionViewLayoutCompatible.h

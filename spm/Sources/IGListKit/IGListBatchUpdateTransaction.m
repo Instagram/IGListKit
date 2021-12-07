@@ -1,1 +1,0 @@
-../../../Source/IGListKit/Internal/IGListBatchUpdateTransaction.m

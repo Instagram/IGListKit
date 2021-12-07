@@ -10,11 +10,8 @@
 #import <set>
 #import <unordered_set>
 
-#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import "IGListAssert.h"
-#else
-#import <IGListDiffKit/IGListAssert.h>
-#endif
+@import IGListDiffKit;
+
 #import "IGListAdapter.h"
 #import "IGListSectionController.h"
 

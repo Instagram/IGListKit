@@ -8,11 +8,7 @@
 #ifndef IGListArrayUtilsInternal_h
 #define IGListArrayUtilsInternal_h
 
-#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import "IGListBatchUpdateData.h"
-#else
-#import <IGListDiffKit/IGListBatchUpdateData.h>
-#endif
+@import IGListDiffKit;
 
 static NSArray *objectsWithDuplicateIdentifiersRemoved(NSArray<id<IGListDiffable>> *objects) {
     if (objects == nil) {

@@ -1,1 +1,0 @@
-../../../../Source/IGListKit/IGListAdapterMoveDelegate.h

@@ -7,11 +7,7 @@
 
 #import "UICollectionView+DebugDescription.h"
 
-#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import "IGListMacros.h"
-#else
-#import <IGListDiffKit/IGListMacros.h>
-#endif
+@import IGListDiffKit;
 
 @implementation UICollectionView (DebugDescription)
 
