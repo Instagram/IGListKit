@@ -7,7 +7,7 @@
 
 #import "ObjcGeneratedModelDemoViewController.h"
 
-#import <IGListKit/IGListKit.h>
+@import IGListKit;
 
 #import "PersonModel.h"
 #import "PersonSectionController.h"
