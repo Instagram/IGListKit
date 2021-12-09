@@ -1,14 +1,14 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Instagram/IGListKit/main/Resources/logo-animation.gif" width=400 />
+  <img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/logo-animation.gif" width=400 />
 </p>
 
 <p align="center">
     <a href="https://travis-ci.org/Instagram/IGListKit">
-        <img src="https://travis-ci.org/Instagram/IGListKit.svg?branch=main&style=flat"
+        <img src="https://travis-ci.org/Instagram/IGListKit.svg?branch=master&style=flat"
              alt="Build Status">
     </a>
-    <a href="https://coveralls.io/github/Instagram/IGListKit?branch=main">
-      <img src="https://coveralls.io/repos/github/Instagram/IGListKit/badge.svg?branch=main"
+    <a href="https://coveralls.io/github/Instagram/IGListKit?branch=master">
+      <img src="https://coveralls.io/repos/github/Instagram/IGListKit/badge.svg?branch=master"
            alt="Coverage Status" />
     </a>
     <a href="https://cocoapods.org/pods/IGListKit">
@@ -42,7 +42,7 @@ A data-driven `UICollectionView` framework for building fast and flexible lists.
 &#128038; | Written in Objective-C with full Swift interop support
 
 `IGListKit` is built and maintained with &#10084;&#65039; by [Instagram engineering](https://engineering.instagram.com/).
-We use the open source version `main` branch in the Instagram app.
+We use the open source version `master` branch in the Instagram app.
 
 ## Multilingual translation
 
@@ -98,7 +98,7 @@ $ ./scripts/setup.sh
 
 - Our [Getting Started guide](https://instagram.github.io/IGListKit/getting-started.html)
 - Ray Wenderlich's [IGListKit Tutorial: Better UICollectionViews](https://www.raywenderlich.com/147162/iglistkit-tutorial-better-uicollectionviews)
-- Our [example projects](https://github.com/Instagram/IGListKit/tree/main/Examples)
+- Our [example projects](https://github.com/Instagram/IGListKit/tree/master/Examples)
 - Ryan Nystrom's [talk at try! Swift NYC](https://academy.realm.io/posts/tryswift-ryan-nystrom-refactoring-at-scale-lessons-learned-rewriting-instagram-feed/)(Note: this talk was for an earlier version. Some APIs have changed.)
 - [Migrating an UITableView to IGListCollectionView](https://medium.com/cocoaacademymag/iglistkit-migrating-an-uitableview-to-iglistkitcollectionview-65a30cf9bac9), by Rodrigo Cavalcante
 - [Keeping data fresh in Buffer for iOS with AsyncDisplayKit, IGListKit & Pusher](https://overflow.buffer.com/2017/04/10/keeping-data-fresh-buffer-ios-asyncdisplaykit-iglistkit-pusher/), Andy Yates, Buffer
@@ -111,11 +111,11 @@ To regenerate docs, run `./scripts/build_docs.sh` from the root directory in the
 
 ## Vision
 
-For the long-term goals and "vision" of `IGListKit`, please read our [Vision](https://github.com/Instagram/IGListKit/blob/main/Guides/VISION.md) doc.
+For the long-term goals and "vision" of `IGListKit`, please read our [Vision](https://github.com/Instagram/IGListKit/blob/master/Guides/VISION.md) doc.
 
 ## Contributing
 
-Please see the [CONTRIBUTING](https://github.com/Instagram/IGListKit/blob/main/.github/CONTRIBUTING.md) file for how to help. At Instagram, we sync the open source version of `IGListKit` daily, so we're always testing the latest changes. But that requires all changes be thoroughly tested and follow our style guide.
+Please see the [CONTRIBUTING](https://github.com/Instagram/IGListKit/blob/master/.github/CONTRIBUTING.md) file for how to help. At Instagram, we sync the open source version of `IGListKit` daily, so we're always testing the latest changes. But that requires all changes be thoroughly tested and follow our style guide.
 
 We have a set of [starter tasks](https://github.com/Instagram/IGListKit/issues?q=is%3Aissue+is%3Aopen+label%3Astarter-task) that are great for beginners to jump in on and start contributing.
 
