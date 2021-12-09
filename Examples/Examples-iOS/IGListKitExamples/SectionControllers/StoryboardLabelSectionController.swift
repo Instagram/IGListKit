@@ -8,7 +8,7 @@
 import IGListKit
 import UIKit
 
-protocol StoryboardLabelSectionControllerDelegate: class {
+protocol StoryboardLabelSectionControllerDelegate: AnyObject {
     func removeSectionControllerWantsRemoved(_ sectionController: StoryboardLabelSectionController)
 }
 

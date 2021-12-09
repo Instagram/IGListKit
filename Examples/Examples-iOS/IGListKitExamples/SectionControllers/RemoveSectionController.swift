@@ -8,7 +8,7 @@
 import IGListKit
 import IGListSwiftKit
 
-protocol RemoveSectionControllerDelegate: class {
+protocol RemoveSectionControllerDelegate: AnyObject {
     func removeSectionControllerWantsRemoved(_ sectionController: RemoveSectionController)
 }
 

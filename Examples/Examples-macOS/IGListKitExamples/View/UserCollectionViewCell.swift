@@ -7,7 +7,7 @@
 
 import Cocoa
 
-protocol UserCollectionViewCellDelegate: class {
+protocol UserCollectionViewCellDelegate: AnyObject {
 
     func itemDeleted(_ user: User)
 }

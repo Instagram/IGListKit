@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol RemoveCellDelegate: class {
+protocol RemoveCellDelegate: AnyObject {
     func removeCellDidTapButton(_ cell: RemoveCell)
 }
 

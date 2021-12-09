@@ -479,7 +479,7 @@ This design should respond to tapping the heart icon on the `ActionCell`. In ord
 Open **ActionCell.swift** and add the following protocol:
 
 ```swift
-protocol ActionCellDelegate: class {
+protocol ActionCellDelegate: AnyObject {
   func didTapHeart(cell: ActionCell)
 }
 ```

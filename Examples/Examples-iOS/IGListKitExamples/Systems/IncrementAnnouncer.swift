@@ -7,7 +7,7 @@
 
 import UIKit
 
-@objc protocol IncrementListener: class {
+@objc protocol IncrementListener: AnyObject {
     func didIncrement(announcer: IncrementAnnouncer, value: Int)
 }
 
