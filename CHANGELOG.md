@@ -60,10 +60,11 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 ```
 
 ### Enhancements
+- Added `shouldDeselectItemAtIndex:` to `IGListSectionController` . [bladeofky](https://github.com/bladeofky)
 
 - Added `shouldSelectItemAtIndex:` to `IGListSectionController` . [dirtmelon](https://github.com/dirtmelon)
 
-- Added [Mac Catalyst](https://developer.apple.com/mac-catalyst/) support. [Petro Rovenskyy](https://github.com/3a4oT/) 
+- Added [Mac Catalyst](https://developer.apple.com/mac-catalyst/) support. [Petro Rovenskyy](https://github.com/3a4oT/)
 
 - Introduce `IGListSwiftKit`, with Swift refinements for `dequeueReusableCellOfClass` methods. [Koen Punt](https://github.com/koenpunt) [(#1388)](https://github.com/Instagram/IGListKit/pull/1388).
 
@@ -85,7 +86,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
    - Schedules an update block (`dispatch_async`) only when needed, instead of scheduling on every single call to `-performUpdateWithCollectionViewBlock`.
    - Wraps each update in a `transaction` that can be easily cancelled.
    - Uses methods instead of blocks to make the callstack easier to read in crash reports.
-   - Unblocks `IGListExperimentBackgroundDiffing` 
+   - Unblocks `IGListExperimentBackgroundDiffing`
 
 ### Fixes
 

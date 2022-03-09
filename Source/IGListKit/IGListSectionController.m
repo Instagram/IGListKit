@@ -89,6 +89,10 @@ void IGListSectionControllerPopThread(void) {
     return YES;
 }
 
+- (BOOL)shouldDeselectItemAtIndex:(NSInteger)index {
+    return YES;
+}
+
 - (void)didSelectItemAtIndex:(NSInteger)index {}
 
 - (void)didDeselectItemAtIndex:(NSInteger)index {}

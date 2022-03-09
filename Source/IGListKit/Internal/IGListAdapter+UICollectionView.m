@@ -127,6 +127,11 @@
     return [sectionController shouldSelectItemAtIndex:indexPath.item];
 }
 
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    IGListSectionController * sectionController = [self sectionControllerForSection:indexPath.section];
+    return [sectionController shouldDeselectItemAtIndex:indexPath.item];
+}
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     // forward this method to the delegate b/c this implementation will steal the message from the proxy
     id<UICollectionViewDelegate> collectionViewDelegate = self.collectionViewDelegate;
