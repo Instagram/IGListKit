@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+#import <PikaOptimizationsMacros/PikaOptimizationsMacros.h>
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -15,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  `UICollectionView`, `UICollectionViewLayout`, and `UICollectionViewDataSource`.
  */
 NS_SWIFT_NAME(ListSupplementaryViewSource)
+NON_RUNTIME_PROTOCOL
 @protocol IGListSupplementaryViewSource <NSObject>
 
 /**
