@@ -156,8 +156,8 @@ typedef struct OffsetRange {
 // reset and configure the delegate proxy whenever this property is set
 - (void)setCollectionViewDelegate:(id<UICollectionViewDelegate>)collectionViewDelegate {
     IGAssertMainThread();
-    IGAssert(![collectionViewDelegate conformsToProtocol:@protocol(UICollectionViewDelegateFlowLayout)],
-             @"UICollectionViewDelegateFlowLayout conformance is automatically handled by IGListAdapter.");
+    IGWarn(![collectionViewDelegate conformsToProtocol:@protocol(UICollectionViewDelegateFlowLayout)],
+           @"UICollectionViewDelegateFlowLayout conformance is automatically handled by IGListAdapter.");
 
     if (_collectionViewDelegate != collectionViewDelegate) {
         _collectionViewDelegate = collectionViewDelegate;
