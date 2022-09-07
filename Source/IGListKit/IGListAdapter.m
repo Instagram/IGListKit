@@ -603,10 +603,12 @@ typedef struct OffsetRange {
             IGAssert(sectionController != nil, @"Section controller nil for cell %@", cell);
             if (sectionController != nil) {
                 const NSInteger section = [self sectionForSectionController:sectionController];
-                id object = [self objectAtSection:section];
-                IGAssert(object != nil, @"Object not found for section controller %@ at section %li", sectionController, (long)section);
-                if (object != nil) {
-                    [visibleObjects addObject:object];
+                if (section != NSNotFound) {
+                    id object = [self objectAtSection:section];
+                    IGAssert(object != nil, @"Object not found for section controller %@ at section %li", sectionController, (long)section);
+                    if (object != nil) {
+                        [visibleObjects addObject:object];
+                    }
                 }
             }
         }
