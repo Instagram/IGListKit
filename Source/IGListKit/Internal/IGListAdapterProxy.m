@@ -29,7 +29,9 @@ static BOOL isInterceptedSelector(SEL sel) {
             // UICollectionViewDelegate
             sel == @selector(collectionView:willDisplayCell:forItemAtIndexPath:) ||
             sel == @selector(collectionView:didEndDisplayingCell:forItemAtIndexPath:) ||
+            sel == @selector(collectionView:shouldSelectItemAtIndexPath:) ||
             sel == @selector(collectionView:didSelectItemAtIndexPath:) ||
+            sel == @selector(collectionView:shouldDeselectItemAtIndexPath:) ||
             sel == @selector(collectionView:didDeselectItemAtIndexPath:) ||
             sel == @selector(collectionView:didHighlightItemAtIndexPath:) ||
             sel == @selector(collectionView:didUnhighlightItemAtIndexPath:) ||
