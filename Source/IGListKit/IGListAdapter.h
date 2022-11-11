@@ -20,7 +20,6 @@
 #import "IGListAdapterMoveDelegate.h"
 #import "IGListAdapterPerformanceDelegate.h"
 #import "IGListAdapterUpdateListener.h"
-#import "IGListCollectionContext.h"
 
 @protocol IGListUpdatingDelegate;
 
