@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -1841,14 +1841,14 @@
         genTestObject(@0, @"Foo"),
         genTestObject(@1, @"Bar")
     ]];
-    
+
     // Adding an object that won't have a corresponding section-controller
     self.dataSource.objects = @[
         genTestObject(@0, @"Foo"),
         genTestObject(@1, @"Bar"),
         kIGTestDelegateDataSourceSkipObject
     ];
-    
+
     // Perform updates on the adapter
     XCTestExpectation *expectation = genExpectation;
     [self.adapter performUpdatesAnimated:NO completion:^(BOOL finished) {

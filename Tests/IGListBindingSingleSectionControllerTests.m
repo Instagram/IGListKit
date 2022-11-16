@@ -1,5 +1,5 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -47,7 +47,7 @@
     IGTestCell *cell1 = (IGTestCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     IGTestCell *cell2 = (IGTestCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
     IGTestCell *cell3 = (IGTestCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:2]];
-    
+
     // Check the size is set in `IGTestBindingSingleSectionController`
     XCTAssertEqual(cell1.frame.size.height, 44);
     XCTAssertEqual(cell2.frame.size.height, 44);
@@ -66,7 +66,7 @@
     IGTestCell *cell1 = (IGTestCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     IGTestCell *cell2 = (IGTestCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
     IGTestCell *cell3 = (IGTestCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:2]];
-    
+
     // Check the cell is configured in `IGTestBindingSingleSectionController`
     XCTAssertEqualObjects(cell1.label.text, @"Foo");
     XCTAssertEqualObjects(cell2.label.text, @"Bar");
@@ -90,7 +90,7 @@
     IGListSectionController *controller = [self.adapter sectionControllerForSection:0];
     [controller didSelectItemAtIndex:0];
     IGTestCell *cell1 = (IGTestCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-    
+
     // Check the cell label is updated in `IGTestBindingSingleSectionController`
     XCTAssertEqualObjects(cell1.label.text, @"did-select");
 }
@@ -102,7 +102,7 @@
     IGListSectionController *controller = [self.adapter sectionControllerForSection:0];
     [controller didDeselectItemAtIndex:0];
     IGTestCell *cell1 = (IGTestCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-    
+
     // Check the cell label is updated in `IGTestBindingSingleSectionController`
     XCTAssertEqualObjects(cell1.label.text, @"did-deselect");
 }
@@ -114,7 +114,7 @@
     IGListSectionController *controller = [self.adapter sectionControllerForSection:0];
     [controller didHighlightItemAtIndex:0];
     IGTestCell *cell1 = (IGTestCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-    
+
     // Check the cell label is updated in `IGTestBindingSingleSectionController`
     XCTAssertEqualObjects(cell1.label.text, @"did-highlight");
 }
@@ -126,7 +126,7 @@
     IGListSectionController *controller = [self.adapter sectionControllerForSection:0];
     [controller didUnhighlightItemAtIndex:0];
     IGTestCell *cell1 = (IGTestCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-    
+
     // Check the cell label is updated in `IGTestBindingSingleSectionController`
     XCTAssertEqualObjects(cell1.label.text, @"did-unhighlight");
 }
