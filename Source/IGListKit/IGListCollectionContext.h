@@ -95,6 +95,21 @@ NS_SWIFT_NAME(ListCollectionContext)
                                              sectionController:(IGListSectionController *)sectionController;
 
 /**
+ Returns the supplementary view in the collection at the specified index for the section controller.
+
+ @param elementKind The element kind of the supplementary view.
+ @param index The index of the desired cell.
+ @param sectionController The section controller requesting this information.
+
+ @return The collection reusable view, or `nil` if not found.
+
+ @warning This method may return `nil` if the cell is offscreen.
+ */
+- (nullable __kindof UICollectionReusableView *)viewForSupplementaryElementOfKind:(NSString *)elementKind
+                                                                          atIndex:(NSInteger)index
+                                                                sectionController:(IGListSectionController *)sectionController;
+
+/**
  Returns the fully visible cells for the given section controller.
 
  @param sectionController The section controller requesting this information.

@@ -61,7 +61,12 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
     id <IGListSupplementaryViewSource> supplementarySource = [sectionController supplementaryViewSource];
+
+    // flag that a supplementary view is being dequeued in case it tries to access a supplementary view in the process
+    _isDequeuingSupplementaryView = YES;
     UICollectionReusableView *view = [supplementarySource viewForSupplementaryElementOfKind:kind atIndex:indexPath.item];
+    _isDequeuingSupplementaryView = NO;
+
     IGAssert(view != nil, @"Returned a nil supplementary view at indexPath <%@> from section controller: <%@>, supplementary source: <%@>", indexPath, sectionController, supplementarySource);
 
     // associate the section controller with the cell so that we know which section controller is using it

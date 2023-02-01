@@ -60,6 +60,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 ```
 
 ### Enhancements
+- Added `viewForSupplementaryElementOfKind:atIndex:sectionController:` to `IGListAdapter`. [ryanmathews]
+
 - Added `shouldDeselectItemAtIndex:` to `IGListSectionController` . [bladeofky](https://github.com/bladeofky)
 
 - Added `shouldSelectItemAtIndex:` to `IGListSectionController` . [dirtmelon](https://github.com/dirtmelon)

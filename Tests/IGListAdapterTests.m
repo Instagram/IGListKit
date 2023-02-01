@@ -2146,4 +2146,20 @@
     [sectionController.collectionContext invalidateLayoutForSectionController:sectionController completion:nil];
 }
 
+- (void)test_whenSettingSupplementaryView_thatViewForSupplementaryElementExists {
+    self.dataSource.objects = @[@0];
+    [self.adapter reloadDataWithCompletion:nil];
+
+    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
+    supplementarySource.collectionContext = self.adapter;
+    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
+
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@0];
+    controller.supplementaryViewSource = supplementarySource;
+    supplementarySource.sectionController = controller;
+
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+    XCTAssertNotNil([self.adapter viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader atIndex:0 sectionController:controller]);
+}
+
 @end
