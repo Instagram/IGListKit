@@ -1051,6 +1051,37 @@ typedef struct OffsetRange {
     return nil;
 }
 
+- (__kindof UICollectionReusableView *)viewForSupplementaryElementOfKind:(NSString *)elementKind
+                                                                 atIndex:(NSInteger)index
+                                                       sectionController:(IGListSectionController *)sectionController {
+    IGAssertMainThread();
+    IGParameterAssert(sectionController != nil);
+
+    // if this is accessed while a cell is being dequeued or displaying working range elements, just return nil
+    if (_isDequeuingSupplementaryView || _isSendingWorkingRangeDisplayUpdates) {
+        return nil;
+    }
+
+    NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:YES];
+    // prevent querying the collection view if it isn't fully reloaded yet for the current data set
+    if (indexPath != nil
+        && indexPath.section < [self.collectionView numberOfSections]) {
+        // only return a supplementary view if it belongs to the section controller
+        UICollectionReusableView *view = [self.collectionView supplementaryViewForElementKind:elementKind atIndexPath:indexPath];
+
+        if (IGListExperimentEnabled(_experiments, IGListExperimentSkipViewSectionControllerMap)) {
+            if ([self sectionControllerForSection:indexPath.section] == sectionController) {
+                return view;
+            }
+        } else {
+            if ([self sectionControllerForView:view] == sectionController) {
+                return view;
+            }
+        }
+    }
+    return nil;
+}
+
 - (NSArray<UICollectionViewCell *> *)fullyVisibleCellsForSectionController:(IGListSectionController *)sectionController {
     const NSInteger section = [self sectionForSectionController:sectionController];
     if (section == NSNotFound) {
