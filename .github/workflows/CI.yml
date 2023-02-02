@@ -74,6 +74,9 @@ jobs:
           xcodebuild build build-for-testing -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
           xcodebuild analyze test-without-building -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
 
+      - name: Run Slather
+        run: bundle exec slather
+
   Cocoapods:
     name: Cocoapods Lint 
     runs-on: macos-11
