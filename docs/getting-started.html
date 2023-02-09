@@ -292,7 +292,7 @@
 
 <p>Creating a new section controller is simple. Subclass <code><a href="Classes/IGListSectionController.html">IGListSectionController</a></code> and override at least <code>cellForItemAtIndex:</code> and <code>sizeForItemAtIndex:</code>.</p>
 
-<p>Take a look at <a href="https://raw.githubusercontent.com/Instagram/IGListKit/master/Examples/Examples-iOS/IGListKitExamples/SectionControllers/LabelSectionController.swift">LabelSectionController</a> for an example section controller that handles a <code>String</code> and configures a single cell with a <code>UILabel</code>.</p>
+<p>Take a look at <a href="https://raw.githubusercontent.com/Instagram/IGListKit/main/Examples/Examples-iOS/IGListKitExamples/SectionControllers/LabelSectionController.swift">LabelSectionController</a> for an example section controller that handles a <code>String</code> and configures a single cell with a <code>UILabel</code>.</p>
 <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">LabelSectionController</span><span class="p">:</span> <span class="kt">ListSectionController</span> <span class="p">{</span>
   <span class="k">override</span> <span class="kd">func</span> <span class="nf">sizeForItem</span><span class="p">(</span><span class="n">at</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span> <span class="p">{</span>
     <span class="k">return</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="n">collectionContext</span><span class="o">!.</span><span class="n">containerSize</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">55</span><span class="p">)</span>
@@ -414,7 +414,7 @@
                  <span class="nv">workingRangeSize</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">// 1 before/after visible objects</span>
 </code></pre>
 
-<p><img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/workingrange.png" alt="working-range"></p>
+<p><img src="https://raw.githubusercontent.com/Instagram/IGListKit/main/Resources/workingrange.png" alt="working-range"></p>
 
 <p>You can set the weak <code>workingRangeDelegate</code> on a section controller to receive events.</p>
 <h3 id='supplementary-views' class='heading'>Supplementary Views</h3>

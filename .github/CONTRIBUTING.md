@@ -6,7 +6,7 @@ please open an issue on GitHub.
 
 ## Pull Requests
 
-1. Fork the repo and create your branch from `master`.
+1. Fork the repo and create your branch from `main`.
 2. If you've added code that should be tested, add tests.
 3. If you've changed APIs, update the documentation.
 4. Ensure the test suite passes.
@@ -16,7 +16,7 @@ please open an issue on GitHub.
 
 ## Experimental changes
 
-If your change can't be unit tested, we might ask that you add your change as an experiment so that we can verify your change works. To do this, first add a new option to [IGListExperiment](https://github.com/Instagram/IGListKit/blob/master/Source/Common/IGListExperiments.h#L17).
+If your change can't be unit tested, we might ask that you add your change as an experiment so that we can verify your change works. To do this, first add a new option to [IGListExperiment](https://github.com/Instagram/IGListKit/blob/main/Source/Common/IGListExperiments.h#L17).
 
 Then, use an `experiments` bitmask wherever your change is and wrap it in a check to see if it is enabled:
 
@@ -30,11 +30,11 @@ Once your experiment is confirmed we will remove the option and wrapping check!
 
 ## How we do major and minor releases
 
-Everything merges into master. When we cut a release, we merge from `master` into `stable`, tag, and push to CocoaPods.
+Everything merges into `main`. When we cut a release, we merge from `main` into `stable`, tag, and push to CocoaPods.
 
 *Example:*
 
-If current release is `2.1.0`, then any commits for `2.2.0` go into `stable` while commits for `3.0` would go to `master`.
+If current release is `2.1.0`, then any commits for `2.2.0` go into `stable` while commits for `3.0` would go to `main`.
 
 ## Testing
 

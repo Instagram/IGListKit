@@ -12,15 +12,15 @@ In order to use the latest release of the framework, add the following to your `
 pod 'IGListKit', '~> 4.0'
 ```
 
-### Using `master`
+### Using `main`
 
-Alternatively, you can use the latest version from the [`master` branch](https://github.com/Instagram/IGListKit/tree/master). This is what we use at Instagram, so you can be confident that `master` is always stable and reliable.
+Alternatively, you can use the latest version from the [`main` branch](https://github.com/Instagram/IGListKit/tree/main). This is what we use at Instagram, so you can be confident that `main` is always stable and reliable.
 
 ```ruby
-pod 'IGListKit', :git => 'https://github.com/Instagram/IGListKit.git', :branch => 'master'
+pod 'IGListKit', :git => 'https://github.com/Instagram/IGListKit.git', :branch => 'main'
 ```
 
-> **Note:** while `master` is stable, it may have breaking changes. Before updating to `master`, be sure to check the [`CHANGELOG`](https://github.com/Instagram/IGListKit/blob/master/CHANGELOG.md) for details on changes.
+> **Note:** while `main` is stable, it may have breaking changes. Before updating to `main`, be sure to check the [`CHANGELOG`](https://github.com/Instagram/IGListKit/blob/main/CHANGELOG.md) for details on changes.
 
 ### Subspecs
 

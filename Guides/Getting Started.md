@@ -10,7 +10,7 @@ After installing `IGListKit`, creating a new list is easy.
 
 Creating a new section controller is simple. Subclass `IGListSectionController` and override at least `cellForItemAtIndex:` and `sizeForItemAtIndex:`.
 
-Take a look at [LabelSectionController](https://raw.githubusercontent.com/Instagram/IGListKit/master/Examples/Examples-iOS/IGListKitExamples/SectionControllers/LabelSectionController.swift) for an example section controller that handles a `String` and configures a single cell with a `UILabel`.
+Take a look at [LabelSectionController](https://raw.githubusercontent.com/Instagram/IGListKit/main/Examples/Examples-iOS/IGListKitExamples/SectionControllers/LabelSectionController.swift) for an example section controller that handles a `String` and configures a single cell with a `UILabel`.
 
 ```swift
 class LabelSectionController: ListSectionController {
@@ -153,7 +153,7 @@ let adapter = ListAdapter(updater: ListAdapterUpdater(),
                  workingRangeSize: 1) // 1 before/after visible objects
 ```
 
-![working-range](https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/workingrange.png)
+![working-range](https://raw.githubusercontent.com/Instagram/IGListKit/main/Resources/workingrange.png)
 
 You can set the weak `workingRangeDelegate` on a section controller to receive events.
 
