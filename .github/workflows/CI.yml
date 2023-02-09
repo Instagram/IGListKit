@@ -1,18 +1,18 @@
 name: "IGListKit CI"
 
-on: 
+on:
   push:
     branches: 
       - main
   pull_request:
-    branches: 
+    branches:
       - '*'
 
 jobs:
   macOS:
     name: Unit Test macOS
     runs-on: macos-11
-    env: 
+    env:
       DEVELOPER_DIR: /Applications/Xcode_13.0.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       SCHEME_NAME: IGListKit-macOS
@@ -37,13 +37,13 @@ jobs:
       - name: Run unit tests for macOS
         run: |
           set -o pipefail
-          xcodebuild build build-for-testing -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "platform=macOS" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
-          xcodebuild analyze test-without-building -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "platform=macOS" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+          xcodebuild build build-for-testing -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "platform=macOS" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+          xcodebuild analyze test-without-building -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "platform=macOS" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
 
   iOS:
-    name: Unit Test iOS 
+    name: Unit Test iOS
     runs-on: macos-11
-    env: 
+    env:
       DEVELOPER_DIR: /Applications/Xcode_13.0.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       SCHEME_NAME: IGListKit
@@ -71,13 +71,20 @@ jobs:
       - name: iOS - ${{ matrix.destination }}
         run: |
           set -o pipefail
-          xcodebuild build build-for-testing -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
-          xcodebuild analyze test-without-building -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+          xcodebuild build build-for-testing -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+          xcodebuild analyze test-without-building -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+
+      - name: Upload code coverage
+        run: bundle exec slather
+        env:
+          COVERAGE_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CI_PULL_REQUEST: ${{ github.event.number }}
+          GIT_BRANCH: ${{ github.head_ref || github.ref_name }}
 
   Cocoapods:
-    name: Cocoapods Lint 
+    name: Cocoapods Lint
     runs-on: macos-11
-    env: 
+    env:
       DEVELOPER_DIR: /Applications/Xcode_13.0.app
     steps:
       - name: Checkout
@@ -102,11 +109,11 @@ jobs:
 
       - name: Run IGListSwiftKit podspec lint
         run: bundle exec pod lib lint IGListSwiftKit.podspec --allow-warnings "--include-podspecs=*.podspec"
-      
+
   SPM-layout-generator:
     name: Verify generate_spm_sources_layout.sh is not broken
     runs-on: macos-11
-    env: 
+    env:
       DEVELOPER_DIR: /Applications/Xcode_13.0.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       PROJECT_NAME: IGListKit.xcodeproj
@@ -140,7 +147,7 @@ jobs:
   SPM-build-from-Package:
     name: Verify SPM build by invoking `xcodebuild` on Package.swift
     runs-on: macos-11
-    env: 
+    env:
       DEVELOPER_DIR: /Applications/Xcode_13.0.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       PROJECT_NAME: IGListKit.xcodeproj
@@ -163,9 +170,9 @@ jobs:
         run: xcodebuild -scheme "${{ matrix.schemeName}}" build -destination "${{ env.IOS_DESTINATION }}" | xcpretty
 
   Carthage-XCFramework:
-    name: Verify Carthage build XCFramework 
+    name: Verify Carthage build XCFramework
     runs-on: macos-11
-    env: 
+    env:
       DEVELOPER_DIR: /Applications/Xcode_13.0.app
     steps:
       - name: Checkout
@@ -175,9 +182,9 @@ jobs:
         run: carthage build --no-skip-current --use-xcframeworks
 
   Carthage-Legacy-Lipo-Binaries:
-    name: Verify Carthage build lipo binaries 
+    name: Verify Carthage build lipo binaries
     runs-on: macos-11
-    env: 
+    env:
       DEVELOPER_DIR: /Applications/Xcode_11.7.app
     steps:
       - name: Checkout
@@ -189,7 +196,7 @@ jobs:
   Build-Examples:
     name: Build Examples and UI tests.
     runs-on: macos-10.15
-    env: 
+    env:
       DEVELOPER_DIR: /Applications/Xcode_12.4.app
       IOS_EXAMPLE_WORKSPACE: Examples/Examples-iOS/IGListKitExamples.xcworkspace
       TVOS_EXAMPLE_WORKSPACE: Examples/Examples-tvOS/IGListKitExamples.xcworkspace
