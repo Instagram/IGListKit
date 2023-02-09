@@ -3,8 +3,8 @@
 </p>
 
 <p align="center">
-    <a href="https://travis-ci.org/Instagram/IGListKit">
-        <img src="https://travis-ci.org/Instagram/IGListKit.svg?branch=main&style=flat"
+    <a href="https://github.com/Instagram/IGListKit/actions/workflows/CI.yml">
+        <img src="https://img.shields.io/github/actions/workflow/status/Instagram/IGListKit/CI.yml"
              alt="Build Status">
     </a>
     <a href="https://coveralls.io/github/Instagram/IGListKit?branch=main">
