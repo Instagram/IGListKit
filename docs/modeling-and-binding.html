@@ -300,7 +300,7 @@
 
 <p>Take a look at the following Instagram-inspired list element design:</p>
 
-<p><img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/modeling-design.png" alt="Design Specs"></p>
+<p><img src="https://raw.githubusercontent.com/Instagram/IGListKit/main/Resources/modeling-design.png" alt="Design Specs"></p>
 
 <p>You can already start mentally modelling your data:</p>
 
@@ -534,7 +534,7 @@ final class ActionViewModel: ListDiffable {
 
 <p>Let&rsquo;s start using these models to power cells using <code>ListBindingSectionController</code>. This controller takes a top-level model (<code>Post</code>), asks its data source for an array of diffable view models (our view models above), then binds those view models to cells (provided in the starter project).</p>
 
-<p><img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/binding-flow.png" alt="Binding Flow"></p>
+<p><img src="https://raw.githubusercontent.com/Instagram/IGListKit/main/Resources/binding-flow.png" alt="Binding Flow"></p>
 
 <p>Create <strong>PostSectionController.swift</strong> and add the following code:</p>
 <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">PostSectionController</span><span class="p">:</span> <span class="kt">ListBindingSectionController</span><span class="o">&lt;</span><span class="kt">Post</span><span class="o">&gt;</span><span class="p">,</span>
@@ -770,7 +770,7 @@ final class CommentCell: UICollectionViewCell, ListBindable {
 
 <p><strong>Build and run</strong> the sample app to see your post show up!</p>
 
-<p><img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/modeling-working.png" alt="Working in the Simulator"></p>
+<p><img src="https://raw.githubusercontent.com/Instagram/IGListKit/main/Resources/modeling-working.png" alt="Working in the Simulator"></p>
 <h2 id='handling-cell-actions' class='heading'>Handling Cell Actions</h2>
 
 <p>This design should respond to tapping the heart icon on the <code>ActionCell</code>. In order to do that, you need to handle taps on the <code>UIButton</code>, then forward the event to the <code>PostSectionController</code>:</p>
@@ -852,7 +852,7 @@ final class CommentCell: UICollectionViewCell, ListBindable {
 <p><strong>Build and run</strong> the app, tap on the heart button, and see your likes increment!</p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/modeling-likes.gif" width=300  />
+  <img src="https://raw.githubusercontent.com/Instagram/IGListKit/main/Resources/modeling-likes.gif" width=300  />
 </p>
 <h2 id='wrapping-up' class='heading'>Wrapping up</h2>
 

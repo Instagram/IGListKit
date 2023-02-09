@@ -320,16 +320,16 @@
 
 <p>You can simply find regex <code>IGListCollectionView([ |\*|\(])</code> and replace with regex <code>UICollectionView$1</code> in your project to fix this.</p>
 
-<p><img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/replace-iglistcollectionview.png" alt="Replace IGListCollectionView"></p>
+<p><img src="https://raw.githubusercontent.com/Instagram/IGListKit/main/Resources/replace-iglistcollectionview.png" alt="Replace IGListCollectionView"></p>
 <h3 id='removed-code-iglistgridcollectionviewlayout-code' class='heading'>Removed <code>IGListGridCollectionViewLayout</code></h3>
 
 <p>Start using <code><a href="Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a></code> instead of <code>IGListGridCollectionViewLayout</code>.</p>
 
 <ul>
 <li><code>scrollDirection</code> is not yet supported. If you need horizontal scrolling, please use <code>UICollectionViewFlowLayout</code> or file an issue.</li>
-<li>Set <code>minimumLineSpacing</code> on your <a href="https://github.com/Instagram/IGListKit/blob/master/Source/IGListSectionController.h#L59-L64">section controllers</a> instead of the layout</li>
-<li>Set <code>minimumInteritemSpacing</code> on your <a href="https://github.com/Instagram/IGListKit/blob/master/Source/IGListSectionController.h#L66-L71">section controllers</a> instead of the layout</li>
-<li>Return the size of your cells in <a href="https://github.com/Instagram/IGListKit/blob/master/Source/IGListSectionController.h#L48">sizeForItemAtIndex:</a> instead of setting it on the layout.</li>
+<li>Set <code>minimumLineSpacing</code> on your <a href="https://github.com/Instagram/IGListKit/blob/main/Source/IGListSectionController.h#L59-L64">section controllers</a> instead of the layout</li>
+<li>Set <code>minimumInteritemSpacing</code> on your <a href="https://github.com/Instagram/IGListKit/blob/main/Source/IGListSectionController.h#L66-L71">section controllers</a> instead of the layout</li>
+<li>Return the size of your cells in <a href="https://github.com/Instagram/IGListKit/blob/main/Source/IGListSectionController.h#L48">sizeForItemAtIndex:</a> instead of setting it on the layout.</li>
 </ul>
 <h3 id='item-mutations-must-be-wrapped-in-code-iglistcollectioncontext-performbatchanimated-completion-code' class='heading'>Item mutations must be wrapped in <code>-[IGListCollectionContext performBatchAnimated:completion:]</code></h3>
 

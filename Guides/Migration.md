@@ -37,16 +37,16 @@ If you were using `IGListDiff(...)` _inside_ a section controller to compute dif
 
 You can simply find regex `IGListCollectionView([ |\*|\(])` and replace with regex `UICollectionView$1` in your project to fix this.
 
-![Replace IGListCollectionView](https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/replace-iglistcollectionview.png)
+![Replace IGListCollectionView](https://raw.githubusercontent.com/Instagram/IGListKit/main/Resources/replace-iglistcollectionview.png)
 
 ### Removed `IGListGridCollectionViewLayout`
 
 Start using `IGListCollectionViewLayout` instead of `IGListGridCollectionViewLayout`.
 
 - `scrollDirection` is not yet supported. If you need horizontal scrolling, please use `UICollectionViewFlowLayout` or file an issue.
-- Set `minimumLineSpacing` on your [section controllers](https://github.com/Instagram/IGListKit/blob/master/Source/IGListSectionController.h#L59-L64) instead of the layout
-- Set `minimumInteritemSpacing` on your [section controllers](https://github.com/Instagram/IGListKit/blob/master/Source/IGListSectionController.h#L66-L71) instead of the layout
-- Return the size of your cells in [sizeForItemAtIndex:](https://github.com/Instagram/IGListKit/blob/master/Source/IGListSectionController.h#L48) instead of setting it on the layout.
+- Set `minimumLineSpacing` on your [section controllers](https://github.com/Instagram/IGListKit/blob/main/Source/IGListSectionController.h#L59-L64) instead of the layout
+- Set `minimumInteritemSpacing` on your [section controllers](https://github.com/Instagram/IGListKit/blob/main/Source/IGListSectionController.h#L66-L71) instead of the layout
+- Return the size of your cells in [sizeForItemAtIndex:](https://github.com/Instagram/IGListKit/blob/main/Source/IGListSectionController.h#L48) instead of setting it on the layout.
 
 ### Item mutations must be wrapped in `-[IGListCollectionContext performBatchAnimated:completion:]`
 

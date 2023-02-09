@@ -1,14 +1,14 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Instagram/IGListKit/master/Resources/logo-animation.gif" width=400 />
+  <img src="https://raw.githubusercontent.com/Instagram/IGListKit/main/Resources/logo-animation.gif" width=400 />
 </p>
 
 <p align="center">
     <a href="https://travis-ci.org/Instagram/IGListKit">
-        <img src="https://travis-ci.org/Instagram/IGListKit.svg?branch=master&style=flat"
+        <img src="https://travis-ci.org/Instagram/IGListKit.svg?branch=main&style=flat"
              alt="Build Status">
     </a>
-    <a href="https://coveralls.io/github/Instagram/IGListKit?branch=master">
-      <img src="https://coveralls.io/repos/github/Instagram/IGListKit/badge.svg?branch=master"
+    <a href="https://coveralls.io/github/Instagram/IGListKit?branch=main">
+      <img src="https://coveralls.io/repos/github/Instagram/IGListKit/badge.svg?branch=main"
            alt="Coverage Status" />
     </a>
     <a href="https://cocoapods.org/pods/IGListKit">
@@ -42,7 +42,7 @@
 &#128038; | Objective-C 编写,同时完全支持 Swift
 
 `IGListKit`由 [Instagram 工程师](https://engineering.instagram.com/) 创建 并且&#10084;&#65039; 维护。
-我们在 Instagram 中使用开源的`master`主版本。
+我们在 Instagram 中使用开源的`main`主版本。
 ## 多语言翻译
 
 [英文README](README.md)
@@ -85,7 +85,7 @@ $ ./scripts/setup.sh
 
 - [入门指南](https://instagram.github.io/IGListKit/getting-started.html)
 - Ray Wenderlich's [IGListKit Tutorial: Better UICollectionViews](https://www.raywenderlich.com/147162/iglistkit-tutorial-better-uicollectionviews)
-- [样例项目](https://github.com/Instagram/IGListKit/tree/master/Examples)
+- [样例项目](https://github.com/Instagram/IGListKit/tree/main/Examples)
 - Ryan Nystrom's [talk at try! Swift NYC](https://realm.io/news/tryswift-ryan-nystrom-refactoring-at-scale-lessons-learned-rewriting-instagram-feed/) (Note: this talk was for an earlier version. Some APIs have changed.)
 - [Migrating an UITableView to IGListCollectionView](https://medium.com/cocoaacademymag/iglistkit-migrating-an-uitableview-to-iglistkitcollectionview-65a30cf9bac9), by Rodrigo Cavalcante
 - [Keeping data fresh in Buffer for iOS with AsyncDisplayKit, IGListKit & Pusher](https://overflow.buffer.com/2017/04/10/keeping-data-fresh-buffer-ios-asyncdisplaykit-iglistkit-pusher/), Andy Yates, Buffer
@@ -98,11 +98,11 @@ $ ./scripts/setup.sh
 
 ## 远景
 
-想要了解`IGListKit`的长期目标和愿景，请阅读[Vision](https://github.com/Instagram/IGListKit/blob/master/Guides/VISION.md)。
+想要了解`IGListKit`的长期目标和愿景，请阅读[Vision](https://github.com/Instagram/IGListKit/blob/main/Guides/VISION.md)。
 
 ## 贡献
 
-请查看[CONTRIBUTING](https://github.com/Instagram/IGListKit/blob/master/.github/CONTRIBUTING.md)来了解如何参与贡献。在 Instagram，我们每日都会同步开源版本的`IGListKit`，因此我们总是在测试最新的改动。但是这也需要所有的改动都需要经历完全的测试，并且遵守我们的开发风格。
+请查看[CONTRIBUTING](https://github.com/Instagram/IGListKit/blob/main/.github/CONTRIBUTING.md)来了解如何参与贡献。在 Instagram，我们每日都会同步开源版本的`IGListKit`，因此我们总是在测试最新的改动。但是这也需要所有的改动都需要经历完全的测试，并且遵守我们的开发风格。
 
 我们有一系列[新人任务](https://github.com/Instagram/IGListKit/issues?q=is%3Aissue+is%3Aopen+label%3Astarter-task)，来帮助新人学习如何参入其中。
 
