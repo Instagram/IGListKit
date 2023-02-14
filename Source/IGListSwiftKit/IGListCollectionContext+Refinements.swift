@@ -33,6 +33,8 @@ extension ListCollectionContext {
             fatalError()
         }
 
+        print("Hello world!")
+
         return cell
     }
 
