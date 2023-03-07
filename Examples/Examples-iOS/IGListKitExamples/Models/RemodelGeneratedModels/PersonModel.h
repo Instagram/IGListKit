@@ -12,7 +12,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListDiffKit/IGListDiffable.h>
+@import IGListDiffKit;
 
 @interface PersonModel : NSObject <IGListDiffable, NSCopying>
 

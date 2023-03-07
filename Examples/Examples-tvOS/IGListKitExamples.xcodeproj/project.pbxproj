@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,13 +21,13 @@
 		98ED5C3B1DC53DD000EA56B2 /* HorizontalSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C3A1DC53DD000EA56B2 /* HorizontalSectionController.swift */; };
 		98ED5C3D1DC53E5600EA56B2 /* EmbeddedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C3C1DC53E5600EA56B2 /* EmbeddedCollectionViewCell.swift */; };
 		98ED5C3F1DC53EB200EA56B2 /* CarouselSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED5C3E1DC53EB200EA56B2 /* CarouselSectionController.swift */; };
-		9F31657C90242915370E4420 /* Pods_IGListKitExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7DB43F76EDA298E2CADE284 /* Pods_IGListKitExamples.framework */; };
+		BAB336FD2760F338007B4098 /* IGListDiffKit in Frameworks */ = {isa = PBXBuildFile; productRef = BAB336FC2760F338007B4098 /* IGListDiffKit */; };
+		BAB336FF2760F338007B4098 /* IGListKit in Frameworks */ = {isa = PBXBuildFile; productRef = BAB336FE2760F338007B4098 /* IGListKit */; };
+		BAB337012760F338007B4098 /* IGListSwiftKit in Frameworks */ = {isa = PBXBuildFile; productRef = BAB337002760F338007B4098 /* IGListSwiftKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		030636205824E1C56763A545 /* Pods-IGListKitExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.debug.xcconfig"; sourceTree = "<group>"; };
 		298D91C41DDF81DB00E70CAD /* NSObject+IGListDiffable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+IGListDiffable.swift"; sourceTree = "<group>"; };
-		365F970D8695E37EA77E52A6 /* Pods-IGListKitExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.release.xcconfig"; sourceTree = "<group>"; };
 		98ED5C171DC52AD400EA56B2 /* IGListKitExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IGListKitExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98ED5C1A1DC52AD400EA56B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98ED5C1C1DC52AD400EA56B2 /* DemosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DemosViewController.swift; path = ViewControllers/DemosViewController.swift; sourceTree = "<group>"; };
@@ -43,6 +43,7 @@
 		98ED5C3A1DC53DD000EA56B2 /* HorizontalSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HorizontalSectionController.swift; path = SectionControllers/HorizontalSectionController.swift; sourceTree = "<group>"; };
 		98ED5C3C1DC53E5600EA56B2 /* EmbeddedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmbeddedCollectionViewCell.swift; path = Views/EmbeddedCollectionViewCell.swift; sourceTree = "<group>"; };
 		98ED5C3E1DC53EB200EA56B2 /* CarouselSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CarouselSectionController.swift; path = SectionControllers/CarouselSectionController.swift; sourceTree = "<group>"; };
+		BAB336FB2760F32A007B4098 /* IGListKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = IGListKit; path = ../..; sourceTree = "<group>"; };
 		C7DB43F76EDA298E2CADE284 /* Pods_IGListKitExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -51,22 +52,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F31657C90242915370E4420 /* Pods_IGListKitExamples.framework in Frameworks */,
+				BAB336FD2760F338007B4098 /* IGListDiffKit in Frameworks */,
+				BAB336FF2760F338007B4098 /* IGListKit in Frameworks */,
+				BAB337012760F338007B4098 /* IGListSwiftKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		064EB0F1E601633F676A0EAF /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				030636205824E1C56763A545 /* Pods-IGListKitExamples.debug.xcconfig */,
-				365F970D8695E37EA77E52A6 /* Pods-IGListKitExamples.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		25284CDF3BDBCCE297C9E448 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -87,8 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				98ED5C191DC52AD400EA56B2 /* IGListKitExamples */,
+				BAB336FA2760F32A007B4098 /* Packages */,
 				98ED5C181DC52AD400EA56B2 /* Products */,
-				064EB0F1E601633F676A0EAF /* Pods */,
 				25284CDF3BDBCCE297C9E448 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -147,6 +141,14 @@
 			name = SectionControllers;
 			sourceTree = "<group>";
 		};
+		BAB336FA2760F32A007B4098 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				BAB336FB2760F32A007B4098 /* IGListKit */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -154,11 +156,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98ED5C261DC52AD400EA56B2 /* Build configuration list for PBXNativeTarget "IGListKitExamples" */;
 			buildPhases = (
-				056216B820A1E8CAA2C237CC /* [CP] Check Pods Manifest.lock */,
 				98ED5C131DC52AD400EA56B2 /* Sources */,
 				98ED5C141DC52AD400EA56B2 /* Frameworks */,
 				98ED5C151DC52AD400EA56B2 /* Resources */,
-				94ED0862BED5FDA44D2DD21D /* [CP] Embed Pods Frameworks */,
 				DC1296C31EC389410043990F /* SwiftLint */,
 			);
 			buildRules = (
@@ -166,6 +166,11 @@
 			dependencies = (
 			);
 			name = IGListKitExamples;
+			packageProductDependencies = (
+				BAB336FC2760F338007B4098 /* IGListDiffKit */,
+				BAB336FE2760F338007B4098 /* IGListKit */,
+				BAB337002760F338007B4098 /* IGListSwiftKit */,
+			);
 			productName = IGListKitExamples;
 			productReference = 98ED5C171DC52AD400EA56B2 /* IGListKitExamples.app */;
 			productType = "com.apple.product-type.application";
@@ -177,7 +182,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1420;
 				ORGANIZATIONNAME = Instagram;
 				TargetAttributes = {
 					98ED5C161DC52AD400EA56B2 = {
@@ -189,10 +194,9 @@
 			};
 			buildConfigurationList = 98ED5C121DC52AD300EA56B2 /* Build configuration list for PBXProject "IGListKitExamples" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -219,46 +223,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		056216B820A1E8CAA2C237CC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-IGListKitExamples-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		94ED0862BED5FDA44D2DD21D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/IGListDiffKit/IGListDiffKit.framework",
-				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
-				"${BUILT_PRODUCTS_DIR}/IGListSwiftKit/IGListSwiftKit.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListDiffKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListSwiftKit.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		DC1296C31EC389410043990F /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -302,6 +266,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -311,6 +276,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -318,8 +284,10 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -350,7 +318,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Debug;
 		};
@@ -358,6 +326,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -367,6 +336,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -374,8 +344,10 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -396,44 +368,49 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = appletvos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		98ED5C271DC52AD400EA56B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 030636205824E1C56763A545 /* Pods-IGListKitExamples.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = IGListKitExamples/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
 		98ED5C281DC52AD400EA56B2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 365F970D8695E37EA77E52A6 /* Pods-IGListKitExamples.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = IGListKitExamples/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -459,6 +436,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BAB336FC2760F338007B4098 /* IGListDiffKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IGListDiffKit;
+		};
+		BAB336FE2760F338007B4098 /* IGListKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IGListKit;
+		};
+		BAB337002760F338007B4098 /* IGListSwiftKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IGListSwiftKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 98ED5C0F1DC52AD300EA56B2 /* Project object */;
 }
