@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07C17786BCC6ABD68C8BFA69 /* Pods_IGListKitTodayExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DEF56A3C9C414B461D113F /* Pods_IGListKitTodayExample.framework */; };
 		13DF01681F9D9CBD0092A320 /* ReorderableSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DF01671F9D9CBD0092A320 /* ReorderableSectionController.swift */; };
 		13DF016A1F9D9F600092A320 /* ReorderableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DF01691F9D9F600092A320 /* ReorderableViewController.swift */; };
 		26271C8E1DAE9D3F0073E116 /* SingleSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26271C8D1DAE9D3F0073E116 /* SingleSectionViewController.swift */; };
@@ -86,12 +85,12 @@
 		986FB7131DBBA60900A65C18 /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 986FB7121DBBA60900A65C18 /* Messages.framework */; };
 		986FB7161DBBA60900A65C18 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986FB7151DBBA60900A65C18 /* MessagesViewController.swift */; };
 		986FB71B1DBBA60900A65C18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 986FB71A1DBBA60900A65C18 /* Assets.xcassets */; };
-		986FB71F1DBBA60900A65C18 /* IGListKitMessageExample.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 986FB7111DBBA60900A65C18 /* IGListKitMessageExample.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		986FB71F1DBBA60900A65C18 /* IGListKitMessageExample.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 986FB7111DBBA60900A65C18 /* IGListKitMessageExample.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		986FB7281DBBA9B200A65C18 /* LabelSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2942FF881D9F39E00015D24B /* LabelSectionController.swift */; };
 		986FB7291DBBA9C900A65C18 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961B3A71D68B0B5001C9451 /* LabelCell.swift */; };
 		986FB7311DBBAD8600A65C18 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 986FB7301DBBAD8600A65C18 /* NotificationCenter.framework */; };
 		986FB7341DBBAD8600A65C18 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986FB7331DBBAD8600A65C18 /* TodayViewController.swift */; };
-		986FB73B1DBBAD8600A65C18 /* IGListKitTodayExample.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 986FB72F1DBBAD8600A65C18 /* IGListKitTodayExample.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		986FB73B1DBBAD8600A65C18 /* IGListKitTodayExample.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 986FB72F1DBBAD8600A65C18 /* IGListKitTodayExample.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		986FB7401DBBAEA600A65C18 /* LabelSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2942FF881D9F39E00015D24B /* LabelSectionController.swift */; };
 		986FB7411DBBAEA900A65C18 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961B3A71D68B0B5001C9451 /* LabelCell.swift */; };
 		98B4DBF41DC2937A002BA58A /* Demo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98B4DBF31DC2937A002BA58A /* Demo.storyboard */; };
@@ -99,8 +98,15 @@
 		9DFF4CFB251F089E0048474A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB684E0251B10C2002023DD /* UIColor+Extension.swift */; };
 		9DFF4D00251F089F0048474A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB684E0251B10C2002023DD /* UIColor+Extension.swift */; };
 		9DFF4D06251F08F50048474A /* UIActivityIndicatorView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFF4D05251F08F50048474A /* UIActivityIndicatorView+Extension.swift */; };
-		C82AE9741251907F18F77350 /* Pods_IGListKitMessageExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7B1FA2EFFA5E994FEE587DE /* Pods_IGListKitMessageExample.framework */; };
-		CBA8F64BE2F00E8B3DEFF6ED /* Pods_IGListKitExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7316EF8201F89655D39E53 /* Pods_IGListKitExamples.framework */; };
+		BAB336E42760ECC1007B4098 /* IGListDiffKit in Frameworks */ = {isa = PBXBuildFile; productRef = BAB336E32760ECC1007B4098 /* IGListDiffKit */; };
+		BAB336E62760ECC1007B4098 /* IGListKit in Frameworks */ = {isa = PBXBuildFile; productRef = BAB336E52760ECC1007B4098 /* IGListKit */; };
+		BAB336E82760ECC1007B4098 /* IGListSwiftKit in Frameworks */ = {isa = PBXBuildFile; productRef = BAB336E72760ECC1007B4098 /* IGListSwiftKit */; };
+		BAB336EA2760ECE5007B4098 /* IGListKit in Frameworks */ = {isa = PBXBuildFile; productRef = BAB336E92760ECE5007B4098 /* IGListKit */; };
+		BAB336EC2760ECFE007B4098 /* IGListKit in Frameworks */ = {isa = PBXBuildFile; productRef = BAB336EB2760ECFE007B4098 /* IGListKit */; };
+		BAB336EE2760ED0C007B4098 /* IGListSwiftKit in Frameworks */ = {isa = PBXBuildFile; productRef = BAB336ED2760ED0C007B4098 /* IGListSwiftKit */; };
+		BAB336F02760ED28007B4098 /* IGListDiffKit in Frameworks */ = {isa = PBXBuildFile; productRef = BAB336EF2760ED28007B4098 /* IGListDiffKit */; };
+		BAB336F22760ED55007B4098 /* IGListDiffKit in Frameworks */ = {isa = PBXBuildFile; productRef = BAB336F12760ED55007B4098 /* IGListDiffKit */; };
+		BAB336F42760EDCB007B4098 /* IGListSwiftKit in Frameworks */ = {isa = PBXBuildFile; productRef = BAB336F32760EDCB007B4098 /* IGListSwiftKit */; };
 		EB0289A2202A11E0007E17D5 /* PersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB02899F202A11DF007E17D5 /* PersonModel.m */; };
 		EB0289A3202A11E0007E17D5 /* PersonModel.value in Resources */ = {isa = PBXBuildFile; fileRef = EB0289A0202A11DF007E17D5 /* PersonModel.value */; };
 		EB0289A6202A14E1007E17D5 /* ObjcGeneratedModelDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0289A5202A14E1007E17D5 /* ObjcGeneratedModelDemoViewController.m */; };
@@ -227,8 +233,6 @@
 		56C05B741E49B33C0026DB39 /* InteractiveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractiveCell.m; sourceTree = "<group>"; };
 		56C05B761E49B3A50026DB39 /* PhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCell.h; sourceTree = "<group>"; };
 		56C05B771E49B3A50026DB39 /* PhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCell.m; sourceTree = "<group>"; };
-		66820C2A1481EB56B9AAB712 /* Pods-IGListKitMessageExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitMessageExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitMessageExample/Pods-IGListKitMessageExample.release.xcconfig"; sourceTree = "<group>"; };
-		71EB86D74844FC8DF5494D89 /* Pods-IGListKitExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.debug.xcconfig"; sourceTree = "<group>"; };
 		821BC4B51DB8B3DC00172ED0 /* StoryboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardViewController.swift; sourceTree = "<group>"; };
 		821BC4B71DB8B48300172ED0 /* StoryboardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardCell.swift; sourceTree = "<group>"; };
 		821BC4B91DB8B61200172ED0 /* StoryboardLabelSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardLabelSectionController.swift; sourceTree = "<group>"; };
@@ -250,12 +254,11 @@
 		986FB7331DBBAD8600A65C18 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		986FB7381DBBAD8600A65C18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98B4DBF31DC2937A002BA58A /* Demo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Demo.storyboard; path = IGListKitExamples/Storyboard/Demo.storyboard; sourceTree = "<group>"; };
-		9B462C62486AED269F046A35 /* Pods-IGListKitTodayExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTodayExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTodayExample/Pods-IGListKitTodayExample.debug.xcconfig"; sourceTree = "<group>"; };
 		9DB684E0251B10C2002023DD /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		9DFF4D05251F08F50048474A /* UIActivityIndicatorView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+Extension.swift"; sourceTree = "<group>"; };
 		B7B1FA2EFFA5E994FEE587DE /* Pods_IGListKitMessageExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitMessageExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B87895B5B9CB6A17AF47F4C9 /* Pods-IGListKitTodayExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitTodayExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitTodayExample/Pods-IGListKitTodayExample.release.xcconfig"; sourceTree = "<group>"; };
-		C544C2903D822EF8E4E91142 /* Pods-IGListKitExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples.release.xcconfig"; sourceTree = "<group>"; };
+		BAB336E22760EC95007B4098 /* IGListKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = IGListKit; path = ../..; sourceTree = "<group>"; };
+		BAB337022760F50D007B4098 /* IGListKitExamples.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IGListKitExamples.entitlements; sourceTree = "<group>"; };
 		EB02899F202A11DF007E17D5 /* PersonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonModel.m; sourceTree = "<group>"; };
 		EB0289A0202A11DF007E17D5 /* PersonModel.value */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PersonModel.value; sourceTree = "<group>"; };
 		EB0289A1202A11DF007E17D5 /* PersonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonModel.h; sourceTree = "<group>"; };
@@ -265,7 +268,6 @@
 		EB0289A8202A1507007E17D5 /* PersonSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonSectionController.m; sourceTree = "<group>"; };
 		EB0289AA202A1705007E17D5 /* PersonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCell.m; sourceTree = "<group>"; };
 		EB0289AB202A1705007E17D5 /* PersonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCell.h; sourceTree = "<group>"; };
-		F59714C01F184FD73C2AE02F /* Pods-IGListKitMessageExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGListKitMessageExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IGListKitMessageExample/Pods-IGListKitMessageExample.debug.xcconfig"; sourceTree = "<group>"; };
 		FE7316EF8201F89655D39E53 /* Pods_IGListKitExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF73FF9B1FBA4B4400F2AB06 /* UserFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFooterView.swift; sourceTree = "<group>"; };
 		FF73FF9D1FBA4B5500F2AB06 /* UserFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserFooterView.xib; sourceTree = "<group>"; };
@@ -276,7 +278,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBA8F64BE2F00E8B3DEFF6ED /* Pods_IGListKitExamples.framework in Frameworks */,
+				BAB336E42760ECC1007B4098 /* IGListDiffKit in Frameworks */,
+				BAB336E62760ECC1007B4098 /* IGListKit in Frameworks */,
+				BAB336E82760ECC1007B4098 /* IGListSwiftKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,7 +296,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				986FB7131DBBA60900A65C18 /* Messages.framework in Frameworks */,
-				C82AE9741251907F18F77350 /* Pods_IGListKitMessageExample.framework in Frameworks */,
+				BAB336F22760ED55007B4098 /* IGListDiffKit in Frameworks */,
+				BAB336EC2760ECFE007B4098 /* IGListKit in Frameworks */,
+				BAB336F42760EDCB007B4098 /* IGListSwiftKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,7 +307,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				986FB7311DBBAD8600A65C18 /* NotificationCenter.framework in Frameworks */,
-				07C17786BCC6ABD68C8BFA69 /* Pods_IGListKitTodayExample.framework in Frameworks */,
+				BAB336EA2760ECE5007B4098 /* IGListKit in Frameworks */,
+				BAB336F02760ED28007B4098 /* IGListDiffKit in Frameworks */,
+				BAB336EE2760ED0C007B4098 /* IGListSwiftKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,19 +326,6 @@
 				49DEF56A3C9C414B461D113F /* Pods_IGListKitTodayExample.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		1D8023D6A2174F2BBE1EEF25 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				71EB86D74844FC8DF5494D89 /* Pods-IGListKitExamples.debug.xcconfig */,
-				C544C2903D822EF8E4E91142 /* Pods-IGListKitExamples.release.xcconfig */,
-				F59714C01F184FD73C2AE02F /* Pods-IGListKitMessageExample.debug.xcconfig */,
-				66820C2A1481EB56B9AAB712 /* Pods-IGListKitMessageExample.release.xcconfig */,
-				9B462C62486AED269F046A35 /* Pods-IGListKitTodayExample.debug.xcconfig */,
-				B87895B5B9CB6A17AF47F4C9 /* Pods-IGListKitTodayExample.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		2926585C1E74A0360041B56D /* ViewModels */ = {
@@ -377,9 +372,9 @@
 				986FB7141DBBA60900A65C18 /* IGListKitMessageExample */,
 				986FB7321DBBAD8600A65C18 /* IGListKitTodayExample */,
 				95F7F9121DE5006C00A64FEE /* IGListKitExamples-UITests */,
+				BAB336E12760EC95007B4098 /* Packages */,
 				2961B38B1D68B031001C9451 /* Products */,
 				0853E82EF5C5E4BD4E0760E3 /* Frameworks */,
-				1D8023D6A2174F2BBE1EEF25 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -400,6 +395,7 @@
 				2961B38D1D68B031001C9451 /* AppDelegate.swift */,
 				2961B3941D68B031001C9451 /* Assets.xcassets */,
 				9DB684DF251B1093002023DD /* Extensions */,
+				BAB337022760F50D007B4098 /* IGListKitExamples.entitlements */,
 				2961B3991D68B031001C9451 /* Info.plist */,
 				2961B3961D68B031001C9451 /* LaunchScreen.storyboard */,
 				2991F91C1D7BB30300B0C58F /* Models */,
@@ -568,6 +564,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		BAB336E12760EC95007B4098 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				BAB336E22760EC95007B4098 /* IGListKit */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		EB02899E202A11DF007E17D5 /* RemodelGeneratedModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -585,12 +589,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2961B39C1D68B031001C9451 /* Build configuration list for PBXNativeTarget "IGListKitExamples" */;
 			buildPhases = (
-				4172ED38D5A87860A4F43390 /* [CP] Check Pods Manifest.lock */,
 				2961B3861D68B031001C9451 /* Sources */,
 				2961B3871D68B031001C9451 /* Frameworks */,
 				2961B3881D68B031001C9451 /* Resources */,
 				986FB7231DBBA60900A65C18 /* Embed App Extensions */,
-				985349E4AB771563497C83A5 /* [CP] Embed Pods Frameworks */,
 				DC1296C41EC38A0B0043990F /* SwiftLint */,
 			);
 			buildRules = (
@@ -600,6 +602,11 @@
 				986FB73A1DBBAD8600A65C18 /* PBXTargetDependency */,
 			);
 			name = IGListKitExamples;
+			packageProductDependencies = (
+				BAB336E32760ECC1007B4098 /* IGListDiffKit */,
+				BAB336E52760ECC1007B4098 /* IGListKit */,
+				BAB336E72760ECC1007B4098 /* IGListSwiftKit */,
+			);
 			productName = IGListKitExamples;
 			productReference = 2961B38A1D68B031001C9451 /* IGListKitExamples.app */;
 			productType = "com.apple.product-type.application";
@@ -626,7 +633,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 986FB7221DBBA60900A65C18 /* Build configuration list for PBXNativeTarget "IGListKitMessageExample" */;
 			buildPhases = (
-				7910AB0B0119845230139A42 /* [CP] Check Pods Manifest.lock */,
 				986FB70D1DBBA60900A65C18 /* Sources */,
 				986FB70E1DBBA60900A65C18 /* Frameworks */,
 				986FB70F1DBBA60900A65C18 /* Resources */,
@@ -636,6 +642,11 @@
 			dependencies = (
 			);
 			name = IGListKitMessageExample;
+			packageProductDependencies = (
+				BAB336EB2760ECFE007B4098 /* IGListKit */,
+				BAB336F12760ED55007B4098 /* IGListDiffKit */,
+				BAB336F32760EDCB007B4098 /* IGListSwiftKit */,
+			);
 			productName = MessageExtension;
 			productReference = 986FB7111DBBA60900A65C18 /* IGListKitMessageExample.appex */;
 			productType = "com.apple.product-type.app-extension.messages";
@@ -644,7 +655,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 986FB73C1DBBAD8600A65C18 /* Build configuration list for PBXNativeTarget "IGListKitTodayExample" */;
 			buildPhases = (
-				92C870297B4AB33D0579FFCD /* [CP] Check Pods Manifest.lock */,
 				986FB72B1DBBAD8600A65C18 /* Sources */,
 				986FB72C1DBBAD8600A65C18 /* Frameworks */,
 				986FB72D1DBBAD8600A65C18 /* Resources */,
@@ -654,6 +664,11 @@
 			dependencies = (
 			);
 			name = IGListKitTodayExample;
+			packageProductDependencies = (
+				BAB336E92760ECE5007B4098 /* IGListKit */,
+				BAB336ED2760ED0C007B4098 /* IGListSwiftKit */,
+				BAB336EF2760ED28007B4098 /* IGListDiffKit */,
+			);
 			productName = IGListKitTodayExample;
 			productReference = 986FB72F1DBBAD8600A65C18 /* IGListKitTodayExample.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -754,82 +769,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4172ED38D5A87860A4F43390 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-IGListKitExamples-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7910AB0B0119845230139A42 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-IGListKitMessageExample-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		92C870297B4AB33D0579FFCD /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-IGListKitTodayExample-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		985349E4AB771563497C83A5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/IGListDiffKit/IGListDiffKit.framework",
-				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
-				"${BUILT_PRODUCTS_DIR}/IGListSwiftKit/IGListSwiftKit.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListDiffKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListSwiftKit.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IGListKitExamples/Pods-IGListKitExamples-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		DC1296C41EC38A0B0043990F /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -970,11 +909,13 @@
 		};
 		986FB71E1DBBA60900A65C18 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = 986FB7101DBBA60900A65C18 /* IGListKitMessageExample */;
 			targetProxy = 986FB71D1DBBA60900A65C18 /* PBXContainerItemProxy */;
 		};
 		986FB73A1DBBAD8600A65C18 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = 986FB72E1DBBAD8600A65C18 /* IGListKitTodayExample */;
 			targetProxy = 986FB7391DBBAD8600A65C18 /* PBXContainerItemProxy */;
 		};
@@ -1087,51 +1028,64 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		2961B39D1D68B031001C9451 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 71EB86D74844FC8DF5494D89 /* Pods-IGListKitExamples.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = IGListKitExamples/IGListKitExamples.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = IGListKitExamples/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "IGListKitExamples/ViewControllers/IGListKitExamples-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		2961B39E1D68B031001C9451 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C544C2903D822EF8E4E91142 /* Pods-IGListKitExamples.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = IGListKitExamples/IGListKitExamples.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = IGListKitExamples/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "IGListKitExamples/ViewControllers/IGListKitExamples-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1143,7 +1097,11 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "IGListKitExamples-UITests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.instagram.IGListKitExamples-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1161,7 +1119,11 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "IGListKitExamples-UITests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.instagram.IGListKitExamples-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
@@ -1172,7 +1134,6 @@
 		};
 		986FB7201DBBA60900A65C18 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F59714C01F184FD73C2AE02F /* Pods-IGListKitMessageExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1180,11 +1141,16 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/IGListKitMessageExample/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples.IGListKitMessageExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 5.0;
@@ -1193,7 +1159,6 @@
 		};
 		986FB7211DBBA60900A65C18 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 66820C2A1481EB56B9AAB712 /* Pods-IGListKitMessageExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1201,11 +1166,16 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/IGListKitMessageExample/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples.IGListKitMessageExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1213,18 +1183,22 @@
 		};
 		986FB73D1DBBAD8600A65C18 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9B462C62486AED269F046A35 /* Pods-IGListKitTodayExample.debug.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = IGListKitTodayExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples.IGListKitTodayExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 5.0;
@@ -1233,18 +1207,22 @@
 		};
 		986FB73E1DBBAD8600A65C18 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B87895B5B9CB6A17AF47F4C9 /* Pods-IGListKitTodayExample.release.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = IGListKitTodayExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples.IGListKitTodayExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1299,6 +1277,45 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BAB336E32760ECC1007B4098 /* IGListDiffKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IGListDiffKit;
+		};
+		BAB336E52760ECC1007B4098 /* IGListKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IGListKit;
+		};
+		BAB336E72760ECC1007B4098 /* IGListSwiftKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IGListSwiftKit;
+		};
+		BAB336E92760ECE5007B4098 /* IGListKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IGListKit;
+		};
+		BAB336EB2760ECFE007B4098 /* IGListKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IGListKit;
+		};
+		BAB336ED2760ED0C007B4098 /* IGListSwiftKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IGListSwiftKit;
+		};
+		BAB336EF2760ED28007B4098 /* IGListDiffKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IGListDiffKit;
+		};
+		BAB336F12760ED55007B4098 /* IGListDiffKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IGListDiffKit;
+		};
+		BAB336F32760EDCB007B4098 /* IGListSwiftKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IGListSwiftKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2961B3821D68B031001C9451 /* Project object */;
 }

@@ -2,7 +2,7 @@ name: "IGListKit CI"
 
 on:
   push:
-    branches: 
+    branches:
       - main
   pull_request:
     branches:
@@ -195,18 +195,19 @@ jobs:
 
   Build-Examples:
     name: Build Examples and UI tests.
-    runs-on: macos-10.15
+    runs-on: macos-11
     env:
-      DEVELOPER_DIR: /Applications/Xcode_12.4.app
-      IOS_EXAMPLE_WORKSPACE: Examples/Examples-iOS/IGListKitExamples.xcworkspace
-      TVOS_EXAMPLE_WORKSPACE: Examples/Examples-tvOS/IGListKitExamples.xcworkspace
-      MACOS_EXAMPLE_WORKSPACE: Examples/Examples-macOS/IGListKitExamples.xcworkspace
+      DEVELOPER_DIR: /Applications/Xcode_13.0.app
+      IOS_EXAMPLE_XCODEPROJ: Examples/Examples-iOS/IGListKitExamples.xcodeproj
+      TVOS_EXAMPLE_XCODEPROJ: Examples/Examples-tvOS/IGListKitExamples.xcodeproj
+      MACOS_EXAMPLE_XCODEPROJ: Examples/Examples-macOS/IGListKitExamples.xcodeproj
       EXAMPLE_SCHEME: IGListKitExamples
     strategy:
       matrix:
         iosDestination: ["name=iPhone 12 Pro"]
         tvOSDestination: ["name=Apple TV 4K"]
         macOSDestination: ["platform=macOS"]
+        macCatalystDestination: ["platform=macOS,variant=Mac Catalyst"]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -222,28 +223,30 @@ jobs:
       - name: Install ruby gems.
         run: bundle install
 
-      - name: Prepare local pods
-        run: bash scripts/setup.sh
-
       - name: Build iOS Example - ${{ matrix.iosDestination }}
         run: |
           set -o pipefail
-          xcodebuild build -workspace "${{ env.IOS_EXAMPLE_WORKSPACE }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+          xcodebuild build -project "${{ env.IOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
 
       - name: Run iOS Example's UI Tests - ${{ matrix.iosDestination }}
         run: |
           set -o pipefail
-          xcodebuild build test -workspace "${{ env.IOS_EXAMPLE_WORKSPACE }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+          xcodebuild build test -project "${{ env.IOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
 
       - name: Build tvOS Example - ${{ matrix.tvOSDestination }}
         run: |
           set -o pipefail
-          xcodebuild build -workspace "${{ env.TVOS_EXAMPLE_WORKSPACE }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.tvOSDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+          xcodebuild build -project "${{ env.TVOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.tvOSDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
 
       - name: Build macOS Example - ${{ matrix.macOSDestination }}
         run: |
           set -o pipefail
-          xcodebuild build -workspace "${{ env.MACOS_EXAMPLE_WORKSPACE }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.macOSDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+          xcodebuild build -project "${{ env.MACOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.macOSDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+
+      - name: Build Mac Catalyst Example - ${{ matrix.macCatalystDestination }}
+        run: |
+          set -o pipefail
+          xcodebuild build -project "${{ env.IOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.macCatalystDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
 
   Danger:
     name: Run Danger
@@ -270,4 +273,3 @@ jobs:
 
       - name: Run Danger
         run: bundle exec danger --verbose
-        

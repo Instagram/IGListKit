@@ -8,7 +8,7 @@
 import IGListKit
 import IGListSwiftKit
 
-protocol SearchSectionControllerDelegate: class {
+protocol SearchSectionControllerDelegate: AnyObject {
     func searchSectionController(_ sectionController: SearchSectionController, didChangeText text: String)
 }
 

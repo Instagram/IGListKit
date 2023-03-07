@@ -90,11 +90,7 @@ Enter package URL: https://github.com/Instagram/IGListKit, and select the latest
 
 ## Getting Started
 
-```bash
-$ git clone https://github.com/Instagram/IGListKit.git
-$ cd IGListKit/
-$ ./scripts/setup.sh
-```
+Try out IGListKit by opening any of the sample apps available in the `Examples ` directory.
 
 - Our [Getting Started guide](https://instagram.github.io/IGListKit/getting-started.html)
 - Ray Wenderlich's [IGListKit Tutorial: Better UICollectionViews](https://www.raywenderlich.com/147162/iglistkit-tutorial-better-uicollectionviews)
