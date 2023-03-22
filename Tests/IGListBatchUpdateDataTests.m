@@ -151,4 +151,27 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
     XCTAssertEqualObjects(result.deleteIndexPaths, @[newPath(2, 0)]);
 }
 
+- (void)test_whenUpdatesAreClean_thatObjectIsEqualToItself {
+    IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[@0, @1])
+                                                                           deleteSections:indexSet(@[@5])
+                                                                             moveSections:[NSSet setWithArray:@[newMove(3, 4)]]
+                                                                         insertIndexPaths:@[newPath(0, 0)]
+                                                                         deleteIndexPaths:@[newPath(1, 0)]
+                                                                         updateIndexPaths:@[]
+                                                                           moveIndexPaths:@[newMovePath(6, 0, 6, 1)]];
+    XCTAssertTrue([result isEqual:result]);
+}
+
+- (void)test_whenEmptyUpdates_thatResultDoesNotEqualOtherClasses {
+    IGListBatchUpdateData *emptyResult = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
+                                                                                deleteSections:indexSet(@[])
+                                                                                  moveSections:[NSSet new]
+                                                                              insertIndexPaths:@[]
+                                                                              deleteIndexPaths:@[]
+                                                                              updateIndexPaths:@[]
+                                                                                moveIndexPaths:@[]];
+
+    XCTAssertFalse([emptyResult isEqual:[NSObject new]]);
+}
+
 @end
