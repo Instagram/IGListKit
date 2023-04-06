@@ -1,4 +1,4 @@
-Copyright (c) Meta Platforms, Inc. and its affiliates.
+Copyright (c) Meta Platforms, Inc. and affiliates.
 
 The examples provided by Facebook are for non-commercial testing and evaluation
 purposes only. Facebook reserves all rights not expressly granted.
