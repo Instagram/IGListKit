@@ -120,3 +120,7 @@ We have a set of [starter tasks](https://github.com/Instagram/IGListKit/issues?q
 `IGListKit` is [MIT-licensed](./LICENSE.md).
 
 The files in the `/Examples/` directory are licensed under a separate license as specified in each file. Documentation is licensed [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/).
+
+## Legal
+
+Copyright &copy; Meta Platforms, Inc &#x2022; <a href="https://opensource.fb.com/legal/terms">Terms of Use</a> &#x2022; <a href="https://opensource.fb.com/legal/privacy">Privacy Policy</a>
