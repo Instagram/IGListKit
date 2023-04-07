@@ -17,19 +17,19 @@
     <a title="IGListAdapter Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (94% documented)</p>
-        <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
-        <p class="header-right">
+        <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (93% documented)</p>
+        <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
           </form>
-        </p>
+        </div>
       </div>
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
         <a href="../index.html">IGListKit Reference</a>
-        <img id="carat" src="../img/carat.png" />
+        <img id="carat" src="../img/carat.png" alt=""/>
         IGListAdapter Class Reference
       </p>
     </div>
@@ -115,6 +115,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListSingleSectionController.html">IGListSingleSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListTransitionData.html">IGListTransitionData</a>
               </li>
             </ul>
           </li>
@@ -815,7 +818,7 @@ the range is updated as objects enter and exit the working range.</p>
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">performUpdates</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="n">async</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">performUpdates</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -884,7 +887,7 @@ section controllers. Use <code>-[IGListAdapter performUpdatesAnimated:completion
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reloadData</span><span class="p">()</span> <span class="n">async</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reloadData</span><span class="p">()</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -1590,6 +1593,103 @@ the sticky header would otherwise cover the top portion of the object.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/c:objc(cs)IGListAdapter(im)indexPathForFirstVisibleItem"></a>
+                    <a name="//apple_ref/objc/Method/-indexPathForFirstVisibleItem" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)indexPathForFirstVisibleItem">-indexPathForFirstVisibleItem</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the index path for the first visible cell that has been scrolled to.
+This refers to the cell currently at the top/left (0, 0) of the collection view&rsquo;s frame,
+inset by the collection view&rsquo;s contentInset top or left value if defined.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="n">indexPathForFirstVisibleItem</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">indexPathForFirstVisibleItem</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">IndexPath</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The index path of the cell or nil if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListAdapter(im)offsetForFirstVisibleItemWithScrollDirection:"></a>
+                    <a name="//apple_ref/objc/Method/-offsetForFirstVisibleItemWithScrollDirection:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListAdapter(im)offsetForFirstVisibleItemWithScrollDirection:">-offsetForFirstVisibleItemWithScrollDirection:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Gets the scroll offset of the first visible cell scrolled into in the collection view.
+This refers to the cell currently at the top/left (0, 0) of the collection view&rsquo;s frame,
+inset by the collection view&rsquo;s contentInset top or left value if defined.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nf">offsetForFirstVisibleItemWithScrollDirection</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">UICollectionViewScrollDirection</span><span class="p">)</span><span class="nv">scrollDirection</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">offsetForFirstVisibleItem</span><span class="p">(</span><span class="n">with</span> <span class="nv">scrollDirection</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="o">.</span><span class="kt">ScrollDirection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGFloat</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>scrollDirection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An option indicating the direction to scroll.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>additionalOffset is the offset amount the first visible cell is shifted from the start of the cell,
+the amount it has been scrolled into in the coordinates of the cell&rsquo;s bounds.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/c:objc(cs)IGListAdapter(im)sizeForItemAtIndexPath:"></a>
                     <a name="//apple_ref/objc/Method/-sizeForItemAtIndexPath:" class="dashAnchor"></a>
                     <a class="token" href="#/c:objc(cs)IGListAdapter(im)sizeForItemAtIndexPath:">-sizeForItemAtIndexPath:<wbr></a>
@@ -1825,11 +1925,10 @@ the sticky header would otherwise cover the top portion of the object.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2021-10-20)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2023 <a class="link" href="https://twitter.com/MetaOpenSource" target="_blank" rel="external noopener">Instagram</a>. All rights reserved. (Last updated: 2023-04-07)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>
   </body>
-</div>
 </html>
