@@ -17,19 +17,19 @@
     <a title="IGListCollectionContext Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (94% documented)</p>
-        <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png"/>View on GitHub</a></p>
-        <p class="header-right">
+        <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (93% documented)</p>
+        <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
           </form>
-        </p>
+        </div>
       </div>
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
         <a href="../index.html">IGListKit Reference</a>
-        <img id="carat" src="../img/carat.png" />
+        <img id="carat" src="../img/carat.png" alt=""/>
         IGListCollectionContext Protocol Reference
       </p>
     </div>
@@ -115,6 +115,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListSingleSectionController.html">IGListSingleSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListTransitionData.html">IGListTransitionData</a>
               </li>
             </ul>
           </li>
@@ -720,6 +723,94 @@ section controllers need for operations like sizing, dequeuing cells, inserting,
                       <div>
                         <h4>Return Value</h4>
                         <p>The collection view cell, or <code>nil</code> if not found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListCollectionContext(im)viewForSupplementaryElementOfKind:atIndex:sectionController:"></a>
+                    <a name="//apple_ref/objc/Method/-viewForSupplementaryElementOfKind:atIndex:sectionController:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListCollectionContext(im)viewForSupplementaryElementOfKind:atIndex:sectionController:">-viewForSupplementaryElementOfKind:<wbr>atIndex:<wbr>sectionController:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the supplementary view in the collection at the specified index for the section controller.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>This method may return <code>nil</code> if the cell is offscreen.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">__kindof</span> <span class="n">UICollectionReusableView</span> <span class="o">*</span><span class="p">)</span>
+    <span class="nf">viewForSupplementaryElementOfKind</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">elementKind</span>
+                              <span class="nf">atIndex</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">index</span>
+                    <span class="nf">sectionController</span><span class="p">:</span>
+                        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">viewForSupplementaryElement</span><span class="p">(</span><span class="n">ofKind</span> <span class="nv">elementKind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">at</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionReusableView</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>elementKind</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The element kind of the supplementary view.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the desired cell.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sectionController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The section controller requesting this information.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The collection reusable view, or <code>nil</code> if not found.</p>
                       </div>
                     </section>
                   </div>
@@ -1784,7 +1875,7 @@ reflected in the cells immediately.</p>
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">invalidateLayout</span><span class="p">(</span><span class="k">for</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span> <span class="n">async</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">invalidateLayout</span><span class="p">(</span><span class="k">for</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -1877,7 +1968,7 @@ synchronously, so you should make sure that your data source changes only when n
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">performBatch</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">updates</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">ListBatchContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="n">async</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">performBatch</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">updates</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">ListBatchContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -2023,11 +2114,10 @@ synchronously, so you should make sure that your data source changes only when n
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="https://twitter.com/fbOpenSource" target="_blank" rel="external">Instagram</a>. All rights reserved. (Last updated: 2021-10-20)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2023 <a class="link" href="https://twitter.com/MetaOpenSource" target="_blank" rel="external noopener">Instagram</a>. All rights reserved. (Last updated: 2023-04-07)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>
   </body>
-</div>
 </html>

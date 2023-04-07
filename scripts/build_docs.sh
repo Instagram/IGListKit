@@ -20,7 +20,7 @@ jazzy \
 	--objc \
 	--clean \
 	--author 'Instagram' \
-    --author_url 'https://twitter.com/fbOpenSource' \
+    --author_url 'https://twitter.com/MetaOpenSource' \
     --github_url 'https://github.com/Instagram/IGListKit' \
     --sdk iphonesimulator \
     --module 'IGListKit' \
