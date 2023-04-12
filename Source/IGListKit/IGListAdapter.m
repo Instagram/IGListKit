@@ -1274,7 +1274,7 @@ typedef struct OffsetRange {
 - (void)performBatchAnimated:(BOOL)animated updates:(void (^)(id<IGListBatchContext>))updates completion:(void (^)(BOOL))completion {
     IGAssertMainThread();
     IGParameterAssert(updates != nil);
-    IGAssert(self.collectionView != nil, @"Performing batch updates without a collection view.");
+    IGWarn(self.collectionView != nil, @"Performing batch updates without a collection view.");
 
     [self _enterBatchUpdates];
     __weak __typeof__(self) weakSelf = self;
