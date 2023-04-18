@@ -24,6 +24,12 @@
 #import "IGTestObject.h"
 #import "IGTestStringBindableCell.h"
 
+@interface IGListBindingSectionController (Tests)
+
+- (void)setState:(NSInteger)state;
+
+@end
+
 @interface IGListBindingSectionControllerTests : IGListTestCase
 
 @end
@@ -479,6 +485,27 @@
     [section moveObjectFromIndex:2 toIndex:1];
     XCTAssertEqual([section.viewModels objectAtIndex: 1], @7);
     XCTAssertEqual([section.viewModels lastObject], @20);
+}
+
+#pragma mark - Illegal state validation
+
+- (void)test_whenAdapterReloadsObjects_andStateIsInconsistent_thatExecutionCompletes {
+    [self setupWithObjects:@[
+                             [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
+                             ]];
+    [self.adapter reloadObjects:@[[[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@"four", @4, @"seven", @7]]]];
+
+    // Queue up the batch operation which will be called on the next main run loop
+    XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self.adapter performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext){} completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+
+    // Before the next run loop triggers, set the state back to idle
+    IGListBindingSectionController *controller = (IGListBindingSectionController *)[self.adapter sectionControllerForSection:0];
+    [controller setState:0];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
 @end
