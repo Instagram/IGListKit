@@ -244,8 +244,8 @@ typedef struct OffsetRange {
                 case UICollectionViewScrollPositionCenteredHorizontally: {
                     const CGFloat insets = (contentInset.left - contentInset.right) / 2.0;
                     contentOffset.x = offsetMid - collectionViewWidth / 2.0 - insets;
-                    break;
                 }
+                    break;
                 case UICollectionViewScrollPositionLeft:
                 case UICollectionViewScrollPositionNone:
                 case UICollectionViewScrollPositionTop:
@@ -269,8 +269,8 @@ typedef struct OffsetRange {
                 case UICollectionViewScrollPositionCenteredVertically: {
                     const CGFloat insets = (contentInset.top - contentInset.bottom) / 2.0;
                     contentOffset.y = offsetMid - collectionViewHeight / 2.0 - insets;
-                    break;
                 }
+                    break;
                 case UICollectionViewScrollPositionTop:
                 case UICollectionViewScrollPositionNone:
                 case UICollectionViewScrollPositionLeft:
@@ -397,22 +397,22 @@ typedef struct OffsetRange {
     __weak __typeof__(self) weakSelf = self;
     IGListTransitionDataBlock sectionDataBlock = ^IGListTransitionData *{
         __typeof__(self) strongSelf = weakSelf;
-        if (strongSelf == nil) {
-            return nil;
+        IGListTransitionData *transitionData = nil;
+        if (strongSelf) {
+            NSArray *toObjects = objectsWithDuplicateIdentifiersRemoved([dataSource objectsForListAdapter:strongSelf]);
+            transitionData = [strongSelf _generateTransitionDataWithObjects:toObjects dataSource:dataSource];
         }
-        NSArray *toObjects = objectsWithDuplicateIdentifiersRemoved([dataSource objectsForListAdapter:strongSelf]);
-        return [strongSelf _generateTransitionDataWithObjects:toObjects dataSource:dataSource];
+        return transitionData;
     };
 
     IGListTransitionDataApplyBlock applySectionDataBlock = ^void(IGListTransitionData *data) {
         __typeof__(self) strongSelf = weakSelf;
-        if (strongSelf == nil) {
-            return;
+        if (strongSelf) {
+            // temporarily capture the item map that we are transitioning from in case
+            // there are any item deletes at the same
+            strongSelf.previousSectionMap = [strongSelf.sectionMap copy];
+            [strongSelf _updateWithData:data];
         }
-        // temporarily capture the item map that we are transitioning from in case
-        // there are any item deletes at the same
-        strongSelf.previousSectionMap = [strongSelf.sectionMap copy];
-        [strongSelf _updateWithData:data];
     };
 
     IGListUpdaterCompletion outerCompletionBlock = ^(BOOL finished){
@@ -474,12 +474,12 @@ typedef struct OffsetRange {
     // use the item map based on whether or not we're in an update block
     IGListSectionMap *map = [self _sectionMapUsingPreviousIfInUpdateBlock:YES];
 
-    for (id object in objects) {
+    [objects enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
         // look up the item using the map's lookup function. might not be the same item
         const NSInteger section = [map sectionForObject:object];
         const BOOL notFound = section == NSNotFound;
         if (notFound) {
-            continue;
+            return;
         }
         [sections addIndex:section];
 
@@ -488,11 +488,10 @@ typedef struct OffsetRange {
             [map updateObject:object];
             [[map sectionControllerForSection:section] didUpdateToObject:object];
         }
-    }
+    }];
 
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Tried to reload the adapter without a collection view");
-
     [self.updater reloadCollectionView:collectionView sections:sections];
 }
 
@@ -691,7 +690,7 @@ typedef struct OffsetRange {
     // for IGListSectionController subclasses after calling [super init]
     IGListSectionControllerPushThread(self.viewController, self);
 
-    for (id object in objects) {
+    [objects enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
         // infra checks to see if a controller exists
         IGListSectionController *sectionController = [map sectionControllerForObject:object];
 
@@ -703,7 +702,7 @@ typedef struct OffsetRange {
         if (sectionController == nil) {
             IGLKLog(@"WARNING: Ignoring nil section controller returned by data source %@ for object %@.",
                     dataSource, object);
-            continue;
+            return;
         }
 
         // in case the section controller was created outside of -listAdapter:sectionControllerForObject:
@@ -712,7 +711,7 @@ typedef struct OffsetRange {
 
         [sectionControllers addObject:sectionController];
         [validObjects addObject:object];
-    }
+    }];
 
 #if DEBUG
     IGAssert([NSSet setWithArray:sectionControllers].count == sectionControllers.count,
@@ -874,17 +873,7 @@ typedef struct OffsetRange {
 
 - (nullable IGListSectionController *)_sectionControllerForCell:(UICollectionViewCell *)cell {
     IGAssertMainThread();
-    if (IGListExperimentEnabled(_experiments, IGListExperimentSkipViewSectionControllerMap)) {
-        NSIndexPath *indexPath = [_collectionView indexPathForCell:cell];
-        if (indexPath != nil) {
-            NSInteger section = indexPath.section;
-            return [self.sectionMap sectionControllerForSection:section];
-        } else {
-            return nil;
-        }
-    } else {
-        return [_viewSectionControllerMap objectForKey:cell];
-    }
+    return [_viewSectionControllerMap objectForKey:cell];
 }
 
 - (void)removeMapForView:(UICollectionReusableView *)view {

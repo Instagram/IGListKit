@@ -33,7 +33,7 @@
     return nil;
 }
 
-#pragma mark - Overides reloads
+#pragma mark - Overrides reloads
 
 - (void)reloadItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
     [self _didModifyIndexPaths:indexPaths];
