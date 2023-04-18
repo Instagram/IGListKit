@@ -147,7 +147,7 @@ typedef NS_ENUM (NSInteger, IGListUpdateTransactionBuilderMode) {
     }
 
     switch (self.mode) {
-        case IGListUpdateTransactionBuilderModeBatchUpdate: {
+        case IGListUpdateTransactionBuilderModeBatchUpdate:
             return [[IGListBatchUpdateTransaction alloc] initWithCollectionViewBlock:collectionViewBlock
                                                                              updater:updater
                                                                             delegate:delegate
@@ -157,7 +157,6 @@ typedef NS_ENUM (NSInteger, IGListUpdateTransactionBuilderMode) {
                                                                applySectionDataBlock:self.applySectionDataBlock
                                                                     itemUpdateBlocks:self.itemUpdateBlocks
                                                                     completionBlocks:self.completionBlocks];
-        }
         case IGListUpdateTransactionBuilderModeReload: {
             IGListReloadUpdateBlock reloadBlock = self.reloadBlock;
             if (!reloadBlock) {
