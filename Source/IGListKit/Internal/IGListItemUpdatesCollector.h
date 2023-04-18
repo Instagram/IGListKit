@@ -16,7 +16,7 @@
 @class IGListMoveIndexPath;
 @class IGListReloadIndexPath;
 
-/// Object to collect item updates. Will replace `IGListBatchUpdates`.
+/// Object to collect item updates.
 IGLK_SUBCLASSING_RESTRICTED
 @interface IGListItemUpdatesCollector : NSObject
 
