@@ -11,17 +11,17 @@ on:
 jobs:
   macOS:
     name: Unit Test macOS
-    runs-on: macos-11
+    runs-on: macos-12
     env:
-      DEVELOPER_DIR: /Applications/Xcode_13.0.app
+      DEVELOPER_DIR: /Applications/Xcode_14.2.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       SCHEME_NAME: IGListKit-macOS
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Cache RubyGems
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
@@ -42,20 +42,20 @@ jobs:
 
   iOS:
     name: Unit Test iOS
-    runs-on: macos-11
+    runs-on: macos-12
     env:
-      DEVELOPER_DIR: /Applications/Xcode_13.0.app
+      DEVELOPER_DIR: /Applications/Xcode_14.2.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       SCHEME_NAME: IGListKit
     strategy:
       matrix:
-        destination: ["name=iPhone 12 Pro"]
+        destination: ["platform=iOS Simulator,name=iPhone 13 Pro"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Cache RubyGems
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
@@ -83,15 +83,15 @@ jobs:
 
   Cocoapods:
     name: Cocoapods Lint
-    runs-on: macos-11
+    runs-on: macos-12
     env:
-      DEVELOPER_DIR: /Applications/Xcode_13.0.app
+      DEVELOPER_DIR: /Applications/Xcode_13.4.1.app
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Cache RubyGems
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
@@ -112,19 +112,19 @@ jobs:
 
   SPM-layout-generator:
     name: Verify generate_spm_sources_layout.sh is not broken
-    runs-on: macos-11
+    runs-on: macos-12
     env:
-      DEVELOPER_DIR: /Applications/Xcode_13.0.app
+      DEVELOPER_DIR: /Applications/Xcode_14.2.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       PROJECT_NAME: IGListKit.xcodeproj
-      IOS_DESTINATION: "name=iPhone 12 Pro"
+      IOS_DESTINATION: "platform=iOS Simulator,name=iPhone 13 Pro"
       SPM_IG_LIST_DIFF_KIT_PUBLIC_HEADERS_PATH: "spm/Sources/IGListDiffKit/include"
       SPM_IG_LIST_DIFF_KIT_SOURCES_PATH: "spm/Sources/IGListDiffKit"
       SPM_IG_LIST_KIT_PUBLIC_HEADERS_PATH: "spm/Sources/IGListKit/include"
       SPM_IG_LIST_KIT_SOURCES_PATH: "spm/Sources/IGListKit"
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Manually clean SPM Sources folder
         run: |
@@ -146,12 +146,12 @@ jobs:
 
   SPM-build-from-Package:
     name: Verify SPM build by invoking `xcodebuild` on Package.swift
-    runs-on: macos-11
+    runs-on: macos-12
     env:
-      DEVELOPER_DIR: /Applications/Xcode_13.0.app
+      DEVELOPER_DIR: /Applications/Xcode_14.2.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       PROJECT_NAME: IGListKit.xcodeproj
-      IOS_DESTINATION: "name=iPhone 12 Pro"
+      IOS_DESTINATION: "platform=iOS Simulator,name=iPhone 13 Pro"
     strategy:
       matrix:
         schemeName: ["IGListDiffKit",
@@ -159,7 +159,7 @@ jobs:
                       "IGListSwiftKit"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Clean project's ${{ env.PROJECT_NAME }} and ${{ env.WORKSPACE_NAME }}
         run: |
@@ -171,12 +171,12 @@ jobs:
 
   Carthage-XCFramework:
     name: Verify Carthage build XCFramework
-    runs-on: macos-11
+    runs-on: macos-12
     env:
-      DEVELOPER_DIR: /Applications/Xcode_13.0.app
+      DEVELOPER_DIR: /Applications/Xcode_14.2.app
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Carthage build framework
         run: carthage build --no-skip-current --use-xcframeworks
@@ -188,32 +188,32 @@ jobs:
       DEVELOPER_DIR: /Applications/Xcode_11.7.app
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Carthage build framework
         run: carthage build --no-skip-current
 
   Build-Examples:
     name: Build Examples and UI tests.
-    runs-on: macos-11
+    runs-on: macos-12
     env:
-      DEVELOPER_DIR: /Applications/Xcode_13.0.app
+      DEVELOPER_DIR: /Applications/Xcode_14.2.app
       IOS_EXAMPLE_XCODEPROJ: Examples/Examples-iOS/IGListKitExamples.xcodeproj
       TVOS_EXAMPLE_XCODEPROJ: Examples/Examples-tvOS/IGListKitExamples.xcodeproj
       MACOS_EXAMPLE_XCODEPROJ: Examples/Examples-macOS/IGListKitExamples.xcodeproj
       EXAMPLE_SCHEME: IGListKitExamples
     strategy:
       matrix:
-        iosDestination: ["name=iPhone 12 Pro"]
-        tvOSDestination: ["name=Apple TV 4K"]
+        iosDestination: ["platform=iOS Simulator,name=iPhone 13 Pro"]
+        tvOSDestination: ["platform=tvOS Simulator,name=Apple TV 4K (3rd generation)"]
         macOSDestination: ["platform=macOS"]
         macCatalystDestination: ["platform=macOS,variant=Mac Catalyst"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Cache RubyGems
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
@@ -256,12 +256,12 @@ jobs:
       DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
       - name: Cache RubyGems
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
