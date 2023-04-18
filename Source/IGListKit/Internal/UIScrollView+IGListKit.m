@@ -11,11 +11,11 @@
 
 - (UIEdgeInsets) ig_contentInset
 {
+    UIEdgeInsets contentInset = self.contentInset;
     if (@available(iOS 11.0, tvOS 11.0, *)) {
-        return self.adjustedContentInset;
-    } else {
-        return self.contentInset;
+        contentInset = self.adjustedContentInset;
     }
+    return contentInset;
 }
 
 @end
