@@ -100,4 +100,11 @@
     XCTAssertFalse(one.isFirstSection);
 }
 
+- (void)test_whenQueryingItems_thatNilReturnsNotFound {
+    NSObject *object = [NSObject new];
+    object = nil;
+    IGListSectionMap *map = [[IGListSectionMap alloc] initWithMapTable:[NSMapTable strongToStrongObjectsMapTable]];
+    XCTAssertEqual([map sectionForObject:object], NSNotFound);
+}
+
 @end
