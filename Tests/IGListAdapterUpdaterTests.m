@@ -16,6 +16,7 @@
 #import "IGListMoveIndexInternal.h"
 #import "IGListTestUICollectionViewDataSource.h"
 #import "IGListTransitionData.h"
+#import "IGListUpdateTransactionBuilder.h"
 #import "IGTestObject.h"
 
 #define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
@@ -95,6 +96,20 @@
                                  applySectionDataBlock:self.applySectionDataBlock
                                             completion:nil];
     XCTAssertTrue([self.updater hasChanges]);
+}
+
+- (void)test_whenConvertingIndexPathsToSections_thatCorrectValuesAreReturned {
+    NSArray *indexPaths = @[
+        [NSIndexPath indexPathForItem:0 inSection:0],
+        [NSIndexPath indexPathForItem:0 inSection:1],
+        [NSIndexPath indexPathForItem:0 inSection:2],
+        [NSIndexPath indexPathForItem:0 inSection:3]
+    ];
+
+    NSIndexSet *sections = IGListSectionIndexFromIndexPaths(indexPaths);
+    XCTAssertEqual(sections.count, 4);
+    XCTAssertEqual(sections.firstIndex, 0);
+    XCTAssertEqual(sections.lastIndex, 3);
 }
 
 - (void)test_whenReloadingData_thatCollectionViewUpdates {
@@ -252,6 +267,29 @@
     ];
     [self.updater reloadCollectionView:self.collectionView sections:[NSIndexSet indexSetWithIndex:0]];
 
+    XCTAssertEqual([self.collectionView numberOfSections], 2);
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 2);
+}
+
+- (void)test_whenMovingSections_thatCollectionViewUpdates {
+    self.dataSource.sections = @[
+        [IGSectionObject sectionWithObjects:@[@0, @1]],
+        [IGSectionObject sectionWithObjects:@[@0, @1, @2]]
+    ];
+    [self.updater reloadDataWithCollectionViewBlock:[self collectionViewBlock] reloadUpdateBlock:^{} completion:nil];
+    [self.updater update];
+    XCTAssertEqual([self.collectionView numberOfSections], 2);
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+    XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 3);
+
+    self.dataSource.sections = @[
+        [IGSectionObject sectionWithObjects:@[@0, @1, @2]],
+        [IGSectionObject sectionWithObjects:@[@0, @1]]
+    ];
+
+    [self.updater moveSectionInCollectionView:self.collectionView fromIndex:0 toIndex:1];
+    [self.updater update];
     XCTAssertEqual([self.collectionView numberOfSections], 2);
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
     XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 2);
@@ -1227,6 +1265,90 @@
     }];
     waitExpectation;
     [mockDelegate verify];
+}
+
+- (void)test_withSingleItemSectionUpdates_thatPerformBatchUpdateWorks {
+    self.updater.singleItemSectionUpdates = YES;
+
+    IGSectionObject *first = [IGSectionObject sectionWithObjects:@[@1, @2, @3]];
+    IGSectionObject *second =[IGSectionObject sectionWithObjects:@[@4, @5, @6]];
+
+    NSArray *from = @[first, second];
+    NSArray *to = @[second, first];
+
+    self.dataSource.sections = from;
+    [self.updater reloadDataWithCollectionViewBlock:[self collectionViewBlock] reloadUpdateBlock:^{} completion:nil];
+    [self.updater update];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock]
+                                              animated:NO
+                                      sectionDataBlock:[self dataBlockFromObjects:from toObjects:to]
+                                 applySectionDataBlock:self.applySectionDataBlock
+                                            completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView numberOfSections], 2);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+#pragma mark - Illegal state checking
+
+- (void)test_whenCollectionViewBlockIsNotCorrectlyApplied_thatTransactionsGetCancelled {
+    // Test if a nil collection view block is accidentally supplied
+    UICollectionView *(^listCollectionViewBlock)(void) = ^{
+        return self.collectionView;
+    };
+    listCollectionViewBlock = nil;
+
+    IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
+    [updater.transactionBuilder addReloadDataWithCollectionViewBlock:listCollectionViewBlock
+                                                         reloadBlock:^{}
+                                                          completion:nil];
+    [updater update];
+    XCTAssertNil(updater.lastTransactionBuilder);
+}
+
+- (void)test_whenReloadBlockIsNotCorrectlyApplied_thatTransactionsGetCancelled {
+    // Test if a nil collection view block is accidentally supplied
+    UICollectionView *(^listCollectionViewBlock)(void) = ^{
+        return self.collectionView;
+    };
+
+    void (^reloadBlock)(void) = ^{};
+    reloadBlock = nil;
+
+    IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
+    [updater.transactionBuilder addReloadDataWithCollectionViewBlock:listCollectionViewBlock
+                                                         reloadBlock:reloadBlock
+                                                          completion:nil];
+    [updater update];
+    XCTAssertNil(updater.lastTransactionBuilder);
+}
+
+- (void)test_whenDataSourceChangeBlockIsNotCorrectlyApplied_thatTransactionsGetCancelled {
+    UICollectionView *(^listCollectionViewBlock)(void) = ^{
+        return self.collectionView;
+    };
+
+    void (^dataSourceChangeBlock)(void) = ^{};
+    dataSourceChangeBlock = nil;
+
+    IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
+    [updater.transactionBuilder addReloadDataWithCollectionViewBlock:listCollectionViewBlock
+                                                         reloadBlock:^{}
+                                                          completion:nil];
+    [updater.transactionBuilder addDataSourceChange:dataSourceChangeBlock];
+    [updater update];
+    XCTAssertNil(updater.lastTransactionBuilder);
+}
+
+- (void)test_whenAddingChangesFromTransactionBuilder_thatOperationExitsGracefully {
+    IGListUpdateTransactionBuilder *builder = [IGListUpdateTransactionBuilder new];
+    builder = nil;
+
+    IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
+    [updater.transactionBuilder addChangesFromBuilder:builder];
 }
 
 @end
