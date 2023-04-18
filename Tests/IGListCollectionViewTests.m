@@ -134,6 +134,33 @@
     IGAssertEqualFrame([self cellForSection:2 item:0].frame, 40, 0, 20, 20);
 }
 
+- (void)test_whenMoveItem_thatLayoutPartiallyUpdates {
+    self.dataSource.sections = @[
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(10, 10))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(20, 20))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(30, 30))])
+                                 ];
+    [self.collectionView reloadData];
+    [self.collectionView layoutIfNeeded];
+
+    NSArray *sections = @[genLayoutTestItem(CGSizeMake(10, 10)), genLayoutTestItem(CGSizeMake(20, 20))];
+    self.dataSource.sections = @[
+                                 genLayoutTestSection(sections),
+                                 genLayoutTestSection(@[]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(20, 20))]),
+                                 ];
+
+    [self.collectionView moveItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]
+                                 toIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+
+    // check that section 0 wasn't updated
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 10, 10);
+    // check that section 1 was updated
+    IGAssertEqualFrame([self cellForSection:0 item:1].frame, 10, 0, 20, 20);
+    // check that section 2 was updated
+    IGAssertEqualFrame([self cellForSection:2 item:0].frame, 30, 0, 20, 20);
+}
+
 #pragma mark - Batch
 
 - (void)test_whenInsertDeleteMoveSection_thatLayoutPartiallyUpdates {
@@ -176,6 +203,19 @@
     [self waitForExpectationsWithTimeout:30 handler:^(NSError * _Nullable error) {
         XCTAssertNil(error);
     }];
+}
+
+- (void)test_whenInsertingNilSection_thatExecutionCompletesCleanly {
+    self.dataSource.sections = @[
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(10, 10))])
+                                 ];
+    [self.collectionView reloadData];
+    [self.collectionView layoutIfNeeded];
+
+    [self.collectionView insertSections:[NSIndexSet indexSet]];
+
+    // check that section 0 wasn't updated
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 10, 10);
 }
 
 #pragma mark - Helpers
