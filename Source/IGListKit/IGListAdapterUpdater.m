@@ -313,11 +313,8 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
 
     id<IGListAdapterUpdaterDelegate> delegate = self.delegate;
 
-    NSMutableIndexSet *visibleSections = [NSMutableIndexSet new];
     NSArray *visibleIndexPaths = [collectionView indexPathsForVisibleItems];
-    for (NSIndexPath *visibleIndexPath in visibleIndexPaths) {
-        [visibleSections addIndex:visibleIndexPath.section];
-    }
+    NSIndexSet *visibleSections = IGListSectionIndexFromIndexPaths(visibleIndexPaths);
 
     [delegate listAdapterUpdater:self willReloadSections:visibleSections collectionView:collectionView];
 

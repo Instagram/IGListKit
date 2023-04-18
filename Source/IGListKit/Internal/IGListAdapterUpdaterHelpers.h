@@ -32,4 +32,6 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
                                                           BOOL sectionMovesAsDeletesInserts,
                                                           BOOL preferItemReloadsForSectionReloads);
 
+NSIndexSet *IGListSectionIndexFromIndexPaths(NSArray<NSIndexPath *> *indexPaths);
+
 NS_ASSUME_NONNULL_END

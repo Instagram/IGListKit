@@ -129,3 +129,11 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
     [collectionView ig_applyBatchUpdateData:updateData];
     return updateData;
 }
+
+NSIndexSet *IGListSectionIndexFromIndexPaths(NSArray<NSIndexPath *> *indexPaths) {
+    NSMutableIndexSet *sections = [NSMutableIndexSet new];
+    for (NSIndexPath *indexPath in indexPaths) {
+        [sections addIndex:indexPath.section];
+    }
+    return sections;
+}
