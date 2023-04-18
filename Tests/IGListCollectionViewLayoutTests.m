@@ -12,8 +12,17 @@
 #import "IGLayoutTestDataSource.h"
 #import "IGLayoutTestItem.h"
 #import "IGLayoutTestSection.h"
+#import "IGListAdapter.h"
+#import "IGListAdapterProxy.h"
+#import "IGListAdapterUpdater.h"
 #import "IGListCollectionViewLayoutInternal.h"
 #import "IGListTestHelpers.h"
+
+@interface IGListCollectionViewLayout (Tests)
+
+- (NSString *)_classNameForDelegate:(id<UICollectionViewDelegateFlowLayout>)delegate sectionIndex:(NSInteger)section;
+
+@end
 
 @interface IGListCollectionViewLayoutTests : XCTestCase
 
@@ -82,6 +91,24 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     self.dataSource.sections = data;
     [self.collectionView reloadData];
     [self.collectionView layoutIfNeeded];
+}
+
+- (void)test_whenCreatingViaCoder_thatObjectIsValid {
+    XCTAssertNotNil([[IGListCollectionViewLayout alloc] initWithCoder:[NSCoder new]]);
+}
+
+- (void)test_whenApplyingSameBoundsValue_thatLayoutIsntInvalidated {
+    [self setUpWithStickyHeaders:YES topInset:0];
+    [self prepareWithData:nil];
+    XCTAssertFalse([self.layout shouldInvalidateLayoutForBoundsChange:self.collectionView.bounds]);
+}
+
+- (void)test_whenApplyingInvalidatedSectionLogic_thatMinimumInvalidatedSectionIsCorrect {
+    [self setUpWithStickyHeaders:YES topInset:0];
+    [self prepareWithData:nil];
+    [self.layout didModifySection:NSNotFound];
+    [self.layout didModifySection:0];
+    [self.layout didModifySection:NSNotFound];
 }
 
 - (void)test_whenEmptyData_thatContentSizeZero {
@@ -1219,6 +1246,36 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 20, 20);
     IGAssertEqualFrame([self cellForSection:0 item:1].frame, 20, 0, 20, 20);
     IGAssertEqualFrame([self cellForSection:0 item:2].frame, 40, 0, 20, 20);
+}
+
+#pragma mark - Internal debugging
+
+- (void)test_withDelegateNameDebugger_thatReturnedNamesAreValid {
+    [self setUpWithStickyHeaders:NO topInset:0];
+
+    // Test with the regular delegate
+    XCTAssertTrue([[self.layout _classNameForDelegate:(id)self.collectionView.delegate
+                                         sectionIndex:0]
+                   isEqualToString:@"IGLayoutTestDataSource"]);
+
+    // Test with a proxy providing a new adapter
+    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    IGListAdapterProxy *proxy = [[IGListAdapterProxy alloc] initWithCollectionViewTarget:self.collectionView.delegate
+                                                                        scrollViewTarget:nil
+                                                                             interceptor:adapter];
+    XCTAssertNil([self.layout _classNameForDelegate:(id)proxy sectionIndex:0]);
+
+    // Test with a proxy with an invalid adapter
+    IGListAdapterProxy *invalidProxy = [[IGListAdapterProxy alloc] initWithCollectionViewTarget:self.collectionView.delegate
+                                                                        scrollViewTarget:nil
+                                                                             interceptor:(id)[NSObject new]];
+    XCTAssertNil([self.layout _classNameForDelegate:(id)invalidProxy sectionIndex:0]);
+}
+
+- (void)test_withSupplementalViewAttributes_thatOOBErrorsAreHandled {
+    [self setUpWithStickyHeaders:NO topInset:0];
+    XCTAssertNil([self.layout layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+                                                             atIndexPath:[NSIndexPath indexPathForItem:10 inSection:10]]);
 }
 
 @end
