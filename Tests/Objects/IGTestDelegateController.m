@@ -85,6 +85,9 @@
 
 - (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerWillEnterWorkingRange:(IGListSectionController *)sectionController {
     __unused UICollectionViewCell *cell = [self.collectionContext cellForItemAtIndex:0 sectionController:self];
+    __unused UIView *supplementaryView = [self.collectionContext viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
+                                                                                           atIndex:0
+                                                                                 sectionController:self];
 }
 
 - (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerDidExitWorkingRange:(IGListSectionController *)sectionController {}
