@@ -70,6 +70,14 @@ static NSArray *sorted(NSArray *arr) {
     XCTAssertEqualObjects([result oldIndexPathForIdentifier:@2], [NSIndexPath indexPathForItem:1 inSection:0]);
 }
 
+- (void)test_whenDiffingFromEmptyArray_thatNewIndexPathsAreCorrect {
+    NSArray *o = @[];
+    NSArray *n = @[@1, @2];
+    IGListIndexPathResult *result = IGListDiffPaths(0, 1, o, n, IGListDiffEquality);
+    XCTAssertEqualObjects([result newIndexPathForIdentifier:@1], [NSIndexPath indexPathForItem:0 inSection:1]);
+    XCTAssertEqualObjects([result newIndexPathForIdentifier:@2], [NSIndexPath indexPathForItem:1 inSection:1]);
+}
+
 - (void)test_whenSwappingObjects_thatResultHasMoves {
     NSArray *o = @[@1, @2];
     NSArray *n = @[@2, @1];
