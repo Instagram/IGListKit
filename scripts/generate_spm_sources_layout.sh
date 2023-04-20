@@ -114,7 +114,6 @@ function generate_ig_list_kit_spm_public_headers() {
 
     public_headers_list=$(
         find "Source/IGListKit" \
-        \! -name "IGListBindingSingleSectionController.[hm]" \
         -name "*.[h]" \
         -type f -not -path "spm/*" \
         -not -path "Source/IGListKit/Internal/*" \
@@ -177,7 +176,6 @@ function generate_ig_list_kit_spm_sources() {
 
     sources_list=$(
         find "Source/IGListKit" \
-        \! -name "IGListBindingSingleSectionController.[hm]" \
         -name "*.m" -o -name "*.mm" \
         -type f -not -path "spm/*" \
         -not -path "Examples/*" | sed "s| \([^/]\)|:\1|g")

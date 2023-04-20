@@ -7,8 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import <IGListDiffKit/IGListMacros.h>
-#import <IGListKit/IGListSectionController.h>
+#import "IGListSectionController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
