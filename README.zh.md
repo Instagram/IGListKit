@@ -49,10 +49,10 @@
 
 ## 要求
 
-- Xcode 9.0+
-- iOS 8.0+
-- tvOS 9.0+
-- macOS 10.11+ *(diffing algorithm components only)*
+- Xcode 11.0+
+- iOS 11.0+
+- tvOS 11.0+
+- macOS 10.13+ *(diffing algorithm components only)*
 - Interoperability with Swift 3.0+
 
 ## 安装
