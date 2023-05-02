@@ -108,6 +108,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Request the `UICollectionView` until just-before we update. This way if the `UICollectionView` is changed between update-queue and execution, we guarantee the update is performed on the correct view. Ship with experiment `IGListExperimentGetCollectionViewAtUpdate` from Ryan Nystrom. [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
+- Fixed unsigned integer overflow handling in `IGListBatchUpdateData` [Jason Hsu](https://github.com/tuoxie007) [(#1299)](https://github.com/Instagram/IGListKit/pull/1299)
+
 4.0.0
 -----
 ### Breaking Changes
