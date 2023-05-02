@@ -3,9 +3,9 @@ import PackageDescription
 
 let package = Package(
     name: "IGListKit",
-    platforms: [ .iOS(.v9),
-                 .tvOS(.v9),
-                 .macOS(.v10_11),
+    platforms: [ .iOS(.v11),
+                 .tvOS(.v11),
+                 .macOS(.v10_13),
     ],
     products: [
         .library(name: "IGListDiffKit",

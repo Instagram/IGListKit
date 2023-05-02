@@ -8,6 +8,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Breaking Changes
 
+- Changed iOS deployment target to 11.0 and macOS deployment target to 10.13
+
 - Removed unneeded diffing functions `IGListDiffExperiment(...)` and `IGListDiffPathsExperiment(...)`. [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
 - `ListSectionController.collectionContext` and `ListGenericSectionController.object` are now implicitly-unwrapped optionals in Swift. [Nate Stedman](https://github.com/natestedman) (tbd)
