@@ -207,12 +207,42 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
         [self _didPerformBatchUpdate:finished];
     };
 
-    if (self.animated) {
-        [self.collectionView performBatchUpdates:updates completion:completion];
-    } else {
-        [UIView performWithoutAnimation:^{
+    @try {
+        if (self.animated) {
             [self.collectionView performBatchUpdates:updates completion:completion];
-        }];
+        } else {
+            [UIView performWithoutAnimation:^{
+                [self.collectionView performBatchUpdates:updates completion:completion];
+            }];
+        }
+    }
+    @catch (NSException *exception) {
+        if ([[exception name] isEqualToString:NSInternalInconsistencyException]) {
+            /// As part of S342566 we have to recover from crashing the app since Xcode 14.3 has shipped
+            /// with a different build SDK that changes the runtime behavior of -performBatchUpdates: issues.
+            /// When we are performing batch updates, it's on us to advance the data source to the new state
+            /// inside the updates closure.
+            /// The data source must return the old counts up until the updates closure executes, and must return
+            /// the new counts after the updates closure finishes executing.
+            /// In prior iOS releases, UICollectionView would log an error message to the console for certain cases
+            /// of invalid updates, and instead fall back to reloadData. Using reloadData is destructive to UI state
+            /// and can negatively impact performance, but this was kept the app running so far without us noticing!
+            /// Now that UIKit has changed this runtime behavior we are going to apply the same workaround for the crash while we work
+            /// with our product team to properly fix their data source changes outside of the -performBatchUpdatesBlock:
+            /// IGLisKit processed a new being as an assert that requires investigation,
+            /// since it will be processed as invalid data source state that needs a reload.
+            [self begin];
+            return;
+        } else {
+            [self.delegate listAdapterUpdater:self.updater
+                               collectionView:self.collectionView
+                       willCrashWithException:exception
+                                  fromObjects:self.sectionData.fromObjects
+                                    toObjects:self.sectionData.toObjects
+                                   diffResult:diffResult
+                                      updates:(id)_actualCollectionViewUpdates];
+            @throw exception;
+        }
     }
 }
 
