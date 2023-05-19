@@ -17,6 +17,11 @@
 #define IGFailAssert( ... ) IGAssert( (NO) , ##__VA_ARGS__)
 #endif // IGFailAssert
 
+#ifndef IGFailure
+#define IGFailure( ... ) IGAssert( (NO) , ##__VA_ARGS__)
+#endif // IGFailure
+
+
 #ifndef IGParameterAssert
 #define IGParameterAssert( condition ) IGAssert( (condition) , @"Invalid parameter not satisfying: %@", @#condition)
 #endif // IGParameterAssert
