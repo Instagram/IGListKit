@@ -94,6 +94,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Fixes
 
+- Testing crash fix when calling `-[IGListAdapter reloadObjects ...]` during an update [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
 - Repaired Swift Package Manager support. [Petro Rovenskyy](https://github.com/3a4oT/) [(#1487)](https://github.com/Instagram/IGListKit/pull/1487)
 
 - `IGListCollectionViewLayout` should get the section/index counts via `UICollectionView` to stay in sync, instead of the `dataSource` [Maxime Ollivier](https://github.com/maxolls) [(677ce77)](https://github.com/Instagram/IGListKit/commit/677ce77ecad11850f61436681ee1d04a5e67e96a)

@@ -28,7 +28,7 @@
     [debug addObject:[NSString stringWithFormat:@"Data source: %@", self.dataSource]];
     [debug addObject:[NSString stringWithFormat:@"Collection view delegate: %@", self.collectionViewDelegate]];
     [debug addObject:[NSString stringWithFormat:@"Scroll view delegate: %@", self.scrollViewDelegate]];
-    [debug addObject:[NSString stringWithFormat:@"Is in update block: %@", IGListDebugBOOL(self.isInUpdateBlock)]];
+    [debug addObject:[NSString stringWithFormat:@"Is in update block: %@", IGListDebugBOOL(self.isInDataUpdateBlock)]];
     [debug addObject:[NSString stringWithFormat:@"View controller: %@", self.viewController]];
     if (@available(iOS 10.0, tvOS 10, *)) {
         [debug addObject:[NSString stringWithFormat:@"Is prefetching enabled: %@", IGListDebugBOOL(self.collectionView.isPrefetchingEnabled)]];

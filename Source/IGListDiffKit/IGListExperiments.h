@@ -21,7 +21,9 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     /// Test skipping performBatchUpdate if we don't have any updates.
     IGListExperimentSkipPerformUpdateIfPossible = 1 << 3,
     /// Test skipping creating {view : section controller} map, which has inconsistency issue.
-    IGListExperimentSkipViewSectionControllerMap = 1 << 4
+    IGListExperimentSkipViewSectionControllerMap = 1 << 4,
+    /// Use the correct section index when calling -[IGListAdapter reloadObjects ...] within the update block.
+    IGListExperimentFixCrashOnReloadObjects = 1 << 5
 };
 
 /**

@@ -7,7 +7,9 @@
 
 #import "IGListReloadDataUpdater.h"
 
-@implementation IGListReloadDataUpdater
+@implementation IGListReloadDataUpdater {
+    BOOL _isInDataUpdateBlock;
+}
 
 #pragma mark - IGListUpdatingDelegate
 
@@ -22,7 +24,9 @@
                                   completion:(nullable IGListUpdatingCompletion)completion {
     IGListTransitionData *sectionData = sectionDataBlock ? sectionDataBlock() : nil;
     if (sectionData != nil && applySectionDataBlock != nil) {
+        _isInDataUpdateBlock = YES;
         applySectionDataBlock(sectionData);
+        _isInDataUpdateBlock = NO;
     }
     [self _synchronousReloadDataWithCollectionView:collectionViewBlock()];
     if (completion) {
@@ -82,6 +86,10 @@
 - (void)_synchronousReloadDataWithCollectionView:(UICollectionView *)collectionView {
     [collectionView reloadData];
     [collectionView layoutIfNeeded];
+}
+
+- (BOOL)isInDataUpdateBlock {
+    return _isInDataUpdateBlock;
 }
 
 @end
