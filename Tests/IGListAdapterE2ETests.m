@@ -667,6 +667,41 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenReloadingItems_inItemUpdateBlock_thatDoesntCrash {
+    self.adapter.experiments |= IGListExperimentFixCrashOnReloadObjects;
+    // Without this fix, this test crashes with: Terminating app due to uncaught exception 'NSRangeException', reason: '*** -[__NSArrayI objectAtIndexedSubscript:]: index 2 beyond bounds [0 .. 1]'
+
+    [self setupWithObjects:@[
+        genTestObject(@1, @1),
+        genTestObject(@2, @2),
+    ]];
+
+    IGTestObject *object = self.dataSource.objects[1];
+    IGTestDelegateController *sectionController = [self.adapter sectionControllerForObject:object];
+    sectionController.itemUpdateBlock = ^{
+        // We shouldn't trigger updates within -didUpdateToObject, but in case we do,
+        // we should at least try to resolve it correctly.
+        [self.adapter reloadObjects:@[object]];
+    };
+
+    // Move object from index 1 -> 2, so the -reloadObjects will need to use the previous index (1)
+    self.dataSource.objects = @[
+        genTestObject(@1, @1),
+        genTestObject(@3, @3),
+        genTestObject(@2, @2), // Create a new object to trigger -didUpdateToObject
+    ];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished2) {
+        // Most importantly, we don't want to crash, but lets also check the order is correct
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 1);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 3);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:2], 2);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
 - (void)test_whenSectionControllerMutates_whenThereIsNoWindow_thatCollectionViewCountsAreUpdated {
     // remove the collection view from self.window so that we use reloadData
     [self.collectionView removeFromSuperview];

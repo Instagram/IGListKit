@@ -196,6 +196,12 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
  */
 - (void)reloadCollectionView:(UICollectionView *)collectionView sections:(NSIndexSet *)sections;
 
+/**
+ True if the updater is currently updating the source of truth, like executing applySectionDataBlock and
+ itemUpdates just before updating the UICollectionView.
+ */
+- (BOOL)isInDataUpdateBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

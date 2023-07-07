@@ -1304,7 +1304,7 @@
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];
 
-    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListUpdatingDelegate)];
     [[mockDelegate reject] reloadCollectionView:[OCMArg any] sections:[OCMArg any]];
     self.adapter.updater = mockDelegate;
 

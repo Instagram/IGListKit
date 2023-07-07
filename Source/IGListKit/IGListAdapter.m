@@ -28,6 +28,11 @@ typedef struct OffsetRange {
     CGFloat max;
 } OffsetRange;
 
+@interface IGListAdapter ()
+// Temporary param to key the old behavior during testing
+@property (nonatomic, assign) BOOL legacyIsInDataUpdateBlock;
+@end
+
 @implementation IGListAdapter {
     NSMapTable<UICollectionReusableView *, IGListSectionController *> *_viewSectionControllerMap;
     // An array of blocks to execute once batch updates are finished
@@ -422,6 +427,13 @@ typedef struct OffsetRange {
             return;
         }
 
+        if (IGListExperimentEnabled(strongSelf.experiments, IGListExperimentFixCrashOnReloadObjects)) {
+            // All the backgroundView changes during the update will be disabled, since we don't know how
+            // many cells we'll really have until it's all done. As a follow up, we should probably have
+            // a centralized place to do this, and change the background before the animation starts.
+            [strongSelf _updateBackgroundViewShouldHide:![strongSelf _itemCountIsZero]];
+        }
+
         // release the previous items
         strongSelf.previousSectionMap = nil;
         [strongSelf _notifyDidUpdate:IGListAdapterUpdateTypePerformUpdates animated:animated];
@@ -765,7 +777,7 @@ typedef struct OffsetRange {
 }
 
 - (void)_updateBackgroundViewShouldHide:(BOOL)shouldHide {
-    if (self.isInUpdateBlock) {
+    if ([self isInDataUpdateBlock]) {
         return; // will be called again when update block completes
     }
 
@@ -797,7 +809,7 @@ typedef struct OffsetRange {
 - (IGListSectionMap *)_sectionMapUsingPreviousIfInUpdateBlock:(BOOL)usePreviousMapIfInUpdateBlock {
     // if we are inside an update block, we may have to use the /previous/ item map for some operations
     IGListSectionMap *previousSectionMap = self.previousSectionMap;
-    if (usePreviousMapIfInUpdateBlock && self.isInUpdateBlock && previousSectionMap != nil) {
+    if (usePreviousMapIfInUpdateBlock && [self isInDataUpdateBlock] && previousSectionMap != nil) {
         return previousSectionMap;
     } else {
         return self.sectionMap;
@@ -899,6 +911,15 @@ typedef struct OffsetRange {
     _queuedCompletionBlocks = nil;
     for (void (^block)(void) in blocks) {
         block();
+    }
+}
+
+- (BOOL)isInDataUpdateBlock {
+    if (IGListExperimentEnabled(_experiments, IGListExperimentFixCrashOnReloadObjects)) {
+        // The updater has a better picture of when we're updating the data, including both section and item level changes.
+        return self.updater.isInDataUpdateBlock;
+    } else {
+        return self.legacyIsInDataUpdateBlock;
     }
 }
 
@@ -1268,10 +1289,10 @@ typedef struct OffsetRange {
     [self _enterBatchUpdates];
     __weak __typeof__(self) weakSelf = self;
     [self.updater performUpdateWithCollectionViewBlock:[self _collectionViewBlock] animated:animated itemUpdates:^{
-        weakSelf.isInUpdateBlock = YES;
+        weakSelf.legacyIsInDataUpdateBlock = YES;
         // the adapter acts as the batch context with its API stripped to just the IGListBatchContext protocol
         updates(weakSelf);
-        weakSelf.isInUpdateBlock = NO;
+        weakSelf.legacyIsInDataUpdateBlock = NO;
     } completion: ^(BOOL finished) {
         [weakSelf _updateBackgroundViewShouldHide:![weakSelf _itemCountIsZero]];
         [weakSelf _notifyDidUpdate:IGListAdapterUpdateTypeItemUpdates animated:animated];

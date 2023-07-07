@@ -59,8 +59,11 @@ IGListBatchContext
 
  Note that the previous section controller map is destroyed as soon as a transition is finished so there is no dangling
  objects or section controllers.
+ 
+ During this period, we're updating IGListKit's internal data, but not the UICollectionView just yet. This is a dangerous time, since the internal
+ data might only be partially updated.
  */
-@property (nonatomic, assign) BOOL isInUpdateBlock;
+@property (nonatomic, assign, readonly) BOOL isInDataUpdateBlock;
 @property (nonatomic, strong, nullable) IGListSectionMap *previousSectionMap;
 
 /**
