@@ -58,7 +58,8 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Demos"
+        title = "IGListKit"
+        navigationController?.navigationBar.prefersLargeTitles = true
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
