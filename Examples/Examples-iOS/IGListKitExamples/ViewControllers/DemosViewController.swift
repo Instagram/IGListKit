@@ -63,6 +63,13 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
+        if splitViewController?.viewControllers.count ?? 0 < 2, let demoItem = demos.first {
+            let viewController = demoItem.controllerClass.init()
+            viewController.title = demoItem.name
+            let navigationController = UINavigationController(rootViewController: viewController)
+            navigationController.navigationBar.prefersLargeTitles = true
+            splitViewController?.viewControllers.append(navigationController)
+        }
     }
 
     override func viewDidLayoutSubviews() {
