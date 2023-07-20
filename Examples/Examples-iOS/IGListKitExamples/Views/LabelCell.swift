@@ -10,8 +10,9 @@ import UIKit
 
 final class LabelCell: UICollectionViewCell {
 
-    fileprivate static let insets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
-    fileprivate static let font = UIFont.systemFont(ofSize: 17)
+    fileprivate static var insets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
+    fileprivate static let font = UIFont.systemFont(ofSize: 18)
+    fileprivate static let symbolFont = UIFont.boldSystemFont(ofSize: 21)
 
     static var singleLineHeight: CGFloat {
         return font.lineHeight + insets.top + insets.bottom
@@ -39,6 +40,21 @@ final class LabelCell: UICollectionViewCell {
         return layer
     }()
 
+    let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.tintColor = .titleLabel
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
+    let disclosureImageView: UIImageView = {
+        let configuration = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold, scale: .small)
+        let chevronImage = UIImage(systemName: "chevron.right", withConfiguration: configuration)
+        let imageView = UIImageView(image: chevronImage)
+        imageView.tintColor = .defaultSeparator
+        return imageView
+    }()
+
     var text: String? {
         get {
             return label.text
@@ -48,11 +64,25 @@ final class LabelCell: UICollectionViewCell {
         }
     }
 
+    var imageName: String? {
+        didSet {
+            guard let imageName else {
+                return
+            }
+            let configuration = UIImage.SymbolConfiguration(font: LabelCell.symbolFont, scale: .default)
+            let image = UIImage(systemName: imageName, withConfiguration: configuration)
+            imageView.image = image
+            setNeedsLayout()
+        }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = UIColor.background
         contentView.addSubview(label)
         contentView.layer.addSublayer(separator)
+        contentView.addSubview(disclosureImageView)
+        contentView.addSubview(imageView)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -62,16 +92,38 @@ final class LabelCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         let bounds = contentView.bounds
-        label.frame = bounds.inset(by: LabelCell.insets)
-        let height: CGFloat = 0.5
-        let left = LabelCell.insets.left
-        separator.frame = CGRect(x: left, y: bounds.height - height, width: bounds.width - left, height: height)
+
+        let hasImage = imageName?.count ?? 0 > 0
+        let imageCenterX = (hasImage ? LabelCell.insets.left + 15 : 0) + safeAreaInsets.left
+        if hasImage {
+            imageView.sizeToFit()
+            imageView.frame.origin = CGPoint(x: imageCenterX - imageView.bounds.midX,
+                                             y: bounds.midY - imageView.bounds.midY)
+        }
+
+        disclosureImageView.frame.origin = CGPoint(x: bounds.width - (LabelCell.insets.right + disclosureImageView.bounds.width + safeAreaInsets.right),
+                                                   y: bounds.midY - disclosureImageView.bounds.midY)
+
+        let labelX = hasImage ? imageCenterX + 25 : (LabelCell.insets.left + safeAreaInsets.left)
+        label.frame = CGRect(x: labelX,
+                             y: LabelCell.insets.top,
+                             width: bounds.width - (labelX - disclosureImageView.frame.minX),
+                             height: bounds.height - (LabelCell.insets.top + LabelCell.insets.bottom))
+
+        let separatorHeight: CGFloat = 1.0 / (window?.screen.nativeScale ?? 2.0)
+        let left = label.frame.minX
+        separator.frame = CGRect(x: left, y: bounds.height - separatorHeight, width: bounds.width - left, height: separatorHeight)
     }
 
     override var isHighlighted: Bool {
         didSet {
-            let color = isHighlighted ? UIColor.gray.withAlphaComponent(0.3) : UIColor.clear
-            contentView.backgroundColor = color
+            setHighlighted(isHighlighted)
+        }
+    }
+
+    override var isSelected: Bool {
+        didSet {
+            setHighlighted(isSelected)
         }
     }
 
@@ -80,6 +132,10 @@ final class LabelCell: UICollectionViewCell {
         separator.backgroundColor = UIColor.defaultSeparator.cgColor
     }
 
+    private func setHighlighted(_ highlighted: Bool) {
+        let color = highlighted ? UIColor.gray.withAlphaComponent(0.3) : UIColor.clear
+        contentView.backgroundColor = color
+    }
 }
 
 extension LabelCell: ListBindable {

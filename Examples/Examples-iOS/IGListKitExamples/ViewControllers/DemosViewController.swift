@@ -16,43 +16,43 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     let demos: [DemoItem] = [
-        DemoItem(name: "Tail Loading",
+        DemoItem(name: "Tail Loading", imageName: "arrow.down.circle",
                  controllerClass: LoadMoreViewController.self),
-        DemoItem(name: "Search Autocomplete",
+        DemoItem(name: "Search Autocomplete", imageName: "magnifyingglass",
                  controllerClass: SearchViewController.self),
-        DemoItem(name: "Mixed Data",
+        DemoItem(name: "Mixed Data", imageName: "square.fill.text.grid.1x2",
                  controllerClass: MixedDataViewController.self),
-        DemoItem(name: "Nested Adapter",
+        DemoItem(name: "Nested Adapter", imageName: "curlybraces",
                  controllerClass: NestedAdapterViewController.self),
-        DemoItem(name: "Empty View",
+        DemoItem(name: "Empty View", imageName: "exclamationmark.triangle",
                  controllerClass: EmptyViewController.self),
-        DemoItem(name: "Single Section Controller",
+        DemoItem(name: "Single Section Controller", imageName: "1.square",
                  controllerClass: SingleSectionViewController.self),
-        DemoItem(name: "Storyboard",
+        DemoItem(name: "Storyboard", imageName: "rectangle.on.rectangle",
                  controllerClass: SingleSectionViewController.self,
                  controllerIdentifier: "demo"),
-        DemoItem(name: "Single Section Storyboard",
+        DemoItem(name: "Single Section Storyboard", imageName: "rectangle",
                  controllerClass: SingleSectionStoryboardViewController.self,
                  controllerIdentifier: "singleSectionDemo"),
-        DemoItem(name: "Working Range",
+        DemoItem(name: "Working Range", imageName: "arrow.left.and.right",
                  controllerClass: WorkingRangeViewController.self),
-        DemoItem(name: "Diff Algorithm",
+        DemoItem(name: "Diff Algorithm", imageName: "function",
                  controllerClass: DiffTableViewController.self),
-        DemoItem(name: "Supplementary Views",
+        DemoItem(name: "Supplementary Views", imageName: "square.stack.3d.up",
                  controllerClass: SupplementaryViewController.self),
-        DemoItem(name: "Self-sizing cells",
+        DemoItem(name: "Self-sizing cells", imageName: "brain",
                  controllerClass: SelfSizingCellsViewController.self),
-        DemoItem(name: "Display delegate",
+        DemoItem(name: "Display delegate", imageName: "megaphone",
                  controllerClass: DisplayViewController.self),
-        DemoItem(name: "Objc Demo",
+        DemoItem(name: "Objc Demo", imageName: "c.square",
                  controllerClass: ObjcDemoViewController.self),
-        DemoItem(name: "Objc Generated Model Demo",
+        DemoItem(name: "Objc Generated Model Demo", imageName: "c.circle",
                  controllerClass: ObjcGeneratedModelDemoViewController.self),
-        DemoItem(name: "Calendar (auto diffing)",
+        DemoItem(name: "Calendar (auto diffing)", imageName: "calendar",
                  controllerClass: CalendarViewController.self),
-        DemoItem(name: "Dependency Injection",
+        DemoItem(name: "Dependency Injection", imageName: "syringe",
                  controllerClass: AnnouncingDepsViewController.self),
-        DemoItem(name: "Reorder Cells",
+        DemoItem(name: "Reorder Cells", imageName: "arrow.up.and.down.and.arrow.left.and.right",
                  controllerClass: ReorderableViewController.self)
     ]
 
@@ -60,6 +60,7 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
         super.viewDidLoad()
         title = "IGListKit"
         navigationController?.navigationBar.prefersLargeTitles = true
+        collectionView.alwaysBounceVertical = true
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
@@ -74,7 +75,30 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        collectionView.collectionViewLayout.invalidateLayout()
         collectionView.frame = view.bounds
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        guard let splitViewController = splitViewController else {
+            return
+        }
+
+        if splitViewController.viewControllers.count > 1 {
+            // When on iPad, this view controller is visible all the time, so on initial launch, select the first section
+            if let firstSection = adapter.sectionController(forSection: 0) {
+                firstSection.collectionContext.selectItem(at: 0, sectionController: firstSection, animated: false, scrollPosition: .top)
+            }
+        } else {
+            // On iPhone, deselect all cells when returning to this view controller (since we'll be coming back from a navigation pop)
+            for sectionController in adapter.visibleSectionControllers() {
+                sectionController.collectionContext.deselectItem(at: 0, sectionController: sectionController, animated: animated)
+                // UIColletionView doesn't call the deselection delegate by design when manually deselected, so manually deselect here
+                sectionController.didDeselectItem(at: 0)
+            }
+        }
     }
 
     // MARK: ListAdapterDataSource
