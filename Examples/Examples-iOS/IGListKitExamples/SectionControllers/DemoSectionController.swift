@@ -11,15 +11,18 @@ import UIKit
 final class DemoItem: NSObject {
 
     let name: String
+    let imageName: String
     let controllerClass: UIViewController.Type
     let controllerIdentifier: String?
 
     init(
         name: String,
+        imageName: String,
         controllerClass: UIViewController.Type,
         controllerIdentifier: String? = nil
         ) {
         self.name = name
+        self.imageName = imageName
         self.controllerClass = controllerClass
         self.controllerIdentifier = controllerIdentifier
     }
@@ -41,7 +44,6 @@ extension DemoItem: ListDiffable {
 }
 
 final class DemoSectionController: ListSectionController {
-
     private var object: DemoItem?
 
     override func sizeForItem(at index: Int) -> CGSize {
@@ -51,6 +53,10 @@ final class DemoSectionController: ListSectionController {
     override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell: LabelCell = collectionContext.dequeueReusableCell(for: self, at: index)
         cell.text = object?.name
+        cell.imageName = object?.imageName
+        if let splitViewController = viewController?.splitViewController {
+            cell.disclosureImageView.isHidden = splitViewController.viewControllers.count > 1
+        }
         return cell
     }
 
@@ -59,6 +65,8 @@ final class DemoSectionController: ListSectionController {
     }
 
     override func didSelectItem(at index: Int) {
+        setSeparatorsHidden(true)
+
         let navigationController = UINavigationController()
         navigationController.navigationBar.prefersLargeTitles = true
 
@@ -75,4 +83,20 @@ final class DemoSectionController: ListSectionController {
         }
     }
 
+    override func didDeselectItem(at index: Int) {
+        setSeparatorsHidden(false)
+    }
+
+    private func setSeparatorsHidden(_ hidden: Bool) {
+        if let cell = collectionContext.cellForItem(at: 0, sectionController: self) as? LabelCell {
+            cell.separator.isHidden = hidden
+        }
+
+        if section > 0,
+           let listAdapter = collectionContext as? ListAdapter,
+           let previousSectionController = listAdapter.sectionController(forSection: section - 1),
+           let previousCell = collectionContext.cellForItem(at: 0, sectionController: previousSectionController) as? LabelCell {
+            previousCell.separator.isHidden = hidden
+        }
+    }
 }
