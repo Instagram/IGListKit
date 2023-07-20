@@ -59,14 +59,19 @@ final class DemoSectionController: ListSectionController {
     }
 
     override func didSelectItem(at index: Int) {
+        let navigationController = UINavigationController()
+        navigationController.navigationBar.prefersLargeTitles = true
+
         if let identifier = object?.controllerIdentifier {
             let storyboard = UIStoryboard(name: "Demo", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: identifier)
             controller.title = object?.name
-            viewController?.navigationController?.pushViewController(controller, animated: true)
+            navigationController.viewControllers = [controller]
+            viewController?.showDetailViewController(navigationController, sender: self)
         } else if let controller = object?.controllerClass.init() {
             controller.title = object?.name
-            viewController?.navigationController?.pushViewController(controller, animated: true)
+            navigationController.viewControllers = [controller]
+            viewController?.showDetailViewController(navigationController, sender: self)
         }
     }
 
