@@ -9,10 +9,15 @@ import IGListKit
 import UIKit
 
 final class LabelCell: UICollectionViewCell {
+    enum Style {
+        case `default`
+        case grouped
+    }
 
-    fileprivate static var insets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
+    fileprivate static let insets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
     fileprivate static let font = UIFont.systemFont(ofSize: 18)
     fileprivate static let symbolFont = UIFont.boldSystemFont(ofSize: 21)
+    fileprivate static let cornerRadius = 12.0
 
     static var singleLineHeight: CGFloat {
         return font.lineHeight + insets.top + insets.bottom
@@ -55,6 +60,12 @@ final class LabelCell: UICollectionViewCell {
         return imageView
     }()
 
+    let backdropView: UIView = {
+        let view = UIView()
+        view.layer.cornerCurve = .continuous
+        return view
+    }()
+
     var text: String? {
         get {
             return label.text
@@ -76,9 +87,24 @@ final class LabelCell: UICollectionViewCell {
         }
     }
 
+    var style: Style = .default {
+        didSet {
+            backdropView.backgroundColor = backdropColor
+            setHighlighted(isSelected)
+        }
+    }
+
+    var isTopCell = false
+    var isBottomCell = false
+
+    var backdropColor: UIColor {
+        (style == .grouped) ? .secondaryGroupedBackground : .background
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = UIColor.background
+        contentView.backgroundColor = .clear
+        contentView.addSubview(backdropView)
         contentView.addSubview(label)
         contentView.layer.addSublayer(separator)
         contentView.addSubview(disclosureImageView)
@@ -92,6 +118,8 @@ final class LabelCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         let bounds = contentView.bounds
+
+        backdropView.frame = contentView.bounds
 
         let hasImage = imageName?.count ?? 0 > 0
         let imageCenterX = (hasImage ? LabelCell.insets.left + 15 : 0) + safeAreaInsets.left
@@ -113,6 +141,26 @@ final class LabelCell: UICollectionViewCell {
         let separatorHeight: CGFloat = 1.0 / (window?.screen.nativeScale ?? 2.0)
         let left = label.frame.minX
         separator.frame = CGRect(x: left, y: bounds.height - separatorHeight, width: bounds.width - left, height: separatorHeight)
+
+        if style != .grouped {
+            return
+        }
+
+        if isBottomCell {
+            separator.isHidden = true
+        }
+
+        let layer = backdropView.layer
+        layer.cornerRadius = LabelCell.cornerRadius
+
+        if isTopCell {
+            layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        } else if isBottomCell {
+            layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        } else {
+            layer.maskedCorners = []
+        }
+
     }
 
     override var isHighlighted: Bool {
@@ -133,8 +181,8 @@ final class LabelCell: UICollectionViewCell {
     }
 
     private func setHighlighted(_ highlighted: Bool) {
-        let color = highlighted ? UIColor.gray.withAlphaComponent(0.3) : UIColor.clear
-        contentView.backgroundColor = color
+        let color = highlighted ? UIColor.gray.withAlphaComponent(0.3) : backdropColor
+        backdropView.backgroundColor = color
     }
 }
 
