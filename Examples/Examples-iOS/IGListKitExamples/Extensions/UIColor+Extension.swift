@@ -17,6 +17,22 @@ extension UIColor {
         }
     }
 
+    class var groupedBackground: UIColor {
+        if #available(iOS 13.0, *) {
+            return .systemGroupedBackground
+        } else {
+            return .groupTableViewBackground
+        }
+    }
+
+    class var secondaryGroupedBackground: UIColor {
+        if #available(iOS 13.0, *) {
+            return .secondarySystemGroupedBackground
+        } else {
+            return .white
+        }
+    }
+
     class var secondaryBackground: UIColor {
         if #available(iOS 13.0, *) {
             return .secondarySystemBackground

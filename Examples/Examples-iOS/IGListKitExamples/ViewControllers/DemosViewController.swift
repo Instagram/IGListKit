@@ -10,6 +10,8 @@ import UIKit
 
 final class DemosViewController: UIViewController, ListAdapterDataSource {
 
+    let horizontalInset = 16.0
+
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
@@ -61,6 +63,8 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
         title = "IGListKit"
         navigationController?.navigationBar.prefersLargeTitles = true
         collectionView.alwaysBounceVertical = true
+        collectionView.backgroundColor = .groupedBackground
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: horizontalInset, bottom: 0, right: horizontalInset)
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
@@ -90,6 +94,7 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
             // When on iPad, this view controller is visible all the time, so on initial launch, select the first section
             if let firstSection = adapter.sectionController(forSection: 0) {
                 firstSection.collectionContext.selectItem(at: 0, sectionController: firstSection, animated: false, scrollPosition: .top)
+                firstSection.didSelectItem(at: 0)
             }
         } else {
             // On iPhone, deselect all cells when returning to this view controller (since we'll be coming back from a navigation pop)

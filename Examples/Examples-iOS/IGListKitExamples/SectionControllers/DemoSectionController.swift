@@ -47,16 +47,26 @@ final class DemoSectionController: ListSectionController {
     private var object: DemoItem?
 
     override func sizeForItem(at index: Int) -> CGSize {
-        return CGSize(width: collectionContext!.containerSize.width, height: 55)
+        guard let context = collectionContext else {
+            return .zero
+        }
+        let inset = context.containerInset
+        let safeArea = viewController?.view.safeAreaInsets ?? .zero
+        let width = context.containerSize.width - (inset.left + inset.right + safeArea.left + safeArea.right)
+        return CGSize(width: width, height: 55)
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell: LabelCell = collectionContext.dequeueReusableCell(for: self, at: index)
         cell.text = object?.name
         cell.imageName = object?.imageName
+        cell.style = .grouped
+        cell.isTopCell = isFirstSection
+        cell.isBottomCell = isLastSection
         if let splitViewController = viewController?.splitViewController {
             cell.disclosureImageView.isHidden = splitViewController.viewControllers.count > 1
         }
+        cell.separator.isHidden = cell.isSelected
         return cell
     }
 
