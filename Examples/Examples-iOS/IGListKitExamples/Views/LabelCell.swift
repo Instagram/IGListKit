@@ -57,6 +57,7 @@ final class LabelCell: UICollectionViewCell {
         let chevronImage = UIImage(systemName: "chevron.right", withConfiguration: configuration)
         let imageView = UIImageView(image: chevronImage)
         imageView.tintColor = .defaultSeparator
+        imageView.isHidden = true
         return imageView
     }()
 
