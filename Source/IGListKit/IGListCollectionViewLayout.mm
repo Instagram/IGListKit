@@ -376,6 +376,11 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     }
 }
 
+- (void)invalidateLayout {
+    _minimumInvalidatedSection = 0;
+    [super invalidateLayout];
+}
+
 - (void)invalidateLayoutWithContext:(IGListCollectionViewLayoutInvalidationContext *)context {
     BOOL hasInvalidatedItemIndexPaths = NO;
     if ([context respondsToSelector:@selector(invalidatedItemIndexPaths)]) {
