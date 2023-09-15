@@ -13,6 +13,10 @@
 #define IGWarn( condition, ... ) NSCAssert( (condition) , ##__VA_ARGS__)
 #endif // IGWarn
 
+#ifndef IGWarnAssert
+#define IGWarnAssert(frmt, ... ) IGAssert( (NO) , ##__VA_ARGS__)
+#endif // IGWarnAssert
+
 #ifndef IGFailAssert
 #define IGFailAssert( ... ) IGAssert( (NO) , ##__VA_ARGS__)
 #endif // IGFailAssert
