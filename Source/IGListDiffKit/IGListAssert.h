@@ -6,23 +6,23 @@
  */
 
 #ifndef IGAssert
-#define IGAssert( condition, ... ) NSCAssert( (condition) , ##__VA_ARGS__)
+#define IGAssert( condition, desc, ... ) NSCAssert( (condition) , (desc) , ##__VA_ARGS__)
 #endif // IGAssert
 
 #ifndef IGWarn
-#define IGWarn( condition, ... ) NSCAssert( (condition) , ##__VA_ARGS__)
+#define IGWarn( condition, desc, ... ) NSCAssert( (condition) , (desc) , ##__VA_ARGS__)
 #endif // IGWarn
 
 #ifndef IGWarnAssert
-#define IGWarnAssert(frmt, ... ) IGAssert( (NO) , ##__VA_ARGS__)
+#define IGWarnAssert( desc, ... ) IGAssert( (NO) , (desc) , ##__VA_ARGS__)
 #endif // IGWarnAssert
 
 #ifndef IGFailAssert
-#define IGFailAssert( ... ) IGAssert( (NO) , ##__VA_ARGS__)
+#define IGFailAssert( desc, ... ) IGAssert( (NO) , (desc) , ##__VA_ARGS__)
 #endif // IGFailAssert
 
 #ifndef IGFailure
-#define IGFailure( ... ) IGAssert( (NO) , ##__VA_ARGS__)
+#define IGFailure( desc, ... ) IGAssert( (NO) , (desc) , ##__VA_ARGS__)
 #endif // IGFailure
 
 
