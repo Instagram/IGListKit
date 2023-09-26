@@ -14,7 +14,7 @@
 #endif // IGWarn
 
 #ifndef IGWarnAssert
-#define IGWarnAssert(frmt, ... ) IGAssert( (NO) , ##__VA_ARGS__)
+#define IGWarnAssert( ... ) IGAssert( (NO) , ##__VA_ARGS__)
 #endif // IGWarnAssert
 
 #ifndef IGFailAssert
