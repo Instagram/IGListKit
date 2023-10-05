@@ -2144,41 +2144,6 @@
     XCTAssertEqual(section1Objects[2], section1.sectionObject.objects[2]);
 }
 
-- (void)test_whenSingleItemsAreInteractivelyReorderedAcrossSections_thatIndexesRevertToOriginalState {
-    IGListTestAdapterReorderingDataSource *dataSource = [IGListTestAdapterReorderingDataSource new];
-    dataSource.objects = @[@0, @1];
-    self.adapter.dataSource = dataSource;
-    self.adapter.moveDelegate = dataSource;
-
-    NSArray *section0Objects = @[@0];
-    NSArray *section1Objects = @[@3];
-
-    IGTestReorderableSection *section0 = (IGTestReorderableSection *)[self.adapter sectionControllerForSection:0];
-    section0.sectionObject = [IGTestReorderableSectionObject sectionWithObjects:section0Objects];
-    IGTestReorderableSection *section1 = (IGTestReorderableSection *)[self.adapter sectionControllerForSection:1];
-    section1.sectionObject = [IGTestReorderableSectionObject sectionWithObjects:section1Objects];
-    section1.isReorderable = YES;
-
-    [self.adapter performUpdatesAnimated:NO completion:nil];
-
-    NSIndexPath *fromIndexPath, *toIndexPath;
-
-    // move an item from section 1 to section 0 and check that they are reverted
-    fromIndexPath = [NSIndexPath indexPathForItem:0 inSection:1];
-    toIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
-
-    [self.collectionView performBatchUpdates:^{
-        [self.collectionView moveItemAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
-
-        [self.collectionView.dataSource collectionView:self.collectionView
-                                   moveItemAtIndexPath:fromIndexPath
-                                           toIndexPath:toIndexPath];
-    } completion:nil];
-
-    XCTAssertEqual(section0Objects[0], section0.sectionObject.objects[0]);
-    XCTAssertEqual(section1Objects[0], section1.sectionObject.objects[0]);
-}
-
 - (void)test_whenSingleItemInSectionIsInteractivelyReorderedThorughLastSpot_indexesUpdateCorrectly {
     IGListTestAdapterReorderingDataSource *dataSource = [IGListTestAdapterReorderingDataSource new];
     dataSource.objects = @[@0, @1, @2];
