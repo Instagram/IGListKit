@@ -1404,12 +1404,12 @@
 
     XCTestExpectation *expectation = genExpectation;
     [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
-        object.value = @2;
+        object.value = @3;
         [batchContext deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
         [batchContext deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
     } completion:^(BOOL finished2) {
         XCTAssertEqual([self.collectionView numberOfSections], 1);
-        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
         [expectation fulfill];
     }];
     [self waitForExpectationsWithTimeout:30 handler:nil];
