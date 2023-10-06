@@ -58,6 +58,10 @@
     XCTAssertTrue(executed);
 }
 
+- (void)test_thatDataUpdateBlockStateIsAvailable {
+    XCTAssertTrue(!self.adapter.updater.isInDataUpdateBlock);
+}
+
 - (void)test_whenInsertingIntoContext_thatCollectionViewUpdated {
     self.dataSource.objects = @[@2];
     [self.adapter reloadDataWithCompletion:nil];
