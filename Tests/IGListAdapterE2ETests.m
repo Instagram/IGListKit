@@ -1734,6 +1734,24 @@
     IGAssertEqualPoint(finalAttribute.center, attribute.center.x + offset.x ,attribute.center.y + offset.y);
 }
 
+- (void)test_whenModifyingInitialAndFinalAttribute_withoutTransitionDelegate_thatLayoutIsCorrect {
+    // set up the custom layout
+    IGListCollectionViewLayout *layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:NO topContentInset:0 stretchToEdge:YES];
+    self.collectionView.collectionViewLayout = layout;
+
+    IGTestObject *object = genTestObject(@1, @2);
+    [self setupWithObjects:@ [object]];
+
+    // When no transition delegate is set, the initial and final layout methods no-op, so these values should all match
+    NSIndexPath *indexPath = genIndexPath(0, 0);
+    UICollectionViewLayoutAttributes *attribute = [layout layoutAttributesForItemAtIndexPath:indexPath];
+    UICollectionViewLayoutAttributes *initialAttribute = [layout initialLayoutAttributesForAppearingItemAtIndexPath:indexPath];
+    UICollectionViewLayoutAttributes *finalAttribute = [layout finalLayoutAttributesForDisappearingItemAtIndexPath:indexPath];
+
+    IGAssertEqualPoint(attribute.center, initialAttribute.center.x, initialAttribute.center.y);
+    IGAssertEqualPoint(attribute.center, finalAttribute.center.x, finalAttribute.center.y);
+}
+
 - (void)test_whenSwappingCollectionViewsAfterUpdate_thatUpdatePerformedOnTheCorrectCollectionView {
     // BEGIN: setup of FIRST adapter+dataSource+collectionView
     IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
