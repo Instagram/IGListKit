@@ -455,6 +455,8 @@
 
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        [self.collectionView layoutIfNeeded];
+
         IGTestCell *updatedCell00 = [self cellAtSection:0 item:0];
         IGTestCell *updatedCell01 = [self cellAtSection:0 item:1];
         IGTestCell *nochangedCell10 = [self cellAtSection:1 item:0];
