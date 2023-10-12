@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem "activesupport", "= 7.0.8"
 gem 'cocoapods', '~> 1.12.0'
 gem 'danger', '~> 9.2.0'
 gem 'danger-swiftlint', '~> 0.32.0'
