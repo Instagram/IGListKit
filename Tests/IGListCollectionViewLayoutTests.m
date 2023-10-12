@@ -1248,6 +1248,30 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     IGAssertEqualFrame([self cellForSection:0 item:2].frame, 40, 0, 20, 20);
 }
 
+- (void)test_whenMarkingASectionAsUpdated_thatLayoutUpdates {
+    [self setUpWithStickyHeaders:NO topInset:0];
+    [self prepareWithData:@[
+                            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
+                                                            lineSpacing:0
+                                                       interitemSpacing:0
+                                                           headerHeight:0
+                                                           footerHeight:0
+                                                                  items:@[
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(10, 10)],
+                                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(10, 10)],
+                                                                          ]],
+                            ]];
+
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 10, 10);
+    IGAssertEqualFrame([self cellForSection:0 item:1].frame, 10, 0, 10, 10);
+
+    [self.layout didModifySection:1];
+    [self.layout prepareLayout];
+
+    IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 10, 10);
+    IGAssertEqualFrame([self cellForSection:0 item:1].frame, 10, 0, 10, 10);
+}
+
 #pragma mark - Internal debugging
 
 - (void)test_withDelegateNameDebugger_thatReturnedNamesAreValid {
