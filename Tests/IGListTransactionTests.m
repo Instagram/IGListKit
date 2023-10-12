@@ -167,4 +167,21 @@
     [transaction reloadSections:[NSIndexSet indexSet]];
 }
 
+- (void)test_withIncorrectUpdatesState_thatInconsistencyExceptionIsCaught {
+    _config.allowsBackgroundDiffing = NO;
+    __weak __typeof__(self) weakSelf = self;
+    self.applySectionDataBlock = ^(IGListTransitionData *data) {
+        [weakSelf.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathWithIndex:0]]];
+    };
+    BOOL exceptionWasHandled = NO;
+    IGListBatchUpdateTransaction *batchUpdateTransaction = [self makeBatchUpdateTransaction];
+    @try {
+        [batchUpdateTransaction begin];
+    } @catch (NSException *exception) {
+        exceptionWasHandled =  YES;
+        XCTAssertTrue([exception.name isEqualToString:@"NSInternalInconsistencyException"]);
+    }
+    XCTAssertTrue(exceptionWasHandled);
+}
+
 @end
