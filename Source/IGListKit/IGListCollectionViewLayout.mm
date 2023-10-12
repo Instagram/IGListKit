@@ -474,11 +474,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 - (void)_calculateLayoutIfNeeded {
     if (_minimumInvalidatedSection == NSNotFound) {
         return;
-    }
-
-    // purge attribute caches so they are rebuilt
-    [_attributesCache removeAllObjects];
-    [self _resetSupplementaryAttributesCache];
+    }    
 
     UICollectionView *collectionView = self.collectionView;
     id<UICollectionViewDelegateFlowLayout> delegate = (id<UICollectionViewDelegateFlowLayout>)collectionView.delegate;
@@ -540,6 +536,8 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
         for (NSInteger item = 0; item < itemCount; item++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
+            // Following method subsequentally calls -layoutAttributesForItemAtIndexPath: and caches attributes that are not ready yet (we only calculate them at the end of this for loop)
+            // This results in _attributesCache[indexPath] being set to incorrect value. If we end up calling prepareLayout in response to frame change we
             const CGSize size = [delegate collectionView:collectionView layout:self sizeForItemAtIndexPath:indexPath];
 
             IGAssert(CGSizeGetLengthInDirection(size, fixedDirection) <= paddedLengthInFixedDirection
@@ -655,6 +653,12 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         _sectionData[section].lastItemCoordInFixedDirection = itemCoordInFixedDirection;
         _sectionData[section].lastNextRowCoordInScrollDirection = nextRowCoordInScrollDirection;
     }
+
+    // Reason we are purging attributes at the end is because in some circumstances calling
+    // -[delegate collectionView: layout: sizeForItemAtIndexPath:] results in creating the cache with incorrect values
+    // See the comment next to the call for more information
+    [_attributesCache removeAllObjects];
+    [self _resetSupplementaryAttributesCache];
 
     _minimumInvalidatedSection = NSNotFound;
 }
