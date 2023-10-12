@@ -389,11 +389,9 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 
     if (hasInvalidatedItemIndexPaths
         || [context invalidateEverything]
+        || ([context invalidateDataSourceCounts] && _minimumInvalidatedSection == NSNotFound) // if count changed and we don't have information on the minimum invalidated section
         || context.ig_invalidateAllAttributes) {
         // invalidates all
-        _minimumInvalidatedSection = 0;
-    } else if ([context invalidateDataSourceCounts] && _minimumInvalidatedSection == NSNotFound) {
-        // invalidate all if count changed and we don't have information on the minimum invalidated section
         _minimumInvalidatedSection = 0;
     }
 
