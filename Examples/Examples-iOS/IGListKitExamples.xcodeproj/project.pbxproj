@@ -85,12 +85,12 @@
 		986FB7131DBBA60900A65C18 /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 986FB7121DBBA60900A65C18 /* Messages.framework */; };
 		986FB7161DBBA60900A65C18 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986FB7151DBBA60900A65C18 /* MessagesViewController.swift */; };
 		986FB71B1DBBA60900A65C18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 986FB71A1DBBA60900A65C18 /* Assets.xcassets */; };
-		986FB71F1DBBA60900A65C18 /* IGListKitMessageExample.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 986FB7111DBBA60900A65C18 /* IGListKitMessageExample.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		986FB71F1DBBA60900A65C18 /* IGListKitMessageExample.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 986FB7111DBBA60900A65C18 /* IGListKitMessageExample.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		986FB7281DBBA9B200A65C18 /* LabelSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2942FF881D9F39E00015D24B /* LabelSectionController.swift */; };
 		986FB7291DBBA9C900A65C18 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961B3A71D68B0B5001C9451 /* LabelCell.swift */; };
 		986FB7311DBBAD8600A65C18 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 986FB7301DBBAD8600A65C18 /* NotificationCenter.framework */; };
 		986FB7341DBBAD8600A65C18 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986FB7331DBBAD8600A65C18 /* TodayViewController.swift */; };
-		986FB73B1DBBAD8600A65C18 /* IGListKitTodayExample.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 986FB72F1DBBAD8600A65C18 /* IGListKitTodayExample.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		986FB73B1DBBAD8600A65C18 /* IGListKitTodayExample.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 986FB72F1DBBAD8600A65C18 /* IGListKitTodayExample.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		986FB7401DBBAEA600A65C18 /* LabelSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2942FF881D9F39E00015D24B /* LabelSectionController.swift */; };
 		986FB7411DBBAEA900A65C18 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961B3A71D68B0B5001C9451 /* LabelCell.swift */; };
 		98B4DBF41DC2937A002BA58A /* Demo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98B4DBF31DC2937A002BA58A /* Demo.storyboard */; };
@@ -141,16 +141,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		986FB7231DBBA60900A65C18 /* Embed App Extensions */ = {
+		986FB7231DBBA60900A65C18 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				986FB73B1DBBAD8600A65C18 /* IGListKitTodayExample.appex in Embed App Extensions */,
-				986FB71F1DBBA60900A65C18 /* IGListKitMessageExample.appex in Embed App Extensions */,
+				986FB73B1DBBAD8600A65C18 /* IGListKitTodayExample.appex in Embed Foundation Extensions */,
+				986FB71F1DBBA60900A65C18 /* IGListKitMessageExample.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -592,7 +592,7 @@
 				2961B3861D68B031001C9451 /* Sources */,
 				2961B3871D68B031001C9451 /* Frameworks */,
 				2961B3881D68B031001C9451 /* Resources */,
-				986FB7231DBBA60900A65C18 /* Embed App Extensions */,
+				986FB7231DBBA60900A65C18 /* Embed Foundation Extensions */,
 				DC1296C41EC38A0B0043990F /* SwiftLint */,
 			);
 			buildRules = (
@@ -679,8 +679,9 @@
 		2961B3821D68B031001C9451 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = Instagram;
 				TargetAttributes = {
 					2961B3891D68B031001C9451 = {
@@ -942,14 +943,17 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -960,6 +964,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -974,7 +979,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -995,14 +1000,17 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1013,6 +1021,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1021,7 +1030,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1038,6 +1047,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = IGListKitExamples/IGListKitExamples.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = IGListKitExamples/Info.plist;
@@ -1046,6 +1056,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1065,6 +1076,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = IGListKitExamples/IGListKitExamples.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = IGListKitExamples/Info.plist;
@@ -1073,6 +1085,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1089,6 +1102,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "IGListKitExamples-UITests/Info.plist";
@@ -1098,6 +1112,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.instagram.IGListKitExamples-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1114,6 +1129,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "IGListKitExamples-UITests/Info.plist";
@@ -1123,6 +1139,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.instagram.IGListKitExamples-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1148,6 +1165,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples.IGListKitMessageExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1175,6 +1193,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples.IGListKitMessageExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1200,6 +1219,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples.IGListKitTodayExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1226,6 +1246,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples.IGListKitTodayExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

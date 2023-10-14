@@ -22,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		226CE42D2AD828C900BDBF07 /* IGListKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = IGListKit; path = ../..; sourceTree = "<group>"; };
 		63F1F74ED983018C5D607DDC /* Pods_IGListKitExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF95C4C1F52732200F14EFE /* UserCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCollectionViewCell.xib; sourceTree = "<group>"; };
 		7BF95C4E1F5273A100F14EFE /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -31,7 +32,6 @@
 		8886090C1DEF38A00019A4A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8886090F1DEF38A00019A4A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		888609111DEF38A00019A4A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BAB336F72760F1E8007B4098 /* IGListKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = IGListKit; path = ../..; sourceTree = "<group>"; };
 		DD9018671E0319E40003789D /* IndexSet+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IndexSet+Extensions.swift"; sourceTree = "<group>"; };
 		DD9018691E031A3E0003789D /* Shuffle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shuffle.swift; sourceTree = "<group>"; };
 		DDE3D8501E030AFA00F96BE4 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -94,7 +94,7 @@
 		BAB336F52760F109007B4098 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				BAB336F72760F1E8007B4098 /* IGListKit */,
+				226CE42D2AD828C900BDBF07 /* IGListKit */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -182,8 +182,9 @@
 		888608FD1DEF38A00019A4A5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = Instagram;
 				TargetAttributes = {
 					888609041DEF38A00019A4A5 = {
@@ -310,6 +311,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -371,6 +373,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -401,6 +404,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -422,6 +426,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.instagram.IGListKitExamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
