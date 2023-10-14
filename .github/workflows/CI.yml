@@ -11,9 +11,9 @@ on:
 jobs:
   macOS:
     name: Unit Test macOS
-    runs-on: macos-12
+    runs-on: macos-13
     env:
-      DEVELOPER_DIR: /Applications/Xcode_14.2.app
+      DEVELOPER_DIR: /Applications/Xcode_15.0.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       SCHEME_NAME: IGListKit-macOS
     steps:
@@ -42,14 +42,14 @@ jobs:
 
   iOS:
     name: Unit Test iOS
-    runs-on: macos-12
+    runs-on: macos-13
     env:
-      DEVELOPER_DIR: /Applications/Xcode_14.2.app
+      DEVELOPER_DIR: /Applications/Xcode_15.0.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       SCHEME_NAME: IGListKit
     strategy:
       matrix:
-        destination: ["platform=iOS Simulator,name=iPhone 13 Pro"]
+        destination: ["platform=iOS Simulator,name=iPhone 15 Pro"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -81,11 +81,11 @@ jobs:
           CI_PULL_REQUEST: ${{ github.event.number }}
           GIT_BRANCH: ${{ github.head_ref || github.ref_name }}
 
-  Cocoapods:
-    name: Cocoapods Lint
-    runs-on: macos-12
+  CocoaPods:
+    name: CocoaPods Lint
+    runs-on: macos-13
     env:
-      DEVELOPER_DIR: /Applications/Xcode_13.4.1.app
+      DEVELOPER_DIR: /Applications/Xcode_15.0.app
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -112,12 +112,12 @@ jobs:
 
   SPM-layout-generator:
     name: Verify generate_spm_sources_layout.sh is not broken
-    runs-on: macos-12
+    runs-on: macos-13
     env:
-      DEVELOPER_DIR: /Applications/Xcode_14.2.app
+      DEVELOPER_DIR: /Applications/Xcode_15.0.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       PROJECT_NAME: IGListKit.xcodeproj
-      IOS_DESTINATION: "platform=iOS Simulator,name=iPhone 13 Pro"
+      IOS_DESTINATION: "platform=iOS Simulator,name=iPhone 15 Pro"
       SPM_IG_LIST_DIFF_KIT_PUBLIC_HEADERS_PATH: "spm/Sources/IGListDiffKit/include"
       SPM_IG_LIST_DIFF_KIT_SOURCES_PATH: "spm/Sources/IGListDiffKit"
       SPM_IG_LIST_KIT_PUBLIC_HEADERS_PATH: "spm/Sources/IGListKit/include"
@@ -146,12 +146,12 @@ jobs:
 
   SPM-build-from-Package:
     name: Verify SPM build by invoking `xcodebuild` on Package.swift
-    runs-on: macos-12
+    runs-on: macos-13
     env:
-      DEVELOPER_DIR: /Applications/Xcode_14.2.app
+      DEVELOPER_DIR: /Applications/Xcode_15.0.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       PROJECT_NAME: IGListKit.xcodeproj
-      IOS_DESTINATION: "platform=iOS Simulator,name=iPhone 13 Pro"
+      IOS_DESTINATION: "platform=iOS Simulator,name=iPhone 15 Pro"
     strategy:
       matrix:
         schemeName: ["IGListDiffKit",
@@ -171,9 +171,9 @@ jobs:
 
   Carthage-XCFramework:
     name: Verify Carthage build XCFramework
-    runs-on: macos-12
+    runs-on: macos-13
     env:
-      DEVELOPER_DIR: /Applications/Xcode_14.2.app
+      DEVELOPER_DIR: /Applications/Xcode_15.0.app
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -195,16 +195,16 @@ jobs:
 
   Build-Examples:
     name: Build Examples and UI tests.
-    runs-on: macos-12
+    runs-on: macos-13
     env:
-      DEVELOPER_DIR: /Applications/Xcode_14.2.app
+      DEVELOPER_DIR: /Applications/Xcode_15.0.app
       IOS_EXAMPLE_XCODEPROJ: Examples/Examples-iOS/IGListKitExamples.xcodeproj
       TVOS_EXAMPLE_XCODEPROJ: Examples/Examples-tvOS/IGListKitExamples.xcodeproj
       MACOS_EXAMPLE_XCODEPROJ: Examples/Examples-macOS/IGListKitExamples.xcodeproj
       EXAMPLE_SCHEME: IGListKitExamples
     strategy:
       matrix:
-        iosDestination: ["platform=iOS Simulator,name=iPhone 13 Pro"]
+        iosDestination: ["platform=iOS Simulator,name=iPhone 15 Pro"]
         tvOSDestination: ["platform=tvOS Simulator,name=Apple TV 4K (3rd generation)"]
         macOSDestination: ["platform=macOS"]
         macCatalystDestination: ["platform=macOS,variant=Mac Catalyst"]
@@ -223,35 +223,41 @@ jobs:
       - name: Install ruby gems.
         run: bundle install
 
+      - name: Preboot iOS Simulator
+        uses: futureware-tech/simulator-action@v2
+        with:
+          model: 'iPhone 15 Pro'
+          os_version: '>=17.0'
+
       - name: Build iOS Example - ${{ matrix.iosDestination }}
         run: |
           set -o pipefail
-          xcodebuild build -project "${{ env.IOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+          xcodebuild build build-for-testing -project "${{ env.IOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" -configuration Debug ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
 
       - name: Run iOS Example's UI Tests - ${{ matrix.iosDestination }}
         run: |
           set -o pipefail
-          xcodebuild build test -project "${{ env.IOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+          xcodebuild build test -project "${{ env.IOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" -configuration Debug ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
 
       - name: Build tvOS Example - ${{ matrix.tvOSDestination }}
         run: |
           set -o pipefail
-          xcodebuild build -project "${{ env.TVOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.tvOSDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+          xcodebuild build -project "${{ env.TVOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.tvOSDestination }}" -configuration Debug ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
 
       - name: Build macOS Example - ${{ matrix.macOSDestination }}
         run: |
           set -o pipefail
-          xcodebuild build -project "${{ env.MACOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.macOSDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+          xcodebuild build -project "${{ env.MACOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.macOSDestination }}" -configuration Debug ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
 
       - name: Build Mac Catalyst Example - ${{ matrix.macCatalystDestination }}
         run: |
           set -o pipefail
-          xcodebuild build -project "${{ env.IOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.macCatalystDestination }}" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+          xcodebuild build -project "${{ env.IOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.macCatalystDestination }}" -configuration Debug ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
 
   Danger:
     name: Run Danger
     if: github.event_name == 'pull_request'
-    runs-on: macos-12
+    runs-on: macos-13
     env:
       DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
