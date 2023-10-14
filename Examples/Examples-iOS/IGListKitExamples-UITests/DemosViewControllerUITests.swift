@@ -61,10 +61,37 @@ final class DemosViewControllerUITests: UITestCase {
         enterAndAssertScreen(withTitle: "Display delegate")
     }
 
+    func test_whenSelectingObjcDemo_thatObjcDemoDetailScreenIsPresented() {
+        enterAndAssertScreen(withTitle: "Objc Demo")
+    }
+
+    func test_whenSelectingObjcGeneratedModelDemo_thatObjcGeneratedModelDemoDetailScreenIsPresented() {
+        enterAndAssertScreen(withTitle: "Objc Generated Model Demo")
+    }
+
+    func test_whenSelectingCalendarDemo_thatCalendarDemoDetailScreenIsPresented() {
+        enterAndAssertScreen(withTitle: "Calendar (auto diffing)")
+    }
+
+    func test_whenSelectingDependencyInjection_thatDependencyInjectionDemoDetailScreenIsPresented() {
+        enterAndAssertScreen(withTitle: "Dependency Injection")
+    }
+
+    func test_whenSelectingRecorderCells_thatReorderCellsDemoDetailScreenIsPresented() {
+        enterAndAssertScreen(withTitle: "Reorder Cells")
+    }
+
     private func enterAndAssertScreen(withTitle title: String) {
+        XCUIApplication().activate()
         let elem = XCUIApplication().collectionViews.cells.staticTexts[title]
-        if !elem.exists {
+
+        var numberOfTries = 0
+        while !elem.isHittable {
             XCUIApplication().collectionViews.element.swipeUp()
+            numberOfTries += 1
+            if numberOfTries >= 10 {
+                break
+            }
         }
 
         XCTAssertTrue(elem.exists)

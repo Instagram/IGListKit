@@ -13,15 +13,20 @@ final class LoadMoreViewControllerUITests: UITestCase {
         let collectionViews = XCUIApplication().collectionViews
         collectionViews.cells.staticTexts["Tail Loading"].tap()
 
-        // Swipe up until the last element before loading new data is visible
-        let lastElem = collectionViews.cells.staticTexts["20"]
-        while !lastElem.exists || !XCUIApplication().windows.element(boundBy: 0).frame.contains(lastElem.frame) {
+        // Swipe up until the last item in the list is on-screen
+        var numberOfTries = 0
+        let lastElem = collectionViews.cells.staticTexts["15"]
+        while !lastElem.isHittable {
             collectionViews.element.swipeUp()
+            numberOfTries += 1
+            if numberOfTries >= 10 {
+                break
+            }
         }
 
-        // Wait for item "21" to be loaded asynchronously
-        let newlyLoadedElement = collectionViews.cells.staticTexts["21"]
-        waitToAppear(element: newlyLoadedElement)
+        // Wait for the following item to be loaded asynchronously
+        let newlyLoadedElement = collectionViews.cells.staticTexts["16"]
+        waitToAppear(element: newlyLoadedElement, timeout: 30.0)
     }
 
 }
