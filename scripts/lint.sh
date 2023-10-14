@@ -10,6 +10,9 @@ if test -d "/opt/homebrew/bin/"; then
   export PATH
 fi
 
+# Make sure bash executes from the same directory as the script
+cd "$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
 VERSION="0.50.3"
 FOUND=$(swiftlint version)
 
