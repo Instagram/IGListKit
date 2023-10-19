@@ -217,7 +217,10 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
         }
     }
     @catch (NSException *exception) {
-        if ([[exception name] isEqualToString:NSInternalInconsistencyException]) {
+        /// Currently, we don't throw on `NSInternalInconsistencyException`, like the comment below explains. This was a temporary workaround for the large
+        /// volume of exceptions that started with Xcode 14.3. Now, lets use this experiment flag to slowly reintroduce it, and eventually remove the workaround.
+        const BOOL ignoreException = !IGListExperimentEnabled(self.config.experiments, IGListExperimentThrowOnInconsistencyException);
+        if (ignoreException && [[exception name] isEqualToString:NSInternalInconsistencyException]) {
             /// As part of S342566 we have to recover from crashing the app since Xcode 14.3 has shipped
             /// with a different build SDK that changes the runtime behavior of -performBatchUpdates: issues.
             /// When we are performing batch updates, it's on us to advance the data source to the new state
