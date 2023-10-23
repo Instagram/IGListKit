@@ -987,6 +987,10 @@ typedef struct OffsetRange {
     return self.collectionView.bounds.size;
 }
 
+- (UITraitCollection *_Nullable)traitCollection {
+    return self.collectionView.traitCollection;
+}
+
 - (UIEdgeInsets)containerInset {
     return self.collectionView.contentInset;
 }

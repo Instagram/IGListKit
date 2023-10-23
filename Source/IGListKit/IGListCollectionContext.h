@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(ListCollectionContext)
 @protocol IGListCollectionContext <NSObject>
 
+@property (nonatomic, nullable, readonly) UITraitCollection *traitCollection;
+
 /**
  The size of the collection view. You can use this for sizing cells.
  */
