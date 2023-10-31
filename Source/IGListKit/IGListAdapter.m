@@ -427,13 +427,6 @@ typedef struct OffsetRange {
             return;
         }
 
-        if (IGListExperimentEnabled(strongSelf.experiments, IGListExperimentFixCrashOnReloadObjects)) {
-            // All the backgroundView changes during the update will be disabled, since we don't know how
-            // many cells we'll really have until it's all done. As a follow up, we should probably have
-            // a centralized place to do this, and change the background before the animation starts.
-            [strongSelf _updateBackgroundViewShouldHide:![strongSelf _itemCountIsZero]];
-        }
-
         // release the previous items
         strongSelf.previousSectionMap = nil;
         [strongSelf _notifyDidUpdate:IGListAdapterUpdateTypePerformUpdates animated:animated];
@@ -770,18 +763,16 @@ typedef struct OffsetRange {
         [[map sectionControllerForObject:object] didUpdateToObject:object];
     }
 
-    [self _updateBackgroundViewShouldHide:![self _itemCountIsZero]];
+    [self _updateBackgroundView];
 
     // Should be the last thing called in this function.
     _isInObjectUpdateTransaction = NO;
 }
 
-- (void)_updateBackgroundViewShouldHide:(BOOL)shouldHide {
-    if ([self isInDataUpdateBlock]) {
-        return; // will be called again when update block completes
-    }
+- (void)_updateBackgroundView {
+    const BOOL shouldDisplay = [self _itemCountIsZero];
 
-    if (!shouldHide) {
+    if (shouldDisplay) {
         UIView *backgroundView = [self.dataSource emptyViewForListAdapter:self];
         // don't do anything if the client is using the same view
         if (backgroundView != _collectionView.backgroundView) {
@@ -792,7 +783,7 @@ typedef struct OffsetRange {
         }
     }
 
-    _collectionView.backgroundView.hidden = shouldHide;
+    _collectionView.backgroundView.hidden = !shouldDisplay;
 }
 
 - (BOOL)_itemCountIsZero {
@@ -1298,7 +1289,7 @@ typedef struct OffsetRange {
         updates(weakSelf);
         weakSelf.legacyIsInDataUpdateBlock = NO;
     } completion: ^(BOOL finished) {
-        [weakSelf _updateBackgroundViewShouldHide:![weakSelf _itemCountIsZero]];
+        [weakSelf _updateBackgroundView];
         [weakSelf _notifyDidUpdate:IGListAdapterUpdateTypeItemUpdates animated:animated];
         if (completion) {
             completion(finished);
@@ -1409,7 +1400,10 @@ typedef struct OffsetRange {
 
     NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes usePreviousIfInUpdateBlock:NO];
     [self.updater insertItemsIntoCollectionView:collectionView indexPaths:indexPaths];
-    [self _updateBackgroundViewShouldHide:![self _itemCountIsZero]];
+    
+    if (![self isInDataUpdateBlock]) {
+        [self _updateBackgroundView];
+    }
 }
 
 - (void)deleteInSectionController:(IGListSectionController *)sectionController atIndexes:(NSIndexSet *)indexes {
@@ -1425,7 +1419,10 @@ typedef struct OffsetRange {
 
     NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes usePreviousIfInUpdateBlock:YES];
     [self.updater deleteItemsFromCollectionView:collectionView indexPaths:indexPaths];
-    [self _updateBackgroundViewShouldHide:![self _itemCountIsZero]];
+    
+    if (![self isInDataUpdateBlock]) {
+        [self _updateBackgroundView];
+    }
 }
 
 - (void)invalidateLayoutInSectionController:(IGListSectionController *)sectionController atIndexes:(NSIndexSet *)indexes {
@@ -1479,7 +1476,10 @@ typedef struct OffsetRange {
 
     NSIndexSet *sections = [NSIndexSet indexSetWithIndex:section];
     [self.updater reloadCollectionView:collectionView sections:sections];
-    [self _updateBackgroundViewShouldHide:![self _itemCountIsZero]];
+
+    if (![self isInDataUpdateBlock]) {
+        [self _updateBackgroundView];
+    }
 }
 
 - (void)moveSectionControllerInteractive:(IGListSectionController *)sectionController
