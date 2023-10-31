@@ -169,6 +169,8 @@
 
 - (void)test_withIncorrectUpdatesState_thatInconsistencyExceptionIsCaught {
     _config.allowsBackgroundDiffing = NO;
+    _config.experiments |= IGListExperimentThrowOnInconsistencyException;
+
     __weak __typeof__(self) weakSelf = self;
     self.applySectionDataBlock = ^(IGListTransitionData *data) {
         [weakSelf.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathWithIndex:0]]];
