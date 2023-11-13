@@ -978,7 +978,7 @@ typedef struct OffsetRange {
     return self.collectionView.bounds.size;
 }
 
-- (UITraitCollection *_Nullable)traitCollection {
+- (UITraitCollection *)traitCollection {
     return self.collectionView.traitCollection;
 }
 
