@@ -26,8 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(ListCollectionContext)
 @protocol IGListCollectionContext <NSObject>
 
-@property (nonatomic, nullable, readonly) UITraitCollection *traitCollection;
-
 /**
  The size of the collection view. You can use this for sizing cells.
  */
@@ -52,6 +50,11 @@ NS_SWIFT_NAME(ListCollectionContext)
  The content offset of the collection view.
  */
 @property (nonatomic, readonly) CGPoint containerContentOffset;
+
+/**
+ The trait collection of the collection view.
+ */
+@property (nonatomic, nullable, readonly) UITraitCollection *traitCollection;
 
 /**
  The current scrolling traits of the underlying collection view.

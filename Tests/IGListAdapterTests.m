@@ -1736,6 +1736,12 @@
     XCTAssertEqual(size.height, 0.0);
 }
 
+- (void)test_whenQueryingTraitCollection_thatMatchesCollectionView {
+    self.dataSource.objects = @[@2];
+    [self.adapter reloadDataWithCompletion:nil];
+    XCTAssertEqual(self.adapter.traitCollection, self.collectionView.traitCollection);
+}
+
 - (void)test_whenQueryingContainerInset_thatMatchesCollectionView {
     self.dataSource.objects = @[@2];
     [self.adapter reloadDataWithCompletion:nil];
