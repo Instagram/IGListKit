@@ -13,7 +13,7 @@ jobs:
     name: Unit Test macOS
     runs-on: macos-13
     env:
-      DEVELOPER_DIR: /Applications/Xcode_15.0.app
+      DEVELOPER_DIR: /Applications/Xcode_14.3.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       SCHEME_NAME: IGListKit-macOS
     steps:
@@ -44,12 +44,12 @@ jobs:
     name: Unit Test iOS
     runs-on: macos-13
     env:
-      DEVELOPER_DIR: /Applications/Xcode_15.0.app
+      DEVELOPER_DIR: /Applications/Xcode_14.3.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       SCHEME_NAME: IGListKit
     strategy:
       matrix:
-        destination: ["platform=iOS Simulator,name=iPhone 15 Pro"]
+        destination: ["platform=iOS Simulator,name=iPhone 14 Pro"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -85,7 +85,7 @@ jobs:
     name: CocoaPods Lint
     runs-on: macos-13
     env:
-      DEVELOPER_DIR: /Applications/Xcode_15.0.app
+      DEVELOPER_DIR: /Applications/Xcode_14.3.app
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -114,10 +114,10 @@ jobs:
     name: Verify generate_spm_sources_layout.sh is not broken
     runs-on: macos-13
     env:
-      DEVELOPER_DIR: /Applications/Xcode_15.0.app
+      DEVELOPER_DIR: /Applications/Xcode_14.3.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       PROJECT_NAME: IGListKit.xcodeproj
-      IOS_DESTINATION: "platform=iOS Simulator,name=iPhone 15 Pro"
+      IOS_DESTINATION: "platform=iOS Simulator,name=iPhone 14 Pro"
       SPM_IG_LIST_DIFF_KIT_PUBLIC_HEADERS_PATH: "spm/Sources/IGListDiffKit/include"
       SPM_IG_LIST_DIFF_KIT_SOURCES_PATH: "spm/Sources/IGListDiffKit"
       SPM_IG_LIST_KIT_PUBLIC_HEADERS_PATH: "spm/Sources/IGListKit/include"
@@ -148,10 +148,10 @@ jobs:
     name: Verify SPM build by invoking `xcodebuild` on Package.swift
     runs-on: macos-13
     env:
-      DEVELOPER_DIR: /Applications/Xcode_15.0.app
+      DEVELOPER_DIR: /Applications/Xcode_14.3.app
       WORKSPACE_NAME: IGListKit.xcworkspace
       PROJECT_NAME: IGListKit.xcodeproj
-      IOS_DESTINATION: "platform=iOS Simulator,name=iPhone 15 Pro"
+      IOS_DESTINATION: "platform=iOS Simulator,name=iPhone 14 Pro"
     strategy:
       matrix:
         schemeName: ["IGListDiffKit",
@@ -173,7 +173,7 @@ jobs:
     name: Verify Carthage build XCFramework
     runs-on: macos-13
     env:
-      DEVELOPER_DIR: /Applications/Xcode_15.0.app
+      DEVELOPER_DIR: /Applications/Xcode_14.3.app
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -197,14 +197,14 @@ jobs:
     name: Build Examples and UI tests.
     runs-on: macos-13
     env:
-      DEVELOPER_DIR: /Applications/Xcode_15.0.app
+      DEVELOPER_DIR: /Applications/Xcode_14.3.app
       IOS_EXAMPLE_XCODEPROJ: Examples/Examples-iOS/IGListKitExamples.xcodeproj
       TVOS_EXAMPLE_XCODEPROJ: Examples/Examples-tvOS/IGListKitExamples.xcodeproj
       MACOS_EXAMPLE_XCODEPROJ: Examples/Examples-macOS/IGListKitExamples.xcodeproj
       EXAMPLE_SCHEME: IGListKitExamples
     strategy:
       matrix:
-        iosDestination: ["platform=iOS Simulator,name=iPhone 15 Pro"]
+        iosDestination: ["platform=iOS Simulator,name=iPhone 14 Pro"]
         tvOSDestination: ["platform=tvOS Simulator,name=Apple TV 4K (3rd generation)"]
         macOSDestination: ["platform=macOS"]
         macCatalystDestination: ["platform=macOS,variant=Mac Catalyst"]
@@ -226,8 +226,8 @@ jobs:
       - name: Preboot iOS Simulator
         uses: futureware-tech/simulator-action@v2
         with:
-          model: 'iPhone 15 Pro'
-          os_version: '>=17.0'
+          model: 'iPhone 14 Pro'
+          os_version: '>=16.0'
 
       - name: Build iOS Example - ${{ matrix.iosDestination }}
         run: |
@@ -279,3 +279,4 @@ jobs:
 
       - name: Run Danger
         run: bundle exec danger --verbose
+        
