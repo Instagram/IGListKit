@@ -204,7 +204,7 @@ jobs:
       EXAMPLE_SCHEME: IGListKitExamples
     strategy:
       matrix:
-        iosDestination: ["platform=iOS Simulator,name=iPhone 14 Pro"]
+        iosDestination: ["platform=iOS Simulator,name=iPhone 14 Pro,OS=16.4"]
         tvOSDestination: ["platform=tvOS Simulator,name=Apple TV 4K (3rd generation)"]
         macOSDestination: ["platform=macOS"]
         macCatalystDestination: ["platform=macOS,variant=Mac Catalyst"]
@@ -227,7 +227,7 @@ jobs:
         uses: futureware-tech/simulator-action@v2
         with:
           model: 'iPhone 14 Pro'
-          os_version: '>=16.0'
+          os_version: '=16.4'
 
       - name: Build iOS Example - ${{ matrix.iosDestination }}
         run: |
@@ -279,4 +279,4 @@ jobs:
 
       - name: Run Danger
         run: bundle exec danger --verbose
-        
+
