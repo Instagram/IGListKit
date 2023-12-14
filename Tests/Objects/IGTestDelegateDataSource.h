@@ -15,6 +15,7 @@
 @class IGTestObject;
 
 extern NSObject *const kIGTestDelegateDataSourceSkipObject;
+extern NSObject *const kIGTestDelegateDataSourceNoSectionControllerSubclass;
 
 @interface IGTestDelegateDataSource : NSObject <IGListTestCaseDataSource>
 

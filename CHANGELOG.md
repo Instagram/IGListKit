@@ -94,6 +94,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Fixes
 
+- Don't crash if you use `IGListSectionController` without a subclass [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
 - Testing crash fix when calling `-[IGListAdapter reloadObjects ...]` during an update [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
 - Repaired Swift Package Manager support. [Petro Rovenskyy](https://github.com/3a4oT/) [(#1487)](https://github.com/Instagram/IGListKit/pull/1487)

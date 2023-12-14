@@ -709,6 +709,15 @@ typedef struct OffsetRange {
                     dataSource, object);
             return;
         }
+        
+        if ([sectionController isMemberOfClass:[IGListSectionController class]]) {
+            // If IGListSectionController is not subclassed, it could be a side effect of a problem. For example, nothing stops
+            // dataSource from returning a plain IGListSectionController if it doesn't recognize the object type, instead of throwing.
+            // Why not throw here then? Maybe we should, but in most cases, it feels like an over reaction. If we don't know how to render
+            // a single item, terminating the entire app might not be necessary. The dataSource should be the one who decides if throwing is appropriate.
+            IGFailAssert(@"Ignoring IGListSectionController that's not a subclass from data source %@ for object %@", NSStringFromClass([dataSource class]), NSStringFromClass([object class]));
+            return;
+        }
 
         // in case the section controller was created outside of -listAdapter:sectionControllerForObject:
         sectionController.collectionContext = self;

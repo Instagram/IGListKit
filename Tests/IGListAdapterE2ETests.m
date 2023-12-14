@@ -16,6 +16,7 @@
 #import "IGListAdapterUpdater.h"
 #import "IGListAdapterUpdaterInternal.h"
 #import "IGListTestCase.h"
+#import "IGListTestCollectionViewLayout.h"
 #import "IGListTestHelpers.h"
 #import "IGListTestOffsettingLayout.h"
 #import "IGListUpdateTransactionBuilder.h"
@@ -2640,6 +2641,22 @@
         // CollectionView: 2 sections
     }];
 
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+- (void)test_whenSectionControllerNotSubclassed_thatDoesNotCrash {
+    // We need a custom layout that creates attributes for all cells, even the ones with size
+    // zero, so that the UICollectionView requests all cells. Using `UICollectionViewDelegateFlowLayout`
+    // doesn't crash, because it doesn't seem to return attributes where the size is zero.
+    self.collectionView.collectionViewLayout = [IGListTestCollectionViewLayout new];
+
+    [self setupWithObjects:@[kIGTestDelegateDataSourceNoSectionControllerSubclass]];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter reloadDataWithCompletion:^(BOOL finished) {
+        [self.collectionView layoutIfNeeded];
+        [expectation fulfill];
+    }];
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
