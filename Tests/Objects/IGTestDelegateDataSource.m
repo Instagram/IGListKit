@@ -13,6 +13,7 @@
 #import "IGTestObject.h"
 
 NSObject *const kIGTestDelegateDataSourceSkipObject = @"kIGTestDelegateDataSourceSkipObject";
+NSObject *const kIGTestDelegateDataSourceNoSectionControllerSubclass = @"kIGTestDelegateDataSourceNoSectionControllerSubclass";
 
 @implementation IGTestDelegateDataSource
 
@@ -23,6 +24,8 @@ NSObject *const kIGTestDelegateDataSourceSkipObject = @"kIGTestDelegateDataSourc
 - (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
     if ([object isEqual:kIGTestDelegateDataSourceSkipObject]) {
         return nil;
+    } else if ([object isEqual:kIGTestDelegateDataSourceNoSectionControllerSubclass]) {
+        return [IGListSectionController new];
     }
     IGTestDelegateController *sectionController = [[IGTestDelegateController alloc] init];
     sectionController.cellConfigureBlock = self.cellConfigureBlock;
