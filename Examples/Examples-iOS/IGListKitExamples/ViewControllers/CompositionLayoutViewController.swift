@@ -25,9 +25,13 @@ final class CompositionLayoutViewController: UIViewController, ListAdapterDataSo
     
     private let data: [Any] = [
         "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.",
+        GridItem(color: UIColor(red: 237 / 255.0, green: 73 / 255.0, blue: 86 / 255.0, alpha: 1), itemCount: 6),
         "Praesent commodo cursus magna, vel scelerisque nisl consectetur et.",
+        GridItem(color: UIColor(red: 56 / 255.0, green: 151 / 255.0, blue: 240 / 255.0, alpha: 1), itemCount: 5),
         "Nullam quis risus eget urna mollis ornare vel eu leo. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.",
+        GridItem(color: UIColor(red: 112 / 255.0, green: 192 / 255.0, blue: 80 / 255.0, alpha: 1), itemCount: 3),
         "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+        GridItem(color: UIColor(red: 163 / 255.0, green: 42 / 255.0, blue: 186 / 255.0, alpha: 1), itemCount: 7),
     ]
     
     override func viewDidLoad() {
@@ -68,6 +72,8 @@ final class CompositionLayoutViewController: UIViewController, ListAdapterDataSo
         switch object {
         case is String:
             return ExpandableComposableSectionController()
+        case is GridItem:
+            return GridComposableSectionController()
         default:
             return ListSectionController()
         }
