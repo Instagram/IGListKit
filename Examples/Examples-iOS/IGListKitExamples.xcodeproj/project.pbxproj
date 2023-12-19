@@ -73,6 +73,9 @@
 		56C05B721E49B32A0026DB39 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C05B711E49B32A0026DB39 /* CommentCell.m */; };
 		56C05B751E49B33C0026DB39 /* InteractiveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C05B741E49B33C0026DB39 /* InteractiveCell.m */; };
 		56C05B781E49B3A50026DB39 /* PhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C05B771E49B3A50026DB39 /* PhotoCell.m */; };
+		576D20072B2CB50E0012C5B8 /* CompositionLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576D20062B2CB50E0012C5B8 /* CompositionLayoutViewController.swift */; };
+		576D200B2B2CC6DF0012C5B8 /* CompositionLayoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576D200A2B2CC6DF0012C5B8 /* CompositionLayoutCell.swift */; };
+		576D200E2B2CE9EC0012C5B8 /* ExpandableComposableSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576D200D2B2CE9EC0012C5B8 /* ExpandableComposableSectionController.swift */; };
 		821BC4B61DB8B3DC00172ED0 /* StoryboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821BC4B51DB8B3DC00172ED0 /* StoryboardViewController.swift */; };
 		821BC4B81DB8B48300172ED0 /* StoryboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821BC4B71DB8B48300172ED0 /* StoryboardCell.swift */; };
 		821BC4BA1DB8B61200172ED0 /* StoryboardLabelSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821BC4B91DB8B61200172ED0 /* StoryboardLabelSectionController.swift */; };
@@ -233,6 +236,9 @@
 		56C05B741E49B33C0026DB39 /* InteractiveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractiveCell.m; sourceTree = "<group>"; };
 		56C05B761E49B3A50026DB39 /* PhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCell.h; sourceTree = "<group>"; };
 		56C05B771E49B3A50026DB39 /* PhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCell.m; sourceTree = "<group>"; };
+		576D20062B2CB50E0012C5B8 /* CompositionLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionLayoutViewController.swift; sourceTree = "<group>"; };
+		576D200A2B2CC6DF0012C5B8 /* CompositionLayoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionLayoutCell.swift; sourceTree = "<group>"; };
+		576D200D2B2CE9EC0012C5B8 /* ExpandableComposableSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableComposableSectionController.swift; sourceTree = "<group>"; };
 		821BC4B51DB8B3DC00172ED0 /* StoryboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardViewController.swift; sourceTree = "<group>"; };
 		821BC4B71DB8B48300172ED0 /* StoryboardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardCell.swift; sourceTree = "<group>"; };
 		821BC4B91DB8B61200172ED0 /* StoryboardLabelSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardLabelSectionController.swift; sourceTree = "<group>"; };
@@ -361,6 +367,7 @@
 				821BC4B91DB8B61200172ED0 /* StoryboardLabelSectionController.swift */,
 				2942FF8B1D9F39E00015D24B /* UserSectionController.swift */,
 				2981BA361DB869FF00A987F9 /* WorkingRangeSectionController.swift */,
+				576D200C2B2CE9C60012C5B8 /* With Composable Layout */,
 			);
 			path = SectionControllers;
 			sourceTree = "<group>";
@@ -433,6 +440,7 @@
 				821BC4B51DB8B3DC00172ED0 /* StoryboardViewController.swift */,
 				29C6297A1DCFD857004A5BB1 /* SupplementaryViewController.swift */,
 				2981BA381DB874BB00A987F9 /* WorkingRangeViewController.swift */,
+				576D20062B2CB50E0012C5B8 /* CompositionLayoutViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -467,6 +475,7 @@
 				821BC4B71DB8B48300172ED0 /* StoryboardCell.swift */,
 				29C629821DCFDB57004A5BB1 /* UserHeaderView.swift */,
 				FF73FF9B1FBA4B4400F2AB06 /* UserFooterView.swift */,
+				576D200A2B2CC6DF0012C5B8 /* CompositionLayoutCell.swift */,
 				FF73FF9D1FBA4B5500F2AB06 /* UserFooterView.xib */,
 				29C629801DCFDAF3004A5BB1 /* UserHeaderView.xib */,
 				56C05B6A1E49B2E80026DB39 /* UserInfoCell.h */,
@@ -496,6 +505,14 @@
 				29F7E2AC1E92843A00197586 /* IncrementAnnouncer.swift */,
 			);
 			path = Systems;
+			sourceTree = "<group>";
+		};
+		576D200C2B2CE9C60012C5B8 /* With Composable Layout */ = {
+			isa = PBXGroup;
+			children = (
+				576D200D2B2CE9EC0012C5B8 /* ExpandableComposableSectionController.swift */,
+			);
+			path = "With Composable Layout";
 			sourceTree = "<group>";
 		};
 		822B29F21DB8AA4700010000 /* Storyboard */ = {
@@ -808,6 +825,7 @@
 				295D8A9D1E92ECDE001F7C06 /* Post.m in Sources */,
 				29F7E2AD1E92843A00197586 /* IncrementAnnouncer.swift in Sources */,
 				2981BA391DB874BB00A987F9 /* WorkingRangeViewController.swift in Sources */,
+				576D20072B2CB50E0012C5B8 /* CompositionLayoutViewController.swift in Sources */,
 				29C629831DCFDB57004A5BB1 /* UserHeaderView.swift in Sources */,
 				2961B3AC1D68B0B5001C9451 /* LoadMoreViewController.swift in Sources */,
 				26271C941DAE9F050073E116 /* NibCell.swift in Sources */,
@@ -842,6 +860,7 @@
 				2961B3AD1D68B0B5001C9451 /* LabelCell.swift in Sources */,
 				2942FF901D9F39E00015D24B /* HorizontalSectionController.swift in Sources */,
 				292658641E74A2550041B56D /* MonthSectionController.swift in Sources */,
+				576D200E2B2CE9EC0012C5B8 /* ExpandableComposableSectionController.swift in Sources */,
 				2981BA371DB869FF00A987F9 /* WorkingRangeSectionController.swift in Sources */,
 				EB0289A2202A11E0007E17D5 /* PersonModel.m in Sources */,
 				292658601E74A19F0041B56D /* DayViewModel.swift in Sources */,
@@ -858,6 +877,7 @@
 				29F7E2AA1E9283FF00197586 /* AnnouncingDepsViewController.swift in Sources */,
 				9DB684E1251B10C2002023DD /* UIColor+Extension.swift in Sources */,
 				56C05B721E49B32A0026DB39 /* CommentCell.m in Sources */,
+				576D200B2B2CC6DF0012C5B8 /* CompositionLayoutCell.swift in Sources */,
 				821BC4BA1DB8B61200172ED0 /* StoryboardLabelSectionController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
