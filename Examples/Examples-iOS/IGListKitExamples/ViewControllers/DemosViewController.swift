@@ -55,7 +55,9 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
         DemoItem(name: "Dependency Injection", imageName: "syringe",
                  controllerClass: AnnouncingDepsViewController.self),
         DemoItem(name: "Reorder Cells", imageName: "arrow.up.and.down.and.arrow.left.and.right",
-                 controllerClass: ReorderableViewController.self)
+                 controllerClass: ReorderableViewController.self),
+        DemoItem(name: "Compositional Layout", imageName: "square.stack",
+                 controllerClass: CompositionLayoutViewController.self)
     ]
 
     override func viewDidLoad() {
