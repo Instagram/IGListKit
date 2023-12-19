@@ -28,6 +28,7 @@ final class CompositionLayoutViewController: UIViewController, ListAdapterDataSo
         GridItem(color: UIColor(red: 237 / 255.0, green: 73 / 255.0, blue: 86 / 255.0, alpha: 1), itemCount: 6),
         User(pk: 2, name: "Ryan Olson", handle: "ryanolsonk"),
         HorizontalCardsSection(cardCount: 10),
+        SwipeActionSection(),
         "Praesent commodo cursus magna, vel scelerisque nisl consectetur et.",
         User(pk: 4, name: "Oliver Rickard", handle: "ocrickard"),
         HorizontalCardsSection(cardCount: 2),
@@ -84,6 +85,8 @@ final class CompositionLayoutViewController: UIViewController, ListAdapterDataSo
             return UserComposableSectionController()
         case is HorizontalCardsSection:
             return HorizontalComposableSectionController()
+        case is SwipeActionSection:
+            return SwipeActionComposabelSectionController()
         default:
             return ListSectionController()
         }
