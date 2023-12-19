@@ -27,8 +27,10 @@ final class CompositionLayoutViewController: UIViewController, ListAdapterDataSo
         "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.",
         GridItem(color: UIColor(red: 237 / 255.0, green: 73 / 255.0, blue: 86 / 255.0, alpha: 1), itemCount: 6),
         User(pk: 2, name: "Ryan Olson", handle: "ryanolsonk"),
+        HorizontalCardsSection(cardCount: 10),
         "Praesent commodo cursus magna, vel scelerisque nisl consectetur et.",
         User(pk: 4, name: "Oliver Rickard", handle: "ocrickard"),
+        HorizontalCardsSection(cardCount: 2),
         GridItem(color: UIColor(red: 56 / 255.0, green: 151 / 255.0, blue: 240 / 255.0, alpha: 1), itemCount: 5),
         "Nullam quis risus eget urna mollis ornare vel eu leo. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.",
         User(pk: 3, name: "Jesse Squires", handle: "jesse_squires"),
@@ -80,6 +82,8 @@ final class CompositionLayoutViewController: UIViewController, ListAdapterDataSo
             return GridComposableSectionController()
         case is User:
             return UserComposableSectionController()
+        case is HorizontalCardsSection:
+            return HorizontalComposableSectionController()
         default:
             return ListSectionController()
         }
