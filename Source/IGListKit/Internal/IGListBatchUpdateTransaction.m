@@ -234,7 +234,7 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
             /// with our product team to properly fix their data source changes outside of the -performBatchUpdatesBlock:
             /// IGLisKit processed a new being as an assert that requires investigation,
             /// since it will be processed as invalid data source state that needs a reload.
-            IGFailure(@"The data source returned an invalid number of sections and rows due to updates applied outside of the performBatchUpdates block. This will cause a crash.");
+            IGFailure(@"IGListKit caught exception (%@): %@", exception.name, exception.reason);
             [self begin];
             return;
         } else {
