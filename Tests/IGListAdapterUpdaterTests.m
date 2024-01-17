@@ -985,48 +985,6 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
-- (void)test_whenNoChanges_thatPerformUpdateExitsEarly {
-    self.updater.experiments |= IGListExperimentSkipPerformUpdateIfPossible;
-
-    NSArray *from = @[
-        [IGSectionObject sectionWithObjects:@[] identifier:@"Foo"]
-    ];
-    NSArray *to = @[
-        [IGSectionObject sectionWithObjects:@[] identifier:@"Foo"]
-    ];
-
-    self.dataSource.sections = from;
-    [self.updater reloadDataWithCollectionViewBlock:[self collectionViewBlock] reloadUpdateBlock:^{} completion:nil];
-    [self.updater update];
-
-    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
-    self.updater.delegate = mockDelegate;
-    [mockDelegate setExpectationOrderMatters:YES];
-
-    [[mockDelegate expect] listAdapterUpdater:self.updater
-    willPerformBatchUpdatesWithCollectionView:self.collectionView
-                                  fromObjects:from
-                                    toObjects:to
-                           listIndexSetResult:OCMOCK_ANY
-                                     animated:NO];
-
-    [[mockDelegate expect] listAdapterUpdater:self.updater didFinishWithoutUpdatesWithCollectionView:self.collectionView];
-
-    XCTestExpectation *expectation = genExpectation;
-    [self.updater performUpdateWithCollectionViewBlock:[self collectionViewBlock]
-                                              animated:NO
-                                      sectionDataBlock:[self dataBlockFromObjects:from toObjects:to]
-                                 applySectionDataBlock:self.applySectionDataBlock
-                                            completion:^(BOOL finished) {
-        XCTAssertTrue(finished);
-        XCTAssertEqual([self.collectionView numberOfSections], 1);
-        [expectation fulfill];
-    }];
-
-    [self waitForExpectationsWithTimeout:30 handler:nil];
-    [mockDelegate verify];
-}
-
 # pragma mark - preferItemReloadsFroSectionReloads
 
 - (void)test_whenReloadIsCalledWithSameItemCount_andPreferItemReload_updateIndexPathsHappen {
