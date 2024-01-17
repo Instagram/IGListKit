@@ -169,37 +169,8 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
                             toObjects:self.sectionData.toObjects
                    listIndexSetResult:diffResult
                              animated:self.animated];
-
-    // Experiment to skip calling `[UICollectionView performBatchUpdates ...]` if we don't have changes. It does
-    // require us to call `_applyDataUpdates` outside the update block, but that should be ok as long as we call
-    // `performBatchUpdates` right after.
-    const BOOL skipPerformUpdateIfPossible = IGListExperimentEnabled(self.config.experiments, IGListExperimentSkipPerformUpdateIfPossible);
-    if (skipPerformUpdateIfPossible) {
-        // From Apple docs: If the collection view's layout is not up to date before you call performBatchUpdates, a reload may
-        // occur. To avoid problems, you should update your data model inside the updates block or ensure the layout is
-        // updated before you call performBatchUpdates(_:completion:).
-        [self.collectionView layoutIfNeeded];
-
-        [self _applyDataUpdates];
-
-        if (!diffResult.hasChanges && !self.inUpdateItemCollector.hasChanges) {
-            // If we don't have any section or item changes, take a shortcut.
-            [self _finishWithoutUpdate];
-            return;
-        }
-    }
-
-    // **************************
-    // **************************
-    // IMPORTANT: The very next thing we call must be `[UICollectionView performBatchUpdates ...]`, because
-    // we're in a state where the adapter is synced, but not the `UICollectionView`.
-    // **************************
-    // **************************
-
     void (^updates)(void) = ^ {
-        if (!skipPerformUpdateIfPossible) {
-            [self _applyDataUpdates];
-        }
+        [self _applyDataUpdates];
         [self _applyCollectioViewUpdates:diffResult];
     };
 
