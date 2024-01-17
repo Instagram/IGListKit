@@ -19,7 +19,9 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     /// Test invalidating layout when cell reloads/updates in IGListBindingSectionController.
     IGListExperimentInvalidateLayoutForUpdates = 1 << 2,
     /// Throw NSInternalInconsistencyException during an update
-    IGListExperimentThrowOnInconsistencyException = 1 << 3
+    IGListExperimentThrowOnInconsistencyException = 1 << 3,
+    /// Test keeping a strong pointer to the collectionView.dataSource during a batch update to avoid a crash
+    IGListExperimentKeepPointerToCollectionViewDataSource = 1 << 4
 };
 
 /**
