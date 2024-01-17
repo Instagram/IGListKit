@@ -669,9 +669,6 @@
 }
 
 - (void)test_whenReloadingItems_inItemUpdateBlock_thatDoesntCrash {
-    self.adapter.experiments |= IGListExperimentFixCrashOnReloadObjects;
-    // Without this fix, this test crashes with: Terminating app due to uncaught exception 'NSRangeException', reason: '*** -[__NSArrayI objectAtIndexedSubscript:]: index 2 beyond bounds [0 .. 1]'
-
     [self setupWithObjects:@[
         genTestObject(@1, @1),
         genTestObject(@2, @2),

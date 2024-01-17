@@ -28,11 +28,6 @@ typedef struct OffsetRange {
     CGFloat max;
 } OffsetRange;
 
-@interface IGListAdapter ()
-// Temporary param to key the old behavior during testing
-@property (nonatomic, assign) BOOL legacyIsInDataUpdateBlock;
-@end
-
 @implementation IGListAdapter {
     NSMapTable<UICollectionReusableView *, IGListSectionController *> *_viewSectionControllerMap;
     // An array of blocks to execute once batch updates are finished
@@ -915,12 +910,7 @@ typedef struct OffsetRange {
 }
 
 - (BOOL)isInDataUpdateBlock {
-    if (IGListExperimentEnabled(_experiments, IGListExperimentFixCrashOnReloadObjects)) {
-        // The updater has a better picture of when we're updating the data, including both section and item level changes.
-        return self.updater.isInDataUpdateBlock;
-    } else {
-        return self.legacyIsInDataUpdateBlock;
-    }
+    return self.updater.isInDataUpdateBlock;
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -1293,10 +1283,8 @@ typedef struct OffsetRange {
     [self _enterBatchUpdates];
     __weak __typeof__(self) weakSelf = self;
     [self.updater performUpdateWithCollectionViewBlock:[self _collectionViewBlock] animated:animated itemUpdates:^{
-        weakSelf.legacyIsInDataUpdateBlock = YES;
         // the adapter acts as the batch context with its API stripped to just the IGListBatchContext protocol
         updates(weakSelf);
-        weakSelf.legacyIsInDataUpdateBlock = NO;
     } completion: ^(BOOL finished) {
         [weakSelf _updateBackgroundView];
         [weakSelf _notifyDidUpdate:IGListAdapterUpdateTypeItemUpdates animated:animated];
