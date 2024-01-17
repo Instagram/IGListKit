@@ -136,7 +136,11 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
     [self.delegate listAdapterUpdater:self.updater didDiffWithResults:diffResult onBackgroundThread:onBackground];
 
     @try {
-        if (self.collectionView.dataSource == nil) {
+        // Experiment with keeping a pointer to the self.collectionView.dataSource, because we're seeing a crash where it could be missing.
+        const BOOL keepDataSource = IGListExperimentEnabled(self.config.experiments, IGListExperimentKeepPointerToCollectionViewDataSource);
+        id<UICollectionViewDataSource> const collectionViewDataSource = keepDataSource ? self.collectionView.dataSource : nil;
+        
+        if (self.collectionView.dataSource == nil || (keepDataSource && collectionViewDataSource == nil)) {
             // If the data source is nil, we should not call any collection view update.
             [self _bail];
         } else if (diffResult.changeCount > 100 && self.config.allowsReloadingOnTooManyUpdates) {
