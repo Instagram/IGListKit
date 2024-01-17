@@ -630,21 +630,7 @@
     XCTAssertEqualObjects(visibleObjects, expectedObjects);
 }
 
-- (void)test_whenAdapterUpdated_withSkipViewSectionControllerMap_withObjectsOverflow_thatVisibleObjectsIsSubsetOfAllObjects {
-    self.adapter.experiments |= IGListExperimentSkipViewSectionControllerMap;
-    // each section controller returns n items sized 100x10
-    self.dataSource.objects = @[@1, @2, @3, @4, @5, @6];
-    [self.adapter reloadDataWithCompletion:nil];
-    self.collectionView.contentOffset = CGPointMake(0, 30);
-    [self.collectionView layoutIfNeeded];
-
-    NSArray *visibleObjects = [[self.adapter visibleObjects] sortedArrayUsingSelector:@selector(compare:)];
-    NSArray *expectedObjects = @[@3, @4, @5];
-    XCTAssertEqualObjects(visibleObjects, expectedObjects);
-}
-
-- (void)test_whenAdapterUpdated_withSkipViewSectionControllerMap_fetchingCellIsValid {
-    self.adapter.experiments |= IGListExperimentSkipViewSectionControllerMap;
+- (void)test_whenAdapterUpdated_fetchingCellIsValid {
     // each section controller returns n items sized 100x10
     self.dataSource.objects = @[@1, @2, @3, @4, @5, @6];
     [self.adapter reloadDataWithCompletion:nil];
@@ -1607,23 +1593,6 @@
     [mockDelegate verify];
 }
 
-- (void)test_whenEndDisplayingSupplementaryView_withSkipViewSectionControllerMap_thatCollectionViewDelegateReceivesEvents {
-    self.adapter.experiments |= IGListExperimentSkipViewSectionControllerMap;
-
-    // silence display handler asserts
-    self.dataSource.objects = @[@1, @2];
-    [self.adapter reloadDataWithCompletion:nil];
-
-    id mockDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
-    self.adapter.collectionViewDelegate = mockDelegate;
-    UICollectionReusableView *view = [UICollectionReusableView new];
-    NSString *kind = @"kind";
-    NSIndexPath *path = [NSIndexPath indexPathForItem:0 inSection:0];
-    [[mockDelegate expect] collectionView:self.collectionView didEndDisplayingSupplementaryView:view forElementOfKind:kind atIndexPath:path];
-    [self.adapter collectionView:self.collectionView didEndDisplayingSupplementaryView:view forElementOfKind:kind atIndexPath:path];
-    [mockDelegate verify];
-}
-
 - (void)test_whenHighlightingCell_thatCollectionViewDelegateReceivesMethod {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];
@@ -2289,24 +2258,6 @@
 }
 
 - (void)test_whenSettingSupplementaryView_thatViewForSupplementaryElementExists {
-    self.dataSource.objects = @[@0];
-    [self.adapter reloadDataWithCompletion:nil];
-
-    IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
-    supplementarySource.collectionContext = self.adapter;
-    supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
-
-    IGListSectionController *controller = [self.adapter sectionControllerForObject:@0];
-    controller.supplementaryViewSource = supplementarySource;
-    supplementarySource.sectionController = controller;
-
-    [self.adapter performUpdatesAnimated:NO completion:nil];
-    XCTAssertNotNil([self.adapter viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader atIndex:0 sectionController:controller]);
-    XCTAssertNil([self.adapter viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader atIndex:1 sectionController:controller]);
-}
-
-- (void)test_whenSettingSupplementaryView_withSkipViewSectionControllerMap_thatViewForSupplementaryElementExists {
-    self.adapter.experiments |= IGListExperimentSkipViewSectionControllerMap;
     self.dataSource.objects = @[@0];
     [self.adapter reloadDataWithCompletion:nil];
 
