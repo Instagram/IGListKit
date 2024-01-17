@@ -20,10 +20,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentInvalidateLayoutForUpdates = 1 << 2,
     /// Test skipping performBatchUpdate if we don't have any updates.
     IGListExperimentSkipPerformUpdateIfPossible = 1 << 3,
-    /// Test skipping creating {view : section controller} map, which has inconsistency issue.
-    IGListExperimentSkipViewSectionControllerMap = 1 << 4,
     /// Throw NSInternalInconsistencyException during an update
-    IGListExperimentThrowOnInconsistencyException = 1 << 5
+    IGListExperimentThrowOnInconsistencyException = 1 << 4
 };
 
 /**

@@ -169,17 +169,12 @@
         [collectionViewDelegate collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
     }
 
-    IGListSectionController *sectionController;
-    if (IGListExperimentEnabled(self.experiments, IGListExperimentSkipViewSectionControllerMap)) {
+    IGListSectionController *sectionController = [self sectionControllerForView:cell];
+    // if the section controller relationship was destroyed, reconnect it
+    // this happens with iOS 10 UICollectionView display range changes
+    if (sectionController == nil) {
         sectionController = [self sectionControllerForSection:indexPath.section];
-    } else {
-        sectionController = [self sectionControllerForView:cell];
-        // if the section controller relationship was destroyed, reconnect it
-        // this happens with iOS 10 UICollectionView display range changes
-        if (sectionController == nil) {
-            sectionController = [self sectionControllerForSection:indexPath.section];
-            [self mapView:cell toSectionController:sectionController];
-        }
+        [self mapView:cell toSectionController:sectionController];
     }
 
     id object = [self.sectionMap objectForSection:indexPath.section];
@@ -202,12 +197,7 @@
         [collectionViewDelegate collectionView:collectionView didEndDisplayingCell:cell forItemAtIndexPath:indexPath];
     }
 
-    IGListSectionController *sectionController;
-    if (IGListExperimentEnabled(self.experiments, IGListExperimentSkipViewSectionControllerMap)) {
-        sectionController = [self sectionControllerForSection:indexPath.section];
-    } else {
-        sectionController = [self sectionControllerForView:cell];
-    }
+    IGListSectionController *const sectionController = [self sectionControllerForView:cell];
     [self.displayHandler didEndDisplayingCell:cell forListAdapter:self sectionController:sectionController indexPath:indexPath];
     [self.workingRangeHandler didEndDisplayingItemAtIndexPath:indexPath forListAdapter:self];
 
@@ -223,17 +213,12 @@
         [collectionViewDelegate collectionView:collectionView willDisplaySupplementaryView:view forElementKind:elementKind atIndexPath:indexPath];
     }
 
-    IGListSectionController *sectionController;
-    if (IGListExperimentEnabled(self.experiments, IGListExperimentSkipViewSectionControllerMap)) {
+    IGListSectionController *sectionController = [self sectionControllerForView:view];
+    // if the section controller relationship was destroyed, reconnect it
+    // this happens with iOS 10 UICollectionView display range changes
+    if (sectionController == nil) {
         sectionController = [self sectionControllerForSection:indexPath.section];
-    } else {
-        sectionController = [self sectionControllerForView:view];
-        // if the section controller relationship was destroyed, reconnect it
-        // this happens with iOS 10 UICollectionView display range changes
-        if (sectionController == nil) {
-            sectionController = [self sectionControllerForSection:indexPath.section];
-            [self mapView:view toSectionController:sectionController];
-        }
+        [self mapView:view toSectionController:sectionController];
     }
 
     id object = [self.sectionMap objectForSection:indexPath.section];
@@ -246,12 +231,7 @@
         [collectionViewDelegate collectionView:collectionView didEndDisplayingSupplementaryView:view forElementOfKind:elementKind atIndexPath:indexPath];
     }
 
-    IGListSectionController *sectionController;
-    if (IGListExperimentEnabled(self.experiments, IGListExperimentSkipViewSectionControllerMap)) {
-        sectionController = [self sectionControllerForSection:indexPath.section];
-    } else {
-        sectionController = [self sectionControllerForView:view];
-    }
+    IGListSectionController *sectionController = [self sectionControllerForView:view];
     [self.displayHandler didEndDisplayingSupplementaryView:view forListAdapter:self sectionController:sectionController indexPath:indexPath];
 
     [self removeMapForView:view];
