@@ -1928,7 +1928,7 @@
         adapter.collectionView = self.collectionView;
         adapter.dataSource = self.dataSource;
         [adapter performUpdatesAnimated:NO completion:^(BOOL finished) {
-            XCTAssertTrue(NO, @"Should not reach completion block for adapter");
+            XCTFail(@"Should not reach completion block for adapter");
         }];
     }
 
