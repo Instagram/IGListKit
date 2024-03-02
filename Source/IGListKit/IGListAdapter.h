@@ -103,6 +103,7 @@ NS_SWIFT_NAME(ListAdapter)
  */
 @property (nonatomic, assign) IGListExperiment experiments;
 
+
 /**
  Initializes a new `IGListAdapter` object.
 
