@@ -414,7 +414,7 @@ typedef struct OffsetRange {
             [strongSelf _updateWithData:data];
         }
     };
-
+    const BOOL shouldAnimateUpdates =  animated && !IGListExperimentEnabled(self.experiments, IGListExperimentDisableAnimationOnUpdates);
     IGListUpdaterCompletion outerCompletionBlock = ^(BOOL finished){
         __typeof__(self) strongSelf = weakSelf;
         if (strongSelf == nil) {
@@ -424,7 +424,7 @@ typedef struct OffsetRange {
 
         // release the previous items
         strongSelf.previousSectionMap = nil;
-        [strongSelf _notifyDidUpdate:IGListAdapterUpdateTypePerformUpdates animated:animated];
+        [strongSelf _notifyDidUpdate:IGListAdapterUpdateTypePerformUpdates animated:shouldAnimateUpdates];
         IGLK_BLOCK_CALL_SAFE(completion,finished);
         [strongSelf _exitBatchUpdates];
     };
@@ -686,7 +686,7 @@ typedef struct OffsetRange {
                     dataSource, object);
             return;
         }
-        
+
         if ([sectionController isMemberOfClass:[IGListSectionController class]]) {
             // If IGListSectionController is not subclassed, it could be a side effect of a problem. For example, nothing stops
             // dataSource from returning a plain IGListSectionController if it doesn't recognize the object type, instead of throwing.
@@ -1367,7 +1367,7 @@ typedef struct OffsetRange {
 
     NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes usePreviousIfInUpdateBlock:NO];
     [self.updater insertItemsIntoCollectionView:collectionView indexPaths:indexPaths];
-    
+
     if (![self isInDataUpdateBlock]) {
         [self _updateBackgroundView];
     }
@@ -1386,7 +1386,7 @@ typedef struct OffsetRange {
 
     NSArray *indexPaths = [self indexPathsFromSectionController:sectionController indexes:indexes usePreviousIfInUpdateBlock:YES];
     [self.updater deleteItemsFromCollectionView:collectionView indexPaths:indexPaths];
-    
+
     if (![self isInDataUpdateBlock]) {
         [self _updateBackgroundView];
     }
