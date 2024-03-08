@@ -375,7 +375,7 @@
 		88144F1B1D870EDC007C7F66 /* IGTestSingleItemDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144F021D870EDC007C7F66 /* IGTestSingleItemDataSource.m */; };
 		88144F1D1D870EDC007C7F66 /* IGTestSupplementarySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144F061D870EDC007C7F66 /* IGTestSupplementarySource.m */; };
 		882BC1321E0118CB0083B311 /* IGTestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 88144F001D870EDC007C7F66 /* IGTestObject.m */; };
-		883797082022304E00B94676 /* (null) in Headers */ = {isa = PBXBuildFile; };
+		883797082022304E00B94676 /* BuildFile in Headers */ = {isa = PBXBuildFile; };
 		88379728202236AB00B94676 /* IGListAdapterUpdateTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 294CDE621F995DD7002CF6E4 /* IGListAdapterUpdateTester.m */; };
 		88379729202236AC00B94676 /* IGListAdapterUpdateTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 294CDE621F995DD7002CF6E4 /* IGListAdapterUpdateTester.m */; };
 		885FE1DD1DC51A0D009CE2B4 /* IGListKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885FE1D41DC51A0D009CE2B4 /* IGListKit.framework */; };
@@ -420,6 +420,8 @@
 		E8D312E01FC472A60009FA2F /* IGListContentInsetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8D312DF1FC472A60009FA2F /* IGListContentInsetTests.m */; };
 		F102DBBB2ACE4CD500394DB7 /* IGListArrayUtilsInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = F102DBBA2ACE4CD500394DB7 /* IGListArrayUtilsInternal.m */; };
 		F102DBBC2ACE4CD500394DB7 /* IGListArrayUtilsInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = F102DBBA2ACE4CD500394DB7 /* IGListArrayUtilsInternal.m */; };
+		F10C8F5B2B9830F0009F4690 /* IGListTestCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F10C8F592B9830E6009F4690 /* IGListTestCollectionViewLayout.m */; };
+		F10C8F5C2B9830F1009F4690 /* IGListTestCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F10C8F592B9830E6009F4690 /* IGListTestCollectionViewLayout.m */; };
 		F1855A4C29BC565600558D18 /* IGListDiffDescriptionStringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F1855A4B29BC565600558D18 /* IGListDiffDescriptionStringTests.m */; };
 		F1855A4D29BC565600558D18 /* IGListDiffDescriptionStringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F1855A4B29BC565600558D18 /* IGListDiffDescriptionStringTests.m */; };
 		F1855A4E29BC565600558D18 /* IGListDiffDescriptionStringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F1855A4B29BC565600558D18 /* IGListDiffDescriptionStringTests.m */; };
@@ -751,6 +753,8 @@
 		E56B7B3320A9D7100071010C /* IGListCollectionScrollingTraitsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListCollectionScrollingTraitsTests.m; sourceTree = "<group>"; };
 		E8D312DF1FC472A60009FA2F /* IGListContentInsetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IGListContentInsetTests.m; sourceTree = "<group>"; };
 		F102DBBA2ACE4CD500394DB7 /* IGListArrayUtilsInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListArrayUtilsInternal.m; sourceTree = "<group>"; };
+		F10C8F592B9830E6009F4690 /* IGListTestCollectionViewLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IGListTestCollectionViewLayout.m; sourceTree = "<group>"; };
+		F10C8F5A2B9830E6009F4690 /* IGListTestCollectionViewLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGListTestCollectionViewLayout.h; sourceTree = "<group>"; };
 		F1855A4B29BC565600558D18 /* IGListDiffDescriptionStringTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListDiffDescriptionStringTests.m; sourceTree = "<group>"; };
 		F18CC75B29EFBB9400DC3B9A /* IGListCollectionViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListCollectionViewTests.m; sourceTree = "<group>"; };
 		F18CC75E29EFBBB300DC3B9A /* IGListBindingSingleSectionControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListBindingSingleSectionControllerTests.m; sourceTree = "<group>"; };
@@ -862,6 +866,13 @@
 				7A02D0AC236153CE00B49FAE /* Info.plist */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		15D054C1829CB3E2E2196A55 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		294369AF1DB1B7AE0025F6E7 /* Assets */ = {
@@ -1076,6 +1087,8 @@
 				2995409B1F588C8D00F647CF /* IGTestBindingWithoutDeselectionDelegate.m */,
 				88144EF91D870EDC007C7F66 /* IGTestCell.h */,
 				88144EFA1D870EDC007C7F66 /* IGTestCell.m */,
+				F10C8F5A2B9830E6009F4690 /* IGListTestCollectionViewLayout.h */,
+				F10C8F592B9830E6009F4690 /* IGListTestCollectionViewLayout.m */,
 				88144EFB1D870EDC007C7F66 /* IGTestDelegateController.h */,
 				88144EFC1D870EDC007C7F66 /* IGTestDelegateController.m */,
 				88144EFD1D870EDC007C7F66 /* IGTestDelegateDataSource.h */,
@@ -1130,6 +1143,7 @@
 				887D0B371D870D7E009E01F7 /* Products */,
 				0B3B927E1E08D7F5008390ED /* Source */,
 				887D0B551D870E1E009E01F7 /* Tests */,
+				15D054C1829CB3E2E2196A55 /* Pods */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -1431,7 +1445,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				883797082022304E00B94676 /* (null) in Headers */,
+				883797082022304E00B94676 /* BuildFile in Headers */,
 				7A02D0C023615CE500B49FAE /* IGListKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1957,6 +1971,7 @@
 				885FE2451DC51B86009CE2B4 /* IGTestStoryboardCell.m in Sources */,
 				F1E6302429EA43080060B4D6 /* IGListSectionControllerTests.m in Sources */,
 				16B71CEE22B0A08400FE96ED /* IGTestInvalidateLayoutDataSource.m in Sources */,
+				F10C8F5C2B9830F1009F4690 /* IGListTestCollectionViewLayout.m in Sources */,
 				298DD9CF1E3ADD1400F76F50 /* IGListBindingSectionControllerTests.m in Sources */,
 				885FE22F1DC51B76009CE2B4 /* IGListDiffSwiftTests.swift in Sources */,
 				885FE23F1DC51B86009CE2B4 /* IGTestObject.m in Sources */,
@@ -2075,6 +2090,7 @@
 				88144F0C1D870EDC007C7F66 /* IGListDiffTests.m in Sources */,
 				8285404C1DE40C6E00118B94 /* IGListTestHorizontalSection.m in Sources */,
 				298DDA081E3AE2B100F76F50 /* IGTestNumberBindableCell.m in Sources */,
+				F10C8F5B2B9830F0009F4690 /* IGListTestCollectionViewLayout.m in Sources */,
 				2995409E1F588C9400F647CF /* IGTestBindingWithoutDeselectionDelegate.m in Sources */,
 				88144F0A1D870EDC007C7F66 /* IGListBatchUpdateDataTests.m in Sources */,
 				26271C8C1DAE96740073E116 /* IGListSingleNibItemControllerTests.m in Sources */,
