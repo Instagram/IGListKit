@@ -181,18 +181,6 @@ jobs:
       - name: Carthage build framework
         run: carthage build --no-skip-current --use-xcframeworks
 
-  Carthage-Legacy-Lipo-Binaries:
-    name: Verify Carthage build lipo binaries
-    runs-on: macos-11
-    env:
-      DEVELOPER_DIR: /Applications/Xcode_11.7.app
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Carthage build framework
-        run: carthage build --no-skip-current
-
   Build-Examples:
     name: Build Examples and UI tests.
     runs-on: macos-13
