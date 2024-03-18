@@ -2647,6 +2647,8 @@
     // doesn't crash, because it doesn't seem to return attributes where the size is zero.
     self.collectionView.collectionViewLayout = [IGListTestCollectionViewLayout new];
 
+    XCTExpectFailureWithOptions(@"When IGListSectionController isn't subclassed, expect an assertion failure, but avoid a crash.",
+                                [XCTExpectedFailureOptions nonStrictOptions]);
     [self setupWithObjects:@[kIGTestDelegateDataSourceNoSectionControllerSubclass]];
 
     XCTestExpectation *expectation = genExpectation;
