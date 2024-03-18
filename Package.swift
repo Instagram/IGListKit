@@ -9,26 +9,25 @@ let package = Package(
     ],
     products: [
         .library(name: "IGListDiffKit",
-                 type: .static,
                  targets: ["IGListDiffKit"]),
         .library(name: "IGListKit",
-                 type: .static,
                  targets: ["IGListKit"]),
         .library(name: "IGListSwiftKit",
-                 type: .static,
                  targets: ["IGListSwiftKit"]),
     ],
     targets: [
         .target(
             name: "IGListDiffKit",
             path: "spm/Sources/IGListDiffKit",
-            resources: [.copy("PrivacyInfo.xcprivacy")]
+            resources: [.copy("PrivacyInfo.xcprivacy")],
+            publicHeadersPath: "include"
         ),
         .target(
             name: "IGListKit",
             dependencies: ["IGListDiffKit"],
             path: "spm/Sources/IGListKit",
-            resources: [.copy("PrivacyInfo.xcprivacy")]
+            resources: [.copy("PrivacyInfo.xcprivacy")],
+            publicHeadersPath: "include"
         ),
         .target(
             name: "IGListSwiftKit",
