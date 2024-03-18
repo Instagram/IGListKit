@@ -35,6 +35,7 @@ Pod::Spec.new do |s|
 
   s.osx.source_files = 'Source/IGListKit/IGListKit.h'
 
+  s.resources = ['Source/PrivacyInfo.xcprivacy']
   s.requires_arc = true
 
   s.ios.deployment_target = '11.0'
