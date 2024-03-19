@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
     ]
   end
 
-  s.resources = ['Source/PrivacyInfo.xcprivacy']
+  s.resource_bundles = { "#{s.name}_Privacy" => ['Source/PrivacyInfo.xcprivacy'] }
   s.requires_arc = true
 
   s.swift_versions = ['4.0', '5.0', '5.1']
