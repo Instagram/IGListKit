@@ -23,7 +23,6 @@ Pod::Spec.new do |s|
   s.source_files = 'Source/IGListDiffKit/**/*.{h,m,mm}'
   s.private_header_files = 'Source/IGListDiffKit/Internal/*.h'
 
-  s.resource_bundles = { "#{s.name}_Privacy" => ['Source/PrivacyInfo.xcprivacy'] }
   s.requires_arc = true
 
   s.ios.deployment_target = '11.0'

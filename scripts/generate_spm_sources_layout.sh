@@ -236,27 +236,6 @@ function generate_ig_list_swift_kit() {
     generate_ig_list_swift_kit_spm_sources
 }
 
-function generate_ig_privacy_manifest_spm() {
-    echo "Generate symbolic links for privacy manifest"
-
-    directories=(${SPM_IG_LIST_KIT_SOURCES_PATH} 
-                    ${SPM_IG_LIST_DIFF_KIT_SOURCES_PATH} 
-                    ${SPM_IG_LIST_SWIFT_KIT_SOURCES_PATH})
-    manifest_file="Source/PrivacyInfo.xcprivacy"
-    SRC_ROOT=$(pwd)
-
-    for directory in ${directories[@]}; do
-        echo "Generated under ${directory}"
-        cd ${directory}
-        file_to_link=$(echo $manifest_file | sed "s|:| |g")
-        ln -s ../../../$file_to_link
-        cd $SRC_ROOT
-    done
-
-    echo "      Done"
-    echo ""
-}
-
 # Delete all symbolik links from `spm` folder
 function cleanup() {
     rm -rf $SPM_IG_LIST_DIFF_KIT_PUBLIC_HEADERS_PATH/*.*
@@ -277,5 +256,3 @@ generate_ig_list_diff_kit
 generate_ig_list_kit
 #4
 generate_ig_list_swift_kit
-#5
-generate_ig_privacy_manifest_spm

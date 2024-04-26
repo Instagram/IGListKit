@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.0
 import PackageDescription
 
 let package = Package(
@@ -19,21 +19,18 @@ let package = Package(
         .target(
             name: "IGListDiffKit",
             path: "spm/Sources/IGListDiffKit",
-            resources: [.copy("PrivacyInfo.xcprivacy")],
             publicHeadersPath: "include"
         ),
         .target(
             name: "IGListKit",
             dependencies: ["IGListDiffKit"],
             path: "spm/Sources/IGListKit",
-            resources: [.copy("PrivacyInfo.xcprivacy")],
             publicHeadersPath: "include"
         ),
         .target(
             name: "IGListSwiftKit",
             dependencies: ["IGListKit"],
-            path: "spm/Sources/IGListSwiftKit",
-            resources: [.copy("PrivacyInfo.xcprivacy")]
+            path: "spm/Sources/IGListSwiftKit"
         ),
     ],
     cLanguageStandard: .c11,
