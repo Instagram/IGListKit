@@ -8,7 +8,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Breaking Changes
 
-- Changed iOS deployment target to 11.0 and macOS deployment target to 10.13 [Kent Sutherland](https://github.com/ksuther) [#1573](https://github.com/Instagram/IGListKit/pull/1573)
+- Changed iOS deployment target to 11.0 and macOS deployment target to 10.13 [Kent Sutherland](https://github.com/ksuther) [(#1573)](https://github.com/Instagram/IGListKit/pull/1573)
 
 - Removed unneeded diffing functions `IGListDiffExperiment(...)` and `IGListDiffPathsExperiment(...)`. [Maxime Ollivier](https://github.com/maxolls) [(254c041)](https://github.com/Instagram/IGListKit/commit/254c04196a6b906a155d8a1dd670c720500bed6c)
 
@@ -61,8 +61,17 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
               animated:(BOOL)animated;
 ```
 
+- Unshipped the `IGListExperimentSkipViewSectionControllerMap` experiment as it was no longer being used. [Maxime Ollivier](https://github.com/maxolls) [(99e24af)](https://github.com/Instagram/IGListKit/commit/99e24afbf872c0d858291084cfa45243f0c9a448)
+
+- Unshipped the `IGListExperimentSkipPerformUpdateIfPossible` experiment since it wasn't considered safe enough. [Maxime Ollivier](https://github.com/maxolls) [(b3a22ad)](https://github.com/Instagram/IGListKit/commit/b3a22ad554995b3a869bb1b75369108e65bd867e)
+
 ### Enhancements
+
+- Added `traitCollection` property to `IGListAdapter` in order to access the current trait collection of the underlying collection view. [Sash Zats](https://github.com/zats) [(53a96a9)](https://github.com/Instagram/IGListKit/commit/53a96a9896732ffeb2683953aa6bd23642743ec8)
+
 - Added `viewForSupplementaryElementOfKind:atIndex:sectionController:` to `IGListAdapter`. [ryanmathews](https://www.instagram.com/_rmathews_/) [(c708a10)](https://github.com/Instagram/IGListKit/commit/c708a10757944f147110a31be661d015e9fc901c)
+
+- Replaced usage of `method_exchangeImplementations` with `class_replaceMethod` for increased performance. [Saagar Jha](https://github.com/saagarjha) [(#1583)](https://github.com/Instagram/IGListKit/pull/1583)
 
 - Added `shouldDeselectItemAtIndex:` to `IGListSectionController`. [bladeofky](https://github.com/bladeofky) [(b22a10e)](https://github.com/Instagram/IGListKit/commit/b22a10e47ffa87c79993ea19db7b52605e83ebbf)
 
@@ -92,11 +101,18 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
    - Uses methods instead of blocks to make the callstack easier to read in crash reports.
    - Unblocks `IGListExperimentBackgroundDiffing`
 
-### Fixes
+- The `IGListExperimentFixCrashOnReloadObjects` experiment succeeded and has officially been implemented into IGListKit. [Maxime Ollivier](https://github.com/maxolls) [(99e24af)](https://github.com/Instagram/IGListKit/commit/99e24afbf872c0d858291084cfa45243f0c9a448)
 
-- Don't crash if you use `IGListSectionController` without a subclass [Maxime Ollivier](https://github.com/maxolls) (tbd)
+- Added `IGListExperimentKeepPointerToCollectionViewDataSource` experiment as a potential solution for certain crashes being periodically observed.
 
-- Testing crash fix when calling `-[IGListAdapter reloadObjects ...]` during an update [Maxime Ollivier](https://github.com/maxolls) (tbd)
+- Added `IGListExperimentDisableAnimationOnUpdates` experiment to optionally disable update animations in `IGListAdapter` instances. [(eeb5208)](https://github.com/Instagram/IGListKit/commit/eeb5208911fe340b39d2cc3231d1cd59df16e215)
+
+
+### Fixes 
+
+- Don't crash if you use `IGListSectionController` without a subclass [Maxime Ollivier](https://github.com/maxolls) [(6ea2b91)](https://github.com/Instagram/IGListKit/commit/6ea2b91150040911bcbe4f98201e36035e26e47f)
+
+- Testing crash fix when calling `-[IGListAdapter reloadObjects ...]` during an update [Maxime Ollivier](https://github.com/maxolls) [(cd3f84f)](https://github.com/Instagram/IGListKit/commit/cd3f84f22709dc6bd0153476372cade8167b9513)
 
 - Repaired Swift Package Manager support. [Petro Rovenskyy](https://github.com/3a4oT/) [(#1487)](https://github.com/Instagram/IGListKit/pull/1487)
 
@@ -114,8 +130,13 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Fixed unsigned integer overflow handling in `IGListBatchUpdateData` [Jason Hsu](https://github.com/tuoxie007) [(#1299)](https://github.com/Instagram/IGListKit/pull/1299)
 
+- Fixed when collection views wouldn't recalculate its layout when its bound changes. [Sash Zats](https://github.com/zats) [(d220f8a)](https://github.com/Instagram/IGListKit/commit/d220f8a73fa91fb8444398992b2667f24a38b7a7)
+
+- Fixed when calling `invalidateLayout` on `IGListCollectionViewLayout` wouldn't perform layout recalculation. [Tim Oliver](https://github.com/timoliver) [(ffd51e6)](https://github.com/Instagram/IGListKit/commit/ffd51e6235c761b14c52ac657c69dd52ee7b321f)
+
 4.0.0
 -----
+
 ### Breaking Changes
 
 - Added Swift annotation name to `IGListAdapterDelegate` which removes `IG` prefix. The new name for Swift clients is `ListAdapterDelegate`. [Andrea Antonioni](https://github.com/andreaantonioni) [(#1116)](https://github.com/Instagram/IGListKit/pull/1116)
