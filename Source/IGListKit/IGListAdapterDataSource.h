@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Implement this protocol to provide data to an `IGListAdapter`.
  */
+NS_SWIFT_UI_ACTOR
 NS_SWIFT_NAME(ListAdapterDataSource)
 @protocol IGListAdapterDataSource <NSObject>
 

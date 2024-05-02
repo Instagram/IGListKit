@@ -43,6 +43,7 @@ typedef CGSize (^IGListSingleSectionCellSizeBlock)(id item, id<IGListCollectionC
 /**
  A delegate that can receive selection events on an `IGListSingleSectionController`.
  */
+NS_SWIFT_UI_ACTOR
 NS_SWIFT_NAME(ListSingleSectionControllerDelegate)
 @protocol IGListSingleSectionControllerDelegate <NSObject>
 
