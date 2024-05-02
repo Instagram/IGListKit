@@ -50,6 +50,9 @@
     _isDequeuingCell = NO;
 
     IGAssert(cell != nil, @"Returned a nil cell at indexPath <%@> from section controller: <%@>", indexPath, sectionController);
+    if (cell) {
+        IGAssert(cell.reuseIdentifier != nil, @"Returned a cell without a reuseIdentifier at indexPath <%@> from section controller: <%@>", indexPath, sectionController);
+    }
 
     // associate the section controller with the cell so that we know which section controller is using it
     [self mapView:cell toSectionController:sectionController];
