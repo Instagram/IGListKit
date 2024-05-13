@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>IGListWorkingRangeDelegate Protocol Reference</title>
+    <title>IGListBindingSingleSectionController Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/objc/Protocol/IGListWorkingRangeDelegate" class="dashAnchor"></a>
-    <a title="IGListWorkingRangeDelegate Protocol Reference"></a>
+    <a name="//apple_ref/objc/Class/IGListBindingSingleSectionController" class="dashAnchor"></a>
+    <a title="IGListBindingSingleSectionController Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (96% documented)</p>
@@ -30,9 +30,9 @@
       <p id="breadcrumbs">
         <a href="../index.html">IGListKit</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        <a href="../Protocols.html">Protocols</a>
+        <a href="../Classes.html">Classes</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        IGListWorkingRangeDelegate Protocol Reference
+        IGListBindingSingleSectionController Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -290,34 +290,45 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>IGListWorkingRangeDelegate</h1>
+            <h1>IGListBindingSingleSectionController</h1>
               <div class="declaration">
                 <div class="language">
                   <p class="aside-title">Objective-C</p>
-                  <pre class="highlight objective_c"><code><span class="k">@protocol</span> <span class="nc">IGListWorkingRangeDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span></code></pre>
+                  <pre class="highlight objective_c"><code>
+<span class="k">@interface</span> <span class="nc">IGListBindingSingleSectionController</span><span class="o">&lt;</span>
+    <span class="n">__covariant</span> <span class="n">ViewModel</span> <span class="o">:</span> <span class="n">id</span> <span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Cell</span> <span class="o">:</span> <span class="n">UICollectionViewCell</span> <span class="o">*&gt;</span>
+    <span class="o">:</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span></code></pre>
 
                 </div>
                 <div class="language">
                   <p class="aside-title">Swift</p>
-                  <pre class="highlight swift"><code><span class="kd">protocol</span> <span class="kt">ListWorkingRangeDelegate</span> <span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListBindingSingleSectionController</span><span class="o">&lt;</span><span class="kt">ViewModel</span><span class="p">,</span> <span class="kt">Cell</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ListSectionController</span> <span class="k">where</span> <span class="kt">ViewModel</span> <span class="p">:</span> <span class="kt">ListDiffable</span><span class="p">,</span> <span class="kt">Cell</span> <span class="p">:</span> <span class="kt">UICollectionViewCell</span></code></pre>
 
                 </div>
               </div>
-            <p>Implement this protocol to receive working range events for a list.</p>
+            <p>Special section controller that only contains a single item, and it will apply the view model update during -didUpdateObject: call, usually happened inside -[UICollectionView performBatchUpdates:completion:].</p>
 
-<p>The working range is a range <em>near</em> the viewport in which you can begin preparing content for display. For example,
-you could begin decoding images, or warming text caches.</p>
+<p>This class is intended to be subclassed.</p>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Subclass"></a>
+                <a name="//apple_ref/objc/Section/Subclass" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Subclass"></a>
+                  <h3 class="section-name"><span>Subclass</span>
+</h3>
+                </div>
+              </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerWillEnterWorkingRange:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapter:sectionControllerWillEnterWorkingRange:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerWillEnterWorkingRange:">-listAdapter:<wbr>sectionControllerWillEnterWorkingRange:<wbr></a>
+                    <a name="/c:objc(cs)IGListBindingSingleSectionController(im)cellClass"></a>
+                    <a name="//apple_ref/objc/Method/-cellClass" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBindingSingleSectionController(im)cellClass">-cellClass</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -325,54 +336,21 @@ you could begin decoding images, or warming text caches.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that an section controller will enter the working range.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
-    <span class="nf">sectionControllerWillEnterWorkingRange</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">Class</span><span class="p">)</span><span class="n">cellClass</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="p">,</span> <span class="n">sectionControllerWillEnterWorkingRange</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">cellClass</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AnyClass</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>listAdapter</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The adapter controlling the list.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>sectionController</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The section controller entering the range.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>
@@ -380,9 +358,9 @@ you could begin decoding images, or warming text caches.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerDidExitWorkingRange:"></a>
-                    <a name="//apple_ref/objc/Method/-listAdapter:sectionControllerDidExitWorkingRange:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(pl)IGListWorkingRangeDelegate(im)listAdapter:sectionControllerDidExitWorkingRange:">-listAdapter:<wbr>sectionControllerDidExitWorkingRange:<wbr></a>
+                    <a name="/c:objc(cs)IGListBindingSingleSectionController(im)configureCell:withViewModel:"></a>
+                    <a name="//apple_ref/objc/Method/-configureCell:withViewModel:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBindingSingleSectionController(im)configureCell:withViewModel:">-configureCell:<wbr>withViewModel:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -390,54 +368,213 @@ you could begin decoding images, or warming text caches.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Notifies the delegate that an section controller exited the working range.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
-    <span class="nf">sectionControllerDidExitWorkingRange</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">sectionController</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">configureCell</span><span class="p">:(</span><span class="n">Cell</span><span class="p">)</span><span class="nv">cell</span> <span class="nf">withViewModel</span><span class="p">:(</span><span class="n">ViewModel</span><span class="p">)</span><span class="nv">viewModel</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="p">,</span> <span class="n">sectionControllerDidExitWorkingRange</span> <span class="nv">sectionController</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListSectionController.html">IGListSectionController</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">configureCell</span><span class="p">(</span><span class="n">_</span> <span class="nv">cell</span><span class="p">:</span> <span class="kt">Cell</span><span class="p">,</span> <span class="n">withViewModel</span> <span class="nv">viewModel</span><span class="p">:</span> <span class="kt">ViewModel</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>listAdapter</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The adapter controlling the list.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>sectionController</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The section controller that exited the range.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListBindingSingleSectionController(im)sizeForViewModel:"></a>
+                    <a name="//apple_ref/objc/Method/-sizeForViewModel:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBindingSingleSectionController(im)sizeForViewModel:">-sizeForViewModel:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">CGSize</span><span class="p">)</span><span class="nf">sizeForViewModel</span><span class="p">:(</span><span class="n">ViewModel</span><span class="p">)</span><span class="nv">viewModel</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">size</span><span class="p">(</span><span class="n">forViewModel</span> <span class="nv">viewModel</span><span class="p">:</span> <span class="kt">ViewModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListBindingSingleSectionController(im)didSelectItemWithCell:"></a>
+                    <a name="//apple_ref/objc/Method/-didSelectItemWithCell:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBindingSingleSectionController(im)didSelectItemWithCell:">-didSelectItemWithCell:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didSelectItemWithCell</span><span class="p">:(</span><span class="n">Cell</span><span class="p">)</span><span class="nv">cell</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">didSelectItem</span><span class="p">(</span><span class="n">with</span> <span class="nv">cell</span><span class="p">:</span> <span class="kt">Cell</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListBindingSingleSectionController(im)didDeselectItemWithCell:"></a>
+                    <a name="//apple_ref/objc/Method/-didDeselectItemWithCell:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBindingSingleSectionController(im)didDeselectItemWithCell:">-didDeselectItemWithCell:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didDeselectItemWithCell</span><span class="p">:(</span><span class="n">Cell</span><span class="p">)</span><span class="nv">cell</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">didDeselectItem</span><span class="p">(</span><span class="n">with</span> <span class="nv">cell</span><span class="p">:</span> <span class="kt">Cell</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListBindingSingleSectionController(im)didHighlightItemWithCell:"></a>
+                    <a name="//apple_ref/objc/Method/-didHighlightItemWithCell:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBindingSingleSectionController(im)didHighlightItemWithCell:">-didHighlightItemWithCell:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didHighlightItemWithCell</span><span class="p">:(</span><span class="n">Cell</span><span class="p">)</span><span class="nv">cell</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">didHighlightItem</span><span class="p">(</span><span class="n">with</span> <span class="nv">cell</span><span class="p">:</span> <span class="kt">Cell</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListBindingSingleSectionController(im)didUnhighlightItemWithCell:"></a>
+                    <a name="//apple_ref/objc/Method/-didUnhighlightItemWithCell:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBindingSingleSectionController(im)didUnhighlightItemWithCell:">-didUnhighlightItemWithCell:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didUnhighlightItemWithCell</span><span class="p">:(</span><span class="n">Cell</span><span class="p">)</span><span class="nv">cell</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">didUnhighlightItem</span><span class="p">(</span><span class="n">with</span> <span class="nv">cell</span><span class="p">:</span> <span class="kt">Cell</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)IGListBindingSingleSectionController(im)isDisplayingCell"></a>
+                    <a name="//apple_ref/objc/Method/-isDisplayingCell" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBindingSingleSectionController(im)isDisplayingCell">-isDisplayingCell</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">isDisplayingCell</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">isDisplayingCell</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>

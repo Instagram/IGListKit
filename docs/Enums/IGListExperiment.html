@@ -17,7 +17,7 @@
     <a title="IGListExperiment Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (93% documented)</p>
+        <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (96% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../search.json">
@@ -28,7 +28,9 @@
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
-        <a href="../index.html">IGListKit Reference</a>
+        <a href="../index.html">IGListKit</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        <a href="../Enums.html">Enumerations</a>
         <img id="carat" src="../img/carat.png" alt=""/>
         IGListExperiment Enumeration Reference
       </p>
@@ -85,6 +87,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListBindingSingleSectionController.html">IGListBindingSingleSectionController</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
@@ -371,9 +376,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@E@IGListExperiment@IGListExperimentSkipPerformUpdateIfPossible"></a>
-                    <a name="//apple_ref/objc/Case/IGListExperimentSkipPerformUpdateIfPossible" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@E@IGListExperiment@IGListExperimentSkipPerformUpdateIfPossible">IGListExperimentSkipPerformUpdateIfPossible</a>
+                    <a name="/c:@E@IGListExperiment@IGListExperimentThrowOnInconsistencyException"></a>
+                    <a name="//apple_ref/objc/Case/IGListExperimentThrowOnInconsistencyException" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@E@IGListExperiment@IGListExperimentThrowOnInconsistencyException">IGListExperimentThrowOnInconsistencyException</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -381,19 +386,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Test skipping performBatchUpdate if we don&rsquo;t have any updates.</p>
+                        <p>Throw NSInternalInconsistencyException during an update</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="n">IGListExperimentSkipPerformUpdateIfPossible</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="n">IGListExperimentThrowOnInconsistencyException</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">skipPerformUpdateIfPossible</span><span class="p">:</span> <span class="kt">IGListExperiment</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">throwOnInconsistencyException</span><span class="p">:</span> <span class="kt">IGListExperiment</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -403,9 +408,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@E@IGListExperiment@IGListExperimentSkipViewSectionControllerMap"></a>
-                    <a name="//apple_ref/objc/Case/IGListExperimentSkipViewSectionControllerMap" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@E@IGListExperiment@IGListExperimentSkipViewSectionControllerMap">IGListExperimentSkipViewSectionControllerMap</a>
+                    <a name="/c:@E@IGListExperiment@IGListExperimentKeepPointerToCollectionViewDataSource"></a>
+                    <a name="//apple_ref/objc/Case/IGListExperimentKeepPointerToCollectionViewDataSource" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@E@IGListExperiment@IGListExperimentKeepPointerToCollectionViewDataSource">IGListExperimentKeepPointerToCollectionViewDataSource</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -413,19 +418,51 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Test skipping creating {view : section controller} map, which has inconsistency issue.</p>
+                        <p>Test keeping a strong pointer to the collectionView.dataSource during a batch update to avoid a crash</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="n">IGListExperimentSkipViewSectionControllerMap</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="n">IGListExperimentKeepPointerToCollectionViewDataSource</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">skipViewSectionControllerMap</span><span class="p">:</span> <span class="kt">IGListExperiment</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">keepPointerToCollectionViewDataSource</span><span class="p">:</span> <span class="kt">IGListExperiment</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@E@IGListExperiment@IGListExperimentDisableAnimationOnUpdates"></a>
+                    <a name="//apple_ref/objc/Case/IGListExperimentDisableAnimationOnUpdates" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@E@IGListExperiment@IGListExperimentDisableAnimationOnUpdates">IGListExperimentDisableAnimationOnUpdates</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Test keeping disable all animation on updates</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="n">IGListExperimentDisableAnimationOnUpdates</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">disableAnimationOnUpdates</span><span class="p">:</span> <span class="kt">IGListExperiment</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -437,8 +474,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://twitter.com/MetaOpenSource" target="_blank" rel="external noopener">Instagram</a>. All rights reserved. (Last updated: 2023-04-07)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+          <p>&copy; 2024 <a class="link" href="https://twitter.com/MetaOpenSource" target="_blank" rel="external noopener">Instagram</a>. All rights reserved. (Last updated: 2024-05-13)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>

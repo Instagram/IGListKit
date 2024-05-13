@@ -17,7 +17,7 @@
     <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit 4.1.0 Docs</a> (93% documented)</p>
+        <p><a href="index.html">IGListKit 4.1.0 Docs</a> (96% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="search.json">
@@ -28,7 +28,7 @@
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
-        <a href="index.html">IGListKit Reference</a>
+        <a href="index.html">IGListKit</a>
         <img id="carat" src="img/carat.png" alt=""/>
         Classes  Reference
       </p>
@@ -85,6 +85,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListBindingSingleSectionController.html">IGListBindingSingleSectionController</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/IGListCollectionView.html">IGListCollectionView</a>
@@ -603,6 +606,44 @@ instance has already been checked.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/c:objc(cs)IGListBindingSingleSectionController"></a>
+                    <a name="//apple_ref/objc/Class/IGListBindingSingleSectionController" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)IGListBindingSingleSectionController">IGListBindingSingleSectionController</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Special section controller that only contains a single item, and it will apply the view model update during -didUpdateObject: call, usually happened inside -[UICollectionView performBatchUpdates:completion:].</p>
+
+<p>This class is intended to be subclassed.</p>
+
+                        <a href="Classes/IGListBindingSingleSectionController.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code>
+<span class="k">@interface</span> <span class="nc">IGListBindingSingleSectionController</span><span class="o">&lt;</span>
+    <span class="n">__covariant</span> <span class="n">ViewModel</span> <span class="o">:</span> <span class="n">id</span> <span class="o">&lt;</span><span class="n"><a href="Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Cell</span> <span class="o">:</span> <span class="n">UICollectionViewCell</span> <span class="o">*&gt;</span>
+    <span class="o">:</span> <span class="n"><a href="Classes/IGListSectionController.html">IGListSectionController</a></span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListBindingSingleSectionController</span><span class="o">&lt;</span><span class="kt">ViewModel</span><span class="p">,</span> <span class="kt">Cell</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">ListSectionController</span> <span class="k">where</span> <span class="kt">ViewModel</span> <span class="p">:</span> <span class="kt">ListDiffable</span><span class="p">,</span> <span class="kt">Cell</span> <span class="p">:</span> <span class="kt">UICollectionViewCell</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/c:objc(cs)IGListCollectionView"></a>
                     <a name="//apple_ref/objc/Class/IGListCollectionView" class="dashAnchor"></a>
                     <a class="token" href="#/c:objc(cs)IGListCollectionView">IGListCollectionView</a>
@@ -913,8 +954,8 @@ simpler architecture.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://twitter.com/MetaOpenSource" target="_blank" rel="external noopener">Instagram</a>. All rights reserved. (Last updated: 2023-04-07)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+          <p>&copy; 2024 <a class="link" href="https://twitter.com/MetaOpenSource" target="_blank" rel="external noopener">Instagram</a>. All rights reserved. (Last updated: 2024-05-13)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>
