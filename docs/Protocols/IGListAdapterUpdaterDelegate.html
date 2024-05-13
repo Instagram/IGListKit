@@ -17,7 +17,7 @@
     <a title="IGListAdapterUpdaterDelegate Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (93% documented)</p>
+        <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (96% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../search.json">
@@ -28,7 +28,9 @@
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
-        <a href="../index.html">IGListKit Reference</a>
+        <a href="../index.html">IGListKit</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        <a href="../Protocols.html">Protocols</a>
         <img id="carat" src="../img/carat.png" alt=""/>
         IGListAdapterUpdaterDelegate Protocol Reference
       </p>
@@ -85,6 +87,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListBindingSingleSectionController.html">IGListBindingSingleSectionController</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListCollectionView.html">IGListCollectionView</a>
@@ -329,6 +334,11 @@
                  <span class="nf">toObjects</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="o">&gt;&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">toObjects</span><span class="p">;</span></code></pre>
 
                         </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willDiffFromObjects</span> <span class="nv">fromObjects</span><span class="p">:</span> <span class="p">[</span><span class="kd">any</span> <span class="kt"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="p">]?,</span> <span class="nv">toObjects</span><span class="p">:</span> <span class="p">[</span><span class="kd">any</span> <span class="kt"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="p">]?)</span></code></pre>
+
+                        </div>
                       </div>
                       <div>
                         <h4>Parameters</h4>
@@ -485,6 +495,11 @@
                            <span class="n">listIndexSetResult</span><span class="o">:</span><span class="p">(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/IGListIndexSetResult.html">IGListIndexSetResult</a></span> <span class="o">*</span><span class="p">)</span>
                                                   <span class="n">listIndexSetResults</span>
                                      <span class="n">animated</span><span class="o">:</span><span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">animated</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapterUpdater</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapterUpdater</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a></span><span class="p">,</span> <span class="n">willPerformBatchUpdatesWith</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="nv">fromObjects</span><span class="p">:</span> <span class="p">[</span><span class="kd">any</span> <span class="kt"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="p">]?,</span> <span class="nv">toObjects</span><span class="p">:</span> <span class="p">[</span><span class="kd">any</span> <span class="kt"><a href="../Protocols/IGListDiffable.html">IGListDiffable</a></span><span class="p">]?,</span> <span class="n">listIndexSetResult</span> <span class="nv">listIndexSetResults</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListIndexSetResult.html">IGListIndexSetResult</a></span><span class="p">?,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1428,8 +1443,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://twitter.com/MetaOpenSource" target="_blank" rel="external noopener">Instagram</a>. All rights reserved. (Last updated: 2023-04-07)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+          <p>&copy; 2024 <a class="link" href="https://twitter.com/MetaOpenSource" target="_blank" rel="external noopener">Instagram</a>. All rights reserved. (Last updated: 2024-05-13)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>

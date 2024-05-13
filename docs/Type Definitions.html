@@ -17,7 +17,7 @@
     <a title="Type Definitions  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit 4.1.0 Docs</a> (93% documented)</p>
+        <p><a href="index.html">IGListKit 4.1.0 Docs</a> (96% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="search.json">
@@ -28,7 +28,7 @@
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
-        <a href="index.html">IGListKit Reference</a>
+        <a href="index.html">IGListKit</a>
         <img id="carat" src="img/carat.png" alt=""/>
         Type Definitions  Reference
       </p>
@@ -85,6 +85,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Classes/IGListBindingSectionController.html">IGListBindingSectionController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListBindingSingleSectionController.html">IGListBindingSingleSectionController</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/IGListCollectionView.html">IGListCollectionView</a>
@@ -305,15 +308,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A block to execute when the list updates are completed.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="n">NS_SWIFT_NAME</span><span class="p">(</span><span class="n">ListUpdaterCompletion</span><span class="p">)</span>
-<span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListUpdaterCompletion</span><span class="p">)(</span><span class="n">BOOL</span> <span class="n">finished</span><span class="p">)</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListUpdaterCompletion</span><span class="p">)(</span><span class="n">BOOL</span><span class="p">)</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -321,6 +323,25 @@
                           <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">ListUpdaterCompletion</span> <span class="o">=</span> <span class="p">(</span><span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>finished</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Specifies whether or not the update animations completed successfully.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -338,7 +359,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The current scrolling traits of the underlying collection view.
+The attributes are always equal to their corresponding properties on the underlying collection view.</p>
 
                         <a href="Type%20Definitions/IGListCollectionScrollingTraits.html" class="slightly-smaller">See more</a>
                       </div>
@@ -366,15 +388,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A block used to configure cells.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="n">NS_SWIFT_NAME</span><span class="p">(</span><span class="n">ListSingleSectionCellConfigureBlock</span><span class="p">)</span>
-<span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListSingleSectionCellConfigureBlock</span><span class="p">)(</span><span class="n">id</span> <span class="n">item</span><span class="p">,</span> <span class="n">__kindof</span> <span class="n">UICollectionViewCell</span> <span class="o">*</span><span class="n">cell</span><span class="p">)</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListSingleSectionCellConfigureBlock</span><span class="p">)(</span>
+    <span class="n">id</span> <span class="n">_Nonnull</span><span class="p">,</span> <span class="n">__kindof</span> <span class="n">UICollectionViewCell</span> <span class="o">*</span><span class="n">_Nonnull</span><span class="p">)</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -382,6 +404,37 @@
                           <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">ListSingleSectionCellConfigureBlock</span> <span class="o">=</span> <span class="p">(</span><span class="kt">Any</span><span class="p">,</span> <span class="kt">UICollectionViewCell</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>item</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The model with which to configure the cell.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cell</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The cell to configure.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -399,22 +452,57 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A block that returns the size for the cell given the collection context.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="n">NS_SWIFT_NAME</span><span class="p">(</span><span class="n">ListSingleSectionCellSizeBlock</span><span class="p">)</span>
-<span class="k">typedef</span> <span class="n">CGSize</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListSingleSectionCellSizeBlock</span><span class="p">)(</span><span class="n">id</span> <span class="n">item</span><span class="p">,</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="Protocols/IGListCollectionContext.html">IGListCollectionContext</a></span><span class="o">&gt;</span> <span class="n">_Nullable</span> <span class="n">collectionContext</span><span class="p">)</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">typedef</span> <span class="n">CGSize</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListSingleSectionCellSizeBlock</span><span class="p">)(</span>
+    <span class="n">id</span> <span class="n">_Nonnull</span><span class="p">,</span> <span class="n">id</span><span class="o">&lt;</span><span class="n"><a href="Protocols/IGListCollectionContext.html">IGListCollectionContext</a></span><span class="o">&gt;</span> <span class="n">_Nullable</span><span class="p">)</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">ListSingleSectionCellSizeBlock</span> <span class="o">=</span> <span class="p">(</span><span class="kt">Any</span><span class="p">,</span> <span class="kt">ListCollectionContext</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">ListSingleSectionCellSizeBlock</span> <span class="o">=</span> <span class="p">(</span><span class="kt">Any</span><span class="p">,</span> <span class="p">(</span><span class="kd">any</span> <span class="kt">ListCollectionContext</span><span class="p">)?)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>item</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The model for the section.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collectionContext</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The collection context for the section.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The size for the cell.</p>
                       </div>
                     </section>
                   </div>
@@ -432,15 +520,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A completion block to execute when updates are finished.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="n">NS_SWIFT_NAME</span><span class="p">(</span><span class="n">ListUpdatingCompletion</span><span class="p">)</span>
-<span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListUpdatingCompletion</span><span class="p">)(</span><span class="n">BOOL</span> <span class="n">finished</span><span class="p">)</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListUpdatingCompletion</span><span class="p">)(</span><span class="n">BOOL</span><span class="p">)</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -448,6 +535,25 @@
                           <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">ListUpdatingCompletion</span> <span class="o">=</span> <span class="p">(</span><span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>finished</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Specifies whether or not the update finished.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -465,15 +571,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A block to be called when the adapter applies changes to the collection view.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="n">NS_SWIFT_NAME</span><span class="p">(</span><span class="n">ListObjectTransitionBlock</span><span class="p">)</span>
-<span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListObjectTransitionBlock</span><span class="p">)(</span><span class="n">NSArray</span> <span class="o">*</span><span class="n">toObjects</span><span class="p">)</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListObjectTransitionBlock</span><span class="p">)(</span><span class="n">NSArray</span> <span class="o">*</span><span class="n">_Nonnull</span><span class="p">)</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -481,6 +586,25 @@
                           <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">ListObjectTransitionBlock</span> <span class="o">=</span> <span class="p">([</span><span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>toObjects</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The new objects in the collection.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -498,15 +622,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A block that contains all of the updates.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="n">NS_SWIFT_NAME</span><span class="p">(</span><span class="n">ListItemUpdateBlock</span><span class="p">)</span>
-<span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListItemUpdateBlock</span><span class="p">)(</span><span class="kt">void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListItemUpdateBlock</span><span class="p">)(</span><span class="kt">void</span><span class="p">)</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -531,15 +654,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A block to be called when an adapter reloads the collection view.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="n">NS_SWIFT_NAME</span><span class="p">(</span><span class="n">ListReloadUpdateBlock</span><span class="p">)</span>
-<span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListReloadUpdateBlock</span><span class="p">)(</span><span class="kt">void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListReloadUpdateBlock</span><span class="p">)(</span><span class="kt">void</span><span class="p">)</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -564,15 +686,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A block that returns an array of objects to transition to.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="n">NS_SWIFT_NAME</span><span class="p">(</span><span class="n">ListToObjectBlock</span><span class="p">)</span>
-<span class="k">typedef</span> <span class="n">NSArray</span> <span class="o">*</span> <span class="n">_Nullable</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListToObjectBlock</span><span class="p">)(</span><span class="kt">void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">typedef</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListToObjectBlock</span><span class="p">)(</span><span class="kt">void</span><span class="p">)</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -597,15 +718,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A block that returns a collection view to perform updates on.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="n">NS_SWIFT_NAME</span><span class="p">(</span><span class="n">ListCollectionViewBlock</span><span class="p">)</span>
-<span class="k">typedef</span> <span class="n">UICollectionView</span> <span class="o">*</span> <span class="n">_Nullable</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListCollectionViewBlock</span><span class="p">)(</span><span class="kt">void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">typedef</span> <span class="n">UICollectionView</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListCollectionViewBlock</span><span class="p">)(</span><span class="kt">void</span><span class="p">)</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -630,15 +750,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A block that applies a <code>UICollectionView</code> dataSource change</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="n">NS_SWIFT_NAME</span><span class="p">(</span><span class="n">ListDataSourceChangeBlock</span><span class="p">)</span>
-<span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListDataSourceChangeBlock</span><span class="p">)(</span><span class="kt">void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListDataSourceChangeBlock</span><span class="p">)(</span><span class="kt">void</span><span class="p">)</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -663,15 +782,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A block that returns the <code><a href="Classes/IGListTransitionData.html">IGListTransitionData</a></code> needed before an update.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="n">NS_SWIFT_NAME</span><span class="p">(</span><span class="n">ListTransitionDataBlock</span><span class="p">)</span>
-<span class="k">typedef</span> <span class="n"><a href="Classes/IGListTransitionData.html">IGListTransitionData</a></span> <span class="o">*</span> <span class="n">_Nullable</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListTransitionDataBlock</span><span class="p">)(</span><span class="kt">void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">typedef</span> <span class="n"><a href="Classes/IGListTransitionData.html">IGListTransitionData</a></span> <span class="o">*</span><span class="n">_Nullable</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListTransitionDataBlock</span><span class="p">)(</span><span class="kt">void</span><span class="p">)</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -696,15 +814,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A block to be called when the adapter applies changes to the collection view.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="n">NS_SWIFT_NAME</span><span class="p">(</span><span class="n">ListTransitionDataApplyBlock</span><span class="p">)</span>
-<span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListTransitionDataApplyBlock</span><span class="p">)(</span><span class="n"><a href="Classes/IGListTransitionData.html">IGListTransitionData</a></span> <span class="o">*</span><span class="n">data</span><span class="p">)</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">IGListTransitionDataApplyBlock</span><span class="p">)(</span><span class="n"><a href="Classes/IGListTransitionData.html">IGListTransitionData</a></span> <span class="o">*</span><span class="n">_Nonnull</span><span class="p">)</span></code></pre>
 
                         </div>
                         <div class="language">
@@ -712,6 +829,25 @@
                           <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">ListTransitionDataApplyBlock</span> <span class="o">=</span> <span class="p">(</span><span class="kt"><a href="Classes/IGListTransitionData.html">IGListTransitionData</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The new data that contains the from/to objects.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -721,8 +857,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://twitter.com/MetaOpenSource" target="_blank" rel="external noopener">Instagram</a>. All rights reserved. (Last updated: 2023-04-07)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+          <p>&copy; 2024 <a class="link" href="https://twitter.com/MetaOpenSource" target="_blank" rel="external noopener">Instagram</a>. All rights reserved. (Last updated: 2024-05-13)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>

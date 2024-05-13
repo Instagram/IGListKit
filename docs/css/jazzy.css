@@ -121,12 +121,14 @@ header {
 
 #breadcrumbs {
   background-color: #f2f2f2;
-  height: 21px;
-  padding-top: 17px;
+  height: 26px;
+  padding-top: 12px;
   position: fixed;
-  width: 100%;
+  width: inherit;
   z-index: 2;
-  margin-top: 32px; }
+  margin-top: 32px;
+  white-space: nowrap;
+  overflow-x: scroll; }
   #breadcrumbs #carat {
     height: 10px;
     margin: 0 5px; }
@@ -273,10 +275,11 @@ header {
     margin-left: 20px; }
   .item .discouraged {
     text-decoration: line-through; }
-  .item .declaration-note {
-    font-size: .85em;
-    color: gray;
-    font-style: italic; }
+
+.declaration-note {
+  font-size: .85em;
+  color: gray;
+  font-style: italic; }
 
 .pointer-container {
   border-bottom: 1px solid #e2e2e2;
