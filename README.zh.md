@@ -47,7 +47,7 @@
 推荐使用[CocoaPods](https://cocoapods.org)来进行安装，只需添加如下语句到你的`Podfile`文件中:
 
 ```ruby
-pod 'IGListKit', '~> 4.0.0'
+pod 'IGListKit', '~> 5.0.0'
 ```
 
 ### Carthage
@@ -55,7 +55,7 @@ pod 'IGListKit', '~> 4.0.0'
 对于[Carthage](https://github.com/Carthage/Carthage), 添加如下到`Cartfile`文件中:
 
 ```ogdl
-github "Instagram/IGListKit" ~> 3.0
+github "Instagram/IGListKit" ~> 5.0.0
 ```
 
 > 对于高级用法, 查阅 [安装指南](https://instagram.github.io/IGListKit/installation.html)。
