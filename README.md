@@ -48,7 +48,7 @@ We use the open source version `main` branch in the Instagram app.
 The preferred installation method is with [CocoaPods](https://cocoapods.org). Add the following to your `Podfile`:
 
 ```ruby
-pod 'IGListKit', '~> 4.0.0'
+pod 'IGListKit', '~> 5.0.0'
 ```
 
 ### Carthage
@@ -56,7 +56,7 @@ pod 'IGListKit', '~> 4.0.0'
 For [Carthage](https://github.com/Carthage/Carthage), add the following to your `Cartfile`:
 
 ```ogdl
-github "Instagram/IGListKit" ~> 4.0.0
+github "Instagram/IGListKit" ~> 5.0.0
 ```
 
 ### Swift Package Manager
