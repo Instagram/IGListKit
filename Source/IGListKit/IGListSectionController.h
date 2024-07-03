@@ -62,7 +62,7 @@ NS_SWIFT_NAME(ListSectionController)
  and returned, rather than the existing cell that you may have intended to retrieve. Instead, you can call
  `-cellForItemAtIndex:sectionController:` on `IGListCollectionContext` to obtain active cell references.
  */
-- (__kindof UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index;
+- (__kindof UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index NS_SWIFT_UI_ACTOR;
 
 /**
  Updates the section controller to a new object.
