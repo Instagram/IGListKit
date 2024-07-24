@@ -417,7 +417,7 @@ typedef struct OffsetRange {
             [strongSelf _updateWithData:data];
         }
     };
-    const BOOL shouldAnimateUpdates =  animated && !IGListExperimentEnabled(self.experiments, IGListExperimentDisableAnimationOnUpdates);
+
     IGListUpdaterCompletion outerCompletionBlock = ^(BOOL finished){
         __typeof__(self) strongSelf = weakSelf;
         if (strongSelf == nil) {
@@ -427,7 +427,7 @@ typedef struct OffsetRange {
 
         // release the previous items
         strongSelf.previousSectionMap = nil;
-        [strongSelf _notifyDidUpdate:IGListAdapterUpdateTypePerformUpdates animated:shouldAnimateUpdates];
+        [strongSelf _notifyDidUpdate:IGListAdapterUpdateTypePerformUpdates animated:animated];
         IGLK_BLOCK_CALL_SAFE(completion,finished);
         [strongSelf _exitBatchUpdates];
     };
