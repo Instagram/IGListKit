@@ -22,8 +22,6 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentThrowOnInconsistencyException = 1 << 3,
     /// Test keeping a strong pointer to the collectionView.dataSource during a batch update to avoid a crash
     IGListExperimentKeepPointerToCollectionViewDataSource = 1 << 4,
-    /// Test keeping disable all animation on updates
-    IGListExperimentDisableAnimationOnUpdates= 1 << 5
 };
 
 /**
