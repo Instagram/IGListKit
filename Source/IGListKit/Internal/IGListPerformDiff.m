@@ -39,6 +39,12 @@ static dispatch_queue_t _queueForData(IGListTransitionData *data, BOOL allowsBac
     if (!allowsBackground) {
         return dispatch_get_main_queue();
     }
+    
+    // If we don't have a lot of items, the dispatching back and forth can add unnecessary delay.
+    if (data.fromObjects.count < adaptiveConfig.maxItemCountToRunOnMain
+        && data.toObjects.count < adaptiveConfig.maxItemCountToRunOnMain) {
+        return dispatch_get_main_queue();
+    }
 
     const intptr_t qos = adaptiveConfig.higherQOSEnabled ? QOS_CLASS_USER_INTERACTIVE : QOS_CLASS_USER_INITIATED;
     return dispatch_get_global_queue(qos, 0);
