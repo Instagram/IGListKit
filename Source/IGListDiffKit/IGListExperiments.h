@@ -20,6 +20,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentInvalidateLayoutForUpdates = 1 << 2,
     /// Throw NSInternalInconsistencyException during an update
     IGListExperimentThrowOnInconsistencyException = 1 << 3,
+    /// Remove the early exit so multiple updates can't happen at once
+    IGListExperimentRemoveDataSourceChangeEarlyExit = 1 << 4,
 };
 
 /**

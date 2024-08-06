@@ -208,7 +208,9 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     // Which means we need to cancel the current transaction, flatten the changes from
     // both the current transtion and builder, and execute that new transaction.
 
-    if (!self.transaction && ![self.transactionBuilder hasChanges]) {
+    if (!self.transaction 
+        && ![self.transactionBuilder hasChanges]
+        && !IGListExperimentEnabled(self.experiments, IGListExperimentRemoveDataSourceChangeEarlyExit)) {
         // If nothing is going on, lets take a shortcut.
         block();
         return;
