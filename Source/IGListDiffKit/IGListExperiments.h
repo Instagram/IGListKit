@@ -31,6 +31,8 @@ typedef struct IGListAdaptiveDiffingExperimentConfig {
     BOOL enabled;
     /// Enable higher background thread priority
     BOOL higherQOSEnabled;
+    /// If both item counts are under this number, we'll run the diffing on the main thread.
+    NSInteger maxItemCountToRunOnMain;
 } IGListAdaptiveDiffingExperimentConfig;
 
 /**
