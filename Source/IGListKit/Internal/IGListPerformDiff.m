@@ -14,6 +14,7 @@
 #endif
 
 #import "IGListTransitionData.h"
+#import "IGListViewVisibilityTracker.h"
 
 #pragma mark - Regular (not adaptive)
 
@@ -35,9 +36,19 @@ static void _regularPerformDiffWithData(IGListTransitionData *_Nullable data,
 
 #pragma mark - Adaptive
 
-static dispatch_queue_t _queueForData(IGListTransitionData *data, BOOL allowsBackground, IGListAdaptiveDiffingExperimentConfig adaptiveConfig) {
+static dispatch_queue_t _queueForData(IGListTransitionData *data, 
+                                      UIView *view,
+                                      BOOL allowsBackground,
+                                      IGListAdaptiveDiffingExperimentConfig adaptiveConfig) {
     if (!allowsBackground) {
         return dispatch_get_main_queue();
+    }
+    
+    if (adaptiveConfig.lowerPriorityWhenViewNotVisible) {
+        IGListViewVisibilityTracker *const tracker = IGListViewVisibilityTrackerAttachedOnView(view);
+        if (tracker && tracker.state == IGListViewVisibilityStateNotVisible) {
+            return dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0);
+        }
     }
     
     // If we don't have a lot of items, the dispatching back and forth can add unnecessary delay.
@@ -51,10 +62,11 @@ static dispatch_queue_t _queueForData(IGListTransitionData *data, BOOL allowsBac
 }
 
 static void _adaptivePerformDiffWithData(IGListTransitionData *_Nullable data,
+                                         UIView *view,
                                          BOOL allowsBackground,
                                          IGListAdaptiveDiffingExperimentConfig adaptiveConfig,
                                          IGListDiffExecutorCompletion completion) {
-    const dispatch_queue_t queue = _queueForData(data, allowsBackground, adaptiveConfig);
+    const dispatch_queue_t queue = _queueForData(data, view, allowsBackground, adaptiveConfig);
 
     if (queue == dispatch_get_main_queue() && [NSThread isMainThread]) {
         IGListIndexSetResult *const result = IGListDiff(data.fromObjects, data.toObjects, IGListDiffEquality);
@@ -72,6 +84,7 @@ static void _adaptivePerformDiffWithData(IGListTransitionData *_Nullable data,
 #pragma mark - Public
 
 void IGListPerformDiffWithData(IGListTransitionData *_Nullable data,
+                               UIView *view,
                                BOOL allowsBackground,
                                IGListAdaptiveDiffingExperimentConfig adaptiveConfig,
                                IGListDiffExecutorCompletion completion) {
@@ -80,7 +93,7 @@ void IGListPerformDiffWithData(IGListTransitionData *_Nullable data,
     }
     
     if (adaptiveConfig.enabled) {
-        _adaptivePerformDiffWithData(data, allowsBackground, adaptiveConfig, completion);
+        _adaptivePerformDiffWithData(data, view, allowsBackground, adaptiveConfig, completion);
     } else {
         // Just to be safe, lets keep the original code path intact while adaptive diffing is still an experiment.
         _regularPerformDiffWithData(data, allowsBackground, completion);

@@ -33,6 +33,8 @@ typedef struct IGListAdaptiveDiffingExperimentConfig {
     BOOL higherQOSEnabled;
     /// If both item counts are under this number, we'll run the diffing on the main thread.
     NSInteger maxItemCountToRunOnMain;
+    /// Lower QOS if view is not visible according to `IGListViewVisibilityTracker`
+    BOOL lowerPriorityWhenViewNotVisible;
 } IGListAdaptiveDiffingExperimentConfig;
 
 /**
