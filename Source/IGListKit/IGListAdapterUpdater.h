@@ -86,6 +86,12 @@ NS_SWIFT_NAME(ListAdapterUpdater)
  */
 @property (nonatomic, assign) IGListExperiment experiments;
 
+/**
+ This is an experimental feature to customize how diffing is performed. If there’s clear value, we’ll make this a real API and make
+ breaking changes (i.e. replace `allowsBackgroundDiffing` with an enum).
+ @warning - Keep in mind `allowsBackgroundDiffing` needs to be true for adaptive diffing to take effect.
+ */
+@property (nonatomic, assign) IGListAdaptiveDiffingExperimentConfig adaptiveDiffingExperimentConfig;
 
 @end
 

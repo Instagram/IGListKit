@@ -23,6 +23,15 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
 };
 
 /**
+ Customize how diffing is performed
+ */
+NS_SWIFT_NAME(ListAdaptiveDiffingExperimentConfig)
+typedef struct IGListAdaptiveDiffingExperimentConfig {
+    /// Enabled experimental code path. This needs to be enabled for the other properties to take effect.
+    BOOL enabled;
+} IGListAdaptiveDiffingExperimentConfig;
+
+/**
  Check if an experiment is enabled in a bitmask.
 
  @param mask The bitmask of experiments.

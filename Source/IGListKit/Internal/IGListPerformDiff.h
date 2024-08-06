@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
+#import "IGListExperiments.h"
+#else
+#import <IGListDiffKit/IGListExperiments.h>
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class IGListTransitionData;
@@ -24,11 +30,13 @@ typedef void (^IGListDiffExecutorCompletion)(IGListIndexSetResult *result, BOOL 
 
  @param data Contains the objects before and after the update
  @param allowsBackgroundDiffing Allows the diffing to be performed off the main thread
+ @param adaptiveConfig Details of how the adaptive diffing should work
  @param completion Returns the diffing results. Can be called async or sync, but will be called on main thread.
  */
-NS_SWIFT_NAME(ListPerformDiff(data:allowsBackgroundDiffing:completion:))
+NS_SWIFT_NAME(ListPerformDiff(data:allowsBackgroundDiffing:adaptiveConfig:completion:))
 FOUNDATION_EXTERN void IGListPerformDiffWithData(IGListTransitionData *_Nullable data,
                                                  BOOL allowsBackgroundDiffing,
+                                                 IGListAdaptiveDiffingExperimentConfig adaptiveConfig,
                                                  IGListDiffExecutorCompletion completion);
 
 NS_ASSUME_NONNULL_END
