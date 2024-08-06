@@ -40,7 +40,8 @@ static dispatch_queue_t _queueForData(IGListTransitionData *data, BOOL allowsBac
         return dispatch_get_main_queue();
     }
 
-    return dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0);
+    const intptr_t qos = adaptiveConfig.higherQOSEnabled ? QOS_CLASS_USER_INTERACTIVE : QOS_CLASS_USER_INITIATED;
+    return dispatch_get_global_queue(qos, 0);
 }
 
 static void _adaptivePerformDiffWithData(IGListTransitionData *_Nullable data,
