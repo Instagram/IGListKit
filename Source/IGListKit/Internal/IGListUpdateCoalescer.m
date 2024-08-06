@@ -57,21 +57,22 @@ static BOOL _isViewVisible(UIView *_Nullable view, IGListAdaptiveCoalescingExper
     const IGListAdaptiveCoalescingExperimentConfig config = _adaptiveCoalescingExperimentConfig;
     const NSTimeInterval timeSinceLastUpdate = -[_lastUpdateStartDate timeIntervalSinceNow];
     const BOOL isViewVisible = _isViewVisible(view, config);
+    const NSTimeInterval currentCoalescenceInterval = _coalescenceInterval;
 
     if (isViewVisible) {
-        if (!_lastUpdateStartDate || timeSinceLastUpdate > _coalescenceInterval) {
+        if (!_lastUpdateStartDate || timeSinceLastUpdate > currentCoalescenceInterval) {
             // It's been long enough, so lets reset interval and perform update right away
             _coalescenceInterval = config.minInterval;
             [self _performUpdate];
             return;
         } else {
             // If we keep hitting the delay, lets increase it.
-            _coalescenceInterval = MIN(_coalescenceInterval + config.intervalIncrement, config.maxInterval);
+            _coalescenceInterval = MIN(currentCoalescenceInterval + config.intervalIncrement, config.maxInterval);
         }
     }
 
     // Delay by the time remaining in the interval
-    const NSTimeInterval remainingTime = isViewVisible ? (_coalescenceInterval - timeSinceLastUpdate) : config.maxInterval;
+    const NSTimeInterval remainingTime = isViewVisible ? (currentCoalescenceInterval - timeSinceLastUpdate) : config.maxInterval;
     const NSTimeInterval remainingTimeCapped = MAX(remainingTime, 0);
     
     _hasQueuedUpdate = YES;
