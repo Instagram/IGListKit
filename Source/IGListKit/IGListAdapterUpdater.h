@@ -93,6 +93,11 @@ NS_SWIFT_NAME(ListAdapterUpdater)
  */
 @property (nonatomic, assign) IGListAdaptiveDiffingExperimentConfig adaptiveDiffingExperimentConfig;
 
+/**
+ Customize how coalescing works to speed up some updates
+ */
+@property (nonatomic, assign) IGListAdaptiveCoalescingExperimentConfig adaptiveCoalescingExperimentConfig;
+
 @end
 
 NS_ASSUME_NONNULL_END
