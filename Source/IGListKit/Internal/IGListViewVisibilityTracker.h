@@ -7,6 +7,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class IGListViewVisibilityTracker;
+
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(ListViewVisibilityState)
@@ -18,6 +20,16 @@ typedef NS_ENUM(NSInteger, IGListViewVisibilityState) {
     /// View is in the window and not hidden, but there is no guarantee that its bounds are visible or not obstructed
     IGListViewVisibilityStateMaybeVisible,
 };
+
+/**
+ Get the tracker associated with a view. If non exists, it will create one and attach it.
+
+ @param view View's who's visibility is being tracked
+
+ @return The tracker
+ */
+NS_SWIFT_NAME(IGListViewVisibilityTracker(attachedOnView:))
+FOUNDATION_EXTERN IGListViewVisibilityTracker *_Nullable IGListViewVisibilityTrackerAttachedOnView(UIView *view);
 
 /// Track a view visibility status
 NS_SWIFT_NAME(ListViewVisibilityTracker)

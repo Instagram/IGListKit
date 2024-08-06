@@ -7,6 +7,23 @@
 
 #import "IGListViewVisibilityTrackerInternal.h"
 
+#import <objc/runtime.h>
+
+static void * kIGListViewVisibilityTrackerKey = &kIGListViewVisibilityTrackerKey;
+
+IGListViewVisibilityTracker *IGListViewVisibilityTrackerAttachedOnView(UIView *view) {
+    if (!view) {
+        return nil;
+    }
+
+    IGListViewVisibilityTracker *tracker = (IGListViewVisibilityTracker *)objc_getAssociatedObject(view, kIGListViewVisibilityTrackerKey);
+    if (!tracker) {
+        tracker = [[IGListViewVisibilityTracker alloc] initWithView:view];
+        objc_setAssociatedObject(view, kIGListViewVisibilityTrackerKey, tracker, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return tracker;
+}
+
 @implementation IGListViewVisibilityTracker {
     __weak UIView *_view;
 }
