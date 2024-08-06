@@ -141,13 +141,12 @@ typedef NS_ENUM (NSInteger, IGListUpdateTransactionBuilderMode) {
 - (nullable id<IGListUpdateTransactable>)buildWithConfig:(IGListUpdateTransactationConfig)config
                                                 delegate:(nullable id<IGListAdapterUpdaterDelegate>)delegate
                                                  updater:(IGListAdapterUpdater *)updater {
-    IGListCollectionViewBlock collectionViewBlock = self.collectionViewBlock;
-    if (!collectionViewBlock) {
-        return nil;
-    }
-
     switch (self.mode) {
-        case IGListUpdateTransactionBuilderModeBatchUpdate:
+        case IGListUpdateTransactionBuilderModeBatchUpdate: {
+            IGListCollectionViewBlock collectionViewBlock = self.collectionViewBlock;
+            if (!collectionViewBlock) {
+                return nil;
+            }
             return [[IGListBatchUpdateTransaction alloc] initWithCollectionViewBlock:collectionViewBlock
                                                                              updater:updater
                                                                             delegate:delegate
@@ -157,9 +156,11 @@ typedef NS_ENUM (NSInteger, IGListUpdateTransactionBuilderMode) {
                                                                applySectionDataBlock:self.applySectionDataBlock
                                                                     itemUpdateBlocks:self.itemUpdateBlocks
                                                                     completionBlocks:self.completionBlocks];
+        }
         case IGListUpdateTransactionBuilderModeReload: {
             IGListReloadUpdateBlock reloadBlock = self.reloadBlock;
-            if (!reloadBlock) {
+            IGListCollectionViewBlock collectionViewBlock = self.collectionViewBlock;
+            if (!reloadBlock || !collectionViewBlock) {
                 return nil;
             }
             return [[IGListReloadTransaction alloc] initWithCollectionViewBlock:collectionViewBlock
