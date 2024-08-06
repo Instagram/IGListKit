@@ -29,12 +29,14 @@ typedef void (^IGListDiffExecutorCompletion)(IGListIndexSetResult *result, BOOL 
  Perform diffing, which can happen sync or async depending on the params given.
 
  @param data Contains the objects before and after the update
+ @param view  View on which we will perform the update. Used to check visibility.
  @param allowsBackgroundDiffing Allows the diffing to be performed off the main thread
  @param adaptiveConfig Details of how the adaptive diffing should work
  @param completion Returns the diffing results. Can be called async or sync, but will be called on main thread.
  */
-NS_SWIFT_NAME(ListPerformDiff(data:allowsBackgroundDiffing:adaptiveConfig:completion:))
+NS_SWIFT_NAME(ListPerformDiff(data:view:allowsBackgroundDiffing:adaptiveConfig:completion:))
 FOUNDATION_EXTERN void IGListPerformDiffWithData(IGListTransitionData *_Nullable data,
+                                                 UIView *_Nullable view,
                                                  BOOL allowsBackgroundDiffing,
                                                  IGListAdaptiveDiffingExperimentConfig adaptiveConfig,
                                                  IGListDiffExecutorCompletion completion);

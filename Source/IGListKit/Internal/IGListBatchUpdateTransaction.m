@@ -112,6 +112,7 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
 
     __weak __typeof__(self) weakSelf = self;
     IGListPerformDiffWithData(data,
+                              self.collectionView,
                               self.config.allowsBackgroundDiffing,
                               self.config.adaptiveDiffingExperimentConfig,
                               ^(IGListIndexSetResult * _Nonnull result, BOOL onBackground) {
