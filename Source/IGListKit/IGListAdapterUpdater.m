@@ -60,7 +60,7 @@
     }
 
     // Will call `-performUpdateWithCoalescer`
-    [self.coalescer queueUpdate];
+    [self.coalescer queueUpdateForView:self.transactionBuilder.collectionView];
 }
 
 - (void)performUpdateWithCoalescer:(IGListUpdateCoalescer *)coalescer {

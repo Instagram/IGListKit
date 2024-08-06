@@ -7,6 +7,8 @@
 
 #import "IGListUpdateCoalescer.h"
 
+#import "IGListViewVisibilityTracker.h"
+
 @implementation IGListUpdateCoalescer {
     BOOL _hasQueuedUpdate;
 
@@ -15,7 +17,7 @@
     NSTimeInterval _coalescenceInterval;
 }
 
-- (void)queueUpdate {
+- (void)queueUpdateForView:(nullable UIView *)view {
     if (_hasQueuedUpdate) {
         return;
     }
@@ -26,7 +28,7 @@
     // details on how coalescence is done.
     
     if (self.adaptiveCoalescingExperimentConfig.enabled) {
-        [self _adaptiveDispatchUpdate];
+        [self _adaptiveDispatchUpdateForView:view];
     } else {
         [self _regularDispatchUpdate];
     }
@@ -40,26 +42,41 @@
     });
 }
 
-- (void)_adaptiveDispatchUpdate {
-    const IGListAdaptiveCoalescingExperimentConfig config = _adaptiveCoalescingExperimentConfig;
-    
-    const NSTimeInterval timeSinceLastUpdate = -[_lastUpdateStartDate timeIntervalSinceNow];
-    if (!_lastUpdateStartDate || timeSinceLastUpdate > _coalescenceInterval) {
-        // It's been long enough, so lets reset interval and perform update right away
-        _coalescenceInterval = config.minInterval;
-        [self _performUpdate];
-        return;
+static BOOL _isViewVisible(UIView *_Nullable view, IGListAdaptiveCoalescingExperimentConfig config) {
+    if (config.useMaxIntervalWhenViewNotVisible) {
+        IGListViewVisibilityTracker *const tracker = IGListViewVisibilityTrackerAttachedOnView((UIView *)view);
+        if (tracker && tracker.state == IGListViewVisibilityStateNotVisible) {
+            return NO;
+        }
     }
-    
-    // If we keep hitting the delay, lets increase it.
-    _coalescenceInterval = MIN(_coalescenceInterval + config.intervalIncrement, config.maxInterval);
-    
+
+    return YES;
+}
+
+- (void)_adaptiveDispatchUpdateForView:(nullable UIView *)view {
+    const IGListAdaptiveCoalescingExperimentConfig config = _adaptiveCoalescingExperimentConfig;
+    const NSTimeInterval timeSinceLastUpdate = -[_lastUpdateStartDate timeIntervalSinceNow];
+    const BOOL isViewVisible = _isViewVisible(view, config);
+
+    if (isViewVisible) {
+        if (!_lastUpdateStartDate || timeSinceLastUpdate > _coalescenceInterval) {
+            // It's been long enough, so lets reset interval and perform update right away
+            _coalescenceInterval = config.minInterval;
+            [self _performUpdate];
+            return;
+        } else {
+            // If we keep hitting the delay, lets increase it.
+            _coalescenceInterval = MIN(_coalescenceInterval + config.intervalIncrement, config.maxInterval);
+        }
+    }
+
     // Delay by the time remaining in the interval
-    const NSTimeInterval remainingTime = MAX(_coalescenceInterval - timeSinceLastUpdate, 0);
+    const NSTimeInterval remainingTime = isViewVisible ? (_coalescenceInterval - timeSinceLastUpdate) : config.maxInterval;
+    const NSTimeInterval remainingTimeCapped = MAX(remainingTime, 0);
     
     _hasQueuedUpdate = YES;
     __weak __typeof__(self) weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(remainingTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(remainingTimeCapped * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [weakSelf _performUpdate];
     });
 }

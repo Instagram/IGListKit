@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #if __has_include(<IGListDiffKit/IGListDiffKit.h>)
 #import <IGListDiffKit/IGListExperiments.h>
@@ -34,8 +34,12 @@ NS_SWIFT_NAME(ListUpdateCoalescer)
 
 @property (nonatomic, weak) id<IGListUpdateCoalescerDelegate> delegate;
 
-/// Start coalescing updates, which will eventually call `-performUpdateWithCoalescer`
-- (void)queueUpdate;
+/**
+ Start coalescing updates, which will eventually call `-performUpdateWithCoalescer`
+ 
+ @params view View used to track visibility (if enabled in config)
+ */
+- (void)queueUpdateForView:(nullable UIView *)view;
 
 @end
 
