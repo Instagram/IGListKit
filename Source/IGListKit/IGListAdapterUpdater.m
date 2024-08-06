@@ -91,6 +91,7 @@
         .allowsReloadingOnTooManyUpdates = _allowsReloadingOnTooManyUpdates,
         .allowsBackgroundDiffing = _allowsBackgroundDiffing,
         .experiments = _experiments,
+        .adaptiveDiffingExperimentConfig = _adaptiveDiffingExperimentConfig,
     };
 
     id<IGListUpdateTransactable> transaction = [self.transactionBuilder buildWithConfig:config delegate:_delegate updater:self];

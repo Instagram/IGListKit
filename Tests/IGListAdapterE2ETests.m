@@ -2659,4 +2659,36 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenPerformingUpdates_withAdaptiveDiffing_thatCollectionViewCountsUpdate {
+    IGListAdapterUpdater *updater = (IGListAdapterUpdater *)self.updater;
+    updater.allowsBackgroundDiffing = YES;
+    updater.adaptiveDiffingExperimentConfig = (IGListAdaptiveDiffingExperimentConfig) {
+        .enabled = YES,
+    };
+    
+    [self setupWithObjects:@[
+        genTestObject(@1, @1),
+        genTestObject(@2, @2),
+        genTestObject(@3, @3),
+    ]];
+
+    self.dataSource.objects = @[
+        genTestObject(@2, @2),
+        genTestObject(@1, @1), // moved from index 0 to 1
+        genTestObject(@3, @3),
+        genTestObject(@4, @4), // new
+    ];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished2) {
+        XCTAssertEqual([self.collectionView numberOfSections], 4);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 1);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:2], 3);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:3], 4);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
 @end
