@@ -26,6 +26,7 @@
 #import "IGListReloadIndexPath.h"
 #import "IGListTransitionData.h"
 #import "UICollectionView+IGListBatchUpdateData.h"
+#import "IGListPerformDiff.h"
 
 typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
     IGListBatchUpdateTransactionModeCancellable,
@@ -109,19 +110,12 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
     IGListTransitionData *data = self.sectionData;
     [self.delegate listAdapterUpdater:self.updater willDiffFromObjects:data.fromObjects toObjects:data.toObjects];
 
-    const BOOL onBackground = self.config.allowsBackgroundDiffing;
-    if (onBackground) {
-        __weak __typeof__(self) weakSelf = self;
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-            IGListIndexSetResult *result = IGListDiff(data.fromObjects, data.toObjects, IGListDiffEquality);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf _didDiff:result onBackground:onBackground];
-            });
-        });
-    } else {
-        IGListIndexSetResult *result = IGListDiff(data.fromObjects, data.toObjects, IGListDiffEquality);
-        [self _didDiff:result onBackground:onBackground];
-    }
+    __weak __typeof__(self) weakSelf = self;
+    IGListPerformDiffWithData(data,
+                              self.config.allowsBackgroundDiffing,
+                              ^(IGListIndexSetResult * _Nonnull result, BOOL onBackground) {
+        [weakSelf _didDiff:result onBackground:onBackground];
+    });
 }
 
 - (void)_didDiff:(IGListIndexSetResult *)diffResult onBackground:(BOOL)onBackground {
