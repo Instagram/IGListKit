@@ -81,4 +81,21 @@
     XCTAssertEqual(self.tracker.state, IGListViewVisibilityStateNotVisibleEarly);
 }
 
+#pragma mark - Attached
+
+- (void)test_whenAttachingTracker_thatReturnsTheSame {
+    UIView *const view = [UIView new];
+    IGListViewVisibilityTracker *const tracker1 = IGListViewVisibilityTrackerAttachedOnView(view);
+    XCTAssertNotNil(tracker1);
+    
+    IGListViewVisibilityTracker *const tracker2 = IGListViewVisibilityTrackerAttachedOnView(view);
+    XCTAssertEqual(tracker1, tracker2);
+}
+
+- (void)test_whenAttachingTracker_andViewIsNil_thatReturnsNil {
+    UIView *view = [UIView new];
+    view = nil;
+    XCTAssertNil(IGListViewVisibilityTrackerAttachedOnView(view));
+}
+
 @end
