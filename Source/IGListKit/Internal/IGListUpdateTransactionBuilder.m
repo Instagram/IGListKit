@@ -188,4 +188,8 @@ typedef NS_ENUM (NSInteger, IGListUpdateTransactionBuilderMode) {
     || self.sectionDataBlock != nil;
 }
 
+- (nullable UICollectionView *)collectionView {
+    return self.collectionViewBlock ? self.collectionViewBlock() : nil;
+}
+
 @end

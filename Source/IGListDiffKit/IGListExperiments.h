@@ -50,6 +50,8 @@ typedef struct IGListAdaptiveCoalescingExperimentConfig {
     NSTimeInterval intervalIncrement;
     /// This is the maximum coalesce interval, so the slowest and update can wait.
     NSTimeInterval maxInterval;
+    /// Coalece using `maxInterval` if view is not visible according to `IGListViewVisibilityTracker`
+    BOOL useMaxIntervalWhenViewNotVisible;
 } IGListAdaptiveCoalescingExperimentConfig;
 
 /**
