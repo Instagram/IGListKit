@@ -36,6 +36,21 @@ typedef struct IGListAdaptiveDiffingExperimentConfig {
 } IGListAdaptiveDiffingExperimentConfig;
 
 /**
+ Customize how coalescing works to speed up some updates
+ */
+NS_SWIFT_NAME(ListAdaptiveCoalescingExperimentConfig)
+typedef struct IGListAdaptiveCoalescingExperimentConfig {
+    /// Enable adaptive coalescing, where we try to mininimize the update delay
+    BOOL enabled;
+    /// Start coalescing if the last update was within this interval
+    NSTimeInterval minInterval;
+    /// If we need to coalesce, increase the interval by this much for next time.
+    NSTimeInterval intervalIncrement;
+    /// This is the maximum coalesce interval, so the slowest and update can wait.
+    NSTimeInterval maxInterval;
+} IGListAdaptiveCoalescingExperimentConfig;
+
+/**
  Check if an experiment is enabled in a bitmask.
 
  @param mask The bitmask of experiments.

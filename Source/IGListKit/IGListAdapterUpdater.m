@@ -330,4 +330,14 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     }];
 }
 
+#pragma mark - Properties
+
+- (IGListAdaptiveCoalescingExperimentConfig)adaptiveCoalescingExperimentConfig {
+    return _coalescer.adaptiveCoalescingExperimentConfig;
+}
+
+- (void)setAdaptiveCoalescingExperimentConfig:(IGListAdaptiveCoalescingExperimentConfig)adaptiveCoalescingExperimentConfig {
+    _coalescer.adaptiveCoalescingExperimentConfig = adaptiveCoalescingExperimentConfig;
+}
+
 @end

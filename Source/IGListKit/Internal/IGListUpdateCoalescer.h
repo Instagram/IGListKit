@@ -7,6 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<IGListDiffKit/IGListDiffKit.h>)
+#import <IGListDiffKit/IGListExperiments.h>
+#else
+#import "IGListExperiments.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class IGListUpdateCoalescer;
@@ -23,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(ListUpdateCoalescer)
 @interface IGListUpdateCoalescer : NSObject
+
+@property (nonatomic, assign) IGListAdaptiveCoalescingExperimentConfig adaptiveCoalescingExperimentConfig;
 
 @property (nonatomic, weak) id<IGListUpdateCoalescerDelegate> delegate;
 
