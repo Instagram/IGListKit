@@ -29,6 +29,8 @@ NS_SWIFT_NAME(ListAdaptiveDiffingExperimentConfig)
 typedef struct IGListAdaptiveDiffingExperimentConfig {
     /// Enabled experimental code path. This needs to be enabled for the other properties to take effect.
     BOOL enabled;
+    /// Enable higher background thread priority
+    BOOL higherQOSEnabled;
 } IGListAdaptiveDiffingExperimentConfig;
 
 /**
