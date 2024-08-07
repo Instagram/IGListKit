@@ -44,6 +44,7 @@ typedef void (^IGListUpdaterCompletion)(BOOL finished);
  controllers in a collection view.
  */
 IGLK_SUBCLASSING_RESTRICTED
+NS_SWIFT_UI_ACTOR
 NS_SWIFT_NAME(ListAdapter)
 @interface IGListAdapter : NSObject
 
