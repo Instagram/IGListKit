@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  `-performUpdateWithCollectionView:fromObjects:toObjects:completion:`.
  */
 IGLK_SUBCLASSING_RESTRICTED
+NS_SWIFT_UI_ACTOR
 NS_SWIFT_NAME(ListAdapterUpdater)
 @interface IGListAdapterUpdater : NSObject <IGListUpdatingDelegate>
 
