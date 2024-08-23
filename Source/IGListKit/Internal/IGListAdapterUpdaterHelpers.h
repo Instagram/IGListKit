@@ -30,7 +30,8 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
                                                           NSMutableArray<IGListMoveIndexPath *> *itemMoves,
                                                           NSArray<id<IGListDiffable>> *fromObjects,
                                                           BOOL sectionMovesAsDeletesInserts,
-                                                          BOOL preferItemReloadsForSectionReloads);
+                                                          BOOL preferItemReloadsForSectionReloads,
+                                                          BOOL enableNetItemCountFix);
 
 NSIndexSet *IGListSectionIndexFromIndexPaths(NSArray<NSIndexPath *> *indexPaths);
 

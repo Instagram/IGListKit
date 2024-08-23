@@ -61,7 +61,8 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
                       insertIndexPaths:(nonnull NSArray<NSIndexPath *> *)insertIndexPaths
                       deleteIndexPaths:(nonnull NSArray<NSIndexPath *> *)deleteIndexPaths
                       updateIndexPaths:(nonnull NSArray<NSIndexPath *> *)updateIndexPaths
-                        moveIndexPaths:(nonnull NSArray<IGListMoveIndexPath *> *)moveIndexPaths {
+                        moveIndexPaths:(nonnull NSArray<IGListMoveIndexPath *> *)moveIndexPaths
+                 enableNetItemCountFix:(BOOL)enableNetItemCountFix {
     IGParameterAssert(insertSections != nil);
     IGParameterAssert(deleteSections != nil);
     IGParameterAssert(moveSections != nil);
@@ -95,11 +96,40 @@ static void convertMoveToDeleteAndInsert(NSMutableSet<IGListMoveIndex *> *moves,
                 toMap[to] = move;
             }
         }
+        
+        NSMutableArray<NSIndexPath *> *mDeleteIndexPaths;
+        NSMutableArray<NSIndexPath *> *mInsertIndexPaths;
 
-        // avoid a flaky UICollectionView bug when deleting from the same index path twice
+        // Avoid a flaky UICollectionView bug when deleting from the same index path twice
         // exposes a possible data source inconsistency issue
-        NSMutableArray<NSIndexPath *> *mDeleteIndexPaths = [[[NSSet setWithArray:deleteIndexPaths] allObjects] mutableCopy];
-        NSMutableArray<NSIndexPath *> *mInsertIndexPaths = [insertIndexPaths mutableCopy];
+        if (enableNetItemCountFix) {
+            NSMutableDictionary<NSIndexPath *, NSNumber *> *const deleteCounts = [NSMutableDictionary new];
+            
+            // If we need to remove a duplicate delete, we also need to remove an insert to balance the count.
+            // Lets build the delete counts for each index, which we can use to skip corresponding inserts.
+            for (NSIndexPath *deleteIndexPath in deleteIndexPaths) {
+                const NSInteger deleteCount = deleteCounts[deleteIndexPath].integerValue;
+                deleteCounts[deleteIndexPath] = @(deleteCount + 1);
+            }
+
+            // Skip inserts that have an associated skipped delete
+            NSMutableArray<NSIndexPath *> *const trimmedInsertIndexPath = [NSMutableArray new];
+            for (NSIndexPath *insertIndexPath in insertIndexPaths) {
+                const NSInteger deleteCount = deleteCounts[insertIndexPath].integerValue;
+                if (deleteCount > 1) {
+                    // Skip!
+                    deleteCounts[insertIndexPath] = @(deleteCount - 1);
+                } else {
+                    [trimmedInsertIndexPath addObject:insertIndexPath];
+                }
+            }
+
+            mDeleteIndexPaths = [[deleteCounts allKeys] mutableCopy];
+            mInsertIndexPaths = trimmedInsertIndexPath;
+        } else {
+            mDeleteIndexPaths = [[[NSSet setWithArray:deleteIndexPaths] allObjects] mutableCopy];
+            mInsertIndexPaths = [insertIndexPaths mutableCopy];
+        }
 
         // avoids a bug where a cell is animated twice and one of the snapshot cells is never removed from the hierarchy
         [IGListBatchUpdateData _cleanIndexPathsWithMap:fromMap moves:mMoveSections indexPaths:mDeleteIndexPaths deletes:mDeleteSections inserts:mInsertSections];

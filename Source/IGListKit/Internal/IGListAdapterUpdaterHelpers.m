@@ -68,7 +68,8 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
                                                           NSMutableArray<IGListMoveIndexPath *> *itemMoves,
                                                           NSArray<id<IGListDiffable>> *fromObjects,
                                                           BOOL sectionMovesAsDeletesInserts,
-                                                          BOOL preferItemReloadsForSectionReloads) {
+                                                          BOOL preferItemReloadsForSectionReloads, 
+                                                          BOOL enableNetItemCountFix) {
     NSSet *moves = [[NSSet alloc] initWithArray:diffResult.moves];
 
     // combine section reloads from the diff and manual reloads via reloadItems:
@@ -125,7 +126,8 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
                                                                              insertIndexPaths:itemInserts
                                                                              deleteIndexPaths:itemDeletes
                                                                              updateIndexPaths:itemUpdates
-                                                                               moveIndexPaths:itemMoves];
+                                                                               moveIndexPaths:itemMoves
+                                                                        enableNetItemCountFix:enableNetItemCountFix];
     [collectionView ig_applyBatchUpdateData:updateData];
     return updateData;
 }

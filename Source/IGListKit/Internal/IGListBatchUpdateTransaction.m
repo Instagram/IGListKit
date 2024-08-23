@@ -241,6 +241,7 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
 }
 
 - (void)_applyCollectioViewUpdates:(IGListIndexSetResult *)diffResult {
+    const BOOL enableNetItemCountFix = IGListExperimentEnabled(self.config.experiments, IGListExperimentEnableNetItemCountFix);
     if (self.config.singleItemSectionUpdates) {
         [self.collectionView deleteSections:diffResult.deletes];
         [self.collectionView insertSections:diffResult.inserts];
@@ -256,7 +257,8 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
                                             insertIndexPaths:@[]
                                             deleteIndexPaths:@[]
                                             updateIndexPaths:@[]
-                                            moveIndexPaths:@[]];
+                                            moveIndexPaths:@[]
+                                            enableNetItemCountFix:enableNetItemCountFix];
     } else {
         self.actualCollectionViewUpdates = IGListApplyUpdatesToCollectionView(self.collectionView,
                                                                               diffResult,
@@ -267,7 +269,8 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
                                                                               self.inUpdateItemCollector.itemMoves,
                                                                               self.sectionData.fromObjects ?: @[],
                                                                               self.config.sectionMovesAsDeletesInserts,
-                                                                              self.config.preferItemReloadsForSectionReloads);
+                                                                              self.config.preferItemReloadsForSectionReloads,
+                                                                              enableNetItemCountFix);
     }
 }
 
