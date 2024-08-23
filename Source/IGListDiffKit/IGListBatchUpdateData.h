@@ -67,6 +67,7 @@ NS_SWIFT_NAME(ListBatchUpdateData)
  @param deleteIndexPaths Item index paths to delete.
  @param updateIndexPaths Item index paths to update.
  @param moveIndexPaths Item index paths to move.
+ @param enableNetItemCountFix Fix item count balance issue when removing duplicate deletes
 
  @return A new batch update object.
  */
@@ -76,7 +77,8 @@ NS_SWIFT_NAME(ListBatchUpdateData)
                       insertIndexPaths:(NSArray<NSIndexPath *> *)insertIndexPaths
                       deleteIndexPaths:(NSArray<NSIndexPath *> *)deleteIndexPaths
                       updateIndexPaths:(NSArray<NSIndexPath *> *)updateIndexPaths
-                        moveIndexPaths:(NSArray<IGListMoveIndexPath *> *)moveIndexPaths NS_DESIGNATED_INITIALIZER;
+                        moveIndexPaths:(NSArray<IGListMoveIndexPath *> *)moveIndexPaths
+                 enableNetItemCountFix:(BOOL)enableNetItemCountFix NS_DESIGNATED_INITIALIZER;
 
 /**
  :nodoc:

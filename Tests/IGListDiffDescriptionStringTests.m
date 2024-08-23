@@ -39,7 +39,8 @@
                                                                          insertIndexPaths:@[insertIndexPaths]
                                                                          deleteIndexPaths:@[deleteIndexPaths]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[moveIndexPaths]];
+                                                                           moveIndexPaths:@[moveIndexPaths]
+                                                                    enableNetItemCountFix:NO];
     NSString *expectedDescription = [NSString stringWithFormat:@"<IGListBatchUpdateData %p; "
                                                                 "deleteSections: 1; "
                                                                 "insertSections: 2; "
