@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  The working range is a range *near* the viewport in which you can begin preparing content for display. For example,
  you could begin decoding images, or warming text caches.
  */
+NS_SWIFT_UI_ACTOR
 NS_SWIFT_NAME(ListWorkingRangeDelegate)
 @protocol IGListWorkingRangeDelegate <NSObject>
 
