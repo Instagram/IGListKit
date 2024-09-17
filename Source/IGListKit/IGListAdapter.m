@@ -1223,7 +1223,7 @@ typedef struct OffsetRange {
         [self.registeredSupplementaryViewIdentifiers addObject:identifier];
         [collectionView registerClass:viewClass forSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier];
     }
-    return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
+    return [self _dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath forSectionController:sectionController];
 }
 
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewFromStoryboardOfKind:(NSString *)elementKind
@@ -1238,7 +1238,7 @@ typedef struct OffsetRange {
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Dequeueing Supplementary View from storyboard of kind %@ with identifier %@ for section controller %@ without a collection view at index %li", elementKind, identifier, sectionController, (long)index);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
-    return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
+    return [self _dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath forSectionController:sectionController];
 }
 
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
@@ -1257,7 +1257,22 @@ typedef struct OffsetRange {
         UINib *nib = [UINib nibWithNibName:nibName bundle:bundle];
         [collectionView registerNib:nib forSupplementaryViewOfKind:elementKind withReuseIdentifier:nibName];
     }
-    return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:nibName forIndexPath:indexPath];
+    return [self _dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:nibName forIndexPath:indexPath forSectionController:sectionController];
+}
+
+- (__kindof UICollectionReusableView *)_dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
+                                                           withReuseIdentifier:(NSString *)identifier
+                                                                  forIndexPath:(NSIndexPath *)indexPath
+                                                          forSectionController:(IGListSectionController *)sectionController {
+    // These will cause a crash in iOS 18
+    IGAssert(_dequeuedSupplementaryViews.count == 0, @"Dequeueing more than one supplementary-view (%@) for indexPath %@, section controller %@,", identifier, indexPath, sectionController);
+    IGAssert(_isDequeuingSupplementaryView, @"Dequeueing a supplementary-view (%@) without a request from the UICollectionView for indexPath %@, section controller %@", identifier, indexPath, sectionController);
+
+    UICollectionReusableView *const view = [self.collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
+    if (_isDequeuingSupplementaryView && view) {
+        [_dequeuedSupplementaryViews addObject:view];
+    }
+    return view;
 }
 
 - (void)performBatchAnimated:(BOOL)animated updates:(void (^)(id<IGListBatchContext>))updates completion:(void (^)(BOOL))completion {
