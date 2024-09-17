@@ -33,3 +33,11 @@
 #ifndef IGAssertMainThread
 #define IGAssertMainThread() IGAssert( ([NSThread isMainThread] == YES), @"Must be on the main thread")
 #endif // IGAssertMainThread
+
+#ifndef IG_ASSERTIONS_ENABLED
+ #if !defined(NS_BLOCK_ASSERTIONS)
+  #define IG_ASSERTIONS_ENABLED 1
+ #else
+  #define IG_ASSERTIONS_ENABLED 0
+ #endif
+#endif

@@ -44,6 +44,12 @@
 
     IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
 
+#if IG_ASSERTIONS_ENABLED
+    if (!_dequeuedCells) {
+        _dequeuedCells = [NSMutableSet new];
+    }
+#endif
+    
     // flag that a cell is being dequeued in case it tries to access a cell in the process
     _isDequeuingCell = YES;
     UICollectionViewCell *cell = [sectionController cellForItemAtIndex:indexPath.item];
@@ -52,7 +58,14 @@
     IGAssert(cell != nil, @"Returned a nil cell at indexPath <%@> from section controller: <%@>", indexPath, sectionController);
     if (cell) {
         IGAssert(cell.reuseIdentifier != nil, @"Returned a cell without a reuseIdentifier at indexPath <%@> from section controller: <%@>", indexPath, sectionController);
+        
+        if (_dequeuedCells) {
+            // This will cause a crash in iOS 18
+            IGAssert([_dequeuedCells containsObject:cell], @"Returned a cell (%@) that was not dequeued at indexPath %@ from section controller %@", NSStringFromClass([cell class]), indexPath, sectionController);
+        }
     }
+
+    [_dequeuedCells removeAllObjects];
 
     // associate the section controller with the cell so that we know which section controller is using it
     [self mapView:cell toSectionController:sectionController];
