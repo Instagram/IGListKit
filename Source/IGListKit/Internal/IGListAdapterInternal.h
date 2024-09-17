@@ -29,7 +29,10 @@ IGListBatchContext
 >
 {
     __weak UICollectionView *_collectionView;
+
     BOOL _isDequeuingCell;
+    NSMutableSet<UICollectionViewCell *> *_dequeuedCells;
+
     BOOL _isDequeuingSupplementaryView;
 
     BOOL _isSendingWorkingRangeDisplayUpdates;

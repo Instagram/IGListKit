@@ -1154,7 +1154,7 @@ typedef struct OffsetRange {
         [self.registeredCellIdentifiers addObject:identifier];
         [collectionView registerClass:cellClass forCellWithReuseIdentifier:identifier];
     }
-    return [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    return [self _dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath forSectionController:sectionController];
 }
 
 - (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
@@ -1172,7 +1172,7 @@ typedef struct OffsetRange {
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
-    return [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    return [self _dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath forSectionController:sectionController];
 }
 
 - (UICollectionViewCell *)dequeueReusableCellWithNibName:(NSString *)nibName
@@ -1191,7 +1191,19 @@ typedef struct OffsetRange {
         UINib *nib = [UINib nibWithNibName:nibName bundle:bundle];
         [collectionView registerNib:nib forCellWithReuseIdentifier:nibName];
     }
-    return [collectionView dequeueReusableCellWithReuseIdentifier:nibName forIndexPath:indexPath];
+    return [self _dequeueReusableCellWithReuseIdentifier:nibName forIndexPath:indexPath forSectionController:sectionController];
+}
+
+- (UICollectionViewCell *)_dequeueReusableCellWithReuseIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath forSectionController:(IGListSectionController *)sectionController {
+    // These will cause a crash in iOS 18
+    IGAssert(_dequeuedCells.count == 0, @"Dequeueing more than one cell (%@) for indexPath %@, section controller %@,", identifier, indexPath, sectionController);
+    IGAssert(_isDequeuingCell, @"Dequeueing a cell (%@) without a request from the UICollectionView for indexPath %@, section controller %@", identifier, indexPath, sectionController);
+
+    UICollectionViewCell *const cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    if (_isDequeuingCell && cell) {
+        [_dequeuedCells addObject:cell];
+    }
+    return cell;
 }
 
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
