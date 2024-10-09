@@ -12,7 +12,8 @@
 #else
 #import <IGListDiffKit/IGListAssert.h>
 #endif
-#import "IGListAdapter.h"
+#import "IGListAdapterInternal.h"
+#import "IGListAdapterDelegateAnnouncerInternal.h"
 #import "IGListDisplayDelegate.h"
 #import "IGListSectionController.h"
 #import "IGListSectionControllerInternal.h"
@@ -55,6 +56,7 @@
     if ([visibleListSections countForObject:sectionController] == 0) {
         [sectionController willDisplaySectionControllerWithListAdapter:listAdapter];
         [listAdapter.delegate listAdapter:listAdapter willDisplayObject:object atIndex:indexPath.section];
+        [listAdapter.globalDelegateAnnouncer announceCellDisplayWithAdapter:listAdapter object:object index:indexPath.section];
     }
     [visibleListSections addObject:sectionController];
 }
@@ -80,6 +82,7 @@
     if ([visibleSections countForObject:sectionController] == 0) {
         [sectionController didEndDisplayingSectionControllerWithListAdapter:listAdapter];
         [listAdapter.delegate listAdapter:listAdapter didEndDisplayingObject:object atIndex:section];
+        [listAdapter.globalDelegateAnnouncer announceCellEndDisplayWithAdapter:listAdapter object:object index:indexPath.section];
     }
 }
 

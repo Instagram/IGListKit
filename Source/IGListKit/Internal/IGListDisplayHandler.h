@@ -15,6 +15,7 @@
 
 @class IGListAdapter;
 @class IGListSectionController;
+@class IGListAdapterDelegateAnnouncer;
 
 
 

@@ -14,6 +14,7 @@
 #endif
 #import "IGListAdapterUpdater.h"
 
+#import "IGListAdapterDelegateAnnouncer.h"
 #import "IGListArrayUtilsInternal.h"
 #import "IGListDebugger.h"
 #import "IGListDefaultExperiments.h"
@@ -55,6 +56,7 @@ typedef struct OffsetRange {
         NSMapTable *table = [[NSMapTable alloc] initWithKeyPointerFunctions:keyFunctions valuePointerFunctions:valueFunctions capacity:0];
         _sectionMap = [[IGListSectionMap alloc] initWithMapTable:table];
 
+        _globalDelegateAnnouncer = [IGListAdapterDelegateAnnouncer sharedInstance];
         _displayHandler = [IGListDisplayHandler new];
         _workingRangeHandler = [[IGListWorkingRangeHandler alloc] initWithWorkingRangeSize:workingRangeSize];
         _updateListeners = [NSHashTable weakObjectsHashTable];
