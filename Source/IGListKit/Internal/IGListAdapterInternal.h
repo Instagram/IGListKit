@@ -47,6 +47,9 @@ IGListBatchContext
 
 @property (nonatomic, strong, nullable) IGListAdapterProxy *delegateProxy;
 
+// Set as a property for unit testing
+@property (nonatomic, strong, nullable) IGListAdapterDelegateAnnouncer *globalDelegateAnnouncer;
+
 @property (nonatomic, strong, nullable) UIView *emptyBackgroundView;
 
 // We need to special case interactive section moves that are moved to the last position
