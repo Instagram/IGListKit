@@ -60,6 +60,11 @@
     self.wasUnhighlighted = YES;
 }
 
+- (UIContextMenuConfiguration * _Nullable)contextMenuConfigurationForItemAtIndex:(NSInteger)index point:(CGPoint)point {
+  self.requestedContextMenu = YES;
+  return nil;
+}
+
 #pragma mark - IGListDisplayDelegate
 
 - (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController *)sectionController {
