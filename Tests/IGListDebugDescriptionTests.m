@@ -103,11 +103,9 @@
                                                                        insertIndexPaths:@[insertIndexPaths]
                                                                        deleteIndexPaths:@[deleteIndexPaths]
                                                                        updateIndexPaths:@[]
-                                                                         moveIndexPaths:@[moveIndexPaths]
-                                                                  enableNetItemCountFix:NO];
+                                                                         moveIndexPaths:@[moveIndexPaths]];
 
     XCTAssertTrue(data.debugDescriptionLines.count > 0);
 }
 
 @end
-

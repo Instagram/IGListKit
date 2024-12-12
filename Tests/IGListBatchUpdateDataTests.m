@@ -49,8 +49,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                          insertIndexPaths:@[]
                                                                          deleteIndexPaths:@[]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[]
-                                                                    enableNetItemCountFix:NO];
+                                                                           moveIndexPaths:@[]];
     XCTAssertNotNil(result);
 }
 
@@ -61,8 +60,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                          insertIndexPaths:@[newPath(0, 0)]
                                                                          deleteIndexPaths:@[newPath(1, 0)]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[newMovePath(6, 0, 6, 1)]
-                                                                    enableNetItemCountFix:NO];
+                                                                           moveIndexPaths:@[newMovePath(6, 0, 6, 1)]];
     XCTAssertEqualObjects(result.insertSections, indexSet(@[@0, @1]));
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@5]));
     XCTAssertEqualObjects(result.moveSections, [NSSet setWithArray:@[newMove(3, 4)]]);
@@ -79,8 +77,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                          insertIndexPaths:@[]
                                                                          deleteIndexPaths:@[newPath(2, 0), newPath(3, 4)]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[]
-                                                                    enableNetItemCountFix:NO];
+                                                                           moveIndexPaths:@[]];
     XCTAssertEqualObjects(result.insertSections, indexSet(@[@4]));
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@2]));
     XCTAssertEqualObjects(result.deleteIndexPaths, @[newPath(3, 4)]);
@@ -94,8 +91,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                          insertIndexPaths:@[newPath(4, 0), newPath(3, 4)]
                                                                          deleteIndexPaths:@[]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[]
-                                                                    enableNetItemCountFix:NO];
+                                                                           moveIndexPaths:@[]];
     XCTAssertEqualObjects(result.insertSections, indexSet(@[@4]));
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@2]));
     XCTAssertEqualObjects(result.insertIndexPaths, @[newPath(3, 4)]);
@@ -109,8 +105,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                          insertIndexPaths:@[]
                                                                          deleteIndexPaths:@[]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[newMovePath(0, 0, 0, 1)]
-                                                                    enableNetItemCountFix:NO];
+                                                                           moveIndexPaths:@[newMovePath(0, 0, 0, 1)]];
     XCTAssertEqual(result.moveIndexPaths.count, 0);
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@0]));
 }
@@ -122,8 +117,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                          insertIndexPaths:@[]
                                                                          deleteIndexPaths:@[]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[newMovePath(0, 0, 0, 1)]
-                                                                    enableNetItemCountFix:NO];
+                                                                           moveIndexPaths:@[newMovePath(0, 0, 0, 1)]];
     XCTAssertEqual(result.moveIndexPaths.count, 0);
     XCTAssertEqual(result.moveSections.count, 0);
     XCTAssertEqualObjects(result.deleteSections, indexSet(@[@0]));
@@ -137,8 +131,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                          insertIndexPaths:@[]
                                                                          deleteIndexPaths:@[]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[]
-                                                                    enableNetItemCountFix:NO];
+                                                                           moveIndexPaths:@[]];
     XCTAssertEqual(result.deleteSections.count, 1);
     XCTAssertEqual(result.moveSections.count, 1);
     XCTAssertEqual(result.insertSections.count, 0);
@@ -153,64 +146,59 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                          insertIndexPaths:@[]
                                                                          deleteIndexPaths:@[newPath(2, 0), newPath(2, 0)]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[]
-                                                                    enableNetItemCountFix:NO];
+                                                                           moveIndexPaths:@[]];
 
     XCTAssertEqualObjects(result.deleteIndexPaths, @[newPath(2, 0)]);
 }
 
-- (void)test_whenNoInsertingAndDeletingTwice_withNetItemCountFix_thatResultDropsTheDuplicatesWithKeepsSameNetItemCount {
+- (void)test_whenNoInsertingAndDeletingTwice_thatResultDropsTheDuplicatesWithKeepsSameNetItemCount {
     IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[])
                                                                              moveSections:[NSSet new]
                                                                          insertIndexPaths:@[]
                                                                          deleteIndexPaths:@[newPath(2, 0), newPath(2, 0)]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[]
-                                                                    enableNetItemCountFix:YES];
+                                                                           moveIndexPaths:@[]];
 
     XCTAssertEqualObjects(result.insertIndexPaths, @[]);
     XCTAssertEqualObjects(result.deleteIndexPaths, @[newPath(2, 0)]);
 }
 
-- (void)test_whenInsertingOnceAndDeletingTwice_withNetItemCountFix_thatResultDropsTheDuplicatesWithKeepsSameNetItemCount {
+- (void)test_whenInsertingOnceAndDeletingTwice_thatResultDropsTheDuplicatesWithKeepsSameNetItemCount {
     IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[])
                                                                              moveSections:[NSSet new]
                                                                          insertIndexPaths:@[newPath(2, 0)]
                                                                          deleteIndexPaths:@[newPath(2, 0), newPath(2, 0)]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[]
-                                                                    enableNetItemCountFix:YES];
+                                                                           moveIndexPaths:@[]];
     // Should remove one insert
     XCTAssertEqualObjects(result.insertIndexPaths, @[]);
     XCTAssertEqualObjects(result.deleteIndexPaths, @[newPath(2, 0)]);
 }
 
-- (void)test_whenInsertingTwiceAndDeletingTwice_withNetItemCountFix_thatResultDropsTheDuplicatesWithKeepsSameNetItemCount {
+- (void)test_whenInsertingTwiceAndDeletingTwice_thatResultDropsTheDuplicatesWithKeepsSameNetItemCount {
     IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[])
                                                                              moveSections:[NSSet new]
                                                                          insertIndexPaths:@[newPath(2, 0), newPath(2, 0)]
                                                                          deleteIndexPaths:@[newPath(2, 0), newPath(2, 0)]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[]
-                                                                    enableNetItemCountFix:YES];
+                                                                           moveIndexPaths:@[]];
 
     // Should remove one insert
     XCTAssertEqualObjects(result.insertIndexPaths, @[newPath(2, 0)]);
     XCTAssertEqualObjects(result.deleteIndexPaths, @[newPath(2, 0)]);
 }
 
-- (void)test_whenInsertingThriceAndDeletingTwice_withNetItemCountFix_thatResultDropsTheDuplicatesWithKeepsSameNetItemCount {
+- (void)test_whenInsertingThriceAndDeletingTwice_thatResultDropsTheDuplicatesWithKeepsSameNetItemCount {
     IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[])
                                                                              moveSections:[NSSet new]
                                                                          insertIndexPaths:@[newPath(2, 0), newPath(2, 0), newPath(2, 0)]
                                                                          deleteIndexPaths:@[newPath(2, 0), newPath(2, 0)]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[]
-                                                                    enableNetItemCountFix:YES];
+                                                                           moveIndexPaths:@[]];
 
     // Should remove one insert
     NSArray *const expectedInsertIndexPaths = @[newPath(2, 0), newPath(2, 0)];
@@ -218,30 +206,28 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
     XCTAssertEqualObjects(result.deleteIndexPaths, @[newPath(2, 0)]);
 }
 
-- (void)test_whenInsertingThriceAndDeletingThrice_withNetItemCountFix_thatResultDropsTheDuplicatesWithKeepsSameNetItemCount {
+- (void)test_whenInsertingThriceAndDeletingThrice_thatResultDropsTheDuplicatesWithKeepsSameNetItemCount {
     IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[])
                                                                              moveSections:[NSSet new]
                                                                          insertIndexPaths:@[newPath(2, 0), newPath(2, 0), newPath(2, 0)]
                                                                          deleteIndexPaths:@[newPath(2, 0), newPath(2, 0), newPath(2, 0)]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[]
-                                                                    enableNetItemCountFix:YES];
+                                                                           moveIndexPaths:@[]];
 
     // Should remove 2 inserts
     XCTAssertEqualObjects(result.insertIndexPaths, @[newPath(2, 0)]);
     XCTAssertEqualObjects(result.deleteIndexPaths, @[newPath(2, 0)]);
 }
 
-- (void)test_whenInsertingOnceAndDeletingOnce_withNetItemCountFix_thatNoThingChanges {
+- (void)test_whenInsertingOnceAndDeletingOnce_thatNoThingChanges {
     IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[])
                                                                              moveSections:[NSSet new]
                                                                          insertIndexPaths:@[newPath(2, 0)]
                                                                          deleteIndexPaths:@[newPath(2, 0)]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[]
-                                                                    enableNetItemCountFix:YES];
+                                                                           moveIndexPaths:@[]];
 
     XCTAssertEqualObjects(result.insertIndexPaths, @[newPath(2, 0)]);
     XCTAssertEqualObjects(result.deleteIndexPaths, @[newPath(2, 0)]);
@@ -254,8 +240,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                          insertIndexPaths:@[newPath(0, 0)]
                                                                          deleteIndexPaths:@[newPath(1, 0)]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[newMovePath(6, 0, 6, 1)]
-                                                                    enableNetItemCountFix:NO];
+                                                                           moveIndexPaths:@[newMovePath(6, 0, 6, 1)]];
     XCTAssertTrue([result isEqual:result]);
 }
 
@@ -266,8 +251,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
                                                                               insertIndexPaths:@[]
                                                                               deleteIndexPaths:@[]
                                                                               updateIndexPaths:@[]
-                                                                                moveIndexPaths:@[]
-                                                                         enableNetItemCountFix:NO];
+                                                                                moveIndexPaths:@[]];
 
     XCTAssertFalse([emptyResult isEqual:[NSObject new]]);
 }

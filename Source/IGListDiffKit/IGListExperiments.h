@@ -22,8 +22,6 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentThrowOnInconsistencyException = 1 << 3,
     /// Remove the early exit so multiple updates can't happen at once
     IGListExperimentRemoveDataSourceChangeEarlyExit = 1 << 4,
-    /// Fix item count balance issue when removing duplicate deletes
-    IGListExperimentEnableNetItemCountFix = 1 << 5,
 };
 
 /**

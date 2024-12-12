@@ -25,22 +25,21 @@
     NSMutableIndexSet *insertSections = [NSMutableIndexSet indexSet];
     [insertSections addIndex:0];
     [insertSections addIndex:1];
-    
+
     NSIndexSet *deleteSections = [NSIndexSet indexSetWithIndex:5];
     IGListMoveIndex *moveSections = [[IGListMoveIndex alloc] initWithFrom:3 to:4];
     NSIndexPath *insertIndexPaths = [NSIndexPath indexPathForItem:0 inSection:0];
     NSIndexPath *deleteIndexPaths = [NSIndexPath indexPathForItem:0 inSection:0];
     IGListMoveIndexPath *moveIndexPaths = [[IGListMoveIndexPath alloc] initWithFrom:[NSIndexPath indexPathForItem:0 inSection:6]
                                                                                  to:[NSIndexPath indexPathForItem:1 inSection:6]];
-    
+
     IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:insertSections
                                                                            deleteSections:deleteSections
                                                                              moveSections:[NSSet setWithObject:moveSections]
                                                                          insertIndexPaths:@[insertIndexPaths]
                                                                          deleteIndexPaths:@[deleteIndexPaths]
                                                                          updateIndexPaths:@[]
-                                                                           moveIndexPaths:@[moveIndexPaths]
-                                                                    enableNetItemCountFix:NO];
+                                                                           moveIndexPaths:@[moveIndexPaths]];
     NSString *expectedDescription = [NSString stringWithFormat:@"<IGListBatchUpdateData %p; "
                                                                 "deleteSections: 1; "
                                                                 "insertSections: 2; "
@@ -66,14 +65,14 @@
         [[IGListMoveIndexPath alloc] initWithFrom:[NSIndexPath indexPathForItem:4 inSection:3]
                                                to:[NSIndexPath indexPathForItem:3 inSection:3]]
     ];
-    
+
     IGListIndexPathResult *result = [[IGListIndexPathResult alloc] initWithInserts:inserts
                                                                            deletes:deletes
                                                                            updates:updates
                                                                              moves:moves
                                                                    oldIndexPathMap:[NSMapTable mapTableWithKeyOptions:0 valueOptions:0]
                                                                    newIndexPathMap:[NSMapTable mapTableWithKeyOptions:0 valueOptions:0]];
-    
+
     NSString *expectedDescription = [NSString stringWithFormat:@"<IGListIndexPathResult %p; "
                                                                 "1 inserts; "
                                                                 "2 deletes; "
@@ -86,20 +85,20 @@
     NSMutableIndexSet *inserts = [NSMutableIndexSet indexSet];
     [inserts addIndex:0];
     [inserts addIndex:1];
-    
+
     NSMutableIndexSet *deletes = [NSMutableIndexSet indexSet];
     [deletes addIndex:3];
-    
+
     NSMutableIndexSet *updates = [NSMutableIndexSet indexSet];
     [updates addIndex:4];
     [updates addIndex:5];
     [updates addIndex:6];
-    
+
     NSArray *moves = @[
         [[IGListMoveIndex alloc] initWithFrom:9 to:10],
         [[IGListMoveIndex alloc] initWithFrom:11 to:12]
     ];
-    
+
     IGListIndexSetResult *result = [[IGListIndexSetResult alloc] initWithInserts:inserts
                                                                          deletes:deletes
                                                                          updates:updates
