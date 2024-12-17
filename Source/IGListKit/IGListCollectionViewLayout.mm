@@ -279,6 +279,10 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         return attributes;
     }
 
+    if (indexPath == nil) {
+        return nil;
+    }
+
     // avoid OOB errors
     const NSInteger section = indexPath.section;
     const NSInteger item = indexPath.item;
@@ -474,7 +478,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 - (void)_calculateLayoutIfNeeded {
     if (_minimumInvalidatedSection == NSNotFound) {
         return;
-    }    
+    }
 
     UICollectionView *collectionView = self.collectionView;
     id<UICollectionViewDelegateFlowLayout> delegate = (id<UICollectionViewDelegateFlowLayout>)collectionView.delegate;

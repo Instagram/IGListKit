@@ -44,6 +44,7 @@ typedef void (^IGListUpdaterCompletion)(BOOL finished);
  controllers in a collection view.
  */
 IGLK_SUBCLASSING_RESTRICTED
+NS_SWIFT_UI_ACTOR
 NS_SWIFT_NAME(ListAdapter)
 @interface IGListAdapter : NSObject
 
@@ -142,7 +143,7 @@ NS_SWIFT_NAME(ListAdapter)
  @param animated A flag indicating if the transition should be animated.
  @param completion The block to execute when the updates complete.
  */
-- (void)performUpdatesAnimated:(BOOL)animated completion:(nullable IGListUpdaterCompletion)completion;
+- (void)performUpdatesAnimated:(BOOL)animated completion:(nullable IGListUpdaterCompletion)completion NS_SWIFT_DISABLE_ASYNC;
 
 /**
  Perform an immediate reload of the data in the data source, discarding the old objects.
@@ -152,7 +153,7 @@ NS_SWIFT_NAME(ListAdapter)
  @warning Do not use this method to update without animations as it can be very expensive to teardown and rebuild all
  section controllers. Use `-[IGListAdapter performUpdatesAnimated:completion]` instead.
  */
-- (void)reloadDataWithCompletion:(nullable IGListUpdaterCompletion)completion;
+- (void)reloadDataWithCompletion:(nullable IGListUpdaterCompletion)completion NS_SWIFT_DISABLE_ASYNC;
 
 /**
  Reload the list for only the specified objects.

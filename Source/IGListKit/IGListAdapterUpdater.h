@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  `-performUpdateWithCollectionView:fromObjects:toObjects:completion:`.
  */
 IGLK_SUBCLASSING_RESTRICTED
+NS_SWIFT_UI_ACTOR
 NS_SWIFT_NAME(ListAdapterUpdater)
 @interface IGListAdapterUpdater : NSObject <IGListUpdatingDelegate>
 
@@ -86,6 +87,17 @@ NS_SWIFT_NAME(ListAdapterUpdater)
  */
 @property (nonatomic, assign) IGListExperiment experiments;
 
+/**
+ This is an experimental feature to customize how diffing is performed. If there’s clear value, we’ll make this a real API and make
+ breaking changes (i.e. replace `allowsBackgroundDiffing` with an enum).
+ @warning - Keep in mind `allowsBackgroundDiffing` needs to be true for adaptive diffing to take effect.
+ */
+@property (nonatomic, assign) IGListAdaptiveDiffingExperimentConfig adaptiveDiffingExperimentConfig;
+
+/**
+ Customize how coalescing works to speed up some updates
+ */
+@property (nonatomic, assign) IGListAdaptiveCoalescingExperimentConfig adaptiveCoalescingExperimentConfig;
 
 @end
 

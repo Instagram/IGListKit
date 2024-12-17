@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  A protocol for cells that configure themselves given a view model.
  */
+NS_SWIFT_UI_ACTOR
 NS_SWIFT_NAME(ListBindable)
 @protocol IGListBindable <NSObject>
 
