@@ -48,7 +48,7 @@
     NSIndexPath *sourceIndexPath = [NSIndexPath indexPathForItem:1 inSection:1];
     NSIndexPath *targetIndexPath = [NSIndexPath indexPathForItem:1 inSection:1];
     UICollectionViewLayoutInvalidationContext *context = [layout invalidationContextForInteractivelyMovingItems:@[targetIndexPath]
-                                                                                             withTargetPosition:CGPointMake(0, 0)
+                                                                                             withTargetPosition:CGPointZero
                                                                                              previousIndexPaths:@[sourceIndexPath]
                                                                                                previousPosition:CGPointZero];
     XCTAssertTrue(context.invalidatedItemIndexPaths.count > 0);
@@ -70,7 +70,7 @@
     NSIndexPath *sourceIndexPath = [NSIndexPath indexPathForItem:1 inSection:1];
     NSIndexPath *targetIndexPath = [NSIndexPath indexPathForItem:1 inSection:1];
     UICollectionViewLayoutInvalidationContext *context = [layout invalidationContextForInteractivelyMovingItems:@[targetIndexPath]
-                                                                                             withTargetPosition:CGPointMake(0, 0)
+                                                                                             withTargetPosition:CGPointZero
                                                                                              previousIndexPaths:@[sourceIndexPath]
                                                                                                previousPosition:CGPointZero];
     XCTAssertTrue(context.invalidatedItemIndexPaths.count > 0);
