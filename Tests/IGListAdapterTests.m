@@ -972,7 +972,7 @@
     self.dataSource.objects = @[@1, @2, @3];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual([self.collectionView numberOfSections], 3);
-    [self.collectionView setContentOffset:CGPointMake(0, 0) animated:NO];
+    [self.collectionView setContentOffset:CGPointZero animated:NO];
     XCTAssertEqual([self.adapter indexPathForFirstVisibleItem], [NSIndexPath indexPathForItem:0 inSection:0]);
     [self.collectionView setContentOffset:CGPointMake(0, 8) animated:NO];
     XCTAssertEqual([self.adapter indexPathForFirstVisibleItem], [NSIndexPath indexPathForItem:0 inSection:0]);
@@ -1012,7 +1012,7 @@
     self.collectionView.frame = CGRectMake(0, 0, 300, 10);
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual([self.collectionView numberOfSections], 4);
-    [self.collectionView setContentOffset:CGPointMake(0, 0) animated:NO];
+    [self.collectionView setContentOffset:CGPointZero animated:NO];
     XCTAssertEqual([self.adapter indexPathForFirstVisibleItem], [NSIndexPath indexPathForItem:0 inSection:0]);
     [self.collectionView setContentOffset:CGPointMake(80, 0) animated:NO];
     XCTAssertEqual([self.adapter indexPathForFirstVisibleItem], [NSIndexPath indexPathForItem:0 inSection:0]);
@@ -1053,7 +1053,7 @@
     self.layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual([self.collectionView numberOfSections], 6);
-    [self.collectionView setContentOffset:CGPointMake(0, 0) animated:NO];
+    [self.collectionView setContentOffset:CGPointZero animated:NO];
     XCTAssertEqual([self.adapter indexPathForFirstVisibleItem], [NSIndexPath indexPathForItem:0 inSection:0]);
     [self.collectionView setContentOffset:CGPointMake(80, 0) animated:NO];
     XCTAssertEqual([self.adapter indexPathForFirstVisibleItem], [NSIndexPath indexPathForItem:0 inSection:0]);
@@ -1071,7 +1071,7 @@
     self.dataSource.objects = @[@1, @2, @3, @4, @5, @6];
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual([self.collectionView numberOfSections], 6);
-    [self.collectionView setContentOffset:CGPointMake(0, 0) animated:NO];
+    [self.collectionView setContentOffset:CGPointZero animated:NO];
     XCTAssertEqual([self.adapter offsetForFirstVisibleItemWithScrollDirection:UICollectionViewScrollDirectionVertical], 0);
     [self.collectionView setContentOffset:CGPointMake(0, 8) animated:NO];
     XCTAssertEqual([self.adapter offsetForFirstVisibleItemWithScrollDirection:UICollectionViewScrollDirectionVertical], 8);
@@ -1112,7 +1112,7 @@
     XCTAssertEqual([self.adapter offsetForFirstVisibleItemWithScrollDirection:UICollectionViewScrollDirectionHorizontal], 0);
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual([self.collectionView numberOfSections], 4);
-    [self.collectionView setContentOffset:CGPointMake(0, 0) animated:NO];
+    [self.collectionView setContentOffset:CGPointZero animated:NO];
     XCTAssertEqual([self.adapter offsetForFirstVisibleItemWithScrollDirection:UICollectionViewScrollDirectionHorizontal], 0);
     [self.collectionView setContentOffset:CGPointMake(80, 0) animated:NO];
     XCTAssertEqual([self.adapter offsetForFirstVisibleItemWithScrollDirection:UICollectionViewScrollDirectionHorizontal], 80);
@@ -1153,7 +1153,7 @@
     self.layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     [self.adapter reloadDataWithCompletion:nil];
     XCTAssertEqual([self.collectionView numberOfSections], 6);
-    [self.collectionView setContentOffset:CGPointMake(0, 0) animated:NO];
+    [self.collectionView setContentOffset:CGPointZero animated:NO];
     XCTAssertEqual([self.adapter offsetForFirstVisibleItemWithScrollDirection:UICollectionViewScrollDirectionHorizontal], 0);
     [self.collectionView setContentOffset:CGPointMake(80, 0) animated:NO];
     XCTAssertEqual([self.adapter offsetForFirstVisibleItemWithScrollDirection:UICollectionViewScrollDirectionHorizontal], 80);
