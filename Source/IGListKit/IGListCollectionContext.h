@@ -291,6 +291,16 @@ NS_SWIFT_NAME(ListCollectionContext)
                                   completion:(nullable void (^)(BOOL finished))completion;
 
 /**
+ Returns the layout attributes for the item at the specified index in the section controller.
+
+ @param index The index of the item whose layout attributes are requested.
+ @param sectionController The section controller requesting this information.
+
+ @return The layout attributes for the item, or `nil` if the item is not found.
+ */
+- (nullable UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndex:(NSInteger)index
+                                                            sectionController:(IGListSectionController *)sectionController;
+/**
  Batches and performs many cell-level updates in a single transaction.
 
  @param animated A flag indicating if the transition should be animated.
@@ -337,6 +347,15 @@ NS_SWIFT_NAME(ListCollectionContext)
                           atIndex:(NSInteger)index
                    scrollPosition:(UICollectionViewScrollPosition)scrollPosition
                          animated:(BOOL)animated;
+
+/**
+ Returns the index path of the item at the specified point in the collection view.
+
+ @param point The point in the collection view's coordinate system.
+
+ @return The index path of the item at the specified point, or `nil` if no item is found at that location.
+ */
+- (nullable NSIndexPath *)indexPathForItemAtPoint:(CGPoint)point;
 
 @end
 
