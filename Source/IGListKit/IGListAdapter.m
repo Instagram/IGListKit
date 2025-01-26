@@ -1061,6 +1061,11 @@ typedef struct OffsetRange {
     return nil;
 }
 
+- (nullable UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndex:(NSInteger)index sectionController:(IGListSectionController *)sectionController {
+    NSIndexPath *const indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
+    return [_collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:indexPath];
+}
+
 - (NSArray<UICollectionViewCell *> *)fullyVisibleCellsForSectionController:(IGListSectionController *)sectionController {
     const NSInteger section = [self sectionForSectionController:sectionController];
     if (section == NSNotFound) {
@@ -1545,6 +1550,10 @@ typedef struct OffsetRange {
 
     // revert by moving back in the opposite direction
     [collectionView moveItemAtIndexPath:destinationIndexPath toIndexPath:sourceIndexPath];
+}
+
+- (NSIndexPath *_Nullable)indexPathForItemAtPoint:(CGPoint)point {
+    return [self.collectionView indexPathForItemAtPoint:point];
 }
 
 @end
