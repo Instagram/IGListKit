@@ -357,6 +357,17 @@ NS_SWIFT_NAME(ListCollectionContext)
  */
 - (nullable NSIndexPath *)indexPathForItemAtPoint:(CGPoint)point;
 
+/**
+ Converts a point from the coordinate system of a given view to that of the collection view.
+
+ @param point The point to convert.
+ @param view The view from which the point originates. If `nil`, the point is assumed to be in the window's coordinate system.
+
+ @return The converted point in the collection view's coordinate system.
+ */
+- (CGPoint)convertPoint:(CGPoint)point fromView:(nullable UIView *)view;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
