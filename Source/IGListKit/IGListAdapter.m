@@ -1556,4 +1556,8 @@ typedef struct OffsetRange {
     return [self.collectionView indexPathForItemAtPoint:point];
 }
 
+- (CGPoint)convertPoint:(CGPoint)point fromView:(nullable UIView *)view {
+    return [self.collectionView convertPoint:point fromView:view];
+}
+
 @end
