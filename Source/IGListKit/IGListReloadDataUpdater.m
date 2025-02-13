@@ -92,4 +92,7 @@
     return _isInDataUpdateBlock;
 }
 
+- (void)willCrashWithCollectionView:(UICollectionView *)collectionView
+             sectionControllerClass:(Class)sectionControllerClass {}
+
 @end

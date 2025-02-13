@@ -202,6 +202,9 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
  */
 - (BOOL)isInDataUpdateBlock;
 
+- (void)willCrashWithCollectionView:(UICollectionView *)collectionView
+             sectionControllerClass:(Class)sectionControllerClass;
+
 @end
 
 NS_ASSUME_NONNULL_END
