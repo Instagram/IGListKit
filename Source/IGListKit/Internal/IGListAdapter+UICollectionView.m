@@ -15,6 +15,7 @@
 #import "IGListAdapterInternal.h"
 #import "IGListSectionController.h"
 #import "IGListSectionControllerInternal.h"
+#import "IGListUpdatingDelegate.h"
 
 #import "IGListAdapterInternal.h"
 
@@ -64,6 +65,10 @@
             // This will cause a crash in iOS 18
             IGAssert([_dequeuedCells containsObject:cell], @"Returned a cell (%@) that was not dequeued at indexPath %@ from section controller %@", NSStringFromClass([cell class]), indexPath, sectionController);
         }
+    }
+
+    if (sectionController != nil && cell == nil) {
+        [self.updater willCrashWithCollectionView:collectionView sectionControllerClass:sectionController.class];
     }
 
     [_dequeuedCells removeAllObjects];
