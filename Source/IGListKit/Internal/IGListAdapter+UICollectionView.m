@@ -67,7 +67,7 @@
         }
     }
 
-    if (sectionController != nil && cell == nil) {
+    if (cell == nil) {
         [self.updater willCrashWithCollectionView:collectionView sectionControllerClass:sectionController.class];
     }
 

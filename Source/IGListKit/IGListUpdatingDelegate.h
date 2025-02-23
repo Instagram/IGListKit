@@ -203,7 +203,7 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
 - (BOOL)isInDataUpdateBlock;
 
 - (void)willCrashWithCollectionView:(UICollectionView *)collectionView
-             sectionControllerClass:(Class)sectionControllerClass;
+             sectionControllerClass:(nullable Class)sectionControllerClass;
 
 @end
 
