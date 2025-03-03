@@ -254,7 +254,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         for (NSInteger item = 0; item < itemCount; item++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
             UICollectionViewLayoutAttributes *attributes = [self layoutAttributesForItemAtIndexPath:indexPath];
-            if (CGRectIntersectsRect(attributes.frame, rect)) {
+            if (attributes && CGRectIntersectsRect(attributes.frame, rect)) {
                 [result addObject:attributes];
             }
         }
