@@ -45,6 +45,7 @@
 
     IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
     IGAssert(sectionController != nil, @"Section controller nil for section %d", (int)indexPath.section);
+    IGAssert(sectionController.collectionContext != nil, @"sectionController.collectionContext nil for section %d", (int)indexPath.section);
 
 #if IG_ASSERTIONS_ENABLED
     if (!_dequeuedCells) {
@@ -57,7 +58,7 @@
     UICollectionViewCell *cell = [sectionController cellForItemAtIndex:indexPath.item];
     _isDequeuingCell = NO;
 
-    IGAssert(cell != nil, @"Returned a nil cell at indexPath <%@> from section controller: <%@>", indexPath, sectionController);
+    IGAssert(cell != nil, @"Returned a nil cell at indexPath <%@> from section controller: <%@>, dataSource: <%@>", indexPath, sectionController, self.dataSource.class);
     if (cell) {
         IGAssert(cell.reuseIdentifier != nil, @"Returned a cell without a reuseIdentifier at indexPath <%@> from section controller: <%@>", indexPath, sectionController);
 
