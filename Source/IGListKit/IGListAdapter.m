@@ -24,6 +24,7 @@
 #import "IGListUpdatingDelegate.h"
 #import "UICollectionViewLayout+InteractiveReordering.h"
 #import "UIScrollView+IGListKit.h"
+#import "UIViewController+IGListAdapterInternal.h"
 
 typedef struct OffsetRange {
     CGFloat min;
@@ -66,6 +67,8 @@ typedef struct OffsetRange {
 
         _updater = updater;
         _viewController = viewController;
+        
+        [viewController associateListAdapter:self];
 
         _experiments = IGListDefaultExperiments();
 
