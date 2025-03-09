@@ -583,7 +583,7 @@ typedef struct OffsetRange {
     return [[self.displayHandler visibleListSections] allObjects];
 }
 
-- (NSArray *)visibleObjects {
+- (NSSet *)_visibleObjectsSet FB_OBJC_DIRECT {
     IGAssertMainThread();
 
     NSArray<UICollectionViewCell *> *visibleCells = [self.collectionView visibleCells];
@@ -602,7 +602,32 @@ typedef struct OffsetRange {
             }
         }
     }
-    return [visibleObjects allObjects];
+    return visibleObjects;
+}
+
+- (NSArray *)visibleObjects {
+    return [[self _visibleObjectsSet] allObjects];
+}
+
+- (NSIndexSet *)indexesOfVisibleObjects {
+    /*
+        This is a naive implementation, going through all objects and checking if they are visible.
+        It is not optimized for performance, but it is correct.
+
+        In the future, this could potentially be optimized by getting the index paths of visible cells,
+        and converting those index paths into a range of object indexes within `self.objects`.
+    */
+
+    NSSet *visibleObjects = [self _visibleObjectsSet];
+    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+    NSUInteger idx = 0;
+    for (id object in self.objects) {
+        if ([visibleObjects containsObject:object]) {
+            [indexSet addIndex:idx];
+        }
+        idx++;
+    }
+    return [indexSet copy];
 }
 
 - (NSArray<UICollectionViewCell *> *)visibleCellsForObject:(id)object {
@@ -623,7 +648,6 @@ typedef struct OffsetRange {
 
     return [visibleCells filteredArrayUsingPredicate:controllerPredicate];
 }
-
 
 #pragma mark - Layout
 

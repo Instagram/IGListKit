@@ -240,6 +240,13 @@ NS_SWIFT_NAME(ListAdapter)
 - (NSArray *)visibleObjects;
 
 /**
+ Less performant that `visibleObjects` but gives you an ordering to the list of visible objects in `self.objects`.
+
+ @return An index set for objects in `self.objects`.   Result's `.count` will be `0` if no visible objects.
+ */
+- (NSIndexSet *)indexesOfVisibleObjects;
+
+/**
  An unordered array of the currently visible cells for a given object.
 
  @param object An object in the list
