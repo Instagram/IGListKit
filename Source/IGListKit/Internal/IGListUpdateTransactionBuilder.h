@@ -92,6 +92,8 @@ Change the `UICollectionView` dataSource
 
 - (BOOL)hasChanges;
 
+- (nullable UICollectionView *)collectionView;
+
 @end
 
 NS_ASSUME_NONNULL_END

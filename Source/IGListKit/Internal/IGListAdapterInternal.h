@@ -29,8 +29,12 @@ IGListBatchContext
 >
 {
     __weak UICollectionView *_collectionView;
+
     BOOL _isDequeuingCell;
+    NSMutableSet<UICollectionViewCell *> *_dequeuedCells;
+
     BOOL _isDequeuingSupplementaryView;
+    NSMutableSet<UICollectionReusableView *> *_dequeuedSupplementaryViews;
 
     BOOL _isSendingWorkingRangeDisplayUpdates;
 }
@@ -42,6 +46,9 @@ IGListBatchContext
 @property (nonatomic, strong, readonly) IGListWorkingRangeHandler *workingRangeHandler;
 
 @property (nonatomic, strong, nullable) IGListAdapterProxy *delegateProxy;
+
+// Set as a property for unit testing
+@property (nonatomic, strong, nullable) IGListAdapterDelegateAnnouncer *globalDelegateAnnouncer;
 
 @property (nonatomic, strong, nullable) UIView *emptyBackgroundView;
 

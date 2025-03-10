@@ -178,7 +178,7 @@
     [self.collectionView layoutIfNeeded];
 
     self.dataSource.sections = @[
-                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(0, 0))]),
+                                 genLayoutTestSection(@[genLayoutTestItem(CGSizeZero)]),
                                  genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(4, 4))]),
                                  genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(3, 3))]),
                                  genLayoutTestSection(@[genLayoutTestItem(CGSizeMake(5, 5))]),

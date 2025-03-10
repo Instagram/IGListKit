@@ -181,6 +181,10 @@ willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
                 diffResult:(IGListIndexSetResult *)diffResult
                    updates:(IGListBatchUpdateData *)updates;
 
+- (void)     listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
+    willCrashWithCollectionView:collectionView
+    sectionControllerClass:(nullable Class)sectionControllerClass;
+
 /**
 Notifies the delegate that the updater finished without performing any batch updates or reloads
 

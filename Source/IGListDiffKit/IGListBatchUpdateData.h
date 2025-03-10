@@ -68,6 +68,7 @@ NS_SWIFT_NAME(ListBatchUpdateData)
  @param updateIndexPaths Item index paths to update.
  @param moveIndexPaths Item index paths to move.
 
+
  @return A new batch update object.
  */
 - (instancetype)initWithInsertSections:(NSIndexSet *)insertSections

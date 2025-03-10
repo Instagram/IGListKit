@@ -14,6 +14,7 @@
 #endif
 #import "IGListAdapterUpdater.h"
 
+#import "IGListAdapterDelegateAnnouncer.h"
 #import "IGListArrayUtilsInternal.h"
 #import "IGListDebugger.h"
 #import "IGListDefaultExperiments.h"
@@ -23,6 +24,7 @@
 #import "IGListUpdatingDelegate.h"
 #import "UICollectionViewLayout+InteractiveReordering.h"
 #import "UIScrollView+IGListKit.h"
+#import "UIViewController+IGListAdapterInternal.h"
 
 typedef struct OffsetRange {
     CGFloat min;
@@ -55,6 +57,7 @@ typedef struct OffsetRange {
         NSMapTable *table = [[NSMapTable alloc] initWithKeyPointerFunctions:keyFunctions valuePointerFunctions:valueFunctions capacity:0];
         _sectionMap = [[IGListSectionMap alloc] initWithMapTable:table];
 
+        _globalDelegateAnnouncer = [IGListAdapterDelegateAnnouncer sharedInstance];
         _displayHandler = [IGListDisplayHandler new];
         _workingRangeHandler = [[IGListWorkingRangeHandler alloc] initWithWorkingRangeSize:workingRangeSize];
         _updateListeners = [NSHashTable weakObjectsHashTable];
@@ -64,6 +67,8 @@ typedef struct OffsetRange {
 
         _updater = updater;
         _viewController = viewController;
+        
+        [viewController associateListAdapter:self];
 
         _experiments = IGListDefaultExperiments();
 
@@ -417,7 +422,7 @@ typedef struct OffsetRange {
             [strongSelf _updateWithData:data];
         }
     };
-    const BOOL shouldAnimateUpdates =  animated && !IGListExperimentEnabled(self.experiments, IGListExperimentDisableAnimationOnUpdates);
+
     IGListUpdaterCompletion outerCompletionBlock = ^(BOOL finished){
         __typeof__(self) strongSelf = weakSelf;
         if (strongSelf == nil) {
@@ -427,7 +432,7 @@ typedef struct OffsetRange {
 
         // release the previous items
         strongSelf.previousSectionMap = nil;
-        [strongSelf _notifyDidUpdate:IGListAdapterUpdateTypePerformUpdates animated:shouldAnimateUpdates];
+        [strongSelf _notifyDidUpdate:IGListAdapterUpdateTypePerformUpdates animated:animated];
         IGLK_BLOCK_CALL_SAFE(completion,finished);
         [strongSelf _exitBatchUpdates];
     };
@@ -578,7 +583,7 @@ typedef struct OffsetRange {
     return [[self.displayHandler visibleListSections] allObjects];
 }
 
-- (NSArray *)visibleObjects {
+- (NSSet *)_visibleObjectsSet FB_OBJC_DIRECT {
     IGAssertMainThread();
 
     NSArray<UICollectionViewCell *> *visibleCells = [self.collectionView visibleCells];
@@ -597,7 +602,32 @@ typedef struct OffsetRange {
             }
         }
     }
-    return [visibleObjects allObjects];
+    return visibleObjects;
+}
+
+- (NSArray *)visibleObjects {
+    return [[self _visibleObjectsSet] allObjects];
+}
+
+- (NSIndexSet *)indexesOfVisibleObjects {
+    /*
+        This is a naive implementation, going through all objects and checking if they are visible.
+        It is not optimized for performance, but it is correct.
+
+        In the future, this could potentially be optimized by getting the index paths of visible cells,
+        and converting those index paths into a range of object indexes within `self.objects`.
+    */
+
+    NSSet *visibleObjects = [self _visibleObjectsSet];
+    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+    NSUInteger idx = 0;
+    for (id object in self.objects) {
+        if ([visibleObjects containsObject:object]) {
+            [indexSet addIndex:idx];
+        }
+        idx++;
+    }
+    return [indexSet copy];
 }
 
 - (NSArray<UICollectionViewCell *> *)visibleCellsForObject:(id)object {
@@ -618,7 +648,6 @@ typedef struct OffsetRange {
 
     return [visibleCells filteredArrayUsingPredicate:controllerPredicate];
 }
-
 
 #pragma mark - Layout
 
@@ -1059,6 +1088,11 @@ typedef struct OffsetRange {
     return nil;
 }
 
+- (nullable UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndex:(NSInteger)index sectionController:(IGListSectionController *)sectionController {
+    NSIndexPath *const indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
+    return [_collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:indexPath];
+}
+
 - (NSArray<UICollectionViewCell *> *)fullyVisibleCellsForSectionController:(IGListSectionController *)sectionController {
     const NSInteger section = [self sectionForSectionController:sectionController];
     if (section == NSNotFound) {
@@ -1154,7 +1188,7 @@ typedef struct OffsetRange {
         [self.registeredCellIdentifiers addObject:identifier];
         [collectionView registerClass:cellClass forCellWithReuseIdentifier:identifier];
     }
-    return [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    return [self _dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath forSectionController:sectionController];
 }
 
 - (__kindof UICollectionViewCell *)dequeueReusableCellOfClass:(Class)cellClass
@@ -1172,7 +1206,7 @@ typedef struct OffsetRange {
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
-    return [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    return [self _dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath forSectionController:sectionController];
 }
 
 - (UICollectionViewCell *)dequeueReusableCellWithNibName:(NSString *)nibName
@@ -1191,7 +1225,19 @@ typedef struct OffsetRange {
         UINib *nib = [UINib nibWithNibName:nibName bundle:bundle];
         [collectionView registerNib:nib forCellWithReuseIdentifier:nibName];
     }
-    return [collectionView dequeueReusableCellWithReuseIdentifier:nibName forIndexPath:indexPath];
+    return [self _dequeueReusableCellWithReuseIdentifier:nibName forIndexPath:indexPath forSectionController:sectionController];
+}
+
+- (UICollectionViewCell *)_dequeueReusableCellWithReuseIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath forSectionController:(IGListSectionController *)sectionController {
+    // These will cause a crash in iOS 18
+    IGAssert(_dequeuedCells.count == 0, @"Dequeueing more than one cell (%@) for indexPath %@, section controller %@,", identifier, indexPath, sectionController);
+    IGAssert(_isDequeuingCell, @"Dequeueing a cell (%@) without a request from the UICollectionView for indexPath %@, section controller %@", identifier, indexPath, sectionController);
+
+    UICollectionViewCell *const cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    if (_isDequeuingCell && cell) {
+        [_dequeuedCells addObject:cell];
+    }
+    return cell;
 }
 
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
@@ -1211,7 +1257,7 @@ typedef struct OffsetRange {
         [self.registeredSupplementaryViewIdentifiers addObject:identifier];
         [collectionView registerClass:viewClass forSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier];
     }
-    return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
+    return [self _dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath forSectionController:sectionController];
 }
 
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewFromStoryboardOfKind:(NSString *)elementKind
@@ -1226,7 +1272,7 @@ typedef struct OffsetRange {
     UICollectionView *collectionView = self.collectionView;
     IGAssert(collectionView != nil, @"Dequeueing Supplementary View from storyboard of kind %@ with identifier %@ for section controller %@ without a collection view at index %li", elementKind, identifier, sectionController, (long)index);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
-    return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
+    return [self _dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath forSectionController:sectionController];
 }
 
 - (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
@@ -1245,7 +1291,22 @@ typedef struct OffsetRange {
         UINib *nib = [UINib nibWithNibName:nibName bundle:bundle];
         [collectionView registerNib:nib forSupplementaryViewOfKind:elementKind withReuseIdentifier:nibName];
     }
-    return [collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:nibName forIndexPath:indexPath];
+    return [self _dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:nibName forIndexPath:indexPath forSectionController:sectionController];
+}
+
+- (__kindof UICollectionReusableView *)_dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
+                                                           withReuseIdentifier:(NSString *)identifier
+                                                                  forIndexPath:(NSIndexPath *)indexPath
+                                                          forSectionController:(IGListSectionController *)sectionController {
+    // These will cause a crash in iOS 18
+    IGAssert(_dequeuedSupplementaryViews.count == 0, @"Dequeueing more than one supplementary-view (%@) for indexPath %@, section controller %@,", identifier, indexPath, sectionController);
+    IGAssert(_isDequeuingSupplementaryView, @"Dequeueing a supplementary-view (%@) without a request from the UICollectionView for indexPath %@, section controller %@", identifier, indexPath, sectionController);
+
+    UICollectionReusableView *const view = [self.collectionView dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
+    if (_isDequeuingSupplementaryView && view) {
+        [_dequeuedSupplementaryViews addObject:view];
+    }
+    return view;
 }
 
 - (void)performBatchAnimated:(BOOL)animated updates:(void (^)(id<IGListBatchContext>))updates completion:(void (^)(BOOL))completion {
@@ -1516,6 +1577,14 @@ typedef struct OffsetRange {
 
     // revert by moving back in the opposite direction
     [collectionView moveItemAtIndexPath:destinationIndexPath toIndexPath:sourceIndexPath];
+}
+
+- (NSIndexPath *_Nullable)indexPathForItemAtPoint:(CGPoint)point {
+    return [self.collectionView indexPathForItemAtPoint:point];
+}
+
+- (CGPoint)convertPoint:(CGPoint)point fromView:(nullable UIView *)view {
+    return [self.collectionView convertPoint:point fromView:view];
 }
 
 @end

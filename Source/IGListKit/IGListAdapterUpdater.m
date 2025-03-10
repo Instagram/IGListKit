@@ -22,12 +22,13 @@
 #import "IGListUpdateTransactable.h"
 #import "IGListUpdateTransactionBuilder.h"
 #import "UICollectionView+IGListBatchUpdateData.h"
+#import "IGListUpdateCoalescer.h"
 
-@interface IGListAdapterUpdater ()
+@interface IGListAdapterUpdater () <IGListUpdateCoalescerDelegate>
 @property (nonatomic, strong) IGListUpdateTransactionBuilder *transactionBuilder;
+@property (nonatomic, strong) IGListUpdateCoalescer *coalescer;
 @property (nonatomic, strong, nullable) IGListUpdateTransactionBuilder *lastTransactionBuilder;
 @property (nonatomic, strong, nullable) id<IGListUpdateTransactable> transaction;
-@property (nonatomic, assign) BOOL hasQueuedUpdate;
 @end
 
 @implementation IGListAdapterUpdater
@@ -37,6 +38,8 @@
 
     if (self = [super init]) {
         _transactionBuilder = [IGListUpdateTransactionBuilder new];
+        _coalescer = [IGListUpdateCoalescer new];
+        _coalescer.delegate = self;
         _allowsReloadingOnTooManyUpdates = YES;
         _experiments = IGListDefaultExperiments();
     }
@@ -52,25 +55,16 @@
 - (void)_queueUpdateIfNeeded {
     IGAssertMainThread();
 
-    if (self.hasQueuedUpdate || !self.transactionBuilder.hasChanges) {
+    if (!self.transactionBuilder.hasChanges) {
         return;
     }
 
-    __weak __typeof__(self) weakSelf = self;
+    // Will call `-performUpdateWithCoalescer`
+    [self.coalescer queueUpdateForView:self.transactionBuilder.collectionView];
+}
 
-    // dispatch_async to give the main queue time to collect more batch updates so that a minimum amount of work
-    // (diffing, etc) is done on main. dispatch_async does not garauntee a full runloop turn will pass though.
-    // see -performUpdateWithCollectionViewBlock:animated:sectionDataBlock:applySectionDataBlock:completion: for more
-    // details on how coalescence is done.
-    self.hasQueuedUpdate = YES;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        __typeof__(self) strongSelf = weakSelf;
-        if (strongSelf == nil) {
-            return;
-        }
-        strongSelf.hasQueuedUpdate = NO;
-        [strongSelf update];
-    });
+- (void)performUpdateWithCoalescer:(IGListUpdateCoalescer *)coalescer {
+    [self update];
 }
 
 - (void)update {
@@ -91,6 +85,7 @@
         .allowsReloadingOnTooManyUpdates = _allowsReloadingOnTooManyUpdates,
         .allowsBackgroundDiffing = _allowsBackgroundDiffing,
         .experiments = _experiments,
+        .adaptiveDiffingExperimentConfig = _adaptiveDiffingExperimentConfig,
     };
 
     id<IGListUpdateTransactable> transaction = [self.transactionBuilder buildWithConfig:config delegate:_delegate updater:self];
@@ -213,7 +208,9 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     // Which means we need to cancel the current transaction, flatten the changes from
     // both the current transtion and builder, and execute that new transaction.
 
-    if (!self.transaction && ![self.transactionBuilder hasChanges]) {
+    if (!self.transaction
+        && ![self.transactionBuilder hasChanges]
+        && !IGListExperimentEnabled(self.experiments, IGListExperimentRemoveDataSourceChangeEarlyExit)) {
         // If nothing is going on, lets take a shortcut.
         block();
         return;
@@ -333,6 +330,23 @@ static NSUInteger IGListIdentifierHash(const void *item, NSUInteger (*size)(cons
     } completion:^(BOOL finished) {
         [CATransaction commit];
     }];
+}
+
+- (void)willCrashWithCollectionView:(UICollectionView *)collectionView
+    sectionControllerClass:(Class)sectionControllerClass {
+    [self.delegate listAdapterUpdater:self
+    willCrashWithCollectionView:collectionView
+    sectionControllerClass:sectionControllerClass];
+}
+
+#pragma mark - Properties
+
+- (IGListAdaptiveCoalescingExperimentConfig)adaptiveCoalescingExperimentConfig {
+    return _coalescer.adaptiveCoalescingExperimentConfig;
+}
+
+- (void)setAdaptiveCoalescingExperimentConfig:(IGListAdaptiveCoalescingExperimentConfig)adaptiveCoalescingExperimentConfig {
+    _coalescer.adaptiveCoalescingExperimentConfig = adaptiveCoalescingExperimentConfig;
 }
 
 @end

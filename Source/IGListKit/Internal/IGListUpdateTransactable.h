@@ -26,6 +26,7 @@ typedef struct {
     BOOL allowsReloadingOnTooManyUpdates;
     BOOL allowsBackgroundDiffing;
     IGListExperiment experiments;
+    IGListAdaptiveDiffingExperimentConfig adaptiveDiffingExperimentConfig;
 } IGListUpdateTransactationConfig;
 
 /// Conform to this protocol to handle an update transaction.
