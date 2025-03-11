@@ -76,7 +76,6 @@ NS_SWIFT_NAME(ListSingleSectionControllerDelegate)
  to configure the cell, and a block to return the size of a cell, you can use an `IGListAdapter`-powered list with a
  simpler architecture.
  */
-IGLK_SUBCLASSING_RESTRICTED
 NS_SWIFT_NAME(ListSingleSectionController)
 @interface IGListSingleSectionController : IGListSectionController
 
