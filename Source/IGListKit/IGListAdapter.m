@@ -583,7 +583,7 @@ typedef struct OffsetRange {
     return [[self.displayHandler visibleListSections] allObjects];
 }
 
-- (NSSet *)_visibleObjectsSet FB_OBJC_DIRECT {
+- (NSSet *)_visibleObjectsSet {
     IGAssertMainThread();
 
     NSArray<UICollectionViewCell *> *visibleCells = [self.collectionView visibleCells];

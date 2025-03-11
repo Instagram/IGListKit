@@ -2,8 +2,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import <FBDefines/FBDefines.h>
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**
