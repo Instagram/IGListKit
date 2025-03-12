@@ -1026,17 +1026,12 @@
 		7A02CEC6236150C400B49FAE /* IGListKit */ = {
 			isa = PBXGroup;
 			children = (
-				A46A1D372D80222F00CB9157 /* IGListCollectionViewLayoutInvalidationContext.h */,
-				A46A1D382D80222F00CB9157 /* IGListCollectionViewLayoutInvalidationContext.m */,
-				A46A1D252D80213D00CB9157 /* IGListAdapterDelegateAnnouncer.h */,
-				A46A1D262D80213D00CB9157 /* IGListAdapterDelegateAnnouncer.m */,
-				A46A1D292D80213D00CB9157 /* UIViewController+IGListAdapter.h */,
-				A46A1D2A2D80213D00CB9157 /* UIViewController+IGListAdapter.m */,
-				7A02CF632361511700B49FAE /* Internal */,
 				7A02CECA2361510F00B49FAE /* IGListAdapter.h */,
 				7A02CEE82361511000B49FAE /* IGListAdapter.m */,
 				7A02CEDF2361511000B49FAE /* IGListAdapterDataSource.h */,
 				7A02CED22361511000B49FAE /* IGListAdapterDelegate.h */,
+				A46A1D252D80213D00CB9157 /* IGListAdapterDelegateAnnouncer.h */,
+				A46A1D262D80213D00CB9157 /* IGListAdapterDelegateAnnouncer.m */,
 				7A02CED52361511000B49FAE /* IGListAdapterMoveDelegate.h */,
 				7A02CEE42361511000B49FAE /* IGListAdapterPerformanceDelegate.h */,
 				7A02CED92361511000B49FAE /* IGListAdapterUpdateListener.h */,
@@ -1059,6 +1054,8 @@
 				7A02CED42361511000B49FAE /* IGListCollectionViewLayout.h */,
 				7A02CEE02361511000B49FAE /* IGListCollectionViewLayout.mm */,
 				7A02CEE12361511000B49FAE /* IGListCollectionViewLayoutCompatible.h */,
+				A46A1D372D80222F00CB9157 /* IGListCollectionViewLayoutInvalidationContext.h */,
+				A46A1D382D80222F00CB9157 /* IGListCollectionViewLayoutInvalidationContext.m */,
 				7A02CECB2361510F00B49FAE /* IGListDisplayDelegate.h */,
 				7A02CECE2361510F00B49FAE /* IGListGenericSectionController.h */,
 				7A02CED32361511000B49FAE /* IGListGenericSectionController.m */,
@@ -1076,6 +1073,9 @@
 				7A02CED82361511000B49FAE /* IGListTransitionDelegate.h */,
 				7A02CEDD2361511000B49FAE /* IGListUpdatingDelegate.h */,
 				7A02CEC92361510F00B49FAE /* IGListWorkingRangeDelegate.h */,
+				7A02CF632361511700B49FAE /* Internal */,
+				A46A1D292D80213D00CB9157 /* UIViewController+IGListAdapter.h */,
+				A46A1D2A2D80213D00CB9157 /* UIViewController+IGListAdapter.m */,
 			);
 			path = IGListKit;
 			sourceTree = "<group>";
@@ -1083,19 +1083,11 @@
 		7A02CF632361511700B49FAE /* Internal */ = {
 			isa = PBXGroup;
 			children = (
-				A46A1D222D80210D00CB9157 /* UIViewController+IGListAdapterInternal.h */,
-				A46A1D1F2D8020EF00CB9157 /* IGListAdapterDelegateAnnouncerInternal.h */,
-				576029D62C61B91D006E50E2 /* IGListPerformDiff.h */,
-				576029D72C61B91D006E50E2 /* IGListPerformDiff.m */,
-				576029D82C61B91D006E50E2 /* IGListUpdateCoalescer.h */,
-				576029DB2C61B91D006E50E2 /* IGListUpdateCoalescer.m */,
-				576029D52C61B91D006E50E2 /* IGListViewVisibilityTracker.h */,
-				576029D92C61B91D006E50E2 /* IGListViewVisibilityTracker.m */,
-				576029DA2C61B91D006E50E2 /* IGListViewVisibilityTrackerInternal.h */,
 				7A02CF7F2361513500B49FAE /* IGListAdapter+DebugDescription.h */,
 				7A02CF652361513300B49FAE /* IGListAdapter+DebugDescription.m */,
 				7A02CF742361513400B49FAE /* IGListAdapter+UICollectionView.h */,
 				7A02CF852361513500B49FAE /* IGListAdapter+UICollectionView.m */,
+				A46A1D1F2D8020EF00CB9157 /* IGListAdapterDelegateAnnouncerInternal.h */,
 				7A02CF662361513400B49FAE /* IGListAdapterInternal.h */,
 				7A02CF7D2361513400B49FAE /* IGListAdapterProxy.h */,
 				7A02CF722361513400B49FAE /* IGListAdapterProxy.m */,
@@ -1125,6 +1117,8 @@
 				7A02CF802361513500B49FAE /* IGListDisplayHandler.m */,
 				57B22E7C2502AAC40055DC2F /* IGListItemUpdatesCollector.h */,
 				57B22E752502AAC30055DC2F /* IGListItemUpdatesCollector.m */,
+				576029D62C61B91D006E50E2 /* IGListPerformDiff.h */,
+				576029D72C61B91D006E50E2 /* IGListPerformDiff.m */,
 				7A02CF882361513500B49FAE /* IGListReloadIndexPath.h */,
 				7A02CF6D2361513400B49FAE /* IGListReloadIndexPath.m */,
 				57B22E762502AAC30055DC2F /* IGListReloadTransaction.h */,
@@ -1134,9 +1128,14 @@
 				7A02CF762361513400B49FAE /* IGListSectionMap.m */,
 				7A02CF862361513500B49FAE /* IGListSectionMap+DebugDescription.h */,
 				7A02CF8D2361513600B49FAE /* IGListSectionMap+DebugDescription.m */,
+				576029D82C61B91D006E50E2 /* IGListUpdateCoalescer.h */,
+				576029DB2C61B91D006E50E2 /* IGListUpdateCoalescer.m */,
 				57B22E732502AAC30055DC2F /* IGListUpdateTransactable.h */,
 				57B22E7D2502AAC40055DC2F /* IGListUpdateTransactionBuilder.h */,
 				57B22E722502AAC30055DC2F /* IGListUpdateTransactionBuilder.m */,
+				576029D52C61B91D006E50E2 /* IGListViewVisibilityTracker.h */,
+				576029D92C61B91D006E50E2 /* IGListViewVisibilityTracker.m */,
+				576029DA2C61B91D006E50E2 /* IGListViewVisibilityTrackerInternal.h */,
 				7A02CF8E2361513600B49FAE /* IGListWorkingRangeHandler.h */,
 				7A02CF872361513500B49FAE /* IGListWorkingRangeHandler.mm */,
 				7A02CF8F2361513600B49FAE /* UICollectionView+DebugDescription.h */,
@@ -1147,6 +1146,7 @@
 				7A02CF6E2361513400B49FAE /* UICollectionViewLayout+InteractiveReordering.m */,
 				7A02CF6A2361513400B49FAE /* UIScrollView+IGListKit.h */,
 				7A02CF6F2361513400B49FAE /* UIScrollView+IGListKit.m */,
+				A46A1D222D80210D00CB9157 /* UIViewController+IGListAdapterInternal.h */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
