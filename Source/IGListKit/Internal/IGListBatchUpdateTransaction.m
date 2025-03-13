@@ -309,11 +309,6 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
     [self _executeCompletionAsFinished:NO];
 }
 
-- (void)_finishWithoutUpdate {
-    [self.delegate listAdapterUpdater:self.updater didFinishWithoutUpdatesWithCollectionView:self.collectionView];
-    [self _executeCompletionAsFinished:YES];
-}
-
 #pragma mark - Cancel
 
 - (BOOL)cancel {
