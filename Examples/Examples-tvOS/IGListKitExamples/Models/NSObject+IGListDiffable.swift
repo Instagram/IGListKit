@@ -8,7 +8,7 @@
 import Foundation
 import IGListKit
 
-extension NSObject: @retroactive ListDiffable {
+extension NSObject: ListDiffable {
 
     public func diffIdentifier() -> NSObjectProtocol {
         return self
