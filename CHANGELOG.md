@@ -2,8 +2,17 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
+5.1.0 (Upcoming Release)
+-----
 
-5.0.0 (upcoming release)
+### Enhancements
+
+- Added handling for new collection view cell dequeue behavior in iOS 18 [Maxime Ollivier](https://github.com/maxolls) [(4bad7d52)](https://github.com/Instagram/IGListKit/commit/4bad7d52604c695e48c0c161fed631aad8511449)
+
+- Added support for Swift Concurrency [Mark Davis](https://instagram.com/m4rk) [(0ec2d52)](https://github.com/Instagram/IGListKit/commit/0ec2d526f35374dc0366024f8bb62aac4db1fd8d)
+
+
+5.0.0
 -----
 
 ### Breaking Changes

@@ -1,9 +1,9 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.0
 import PackageDescription
 
 let package = Package(
     name: "IGListKit",
-    platforms: [ .iOS(.v13),
+    platforms: [ .iOS(.v11),
                  .tvOS(.v11),
                  .macOS(.v10_13),
     ],

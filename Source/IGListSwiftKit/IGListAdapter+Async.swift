@@ -14,6 +14,8 @@ public extension ListAdapter {
     /// - Parameter animated: A flag indicating if the transition should be animated.
     /// - Returns: `true` if the update animations completed successfully; otherwise `false`.
     @discardableResult
+    @available(iOS 13.0, *)
+    @available(tvOS 13.0, *)
     func performUpdates(animated: Bool) async -> Bool {
         return await withCheckedContinuation { continuation in
             performUpdates(animated: animated) { finished in
@@ -29,6 +31,8 @@ public extension ListAdapter {
     /// @warning Do not use this method to update without animations as it can be very expensive to teardown and rebuild all
     /// section controllers. Use `performUpdates(animated:) async` instead.
     @discardableResult
+    @available(iOS 13.0, *)
+    @available(tvOS 13.0, *)
     func reloadData() async -> Bool {
         return await withCheckedContinuation { continuation in
             reloadData { finished in

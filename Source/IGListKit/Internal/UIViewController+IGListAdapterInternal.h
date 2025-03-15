@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewController ()
+@interface UIViewController (IGListAdapterInternal)
 
 - (void)associateListAdapter:(IGListAdapter *)adapter;
 
