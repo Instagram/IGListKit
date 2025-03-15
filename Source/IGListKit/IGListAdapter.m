@@ -1203,8 +1203,7 @@ typedef struct OffsetRange {
     IGAssertMainThread();
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(identifier.length > 0);
-    UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Reloading adapter without a collection view.");
+    IGAssert(self.collectionView != nil, @"Reloading adapter without a collection view.");
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
     return [self _dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath forSectionController:sectionController];
 }
@@ -1269,8 +1268,7 @@ typedef struct OffsetRange {
     IGParameterAssert(identifier.length > 0);
     IGParameterAssert(sectionController != nil);
     IGParameterAssert(index >= 0);
-    UICollectionView *collectionView = self.collectionView;
-    IGAssert(collectionView != nil, @"Dequeueing Supplementary View from storyboard of kind %@ with identifier %@ for section controller %@ without a collection view at index %li", elementKind, identifier, sectionController, (long)index);
+    IGAssert(self.collectionView != nil, @"Dequeueing Supplementary View from storyboard of kind %@ with identifier %@ for section controller %@ without a collection view at index %li", elementKind, identifier, sectionController, (long)index);
     NSIndexPath *indexPath = [self indexPathForSectionController:sectionController index:index usePreviousIfInUpdateBlock:NO];
     return [self _dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath forSectionController:sectionController];
 }
