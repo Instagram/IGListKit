@@ -68,6 +68,9 @@
 		29F7E2AA1E9283FF00197586 /* AnnouncingDepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F7E2A91E9283FF00197586 /* AnnouncingDepsViewController.swift */; };
 		29F7E2AD1E92843A00197586 /* IncrementAnnouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F7E2AC1E92843A00197586 /* IncrementAnnouncer.swift */; };
 		29F7E2AF1E92858500197586 /* ListeningSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F7E2AE1E92858500197586 /* ListeningSectionController.swift */; };
+		4119B2AB2D89BB1E00D397BC /* ActivityItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4119B2AA2D89BB1200D397BC /* ActivityItem.swift */; };
+		4119B2AD2D89BBF000D397BC /* ActivityComposableSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4119B2AC2D89BBE200D397BC /* ActivityComposableSectionController.swift */; };
+		41A162952D8A0C82002A5A8F /* SelectionComposableSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A162942D8A0C7A002A5A8F /* SelectionComposableSectionController.swift */; };
 		56C05B691E49B2120026DB39 /* ObjcDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C05B681E49B2120026DB39 /* ObjcDemoViewController.m */; };
 		56C05B6C1E49B2E80026DB39 /* UserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C05B6B1E49B2E80026DB39 /* UserInfoCell.m */; };
 		56C05B721E49B32A0026DB39 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C05B711E49B32A0026DB39 /* CommentCell.m */; };
@@ -231,6 +234,9 @@
 		29F7E2A91E9283FF00197586 /* AnnouncingDepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncingDepsViewController.swift; sourceTree = "<group>"; };
 		29F7E2AC1E92843A00197586 /* IncrementAnnouncer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncrementAnnouncer.swift; sourceTree = "<group>"; };
 		29F7E2AE1E92858500197586 /* ListeningSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListeningSectionController.swift; sourceTree = "<group>"; };
+		4119B2AA2D89BB1200D397BC /* ActivityItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItem.swift; sourceTree = "<group>"; };
+		4119B2AC2D89BBE200D397BC /* ActivityComposableSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityComposableSectionController.swift; sourceTree = "<group>"; };
+		41A162942D8A0C7A002A5A8F /* SelectionComposableSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionComposableSectionController.swift; sourceTree = "<group>"; };
 		49DEF56A3C9C414B461D113F /* Pods_IGListKitTodayExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGListKitTodayExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56C05B661E49B2110026DB39 /* IGListKitExamples-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IGListKitExamples-Bridging-Header.h"; sourceTree = "<group>"; };
 		56C05B671E49B2120026DB39 /* ObjcDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjcDemoViewController.h; sourceTree = "<group>"; };
@@ -501,6 +507,7 @@
 		2991F91C1D7BB30300B0C58F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4119B2AA2D89BB1200D397BC /* ActivityItem.swift */,
 				29C6297C1DCFD8E5004A5BB1 /* FeedItem.swift */,
 				292658581E749F820041B56D /* Month.swift */,
 				295D8A9B1E92ECDE001F7C06 /* Post.h */,
@@ -527,6 +534,8 @@
 		576D200C2B2CE9C60012C5B8 /* With Composable Layout */ = {
 			isa = PBXGroup;
 			children = (
+				41A162942D8A0C7A002A5A8F /* SelectionComposableSectionController.swift */,
+				4119B2AC2D89BBE200D397BC /* ActivityComposableSectionController.swift */,
 				576D200D2B2CE9EC0012C5B8 /* ExpandableComposableSectionController.swift */,
 				576D200F2B2CEC4E0012C5B8 /* GridComposableSectionController.swift */,
 				576D20112B2CF04F0012C5B8 /* UserComposableSectionController.swift */,
@@ -844,6 +853,7 @@
 				EB0289AC202A1705007E17D5 /* PersonCell.m in Sources */,
 				82D91B691DBA0EF300E62758 /* SingleSectionStoryboardViewController.swift in Sources */,
 				29D2E4AF1DD69C0E00CD255D /* DisplayViewController.swift in Sources */,
+				4119B2AD2D89BBF000D397BC /* ActivityComposableSectionController.swift in Sources */,
 				2942FF911D9F39E00015D24B /* LabelSectionController.swift in Sources */,
 				295D8A9D1E92ECDE001F7C06 /* Post.m in Sources */,
 				29F7E2AD1E92843A00197586 /* IncrementAnnouncer.swift in Sources */,
@@ -854,6 +864,7 @@
 				26271C941DAE9F050073E116 /* NibCell.swift in Sources */,
 				2991F9191D7BADC900B0C58F /* CenterLabelCell.swift in Sources */,
 				295D8A9A1E92EC96001F7C06 /* PostSectionController.m in Sources */,
+				4119B2AB2D89BB1E00D397BC /* ActivityItem.swift in Sources */,
 				29628F141D91905A0026B15A /* DetailLabelCell.swift in Sources */,
 				13DF01681F9D9CBD0092A320 /* ReorderableSectionController.swift in Sources */,
 				56C05B751E49B33C0026DB39 /* InteractiveCell.m in Sources */,
@@ -906,6 +917,7 @@
 				9DB684E1251B10C2002023DD /* UIColor+Extension.swift in Sources */,
 				56C05B721E49B32A0026DB39 /* CommentCell.m in Sources */,
 				576D200B2B2CC6DF0012C5B8 /* CompositionLayoutCell.swift in Sources */,
+				41A162952D8A0C82002A5A8F /* SelectionComposableSectionController.swift in Sources */,
 				821BC4BA1DB8B61200172ED0 /* StoryboardLabelSectionController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -24,6 +24,14 @@ final class CompositionLayoutViewController: UIViewController, ListAdapterDataSo
     }()
     
     private let data: [Any] = [
+        ActivityItem(bodyText: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", header: "Activity Start"),
+        ActivityItem(bodyText: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore."),
+        ActivityItem(bodyText: "Excepteur sint occaecat cupidatat non proident."),
+        ActivityItem(bodyText: "Dominus", footer: "Activity End"),
+        SelectionModel(options: ["Leverage agile", "frameworks", "robust synopsis", "high level", "overviews",
+                                 "Iterative approaches", "corporate strategy", "foster collaborative",
+                                 "overall value", "proposition", "Organically grow", "holistic world view",
+                                 "disruptive", "innovation", "workplace diversity", "empowerment"]),
         "Maecenas faucibus mollis interdum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.",
         GridItem(color: UIColor(red: 237 / 255.0, green: 73 / 255.0, blue: 86 / 255.0, alpha: 1), itemCount: 6),
         User(pk: 2, name: "Ryan Olson", handle: "ryanolsonk"),
@@ -87,6 +95,10 @@ final class CompositionLayoutViewController: UIViewController, ListAdapterDataSo
             return HorizontalComposableSectionController()
         case is SwipeActionSection:
             return SwipeActionComposabelSectionController()
+        case is ActivityItem:
+            return ActivityComposableSectionController()
+        case is SelectionModel:
+            return SelectionComposableSectionController()
         default:
             return ListSectionController()
         }
