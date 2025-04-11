@@ -103,7 +103,7 @@ static void * kIGListAdapterKey = &kIGListAdapterKey;
             // the "item" representing our section was dropped
             // into the end of a destination section rather than the beginning
             // so it really belongs one section after the section where it landed
-            if (destinationSectionIndex < [[adapter objects] count] - 1) {
+            if (destinationSectionIndex < ((NSInteger)[[adapter objects] count] - 1)) {
                 destinationSectionIndex += 1;
                 destinationItemIndex = 0;
             }
