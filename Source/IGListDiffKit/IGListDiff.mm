@@ -406,7 +406,7 @@ static id IGListDiffing(BOOL returnIndexPaths,
 
     moveChecker->~IGListMoveChecker();
 
-    NSCAssert((oldCount + [mInserts count] - [mDeletes count]) == newCount,
+    NSCAssert((oldCount + (NSInteger)[mInserts count] - (NSInteger)[mDeletes count]) == newCount,
               @"Sanity check failed applying %lu inserts and %lu deletes to old count %li equaling new count %li",
               (unsigned long)[mInserts count], (unsigned long)[mDeletes count], (long)oldCount, (long)newCount);
 

@@ -92,9 +92,9 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
         && moves.count == 0 && inserts.count == 0 && deletes.count == 0 && reloads.count > 0) {
         [reloads enumerateIndexesUsingBlock:^(NSUInteger sectionIndex, BOOL * _Nonnull stop) {
             NSMutableIndexSet *localIndexSet = [NSMutableIndexSet indexSetWithIndex:sectionIndex];
-            if (sectionIndex < [collectionView numberOfSections]
-                && sectionIndex < [collectionView.dataSource numberOfSectionsInCollectionView:collectionView]
-                && [collectionView numberOfItemsInSection:sectionIndex] == [collectionView.dataSource collectionView:collectionView numberOfItemsInSection:sectionIndex]) {
+            if ((NSInteger)sectionIndex < [collectionView numberOfSections]
+                && (NSInteger)sectionIndex < [collectionView.dataSource numberOfSectionsInCollectionView:collectionView]
+                && [collectionView numberOfItemsInSection:(NSInteger)sectionIndex] == [collectionView.dataSource collectionView:collectionView numberOfItemsInSection:sectionIndex]) {
                 // Perfer to do item reloads instead, if the number of items in section is unchanged.
                 [itemUpdates addObjectsFromArray:convertSectionReloadToItemUpdates(localIndexSet, collectionView)];
             } else {
@@ -133,7 +133,7 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
 NSIndexSet *IGListSectionIndexFromIndexPaths(NSArray<NSIndexPath *> *indexPaths) {
     NSMutableIndexSet *sections = [NSMutableIndexSet new];
     for (NSIndexPath *indexPath in indexPaths) {
-        [sections addIndex:indexPath.section];
+        [sections addIndex:(NSUInteger)indexPath.section];
     }
     return sections;
 }

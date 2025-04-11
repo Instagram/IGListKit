@@ -140,7 +140,7 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
             [self _bail];
         } else if (diffResult.changeCount > 100 && self.config.allowsReloadingOnTooManyUpdates) {
             [self _reload];
-        } else if (self.sectionData && [self.collectionView numberOfSections] != self.sectionData.fromObjects.count) {
+        } else if (self.sectionData && [self.collectionView numberOfSections] != (NSInteger)self.sectionData.fromObjects.count) {
             // If data is nil, there are no section updates.
             IGWarnAssert(@"The UICollectionView's section count (%li) didn't match the IGListAdapter's count (%li), so we can't performBatchUpdates. Falling back to reloadData.",
                          (long)[self.collectionView numberOfSections],

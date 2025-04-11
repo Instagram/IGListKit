@@ -52,8 +52,8 @@ static dispatch_queue_t _queueForData(IGListTransitionData *data,
     }
     
     // If we don't have a lot of items, the dispatching back and forth can add unnecessary delay.
-    if (data.fromObjects.count < adaptiveConfig.maxItemCountToRunOnMain
-        && data.toObjects.count < adaptiveConfig.maxItemCountToRunOnMain) {
+    if ((NSInteger)data.fromObjects.count < adaptiveConfig.maxItemCountToRunOnMain
+        && (NSInteger)data.toObjects.count < adaptiveConfig.maxItemCountToRunOnMain) {
         return dispatch_get_main_queue();
     }
 

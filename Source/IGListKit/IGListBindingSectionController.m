@@ -85,7 +85,7 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
         }
 
         self.state = IGListDiffingSectionStateUpdateApplied;
-    } completion:^(BOOL finished) {
+    } completion:^(BOOL __unused finished) {
         self.state = IGListDiffingSectionStateIdle;
         if (completion != nil) {
             completion(YES);

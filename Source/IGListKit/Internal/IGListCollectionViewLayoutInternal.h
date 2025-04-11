@@ -5,10 +5,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-static CGRect IGListRectIntegralScaled(CGRect rect) {
+#import <UIKit/UIScreen.h>
+
+static inline CGRect IGListRectIntegralScaled(CGRect rect) {
     CGFloat scale = [[UIScreen mainScreen] scale];
-    return CGRectMake(floorf(rect.origin.x * scale) / scale,
-                      floorf(rect.origin.y * scale) / scale,
-                      ceilf(rect.size.width * scale) / scale,
-                      ceilf(rect.size.height * scale) / scale);
+    return CGRectMake(floor(rect.origin.x * scale) / scale,
+                      floor(rect.origin.y * scale) / scale,
+                      ceil(rect.size.width * scale) / scale,
+                      ceil(rect.size.height * scale) / scale);
 }

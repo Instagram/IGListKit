@@ -90,12 +90,16 @@
 }
 
 - (nullable id)objectForSection:(NSInteger)section {
-    NSArray *objects = self.mObjects;
-    if (section < objects.count) {
-        return objects[section];
-    } else {
+    if (section < 0) {
         return nil;
     }
+
+    NSArray *objects = self.mObjects;
+    if ((NSUInteger)section >= objects.count) {
+        return nil;
+    }
+
+    return objects[section];
 }
 
 - (NSInteger)sectionForObject:(id)object {
@@ -106,9 +110,9 @@
     id sectionController = [self sectionControllerForObject:object];
     if (sectionController == nil) {
         return NSNotFound;
-    } else {
-        return [self sectionForSectionController:sectionController];
     }
+    
+    return [self sectionForSectionController:sectionController];
 }
 
 - (void)reset {
@@ -136,7 +140,7 @@
 
     BOOL stop = NO;
     NSArray *objects = self.objects;
-    for (NSInteger section = 0; section < objects.count; section++) {
+    for (NSInteger section = 0; section < (NSInteger)objects.count; section++) {
         id object = objects[section];
         IGListSectionController *sectionController = [self sectionControllerForObject:object];
         block(object, sectionController, section, &stop);
