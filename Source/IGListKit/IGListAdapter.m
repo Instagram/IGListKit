@@ -691,7 +691,7 @@ typedef struct OffsetRange {
                                         toSectionControllers:@[]];
     }
 
-#if DEBUG
+#if defined(DEBUG) && DEBUG
     for (id object in objects) {
         IGAssert([object isEqualToDiffableObject:object], @"Object instance %@ not equal to itself. This will break infra map tables.", object);
     }
@@ -736,7 +736,7 @@ typedef struct OffsetRange {
         [validObjects addObject:object];
     }];
 
-#if DEBUG
+#if defined(DEBUG) && DEBUG
     IGAssert([NSSet setWithArray:sectionControllers].count == sectionControllers.count,
              @"Section controllers array is not filled with unique objects; section controllers are being reused");
 #endif
