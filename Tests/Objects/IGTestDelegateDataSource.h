@@ -10,6 +10,7 @@
 #import <IGListKit/IGListAdapterDataSource.h>
 
 #import "IGListTestCase.h"
+#import "IGTestCell.h"
 
 @class IGTestDelegateController;
 @class IGTestObject;
@@ -22,5 +23,7 @@ extern NSObject *const kIGTestDelegateDataSourceNoSectionControllerSubclass;
 @property (nonatomic, copy) NSArray <IGTestObject *> *objects;
 
 @property (nonatomic, copy) void (^cellConfigureBlock)(IGTestDelegateController *);
+
+@property (nonatomic, strong) IGTestCell *overrideCell;
 
 @end

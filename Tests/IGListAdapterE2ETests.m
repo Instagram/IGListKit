@@ -32,6 +32,7 @@
 
 - (void)setUp {
     self.workingRangeSize = 2;
+
     self.dataSource = [IGTestDelegateDataSource new];
     [super setUp];
 }
@@ -820,10 +821,12 @@
         genTestObject(@2, @2),
     ];
 
+    IGTestCell *const cell = (IGTestCell*)[self.collectionView cellForItemAtIndexPath:genIndexPath(0, 0)];
     id mockDisplayHandler = [OCMockObject mockForProtocol:@protocol(IGListAdapterDelegate)];
     self.adapter.delegate = mockDisplayHandler;
 
     [[mockDisplayHandler expect] listAdapter:self.adapter didEndDisplayingObject:object atIndex:0];
+    [[mockDisplayHandler expect] listAdapter:self.adapter didEndDisplayingObject:object cell: cell atIndexPath: [NSIndexPath indexPathForItem:0 inSection:0]];
 
     XCTestExpectation *expectation = genExpectation;
     [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished2) {
@@ -2665,7 +2668,7 @@
     updater.adaptiveDiffingExperimentConfig = (IGListAdaptiveDiffingExperimentConfig) {
         .enabled = YES,
     };
-    
+
     [self setupWithObjects:@[
         genTestObject(@1, @1),
         genTestObject(@2, @2),
@@ -2696,7 +2699,7 @@
     updater.adaptiveCoalescingExperimentConfig = (IGListAdaptiveCoalescingExperimentConfig) {
         .enabled = YES,
     };
-    
+
     [self setupWithObjects:@[
         genTestObject(@1, @1),
         genTestObject(@2, @2),

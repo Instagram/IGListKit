@@ -60,6 +60,7 @@
     [[self.mockDisplayDelegate expect] listAdapter:self.adapter willDisplaySectionController:self.list cell:cell atIndex:path.item];
 
     [[self.mockAdapterDelegate expect] listAdapter:self.adapter willDisplayObject:self.object atIndex:path.section];
+    [[self.mockAdapterDelegate expect] listAdapter:self.adapter willDisplayObject:self.object cell:cell atIndexPath:path];
 
     self.list.displayDelegate = self.mockDisplayDelegate;
     self.adapter.delegate = self.mockAdapterDelegate;
@@ -79,6 +80,7 @@
     [[self.mockDisplayDelegate expect] listAdapter:self.adapter willDisplaySectionController:self.list cell:cell atIndex:nextPath.item];
     [[self.mockDisplayDelegate reject] listAdapter:self.adapter willDisplaySectionController:self.list];
 
+    [[self.mockAdapterDelegate expect] listAdapter:self.adapter willDisplayObject:self.object cell:cell atIndexPath:nextPath];
     [[self.mockAdapterDelegate reject] listAdapter:self.adapter willDisplayObject:self.object atIndex:firstPath.section];
 
     self.list.displayDelegate = self.mockDisplayDelegate;
@@ -105,6 +107,7 @@
     [[self.mockDisplayDelegate expect] listAdapter:self.adapter didEndDisplayingSectionController:self.list cell:cellOne atIndex:firstPath.item];
 
     [[self.mockAdapterDelegate reject] listAdapter:self.adapter didEndDisplayingObject:self.object atIndex:firstPath.section];
+    [[self.mockAdapterDelegate expect] listAdapter:self.adapter didEndDisplayingObject:self.object cell:cellOne atIndexPath: firstPath];
 
     self.list.displayDelegate = self.mockDisplayDelegate;
     self.adapter.delegate = self.mockAdapterDelegate;
@@ -125,6 +128,7 @@
     [[self.mockDisplayDelegate expect] listAdapter:self.adapter didEndDisplayingSectionController:self.list cell:cell atIndex:firstPath.item];
 
     [[self.mockAdapterDelegate expect] listAdapter:self.adapter didEndDisplayingObject:self.object atIndex:firstPath.section];
+    [[self.mockAdapterDelegate expect] listAdapter:self.adapter didEndDisplayingObject:self.object cell:cell atIndexPath:firstPath];
 
     self.list.displayDelegate = self.mockDisplayDelegate;
     self.adapter.delegate = self.mockAdapterDelegate;
@@ -158,10 +162,13 @@
 
     [[self.mockDisplayDelegate expect] listAdapter:self.adapter didEndDisplayingSectionController:self.list];
     [[self.mockDisplayDelegate expect] listAdapter:self.adapter didEndDisplayingSectionController:self.list cell:cell atIndex:firstPath.item];
+
     [[self.mockAdapterDelegate expect] listAdapter:self.adapter didEndDisplayingObject:self.object atIndex:firstPath.section];
+    [[self.mockAdapterDelegate expect] listAdapter:self.adapter didEndDisplayingObject:self.object cell:cell atIndexPath:firstPath];
 
     [[self.mockDisplayDelegate reject] listAdapter:self.adapter didEndDisplayingSectionController:self.list];
     [[self.mockDisplayDelegate reject] listAdapter:self.adapter didEndDisplayingSectionController:self.list cell:cell atIndex:firstPath.item];
+
     [[self.mockAdapterDelegate reject] listAdapter:self.adapter didEndDisplayingObject:self.object atIndex:firstPath.section];
 
     self.list.displayDelegate = self.mockDisplayDelegate;
@@ -216,8 +223,12 @@
     [[self.mockDisplayDelegate expect] listAdapter:self.adapter willDisplaySectionController:self.list cell:cell atIndex:path.item];
     [[self.mockAdapterDelegate reject] listAdapter:self.adapter willDisplayObject:self.object atIndex:path.item];
     [[self.mockDisplayDelegate reject] listAdapter:self.adapter willDisplaySectionController:self.list];
+    [[self.mockAdapterDelegate expect] listAdapter:self.adapter willDisplayObject:self.object cell:cell atIndexPath:path];
 
     [self.displayHandler willDisplayCell:cell forListAdapter:self.adapter sectionController:self.list object:self.object indexPath:path];
+
+    [self.mockDisplayDelegate verify];
+    [self.mockAdapterDelegate verify];
 }
 
 - (void)test_whenEndDisplayingSupplementaryView_withEndDisplayingTwice_thatDisplayHandlerReceivesOneEvent {

@@ -34,7 +34,7 @@
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
-    IGTestCell *cell = [self.collectionContext dequeueReusableCellOfClass:IGTestCell.class
+    IGTestCell *cell = _overrideCell ?: [self.collectionContext dequeueReusableCellOfClass:IGTestCell.class
                                                           forSectionController:self atIndex:index];
     [[cell label] setText:[NSString stringWithFormat:@"%@", self.item.value]];
     [cell setDelegate:self];
