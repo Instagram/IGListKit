@@ -56,7 +56,7 @@
     if ([visibleListSections countForObject:sectionController] == 0) {
         [sectionController willDisplaySectionControllerWithListAdapter:listAdapter];
         [listAdapter.delegate listAdapter:listAdapter willDisplayObject:object atIndex:indexPath.section];
-        [listAdapter.globalDelegateAnnouncer announceCellDisplayWithAdapter:listAdapter object:object index:indexPath.section];
+        [listAdapter.globalDelegateAnnouncer announceObjectDisplayWithAdapter:listAdapter object:object index:indexPath.section];
     }
     [visibleListSections addObject:sectionController];
 }
@@ -82,7 +82,7 @@
     if ([visibleSections countForObject:sectionController] == 0) {
         [sectionController didEndDisplayingSectionControllerWithListAdapter:listAdapter];
         [listAdapter.delegate listAdapter:listAdapter didEndDisplayingObject:object atIndex:section];
-        [listAdapter.globalDelegateAnnouncer announceCellEndDisplayWithAdapter:listAdapter object:object index:indexPath.section];
+        [listAdapter.globalDelegateAnnouncer announceObjectEndDisplayWithAdapter:listAdapter object:object index:indexPath.section];
     }
 }
 
@@ -109,6 +109,10 @@
                  object:(id)object
               indexPath:(NSIndexPath *)indexPath {
     [sectionController willDisplayCell:cell atIndex:indexPath.item listAdapter:listAdapter];
+
+    [listAdapter.delegate listAdapter:listAdapter willDisplayObject:object cell:cell atIndexPath:indexPath];
+    [listAdapter.globalDelegateAnnouncer announceCellDisplayWithAdapter:listAdapter object:object cell:cell indexPath:indexPath];
+
     [self _willDisplayReusableView:cell forListAdapter:listAdapter sectionController:sectionController object:object indexPath:indexPath];
 }
 
@@ -122,6 +126,10 @@
         return;
     }
     [sectionController didEndDisplayingCell:cell atIndex:indexPath.item listAdapter:listAdapter];
+
+    [listAdapter.delegate listAdapter:listAdapter didEndDisplayingObject:object cell:cell atIndexPath:indexPath];
+    [listAdapter.globalDelegateAnnouncer announceCellEndDisplayWithAdapter:listAdapter object:object cell:cell indexPath:indexPath];
+
     [self _didEndDisplayingReusableView:cell forListAdapter:listAdapter sectionController:sectionController object:object indexPath:indexPath];
 }
 

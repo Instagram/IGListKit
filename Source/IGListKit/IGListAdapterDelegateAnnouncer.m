@@ -34,15 +34,27 @@
     [_delegates removeObject:listener];
 }
 
-- (void)announceCellDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object index:(NSInteger)index {
+- (void)announceObjectDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object index:(NSInteger)index {
     for (id<IGListAdapterDelegate> delegate in [_delegates allObjects]) {
         [delegate listAdapter:listAdapter willDisplayObject:object atIndex:index];
     }
 }
 
-- (void)announceCellEndDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object index:(NSInteger)index {
+- (void)announceObjectEndDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object index:(NSInteger)index {
     for (id<IGListAdapterDelegate> delegate in [_delegates allObjects]) {
         [delegate listAdapter:listAdapter didEndDisplayingObject:object atIndex:index];
+    }
+}
+
+- (void)announceCellDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object cell:(UICollectionViewCell *)cell indexPath:(NSIndexPath *)indexPath {
+    for (id<IGListAdapterDelegate> delegate in [_delegates allObjects]) {
+        [delegate listAdapter:listAdapter willDisplayObject:object cell:cell atIndexPath:indexPath];
+    }
+}
+
+- (void)announceCellEndDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object cell:(UICollectionViewCell *)cell indexPath:(NSIndexPath *)indexPath {
+    for (id<IGListAdapterDelegate> delegate in [_delegates allObjects]) {
+        [delegate listAdapter:listAdapter didEndDisplayingObject:object cell:cell atIndexPath:indexPath];
     }
 }
 

@@ -11,8 +11,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IGListAdapterDelegateAnnouncer ()
 
-- (void)announceCellDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object index:(NSInteger)index;
-- (void)announceCellEndDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object index:(NSInteger)index;
+- (void)announceObjectDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object index:(NSInteger)index;
+- (void)announceObjectEndDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object index:(NSInteger)index;
+
+- (void)announceCellDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object cell:(UICollectionViewCell *)cell indexPath:(NSIndexPath *)indexPath;
+- (void)announceCellEndDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object cell:(UICollectionViewCell *)cell indexPath:(NSIndexPath *)indexPath;
 
 @end
 
