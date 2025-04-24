@@ -29,6 +29,7 @@ NSObject *const kIGTestDelegateDataSourceNoSectionControllerSubclass = @"kIGTest
     }
     IGTestDelegateController *sectionController = [[IGTestDelegateController alloc] init];
     sectionController.cellConfigureBlock = self.cellConfigureBlock;
+    sectionController.overrideCell = self.overrideCell;
     return sectionController;
 }
 

@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 
 #import <IGListKit/IGListKit.h>
+#import "IGTestCell.h"
 
 @class IGTestObject;
 
@@ -28,5 +29,7 @@
 
 @property (nonatomic, assign) CGPoint initialAttributesOffset;
 @property (nonatomic, assign) CGPoint finalAttributesOffset;
+
+@property (nonatomic, strong) IGTestCell *overrideCell;
 
 @end
