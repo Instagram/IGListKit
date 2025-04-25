@@ -5,6 +5,10 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 5.1.0 (Upcoming Release)
 -----
 
+### Breaking Changes
+
+- Added methods to the `IGListAdapterDelegate` to include callback methods for any time a cell will appear or did disappear from the screen.  This can be used in conjunction with the `IGListAdapterDelegateAnnouncer` to listen globally for cell lifecycle events.  Any implementer of `IGListAdapterDelegate` must update to include these methods. [Jesse Seidman](https://github.com/jseidman95) [(fa50aa1)](https://github.com/Instagram/IGListKit/commit/fa50aa1cf1be85940787e211d23eb5e7873dbf24), [(d1d6f9d)](https://github.com/Instagram/IGListKit/commit/d1d6f9d52caef89efd11444161ac341266d36ccf), [(03049f7)](https://github.com/Instagram/IGListKit/commit/03049f742f46a6ac28abedd249d176cac4694990)
+
 ### Enhancements
 
 - Added handling for new collection view cell dequeue behavior in iOS 18 [Maxime Ollivier](https://github.com/maxolls) [(4bad7d52)](https://github.com/Instagram/IGListKit/commit/4bad7d52604c695e48c0c161fed631aad8511449)
@@ -117,7 +121,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 - Added `IGListExperimentDisableAnimationOnUpdates` experiment to optionally disable update animations in `IGListAdapter` instances. [(eeb5208)](https://github.com/Instagram/IGListKit/commit/eeb5208911fe340b39d2cc3231d1cd59df16e215)
 
 
-### Fixes 
+### Fixes
 
 - Don't crash if you use `IGListSectionController` without a subclass [Maxime Ollivier](https://github.com/maxolls) [(6ea2b91)](https://github.com/Instagram/IGListKit/commit/6ea2b91150040911bcbe4f98201e36035e26e47f)
 
