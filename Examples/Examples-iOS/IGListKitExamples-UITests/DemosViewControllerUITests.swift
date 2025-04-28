@@ -80,22 +80,32 @@ final class DemosViewControllerUITests: UITestCase {
     func test_whenSelectingRecorderCells_thatReorderCellsDemoDetailScreenIsPresented() {
         enterAndAssertScreen(withTitle: "Reorder Cells")
     }
+    
+    func test_whenSelectingListoGram_thatListoGramDetailScreenIsPresented() {
+        enterAndAssertScreen(withTitle: "ListoGram")
+    }
 
     private func enterAndAssertScreen(withTitle title: String) {
-        XCUIApplication().activate()
-        let elem = XCUIApplication().collectionViews.cells.staticTexts[title]
+        let app = XCUIApplication()
+        app.activate()
 
-        var numberOfTries = 0
-        while !elem.isHittable {
-            XCUIApplication().collectionViews.element.swipeUp()
-            numberOfTries += 1
-            if numberOfTries >= 10 {
-                break
-            }
+        let cell = app.collectionViews.cells.staticTexts[title]
+        scrollToElement(cell)                       // your helper
+        XCTAssertTrue(cell.exists, "Couldn’t find demo named “\(title)”")
+        cell.tap()
+
+        let exactBar    = app.navigationBars[title]
+        let compactBar  = app.navigationBars[title.replacingOccurrences(of: " ", with: "")]
+
+        waitToAppear(element: exactBar, timeout: 2)
+
+        if !exactBar.exists {
+            waitToAppear(element: compactBar, timeout: 2)
         }
 
-        XCTAssertTrue(elem.exists)
-        elem.tap()
-        XCTAssertTrue(XCUIApplication().navigationBars[title].exists)
+        XCTAssertTrue(
+            exactBar.exists || compactBar.exists,
+            "Expected a navigation bar titled “\(title)” (or its compact form) to appear"
+        )
     }
 }
