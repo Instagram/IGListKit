@@ -10,6 +10,8 @@ import UIKit
 
 final class ListoGramViewController: UIViewController, ListAdapterDataSource {
     
+    
+    
     // MARK: - Properties
     
     private lazy var adapter: ListAdapter = {
