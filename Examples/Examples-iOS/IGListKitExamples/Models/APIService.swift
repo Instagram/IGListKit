@@ -28,7 +28,7 @@ class APIService {
         self.isLoading = true
         
         // Simulate network delay
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 2.0) {
             let posts = self.generateMockPosts(page: self.currentPage)
             
             if self.currentPage >= 5 {
