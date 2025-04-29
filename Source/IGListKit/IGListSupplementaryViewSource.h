@@ -29,7 +29,7 @@ NS_SWIFT_NAME(ListSupplementaryViewSource)
  Asks the SupplementaryViewSource for a configured supplementary view for the specified kind and index.
 
  @param elementKind The kind of supplementary view being requested
- @param index The index for the supplementary veiw being requested.
+ @param index The index for the supplementary view being requested.
 
  @note This is your opportunity to do any supplementary view setup and configuration.
 
