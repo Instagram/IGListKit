@@ -8,7 +8,7 @@
 import IGListKit
 import UIKit
 
-final class ListoGramViewController: UIViewController, ListAdapterDataSource {
+final class FeedViewController: UIViewController, ListAdapterDataSource {
     
     // MARK: - Properties
     
@@ -41,7 +41,7 @@ final class ListoGramViewController: UIViewController, ListAdapterDataSource {
     // MARK: - Setup
     
     private func setupUI() {
-        title = "ListoGram"
+        title = "FeedViewController"
         
         view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -154,7 +154,7 @@ final class ListoGramViewController: UIViewController, ListAdapterDataSource {
 
 // MARK: - UIScrollViewDelegate
 
-extension ListoGramViewController: UIScrollViewDelegate {
+extension FeedViewController: UIScrollViewDelegate {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, 
                                   withVelocity velocity: CGPoint, 
@@ -170,7 +170,7 @@ extension ListoGramViewController: UIScrollViewDelegate {
 
 // MARK: - PostSectionControllerDelegate
 
-extension ListoGramViewController: PostSectionControllerDelegate {
+extension FeedViewController: PostSectionControllerDelegate {
     func postSectionController(_ sectionController: PostSectionController, didSelectOptionsFor post: Post, from sourceView: UIView) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         

@@ -58,7 +58,7 @@ final class DemosViewController: UIViewController, ListAdapterDataSource {
                  controllerClass: ReorderableViewController.self),
         DemoItem(name: "Compositional Layout", imageName: "square.stack",
                  controllerClass: CompositionLayoutViewController.self),
-        DemoItem(name: "ListoGram", imageName: "camera.circle", controllerClass: ListoGramViewController.self)
+        DemoItem(name: "FeedViewController", imageName: "camera.circle", controllerClass: FeedViewController.self)
     ]
 
     override func viewDidLoad() {

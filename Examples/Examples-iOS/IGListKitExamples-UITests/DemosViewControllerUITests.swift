@@ -81,8 +81,8 @@ final class DemosViewControllerUITests: UITestCase {
         enterAndAssertScreen(withTitle: "Reorder Cells")
     }
     
-    func test_whenSelectingListoGram_thatListoGramDetailScreenIsPresented() {
-        enterAndAssertScreen(withTitle: "ListoGram")
+    func test_whenSelectingFeedViewController_thatFeedViewControllerDetailScreenIsPresented() {
+        enterAndAssertScreen(withTitle: "FeedViewController")
     }
 
     private func enterAndAssertScreen(withTitle title: String) {

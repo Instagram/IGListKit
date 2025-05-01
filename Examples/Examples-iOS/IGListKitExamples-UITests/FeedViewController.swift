@@ -7,13 +7,13 @@
 
 import XCTest
 
-final class ListoGramViewControllerUITests: UITestCase {
+final class FeedViewControllerUITests: UITestCase {
 
     // MARK: - Short-cuts
     
     private var app: XCUIApplication { XCUIApplication() }
 
-    /// The collection-view that shows the ListoGram feed.
+    /// The collection-view that shows the FeedViewController's feed.
     private var feed: XCUIElement {
         let collections = app.collectionViews
         guard collections.count > 1 else { return collections.firstMatch }
@@ -31,7 +31,7 @@ final class ListoGramViewControllerUITests: UITestCase {
     
     override func setUp() {
         super.setUp()
-        enterListoGramDetailScreen()
+        enterFeedViewControllerDetailScreen()
     }
 
     // MARK: - Tests
@@ -43,7 +43,7 @@ final class ListoGramViewControllerUITests: UITestCase {
 
     func test_whenRefreshing_newContentIsLoaded() {
         waitToAppear(element: feed.cells.element(boundBy: 0), timeout: 5)
-        app.navigationBars["ListoGram"].buttons["Refresh"].tap()
+        app.navigationBars["FeedViewController"].buttons["Refresh"].tap()
         waitToAppear(element: feed, timeout: 5)
         XCTAssertTrue(feed.exists)
     }
@@ -88,13 +88,13 @@ final class ListoGramViewControllerUITests: UITestCase {
 
     // MARK: - Helpers
     
-    private func enterListoGramDetailScreen() {
-        let demo = app.collectionViews.staticTexts["ListoGram"]
+    private func enterFeedViewControllerDetailScreen() {
+        let demo = app.collectionViews.staticTexts["FeedViewController"]
         scrollToElement(demo, in: app.collectionViews)
         XCTAssertTrue(demo.exists)
 
         demo.tap()
-        XCTAssertTrue(app.navigationBars["ListoGram"].exists)
+        XCTAssertTrue(app.navigationBars["FeedViewController"].exists)
     }
 
     @discardableResult

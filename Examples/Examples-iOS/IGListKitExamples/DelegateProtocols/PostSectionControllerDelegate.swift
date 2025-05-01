@@ -7,7 +7,7 @@
 
 import UIKit
 
-/// To allow communication between PostSectionController and ListoGramViewController
+/// To allow communication between PostSectionController and FeedViewController
 protocol PostSectionControllerDelegate: AnyObject {
     func postSectionController(_ sectionController: PostSectionController, didSelectOptionsFor post: Post, from sourceView: UIView)
 }
