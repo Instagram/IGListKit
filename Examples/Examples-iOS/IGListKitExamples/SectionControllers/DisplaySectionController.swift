@@ -18,9 +18,10 @@ final class DisplaySectionController: ListSectionController, ListDisplayDelegate
     }
 
     override func numberOfItems() -> Int {
+                
         return 4
     }
-
+    
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext!.containerSize.width, height: 55)
     }
