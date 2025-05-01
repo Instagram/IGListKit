@@ -43,7 +43,7 @@ final class FeedViewControllerUITests: UITestCase {
 
     func test_whenRefreshing_newContentIsLoaded() {
         waitToAppear(element: feed.cells.element(boundBy: 0), timeout: 5)
-        app.navigationBars["FeedViewController"].buttons["Refresh"].tap()
+        app.navigationBars["Feed View"].buttons["Refresh"].tap()
         waitToAppear(element: feed, timeout: 5)
         XCTAssertTrue(feed.exists)
     }
@@ -89,12 +89,12 @@ final class FeedViewControllerUITests: UITestCase {
     // MARK: - Helpers
     
     private func enterFeedViewControllerDetailScreen() {
-        let demo = app.collectionViews.staticTexts["FeedViewController"]
+        let demo = app.collectionViews.staticTexts["Feed View"]
         scrollToElement(demo, in: app.collectionViews)
         XCTAssertTrue(demo.exists)
 
         demo.tap()
-        XCTAssertTrue(app.navigationBars["FeedViewController"].exists)
+        XCTAssertTrue(app.navigationBars["Feed View"].exists)
     }
 
     @discardableResult

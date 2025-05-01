@@ -41,7 +41,7 @@ final class FeedViewController: UIViewController, ListAdapterDataSource {
     // MARK: - Setup
     
     private func setupUI() {
-        title = "FeedViewController"
+        title = "Feed View"
         
         view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(
