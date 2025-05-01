@@ -90,7 +90,7 @@ final class DemosViewControllerUITests: UITestCase {
         app.activate()
 
         let cell = app.collectionViews.cells.staticTexts[title]
-        scrollToElement(cell)                       // your helper
+        scrollToElement(cell)
         XCTAssertTrue(cell.exists, "Couldn’t find demo named “\(title)”")
         cell.tap()
 
