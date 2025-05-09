@@ -294,6 +294,22 @@
     [sectionController didUnhighlightItemAtIndex:indexPath.item];
 }
 
+- (NSIndexPath *)indexPathForPreferredFocusedViewInCollectionView:(UICollectionView *)collectionView {
+    // In case the delegate responds, it should take priority
+    id<UICollectionViewDelegate> collectionViewDelegate = self.collectionViewDelegate;
+    if ([collectionViewDelegate respondsToSelector:@selector(indexPathForPreferredFocusedViewInCollectionView:)]) {
+        return [collectionViewDelegate indexPathForPreferredFocusedViewInCollectionView:collectionView];
+    }
+
+    if (IGListExperimentEnabled(self.experiments, IGListExperimentFixPreferredFocusedView)) {
+        // The default implementation of `-[UICollectionView preferredFocusedView]` can create/dequeue off-screen
+        // cells, which causes perf issues and bugs.
+        return [[collectionView indexPathsForVisibleItems] firstObject];
+    }
+
+    return nil;
+}
+
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
