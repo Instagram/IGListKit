@@ -261,6 +261,8 @@ typedef struct OffsetRange {
                 case UICollectionViewScrollPositionCenteredVertically:
                     contentOffset.x = offset.min - contentInset.left;
                     break;
+                default: /* unexpected */
+                    IGLK_UNEXPECTED_SWITCH_CASE_ABORT(UICollectionViewScrollPosition, scrollPosition);
             }
             const CGFloat maxOffsetX = collectionView.contentSize.width - collectionView.frame.size.width + contentInset.right;
             const CGFloat minOffsetX = -contentInset.left;
@@ -286,6 +288,8 @@ typedef struct OffsetRange {
                 case UICollectionViewScrollPositionCenteredHorizontally:
                     contentOffset.y = offset.min - contentInset.top;
                     break;
+                default: /* unexpected */
+                    IGLK_UNEXPECTED_SWITCH_CASE_ABORT(UICollectionViewScrollPosition, scrollPosition);
             }
             // If we don't call [collectionView layoutIfNeeded], the collectionView.contentSize does not get updated.
             // So lets use the layout object, since it should have been updated by now.
@@ -297,6 +301,8 @@ typedef struct OffsetRange {
             contentOffset.y = MAX(contentOffset.y, minOffsetY);
             break;
         }
+        default: /* unexpected */
+            IGLK_UNEXPECTED_SWITCH_CASE_ABORT(UICollectionViewScrollDirection, scrollDirection);
     }
 
     [collectionView setContentOffset:contentOffset animated:animated];
@@ -318,6 +324,8 @@ typedef struct OffsetRange {
                 return self.collectionView.contentInset.left + self.collectionView.contentOffset.x - offset.min;
             case UICollectionViewScrollDirectionVertical:
                 return self.collectionView.contentInset.top + self.collectionView.contentOffset.y - offset.min;
+            default: /* unexpected */
+                IGLK_UNEXPECTED_SWITCH_CASE_ABORT(UICollectionViewScrollDirection, scrollDirection);
         }
     } else {
         return 0;
@@ -371,6 +379,8 @@ typedef struct OffsetRange {
                 originMin = CGRectGetMinY(frame);
                 endMax = CGRectGetMaxY(frame);
                 break;
+            default: /* unexpected */
+                IGLK_UNEXPECTED_SWITCH_CASE_ABORT(UICollectionViewScrollDirection, scrollDirection);
         }
 
         // find the minimum origin value of all the layout attributes

@@ -25,6 +25,8 @@ static CGFloat UIEdgeInsetsLeadingInsetInDirection(UIEdgeInsets insets, UICollec
     switch (direction) {
         case UICollectionViewScrollDirectionVertical: return insets.top;
         case UICollectionViewScrollDirectionHorizontal: return insets.left;
+        default: /* unexpected */
+            IGLK_UNEXPECTED_SWITCH_CASE_ABORT(UICollectionViewScrollDirection, direction);
     }
 }
 
@@ -32,6 +34,8 @@ static CGFloat UIEdgeInsetsTrailingInsetInDirection(UIEdgeInsets insets, UIColle
     switch (direction) {
         case UICollectionViewScrollDirectionVertical: return insets.bottom;
         case UICollectionViewScrollDirectionHorizontal: return insets.right;
+        default: /* unexpected */
+            IGLK_UNEXPECTED_SWITCH_CASE_ABORT(UICollectionViewScrollDirection, direction);
     }
 }
 
@@ -39,6 +43,8 @@ static CGFloat CGPointGetCoordinateInDirection(CGPoint point, UICollectionViewSc
     switch (direction) {
         case UICollectionViewScrollDirectionVertical: return point.y;
         case UICollectionViewScrollDirectionHorizontal: return point.x;
+        default: /* unexpected */
+            IGLK_UNEXPECTED_SWITCH_CASE_ABORT(UICollectionViewScrollDirection, direction);
     }
 }
 
@@ -46,6 +52,8 @@ static CGFloat CGRectGetLengthInDirection(CGRect rect, UICollectionViewScrollDir
     switch (direction) {
         case UICollectionViewScrollDirectionVertical: return rect.size.height;
         case UICollectionViewScrollDirectionHorizontal: return rect.size.width;
+        default: /* unexpected */
+            IGLK_UNEXPECTED_SWITCH_CASE_ABORT(UICollectionViewScrollDirection, direction);
     }
 }
 
@@ -53,6 +61,8 @@ static CGFloat CGRectGetMaxInDirection(CGRect rect, UICollectionViewScrollDirect
     switch (direction) {
         case UICollectionViewScrollDirectionVertical: return CGRectGetMaxY(rect);
         case UICollectionViewScrollDirectionHorizontal: return CGRectGetMaxX(rect);
+        default: /* unexpected */
+            IGLK_UNEXPECTED_SWITCH_CASE_ABORT(UICollectionViewScrollDirection, direction);
     }
 }
 
@@ -60,6 +70,8 @@ static CGFloat CGRectGetMinInDirection(CGRect rect, UICollectionViewScrollDirect
     switch (direction) {
         case UICollectionViewScrollDirectionVertical: return CGRectGetMinY(rect);
         case UICollectionViewScrollDirectionHorizontal: return CGRectGetMinX(rect);
+        default: /* unexpected */
+            IGLK_UNEXPECTED_SWITCH_CASE_ABORT(UICollectionViewScrollDirection, direction);
     }
 }
 
@@ -67,6 +79,8 @@ static CGFloat CGSizeGetLengthInDirection(CGSize size, UICollectionViewScrollDir
     switch (direction) {
         case UICollectionViewScrollDirectionVertical: return size.height;
         case UICollectionViewScrollDirectionHorizontal: return size.width;
+        default: /* unexpected */
+            IGLK_UNEXPECTED_SWITCH_CASE_ABORT(UICollectionViewScrollDirection, direction);
     }
 }
 
@@ -77,9 +91,11 @@ static NSIndexPath *indexPathForSection(NSInteger section) {
 static NSInteger IGListMergeMinimumInvalidatedSection(NSInteger section, NSInteger otherSection) {
     if (section == NSNotFound && otherSection == NSNotFound) {
         return NSNotFound;
-    } else if (section == NSNotFound) {
+    }
+    if (section == NSNotFound) {
         return otherSection;
-    } else if (otherSection == NSNotFound) {
+    }
+    if (otherSection == NSNotFound) {
         return section;
     }
 
@@ -331,6 +347,8 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                 case UICollectionViewScrollDirectionHorizontal:
                     frame.origin.x = offset;
                     break;
+                default: /* unexpected */
+                    IGLK_UNEXPECTED_SWITCH_CASE_ABORT(UICollectionViewScrollDirection, self.scrollDirection);
             }
         }
     } else if ([elementKind isEqualToString:UICollectionElementKindSectionFooter]) {
@@ -370,6 +388,8 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
         case UICollectionViewScrollDirectionHorizontal:
             return CGSizeMake(CGRectGetMaxX(section.bounds) + section.insets.right,
                               CGRectGetHeight(collectionView.bounds) - contentInset.top - contentInset.bottom);
+        default: /* unexpected */
+            IGLK_UNEXPECTED_SWITCH_CASE_ABORT(UICollectionViewScrollDirection, self.scrollDirection);
     }
 }
 

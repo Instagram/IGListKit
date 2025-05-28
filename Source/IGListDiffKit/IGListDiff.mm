@@ -12,6 +12,7 @@
 #import <vector>
 
 #import "IGListCompatibility.h"
+#import "IGListMacros.h"
 
 #import "IGListIndexPathResultInternal.h"
 #import "IGListIndexSetResultInternal.h"
@@ -312,6 +313,8 @@ static id IGListDiffing(BOOL returnIndexPaths,
                         entry->updated = YES;
                     }
                     break;
+                default /* unexpected */:
+                    IGLK_UNEXPECTED_SWITCH_CASE_ABORT(IGListDiffOption, option);
             }
         }
         if (originalIndex != NSNotFound

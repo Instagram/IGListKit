@@ -38,3 +38,20 @@
            ig_safe_block(__VA_ARGS__); \
        } \
    } while (NO)
+
+/*
+  E.g.
+  switch (direction) {
+    case UICollectionViewScrollDirectionHorizontal:
+        ...
+    case UICollectionViewScrollDirectionVertical:
+        ...
+    default:
+      IGLK_UNEXPECTED_SWITCH_CASE_ABORT(UICollectionViewScrollDirection, direction);
+  }
+*/
+#define IGLK_UNEXPECTED_SWITCH_CASE_ABORT(type, value) ({ \
+    type value__##__LINE__ = (value); \
+    fprintf(stderr, "Unexpected " #type " : %ld\n", (long)(value__##__LINE__)); \
+    abort(); \
+})
