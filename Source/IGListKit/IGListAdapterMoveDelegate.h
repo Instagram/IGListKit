@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Conform to `IGListAdapterMoveDelegate` to receive interactive reordering requests.
  */
+ NS_SWIFT_UI_ACTOR
 NS_SWIFT_NAME(ListAdapterMoveDelegate)
 @protocol IGListAdapterMoveDelegate <NSObject>
 
