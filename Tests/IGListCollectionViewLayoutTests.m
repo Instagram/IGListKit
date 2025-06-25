@@ -93,10 +93,6 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     [self.collectionView layoutIfNeeded];
 }
 
-- (void)test_whenCreatingViaCoder_thatObjectIsValid {
-    XCTAssertNotNil([[IGListCollectionViewLayout alloc] initWithCoder:[NSCoder new]]);
-}
-
 - (void)test_whenApplyingSameBoundsValue_thatLayoutIsntInvalidated {
     [self setUpWithStickyHeaders:YES topInset:0];
     [self prepareWithData:nil];

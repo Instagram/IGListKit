@@ -208,10 +208,6 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    return [self initWithStickyHeaders:NO topContentInset:0 stretchToEdge:NO];
-}
-
 #pragma mark - UICollectionViewLayout
 
 - (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
