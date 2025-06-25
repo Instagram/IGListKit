@@ -135,6 +135,11 @@ NS_SWIFT_NAME(ListCollectionViewLayout)
  */
 + (instancetype)new NS_UNAVAILABLE;
 
+/**
+ :nodoc:
+ */
+- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
+
 @end
 
 NS_ASSUME_NONNULL_END
