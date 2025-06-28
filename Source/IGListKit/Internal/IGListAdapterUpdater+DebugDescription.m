@@ -43,6 +43,8 @@
         case IGListBatchUpdateStateExecutingBatchUpdateBlock:
             stateString = @"Executing batch update block";
             break;
+        default: /* unknown */
+            IGLK_UNEXPECTED_SWITCH_CASE_ABORT(IGListBatchUpdateState, state);
     }
     [debug addObject:[NSString stringWithFormat:@"State: %@", stateString]];
 

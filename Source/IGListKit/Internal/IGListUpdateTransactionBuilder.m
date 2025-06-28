@@ -179,6 +179,8 @@ typedef NS_ENUM (NSInteger, IGListUpdateTransactionBuilderMode) {
                                                                  itemUpdateBlocks:self.itemUpdateBlocks
                                                                  completionBlocks:self.completionBlocks];
         }
+        default: /* unexpected */
+            IGLK_UNEXPECTED_SWITCH_CASE_ABORT(IGListUpdateTransactionBuilderMode, self.mode);
     }
 }
 
