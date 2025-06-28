@@ -16,7 +16,7 @@ final class ExpandableComposableSectionController: ListSectionController, Compos
 
     override func sizeForItem(at index: Int) -> CGSize {
         // Size handled by cell
-        return CGSizeZero
+        return CGSize.zero
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
@@ -32,11 +32,11 @@ final class ExpandableComposableSectionController: ListSectionController, Compos
 
     override func didSelectItem(at index: Int) {
         expanded = !expanded
-        
+
         guard let cell = collectionContext.cellForItem(at: index, sectionController: self) as? CompositionLayoutCell else {
             return
         }
-        cell.expanded = expanded;
+        cell.expanded = expanded
 
         UIView.animate(withDuration: 0.5,
                        delay: 0,
@@ -47,9 +47,9 @@ final class ExpandableComposableSectionController: ListSectionController, Compos
                         self.collectionContext?.invalidateLayout(for: self)
         })
     }
-    
+
     // MARK: CompositionLayoutCapable
-    
+
     func collectionViewSectionLayout(layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? {
         let config = UICollectionLayoutListConfiguration(appearance: .plain)
         return NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)

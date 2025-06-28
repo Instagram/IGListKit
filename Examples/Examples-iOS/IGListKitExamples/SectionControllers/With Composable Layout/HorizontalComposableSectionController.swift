@@ -15,10 +15,10 @@ final class HorizontalComposableSectionController: ListSectionController, Compos
     override func numberOfItems() -> Int {
         return object?.cardCount ?? 0
     }
-    
+
     override func sizeForItem(at index: Int) -> CGSize {
         // Size handled by cell
-        return CGSizeZero
+        return CGSize.zero
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
@@ -34,7 +34,7 @@ final class HorizontalComposableSectionController: ListSectionController, Compos
     }
 
     // MARK: CompositionLayoutCapable
-    
+
     func collectionViewSectionLayout(layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? {
         // Item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
@@ -52,5 +52,5 @@ final class HorizontalComposableSectionController: ListSectionController, Compos
         section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
         return section
     }
-    
+
 }

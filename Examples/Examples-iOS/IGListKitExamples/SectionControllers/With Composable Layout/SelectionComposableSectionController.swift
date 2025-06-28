@@ -12,7 +12,7 @@ import SwiftUI
 final class TextViewModel: ObservableObject {
     @Published var text: String
     @Published var extraPadding: Bool = false
-    
+
     init(text: String) {
         self.text = text
     }
@@ -20,7 +20,7 @@ final class TextViewModel: ObservableObject {
 
 struct ExpandTextView: View {
     @ObservedObject var viewModel: TextViewModel
-    
+
     var body: some View {
         Text(viewModel.text)
             .padding(viewModel.extraPadding ? 20 : 10)
@@ -31,7 +31,7 @@ struct ExpandTextView: View {
 final class SelectionComposableSectionController: ListSectionController, CompositionLayoutCapable {
 
     private var viewModels: [TextViewModel] = []
-    
+
     override func numberOfItems() -> Int {
         return viewModels.count
     }
@@ -52,12 +52,12 @@ final class SelectionComposableSectionController: ListSectionController, Composi
         .margins(.all, 0)
         return cell
     }
-    
+
     override func didSelectItem(at index: Int) {
         withAnimation {
             viewModels[index].extraPadding.toggle()
         }
-        
+
     }
 
     override func didUpdate(to object: Any) {

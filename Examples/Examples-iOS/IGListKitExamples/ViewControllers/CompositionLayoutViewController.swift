@@ -16,13 +16,13 @@ protocol CompositionLayoutCapable {
 
 /// Like MixedDataViewController, but using UICollectionViewCompositionalLayout
 final class CompositionLayoutViewController: UIViewController, ListAdapterDataSource {
-    
+
     private var collectionView: UICollectionView?
-    
+
     private lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
-    
+
     private let data: [Any] = [
         ActivityItem(bodyText: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", header: "Activity Start"),
         ActivityItem(bodyText: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore."),
@@ -48,10 +48,10 @@ final class CompositionLayoutViewController: UIViewController, ListAdapterDataSo
         GridItem(color: UIColor(red: 163 / 255.0, green: 42 / 255.0, blue: 186 / 255.0, alpha: 1), itemCount: 7),
         User(pk: 1, name: "Ryan Nystrom", handle: "_ryannystrom")
     ]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Layout
         let layout = UICollectionViewCompositionalLayout {[weak self] (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             guard let self = self else {
@@ -63,7 +63,7 @@ final class CompositionLayoutViewController: UIViewController, ListAdapterDataSo
             }
             return controller.collectionViewSectionLayout(layoutEnvironment: layoutEnvironment)
         }
-        
+
         // Collection View
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         self.collectionView = collectionView
@@ -71,18 +71,18 @@ final class CompositionLayoutViewController: UIViewController, ListAdapterDataSo
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView?.frame = view.bounds
     }
-    
+
     // MARK: ListAdapterDataSource
-    
+
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return data.map { $0 as! ListDiffable }
     }
-    
+
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         switch object {
         case is String:
@@ -103,8 +103,7 @@ final class CompositionLayoutViewController: UIViewController, ListAdapterDataSo
             return ListSectionController()
         }
     }
-    
-    func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
-    
-}
 
+    func emptyView(for listAdapter: ListAdapter) -> UIView? { return nil }
+
+}

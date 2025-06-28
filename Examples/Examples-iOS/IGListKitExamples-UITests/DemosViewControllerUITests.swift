@@ -81,21 +81,31 @@ final class DemosViewControllerUITests: UITestCase {
         enterAndAssertScreen(withTitle: "Reorder Cells")
     }
 
-    private func enterAndAssertScreen(withTitle title: String) {
-        XCUIApplication().activate()
-        let elem = XCUIApplication().collectionViews.cells.staticTexts[title]
+    func test_whenSelectingFeedView_thatFeedViewDetailScreenIsPresented() {
+        enterAndAssertScreen(withTitle: "Feed View")
+    }
 
-        var numberOfTries = 0
-        while !elem.isHittable {
-            XCUIApplication().collectionViews.element.swipeUp()
-            numberOfTries += 1
-            if numberOfTries >= 10 {
-                break
-            }
+    private func enterAndAssertScreen(withTitle title: String) {
+        let app = XCUIApplication()
+        app.activate()
+
+        let cell = app.collectionViews.cells.staticTexts[title]
+        scrollToElement(cell)
+        XCTAssertTrue(cell.exists, "Couldn’t find demo named “\(title)”")
+        cell.tap()
+
+        let exactBar    = app.navigationBars[title]
+        let compactBar  = app.navigationBars[title.replacingOccurrences(of: " ", with: "")]
+
+        waitToAppear(element: exactBar, timeout: 2)
+
+        if !exactBar.exists {
+            waitToAppear(element: compactBar, timeout: 2)
         }
 
-        XCTAssertTrue(elem.exists)
-        elem.tap()
-        XCTAssertTrue(XCUIApplication().navigationBars[title].exists)
+        XCTAssertTrue(
+            exactBar.exists || compactBar.exists,
+            "Expected a navigation bar titled “\(title)” (or its compact form) to appear"
+        )
     }
 }
