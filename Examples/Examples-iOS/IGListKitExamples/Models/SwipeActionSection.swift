@@ -9,7 +9,7 @@ import IGListKit
 import Foundation
 
 final class SwipeActionSection: NSObject {
-    
+
 }
 
 extension SwipeActionSection: ListDiffable {

@@ -8,7 +8,6 @@
 import IGListKit
 import UIKit
 
-
 final class GridComposableSectionController: ListSectionController, CompositionLayoutCapable {
 
     private var object: GridItem?
@@ -19,7 +18,7 @@ final class GridComposableSectionController: ListSectionController, CompositionL
 
     override func sizeForItem(at index: Int) -> CGSize {
         // Size handled by cell
-        return CGSizeZero
+        return CGSize.zero
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
@@ -32,23 +31,23 @@ final class GridComposableSectionController: ListSectionController, CompositionL
     override func didUpdate(to object: Any) {
         self.object = object as? GridItem
     }
-    
+
     // MARK: CompositionLayoutCapable
-    
+
     func collectionViewSectionLayout(layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? {
         // Item
-        let columnCount:CGFloat = 3
+        let columnCount: CGFloat = 3
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0 / columnCount),
                                               heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
 
         // Group
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), 
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                heightDimension: .fractionalWidth(1.0 / columnCount))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, 
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitems: [item])
-        
+
         // Section
         return NSCollectionLayoutSection(group: group)
     }

@@ -53,7 +53,7 @@ class CompositionLayoutCell: UICollectionViewCell {
         }
     }
 
-    var expanded:Bool = false {
+    var expanded: Bool = false {
         didSet {
             label.numberOfLines = expanded ? 0 : 1
         }

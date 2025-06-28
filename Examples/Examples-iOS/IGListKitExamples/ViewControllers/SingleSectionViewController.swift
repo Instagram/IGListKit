@@ -45,7 +45,7 @@ final class SingleSectionViewController: UIViewController, ListAdapterDataSource
             cell.text = "Cell: \(number + 1)"
         }
 
-        let sizeBlock = { (item: Any, context: ListCollectionContext?) -> CGSize in
+        let sizeBlock = { (_: Any, context: ListCollectionContext?) -> CGSize in
             guard let context = context else { return CGSize() }
             return CGSize(width: context.containerSize.width, height: 44)
         }

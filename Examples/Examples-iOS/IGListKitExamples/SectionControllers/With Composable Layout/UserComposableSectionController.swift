@@ -14,7 +14,7 @@ final class UserComposableSectionController: ListSectionController, CompositionL
 
     override func sizeForItem(at index: Int) -> CGSize {
         // Size handled by cell
-        return CGSizeZero
+        return CGSize.zero
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
@@ -32,10 +32,10 @@ final class UserComposableSectionController: ListSectionController, CompositionL
     }
 
     // MARK: CompositionLayoutCapable
-    
+
     func collectionViewSectionLayout(layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? {
         let config = UICollectionLayoutListConfiguration(appearance: .plain)
         return NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
     }
-    
+
 }

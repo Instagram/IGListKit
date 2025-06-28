@@ -37,7 +37,7 @@ final class SingleSectionStoryboardViewController: UIViewController, ListAdapter
             guard let cell = cell as? StoryboardCell, let number = item as? Int else { return }
             cell.text = "Cell: \(number + 1)"
         }
-        let sizeBlock = { (item: Any, context: ListCollectionContext?) -> CGSize in
+        let sizeBlock = { (_: Any, context: ListCollectionContext?) -> CGSize in
             guard let context = context else { return .zero }
             return CGSize(width: context.containerSize.width, height: 44)
         }

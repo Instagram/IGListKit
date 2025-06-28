@@ -16,10 +16,6 @@ class UITestCase: XCTestCase {
         XCUIApplication().launch()
     }
 
-    override func tearDown() {
-        super.tearDown()
-    }
-
     // Adapted from http://masilotti.com/xctest-helpers/
     internal func waitToAppear(element: XCUIElement,
                                timeout: TimeInterval = 2,
@@ -68,5 +64,25 @@ class UITestCase: XCTestCase {
                                    expected: true)
             }
         }
+    }
+}
+
+// MARK: - Helpers added for multiple collection-views (iPad split-view)
+
+private extension XCUIElementQuery {
+    /// The list we want to scroll in our UI-tests.
+    /// • On iPhone there is only one collection-view, so this is that one.
+    /// • On iPad split-view there are two; `firstMatch` is always the master list.
+    var primary: XCUIElement { firstMatch }
+}
+
+/// Scrolls until `element` is hittable or `maxSwipes` is reached.
+internal func scrollToElement(_ element: XCUIElement,
+                              in scrollView: XCUIElementQuery = XCUIApplication().collectionViews,
+                              maxSwipes: Int = 15) {
+    var swipes = 0
+    while !element.isHittable && swipes < maxSwipes {
+        scrollView.primary.swipeUp()
+        swipes += 1
     }
 }

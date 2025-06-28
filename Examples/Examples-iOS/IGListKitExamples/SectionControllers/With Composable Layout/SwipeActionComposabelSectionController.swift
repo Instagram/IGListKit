@@ -9,18 +9,18 @@ import IGListKit
 import UIKit
 
 final class SwipeActionComposabelSectionController: ListSectionController, CompositionLayoutCapable {
-    
-    private var object:SwipeActionSection?
-    
+
+    private var object: SwipeActionSection?
+
     private var items = ["1. Swipe to delete me", "2. Swipe to delete me", "3. Swipe to delete me"]
-    
+
     override func numberOfItems() -> Int {
         return items.count
     }
-    
+
     override func sizeForItem(at index: Int) -> CGSize {
         // Compositional layout doesn't request sizes per NSIndexPath
-        return CGSizeZero
+        return CGSize.zero
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
@@ -32,7 +32,7 @@ final class SwipeActionComposabelSectionController: ListSectionController, Compo
     override func didUpdate(to object: Any) {
         self.object = object as? SwipeActionSection
     }
-    
+
     func collectionViewSectionLayout(layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? {
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
 
@@ -43,20 +43,20 @@ final class SwipeActionComposabelSectionController: ListSectionController, Compo
             }
             return self.swipeActionFor(index: indexPath.item)
         }
-        
+
         return NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
     }
-    
+
     // MARK: CompositionLayoutCapable
-    
-    private func swipeActionFor(index:Int) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .destructive, title: "Delete") {[weak self] action, view, block in
+
+    private func swipeActionFor(index: Int) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "Delete") {[weak self] _, _, block in
             self?.deleteItem(index: index, block: block)
         }
         return UISwipeActionsConfiguration(actions: [action])
     }
-    
-    private func deleteItem(index:Int, block: @escaping (Bool) -> ()) {
+
+    private func deleteItem(index: Int, block: @escaping (Bool) -> Void) {
         self.collectionContext.performBatch(animated: true) {updates in
             self.items.remove(at: index)
             updates.delete(in: self, at: IndexSet(integer: index))
