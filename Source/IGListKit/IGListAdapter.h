@@ -104,6 +104,12 @@ NS_SWIFT_NAME(ListAdapter)
  */
 @property (nonatomic, assign) IGListExperiment experiments;
 
+/**
+ When true, we automatically deselect cells after they are selected (animated), so each section-controller doesn't have to.
+ Note this doesn't apply to selection via `-selectItemAtIndexPath`, since those do not receive a delegate callback.
+ Default is false.
+ */
+@property (nonatomic, assign) BOOL autoDeselectEnabled;
 
 /**
  Initializes a new `IGListAdapter` object.

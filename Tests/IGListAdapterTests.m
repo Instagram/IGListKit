@@ -1328,6 +1328,25 @@
     XCTAssertFalse(s2.wasSelected);
 }
 
+- (void)test_whenSelectingCell_withAutoDeselectEnabled_thatCellIsDeselected {
+    self.dataSource.objects = @[@1, @1, @1];
+    [self.adapter reloadDataWithCompletion:nil];
+    self.adapter.autoDeselectEnabled = YES;
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+
+    // Select a cell
+    [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    // Make sure the selection worked (doesn't call delegate)
+    XCTAssertEqual([[self.collectionView indexPathsForSelectedItems] count], 1);
+
+    // Manually call delegate, which should auto-deselect
+    [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
+
+    // Make sure it was really deselection on the view too
+    XCTAssertEqual([[self.collectionView indexPathsForSelectedItems] count], 0);
+}
+
 - (void)test_whenDeselectingCell_thatCollectionViewDelegateReceivesMethod {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];

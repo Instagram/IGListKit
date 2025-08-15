@@ -181,6 +181,11 @@
 
     IGListSectionController * sectionController = [self sectionControllerForSection:indexPath.section];
     [sectionController didSelectItemAtIndex:indexPath.item];
+    
+    if (self.autoDeselectEnabled) {
+        // We go directly to the collection-view since we already have the full NSIndexPath
+        [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
