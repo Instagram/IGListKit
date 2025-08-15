@@ -15,6 +15,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Added support for Swift Concurrency [Mark Davis](https://instagram.com/m4rk) [(0ec2d52)](https://github.com/Instagram/IGListKit/commit/0ec2d526f35374dc0366024f8bb62aac4db1fd8d)
 
+- Added `autoDeselectEnabled` on `IGListAdapter` to free each section-controller from having to do this and avoid bugs [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
 
 5.0.0
 -----
