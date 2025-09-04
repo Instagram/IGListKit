@@ -52,6 +52,7 @@ typedef struct OffsetRange {
     IGParameterAssert(updater);
 
     if (self = [super init]) {
+        [UICollectionViewLayout setupInteractiveReordering];
         NSPointerFunctions *keyFunctions = [updater objectLookupPointerFunctions];
         NSPointerFunctions *valueFunctions = [NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsStrongMemory];
         NSMapTable *table = [[NSMapTable alloc] initWithKeyPointerFunctions:keyFunctions valuePointerFunctions:valueFunctions capacity:0];

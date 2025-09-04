@@ -16,7 +16,7 @@
 
 static void * kIGListAdapterKey = &kIGListAdapterKey;
 
-+ (void)load
++ (void)setupInteractiveReordering
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
