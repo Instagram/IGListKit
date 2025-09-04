@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UICollectionViewLayout (InteractiveReordering)
 
+// Should be called once to swizzle native APIs
++ (void)setupInteractiveReordering;
+
 - (void)ig_hijackLayoutInteractiveReorderingMethodForAdapter:(IGListAdapter *)adapter;
 
 - (nullable NSIndexPath *)updatedTargetForInteractivelyMovingItem:(NSIndexPath *)previousIndexPath
