@@ -98,6 +98,11 @@ NS_SWIFT_NAME(ListCollectionViewLayout)
 @property (nonatomic, assign) BOOL showHeaderWhenEmpty;
 
 /**
+ Set this to `YES` to keep layout cache when invalidateLayout is called. Default is `NO`.
+*/
+@property (nonatomic, assign) BOOL preserveLayoutCacheOnInvalidateLayout;
+
+/**
  Create and return a new collection view layout.
 
  @param stickyHeaders Set to `YES` to stick section headers to the top of the bounds while scrolling.

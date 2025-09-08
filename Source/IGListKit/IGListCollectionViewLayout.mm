@@ -204,6 +204,7 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
                                                                                         UICollectionElementKindSectionFooter: [NSMutableDictionary new],
                                                                                         }];
         _minimumInvalidatedSection = NSNotFound;
+        _preserveLayoutCacheOnInvalidateLayout = NO;
     }
     return self;
 }
@@ -390,7 +391,9 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
 }
 
 - (void)invalidateLayout {
-    _minimumInvalidatedSection = 0;
+    if (!_preserveLayoutCacheOnInvalidateLayout) {
+        _minimumInvalidatedSection = 0;
+    }
     [super invalidateLayout];
 }
 
