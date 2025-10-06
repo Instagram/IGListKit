@@ -448,6 +448,9 @@
 		F10C8F582B982EE7009F4690 /* IGListDefaultExperiments.h in Headers */ = {isa = PBXBuildFile; fileRef = F10C8F562B982DFD009F4690 /* IGListDefaultExperiments.h */; };
 		F10C8F5B2B9830F0009F4690 /* IGListTestCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F10C8F592B9830E6009F4690 /* IGListTestCollectionViewLayout.m */; };
 		F10C8F5C2B9830F1009F4690 /* IGListTestCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F10C8F592B9830E6009F4690 /* IGListTestCollectionViewLayout.m */; };
+		F12D8EAA2E93852600A7DDBE /* OCMock in Frameworks */ = {isa = PBXBuildFile; productRef = F12D8EA92E93852600A7DDBE /* OCMock */; };
+		F12D8EAC2E93853500A7DDBE /* OCMock in Frameworks */ = {isa = PBXBuildFile; productRef = F12D8EAB2E93853500A7DDBE /* OCMock */; };
+		F12D8EAF2E93854100A7DDBE /* OCMock in Frameworks */ = {isa = PBXBuildFile; productRef = F12D8EAE2E93854100A7DDBE /* OCMock */; };
 		F15DB2F12D813B090066C7AD /* IGListAdapter+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15DB2EC2D813B090066C7AD /* IGListAdapter+Async.swift */; };
 		F15DB2F22D813B090066C7AD /* ListValueSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15DB2F02D813B090066C7AD /* ListValueSectionController.swift */; };
 		F15DB2F32D813B090066C7AD /* IGListSingleSectionController+Refinements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15DB2EE2D813B090066C7AD /* IGListSingleSectionController+Refinements.swift */; };
@@ -962,6 +965,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F12D8EAC2E93853500A7DDBE /* OCMock in Frameworks */,
 				885FE1DD1DC51A0D009CE2B4 /* IGListKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -978,6 +982,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F12D8EAA2E93852600A7DDBE /* OCMock in Frameworks */,
 				887D0B401D870D7F009E01F7 /* IGListKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -986,6 +991,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F12D8EAF2E93854100A7DDBE /* OCMock in Frameworks */,
 				88DF89811E010E6A00B1B9B4 /* IGListKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1010,13 +1016,6 @@
 				7A02D0AC236153CE00B49FAE /* Info.plist */,
 			);
 			path = Source;
-			sourceTree = "<group>";
-		};
-		15D054C1829CB3E2E2196A55 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		294369AF1DB1B7AE0025F6E7 /* Assets */ = {
@@ -1303,7 +1302,6 @@
 			children = (
 				0B3B927E1E08D7F5008390ED /* Source */,
 				887D0B551D870E1E009E01F7 /* Tests */,
-				15D054C1829CB3E2E2196A55 /* Pods */,
 				887D0B371D870D7E009E01F7 /* Products */,
 				F15F1DDD2BA40BC9002AF3FE /* IGListDiffKit.podspec */,
 				F15F1DDC2BA40BC9002AF3FE /* IGListKit.podspec */,
@@ -1312,6 +1310,7 @@
 				F14291E62D83FA0A007D3437 /* README.md */,
 				F14291E72D83FA0A007D3437 /* README.zh.md */,
 				F1E6581B2D83FEC100989232 /* CHANGELOG.md */,
+				F12D8EAD2E93854100A7DDBE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -1377,6 +1376,13 @@
 				88144EF01D870EDC007C7F66 /* Objects */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		F12D8EAD2E93854100A7DDBE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1921,6 +1927,9 @@
 				Base,
 			);
 			mainGroup = 887D0B2C1D870D7E009E01F7;
+			packageReferences = (
+				F12D8EA82E93852600A7DDBE /* XCRemoteSwiftPackageReference "ocmock" */,
+			);
 			productRefGroup = 887D0B371D870D7E009E01F7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -3642,6 +3651,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F12D8EA82E93852600A7DDBE /* XCRemoteSwiftPackageReference "ocmock" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/erikdoe/ocmock.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F12D8EA92E93852600A7DDBE /* OCMock */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F12D8EA82E93852600A7DDBE /* XCRemoteSwiftPackageReference "ocmock" */;
+			productName = OCMock;
+		};
+		F12D8EAB2E93853500A7DDBE /* OCMock */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F12D8EA82E93852600A7DDBE /* XCRemoteSwiftPackageReference "ocmock" */;
+			productName = OCMock;
+		};
+		F12D8EAE2E93854100A7DDBE /* OCMock */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F12D8EA82E93852600A7DDBE /* XCRemoteSwiftPackageReference "ocmock" */;
+			productName = OCMock;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 887D0B2D1D870D7E009E01F7 /* Project object */;
 }
