@@ -188,7 +188,7 @@ jobs:
       EXAMPLE_SCHEME: IGListKitExamples
     strategy:
       matrix:
-        iosDestination: ["platform=iOS Simulator,name=iPhone 16 Pro,OS=18.0"]
+        iosDestination: ["platform=iOS Simulator,name=iPhone 16 Pro,OS=26.0"]
         tvOSDestination: ["platform=tvOS Simulator,name=Apple TV 4K (3rd generation)"]
         macOSDestination: ["platform=macOS"]
         macCatalystDestination: ["platform=macOS,variant=Mac Catalyst"]
@@ -211,7 +211,7 @@ jobs:
         uses: futureware-tech/simulator-action@v2
         with:
           model: 'iPhone 16 Pro'
-          os_version: '=18.0'
+          os_version: '>=26.0'
 
       - name: Build iOS Example - ${{ matrix.iosDestination }}
         run: |
