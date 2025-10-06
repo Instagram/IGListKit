@@ -11,6 +11,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Enhancements
 
+- Replaced CocoaPods with SPM as the new dependency manager of `IGListKit.xcodeproj` when running unit tests. [Tim Oliver](https://github.com/timoliver) [(2964f06)](https://github.com/Instagram/IGListKit/commit/2964f066a3b0ad533f2eeda71096caeb0b54500a)
+
 - Added handling for new collection view cell dequeue behavior in iOS 18 [Maxime Ollivier](https://github.com/maxolls) [(4bad7d52)](https://github.com/Instagram/IGListKit/commit/4bad7d52604c695e48c0c161fed631aad8511449)
 
 - Added support for Swift Concurrency [Mark Davis](https://instagram.com/m4rk) [(0ec2d52)](https://github.com/Instagram/IGListKit/commit/0ec2d526f35374dc0366024f8bb62aac4db1fd8d)
