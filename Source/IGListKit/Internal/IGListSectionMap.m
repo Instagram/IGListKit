@@ -18,16 +18,16 @@
 @interface IGListSectionMap ()
 
 // both of these maps allow fast lookups of objects, list objects, and indexes
-@property (nonatomic, strong, readonly, nonnull) NSMapTable<id, IGListSectionController *> *objectToSectionControllerMap;
+@property (nonatomic, strong, readonly, nonnull) NSMapTable<id<IGListDiffable>, IGListSectionController *> *objectToSectionControllerMap;
 @property (nonatomic, strong, readonly, nonnull) NSMapTable<IGListSectionController *, NSNumber *> *sectionControllerToSectionMap;
 
-@property (nonatomic, strong, nonnull) NSMutableArray *mObjects;
+@property (nonatomic, strong, nonnull) NSMutableArray<id<IGListDiffable>> *mObjects;
 
 @end
 
 @implementation IGListSectionMap
 
-- (instancetype)initWithMapTable:(NSMapTable *)mapTable {
+- (instancetype)initWithMapTable:(NSMapTable<id<IGListDiffable>, IGListSectionController *> *)mapTable {
     IGParameterAssert(mapTable != nil);
 
     if (self = [super init]) {
@@ -45,7 +45,7 @@
 
 #pragma mark - Public API
 
-- (NSArray *)objects {
+- (NSArray<id<IGListDiffable>> *)objects {
     return [self.mObjects copy];
 }
 
@@ -60,7 +60,7 @@
     return [self.objectToSectionControllerMap objectForKey:[self objectForSection:section]];
 }
 
-- (void)updateWithObjects:(NSArray *)objects sectionControllers:(NSArray *)sectionControllers {
+- (void)updateWithObjects:(NSArray<id<IGListDiffable>> *)objects sectionControllers:(NSArray<IGListSectionController *> *)sectionControllers {
     IGParameterAssert(objects.count == sectionControllers.count);
 
     [self reset];
@@ -83,13 +83,13 @@
     }];
 }
 
-- (nullable IGListSectionController *)sectionControllerForObject:(id)object {
+- (nullable IGListSectionController *)sectionControllerForObject:(id<IGListDiffable>)object {
     IGParameterAssert(object != nil);
 
     return [self.objectToSectionControllerMap objectForKey:object];
 }
 
-- (nullable id)objectForSection:(NSInteger)section {
+- (nullable id<IGListDiffable>)objectForSection:(NSInteger)section {
     if (section < 0) {
         return nil;
     }
@@ -102,7 +102,7 @@
     return objects[section];
 }
 
-- (NSInteger)sectionForObject:(id)object {
+- (NSInteger)sectionForObject:(id<IGListDiffable>)object {
     if (object == nil) {
         return NSNotFound;
     }
@@ -111,7 +111,7 @@
     if (sectionController == nil) {
         return NSNotFound;
     }
-    
+
     return [self sectionForSectionController:sectionController];
 }
 
@@ -126,7 +126,7 @@
     [self.objectToSectionControllerMap removeAllObjects];
 }
 
-- (void)updateObject:(id)object {
+- (void)updateObject:(id<IGListDiffable>)object {
     IGParameterAssert(object != nil);
     const NSInteger section = [self sectionForObject:object];
     id sectionController = [self sectionControllerForObject:object];
@@ -135,7 +135,7 @@
     self.mObjects[section] = object;
 }
 
-- (void)enumerateUsingBlock:(void (^)(id object, IGListSectionController *sectionController, NSInteger section, BOOL *stop))block {
+- (void)enumerateUsingBlock:(void (^)(id<IGListDiffable> object, IGListSectionController *sectionController, NSInteger section, BOOL *stop))block {
     IGParameterAssert(block != nil);
 
     BOOL stop = NO;
