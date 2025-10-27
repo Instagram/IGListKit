@@ -7,6 +7,7 @@
 
 #import <XCTest/XCTest.h>
 
+#import "IGTestDiffingObject.h"
 #import "IGListSectionMap.h"
 #import "IGListTestSection.h"
 #import "IGTestObject.h"
@@ -101,7 +102,7 @@
 }
 
 - (void)test_whenQueryingItems_thatNilReturnsNotFound {
-    NSObject *object = [NSObject new];
+    IGTestDiffingObject *object = [IGTestDiffingObject new];
     object = nil;
     IGListSectionMap *map = [[IGListSectionMap alloc] initWithMapTable:[NSMapTable strongToStrongObjectsMapTable]];
     XCTAssertEqual([map sectionForObject:object], NSNotFound);
