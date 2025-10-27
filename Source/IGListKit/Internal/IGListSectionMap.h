@@ -28,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 IGLK_SUBCLASSING_RESTRICTED
 @interface IGListSectionMap : NSObject <NSCopying>
 
+/**
+ @param mapTable Table used to keep a relationship between the object and its section-controller
+ */
 - (instancetype)initWithMapTable:(NSMapTable<id<IGListDiffable>, IGListSectionController *> *)mapTable NS_DESIGNATED_INITIALIZER;
 
 /**
