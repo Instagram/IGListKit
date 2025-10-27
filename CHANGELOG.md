@@ -19,6 +19,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Added `autoDeselectEnabled` on `IGListAdapter` to free each section-controller from having to do this and avoid bugs [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
+- Added assert when a section's `diffIdentifier` changed before an update starts, which could manifest in a few different crashes [Maxime Ollivier](https://github.com/maxolls) (tbd)
+
 
 5.0.0
 -----
