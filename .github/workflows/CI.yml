@@ -182,7 +182,7 @@ jobs:
       EXAMPLE_SCHEME: IGListKitExamples
     strategy:
       matrix:
-        iosDestination: ["platform=iOS Simulator,name=iPhone Air,id=${{steps.preboot.outputs.udid}}"]
+        iosDestination: ["platform=iOS Simulator,name=iPhone Air"]
         tvOSDestination: ["platform=tvOS Simulator,name=Apple TV 4K (3rd generation)"]
         macOSDestination: ["platform=macOS"]
         macCatalystDestination: ["platform=macOS,variant=Mac Catalyst"]
@@ -211,12 +211,12 @@ jobs:
       - name: Build iOS Example - ${{ matrix.iosDestination }}
         run: |
           set -o pipefail
-          xcodebuild build build-for-testing -project "${{ env.IOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" -configuration Debug ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+          xcodebuild build build-for-testing -project "${{ env.IOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }},id=${{ steps.preboot.outputs.udid }}" -configuration Debug ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
 
       - name: Run iOS Example's UI Tests - ${{ matrix.iosDestination }}
         run: |
           set -o pipefail
-          xcodebuild build test -project "${{ env.IOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }}" -configuration Debug ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+          xcodebuild build test -project "${{ env.IOS_EXAMPLE_XCODEPROJ }}" -scheme "${{ env.EXAMPLE_SCHEME }}" -destination "${{ matrix.iosDestination }},id=${{ steps.preboot.outputs.udid }}" -configuration Debug ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
 
       - name: Build tvOS Example - ${{ matrix.tvOSDestination }}
         run: |
