@@ -46,7 +46,7 @@ jobs:
       SCHEME_NAME: IGListKit
     strategy:
       matrix:
-        destination: ["platform=iOS Simulator,name=iPhone Air"]
+        destination: ["platform=iOS Simulator,name=iPhone 16 Pro,OS=18.6"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -110,7 +110,7 @@ jobs:
     env:
       DEVELOPER_DIR: /Applications/Xcode.app
       PROJECT_NAME: IGListKit.xcodeproj
-      IOS_DESTINATION: "platform=iOS Simulator,name=iPhone Air"
+      IOS_DESTINATION: "platform=iOS Simulator,name=iPhone 16 Pro,OS=18.6"
       SPM_IG_LIST_DIFF_KIT_PUBLIC_HEADERS_PATH: "spm/Sources/IGListDiffKit/include"
       SPM_IG_LIST_DIFF_KIT_SOURCES_PATH: "spm/Sources/IGListDiffKit"
       SPM_IG_LIST_KIT_PUBLIC_HEADERS_PATH: "spm/Sources/IGListKit/include"
@@ -142,7 +142,7 @@ jobs:
     env:
       DEVELOPER_DIR: /Applications/Xcode.app
       PROJECT_NAME: IGListKit.xcodeproj
-      IOS_DESTINATION: "platform=iOS Simulator,name=iPhone Air"
+      IOS_DESTINATION: "platform=iOS Simulator,name=iPhone 16 Pro,OS=18.6"
     strategy:
       matrix:
         schemeName: ["IGListDiffKit",
@@ -182,7 +182,7 @@ jobs:
       EXAMPLE_SCHEME: IGListKitExamples
     strategy:
       matrix:
-        iosDestination: ["platform=iOS Simulator,name=iPhone Air"]
+        iosDestination: ["platform=iOS Simulator,name=iPhone 16 Pro,OS=18.6"]
         tvOSDestination: ["platform=tvOS Simulator,name=Apple TV 4K (3rd generation)"]
         macOSDestination: ["platform=macOS"]
         macCatalystDestination: ["platform=macOS,variant=Mac Catalyst"]
@@ -205,6 +205,7 @@ jobs:
         uses: futureware-tech/simulator-action@v2
         with:
           model: 'iPhone Air'
+          os_version: '=18.6'
 
       - name: Build iOS Example - ${{ matrix.iosDestination }}
         run: |
