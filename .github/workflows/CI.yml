@@ -204,7 +204,7 @@ jobs:
       - name: Preboot iOS Simulator
         uses: futureware-tech/simulator-action@v2
         with:
-          model: 'iPhone Air'
+          model: 'iPhone 16 Pro'
           os_version: '=18.6'
 
       - name: Build iOS Example - ${{ matrix.iosDestination }}
