@@ -11,7 +11,7 @@ on:
 jobs:
   macOS:
     name: Unit Test macOS
-    runs-on: macos-15
+    runs-on: macos-14
     env:
       DEVELOPER_DIR: /Applications/Xcode.app
       PROJECT_NAME: IGListKit.xcodeproj
@@ -39,7 +39,7 @@ jobs:
 
   iOS:
     name: Unit Test iOS
-    runs-on: macos-15
+    runs-on: macos-14
     env:
       DEVELOPER_DIR: /Applications/Xcode.app
       PROJECT_NAME: IGListKit.xcodeproj
@@ -77,7 +77,7 @@ jobs:
 
   CocoaPods:
     name: CocoaPods Lint
-    runs-on: macos-15
+    runs-on: macos-14
     env:
       DEVELOPER_DIR: /Applications/Xcode.app
     steps:
@@ -106,7 +106,7 @@ jobs:
 
   SPM-layout-generator:
     name: Verify generate_spm_sources_layout.sh is not broken
-    runs-on: macos-15
+    runs-on: macos-14
     env:
       DEVELOPER_DIR: /Applications/Xcode.app
       PROJECT_NAME: IGListKit.xcodeproj
@@ -138,7 +138,7 @@ jobs:
 
   SPM-build-from-Package:
     name: Verify SPM build by invoking `xcodebuild` on Package.swift
-    runs-on: macos-15
+    runs-on: macos-14
     env:
       DEVELOPER_DIR: /Applications/Xcode.app
       PROJECT_NAME: IGListKit.xcodeproj
@@ -161,7 +161,7 @@ jobs:
 
   Carthage-XCFramework:
     name: Verify Carthage build XCFramework
-    runs-on: macos-15
+    runs-on: macos-14
     env:
       DEVELOPER_DIR: /Applications/Xcode.app
     steps:
@@ -173,7 +173,7 @@ jobs:
 
   Build-Examples:
     name: Build Examples and UI tests.
-    runs-on: macos-15
+    runs-on: macos-14
     env:
       DEVELOPER_DIR: /Applications/Xcode.app
       IOS_EXAMPLE_XCODEPROJ: Examples/Examples-iOS/IGListKitExamples.xcodeproj
@@ -235,7 +235,7 @@ jobs:
   Danger:
     name: Run Danger
     if: github.event_name == 'pull_request'
-    runs-on: macos-15
+    runs-on: macos-14
     env:
       DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
