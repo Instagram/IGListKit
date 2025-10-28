@@ -206,7 +206,7 @@ jobs:
         uses: futureware-tech/simulator-action@v2
         with:
           model: 'iPhone Air'
-          os_version: 'latest'
+          os_version: '<=999.0'
 
       - name: Build iOS Example - ${{ matrix.iosDestination }}
         run: |
