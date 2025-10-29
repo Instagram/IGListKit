@@ -197,7 +197,7 @@ static void IGListSectionMapValidateDiffIdentifier(NSUInteger section, NSArray<i
   // and -isEqualToDiffableObject should be where we compare all other relevant properties to trigger an update.
   IGAssert([oldDiffIdentifier isEqual:newDiffIdentifier], @"Diff identifier changed for object %@ at section %i, from %@ to %@",
            NSStringFromClass([(NSObject *)object class]),
-           section,
+           (unsigned int)section,
            oldDiffIdentifier,
            newDiffIdentifier);
 }
