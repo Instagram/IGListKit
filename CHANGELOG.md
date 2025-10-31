@@ -21,10 +21,10 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Added assert when a section's `diffIdentifier` changed before an update starts, which could manifest in a few different crashes [Maxime Ollivier](https://github.com/maxolls) (tbd)
 
+- Added support for iOS 13 Context Menus with `contextMenuConfigurationForItemAt` method. [Jérôme B.](https://github.com/jeromeboursier) [(#1430)](https://github.com/Instagram/IGListKit/pull/1430).
 
 5.0.0
 -----
-
 ### Breaking Changes
 
 - Changed iOS deployment target to 11.0 and macOS deployment target to 10.13 [Kent Sutherland](https://github.com/ksuther) [(#1573)](https://github.com/Instagram/IGListKit/pull/1573)
@@ -102,7 +102,7 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - Added `APPLICATION_EXTENSION_API_ONLY` support for `IGListDiffKit` [Peter Meyers](https://github.com/pm-dev) [(#1422)](https://github.com/Instagram/IGListKit/pull/1422)
 
--  Improved performance by deferring requesting objects from the `IGListAdapterDataSource` until just before diffing is executed. If n updates are coalesced into one, this results in just a single request for objects from the data source. Shipped with experiment `IGListExperimentDeferredToObjectCreation` from Ryan Nystrom.  [Maxime Ollivier](https://github.com/maxolls) [(7fc4384)](https://github.com/Instagram/IGListKit/commit/7fc4384a786968027f529ad24b8d821f671d25af)
+- Improved performance by deferring requesting objects from the `IGListAdapterDataSource` until just before diffing is executed. If n updates are coalesced into one, this results in just a single request for objects from the data source. Shipped with experiment `IGListExperimentDeferredToObjectCreation` from Ryan Nystrom.  [Maxime Ollivier](https://github.com/maxolls) [(7fc4384)](https://github.com/Instagram/IGListKit/commit/7fc4384a786968027f529ad24b8d821f671d25af)
 
 - Improved performance by using `reloadData` when there are too many diffing updates. Shipped with experiment `IGListExperimentReloadDataFallback` from Ryan Nystrom. [Maxime Ollivier](https://github.com/maxolls) [(86ecc60)](https://github.com/Instagram/IGListKit/commit/86ecc600856b4199f8a31359140753955f02b5a4)
 
@@ -120,12 +120,12 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
    - Uses methods instead of blocks to make the callstack easier to read in crash reports.
    - Unblocks `IGListExperimentBackgroundDiffing`
 
+
 - The `IGListExperimentFixCrashOnReloadObjects` experiment succeeded and has officially been implemented into IGListKit. [Maxime Ollivier](https://github.com/maxolls) [(99e24af)](https://github.com/Instagram/IGListKit/commit/99e24afbf872c0d858291084cfa45243f0c9a448)
 
 - Added `IGListExperimentKeepPointerToCollectionViewDataSource` experiment as a potential solution for certain crashes being periodically observed.
 
 - Added `IGListExperimentDisableAnimationOnUpdates` experiment to optionally disable update animations in `IGListAdapter` instances. [(eeb5208)](https://github.com/Instagram/IGListKit/commit/eeb5208911fe340b39d2cc3231d1cd59df16e215)
-
 
 ### Fixes
 

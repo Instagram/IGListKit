@@ -181,7 +181,7 @@
 
     IGListSectionController * sectionController = [self sectionControllerForSection:indexPath.section];
     [sectionController didSelectItemAtIndex:indexPath.item];
-    
+
     if (self.autoDeselectEnabled) {
         // We go directly to the collection-view since we already have the full NSIndexPath
         [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
@@ -314,6 +314,25 @@
 
     return nil;
 }
+
+#if !TARGET_OS_TV
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView
+    contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath
+                                         point:(CGPoint)point API_AVAILABLE(ios(13.0)) {
+    // forward this method to the delegate b/c this implementation will steal the message from the proxy
+    id<UICollectionViewDelegate> collectionViewDelegate = self.collectionViewDelegate;
+    if ([collectionViewDelegate respondsToSelector:@selector(collectionView:contextMenuConfigurationForItemAtIndexPath:point:)]) {
+        return [collectionViewDelegate collectionView:collectionView contextMenuConfigurationForItemAtIndexPath:indexPath point:point];
+    }
+
+    IGListSectionController * sectionController = [self sectionControllerForSection:indexPath.section];
+    return [sectionController contextMenuConfigurationForItemAtIndex:indexPath.item point:point];
+}
+#pragma clang diagnostic pop
+#endif
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 
