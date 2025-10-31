@@ -19,5 +19,6 @@
 @property (nonatomic, assign) BOOL wasHighlighted;
 @property (nonatomic, assign) BOOL wasUnhighlighted;
 @property (nonatomic, assign) BOOL wasDisplayed;
+@property (nonatomic, assign) BOOL requestedContextMenu;
 
 @end
