@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "IGListAdapterDelegate.h"
+#import <IGListKit/IGListAdapterDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

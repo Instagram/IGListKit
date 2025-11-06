@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "IGListDiff.h"
+#import <IGListDiffKit/IGListDiff.h>
 
 /**
  Bitmask-able options used for pre-release feature testing.

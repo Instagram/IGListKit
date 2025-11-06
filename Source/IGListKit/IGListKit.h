@@ -6,7 +6,7 @@
  */
 
 #if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import "IGListCompatibility.h"
+#import <IGListKit/IGListCompatibility.h>
 #else
 #import <IGListDiffKit/IGListCompatibility.h>
 #endif
@@ -25,54 +25,54 @@ FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 
 // iOS and tvOS only:
 
-#import "IGListAdapter.h"
-#import "IGListAdapterDataSource.h"
-#import "IGListAdapterDelegate.h"
-#import "IGListAdapterDelegateAnnouncer.h"
-#import "IGListAdapterUpdateListener.h"
-#import "IGListAdapterUpdater.h"
-#import "IGListAdapterUpdaterDelegate.h"
-#import "IGListBatchContext.h"
-#import "IGListBindable.h"
-#import "IGListBindingSectionController.h"
-#import "IGListBindingSectionControllerDataSource.h"
-#import "IGListBindingSectionControllerSelectionDelegate.h"
-#import "IGListBindingSingleSectionController.h"
-#import "IGListCollectionContext.h"
-#import "IGListCollectionView.h"
-#import "IGListCollectionViewLayout.h"
-#import "IGListCollectionViewLayoutInvalidationContext.h"
-#import "IGListDisplayDelegate.h"
-#import "IGListGenericSectionController.h"
-#import "IGListCollectionViewDelegateLayout.h"
-#import "IGListReloadDataUpdater.h"
-#import "IGListScrollDelegate.h"
-#import "IGListSectionController.h"
-#import "IGListSingleSectionController.h"
-#import "IGListSupplementaryViewSource.h"
-#import "IGListTransitionData.h"
-#import "IGListTransitionDelegate.h"
-#import "IGListUpdatingDelegate.h"
-#import "IGListWorkingRangeDelegate.h"
-#import "IGListCollectionViewDelegateLayout.h"
-#import "UIViewController+IGListAdapter.h"
+#import <IGListKit/IGListAdapter.h>
+#import <IGListKit/IGListAdapterDataSource.h>
+#import <IGListKit/IGListAdapterDelegate.h>
+#import <IGListKit/IGListAdapterDelegateAnnouncer.h>
+#import <IGListKit/IGListAdapterUpdateListener.h>
+#import <IGListKit/IGListAdapterUpdater.h>
+#import <IGListKit/IGListAdapterUpdaterDelegate.h>
+#import <IGListKit/IGListBatchContext.h>
+#import <IGListKit/IGListBindable.h>
+#import <IGListKit/IGListBindingSectionController.h>
+#import <IGListKit/IGListBindingSectionControllerDataSource.h>
+#import <IGListKit/IGListBindingSectionControllerSelectionDelegate.h>
+#import <IGListKit/IGListBindingSingleSectionController.h>
+#import <IGListKit/IGListCollectionContext.h>
+#import <IGListKit/IGListCollectionView.h>
+#import <IGListKit/IGListCollectionViewLayout.h>
+#import <IGListKit/IGListCollectionViewLayoutInvalidationContext.h>
+#import <IGListKit/IGListDisplayDelegate.h>
+#import <IGListKit/IGListGenericSectionController.h>
+#import <IGListKit/IGListCollectionViewDelegateLayout.h>
+#import <IGListKit/IGListReloadDataUpdater.h>
+#import <IGListKit/IGListScrollDelegate.h>
+#import <IGListKit/IGListSectionController.h>
+#import <IGListKit/IGListSingleSectionController.h>
+#import <IGListKit/IGListSupplementaryViewSource.h>
+#import <IGListKit/IGListTransitionData.h>
+#import <IGListKit/IGListTransitionDelegate.h>
+#import <IGListKit/IGListUpdatingDelegate.h>
+#import <IGListKit/IGListWorkingRangeDelegate.h>
+#import <IGListKit/IGListCollectionViewDelegateLayout.h>
+#import <IGListKit/UIViewController+IGListAdapter.h>
 
 #endif
 
 // Shared (iOS, tvOS, macOS compatible):
 
 #if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import "IGListAssert.h"
-#import "IGListBatchUpdateData.h"
-#import "IGListDiff.h"
-#import "IGListDiffable.h"
-#import "IGListExperiments.h"
-#import "IGListIndexPathResult.h"
-#import "IGListIndexSetResult.h"
-#import "IGListMoveIndex.h"
-#import "IGListMoveIndexPath.h"
-#import "NSNumber+IGListDiffable.h"
-#import "NSString+IGListDiffable.h"
+#import <IGListKit/IGListAssert.h>
+#import <IGListKit/IGListBatchUpdateData.h>
+#import <IGListKit/IGListDiff.h>
+#import <IGListKit/IGListDiffable.h>
+#import <IGListKit/IGListExperiments.h>
+#import <IGListKit/IGListIndexPathResult.h>
+#import <IGListKit/IGListIndexSetResult.h>
+#import <IGListKit/IGListMoveIndex.h>
+#import <IGListKit/IGListMoveIndexPath.h>
+#import <IGListKit/NSNumber+IGListDiffable.h>
+#import <IGListKit/NSString+IGListDiffable.h>
 #else
 #import <IGListDiffKit/IGListAssert.h>
 #import <IGListDiffKit/IGListBatchUpdateData.h>
