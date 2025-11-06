@@ -11,11 +11,11 @@
 #import <IGListDiffKit/IGListMacros.h>
 #import <IGListDiffKit/IGListExperiments.h>
 #else
-#import "IGListMacros.h"
-#import "IGListExperiments.h"
+#import <IGListKit/IGListMacros.h>
+#import <IGListKit/IGListExperiments.h>
 #endif
-#import "IGListUpdatingDelegate.h"
-#import "IGListAdapterUpdaterDelegate.h"
+#import <IGListKit/IGListUpdatingDelegate.h>
+#import <IGListKit/IGListAdapterUpdaterDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
