@@ -100,7 +100,10 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
 }
 
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
-    return [self.dataSource sectionController:self sizeForViewModel:self.viewModels[index] atIndex:index];
+    if (index >= 0 && index < (NSInteger)self.viewModels.count) {
+        return [self.dataSource sectionController:self sizeForViewModel:self.viewModels[index] atIndex:index];
+    }
+    return CGSizeZero;
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
