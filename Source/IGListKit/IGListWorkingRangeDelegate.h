@@ -10,8 +10,6 @@
 @class IGListAdapter;
 @class IGListSectionController;
 
-
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**

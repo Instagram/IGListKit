@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 
 #if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import <IGListKit/IGListDiffable.h>
+#import "IGListDiffable.h"
 #else
 #import <IGListDiffKit/IGListDiffable.h>
 #endif

@@ -7,12 +7,21 @@
 
 #import <UIKit/UIKit.h>
 
+#if !__has_include(<IGListKit/IGListKit.h>)
+#import "IGListCollectionContext.h"
+#import "IGListDisplayDelegate.h"
+#import "IGListScrollDelegate.h"
+#import "IGListSupplementaryViewSource.h"
+#import "IGListTransitionDelegate.h"
+#import "IGListWorkingRangeDelegate.h"
+#else
 #import <IGListKit/IGListCollectionContext.h>
 #import <IGListKit/IGListDisplayDelegate.h>
 #import <IGListKit/IGListScrollDelegate.h>
 #import <IGListKit/IGListSupplementaryViewSource.h>
 #import <IGListKit/IGListTransitionDelegate.h>
 #import <IGListKit/IGListWorkingRangeDelegate.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

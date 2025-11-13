@@ -5,7 +5,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+#if !__has_include(<IGListKit/IGListKit.h>)
+#import "IGListSectionController.h"
+#else
 #import <IGListKit/IGListSectionController.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
