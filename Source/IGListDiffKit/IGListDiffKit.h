@@ -45,3 +45,4 @@ FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 #import <IGListDiffKit/IGListMoveIndexPath.h>
 #import <IGListDiffKit/NSNumber+IGListDiffable.h>
 #import <IGListDiffKit/NSString+IGListDiffable.h>
+#endif
