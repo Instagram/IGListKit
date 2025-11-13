@@ -8,12 +8,18 @@
 #import <UIKit/UIKit.h>
 
 #if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import <IGListKit/IGListExperiments.h>
+#import "IGListExperiments.h"
 #else
 #import <IGListDiffKit/IGListExperiments.h>
 #endif
+
+#if !__has_include(<IGListKit/IGListKit.h>)
+#import "IGListBatchContext.h"
+#import "IGListCollectionScrollingTraits.h"
+#else
 #import <IGListKit/IGListBatchContext.h>
 #import <IGListKit/IGListCollectionScrollingTraits.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

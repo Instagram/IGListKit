@@ -6,7 +6,7 @@
  */
 
 #if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import <IGListKit/IGListCompatibility.h>
+#import "IGListCompatibility.h"
 #else
 #import <IGListDiffKit/IGListCompatibility.h>
 #endif
@@ -25,6 +25,39 @@ FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 
 // iOS and tvOS only:
 
+#if !__has_include(<IGListKit/IGListKit.h>)
+#import "IGListAdapter.h"
+#import "IGListAdapterDataSource.h"
+#import "IGListAdapterDelegate.h"
+#import "IGListAdapterDelegateAnnouncer.h"
+#import "IGListAdapterUpdateListener.h"
+#import "IGListAdapterUpdater.h"
+#import "IGListAdapterUpdaterDelegate.h"
+#import "IGListBatchContext.h"
+#import "IGListBindable.h"
+#import "IGListBindingSectionController.h"
+#import "IGListBindingSectionControllerDataSource.h"
+#import "IGListBindingSectionControllerSelectionDelegate.h"
+#import "IGListBindingSingleSectionController.h"
+#import "IGListCollectionContext.h"
+#import "IGListCollectionView.h"
+#import "IGListCollectionViewLayout.h"
+#import "IGListCollectionViewLayoutInvalidationContext.h"
+#import "IGListDisplayDelegate.h"
+#import "IGListGenericSectionController.h"
+#import "IGListCollectionViewDelegateLayout.h"
+#import "IGListReloadDataUpdater.h"
+#import "IGListScrollDelegate.h"
+#import "IGListSectionController.h"
+#import "IGListSingleSectionController.h"
+#import "IGListSupplementaryViewSource.h"
+#import "IGListTransitionData.h"
+#import "IGListTransitionDelegate.h"
+#import "IGListUpdatingDelegate.h"
+#import "IGListWorkingRangeDelegate.h"
+#import "IGListCollectionViewDelegateLayout.h"
+#import "UIViewController+IGListAdapter.h"
+#else
 #import <IGListKit/IGListAdapter.h>
 #import <IGListKit/IGListAdapterDataSource.h>
 #import <IGListKit/IGListAdapterDelegate.h>
@@ -56,23 +89,24 @@ FOUNDATION_EXPORT const unsigned char IGListKitVersionString[];
 #import <IGListKit/IGListWorkingRangeDelegate.h>
 #import <IGListKit/IGListCollectionViewDelegateLayout.h>
 #import <IGListKit/UIViewController+IGListAdapter.h>
+#endif
 
 #endif
 
 // Shared (iOS, tvOS, macOS compatible):
 
 #if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import <IGListKit/IGListAssert.h>
-#import <IGListKit/IGListBatchUpdateData.h>
-#import <IGListKit/IGListDiff.h>
-#import <IGListKit/IGListDiffable.h>
-#import <IGListKit/IGListExperiments.h>
-#import <IGListKit/IGListIndexPathResult.h>
-#import <IGListKit/IGListIndexSetResult.h>
-#import <IGListKit/IGListMoveIndex.h>
-#import <IGListKit/IGListMoveIndexPath.h>
-#import <IGListKit/NSNumber+IGListDiffable.h>
-#import <IGListKit/NSString+IGListDiffable.h>
+#import "IGListAssert.h"
+#import "IGListBatchUpdateData.h"
+#import "IGListDiff.h"
+#import "IGListDiffable.h"
+#import "IGListExperiments.h"
+#import "IGListIndexPathResult.h"
+#import "IGListIndexSetResult.h"
+#import "IGListMoveIndex.h"
+#import "IGListMoveIndexPath.h"
+#import "NSNumber+IGListDiffable.h"
+#import "NSString+IGListDiffable.h"
 #else
 #import <IGListDiffKit/IGListAssert.h>
 #import <IGListDiffKit/IGListBatchUpdateData.h>
