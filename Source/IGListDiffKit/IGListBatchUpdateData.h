@@ -7,9 +7,15 @@
 
 #import <Foundation/Foundation.h>
 
+#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
+#import "IGListMacros.h"
+#import "IGListMoveIndex.h"
+#import "IGListMoveIndexPath.h"
+#else
 #import <IGListDiffKit/IGListMacros.h>
 #import <IGListDiffKit/IGListMoveIndex.h>
 #import <IGListDiffKit/IGListMoveIndexPath.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
