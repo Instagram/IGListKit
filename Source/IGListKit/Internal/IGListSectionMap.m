@@ -151,9 +151,11 @@
     for (NSInteger section = 0; section < (NSInteger)objects.count; section++) {
         id object = objects[section];
         IGListSectionController *sectionController = [self sectionControllerForObject:object];
-        block(object, sectionController, section, &stop);
-        if (stop) {
-            break;
+        if (sectionController != nil) {
+            block(object, sectionController, section, &stop);
+            if (stop) {
+                break;
+            }
         }
     }
 }
