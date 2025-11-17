@@ -8,14 +8,20 @@
 #import <Foundation/Foundation.h>
 
 #if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import <IGListKit/IGListMacros.h>
+#import "IGListMacros.h"
 #else
 #import <IGListDiffKit/IGListMacros.h>
 #endif
 
+#if !__has_include(<IGListKit/IGListKit.h>)
+#import "IGListBindingSectionControllerDataSource.h"
+#import "IGListBindingSectionControllerSelectionDelegate.h"
+#import "IGListSectionController.h"
+#else
 #import <IGListKit/IGListBindingSectionControllerDataSource.h>
 #import <IGListKit/IGListBindingSectionControllerSelectionDelegate.h>
 #import <IGListKit/IGListSectionController.h>
+#endif
 
 @protocol IGListDiffable;
 
