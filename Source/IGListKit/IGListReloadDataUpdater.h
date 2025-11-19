@@ -8,13 +8,13 @@
 #import <UIKit/UIKit.h>
 
 #if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import "IGListMacros.h"
+#import <IGListKit/IGListMacros.h>
 #else
 #import <IGListDiffKit/IGListMacros.h>
 #endif
 
 #if !__has_include(<IGListKit/IGListKit.h>)
-#import "IGListUpdatingDelegate.h"
+#import <IGListKit/IGListUpdatingDelegate.h>
 #else
 #import <IGListKit/IGListUpdatingDelegate.h>
 #endif

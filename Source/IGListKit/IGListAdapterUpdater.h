@@ -8,16 +8,16 @@
 #import <UIKit/UIKit.h>
 
 #if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import "IGListMacros.h"
-#import "IGListExperiments.h"
+#import <IGListKit/IGListMacros.h>
+#import <IGListKit/IGListExperiments.h>
 #else
 #import <IGListDiffKit/IGListMacros.h>
 #import <IGListDiffKit/IGListExperiments.h>
 #endif
 
 #if !__has_include(<IGListKit/IGListKit.h>)
-#import "IGListUpdatingDelegate.h"
-#import "IGListAdapterUpdaterDelegate.h"
+#import <IGListKit/IGListUpdatingDelegate.h>
+#import <IGListKit/IGListAdapterUpdaterDelegate.h>
 #else
 #import <IGListKit/IGListUpdatingDelegate.h>
 #import <IGListKit/IGListAdapterUpdaterDelegate.h>

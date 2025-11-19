@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 
 #if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
-#import "IGListBatchUpdateData.h"
+#import <IGListKit/IGListBatchUpdateData.h>
 #else
 #import <IGListDiffKit/IGListBatchUpdateData.h>
 #endif
