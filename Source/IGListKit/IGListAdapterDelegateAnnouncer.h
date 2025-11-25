@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 
 #if !__has_include(<IGListKit/IGListKit.h>)
-#import <IGListKit/IGListAdapterDelegate.h>
+#import "IGListAdapterDelegate.h"
 #else
 #import <IGListKit/IGListAdapterDelegate.h>
 #endif
