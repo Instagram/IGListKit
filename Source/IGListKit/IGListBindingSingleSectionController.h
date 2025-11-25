@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 
 #if !__has_include(<IGListKit/IGListKit.h>)
-#import <IGListKit/IGListSectionController.h>
+#import "IGListSectionController.h"
 #else
 #import <IGListKit/IGListSectionController.h>
 #endif
