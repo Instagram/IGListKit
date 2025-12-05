@@ -9,6 +9,16 @@
 
 #import "IGListAdapterDelegateAnnouncerInternal.h"
 
+#if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
+
+#import "IGListAssert.h"
+
+#else
+
+#import <IGListDiffKit/IGListAssert.h>
+
+#endif
+
 @implementation IGListAdapterDelegateAnnouncer {
     NSHashTable<id<IGListAdapterDelegate>> *_delegates;
 }
@@ -23,6 +33,7 @@
 }
 
 - (void)addListener:(id<IGListAdapterDelegate>)listener {
+    IGAssertMainThread();
     if (!_delegates) {
         _delegates = [NSHashTable weakObjectsHashTable];
     }
@@ -31,28 +42,33 @@
 }
 
 - (void)removeListener:(id<IGListAdapterDelegate>)listener {
+    IGAssertMainThread();
     [_delegates removeObject:listener];
 }
 
 - (void)announceObjectDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object index:(NSInteger)index {
+    IGAssertMainThread();
     for (id<IGListAdapterDelegate> delegate in [_delegates allObjects]) {
         [delegate listAdapter:listAdapter willDisplayObject:object atIndex:index];
     }
 }
 
 - (void)announceObjectEndDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object index:(NSInteger)index {
+    IGAssertMainThread();
     for (id<IGListAdapterDelegate> delegate in [_delegates allObjects]) {
         [delegate listAdapter:listAdapter didEndDisplayingObject:object atIndex:index];
     }
 }
 
 - (void)announceCellDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object cell:(UICollectionViewCell *)cell indexPath:(NSIndexPath *)indexPath {
+    IGAssertMainThread();
     for (id<IGListAdapterDelegate> delegate in [_delegates allObjects]) {
         [delegate listAdapter:listAdapter willDisplayObject:object cell:cell atIndexPath:indexPath];
     }
 }
 
 - (void)announceCellEndDisplayWithAdapter:(IGListAdapter *)listAdapter object:(id)object cell:(UICollectionViewCell *)cell indexPath:(NSIndexPath *)indexPath {
+    IGAssertMainThread();
     for (id<IGListAdapterDelegate> delegate in [_delegates allObjects]) {
         [delegate listAdapter:listAdapter didEndDisplayingObject:object cell:cell atIndexPath:indexPath];
     }
