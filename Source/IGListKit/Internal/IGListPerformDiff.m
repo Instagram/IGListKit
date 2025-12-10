@@ -20,16 +20,17 @@
 
 static void _regularPerformDiffWithData(IGListTransitionData *_Nullable data,
                                         BOOL allowsBackground,
+                                        IGListExperiment experiments,
                                         IGListDiffExecutorCompletion completion) {
     if (allowsBackground) {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-            IGListIndexSetResult *result = IGListDiff(data.fromObjects, data.toObjects, IGListDiffEquality);
+            IGListIndexSetResult *result = IGListDiffExperiment(data.fromObjects, data.toObjects, IGListDiffEquality, experiments);
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(result, allowsBackground);
             });
         });
     } else {
-        IGListIndexSetResult *result = IGListDiff(data.fromObjects, data.toObjects, IGListDiffEquality);
+        IGListIndexSetResult *result = IGListDiffExperiment(data.fromObjects, data.toObjects, IGListDiffEquality, experiments);
         completion(result, allowsBackground);
     }
 }
@@ -64,16 +65,17 @@ static dispatch_queue_t _queueForData(IGListTransitionData *data,
 static void _adaptivePerformDiffWithData(IGListTransitionData *_Nullable data,
                                          UIView *view,
                                          BOOL allowsBackground,
+                                         IGListExperiment experiments,
                                          IGListAdaptiveDiffingExperimentConfig adaptiveConfig,
                                          IGListDiffExecutorCompletion completion) {
     const dispatch_queue_t queue = _queueForData(data, view, allowsBackground, adaptiveConfig);
 
     if (queue == dispatch_get_main_queue() && [NSThread isMainThread]) {
-        IGListIndexSetResult *const result = IGListDiff(data.fromObjects, data.toObjects, IGListDiffEquality);
+        IGListIndexSetResult *const result = IGListDiffExperiment(data.fromObjects, data.toObjects, IGListDiffEquality, experiments);
         completion(result, NO);
     } else {
         dispatch_async(queue, ^{
-            IGListIndexSetResult *const result = IGListDiff(data.fromObjects, data.toObjects, IGListDiffEquality);
+            IGListIndexSetResult *const result = IGListDiffExperiment(data.fromObjects, data.toObjects, IGListDiffEquality, experiments);
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(result, YES);
             });
@@ -86,6 +88,7 @@ static void _adaptivePerformDiffWithData(IGListTransitionData *_Nullable data,
 void IGListPerformDiffWithData(IGListTransitionData *_Nullable data,
                                UIView *view,
                                BOOL allowsBackground,
+                               IGListExperiment experiments,
                                IGListAdaptiveDiffingExperimentConfig adaptiveConfig,
                                IGListDiffExecutorCompletion completion) {
     if (!completion) {
@@ -93,9 +96,9 @@ void IGListPerformDiffWithData(IGListTransitionData *_Nullable data,
     }
     
     if (adaptiveConfig.enabled) {
-        _adaptivePerformDiffWithData(data, view, allowsBackground, adaptiveConfig, completion);
+        _adaptivePerformDiffWithData(data, view, allowsBackground, experiments, adaptiveConfig, completion);
     } else {
         // Just to be safe, lets keep the original code path intact while adaptive diffing is still an experiment.
-        _regularPerformDiffWithData(data, allowsBackground, completion);
+        _regularPerformDiffWithData(data, allowsBackground, experiments, completion);
     }
 }
