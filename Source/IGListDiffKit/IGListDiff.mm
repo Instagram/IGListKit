@@ -367,11 +367,9 @@ static id IGListDiffing(BOOL returnIndexPaths,
 
     aligned_union<0, IGListMoveChecker, IGListOptimalMoveChecker>::type moveCheckerBuf;
 
-//    IGListMoveChecker *moveChecker = IGListExperimentEnabled(experiments, IGListExperimentOptimizedMoves)
-//                                       ? new (&moveCheckerBuf) IGListOptimalMoveChecker(newResultsArray, untouchedIndexes)
-//                                       : new (&moveCheckerBuf) IGListMoveChecker();
-
-    IGListMoveChecker *moveChecker = new (&moveCheckerBuf) IGListOptimalMoveChecker(newResultsArray, untouchedIndexes);
+    IGListMoveChecker *moveChecker = IGListExperimentEnabled(experiments, IGListExperimentOptimizedMoves)
+                                       ? new (&moveCheckerBuf) IGListOptimalMoveChecker(newResultsArray, untouchedIndexes)
+                                       : new (&moveCheckerBuf) IGListMoveChecker();
     
     // offset incremented for each insert
     NSInteger insertOffset = 0;

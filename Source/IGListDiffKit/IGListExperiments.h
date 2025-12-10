@@ -28,6 +28,8 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentRemoveDataSourceChangeEarlyExit = 1 << 4,
     /// Avoids creating off-screen cells
     IGListExperimentFixPreferredFocusedView = 1 << 5,
+    /// Optimizes moves to only perform the minimum required number.
+    IGListExperimentOptimizedMoves = 1 << 6,
 };
 
 /**

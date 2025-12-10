@@ -5,11 +5,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <XCTest/XCTest.h>
 #import <Foundation/Foundation.h>
 #import <GameplayKit/GameplayKit.h>
-#import <IGListKit/IGListDiff.h>
-#import <IGListKit/IGListExperiments.h>
+#import <XCTest/XCTest.h>
+
+#import <IGListDiffKit/IGListDiff.h>
+#import <IGListDiffKit/IGListExperiments.h>
+
 #import "IGListIndexSetResultInternal.h"
 #import "IGListMoveIndexInternal.h"
 #import "IGListMoveIndexPathInternal.h"
