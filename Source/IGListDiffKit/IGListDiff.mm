@@ -342,8 +342,10 @@ static id IGListDiffing(BOOL returnIndexPaths,
     }
 
     // track offsets from deleted items to calculate where items have moved
-    vector<NSInteger> deleteOffsets(oldCount), insertOffsets(newCount);
+    vector<NSInteger> deleteOffsets(oldCount);
     NSInteger runningOffset = 0;
+    
+    auto untouchedIndexes = [NSMutableIndexSet new];
 
     // iterate old array records checking for deletes
     // incremement offset for each delete
@@ -354,22 +356,31 @@ static id IGListDiffing(BOOL returnIndexPaths,
         if (record.index == NSNotFound) {
             addIndexToCollection(returnIndexPaths, mDeletes, fromSection, i);
             runningOffset++;
+        } else if (record.index == i) {
+            [untouchedIndexes addIndex:record.index];
         }
 
         addIndexToMap(returnIndexPaths, fromSection, i, oldArray[i], oldMap);
     }
 
-    // reset and track offsets from inserted items to calculate where items have moved
-    runningOffset = 0;
+    aligned_union<0, IGListMoveChecker, IGListOptimalMoveChecker>::type moveCheckerBuf;
+
+//    IGListMoveChecker *moveChecker = IGListExperimentEnabled(experiments, IGListExperimentOptimizedMoves)
+//                                       ? new (&moveCheckerBuf) IGListOptimalMoveChecker(newResultsArray, untouchedIndexes)
+//                                       : new (&moveCheckerBuf) IGListMoveChecker();
+
+    IGListMoveChecker *moveChecker = new (&moveCheckerBuf) IGListOptimalMoveChecker(newResultsArray, untouchedIndexes);
+    
+    // offset incremented for each insert
+    NSInteger insertOffset = 0;
 
     for (NSInteger i = 0; i < newCount; i++) {
-        insertOffsets[i] = runningOffset;
         const IGListRecord record = newResultsArray[i];
         const NSInteger oldIndex = record.index;
         // add to inserts if the opposing index is NSNotFound
         if (record.index == NSNotFound) {
             addIndexToCollection(returnIndexPaths, mInserts, toSection, i);
-            runningOffset++;
+            insertOffset++;
         } else {
             // note that an entry can be updated /and/ moved
             if (record.entry->updated) {
@@ -377,10 +388,9 @@ static id IGListDiffing(BOOL returnIndexPaths,
             }
 
             // calculate the offset and determine if there was a move
-            // if the indexes match, ignore the index
-            const NSInteger insertOffset = insertOffsets[i];
             const NSInteger deleteOffset = deleteOffsets[oldIndex];
-            if ((oldIndex - deleteOffset + insertOffset) != i) {
+            if (moveChecker->isMove(oldIndex, i, insertOffset, deleteOffset)) {
+                // add move from old index to new index
                 id move;
                 if (returnIndexPaths) {
                     NSIndexPath *from = [NSIndexPath indexPathForItem:oldIndex inSection:fromSection];
@@ -396,6 +406,8 @@ static id IGListDiffing(BOOL returnIndexPaths,
         addIndexToMap(returnIndexPaths, toSection, i, newArray[i], newMap);
     }
 
+    moveChecker->~IGListMoveChecker();
+    
     NSCAssert((oldCount + (NSInteger)[mInserts count] - (NSInteger)[mDeletes count]) == newCount,
               @"Sanity check failed applying %lu inserts and %lu deletes to old count %li equaling new count %li",
               (unsigned long)[mInserts count], (unsigned long)[mDeletes count], (long)oldCount, (long)newCount);
