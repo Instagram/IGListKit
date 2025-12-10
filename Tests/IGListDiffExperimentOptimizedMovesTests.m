@@ -6,7 +6,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <GameplayKit/GameplayKit.h>
+#import <GameplayKit/GKRandomSource.h>
 #import <XCTest/XCTest.h>
 
 #import <IGListDiffKit/IGListDiff.h>
@@ -222,9 +222,7 @@ static NSArray *updatedArray(NSArray *oldArray, NSArray *newArray, IGListIndexSe
 - (void)test_whenShuffling_thatApplyingDiffProducesSameArray {
 
     for (int testIdx = 0; testIdx < 1000; testIdx ++) {
-
         NSArray *o = @[ @0, @1, @2, @3, @4, @5, @6, @7, @8, @9 ];
-
         NSArray *n = [o shuffledArray];
 
         IGListIndexSetResult *result = IGListDiffExperiment(o, n, IGListDiffEquality, IGListExperimentOptimizedMoves);

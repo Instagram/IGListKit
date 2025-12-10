@@ -464,6 +464,9 @@
 		F178F7002EE9675600799ACE /* IGListDiffExperimentOptimizedMovesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F178F6FF2EE9675600799ACE /* IGListDiffExperimentOptimizedMovesTests.m */; };
 		F178F7012EE9675600799ACE /* IGListDiffExperimentOptimizedMovesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F178F6FF2EE9675600799ACE /* IGListDiffExperimentOptimizedMovesTests.m */; };
 		F178F7022EE9675600799ACE /* IGListDiffExperimentOptimizedMovesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F178F6FF2EE9675600799ACE /* IGListDiffExperimentOptimizedMovesTests.m */; };
+		F178F7042EE97CA500799ACE /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F178F7032EE97CA500799ACE /* GameplayKit.framework */; };
+		F178F7062EE97CAC00799ACE /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F178F7052EE97CAC00799ACE /* GameplayKit.framework */; };
+		F178F7082EE97CB200799ACE /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F178F7072EE97CB200799ACE /* GameplayKit.framework */; };
 		F1855A4C29BC565600558D18 /* IGListDiffDescriptionStringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F1855A4B29BC565600558D18 /* IGListDiffDescriptionStringTests.m */; };
 		F1855A4D29BC565600558D18 /* IGListDiffDescriptionStringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F1855A4B29BC565600558D18 /* IGListDiffDescriptionStringTests.m */; };
 		F1855A4E29BC565600558D18 /* IGListDiffDescriptionStringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F1855A4B29BC565600558D18 /* IGListDiffDescriptionStringTests.m */; };
@@ -905,6 +908,9 @@
 		F15F1DDD2BA40BC9002AF3FE /* IGListDiffKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = IGListDiffKit.podspec; sourceTree = "<group>"; };
 		F15F1DDE2BA40BC9002AF3FE /* IGListSwiftKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = IGListSwiftKit.podspec; sourceTree = "<group>"; };
 		F178F6FF2EE9675600799ACE /* IGListDiffExperimentOptimizedMovesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IGListDiffExperimentOptimizedMovesTests.m; sourceTree = "<group>"; };
+		F178F7032EE97CA500799ACE /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/System/Library/Frameworks/GameplayKit.framework; sourceTree = DEVELOPER_DIR; };
+		F178F7052EE97CAC00799ACE /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS26.0.sdk/System/Library/Frameworks/GameplayKit.framework; sourceTree = DEVELOPER_DIR; };
+		F178F7072EE97CB200799ACE /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/System/iOSSupport/System/Library/Frameworks/GameplayKit.framework; sourceTree = DEVELOPER_DIR; };
 		F1855A4B29BC565600558D18 /* IGListDiffDescriptionStringTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListDiffDescriptionStringTests.m; sourceTree = "<group>"; };
 		F18CC75B29EFBB9400DC3B9A /* IGListCollectionViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListCollectionViewTests.m; sourceTree = "<group>"; };
 		F18CC75E29EFBBB300DC3B9A /* IGListBindingSingleSectionControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGListBindingSingleSectionControllerTests.m; sourceTree = "<group>"; };
@@ -970,6 +976,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F12D8EAC2E93853500A7DDBE /* OCMock in Frameworks */,
+				F178F7062EE97CAC00799ACE /* GameplayKit.framework in Frameworks */,
 				885FE1DD1DC51A0D009CE2B4 /* IGListKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -987,6 +994,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F12D8EAA2E93852600A7DDBE /* OCMock in Frameworks */,
+				F178F7082EE97CB200799ACE /* GameplayKit.framework in Frameworks */,
 				887D0B401D870D7F009E01F7 /* IGListKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -996,6 +1004,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F12D8EAF2E93854100A7DDBE /* OCMock in Frameworks */,
+				F178F7042EE97CA500799ACE /* GameplayKit.framework in Frameworks */,
 				88DF89811E010E6A00B1B9B4 /* IGListKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1386,6 +1395,9 @@
 		F12D8EAD2E93854100A7DDBE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F178F7072EE97CB200799ACE /* GameplayKit.framework */,
+				F178F7052EE97CAC00799ACE /* GameplayKit.framework */,
+				F178F7032EE97CA500799ACE /* GameplayKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
