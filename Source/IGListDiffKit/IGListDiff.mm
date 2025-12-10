@@ -12,6 +12,7 @@
 #import <vector>
 
 #import "IGListCompatibility.h"
+#import "IGListExperiments.h"
 #import "IGListMacros.h"
 
 #import "IGListIndexPathResultInternal.h"
@@ -195,7 +196,8 @@ static id IGListDiffing(BOOL returnIndexPaths,
                         NSInteger toSection,
                         NSArray<id<IGListDiffable>> *oldArray,
                         NSArray<id<IGListDiffable>> *newArray,
-                        IGListDiffOption option) {
+                        IGListDiffOption option,
+                        IGListExperiment experiments) {
     const NSInteger newCount = newArray.count;
     const NSInteger oldCount = oldArray.count;
 
@@ -432,7 +434,7 @@ static id IGListDiffing(BOOL returnIndexPaths,
 IGListIndexSetResult *IGListDiff(NSArray<id<IGListDiffable> > *oldArray,
                                  NSArray<id<IGListDiffable>> *newArray,
                                  IGListDiffOption option) {
-    return IGListDiffing(NO, 0, 0, oldArray, newArray, option);
+    return IGListDiffing(NO, 0, 0, oldArray, newArray, option, 0);
 }
 
 IGListIndexPathResult *IGListDiffPaths(NSInteger fromSection,
@@ -440,5 +442,21 @@ IGListIndexPathResult *IGListDiffPaths(NSInteger fromSection,
                                        NSArray<id<IGListDiffable>> *oldArray,
                                        NSArray<id<IGListDiffable>> *newArray,
                                        IGListDiffOption option) {
-    return IGListDiffing(YES, fromSection, toSection, oldArray, newArray, option);
+    return IGListDiffing(YES, fromSection, toSection, oldArray, newArray, option, 0);
+}
+
+IGListIndexSetResult *IGListDiffExperiment(NSArray<id<IGListDiffable>> *_Nullable oldArray,
+                                           NSArray<id<IGListDiffable>> *_Nullable newArray,
+                                           IGListDiffOption option,
+                                           IGListExperiment experiments) {
+    return IGListDiffing(NO, 0, 0, oldArray, newArray, option, experiments);
+}
+
+IGListIndexPathResult *IGListDiffPathsExperiment(NSInteger fromSection,
+                                                 NSInteger toSection,
+                                                 NSArray<id<IGListDiffable>> *_Nullable oldArray,
+                                                 NSArray<id<IGListDiffable>> *_Nullable newArray,
+                                                 IGListDiffOption option,
+                                                 IGListExperiment experiments) {
+    return IGListDiffing(YES, fromSection, toSection, oldArray, newArray, option, experiments);
 }
