@@ -9,8 +9,10 @@
 
 #if !__has_include(<IGListDiffKit/IGListDiffKit.h>)
 #import "IGListAssert.h"
+#import "IGListExperiments.h"
 #else
 #import <IGListDiffKit/IGListAssert.h>
+#import <IGListDiffKit/IGListExperiments.h>
 #endif
 #import "IGListBindable.h"
 
@@ -62,7 +64,7 @@ typedef NS_ENUM(NSInteger, IGListDiffingSectionState) {
 
         NSArray *newViewModels = [self.dataSource sectionController:self viewModelsForObject:object];
         self.viewModels = objectsWithDuplicateIdentifiersRemoved(newViewModels);
-        result = IGListDiff(oldViewModels, self.viewModels, IGListDiffEquality);
+        result = IGListDiffExperiment(oldViewModels, self.viewModels, IGListDiffEquality, collectionContext.experiments);
 
         [result.updates enumerateIndexesUsingBlock:^(NSUInteger oldUpdatedIndex, BOOL *stop) {
             id identifier = [oldViewModels[oldUpdatedIndex] diffIdentifier];
