@@ -1669,6 +1669,7 @@
     XCTAssertFalse(s2.wasUnhighlighted);
 }
 
+#if !TARGET_OS_TV
 - (void)test_whenContextMenuAskedCell_thatCollectionViewDelegateReceivesMethod API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos) {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];
@@ -1702,6 +1703,7 @@
     XCTAssertFalse(s1.requestedContextMenu);
     XCTAssertFalse(s2.requestedContextMenu);
 }
+#endif
 
 - (void)test_whenDataSourceDoesntHandleObject_thatObjectIsDropped {
     // IGListTestAdapterDataSource does not handle NSStrings
