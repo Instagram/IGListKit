@@ -14,6 +14,8 @@
 #import "IGTestStoryboardSupplementarySource.h"
 #import "IGTestStoryboardViewController.h"
 
+#if !TARGET_OS_TV
+
 static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
 @interface IGListAdapterStoryboardTests : XCTestCase
@@ -77,3 +79,5 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 }
 
 @end
+
+#endif
