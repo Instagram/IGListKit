@@ -79,7 +79,7 @@
     self.dataSource.objects = @[
                                 genTestObject(@1, @"Foo"),
                                 genTestObject(@2, @"Qux"), // new value
-                                genTestObject(@4, @"Baz"),
+                                genTestObject(@3, @"Baz"),
                                 ];
     XCTestExpectation *expectation = genExpectation;
     [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
