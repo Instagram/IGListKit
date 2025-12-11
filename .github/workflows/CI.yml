@@ -34,8 +34,8 @@ jobs:
       - name: Run unit tests for macOS
         run: |
           set -o pipefail
-          xcodebuild build build-for-testing -project "${{ env.PROJECT_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "platform=macOS" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
-          xcodebuild analyze test-without-building -project "${{ env.PROJECT_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "platform=macOS" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+          xcodebuild build build-for-testing -project "${{ env.PROJECT_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "platform=macOS" -configuration Debug CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+          xcodebuild analyze test-without-building -project "${{ env.PROJECT_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "platform=macOS" -configuration Debug CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
 
   iOS:
     name: Unit Test iOS
@@ -65,8 +65,8 @@ jobs:
       - name: iOS - ${{ matrix.destination }}
         run: |
           set -o pipefail
-          xcodebuild build build-for-testing -project "${{ env.PROJECT_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
-          xcodebuild analyze test-without-building -project "${{ env.PROJECT_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+          xcodebuild build build-for-testing -project "${{ env.PROJECT_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+          xcodebuild analyze test-without-building -project "${{ env.PROJECT_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
 
       - name: Upload code coverage
         run: bundle exec slather
@@ -103,8 +103,8 @@ jobs:
       - name: Run unit tests for tvOS
         run: |
           set -o pipefail
-          xcodebuild build build-for-testing -project "${{ env.PROJECT_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
-          xcodebuild analyze test-without-building -project "${{ env.PROJECT_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+          xcodebuild build build-for-testing -project "${{ env.PROJECT_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
+          xcodebuild analyze test-without-building -project "${{ env.PROJECT_NAME }}" -scheme "${{ env.SCHEME_NAME }}" -destination "${{ matrix.destination }}" -configuration Debug CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES | bundle exec xcpretty -c
 
   CocoaPods:
     name: CocoaPods Lint
