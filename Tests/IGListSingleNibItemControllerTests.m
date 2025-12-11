@@ -11,6 +11,8 @@
 #import "IGTestCell.h"
 #import "IGTestSingleNibItemDataSource.h"
 
+#if !TARGET_OS_TV
+
 @interface IGListSingleNibSectionControllerTests : IGListTestCase
 @end
 
@@ -86,3 +88,5 @@
 }
 
 @end
+
+#endif

@@ -14,6 +14,8 @@
 
 #define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
 
+#if !TARGET_OS_TV
+
 @interface IGListSingleStoryboardSectionControllerTests : XCTestCase
 
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -116,3 +118,5 @@
 }
 
 @end
+
+#endif

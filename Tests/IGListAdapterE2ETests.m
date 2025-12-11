@@ -588,6 +588,7 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+#if !TARGET_OS_TV
 - (void)test_whenContentOffsetChanges_withPerformUpdates_thatCollectionViewWorks {
     // this test layout changes the offset in -prepareLayout which occurs somewhere between the update block being
     // applied and the completion block
@@ -612,6 +613,7 @@
     }];
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
+#endif
 
 - (void)test_whenReloadingItems_withNewItemInstances_thatSectionControllersReceiveNewInstances {
     [self setupWithObjects:@[

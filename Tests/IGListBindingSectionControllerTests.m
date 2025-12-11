@@ -196,6 +196,8 @@
     XCTAssertEqualObjects(section.unhighlightedViewModel, @"seven");
 }
 
+
+#if !TARGET_OS_TV
 - (void)test_whenContextMenuAskedCell_thatCorrectViewModelRetrieved API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos) {
     [self setupWithObjects:@[
                              [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
@@ -204,6 +206,7 @@
     IGTestDiffingSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
     XCTAssertEqualObjects(section.contextMenuViewModel, @"seven");
 }
+#endif
 
 - (void)test_whenDeselectingCell_withoutImplementation_thatNoOps {
     [self setupWithObjects:@[

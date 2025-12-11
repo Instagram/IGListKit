@@ -283,7 +283,8 @@
     XCTAssertTrue([visibleSectionControllers containsObject:[self.adapter sectionControllerForObject:@4]]);
 }
 
-- (void)test_withEmptySectionPlusFooter_thatVisibleSectionControllersAreCorrect {
+#if !TARGET_OS_TV
+- (void) test_withEmptySectionPlusFooter_thatVisibleSectionControllersAreCorrect {
     self.dataSource.objects = @[@0];
     [self.adapter reloadDataWithCompletion:nil];
     IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
@@ -299,6 +300,7 @@
     XCTAssertTrue([visibleSectionControllers count] == 1);
     XCTAssertTrue(visibleSectionControllers.firstObject.supplementaryViewSource == supplementarySource);
 }
+#endif
 
 - (void)test_whenCellsExtendBeyondBounds_thatVisibleCellsExistForSectionControllers {
     self.dataSource.objects = @[@2, @3, @4, @5, @6];
@@ -476,6 +478,7 @@
     XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
 }
 
+#if !TARGET_OS_TV
 - (void)test_whenSupplementarySourceSupportsFooter_withNibs_thatHeaderViewsAreNil {
     self.dataSource.objects = @[@1, @2];
     [self.adapter reloadDataWithCompletion:nil];
@@ -499,6 +502,7 @@
     XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
     XCTAssertNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionFooter atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]]);
 }
+#endif
 
 - (void)test_whenAdapterReleased_withSectionControllerStrongRefToCell_thatSectionControllersRelease {
     __weak id weakCollectionView = nil, weakAdapter = nil, weakSectionController = nil;
@@ -1665,6 +1669,7 @@
     XCTAssertFalse(s2.wasUnhighlighted);
 }
 
+#if !TARGET_OS_TV
 - (void)test_whenContextMenuAskedCell_thatCollectionViewDelegateReceivesMethod API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos) {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];
@@ -1698,6 +1703,7 @@
     XCTAssertFalse(s1.requestedContextMenu);
     XCTAssertFalse(s2.requestedContextMenu);
 }
+#endif
 
 - (void)test_whenDataSourceDoesntHandleObject_thatObjectIsDropped {
     // IGListTestAdapterDataSource does not handle NSStrings

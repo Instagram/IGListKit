@@ -65,9 +65,11 @@
     self.unhighlightedViewModel = viewModel;
 }
 
+#if !TARGET_OS_TV
 - (UIContextMenuConfiguration * _Nullable)sectionController:(IGListBindingSectionController *)sectionController contextMenuConfigurationForItemAtIndex:(NSInteger)index point:(CGPoint)point viewModel:(id)viewModel API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos) {
     self.contextMenuViewModel = viewModel;
     return nil;
 }
+#endif
 
 @end
