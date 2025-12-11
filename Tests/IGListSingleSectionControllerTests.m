@@ -79,7 +79,6 @@
     self.dataSource.objects = @[
                                 genTestObject(@1, @"Foo"),
                                 genTestObject(@2, @"Qux"), // new value
-                                genTestObject(@3, @"Bar"),
                                 genTestObject(@4, @"Baz"),
                                 ];
     XCTestExpectation *expectation = genExpectation;
