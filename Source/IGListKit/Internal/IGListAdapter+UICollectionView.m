@@ -44,8 +44,8 @@
     [performanceDelegate listAdapterWillCallDequeueCell:self];
 
     IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
-    IGAssert(sectionController != nil, @"Section controller nil for section %d", (int)indexPath.section);
-    IGAssert(sectionController.collectionContext != nil, @"sectionController.collectionContext nil for section %d", (int)indexPath.section);
+    IGAssert(sectionController != nil, @"Section controller is nil %@", [self _debugDetailsForIndexPath:indexPath]);
+    IGAssert(sectionController.collectionContext != nil, @"sectionController.collectionContext is nil %@", [self _debugDetailsForIndexPath:indexPath]);
 
 #if IG_ASSERTIONS_ENABLED
     if (!_dequeuedCells) {
@@ -58,13 +58,13 @@
     UICollectionViewCell *cell = [sectionController cellForItemAtIndex:indexPath.item];
     _isDequeuingCell = NO;
 
-    IGAssert(cell != nil, @"Returned a nil cell at indexPath <%@> from section controller: <%@>, dataSource: <%@>", indexPath, sectionController, self.dataSource.class);
+    IGAssert(cell != nil, @"Returned a nil cell %@", [self _debugDetailsForIndexPath:indexPath]);
     if (cell) {
-        IGAssert(cell.reuseIdentifier != nil, @"Returned a cell without a reuseIdentifier at indexPath <%@> from section controller: <%@>", indexPath, sectionController);
+        IGAssert(cell.reuseIdentifier != nil, @"Returned a cell without a reuseIdentifier %@", [self _debugDetailsForIndexPath:indexPath]);
 
         if (_dequeuedCells) {
             // This will cause a crash in iOS 18
-            IGAssert([_dequeuedCells containsObject:cell], @"Returned a cell (%@) that was not dequeued at indexPath %@ from section controller %@", NSStringFromClass([cell class]), indexPath, sectionController);
+            IGAssert([_dequeuedCells containsObject:cell], @"Returned a cell (%@) that was not dequeued %@", cell.class, [self _debugDetailsForIndexPath:indexPath]);
         }
     }
 
@@ -96,11 +96,11 @@
     UICollectionReusableView *view = [supplementarySource viewForSupplementaryElementOfKind:kind atIndex:indexPath.item];
     _isDequeuingSupplementaryView = NO;
 
-    IGAssert(view != nil, @"Returned a nil supplementary view at indexPath <%@> from section controller: <%@>, supplementary source: <%@>", indexPath, sectionController, supplementarySource);
+    IGAssert(view != nil, @"Returned a nil supplementary-view from source %@ %@", supplementarySource.class, [self _debugDetailsForIndexPath:indexPath]);
 
     if (view && _dequeuedSupplementaryViews) {
         // This will cause a crash in iOS 18
-        IGAssert([_dequeuedSupplementaryViews containsObject:view], @"Returned a supplementary-view (%@) that was not dequeued at indexPath %@ from supplementary source %@", NSStringFromClass([view class]), indexPath, supplementarySource);
+        IGAssert([_dequeuedSupplementaryViews containsObject:view], @"Returned a supplementary-view (%@) that was not dequeued %@", view.class, [self _debugDetailsForIndexPath:indexPath]);
     }
     [_dequeuedSupplementaryViews removeAllObjects];
 
@@ -340,8 +340,8 @@
     IGWarn(![self.collectionViewDelegate respondsToSelector:_cmd], @"IGListAdapter is consuming method also implemented by the collectionViewDelegate: %@", NSStringFromSelector(_cmd));
 
     CGSize size = [self sizeForItemAtIndexPath:indexPath];
-    IGAssert(!isnan(size.height), @"IGListAdapter returned NaN height = %f for item at indexPath <%@>", size.height, indexPath);
-    IGAssert(!isnan(size.width), @"IGListAdapter returned NaN width = %f for item at indexPath <%@>", size.width, indexPath);
+    IGAssert(!isnan(size.height), @"IGListAdapter returned NaN height = %f %@", size.height, [self _debugDetailsForIndexPath:indexPath]);
+    IGAssert(!isnan(size.width), @"IGListAdapter returned NaN width = %f %@", size.width, [self _debugDetailsForIndexPath:indexPath]);
 
     return size;
 }
@@ -404,6 +404,12 @@
 }
 
 #pragma mark - Assert helpers
+
+- (NSString *)_debugDetailsForIndexPath:(NSIndexPath *)indexPath __attribute__((objc_direct)) {
+    const NSObject *object = [self objectAtSection:indexPath.section];
+    IGListSectionController *const sectionController = [self sectionControllerForSection:indexPath.section];
+    return [NSString stringWithFormat:@"{indexPath: %lu-%lu, object: %@, sectionController: %@, dataSource: %@}", indexPath.section, indexPath.item, object.class, sectionController.class, self.dataSource.class];
+}
 
 static void _assertNotInMiddleOfObjectUpdate(BOOL isInObjectUpdateTransaction) {
     IGAssert(isInObjectUpdateTransaction == NO, @"The UICollectionView is attempting to update its data while the IGListAdapter is in a middle of updating the object list. This will cause inconsistencies and potentially crashes (which are hard to debug). The most common cause is a section controller tries to access/modify the UICollectionView in -didUpdateToObject.");
