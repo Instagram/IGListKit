@@ -406,7 +406,7 @@
 #pragma mark - Assert helpers
 
 - (NSString *)_debugDetailsForIndexPath:(NSIndexPath *)indexPath __attribute__((objc_direct)) {
-    const NSObject *object = [self objectAtSection:indexPath.section];
+    NSObject *const object = [self objectAtSection:indexPath.section];
     IGListSectionController *const sectionController = [self sectionControllerForSection:indexPath.section];
     return [NSString stringWithFormat:@"{indexPath: %lu-%lu, object: %@, sectionController: %@, dataSource: %@}", indexPath.section, indexPath.item, object.class, sectionController.class, self.dataSource.class];
 }
