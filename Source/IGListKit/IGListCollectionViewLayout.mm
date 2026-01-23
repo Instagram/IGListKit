@@ -298,7 +298,13 @@ static void adjustZIndexForAttributes(UICollectionViewLayoutAttributes *attribut
     }
 
     attributes = [[[self class] layoutAttributesClass] layoutAttributesForCellWithIndexPath:indexPath];
-    attributes.frame = _sectionData[indexPath.section].itemBounds[indexPath.item];
+    CGRect frame = _sectionData[indexPath.section].itemBounds[indexPath.item];
+    // Avoid setting frames with nan values
+    if (isnan(frame.origin.x) || isnan(frame.origin.y) || isnan(frame.size.width) || isnan(frame.size.height)) {
+        FBReportMustFix(@"IGListCollectionViewLayout encountered nan frame values for indexPath %@. Original frame: %@", indexPath, NSStringFromCGRect(frame));
+        return nil;
+    }
+    attributes.frame = frame;
     adjustZIndexForAttributes(attributes);
     _attributesCache[indexPath] = attributes;
     return attributes;
