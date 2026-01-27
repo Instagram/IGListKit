@@ -522,4 +522,20 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenSizeForItemAtIndex_withInvalidIndex_thatReturnsCGSizeZero {
+    [self setupWithObjects:@[
+                             [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
+                             ]];
+
+    IGTestDiffingSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+
+    // Index out of bounds (too large)
+    CGSize sizeOutOfBounds = [section sizeForItemAtIndex:100];
+    XCTAssertTrue(CGSizeEqualToSize(sizeOutOfBounds, CGSizeZero));
+
+    // Negative index
+    CGSize sizeNegative = [section sizeForItemAtIndex:-1];
+    XCTAssertTrue(CGSizeEqualToSize(sizeNegative, CGSizeZero));
+}
+
 @end
