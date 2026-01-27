@@ -152,7 +152,8 @@
 
     // Use KVC to set a mismatched snapshot (different count) to trigger line 183
     // mObjects has 3 items, snapshot has 2 - validation should return early
-    [map setValue:@[@"id1", @"id2"] forKey:@"diffIdentifiersSnapshot"];
+    // Must use NSMutableArray since _updateAllDiffIdentifiers calls removeAllObjects
+    [map setValue:[@[@"id1", @"id2"] mutableCopy] forKey:@"diffIdentifiersSnapshot"];
 
     // Trigger validation by updating - the validation should handle the count mismatch gracefully
     NSArray *newObjects = @[@3, @4, @5];
