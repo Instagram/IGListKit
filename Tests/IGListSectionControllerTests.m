@@ -45,6 +45,12 @@
 - (void)test_whenCreatedOutsideDataSource_thatCollectionContextIsNil {
     // Creating a section controller directly (not through the data source) should result in
     // a nil collectionContext since the thread context stack is empty. This covers line 61.
+
+    // Clear the thread context stack to ensure we're testing the "outside data source" path
+    // This is needed because other tests may have left context on the stack
+    NSMutableDictionary *threadDictionary = [[NSThread currentThread] threadDictionary];
+    [threadDictionary removeObjectForKey:@"kIGListSectionControllerThreadKey"];
+
     IGListSectionController *sectionController = [[IGListSectionController alloc] init];
     XCTAssertNil(sectionController.collectionContext);
     XCTAssertNil(sectionController.viewController);
