@@ -538,4 +538,20 @@
     XCTAssertTrue(CGSizeEqualToSize(sizeNegative, CGSizeZero));
 }
 
+#if !TARGET_OS_TV
+- (void)test_whenContextMenuConfiguration_withNoSelectionDelegate_thatReturnsNil {
+    [self setupWithObjects:@[
+                             [[IGTestDiffingObject alloc] initWithKey:@1 objects:@[@7, @"seven"]],
+                             ]];
+
+    IGTestDiffingSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+    section.selectionDelegate = nil;
+
+    if (@available(iOS 13.0, *)) {
+        UIContextMenuConfiguration *config = [section contextMenuConfigurationForItemAtIndex:0 point:CGPointZero];
+        XCTAssertNil(config);
+    }
+}
+#endif
+
 @end
