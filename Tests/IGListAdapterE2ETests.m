@@ -2727,4 +2727,116 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenPerformingUpdates_withAdaptiveDiffingHigherQOS_thatCollectionViewUpdates {
+    IGListAdapterUpdater *updater = (IGListAdapterUpdater *)self.updater;
+    updater.allowsBackgroundDiffing = YES;
+    updater.adaptiveDiffingExperimentConfig = (IGListAdaptiveDiffingExperimentConfig) {
+        .enabled = YES,
+        .higherQOSEnabled = YES,
+        .maxItemCountToRunOnMain = 0,
+        .lowerPriorityWhenViewNotVisible = NO
+    };
+
+    [self setupWithObjects:@[
+        genTestObject(@1, @1),
+        genTestObject(@2, @2),
+    ]];
+
+    self.dataSource.objects = @[
+        genTestObject(@2, @2),
+        genTestObject(@3, @3),
+    ];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView numberOfSections], 2);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+- (void)test_whenPerformingUpdates_withAdaptiveDiffingLowerPriorityWhenNotVisible_thatCollectionViewUpdates {
+    IGListAdapterUpdater *updater = (IGListAdapterUpdater *)self.updater;
+    updater.allowsBackgroundDiffing = YES;
+    updater.adaptiveDiffingExperimentConfig = (IGListAdaptiveDiffingExperimentConfig) {
+        .enabled = YES,
+        .higherQOSEnabled = NO,
+        .maxItemCountToRunOnMain = 0,
+        .lowerPriorityWhenViewNotVisible = YES
+    };
+
+    // Remove from window to make it "not visible"
+    [self.collectionView removeFromSuperview];
+
+    [self setupWithObjects:@[
+        genTestObject(@1, @1),
+        genTestObject(@2, @2),
+    ]];
+
+    self.dataSource.objects = @[
+        genTestObject(@2, @2),
+        genTestObject(@3, @3),
+    ];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:NO completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView numberOfSections], 2);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+- (void)test_whenPerformingUpdates_withAdaptiveDiffingSmallItemCount_thatDiffRunsOnMain {
+    IGListAdapterUpdater *updater = (IGListAdapterUpdater *)self.updater;
+    updater.allowsBackgroundDiffing = YES;
+    updater.adaptiveDiffingExperimentConfig = (IGListAdaptiveDiffingExperimentConfig) {
+        .enabled = YES,
+        .higherQOSEnabled = NO,
+        .maxItemCountToRunOnMain = 100, // Item count is under this threshold
+        .lowerPriorityWhenViewNotVisible = NO
+    };
+
+    [self setupWithObjects:@[
+        genTestObject(@1, @1),
+    ]];
+
+    self.dataSource.objects = @[
+        genTestObject(@1, @1),
+        genTestObject(@2, @2),
+    ];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView numberOfSections], 2);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
+- (void)test_whenPerformingUpdates_withAdaptiveDiffingBackgroundDisabled_thatDiffRunsOnMain {
+    IGListAdapterUpdater *updater = (IGListAdapterUpdater *)self.updater;
+    updater.allowsBackgroundDiffing = NO;
+    updater.adaptiveDiffingExperimentConfig = (IGListAdaptiveDiffingExperimentConfig) {
+        .enabled = YES,
+        .higherQOSEnabled = YES,
+        .maxItemCountToRunOnMain = 0,
+        .lowerPriorityWhenViewNotVisible = YES
+    };
+
+    [self setupWithObjects:@[
+        genTestObject(@1, @1),
+    ]];
+
+    self.dataSource.objects = @[
+        genTestObject(@2, @2),
+    ];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView numberOfSections], 1);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
 @end
