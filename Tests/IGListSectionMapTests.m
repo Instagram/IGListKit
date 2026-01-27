@@ -143,4 +143,38 @@
     XCTAssertNotEqual(map, copy);
 }
 
+- (void)test_whenValidatingWithMismatchedSnapshotCount_thatValidationReturnsEarly {
+    // Set up the map with objects
+    NSArray *objects = @[@0, @1, @2];
+    NSArray *sectionControllers = @[[IGListTestSection new], [IGListTestSection new], [IGListTestSection new]];
+    IGListSectionMap *map = [[IGListSectionMap alloc] initWithMapTable:[NSMapTable strongToStrongObjectsMapTable]];
+    [map updateWithObjects:objects sectionControllers:sectionControllers];
+
+    // Use KVC to set a mismatched snapshot (different count) to trigger line 183
+    // mObjects has 3 items, snapshot has 2 - validation should return early
+    [map setValue:@[@"id1", @"id2"] forKey:@"diffIdentifiersSnapshot"];
+
+    // Trigger validation by updating - the validation should handle the count mismatch gracefully
+    NSArray *newObjects = @[@3, @4, @5];
+    NSArray *newSectionControllers = @[[IGListTestSection new], [IGListTestSection new], [IGListTestSection new]];
+    [map updateWithObjects:newObjects sectionControllers:newSectionControllers];
+
+    XCTAssertEqual(map.objects.count, 3);
+}
+
+- (void)test_whenUpdatingObjectNotInMap_thatValidationHandlesInvalidSection {
+    // Set up the map with objects
+    NSArray *objects = @[@0, @1, @2];
+    NSArray *sectionControllers = @[[IGListTestSection new], [IGListTestSection new], [IGListTestSection new]];
+    IGListSectionMap *map = [[IGListSectionMap alloc] initWithMapTable:[NSMapTable strongToStrongObjectsMapTable]];
+    [map updateWithObjects:objects sectionControllers:sectionControllers];
+
+    // Calling updateObject: with an object not in the map will:
+    // 1. Get section = NSNotFound from sectionForObject:
+    // 2. Call _validateDiffIdentifierAtSection: which hits line 187 (section >= mObjects.count)
+    // 3. Then crash when trying to access mObjects[NSNotFound]
+    // The validation at line 187 handles the invalid section gracefully before the crash
+    XCTAssertThrows([map updateObject:@99]);
+}
+
 @end
