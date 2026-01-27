@@ -48,4 +48,17 @@
     XCTAssertEqual(adapters.count, 0);
 }
 
+- (void)test_whenCalledMultipleTimes_thatReturnsSameAdapters {
+    UIViewController *const viewController = [UIViewController new];
+    IGListAdapter *const adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:viewController];
+
+    NSArray<IGListAdapter *> *const adapters1 = [viewController associatedListAdapters];
+    NSArray<IGListAdapter *> *const adapters2 = [viewController associatedListAdapters];
+
+    XCTAssertEqual(adapters1.count, 1);
+    XCTAssertEqual(adapters2.count, 1);
+    XCTAssertEqual(adapters1.firstObject, adapter);
+    XCTAssertEqual(adapters2.firstObject, adapter);
+}
+
 @end
