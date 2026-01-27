@@ -140,9 +140,17 @@
     IGListTestAdapterDataSource *const dataSource = [IGListTestAdapterDataSource new];
     dataSource.objects = @[@0];
 
-    IGListAdapter *const adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:viewController];
+    IGListAdapterUpdater *const updater = [IGListAdapterUpdater new];
+    IGListAdapter *const adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:viewController];
     adapter.collectionView = collectionView;
     adapter.dataSource = dataSource;
+
+    // Set up a mock delegate to verify willCrashWithCollectionView: is called
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    [[mockDelegate expect] listAdapterUpdater:updater willCrashWithCollectionView:collectionView sectionControllerClass:[OCMArg any]];
+    // Stub other delegate methods that might be called
+    [[mockDelegate stub] listAdapterUpdater:[OCMArg any] didFinishWithoutUpdatesWithCollectionView:[OCMArg any]];
+    updater.delegate = mockDelegate;
 
     [collectionView reloadData];
     [collectionView layoutIfNeeded];
@@ -155,9 +163,10 @@
 
     NSIndexPath *const indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
 
-    // This should trigger an assertion that calls _debugDetailsForIndexPath:
+    // This should trigger willCrashWithCollectionView: then an assertion
     XCTAssertThrows([adapter collectionView:collectionView cellForItemAtIndexPath:indexPath]);
 
+    [mockDelegate verify];
     [mockSectionController stopMocking];
 }
 
