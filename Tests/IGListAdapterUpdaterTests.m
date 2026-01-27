@@ -1339,4 +1339,19 @@
     XCTAssertTrue(retrievedConfig.useMaxIntervalWhenViewNotVisible);
 }
 
+- (void)test_whenBuildingTransactionWithoutCollectionViewBlock_thatReturnsNil {
+    IGListUpdateTransactionBuilder *builder = [IGListUpdateTransactionBuilder new];
+
+    IGListUpdateTransactationConfig config = {
+        .sectionMovesAsDeletesInserts = NO,
+        .singleItemSectionUpdates = NO,
+        .allowsReloadingOnTooManyUpdates = YES,
+        .allowsBackgroundDiffing = NO,
+        .experiments = IGListExperimentNone
+    };
+
+    id<IGListUpdateTransactable> transaction = [builder buildWithConfig:config delegate:nil updater:self.updater];
+    XCTAssertNil(transaction);
+}
+
 @end
