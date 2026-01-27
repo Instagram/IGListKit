@@ -10,6 +10,7 @@
 #import <IGListKit/IGListKit.h>
 
 #import "IGListUpdateCoalescer.h"
+#import "IGListViewVisibilityTrackerInternal.h"
 
 @interface IGListUpdateCoalescerTests : XCTestCase <IGListUpdateCoalescerDelegate>
 @property (nonatomic, strong) IGListUpdateCoalescer *coalescer;
@@ -117,6 +118,11 @@
 - (void)test_whenAdaptiveEnabled_withViewNotVisible_thatMaxIntervalIsUsed {
     UIView *view = [[UIView alloc] init];
     // View not added to window, so it's not visible
+
+    // Attach a tracker and set its comparedDateOverride so it returns NotVisible (not NotVisibleEarly)
+    IGListViewVisibilityTracker *tracker = IGListViewVisibilityTrackerAttachedOnView(view);
+    tracker.comparedDateOverride = [tracker.dateCreated dateByAddingTimeInterval:tracker.earlyTimeInterval + 1];
+    XCTAssertEqual(tracker.state, IGListViewVisibilityStateNotVisible);
 
     IGListAdaptiveCoalescingExperimentConfig config = {
         .enabled = YES,
