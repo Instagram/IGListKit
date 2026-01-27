@@ -56,13 +56,16 @@
     XCTAssertNil(sectionController.viewController);
 }
 
+#if !TARGET_OS_TV
 - (void)test_whenCallingContextMenuConfiguration_thatDefaultReturnsNil {
     // The default implementation of contextMenuConfigurationForItemAtIndex:point: returns nil
+    // Context menus are not available on tvOS
     IGListSectionController *sectionController = [[IGListSectionController alloc] init];
     if (@available(iOS 13.0, *)) {
         UIContextMenuConfiguration *config = [sectionController contextMenuConfigurationForItemAtIndex:0 point:CGPointZero];
         XCTAssertNil(config);
     }
 }
+#endif
 
 @end
