@@ -650,21 +650,22 @@
 
 - (void)test_whenAdapterUpdated_thatIndexPathForItemAtPointIsCorrect {
     // each section controller returns n items sized 100x10
+    // @2 has 2 items (y=0-20), @3 has 3 items (y=20-50)
     self.dataSource.objects = @[@2, @3];
     [self.adapter reloadDataWithCompletion:nil];
     [self.collectionView layoutIfNeeded];
 
-    // Point at (50, 5) should be in first section, first item (size 100x10 starting at origin)
+    // Point at (50, 5) should be in section 0, item 0 (y=0-10)
     NSIndexPath *indexPath = [self.adapter indexPathForItemAtPoint:CGPointMake(50, 5)];
     XCTAssertNotNil(indexPath);
     XCTAssertEqual(indexPath.section, 0);
     XCTAssertEqual(indexPath.item, 0);
 
-    // Point at (50, 25) should be in first section, third item (items are 10 tall)
-    NSIndexPath *indexPath2 = [self.adapter indexPathForItemAtPoint:CGPointMake(50, 25)];
+    // Point at (50, 15) should be in section 0, item 1 (y=10-20)
+    NSIndexPath *indexPath2 = [self.adapter indexPathForItemAtPoint:CGPointMake(50, 15)];
     XCTAssertNotNil(indexPath2);
     XCTAssertEqual(indexPath2.section, 0);
-    XCTAssertEqual(indexPath2.item, 2);
+    XCTAssertEqual(indexPath2.item, 1);
 }
 
 - (void)test_whenAdapterUpdated_thatConvertPointFromViewIsCorrect {
