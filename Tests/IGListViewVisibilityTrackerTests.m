@@ -70,6 +70,21 @@
     XCTAssertEqual(self.tracker.state, IGListViewVisibilityStateNotVisible);
 }
 
+- (void)test_whenOnWindow_windowHidden_thatNotVisible {
+    self.window.hidden = YES;
+    XCTAssertEqual(self.tracker.state, IGListViewVisibilityStateNotVisible);
+}
+
+- (void)test_whenOnWindow_alphaVerySmall_thatNotVisible {
+    self.view.alpha = FLT_EPSILON / 2;
+    XCTAssertEqual(self.tracker.state, IGListViewVisibilityStateNotVisible);
+}
+
+- (void)test_whenOnWindow_alphaAtEpsilon_thatVisible {
+    self.view.alpha = FLT_EPSILON;
+    XCTAssertEqual(self.tracker.state, IGListViewVisibilityStateMaybeVisible);
+}
+
 #pragma mark - Early
 
 - (void)test_whenNoWindow_andEarly_thatNotVisibleEarly {
@@ -77,8 +92,17 @@
 
     self.tracker.earlyTimeInterval = 1.0;
     self.tracker.comparedDateOverride = self.tracker.dateCreated;
-    
+
     XCTAssertEqual(self.tracker.state, IGListViewVisibilityStateNotVisibleEarly);
+}
+
+- (void)test_whenNoWindow_andEarly_withoutDateOverride_thatNotVisibleEarly {
+    UIView *const newView = [UIView new];
+    IGListViewVisibilityTracker *const newTracker = [[IGListViewVisibilityTracker alloc] initWithView:newView];
+    newTracker.earlyTimeInterval = 100.0; // Large interval ensures we're still "early"
+
+    // No comparedDateOverride set, so it uses [NSDate date]
+    XCTAssertEqual(newTracker.state, IGListViewVisibilityStateNotVisibleEarly);
 }
 
 #pragma mark - Attached
