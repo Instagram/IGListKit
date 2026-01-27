@@ -130,4 +130,34 @@
     XCTAssertNil(result);
 }
 
+#pragma mark - Debug Details
+
+- (void)test_whenSectionControllerReturnsNilCell_thatAssertionFires {
+    UIViewController *const viewController = [UIViewController new];
+    UICollectionView *const collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:[UICollectionViewFlowLayout new]];
+
+    IGListTestAdapterDataSource *const dataSource = [IGListTestAdapterDataSource new];
+    dataSource.objects = @[@0];
+
+    IGListAdapter *const adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:viewController];
+    adapter.collectionView = collectionView;
+    adapter.dataSource = dataSource;
+
+    [collectionView reloadData];
+    [collectionView layoutIfNeeded];
+
+    IGListSectionController *const sectionController = [adapter sectionControllerForObject:@0];
+
+    // Create a partial mock that returns nil for cellForItemAtIndex:
+    id mockSectionController = OCMPartialMock(sectionController);
+    OCMStub([mockSectionController cellForItemAtIndex:0]).andReturn(nil);
+
+    NSIndexPath *const indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+
+    // This should trigger an assertion that calls _debugDetailsForIndexPath:
+    XCTAssertThrows([adapter collectionView:collectionView cellForItemAtIndexPath:indexPath]);
+
+    [mockSectionController stopMocking];
+}
+
 @end
