@@ -62,6 +62,13 @@
     XCTAssertTrue(!self.adapter.updater.isInDataUpdateBlock);
 }
 
+- (void)test_whenCallingWillCrash_thatMethodIsNoOp {
+    // The IGListReloadDataUpdater implementation of willCrashWithCollectionView: is a no-op
+    // This test ensures the method exists and doesn't crash when called
+    IGListReloadDataUpdater *updater = (IGListReloadDataUpdater *)self.adapter.updater;
+    XCTAssertNoThrow([updater willCrashWithCollectionView:self.collectionView sectionControllerClass:[NSObject class]]);
+}
+
 - (void)test_whenInsertingIntoContext_thatCollectionViewUpdated {
     self.dataSource.objects = @[@2];
     [self.adapter reloadDataWithCompletion:nil];
