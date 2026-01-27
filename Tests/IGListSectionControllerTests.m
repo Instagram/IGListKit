@@ -42,4 +42,21 @@
     } @catch (NSException *exception) {}
 }
 
+- (void)test_whenCreatedOutsideDataSource_thatCollectionContextIsNil {
+    // Creating a section controller directly (not through the data source) should result in
+    // a nil collectionContext since the thread context stack is empty. This covers line 61.
+    IGListSectionController *sectionController = [[IGListSectionController alloc] init];
+    XCTAssertNil(sectionController.collectionContext);
+    XCTAssertNil(sectionController.viewController);
+}
+
+- (void)test_whenCallingContextMenuConfiguration_thatDefaultReturnsNil {
+    // The default implementation of contextMenuConfigurationForItemAtIndex:point: returns nil
+    IGListSectionController *sectionController = [[IGListSectionController alloc] init];
+    if (@available(iOS 13.0, *)) {
+        UIContextMenuConfiguration *config = [sectionController contextMenuConfigurationForItemAtIndex:0 point:CGPointZero];
+        XCTAssertNil(config);
+    }
+}
+
 @end
