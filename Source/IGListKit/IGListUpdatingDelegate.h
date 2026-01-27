@@ -202,6 +202,13 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
  */
 - (BOOL)isInDataUpdateBlock;
 
+/**
+ Called when the updater detects an imminent crash, such as when a section controller returns a nil cell.
+ This provides an opportunity to log diagnostic information before the crash occurs.
+
+ @param collectionView The collection view involved in the crash.
+ @param sectionControllerClass The class of the section controller that caused the issue, if available.
+ */
 - (void)willCrashWithCollectionView:(UICollectionView *)collectionView
              sectionControllerClass:(nullable Class)sectionControllerClass;
 

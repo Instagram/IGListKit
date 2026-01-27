@@ -181,8 +181,16 @@ willPerformBatchUpdatesWithCollectionView:(UICollectionView *)collectionView
                 diffResult:(IGListIndexSetResult *)diffResult
                    updates:(IGListBatchUpdateData *)updates;
 
+/**
+ Notifies the delegate that the updater detected an imminent crash, such as when a section controller returns a nil cell.
+ This provides an opportunity to log diagnostic information before the crash occurs.
+
+ @param listAdapterUpdater The adapter updater that detected the issue.
+ @param collectionView The collection view involved in the crash.
+ @param sectionControllerClass The class of the section controller that caused the issue, if available.
+ */
 - (void)     listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
-    willCrashWithCollectionView:collectionView
+    willCrashWithCollectionView:(UICollectionView *)collectionView
     sectionControllerClass:(nullable Class)sectionControllerClass;
 
 /**
