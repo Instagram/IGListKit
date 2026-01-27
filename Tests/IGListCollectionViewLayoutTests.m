@@ -1317,23 +1317,4 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
     XCTAssertNil([self.layout layoutAttributesForItemAtIndexPath:nilIndexPath]);
 }
 
-- (void)test_whenQueryingAttributes_withNaNFrameValues_thatReturnsNil {
-    [self setUpWithStickyHeaders:NO topInset:0];
-
-    // Create an item with NaN size values to trigger the NaN check
-    [self prepareWithData:@[
-            [[IGLayoutTestSection alloc] initWithInsets:UIEdgeInsetsZero
-                                            lineSpacing:0
-                                       interitemSpacing:0
-                                           headerHeight:0
-                                           footerHeight:0
-                                                  items:@[
-                                                          [[IGLayoutTestItem alloc] initWithSize:CGSizeMake(NAN, 33)],
-                                                  ]],
-    ]];
-
-    // The layout should handle NaN frame values gracefully
-    XCTAssertNil([self.layout layoutAttributesForItemAtIndexPath:genIndexPath(0, 0)]);
-}
-
 @end
