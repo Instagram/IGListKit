@@ -11,6 +11,7 @@
 
 #import <IGListKit/IGListKit.h>
 
+#import "IGListAdapter+UICollectionView.h"
 #import "IGListTestAdapterDataSource.h"
 #import "UIViewController+IGListAdapter.h"
 
