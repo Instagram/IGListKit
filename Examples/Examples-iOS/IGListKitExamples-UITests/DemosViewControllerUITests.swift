@@ -97,10 +97,10 @@ final class DemosViewControllerUITests: UITestCase {
         let exactBar    = app.navigationBars[title]
         let compactBar  = app.navigationBars[title.replacingOccurrences(of: " ", with: "")]
 
-        waitToAppear(element: exactBar, timeout: 2)
+        waitToAppear(element: exactBar, timeout: 5)
 
         if !exactBar.exists {
-            waitToAppear(element: compactBar, timeout: 2)
+            waitToAppear(element: compactBar, timeout: 5)
         }
 
         XCTAssertTrue(

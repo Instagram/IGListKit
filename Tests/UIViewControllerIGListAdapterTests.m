@@ -7,8 +7,13 @@
 
 #import <XCTest/XCTest.h>
 
+#import <OCMock/OCMock.h>
+
 #import <IGListKit/IGListKit.h>
 
+#import "IGListAdapter+UICollectionView.h"
+#import "IGListAssert.h"
+#import "IGListTestAdapterDataSource.h"
 #import "UIViewController+IGListAdapter.h"
 
 @interface UIViewControllerIGListAdapterTests : XCTestCase
@@ -46,6 +51,85 @@
     }
     NSArray<IGListAdapter *> *const adapters = [viewController associatedListAdapters];
     XCTAssertEqual(adapters.count, 0);
+}
+
+- (void)test_whenCalledMultipleTimes_thatReturnsSameAdapters {
+    UIViewController *const viewController = [UIViewController new];
+    IGListAdapter *const adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:viewController];
+
+    NSArray<IGListAdapter *> *const adapters1 = [viewController associatedListAdapters];
+    NSArray<IGListAdapter *> *const adapters2 = [viewController associatedListAdapters];
+
+    XCTAssertEqual(adapters1.count, 1);
+    XCTAssertEqual(adapters2.count, 1);
+    XCTAssertEqual(adapters1.firstObject, adapter);
+    XCTAssertEqual(adapters2.firstObject, adapter);
+}
+
+#pragma mark - Preferred Focus
+
+- (void)test_whenCollectionViewDelegateImplementsPreferredFocus_thatDelegatesToIt {
+    UIViewController *const viewController = [UIViewController new];
+    UICollectionView *const collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:[UICollectionViewFlowLayout new]];
+
+    IGListTestAdapterDataSource *const dataSource = [IGListTestAdapterDataSource new];
+    dataSource.objects = @[@0, @1, @2];
+
+    IGListAdapter *const adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:viewController];
+    adapter.collectionView = collectionView;
+    adapter.dataSource = dataSource;
+    [collectionView reloadData];
+
+    NSIndexPath *const expectedIndexPath = [NSIndexPath indexPathForItem:1 inSection:2];
+
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
+    [[[mockDelegate stub] andReturnValue:OCMOCK_VALUE(expectedIndexPath)] indexPathForPreferredFocusedViewInCollectionView:collectionView];
+    [[[mockDelegate stub] andReturnValue:@YES] respondsToSelector:@selector(indexPathForPreferredFocusedViewInCollectionView:)];
+
+    adapter.collectionViewDelegate = mockDelegate;
+
+    NSIndexPath *const result = [adapter indexPathForPreferredFocusedViewInCollectionView:collectionView];
+    XCTAssertEqualObjects(result, expectedIndexPath);
+}
+
+- (void)test_whenExperimentEnabled_thatReturnsFirstVisibleIndexPath {
+    UIWindow *const window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    UIViewController *const viewController = [UIViewController new];
+    UICollectionView *const collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:[UICollectionViewFlowLayout new]];
+    [window addSubview:collectionView];
+
+    IGListTestAdapterDataSource *const dataSource = [IGListTestAdapterDataSource new];
+    dataSource.objects = @[@0, @1, @2];
+
+    IGListAdapter *const adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:viewController];
+    adapter.collectionView = collectionView;
+    adapter.dataSource = dataSource;
+    adapter.experiments = IGListExperimentFixPreferredFocusedView;
+
+    [collectionView reloadData];
+    [collectionView layoutIfNeeded];
+
+    NSIndexPath *const result = [adapter indexPathForPreferredFocusedViewInCollectionView:collectionView];
+    XCTAssertNotNil(result);
+}
+
+- (void)test_whenNoDelegate_andNoExperiment_thatReturnsNil {
+    UIViewController *const viewController = [UIViewController new];
+    UICollectionView *const collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:[UICollectionViewFlowLayout new]];
+
+    IGListTestAdapterDataSource *const dataSource = [IGListTestAdapterDataSource new];
+    dataSource.objects = @[@0, @1, @2];
+
+    IGListAdapter *const adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:viewController];
+    adapter.collectionView = collectionView;
+    adapter.dataSource = dataSource;
+    adapter.collectionViewDelegate = nil;
+    adapter.experiments = IGListExperimentNone;
+
+    [collectionView reloadData];
+
+    NSIndexPath *const result = [adapter indexPathForPreferredFocusedViewInCollectionView:collectionView];
+    XCTAssertNil(result);
 }
 
 @end

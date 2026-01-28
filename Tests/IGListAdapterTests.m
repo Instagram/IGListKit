@@ -619,6 +619,70 @@
     XCTAssertEqualObjects(visibleObjects, expectedObjects);
 }
 
+- (void)test_whenAdapterUpdated_withObjectsOverflow_thatIndexesOfVisibleObjectsIsCorrect {
+    // each section controller returns n items sized 100x10
+    self.dataSource.objects = @[@1, @2, @3, @4, @5, @6];
+    [self.adapter reloadDataWithCompletion:nil];
+    self.collectionView.contentOffset = CGPointMake(0, 30);
+    [self.collectionView layoutIfNeeded];
+
+    NSIndexSet *visibleIndexes = [self.adapter indexesOfVisibleObjects];
+    // Objects @3, @4, @5 are visible, which are at indexes 2, 3, 4
+    NSMutableIndexSet *expectedIndexes = [NSMutableIndexSet indexSet];
+    [expectedIndexes addIndex:2];
+    [expectedIndexes addIndex:3];
+    [expectedIndexes addIndex:4];
+    XCTAssertEqualObjects(visibleIndexes, expectedIndexes);
+}
+
+- (void)test_whenAdapterUpdated_thatLayoutAttributesForItemAtIndexIsCorrect {
+    // each section controller returns n items sized 100x10
+    self.dataSource.objects = @[@2, @3];
+    [self.adapter reloadDataWithCompletion:nil];
+    [self.collectionView layoutIfNeeded];
+
+    IGListSectionController *controller = [self.adapter sectionControllerForObject:@2];
+    UICollectionViewLayoutAttributes *attributes = [self.adapter layoutAttributesForItemAtIndex:0 sectionController:controller];
+    XCTAssertNotNil(attributes);
+    XCTAssertEqual(attributes.indexPath.section, 0);
+    XCTAssertEqual(attributes.indexPath.item, 0);
+}
+
+- (void)test_whenAdapterUpdated_thatIndexPathForItemAtPointIsCorrect {
+    // each section controller returns n items sized 100x10
+    // @2 has 2 items (y=0-20), @3 has 3 items (y=20-50)
+    self.dataSource.objects = @[@2, @3];
+    [self.adapter reloadDataWithCompletion:nil];
+    [self.collectionView layoutIfNeeded];
+
+    // Point at (50, 5) should be in section 0, item 0 (y=0-10)
+    NSIndexPath *indexPath = [self.adapter indexPathForItemAtPoint:CGPointMake(50, 5)];
+    XCTAssertNotNil(indexPath);
+    XCTAssertEqual(indexPath.section, 0);
+    XCTAssertEqual(indexPath.item, 0);
+
+    // Point at (50, 15) should be in section 0, item 1 (y=10-20)
+    NSIndexPath *indexPath2 = [self.adapter indexPathForItemAtPoint:CGPointMake(50, 15)];
+    XCTAssertNotNil(indexPath2);
+    XCTAssertEqual(indexPath2.section, 0);
+    XCTAssertEqual(indexPath2.item, 1);
+}
+
+- (void)test_whenAdapterUpdated_thatConvertPointFromViewIsCorrect {
+    self.dataSource.objects = @[@1];
+    [self.adapter reloadDataWithCompletion:nil];
+    [self.collectionView layoutIfNeeded];
+
+    // Create a subview offset from the collection view
+    UIView *subview = [[UIView alloc] initWithFrame:CGRectMake(10, 20, 50, 50)];
+    [self.collectionView addSubview:subview];
+
+    // Point (0, 0) in subview should convert to (10, 20) in collection view
+    CGPoint convertedPoint = [self.adapter convertPoint:CGPointZero fromView:subview];
+    XCTAssertEqual(convertedPoint.x, 10);
+    XCTAssertEqual(convertedPoint.y, 20);
+}
+
 - (void)test_whenAdapterUpdated_fetchingCellIsValid {
     // each section controller returns n items sized 100x10
     self.dataSource.objects = @[@1, @2, @3, @4, @5, @6];

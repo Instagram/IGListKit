@@ -137,6 +137,31 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+#pragma mark - Remove listener
+
+- (void)test_whenRemovingListener_thatListenerDoesNotReceiveCallbacks {
+    [self setupAdapter1WithObjects:@[]];
+
+    IGTestObject *const object = genTestObject(@1, @1);
+    self.dataSource1.objects = @[object];
+
+    id mockDisplayHandler = [OCMockObject mockForProtocol:@protocol(IGListAdapterDelegate)];
+    [self.announcer addListener:mockDisplayHandler];
+    [self.announcer removeListener:mockDisplayHandler];
+
+    // Listener was removed, so it should NOT receive any callbacks
+    [[mockDisplayHandler reject] listAdapter:[OCMArg any] willDisplayObject:[OCMArg any] atIndex:0];
+    [[mockDisplayHandler reject] listAdapter:[OCMArg any] willDisplayObject:[OCMArg any] cell:[OCMArg any] atIndexPath:[OCMArg any]];
+
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter1 performUpdatesAnimated:NO completion:^(BOOL finished) {
+        [mockDisplayHandler verify];
+        XCTAssertTrue(finished);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+}
+
 #pragma mark - Two adapters, single listener
 
 - (void)test_whenShowingTwoItems_withOneListeners_withTwoAdapters_thatBothItemsSendWillDisplay {

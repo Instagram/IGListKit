@@ -1309,4 +1309,49 @@
     [updater.transactionBuilder addChangesFromBuilder:builder];
 }
 
+- (void)test_whenCallingWillCrash_thatDelegateIsCalled {
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    self.updater.delegate = mockDelegate;
+
+    [[mockDelegate expect] listAdapterUpdater:self.updater willCrashWithCollectionView:self.collectionView sectionControllerClass:[NSObject class]];
+
+    [self.updater willCrashWithCollectionView:self.collectionView sectionControllerClass:[NSObject class]];
+
+    [mockDelegate verify];
+}
+
+- (void)test_whenSettingAdaptiveCoalescingConfig_thatGetterReturnsConfig {
+    IGListAdaptiveCoalescingExperimentConfig config = {
+        .enabled = YES,
+        .minInterval = 0.1,
+        .intervalIncrement = 0.05,
+        .maxInterval = 0.5,
+        .useMaxIntervalWhenViewNotVisible = YES
+    };
+
+    self.updater.adaptiveCoalescingExperimentConfig = config;
+
+    IGListAdaptiveCoalescingExperimentConfig retrievedConfig = self.updater.adaptiveCoalescingExperimentConfig;
+    XCTAssertTrue(retrievedConfig.enabled);
+    XCTAssertEqual(retrievedConfig.minInterval, 0.1);
+    XCTAssertEqual(retrievedConfig.intervalIncrement, 0.05);
+    XCTAssertEqual(retrievedConfig.maxInterval, 0.5);
+    XCTAssertTrue(retrievedConfig.useMaxIntervalWhenViewNotVisible);
+}
+
+- (void)test_whenBuildingTransactionWithoutCollectionViewBlock_thatReturnsNil {
+    IGListUpdateTransactionBuilder *builder = [IGListUpdateTransactionBuilder new];
+
+    IGListUpdateTransactationConfig config = {
+        .sectionMovesAsDeletesInserts = NO,
+        .singleItemSectionUpdates = NO,
+        .allowsReloadingOnTooManyUpdates = YES,
+        .allowsBackgroundDiffing = NO,
+        .experiments = IGListExperimentNone
+    };
+
+    id<IGListUpdateTransactable> transaction = [builder buildWithConfig:config delegate:nil updater:self.updater];
+    XCTAssertNil(transaction);
+}
+
 @end
