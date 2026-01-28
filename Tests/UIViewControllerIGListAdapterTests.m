@@ -12,6 +12,7 @@
 #import <IGListKit/IGListKit.h>
 
 #import "IGListAdapter+UICollectionView.h"
+#import "IGListAssert.h"
 #import "IGListTestAdapterDataSource.h"
 #import "UIViewController+IGListAdapter.h"
 
@@ -133,6 +134,7 @@
 
 #pragma mark - Debug Details
 
+#if IG_ASSERTIONS_ENABLED
 - (void)test_whenSectionControllerReturnsNilCell_thatAssertionFires {
     UIViewController *const viewController = [UIViewController new];
     UICollectionView *const collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:[UICollectionViewFlowLayout new]];
@@ -158,5 +160,6 @@
 
     [mockSectionController stopMocking];
 }
+#endif
 
 @end
