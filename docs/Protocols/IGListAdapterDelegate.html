@@ -17,7 +17,7 @@
     <a title="IGListAdapterDelegate Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">IGListKit 4.1.0 Docs</a> (96% documented)</p>
+        <p><a href="../index.html">IGListKit 5.1.0 Docs</a> (96% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../search.json">
@@ -74,10 +74,21 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="../Categories.html">Categories</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Categories/UIViewController%28IGListAdapter%29.html">UIViewController(IGListAdapter)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Classes/IGListAdapter.html">IGListAdapter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListAdapterDelegateAnnouncer.html">IGListAdapterDelegateAnnouncer</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a>
@@ -96,6 +107,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IGListCollectionViewLayoutInvalidationContext.html">IGListCollectionViewLayoutInvalidationContext</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
@@ -223,6 +237,12 @@
             <a href="../Type%20Definitions.html">Type Definitions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Type%20Definitions/IGListAdaptiveCoalescingExperimentConfig.html">IGListAdaptiveCoalescingExperimentConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type%20Definitions/IGListAdaptiveDiffingExperimentConfig.html">IGListAdaptiveDiffingExperimentConfig</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Type%20Definitions/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a>
               </li>
               <li class="nav-group-task">
@@ -281,6 +301,12 @@
             <a href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Structs/IGListAdaptiveCoalescingExperimentConfig.html">IGListAdaptiveCoalescingExperimentConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/IGListAdaptiveDiffingExperimentConfig.html">IGListAdaptiveDiffingExperimentConfig</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a>
               </li>
             </ul>
@@ -299,7 +325,7 @@
                 </div>
                 <div class="language">
                   <p class="aside-title">Swift</p>
-                  <pre class="highlight swift"><code><span class="kd">protocol</span> <span class="kt">ListAdapterDelegate</span> <span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">@MainActor</span> <span class="kd">protocol</span> <span class="kt">ListAdapterDelegate</span> <span class="p">:</span> <span class="kt">NSObjectProtocol</span></code></pre>
 
                 </div>
               </div>
@@ -463,13 +489,197 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListAdapterDelegate(im)listAdapter:willDisplayObject:cell:atIndexPath:"></a>
+                    <a name="//apple_ref/objc/Method/-listAdapter:willDisplayObject:cell:atIndexPath:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterDelegate(im)listAdapter:willDisplayObject:cell:atIndexPath:">-listAdapter:<wbr>willDisplayObject:<wbr>cell:<wbr>atIndexPath:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Notifies the delegate that a list object is about to be displayed.  This method is distinct from willDisplayObject:atIndex
+because this method gets called whenever a cell will be displayed on screen as opposed to willDisplayObject:atIndex
+which only gets called for once per section.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
+    <span class="nf">willDisplayObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">object</span>
+                 <span class="nf">cell</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionViewCell</span> <span class="o">*</span><span class="p">)</span><span class="nv">cell</span>
+          <span class="nf">atIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="p">,</span> <span class="n">willDisplay</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">cell</span><span class="p">:</span> <span class="kt">UICollectionViewCell</span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>listAdapter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The list adapter sending this information.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object that will display.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cell</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The cell which contains the object that will display.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index path of the object in the list.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(pl)IGListAdapterDelegate(im)listAdapter:didEndDisplayingObject:cell:atIndexPath:"></a>
+                    <a name="//apple_ref/objc/Method/-listAdapter:didEndDisplayingObject:cell:atIndexPath:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(pl)IGListAdapterDelegate(im)listAdapter:didEndDisplayingObject:cell:atIndexPath:">-listAdapter:<wbr>didEndDisplayingObject:<wbr>cell:<wbr>atIndexPath:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Notifies the delegate that a list object is no longer being displayed.  This method is distinct from didEndDisplayingObject:atIndex
+because this method gets called whenever a cell ends display on screen as opposed to didEndDisplayingObject:atIndex
+which only gets called once when the section fully ends display.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">listAdapter</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">listAdapter</span>
+    <span class="nf">didEndDisplayingObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">object</span>
+                      <span class="nf">cell</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">UICollectionViewCell</span> <span class="o">*</span><span class="p">)</span><span class="nv">cell</span>
+               <span class="nf">atIndexPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt"><a href="../Classes/IGListAdapter.html">IGListAdapter</a></span><span class="p">,</span> <span class="n">didEndDisplaying</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">cell</span><span class="p">:</span> <span class="kt">UICollectionViewCell</span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>listAdapter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The list adapter sending this information.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object that ended display.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cell</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The cell which contains the object that ended display.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index path of the object in the list.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2024 <a class="link" href="https://twitter.com/MetaOpenSource" target="_blank" rel="external noopener">Instagram</a>. All rights reserved. (Last updated: 2024-05-13)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+          <p>&copy; 2026 <a class="link" href="https://twitter.com/MetaOpenSource" target="_blank" rel="external noopener">Instagram</a>. All rights reserved. (Last updated: 2026-02-03)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>

@@ -17,7 +17,7 @@
     <a title="Type Definitions  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">IGListKit 4.1.0 Docs</a> (96% documented)</p>
+        <p><a href="index.html">IGListKit 5.1.0 Docs</a> (96% documented)</p>
         <p class="header-right"><a href="https://github.com/Instagram/IGListKit"><img src="img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="search.json">
@@ -72,10 +72,21 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="Categories.html">Categories</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Categories/UIViewController%28IGListAdapter%29.html">UIViewController(IGListAdapter)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Classes/IGListAdapter.html">IGListAdapter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListAdapterDelegateAnnouncer.html">IGListAdapterDelegateAnnouncer</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/IGListAdapterUpdater.html">IGListAdapterUpdater</a>
@@ -94,6 +105,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Classes/IGListCollectionViewLayout.html">IGListCollectionViewLayout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/IGListCollectionViewLayoutInvalidationContext.html">IGListCollectionViewLayoutInvalidationContext</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/IGListGenericSectionController.html">IGListGenericSectionController</a>
@@ -221,6 +235,12 @@
             <a href="Type%20Definitions.html">Type Definitions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Type%20Definitions/IGListAdaptiveCoalescingExperimentConfig.html">IGListAdaptiveCoalescingExperimentConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Type%20Definitions/IGListAdaptiveDiffingExperimentConfig.html">IGListAdaptiveDiffingExperimentConfig</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Type%20Definitions/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a>
               </li>
               <li class="nav-group-task">
@@ -279,6 +299,12 @@
             <a href="Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Structs/IGListAdaptiveCoalescingExperimentConfig.html">IGListAdaptiveCoalescingExperimentConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/IGListAdaptiveDiffingExperimentConfig.html">IGListAdaptiveDiffingExperimentConfig</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a>
               </li>
             </ul>
@@ -295,6 +321,64 @@
           <section class="section task-group-section">
             <div class="task-group">
               <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:IGListExperiments.h@T@IGListAdaptiveDiffingExperimentConfig"></a>
+                    <a name="//apple_ref/objc/Type/IGListAdaptiveDiffingExperimentConfig" class="dashAnchor"></a>
+                    <a class="token" href="#/c:IGListExperiments.h@T@IGListAdaptiveDiffingExperimentConfig">IGListAdaptiveDiffingExperimentConfig</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Customize how diffing is performed</p>
+
+                        <a href="Type%20Definitions/IGListAdaptiveDiffingExperimentConfig.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">typedef</span> <span class="k">struct</span>
+    <span class="n"><a href="Structs/IGListAdaptiveDiffingExperimentConfig.html">IGListAdaptiveDiffingExperimentConfig</a></span> <span class="n"><a href="Structs/IGListAdaptiveDiffingExperimentConfig.html">IGListAdaptiveDiffingExperimentConfig</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:IGListExperiments.h@T@IGListAdaptiveCoalescingExperimentConfig"></a>
+                    <a name="//apple_ref/objc/Type/IGListAdaptiveCoalescingExperimentConfig" class="dashAnchor"></a>
+                    <a class="token" href="#/c:IGListExperiments.h@T@IGListAdaptiveCoalescingExperimentConfig">IGListAdaptiveCoalescingExperimentConfig</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Customize how coalescing works to speed up some updates</p>
+
+                        <a href="Type%20Definitions/IGListAdaptiveCoalescingExperimentConfig.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">typedef</span> <span class="k">struct</span>
+    <span class="n"><a href="Structs/IGListAdaptiveCoalescingExperimentConfig.html">IGListAdaptiveCoalescingExperimentConfig</a></span> <span class="n"><a href="Structs/IGListAdaptiveCoalescingExperimentConfig.html">IGListAdaptiveCoalescingExperimentConfig</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -465,7 +549,7 @@ The attributes are always equal to their corresponding properties on the underly
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">ListSingleSectionCellSizeBlock</span> <span class="o">=</span> <span class="p">(</span><span class="kt">Any</span><span class="p">,</span> <span class="p">(</span><span class="kd">any</span> <span class="kt">ListCollectionContext</span><span class="p">)?)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">ListSingleSectionCellSizeBlock</span> <span class="o">=</span> <span class="p">(</span><span class="kt">Any</span><span class="p">,</span> <span class="p">(</span><span class="n">any</span> <span class="kt">ListCollectionContext</span><span class="p">)?)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span></code></pre>
 
                         </div>
                       </div>
@@ -857,8 +941,8 @@ The attributes are always equal to their corresponding properties on the underly
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2024 <a class="link" href="https://twitter.com/MetaOpenSource" target="_blank" rel="external noopener">Instagram</a>. All rights reserved. (Last updated: 2024-05-13)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+          <p>&copy; 2026 <a class="link" href="https://twitter.com/MetaOpenSource" target="_blank" rel="external noopener">Instagram</a>. All rights reserved. (Last updated: 2026-02-03)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>

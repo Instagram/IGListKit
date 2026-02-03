@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>IGListCollectionScrollingTraits Structure Reference</title>
+    <title>IGListAdaptiveCoalescingExperimentConfig Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/objc/Struct/IGListCollectionScrollingTraits" class="dashAnchor"></a>
-    <a title="IGListCollectionScrollingTraits Structure Reference"></a>
+    <a name="//apple_ref/objc/Struct/IGListAdaptiveCoalescingExperimentConfig" class="dashAnchor"></a>
+    <a title="IGListAdaptiveCoalescingExperimentConfig Structure Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../index.html">IGListKit 5.1.0 Docs</a> (96% documented)</p>
@@ -32,9 +32,9 @@
         <img id="carat" src="../../img/carat.png" alt=""/>
         <a href="../../Type%20Definitions.html">Type Definitions</a>
         <img id="carat" src="../../img/carat.png" alt=""/>
-        <a href="../../Type%20Definitions/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a>
+        <a href="../../Type%20Definitions/IGListAdaptiveCoalescingExperimentConfig.html">IGListAdaptiveCoalescingExperimentConfig</a>
         <img id="carat" src="../../img/carat.png" alt=""/>
-        IGListCollectionScrollingTraits Structure Reference
+        IGListAdaptiveCoalescingExperimentConfig Structure Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -318,21 +318,20 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>IGListCollectionScrollingTraits</h1>
+            <h1>IGListAdaptiveCoalescingExperimentConfig</h1>
               <div class="declaration">
                 <div class="language">
                   <p class="aside-title">Objective-C</p>
-                  <pre class="highlight objective_c"><code><span class="k">struct</span> <span class="n"><a href="../../Structs/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a></span> <span class="p">{}</span></code></pre>
+                  <pre class="highlight objective_c"><code><span class="k">struct</span> <span class="n"><a href="../../Structs/IGListAdaptiveCoalescingExperimentConfig.html">IGListAdaptiveCoalescingExperimentConfig</a></span> <span class="p">{}</span></code></pre>
 
                 </div>
                 <div class="language">
                   <p class="aside-title">Swift</p>
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt"><a href="../../Structs/IGListCollectionScrollingTraits.html">IGListCollectionScrollingTraits</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt"><a href="../../Structs/IGListAdaptiveCoalescingExperimentConfig.html">IGListAdaptiveCoalescingExperimentConfig</a></span></code></pre>
 
                 </div>
               </div>
-            <p>The current scrolling traits of the underlying collection view.
-The attributes are always equal to their corresponding properties on the underlying collection view.</p>
+            <p>Customize how coalescing works to speed up some updates</p>
 
           </section>
           <section class="section task-group-section">
@@ -341,9 +340,9 @@ The attributes are always equal to their corresponding properties on the underly
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@S@IGListCollectionScrollingTraits@FI@isTracking"></a>
-                    <a name="//apple_ref/objc/Field/isTracking" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@S@IGListCollectionScrollingTraits@FI@isTracking">isTracking</a>
+                    <a name="/c:@S@IGListAdaptiveCoalescingExperimentConfig@FI@enabled"></a>
+                    <a name="//apple_ref/objc/Field/enabled" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@S@IGListAdaptiveCoalescingExperimentConfig@FI@enabled">enabled</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -351,19 +350,19 @@ The attributes are always equal to their corresponding properties on the underly
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>returns YES if user has touched. may not yet have started dragging.</p>
+                        <p>Enable adaptive coalescing, where we try to mininimize the update delay</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="kt">_Bool</span> <span class="n">isTracking</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="n">BOOL</span> <span class="n">enabled</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isTracking</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">enabled</span><span class="p">:</span> <span class="kt">ObjCBool</span></code></pre>
 
                         </div>
                       </div>
@@ -373,9 +372,9 @@ The attributes are always equal to their corresponding properties on the underly
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@S@IGListCollectionScrollingTraits@FI@isDragging"></a>
-                    <a name="//apple_ref/objc/Field/isDragging" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@S@IGListCollectionScrollingTraits@FI@isDragging">isDragging</a>
+                    <a name="/c:@S@IGListAdaptiveCoalescingExperimentConfig@FI@minInterval"></a>
+                    <a name="//apple_ref/objc/Field/minInterval" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@S@IGListAdaptiveCoalescingExperimentConfig@FI@minInterval">minInterval</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -383,19 +382,19 @@ The attributes are always equal to their corresponding properties on the underly
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>returns YES if user has started scrolling. this may require some time and or distance to move to initiate dragging</p>
+                        <p>Start coalescing if the last update was within this interval</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="kt">_Bool</span> <span class="n">isDragging</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="n">NSTimeInterval</span> <span class="n">minInterval</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isDragging</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">minInterval</span><span class="p">:</span> <span class="kt">TimeInterval</span></code></pre>
 
                         </div>
                       </div>
@@ -405,9 +404,9 @@ The attributes are always equal to their corresponding properties on the underly
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@S@IGListCollectionScrollingTraits@FI@isDecelerating"></a>
-                    <a name="//apple_ref/objc/Field/isDecelerating" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@S@IGListCollectionScrollingTraits@FI@isDecelerating">isDecelerating</a>
+                    <a name="/c:@S@IGListAdaptiveCoalescingExperimentConfig@FI@intervalIncrement"></a>
+                    <a name="//apple_ref/objc/Field/intervalIncrement" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@S@IGListAdaptiveCoalescingExperimentConfig@FI@intervalIncrement">intervalIncrement</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -415,19 +414,83 @@ The attributes are always equal to their corresponding properties on the underly
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>returns YES if user isn&rsquo;t dragging (touch up) but scroll view is still moving.</p>
+                        <p>If we need to coalesce, increase the interval by this much for next time.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="kt">_Bool</span> <span class="n">isDecelerating</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="n">NSTimeInterval</span> <span class="n">intervalIncrement</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isDecelerating</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">intervalIncrement</span><span class="p">:</span> <span class="kt">TimeInterval</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@S@IGListAdaptiveCoalescingExperimentConfig@FI@maxInterval"></a>
+                    <a name="//apple_ref/objc/Field/maxInterval" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@S@IGListAdaptiveCoalescingExperimentConfig@FI@maxInterval">maxInterval</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the maximum coalesce interval, so the slowest and update can wait.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="n">NSTimeInterval</span> <span class="n">maxInterval</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">maxInterval</span><span class="p">:</span> <span class="kt">TimeInterval</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@S@IGListAdaptiveCoalescingExperimentConfig@FI@useMaxIntervalWhenViewNotVisible"></a>
+                    <a name="//apple_ref/objc/Field/useMaxIntervalWhenViewNotVisible" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@S@IGListAdaptiveCoalescingExperimentConfig@FI@useMaxIntervalWhenViewNotVisible">useMaxIntervalWhenViewNotVisible</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Coalece using <code>maxInterval</code> if view is not visible according to <code>IGListViewVisibilityTracker</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="n">BOOL</span> <span class="n">useMaxIntervalWhenViewNotVisible</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">useMaxIntervalWhenViewNotVisible</span><span class="p">:</span> <span class="kt">ObjCBool</span></code></pre>
 
                         </div>
                       </div>
