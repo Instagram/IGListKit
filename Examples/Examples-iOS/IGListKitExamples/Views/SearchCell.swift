@@ -11,6 +11,9 @@ final class SearchCell: UICollectionViewCell {
 
     lazy var searchBar: UISearchBar = {
         let view = UISearchBar()
+        if #available(iOS 26.0, *) {
+            view.searchBarStyle = .minimal
+        }
         self.contentView.addSubview(view)
         return view
     }()
