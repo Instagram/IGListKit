@@ -2,21 +2,38 @@
 
 The changelog for `IGListKit`. Also see the [releases](https://github.com/instagram/IGListKit/releases) on GitHub.
 
-5.2.0 (Upcoming Release)
+5.3.0 (Upcoming Release)
 -----
+
+5.2.0
+-----
+
+### Enhancements
+
+- Added a more defensive check for NaN values in item bounds when applying layout attributes in `- [IGListCollectionViewLayout layoutAttributesForItemAtIndexPath:]`. Minqi Ma [(358fe894)](https://github.com/Instagram/IGListKit/commit/358fe894f2c66a14ac1eda7ba09a2de158373cd5)
+
+- Improved assert details in `IGListAdapter+UICollectionView.m`. [Maxime Ollivier](https://github.com/maxolls)  [(7240131c)](https://github.com/Instagram/IGListKit/commit/7240131ceaa7784bfed60fdb9a623e3b7f4cdf5b)
+
+- Formalize assertion that `IGListAdapterDelegateAnnouncer` is main-thread confined. Andrew Cuneo [(7dddb0d4)](https://github.com/Instagram/IGListKit/commit/7dddb0d4c83c14a3cade15a24a9df5b61f7a6836)
+
+### Fixes
+
+- An `EXC_BAD_ACCESS` crash in `IGListSectionMap.m` during `IGListAdapter` deallocation. [Hoà V. DINH](https://github.com/dinhvh) [(d1ddab8e)](https://github.com/Instagram/IGListKit/commit/d1ddab8e20fe8b3effc70dc878697e0f421f9a25)
+
+- A crash where an index value provided to `- [IGListBindingSectionController sizeForItemAtIndex:]` was out of bounds. Kaur Ishnoor [(0a0b11bd)](https://github.com/Instagram/IGListKit/commit/0a0b11bdc81d96aa6525d558715bc46d91393711)
 
 5.1.0
 -----
 
 ### Breaking Changes
 
-- Added methods to the `IGListAdapterDelegate` to include callback methods for any time a cell will appear or did disappear from the screen.  This can be used in conjunction with the `IGListAdapterDelegateAnnouncer` to listen globally for cell lifecycle events.  Any implementer of `IGListAdapterDelegate` must update to include these methods. [Jesse Seidman](https://github.com/jseidman95) [(fa50aa1)](https://github.com/Instagram/IGListKit/commit/fa50aa1cf1be85940787e211d23eb5e7873dbf24), [(d1d6f9d)](https://github.com/Instagram/IGListKit/commit/d1d6f9d52caef89efd11444161ac341266d36ccf), [(03049f7)](https://github.com/Instagram/IGListKit/commit/03049f742f46a6ac28abedd249d176cac4694990)
+- Added methods to the `IGListAdapterDelegate` to include callback methods for any time a cell will appear or did disappear from the screen.  This can be used in conjunction with the `IGListAdapterDelegateAnnouncer` to listen globally for cell lifecycle events.  Any implementer of `IGListAdapterDelegate` must update to include these methods. [Jesse Seidman](https://github.com/jseidman95) [(fa50aa1c)](https://github.com/Instagram/IGListKit/commit/fa50aa1cf1be85940787e211d23eb5e7873dbf24), [(d1d6f9d5)](https://github.com/Instagram/IGListKit/commit/d1d6f9d52caef89efd11444161ac341266d36ccf), [(03049f74)](https://github.com/Instagram/IGListKit/commit/03049f742f46a6ac28abedd249d176cac4694990)
 
-- Added `willCrash` delegate methods in order to capture incoming crashes in IGListKit for analysis. Any implementer of `IGListAdapterUpdaterDelegate` and/or `IGListUpdatingDelegate` must update to include these methods. [Hoà V. DINH](https://github.com/dinhvh) [(da1050e)](https://github.com/Instagram/IGListKit/commit/da1050ef397c9cf38e88ac047196fe53fe6febb0)
+- Added `willCrash` delegate methods in order to capture incoming crashes in IGListKit for analysis. Any implementer of `IGListAdapterUpdaterDelegate` and/or `IGListUpdatingDelegate` must update to include these methods. [Hoà V. DINH](https://github.com/dinhvh) [(da1050ef)](https://github.com/Instagram/IGListKit/commit/da1050ef397c9cf38e88ac047196fe53fe6febb0)
 
 ### Enhancements
 
-- Replaced CocoaPods with SPM as the new dependency manager of `IGListKit.xcodeproj` when running unit tests. [Tim Oliver](https://github.com/timoliver) [(2964f06)](https://github.com/Instagram/IGListKit/commit/2964f066a3b0ad533f2eeda71096caeb0b54500a)
+- Replaced CocoaPods with SPM as the new dependency manager of `IGListKit.xcodeproj` when running unit tests. [Tim Oliver](https://github.com/timoliver) [(2964f066)](https://github.com/Instagram/IGListKit/commit/2964f066a3b0ad533f2eeda71096caeb0b54500a)
 
 - Added handling for new collection view cell dequeue behavior in iOS 18 [Maxime Ollivier](https://github.com/maxolls) [(4bad7d52)](https://github.com/Instagram/IGListKit/commit/4bad7d52604c695e48c0c161fed631aad8511449)
 
