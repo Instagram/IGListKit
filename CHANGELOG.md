@@ -10,17 +10,17 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Enhancements
 
-- Added a more defensive check for NaN values in item bounds when applying layout attributes in `- [IGListCollectionViewLayout layoutAttributesForItemAtIndexPath:]`. Minqi Ma [(358fe894)](https://github.com/Instagram/IGListKit/commit/358fe894f2c66a14ac1eda7ba09a2de158373cd5)
+- Added a more defensive check for NaN values in item bounds when applying layout attributes in `-[IGListCollectionViewLayout layoutAttributesForItemAtIndexPath:]`. Minqi Ma [(358fe894)](https://github.com/Instagram/IGListKit/commit/358fe894f2c66a14ac1eda7ba09a2de158373cd5)
 
-- Improved assert details in `IGListAdapter+UICollectionView.m`. [Maxime Ollivier](https://github.com/maxolls)  [(7240131c)](https://github.com/Instagram/IGListKit/commit/7240131ceaa7784bfed60fdb9a623e3b7f4cdf5b)
+- Improved assertion details in `IGListAdapter+UICollectionView.m`. [Maxime Ollivier](https://github.com/maxolls)  [(7240131c)](https://github.com/Instagram/IGListKit/commit/7240131ceaa7784bfed60fdb9a623e3b7f4cdf5b)
 
-- Formalize assertion that `IGListAdapterDelegateAnnouncer` is main-thread confined. Andrew Cuneo [(7dddb0d4)](https://github.com/Instagram/IGListKit/commit/7dddb0d4c83c14a3cade15a24a9df5b61f7a6836)
+- Formalized assertions that `IGListAdapterDelegateAnnouncer` is main-thread confined. Andrew Cuneo [(7dddb0d4)](https://github.com/Instagram/IGListKit/commit/7dddb0d4c83c14a3cade15a24a9df5b61f7a6836)
 
 ### Fixes
 
 - An `EXC_BAD_ACCESS` crash in `IGListSectionMap.m` during `IGListAdapter` deallocation. [Hoà V. DINH](https://github.com/dinhvh) [(d1ddab8e)](https://github.com/Instagram/IGListKit/commit/d1ddab8e20fe8b3effc70dc878697e0f421f9a25)
 
-- A crash where an index value provided to `- [IGListBindingSectionController sizeForItemAtIndex:]` was out of bounds. Kaur Ishnoor [(0a0b11bd)](https://github.com/Instagram/IGListKit/commit/0a0b11bdc81d96aa6525d558715bc46d91393711)
+- A crash where an index value provided to `-[IGListBindingSectionController sizeForItemAtIndex:]` was out of bounds. Kaur Ishnoor [(0a0b11bd)](https://github.com/Instagram/IGListKit/commit/0a0b11bdc81d96aa6525d558715bc46d91393711)
 
 5.1.0
 -----
