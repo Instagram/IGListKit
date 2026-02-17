@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>IGListMoveIndexPath Class Reference</title>
+    <title>IGListAdaptiveDiffingExperimentConfig Type Definition Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/objc/Class/IGListMoveIndexPath" class="dashAnchor"></a>
-    <a title="IGListMoveIndexPath Class Reference"></a>
+    <a name="//apple_ref/objc/Type/IGListAdaptiveDiffingExperimentConfig" class="dashAnchor"></a>
+    <a title="IGListAdaptiveDiffingExperimentConfig Type Definition Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">IGListKit 5.2.0 Docs</a> (96% documented)</p>
@@ -30,9 +30,9 @@
       <p id="breadcrumbs">
         <a href="../index.html">IGListKit</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        <a href="../Classes.html">Classes</a>
+        <a href="../Type%20Definitions.html">Type Definitions</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        IGListMoveIndexPath Class Reference
+        IGListAdaptiveDiffingExperimentConfig Type Definition Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -316,21 +316,16 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>IGListMoveIndexPath</h1>
+            <h1>IGListAdaptiveDiffingExperimentConfig</h1>
               <div class="declaration">
                 <div class="language">
-                  <p class="aside-title">Objective-C</p>
-                  <pre class="highlight objective_c"><code>
-<span class="k">@interface</span> <span class="nc">IGListMoveIndexPath</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
-
-                </div>
-                <div class="language">
-                  <p class="aside-title">Swift</p>
-                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ListMoveIndexPath</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+                  
+                  <pre class="highlight objective_c"><code><span class="k">typedef</span> <span class="k">struct</span>
+    <span class="n"><a href="../Structs/IGListAdaptiveDiffingExperimentConfig.html">IGListAdaptiveDiffingExperimentConfig</a></span> <span class="n"><a href="../Structs/IGListAdaptiveDiffingExperimentConfig.html">IGListAdaptiveDiffingExperimentConfig</a></span></code></pre>
 
                 </div>
               </div>
-            <p>An object representing a move between indexes.</p>
+            <p>Customize how diffing is performed</p>
 
           </section>
           <section class="section task-group-section">
@@ -339,9 +334,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)IGListMoveIndexPath(py)from"></a>
-                    <a name="//apple_ref/objc/Property/from" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListMoveIndexPath(py)from">from</a>
+                    <a name="/c:@S@IGListAdaptiveDiffingExperimentConfig"></a>
+                    <a name="//apple_ref/objc/Struct/IGListAdaptiveDiffingExperimentConfig" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@S@IGListAdaptiveDiffingExperimentConfig">IGListAdaptiveDiffingExperimentConfig</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -349,51 +344,20 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An index path in the old collection.</p>
+                        <p>Customize how diffing is performed</p>
 
+                        <a href="../Type%20Definitions/IGListAdaptiveDiffingExperimentConfig/IGListAdaptiveDiffingExperimentConfig.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">from</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">struct</span> <span class="n"><a href="../Structs/IGListAdaptiveDiffingExperimentConfig.html">IGListAdaptiveDiffingExperimentConfig</a></span> <span class="p">{}</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">IndexPath</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(cs)IGListMoveIndexPath(py)to"></a>
-                    <a name="//apple_ref/objc/Property/to" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)IGListMoveIndexPath(py)to">to</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>An index path in the new collection.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">NSIndexPath</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">to</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">to</span><span class="p">:</span> <span class="kt">IndexPath</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt"><a href="../Structs/IGListAdaptiveDiffingExperimentConfig.html">IGListAdaptiveDiffingExperimentConfig</a></span></code></pre>
 
                         </div>
                       </div>
