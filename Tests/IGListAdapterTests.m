@@ -2382,4 +2382,58 @@
     XCTAssertNil([self.adapter viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader atIndex:1 sectionController:controller]);
 }
 
+#pragma mark - Recursive delegation prevention (Issue 1658)
+
+- (void)test_whenSettingScrollViewDelegateToCollectionView_thatScrollViewDelegateIsNotSet {
+    // Issue 1658: Setting scrollViewDelegate to collectionView causes infinite recursion when VoiceOver is enabled
+    // The adapter should reject this and not update the scrollViewDelegate
+    self.adapter.scrollViewDelegate = (id<UIScrollViewDelegate>)self.collectionView;
+    XCTAssertNil(self.adapter.scrollViewDelegate);
+}
+
+- (void)test_whenSettingCollectionViewDelegateToCollectionView_thatCollectionViewDelegateIsNotSet {
+    // Issue 1658: Setting collectionViewDelegate to collectionView causes infinite recursion when VoiceOver is enabled
+    // The adapter should reject this and not update the collectionViewDelegate
+    self.adapter.collectionViewDelegate = (id<UICollectionViewDelegate>)self.collectionView;
+    XCTAssertNil(self.adapter.collectionViewDelegate);
+}
+
+- (void)test_whenSettingCollectionViewAfterScrollViewDelegateWasSet_thatScrollViewDelegateIsCleared {
+    // If scrollViewDelegate is set to a collectionView before that collectionView is assigned to the adapter,
+    // the adapter should detect this and clear the scrollViewDelegate to prevent recursion
+    UICollectionView *newCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
+                                                             collectionViewLayout:[UICollectionViewFlowLayout new]];
+
+    // First, create a new adapter with no collection view
+    IGListAdapter *newAdapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new] viewController:nil];
+
+    // Set the scrollViewDelegate to the collection view we're about to set
+    // Note: This is done via the ivar since the setter would reject it if collectionView was already set
+    [newAdapter setValue:newCollectionView forKey:@"_scrollViewDelegate"];
+
+    // Now set the collection view - this should detect the issue and clear the scrollViewDelegate
+    newAdapter.collectionView = newCollectionView;
+
+    XCTAssertNil(newAdapter.scrollViewDelegate);
+}
+
+- (void)test_whenSettingCollectionViewAfterCollectionViewDelegateWasSet_thatCollectionViewDelegateIsCleared {
+    // If collectionViewDelegate is set to a collectionView before that collectionView is assigned to the adapter,
+    // the adapter should detect this and clear the collectionViewDelegate to prevent recursion
+    UICollectionView *newCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
+                                                             collectionViewLayout:[UICollectionViewFlowLayout new]];
+
+    // First, create a new adapter with no collection view
+    IGListAdapter *newAdapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new] viewController:nil];
+
+    // Set the collectionViewDelegate to the collection view we're about to set
+    // Note: This is done via the ivar since the setter would reject it if collectionView was already set
+    [newAdapter setValue:newCollectionView forKey:@"_collectionViewDelegate"];
+
+    // Now set the collection view - this should detect the issue and clear the collectionViewDelegate
+    newAdapter.collectionView = newCollectionView;
+
+    XCTAssertNil(newAdapter.collectionViewDelegate);
+}
+
 @end

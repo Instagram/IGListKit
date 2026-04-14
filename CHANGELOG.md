@@ -5,6 +5,10 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 5.3.0 (Upcoming Release)
 -----
 
+### Fixes
+
+- An infinite recursion crash when VoiceOver is enabled and `scrollViewDelegate` or `collectionViewDelegate` is set to the adapter's own `UICollectionView`. [Cameron Roth](https://github.com/camroth) [(#1658)](https://github.com/Instagram/IGListKit/issues/1658)
+
 5.2.0
 -----
 
