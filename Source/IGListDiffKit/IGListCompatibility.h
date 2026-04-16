@@ -9,8 +9,10 @@
 
 #if TARGET_OS_EMBEDDED || TARGET_OS_SIMULATOR || TARGET_OS_MACCATALYST
 #import <UIKit/UIKit.h>
-#elif TARGET_OS_OSX
+#else // TARGET_OS_OSX
+#if __has_include(<METAUIKitBridge/METAUIKitBridge.h>)
 #import <METAUIKitBridge/METAUIKitBridge.h>
 #else
 #import <Cocoa/Cocoa.h>
+#endif
 #endif

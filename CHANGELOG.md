@@ -7,6 +7,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 ### Fixes
 
+- Fixed public compilation failure on macOS (SPM, CocoaPods) by conditionally importing METAUIKitBridge only when available. [Cameron Roth](https://github.com/camroth)
+
 - An infinite recursion crash when VoiceOver is enabled and `scrollViewDelegate` or `collectionViewDelegate` is set to the adapter's own `UICollectionView`. [Cameron Roth](https://github.com/camroth) [(#1658)](https://github.com/Instagram/IGListKit/issues/1658)
 
 5.2.0
