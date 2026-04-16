@@ -116,13 +116,13 @@ typedef struct OffsetRange {
         // as this would cause infinite recursion when VoiceOver is enabled.
         // See: https://github.com/Instagram/IGListKit/issues/1658
         if (_scrollViewDelegate == (id<UIScrollViewDelegate>)collectionView) {
-            IGFailAssert(@"scrollViewDelegate was set to the UICollectionView which causes infinite recursion "
-                         @"when VoiceOver is enabled. Clearing the scrollViewDelegate.");
+            NSLog(@"[IGListKit] WARNING: scrollViewDelegate was set to the UICollectionView which causes infinite recursion "
+                  @"when VoiceOver is enabled. Clearing the scrollViewDelegate.");
             _scrollViewDelegate = nil;
         }
         if (_collectionViewDelegate == (id<UICollectionViewDelegate>)collectionView) {
-            IGFailAssert(@"collectionViewDelegate was set to the UICollectionView which causes infinite recursion "
-                         @"when VoiceOver is enabled. Clearing the collectionViewDelegate.");
+            NSLog(@"[IGListKit] WARNING: collectionViewDelegate was set to the UICollectionView which causes infinite recursion "
+                  @"when VoiceOver is enabled. Clearing the collectionViewDelegate.");
             _collectionViewDelegate = nil;
         }
 
@@ -187,8 +187,8 @@ typedef struct OffsetRange {
         // when VoiceOver is enabled, as accessibility queries trigger delegate methods that get
         // forwarded back to the collectionView. See: https://github.com/Instagram/IGListKit/issues/1658
         if (collectionViewDelegate == (id<UICollectionViewDelegate>)_collectionView) {
-            IGFailAssert(@"Setting collectionViewDelegate to the adapter's UICollectionView is not allowed. "
-                         @"This causes infinite recursion when VoiceOver is enabled.");
+            NSLog(@"[IGListKit] WARNING: Setting collectionViewDelegate to the adapter's UICollectionView is not allowed. "
+                  @"This causes infinite recursion when VoiceOver is enabled.");
             return;
         }
         _collectionViewDelegate = collectionViewDelegate;
@@ -204,8 +204,8 @@ typedef struct OffsetRange {
         // when VoiceOver is enabled, as accessibility queries trigger delegate methods that get
         // forwarded back to the collectionView. See: https://github.com/Instagram/IGListKit/issues/1658
         if (scrollViewDelegate == (id<UIScrollViewDelegate>)_collectionView) {
-            IGFailAssert(@"Setting scrollViewDelegate to the adapter's UICollectionView is not allowed. "
-                         @"This causes infinite recursion when VoiceOver is enabled.");
+            NSLog(@"[IGListKit] WARNING: Setting scrollViewDelegate to the adapter's UICollectionView is not allowed. "
+                  @"This causes infinite recursion when VoiceOver is enabled.");
             return;
         }
         _scrollViewDelegate = scrollViewDelegate;
