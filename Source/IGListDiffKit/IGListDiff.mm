@@ -97,6 +97,13 @@ static id IGListDiffing(BOOL returnIndexPaths,
                         NSArray<id<IGListDiffable>> *oldArray,
                         NSArray<id<IGListDiffable>> *newArray,
                         IGListDiffOption option) {
+    // Best-effort snapshot: narrows the race window from the entire diff to just the copy call.
+    // For immutable NSArray this is a no-op retain; for NSMutableArray it creates an immutable copy.
+    // NOTE: Callers are still responsible for not mutating the source array concurrently, since
+    // -[NSMutableArray copy] itself is not atomic.
+    oldArray = [oldArray copy];
+    newArray = [newArray copy];
+
     const NSInteger newCount = newArray.count;
     const NSInteger oldCount = oldArray.count;
 

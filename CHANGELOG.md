@@ -11,6 +11,8 @@ The changelog for `IGListKit`. Also see the [releases](https://github.com/instag
 
 - An infinite recursion crash when VoiceOver is enabled and `scrollViewDelegate` or `collectionViewDelegate` is set to the adapter's own `UICollectionView`. [Cameron Roth](https://github.com/camroth) [(#1658)](https://github.com/Instagram/IGListKit/issues/1658)
 
+- A heap corruption crash in `IGListDiff`/`IGListDiffPaths` caused by concurrent mutation of `NSMutableArray` inputs during the diff. Input arrays are now defensively copied to create immutable snapshots before diffing. [Cameron Roth](https://github.com/camroth) [(#1578)](https://github.com/Instagram/IGListKit/issues/1578)
+
 5.2.0
 -----
 
