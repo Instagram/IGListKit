@@ -8,7 +8,7 @@
 import IGListKit
 import UIKit
 
-final class MonthSectionController: ListBindingSectionController<ListDiffable>, ListBindingSectionControllerDataSource, ListBindingSectionControllerSelectionDelegate {
+final class MonthSectionController: ListBindingSectionController, ListBindingSectionControllerDataSource, ListBindingSectionControllerSelectionDelegate {
 
     private var selectedDay: Int = -1
 
@@ -20,7 +20,7 @@ final class MonthSectionController: ListBindingSectionController<ListDiffable>, 
 
     // MARK: ListBindingSectionControllerDataSource
 
-    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, viewModelsFor object: Any) -> [ListDiffable] {
+    func sectionController(_ sectionController: ListBindingSectionController, viewModelsFor object: Any) -> [ListDiffable] {
         guard let month = object as? Month else { return [] }
 
         let date = Date()
@@ -47,7 +47,7 @@ final class MonthSectionController: ListBindingSectionController<ListDiffable>, 
         return viewModels
     }
 
-    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>,
+    func sectionController(_ sectionController: ListBindingSectionController,
                            cellForViewModel viewModel: Any,
                            at index: Int) -> UICollectionViewCell & ListBindable {
         switch viewModel {
@@ -60,7 +60,7 @@ final class MonthSectionController: ListBindingSectionController<ListDiffable>, 
         }
     }
 
-    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>,
+    func sectionController(_ sectionController: ListBindingSectionController,
                            sizeForViewModel viewModel: Any,
                            at index: Int) -> CGSize {
         guard let width = collectionContext?.containerSize.width else { return .zero }
@@ -76,7 +76,7 @@ final class MonthSectionController: ListBindingSectionController<ListDiffable>, 
 
     // MARK: ListBindingSectionControllerSelectionDelegate
 
-    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, didSelectItemAt index: Int, viewModel: Any) {
+    func sectionController(_ sectionController: ListBindingSectionController, didSelectItemAt index: Int, viewModel: Any) {
         guard let dayViewModel = viewModel as? DayViewModel else { return }
         if dayViewModel.day == selectedDay {
             selectedDay = -1
@@ -86,14 +86,14 @@ final class MonthSectionController: ListBindingSectionController<ListDiffable>, 
         update(animated: true)
     }
 
-    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, didDeselectItemAt index: Int, viewModel: Any) {}
+    func sectionController(_ sectionController: ListBindingSectionController, didDeselectItemAt index: Int, viewModel: Any) {}
 
-    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, didHighlightItemAt index: Int, viewModel: Any) {}
+    func sectionController(_ sectionController: ListBindingSectionController, didHighlightItemAt index: Int, viewModel: Any) {}
 
-    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, didUnhighlightItemAt index: Int, viewModel: Any) {}
+    func sectionController(_ sectionController: ListBindingSectionController, didUnhighlightItemAt index: Int, viewModel: Any) {}
 
     @available(iOS 13.0, *)
-    func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, contextMenuConfigurationForItemAt index: Int, point: CGPoint, viewModel: Any) -> UIContextMenuConfiguration? {
+    func sectionController(_ sectionController: ListBindingSectionController, contextMenuConfigurationForItemAt index: Int, point: CGPoint, viewModel: Any) -> UIContextMenuConfiguration? {
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
             // Create an action for sharing
             let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { _ in
