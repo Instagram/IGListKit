@@ -34,9 +34,15 @@ typedef struct OffsetRange {
 /// Returns the cells from `[collectionView visibleCells]` whose index path is in `section`.
 /// When `fullyVisibleOnly` is YES, additionally requires the cell's frame to be fully contained
 /// within the collection view's content-inset-adjusted bounds.
+///
+/// When `skipNilIndexPath` is YES, cells whose `-indexPathForCell:` returns nil are skipped.
+/// Such cells are in a transitional state (mid-prepareForReuse, mid-detach during batch updates,
+/// or in flight between dequeue and final attachment). Without that guard, `-section` sent to a
+/// nil index path returns 0, which mis-attributes transitional cells to section 0.
 static NSArray<UICollectionViewCell *> *IGListAdapterCellsInSection(UICollectionView *collectionView,
                                                                      NSInteger section,
-                                                                     BOOL fullyVisibleOnly) {
+                                                                     BOOL fullyVisibleOnly,
+                                                                     BOOL skipNilIndexPath) {
     NSMutableArray<UICollectionViewCell *> *const cells = [NSMutableArray new];
     NSArray<UICollectionViewCell *> *const visibleCells = [collectionView visibleCells];
     const CGRect insetBounds = fullyVisibleOnly
@@ -44,7 +50,11 @@ static NSArray<UICollectionViewCell *> *IGListAdapterCellsInSection(UICollection
         : CGRectZero;
 
     for (UICollectionViewCell *cell in visibleCells) {
-        if ([collectionView indexPathForCell:cell].section != section) {
+        NSIndexPath *const cellIndexPath = [collectionView indexPathForCell:cell];
+        if (skipNilIndexPath && cellIndexPath == nil) {
+            continue;
+        }
+        if (cellIndexPath.section != section) {
             continue;
         }
         if (fullyVisibleOnly) {
@@ -1167,7 +1177,8 @@ static NSArray<UICollectionViewCell *> *IGListAdapterCellsInSection(UICollection
         // The section controller is not in the map, which can happen if the associated object was deleted or after a full reload.
         return @[];
     }
-    return IGListAdapterCellsInSection(self.collectionView, section, /*fullyVisibleOnly=*/YES);
+    const BOOL skipNilIndexPath = IGListExperimentEnabled(self.experiments, IGListExperimentSkipNilIndexPathFiltering);
+    return IGListAdapterCellsInSection(self.collectionView, section, /*fullyVisibleOnly=*/YES, skipNilIndexPath);
 }
 
 - (NSArray<UICollectionViewCell *> *)visibleCellsForSectionController:(IGListSectionController *)sectionController {
@@ -1176,7 +1187,8 @@ static NSArray<UICollectionViewCell *> *IGListAdapterCellsInSection(UICollection
         // The section controller is not in the map, which can happen if the associated object was deleted or after a full reload.
         return @[];
     }
-    return IGListAdapterCellsInSection(self.collectionView, section, /*fullyVisibleOnly=*/NO);
+    const BOOL skipNilIndexPath = IGListExperimentEnabled(self.experiments, IGListExperimentSkipNilIndexPathFiltering);
+    return IGListAdapterCellsInSection(self.collectionView, section, /*fullyVisibleOnly=*/NO, skipNilIndexPath);
 }
 
 - (NSArray<NSIndexPath *> *)visibleIndexPathsForSectionController:(IGListSectionController *) sectionController {

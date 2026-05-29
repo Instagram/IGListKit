@@ -2345,6 +2345,68 @@
     XCTAssertEqual(cells.count, 0);
 }
 
+// Regression test for IGListExperimentSkipNilIndexPathFiltering. When a cell's index path has
+// been cleared (mid-prepareForReuse, mid-detach during batch updates, or in flight between
+// dequeue and final attachment), `-[NSIndexPath section]` sent to nil returns 0, so without
+// the experiment flag the filter erroneously includes any visible cell with a nil index path
+// in section 0's result. With the flag, those cells are skipped.
+- (void)test_whenSkipNilIndexPathExperimentEnabled_andCellHasNilIndexPath_thatVisibleCellsForSection0DoesNotIncludeIt {
+    self.adapter.experiments |= IGListExperimentSkipNilIndexPathFiltering;
+
+    // Set up two sections so we have cells in section 1 that should never appear in section 0.
+    self.dataSource.objects = @[@1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+    [self.collectionView layoutIfNeeded];
+
+    IGListSectionController *const section0Controller = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController *const section1Controller = [self.adapter sectionControllerForObject:@2];
+    UICollectionViewCell *const section1Cell = [self.adapter cellForItemAtIndex:0 sectionController:section1Controller];
+    XCTAssertNotNil(section1Cell, @"Setup precondition: a real section-1 cell must exist.");
+    XCTAssertTrue([[self.collectionView visibleCells] containsObject:section1Cell],
+                  @"Setup precondition: section-1 cell must be in the collection view's visible cells.");
+
+    // Force [collectionView indexPathForCell:section1Cell] to return nil, simulating a cell that
+    // is mid-prepareForReuse / mid-detach. Other cells continue to return their real index paths.
+    id mockCollectionView = OCMPartialMock(self.collectionView);
+    OCMStub([mockCollectionView indexPathForCell:section1Cell]).andReturn(nil);
+
+    NSArray<UICollectionViewCell *> *const section0VisibleCells = [self.adapter visibleCellsForSectionController:section0Controller];
+    XCTAssertFalse([section0VisibleCells containsObject:section1Cell],
+                   @"With experiment enabled, cell with nil index path must not be mis-attributed to section 0 by visibleCellsForSectionController:.");
+
+    NSArray<UICollectionViewCell *> *const section0FullyVisibleCells = [self.adapter fullyVisibleCellsForSectionController:section0Controller];
+    XCTAssertFalse([section0FullyVisibleCells containsObject:section1Cell],
+                   @"With experiment enabled, cell with nil index path must not be mis-attributed to section 0 by fullyVisibleCellsForSectionController:.");
+
+    [mockCollectionView stopMocking];
+}
+
+// Counter-test: when the experiment flag is OFF (default), the legacy mis-attribution behavior
+// is preserved. Verifies the experiment flag is observably gating the behavior change.
+- (void)test_whenSkipNilIndexPathExperimentDisabled_andCellHasNilIndexPath_thatVisibleCellsForSection0IncludesIt_legacyBehavior {
+    XCTAssertFalse(IGListExperimentEnabled(self.adapter.experiments, IGListExperimentSkipNilIndexPathFiltering),
+                   @"Setup precondition: experiment must default to off.");
+
+    self.dataSource.objects = @[@1, @2];
+    [self.adapter reloadDataWithCompletion:nil];
+    [self.collectionView layoutIfNeeded];
+
+    IGListSectionController *const section0Controller = [self.adapter sectionControllerForObject:@1];
+    IGListSectionController *const section1Controller = [self.adapter sectionControllerForObject:@2];
+    UICollectionViewCell *const section1Cell = [self.adapter cellForItemAtIndex:0 sectionController:section1Controller];
+    XCTAssertNotNil(section1Cell);
+
+    id mockCollectionView = OCMPartialMock(self.collectionView);
+    OCMStub([mockCollectionView indexPathForCell:section1Cell]).andReturn(nil);
+
+    // Legacy buggy behavior: [nil section] == 0, so the section-1 cell is mis-attributed to section 0.
+    NSArray<UICollectionViewCell *> *const section0VisibleCells = [self.adapter visibleCellsForSectionController:section0Controller];
+    XCTAssertTrue([section0VisibleCells containsObject:section1Cell],
+                  @"Without experiment, legacy mis-attribution must be preserved (cell appears in section 0).");
+
+    [mockCollectionView stopMocking];
+}
+
 - (void)test_whenSectionControllerRemoved_thatVisibleIndexPathIsEmpty {
     self.dataSource.objects = @[@1];
     [self.adapter performUpdatesAnimated:NO completion:nil];

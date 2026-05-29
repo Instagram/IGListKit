@@ -28,6 +28,12 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     IGListExperimentRemoveDataSourceChangeEarlyExit = 1 << 4,
     /// Avoids creating off-screen cells
     IGListExperimentFixPreferredFocusedView = 1 << 5,
+    /// Excludes cells whose `[UICollectionView indexPathForCell:]` returns nil from
+    /// `-visibleCellsForSectionController:` and `-fullyVisibleCellsForSectionController:`.
+    /// Without this experiment, transitional cells (mid-prepareForReuse, mid-detach during
+    /// batch updates, or in flight between dequeue and final attachment) are mis-attributed
+    /// to section 0 because `-section` sent to a nil `NSIndexPath` returns 0.
+    IGListExperimentSkipNilIndexPathFiltering = 1 << 6,
 };
 
 /**
