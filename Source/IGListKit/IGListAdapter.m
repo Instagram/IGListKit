@@ -31,6 +31,33 @@ typedef struct OffsetRange {
     CGFloat max;
 } OffsetRange;
 
+/// Returns the cells from `[collectionView visibleCells]` whose index path is in `section`.
+/// When `fullyVisibleOnly` is YES, additionally requires the cell's frame to be fully contained
+/// within the collection view's content-inset-adjusted bounds.
+static NSArray<UICollectionViewCell *> *IGListAdapterCellsInSection(UICollectionView *collectionView,
+                                                                     NSInteger section,
+                                                                     BOOL fullyVisibleOnly) {
+    NSMutableArray<UICollectionViewCell *> *const cells = [NSMutableArray new];
+    NSArray<UICollectionViewCell *> *const visibleCells = [collectionView visibleCells];
+    const CGRect insetBounds = fullyVisibleOnly
+        ? UIEdgeInsetsInsetRect(collectionView.bounds, collectionView.contentInset)
+        : CGRectZero;
+
+    for (UICollectionViewCell *cell in visibleCells) {
+        if ([collectionView indexPathForCell:cell].section != section) {
+            continue;
+        }
+        if (fullyVisibleOnly) {
+            const CGRect cellRect = [cell convertRect:cell.bounds toView:collectionView];
+            if (!CGRectContainsRect(insetBounds, cellRect)) {
+                continue;
+            }
+        }
+        [cells addObject:cell];
+    }
+    return cells;
+}
+
 @implementation IGListAdapter {
     NSMapTable<UICollectionReusableView *, IGListSectionController *> *_viewSectionControllerMap;
     // An array of blocks to execute once batch updates are finished
@@ -1140,20 +1167,7 @@ typedef struct OffsetRange {
         // The section controller is not in the map, which can happen if the associated object was deleted or after a full reload.
         return @[];
     }
-
-    NSMutableArray *cells = [NSMutableArray new];
-    UICollectionView *collectionView = self.collectionView;
-    NSArray *visibleCells = [collectionView visibleCells];
-
-    for (UICollectionViewCell *cell in visibleCells) {
-        if ([collectionView indexPathForCell:cell].section == section) {
-            const CGRect cellRect = [cell convertRect:cell.bounds toView:collectionView];
-            if (CGRectContainsRect(UIEdgeInsetsInsetRect(collectionView.bounds, collectionView.contentInset), cellRect)) {
-                [cells addObject:cell];
-            }
-        }
-    }
-    return cells;
+    return IGListAdapterCellsInSection(self.collectionView, section, /*fullyVisibleOnly=*/YES);
 }
 
 - (NSArray<UICollectionViewCell *> *)visibleCellsForSectionController:(IGListSectionController *)sectionController {
@@ -1162,17 +1176,7 @@ typedef struct OffsetRange {
         // The section controller is not in the map, which can happen if the associated object was deleted or after a full reload.
         return @[];
     }
-
-    NSMutableArray *cells = [NSMutableArray new];
-    UICollectionView *collectionView = self.collectionView;
-    NSArray *visibleCells = [collectionView visibleCells];
-
-    for (UICollectionViewCell *cell in visibleCells) {
-        if ([collectionView indexPathForCell:cell].section == section) {
-            [cells addObject:cell];
-        }
-    }
-    return cells;
+    return IGListAdapterCellsInSection(self.collectionView, section, /*fullyVisibleOnly=*/NO);
 }
 
 - (NSArray<NSIndexPath *> *)visibleIndexPathsForSectionController:(IGListSectionController *) sectionController {
