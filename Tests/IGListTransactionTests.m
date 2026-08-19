@@ -25,7 +25,7 @@
     IGListUpdateTransactationConfig _config;
 }
 
-@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong) UIView *containerView;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) IGListTestUICollectionViewDataSource *dataSource;
 @property (nonatomic, strong) IGListTransitionDataApplyBlock applySectionDataBlock;
@@ -74,11 +74,11 @@
 - (void)setUp {
     [super setUp];
 
-    self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    self.containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
 
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:layout];
-    [self.window addSubview:self.collectionView];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:self.containerView.bounds collectionViewLayout:layout];
+    [self.containerView addSubview:self.collectionView];
 
     self.dataSource = [[IGListTestUICollectionViewDataSource alloc] initWithCollectionView:self.collectionView];
     __weak __typeof__(self) weakSelf = self;
@@ -93,7 +93,7 @@
     [super tearDown];
     self.collectionView = nil;
     self.dataSource = nil;
-    self.window = nil;
+    self.containerView = nil;
     memset(&_config, 0, sizeof(IGListUpdateTransactationConfig));
 }
 

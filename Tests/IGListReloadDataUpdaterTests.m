@@ -20,9 +20,9 @@
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
+@property (nonatomic, strong) UIView *containerView;
 @property (nonatomic, strong) IGListTestAdapterDataSource *dataSource;
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
-@property (nonatomic, strong) UIWindow *window;
 
 @end
 
@@ -32,12 +32,12 @@
     [super setUp];
 
     // minimum line spacing, item size, and minimum interim spacing are all set in IGListTestSection
-    self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    self.containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
 
     self.layout = [[UICollectionViewFlowLayout alloc] init];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:self.window.bounds collectionViewLayout:self.layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:self.containerView.bounds collectionViewLayout:self.layout];
 
-    [self.window addSubview:self.collectionView];
+    [self.containerView addSubview:self.collectionView];
 
     // syncronous reloads so we dont have to do expectations or other nonsense
     IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
