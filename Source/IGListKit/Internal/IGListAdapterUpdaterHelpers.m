@@ -95,7 +95,7 @@ IGListBatchUpdateData *IGListApplyUpdatesToCollectionView(UICollectionView *coll
             if ((NSInteger)sectionIndex < [collectionView numberOfSections]
                 && (NSInteger)sectionIndex < [collectionView.dataSource numberOfSectionsInCollectionView:collectionView]
                 && [collectionView numberOfItemsInSection:(NSInteger)sectionIndex] == [collectionView.dataSource collectionView:collectionView numberOfItemsInSection:sectionIndex]) {
-                // Perfer to do item reloads instead, if the number of items in section is unchanged.
+                // Prefer to do item reloads instead, if the number of items in section is unchanged.
                 [itemUpdates addObjectsFromArray:convertSectionReloadToItemUpdates(localIndexSet, collectionView)];
             } else {
                 // Otherwise, fallback to convert into delete+insert section operation.
