@@ -96,7 +96,7 @@
 #pragma mark - Cancel
 
 - (BOOL)cancel {
-    // This transaction is syncronous
+    // This transaction is synchronous
     return NO;
 }
 
