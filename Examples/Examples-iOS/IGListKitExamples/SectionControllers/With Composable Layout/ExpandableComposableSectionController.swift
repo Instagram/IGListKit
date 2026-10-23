@@ -31,7 +31,7 @@ final class ExpandableComposableSectionController: ListSectionController, Compos
     }
 
     override func didSelectItem(at index: Int) {
-        expanded = !expanded
+        expanded.toggle()
 
         guard let cell = collectionContext.cellForItem(at: index, sectionController: self) as? CompositionLayoutCell else {
             return

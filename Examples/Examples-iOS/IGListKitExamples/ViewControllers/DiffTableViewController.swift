@@ -69,7 +69,7 @@ final class DiffTableViewController: UITableViewController {
     @objc func onDiff() {
         let from = people
         let to = usingOldPeople ? newPeople : oldPeople
-        usingOldPeople = !usingOldPeople
+        usingOldPeople.toggle()
         people = to
 
         let result = ListDiffPaths(fromSection: 0, toSection: 0, oldArray: from, newArray: to, option: .equality).forBatchUpdates()

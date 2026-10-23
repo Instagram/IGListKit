@@ -31,7 +31,7 @@ final class ExpandableSectionController: ListSectionController {
     }
 
     override func didSelectItem(at index: Int) {
-        expanded = !expanded
+        expanded.toggle()
         UIView.animate(withDuration: 0.5,
                        delay: 0,
                        usingSpringWithDamping: 0.4,
