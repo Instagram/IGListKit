@@ -2093,6 +2093,38 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenInvalidatingInsideBatchUpdate_queuedDuringInFlightTransaction_thatInvalidationWaitsForSectionMove {
+    IGTestObject *foo = genTestObject(@0, @"Foo");
+    [self setupWithObjects:@[foo]];
+    IGListAdapterUpdater *updater = (IGListAdapterUpdater *)self.updater;
+    IGTestDelegateController *section = [self.adapter sectionControllerForObject:foo];
+
+    // Start a transaction and leave it waiting for its collection view completion.
+    XCTestExpectation *firstUpdate = genExpectation;
+    [self.adapter performUpdatesAnimated:NO completion:^(BOOL finished) {
+        [firstUpdate fulfill];
+    }];
+    [updater update];
+
+    // Queue a section diff that moves `section` from 0 to 1, plus a batch that invalidates it from its update block.
+    self.dataSource.objects = @[genTestObject(@1, @"Bar"), foo];
+    [self.adapter performUpdatesAnimated:NO completion:nil];
+
+    __block NSInteger invalidatedSectionCount = 0;
+    XCTestExpectation *invalidation = genExpectation;
+    [section.collectionContext performBatchAnimated:NO updates:^(id<IGListBatchContext> batchContext) {
+        [section.collectionContext invalidateLayoutForSectionController:section completion:^(BOOL finished) {
+            XCTAssertTrue(finished);
+            invalidatedSectionCount = [self.collectionView numberOfSections];
+            [invalidation fulfill];
+        }];
+    } completion:nil];
+
+    [self waitForExpectationsWithTimeout:30 handler:nil];
+    XCTAssertEqual(invalidatedSectionCount, 2);
+    XCTAssertEqual([self.adapter sectionForSectionController:section], 1);
+}
+
 - (void)test_whenPerformingBatchSectionUpdate_thatTransactionObjectsGetsDeallocated {
     __weak IGListUpdateTransactionBuilder *transactionBuilder = nil;
     __block __weak IGListUpdateTransactionBuilder *lastTransactionBuilder = nil;

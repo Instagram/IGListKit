@@ -982,15 +982,21 @@ static NSArray<UICollectionViewCell *> *IGListAdapterCellsInSection(UICollection
 
 - (void)_deferBlockBetweenBatchUpdates:(void (^)(void))block {
     IGAssertMainThread();
-    if (_queuedCompletionBlocks == nil) {
+    // An update block can run after an earlier transaction's completion has already flushed the queue.
+    if (_queuedCompletionBlocks == nil && ![self isInDataUpdateBlock]) {
         block();
     } else {
+        if (_queuedCompletionBlocks == nil) {
+            _queuedCompletionBlocks = [NSMutableArray new];
+        }
         [_queuedCompletionBlocks addObject:block];
     }
 }
 
 - (void)_enterBatchUpdates {
-    _queuedCompletionBlocks = [NSMutableArray new];
+    if (_queuedCompletionBlocks == nil) {
+        _queuedCompletionBlocks = [NSMutableArray new];
+    }
 }
 
 - (void)_exitBatchUpdates {
