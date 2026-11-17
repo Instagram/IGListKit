@@ -34,6 +34,10 @@ typedef NS_OPTIONS (NSInteger, IGListExperiment) {
     /// batch updates, or in flight between dequeue and final attachment) are mis-attributed
     /// to section 0 because `-section` sent to a nil `NSIndexPath` returns 0.
     IGListExperimentSkipNilIndexPathFiltering = 1 << 6,
+    /// Reloads a section instead of applying its item updates when they don't match the section's item counts
+    /// before and after the update. Otherwise `-[UICollectionView performBatchUpdates:]` throws mid-update, which
+    /// leaves the collection view unable to complete any later batch update.
+    IGListExperimentReloadSectionsWithInconsistentItemUpdates = 1 << 7,
 };
 
 /**

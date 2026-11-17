@@ -51,6 +51,8 @@ typedef NS_ENUM (NSInteger, IGListBatchUpdateTransactionMode) {
 @property (nonatomic, assign, readwrite) IGListBatchUpdateState state;
 @property (nonatomic, assign, readwrite) IGListBatchUpdateTransactionMode mode;
 @property (nonatomic, strong, readwrite, nullable) IGListBatchUpdateData *actualCollectionViewUpdates;
+/// Item counts the collection view reports before the update, captured when item updates can be validated.
+@property (nonatomic, copy, readwrite, nullable) NSArray<NSNumber *> *itemCountsBeforeUpdate;
 @end
 
 @implementation IGListBatchUpdateTransaction
@@ -177,6 +179,20 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
         [self _didPerformBatchUpdate:finished];
     };
 
+    // Section indexes only stay the same before and after the update when no sections are inserted, deleted or moved.
+    if (IGListExperimentEnabled(self.config.experiments, IGListExperimentReloadSectionsWithInconsistentItemUpdates)
+        && !self.config.singleItemSectionUpdates
+        && diffResult.inserts.count == 0
+        && diffResult.deletes.count == 0
+        && diffResult.moves.count == 0) {
+        const NSInteger sectionCount = [self.collectionView numberOfSections];
+        NSMutableArray<NSNumber *> *itemCounts = [NSMutableArray arrayWithCapacity:(NSUInteger)sectionCount];
+        for (NSInteger section = 0; section < sectionCount; section++) {
+            [itemCounts addObject:@([self.collectionView numberOfItemsInSection:section])];
+        }
+        self.itemCountsBeforeUpdate = itemCounts;
+    }
+
     @try {
         if (self.animated) {
             [self.collectionView performBatchUpdates:updates completion:completion];
@@ -258,6 +274,7 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
                                             updateIndexPaths:@[]
                                             moveIndexPaths:@[]];
     } else {
+        [self _reloadSectionsWithInconsistentItemUpdates:diffResult];
         self.actualCollectionViewUpdates = IGListApplyUpdatesToCollectionView(self.collectionView,
                                                                               diffResult,
                                                                               self.inUpdateItemCollector.sectionReloads,
@@ -269,6 +286,130 @@ willPerformBatchUpdatesWithCollectionView:self.collectionView
                                                                               self.config.sectionMovesAsDeletesInserts,
                                                                               self.config.preferItemReloadsForSectionReloads);
     }
+}
+
+/// Moves the item updates of every section whose updates don't add up to its item counts into a section reload,
+/// which is valid for any item count. Item updates in sections that don't exist are dropped.
+- (void)_reloadSectionsWithInconsistentItemUpdates:(IGListIndexSetResult *)diffResult {
+    NSArray<NSNumber *> *itemCountsBefore = self.itemCountsBeforeUpdate;
+    if (itemCountsBefore == nil) {
+        return;
+    }
+    IGListItemUpdatesCollector *collector = self.inUpdateItemCollector;
+    const NSUInteger itemUpdateCount = collector.itemInserts.count + collector.itemDeletes.count
+        + collector.itemReloads.count + collector.itemMoves.count;
+    if (itemUpdateCount == 0) {
+        return;
+    }
+
+    id<UICollectionViewDataSource> dataSource = self.collectionView.dataSource;
+    NSInteger sectionCount = MIN((NSInteger)itemCountsBefore.count, [dataSource numberOfSectionsInCollectionView:self.collectionView]);
+    // IGListConvertReloadToDeleteInsert looks reloaded sections up in fromObjects when it isn't empty.
+    const NSUInteger fromObjectCount = self.sectionData.fromObjects.count;
+    if (fromObjectCount > 0) {
+        sectionCount = MIN(sectionCount, (NSInteger)fromObjectCount);
+    }
+    BOOL (^isSectionInRange)(NSIndexPath *) = ^BOOL(NSIndexPath *indexPath) {
+        return indexPath.section >= 0 && indexPath.section < sectionCount;
+    };
+
+    NSMutableIndexSet *inconsistentSections = [NSMutableIndexSet new];
+    // Count reloads and moves the way UICollectionView does: as a delete of the old index and an insert of the new one.
+    // A reload whose index is also deleted is dropped by IGListApplyUpdatesToCollectionView.
+    NSMutableDictionary<NSNumber *, NSMutableIndexSet *> *deletesBySection = [NSMutableDictionary new];
+    NSMutableDictionary<NSNumber *, NSMutableIndexSet *> *insertsBySection = [NSMutableDictionary new];
+    void (^add)(NSMutableDictionary<NSNumber *, NSMutableIndexSet *> *, NSIndexPath *) = ^(NSMutableDictionary<NSNumber *, NSMutableIndexSet *> *bySection, NSIndexPath *indexPath) {
+        if (!isSectionInRange(indexPath)) {
+            return;
+        }
+        if (indexPath.item < 0 || indexPath.item == NSNotFound) {
+            [inconsistentSections addIndex:(NSUInteger)indexPath.section];
+            return;
+        }
+        NSNumber *section = @(indexPath.section);
+        NSMutableIndexSet *items = bySection[section];
+        if (items == nil) {
+            items = [NSMutableIndexSet new];
+            bySection[section] = items;
+        }
+        [items addIndex:(NSUInteger)indexPath.item];
+    };
+    NSSet<NSIndexPath *> *uniqueDeletes = [NSSet setWithArray:collector.itemDeletes];
+    for (NSIndexPath *indexPath in uniqueDeletes) {
+        add(deletesBySection, indexPath);
+    }
+    for (NSIndexPath *indexPath in collector.itemInserts) {
+        add(insertsBySection, indexPath);
+    }
+    for (IGListReloadIndexPath *reload in collector.itemReloads) {
+        if (![uniqueDeletes containsObject:reload.fromIndexPath]) {
+            add(deletesBySection, reload.fromIndexPath);
+            add(insertsBySection, reload.toIndexPath);
+        }
+    }
+    for (IGListMoveIndexPath *move in collector.itemMoves) {
+        add(deletesBySection, move.from);
+        add(insertsBySection, move.to);
+    }
+
+    NSMutableSet<NSNumber *> *sections = [NSMutableSet setWithArray:deletesBySection.allKeys];
+    [sections addObjectsFromArray:insertsBySection.allKeys];
+    for (NSNumber *sectionNumber in sections) {
+        const NSInteger section = sectionNumber.integerValue;
+        if ([collector.sectionReloads containsIndex:(NSUInteger)section] || [diffResult.updates containsIndex:(NSUInteger)section]) {
+            continue;
+        }
+        const NSInteger itemCountBefore = itemCountsBefore[(NSUInteger)section].integerValue;
+        const NSInteger itemCountAfter = [dataSource collectionView:self.collectionView numberOfItemsInSection:section];
+        NSIndexSet *deletes = deletesBySection[sectionNumber] ?: [NSIndexSet indexSet];
+        NSIndexSet *inserts = insertsBySection[sectionNumber] ?: [NSIndexSet indexSet];
+        const BOOL deletesInRange = deletes.count == 0 || (NSInteger)deletes.lastIndex < itemCountBefore;
+        const BOOL insertsInRange = inserts.count == 0 || (NSInteger)inserts.lastIndex < itemCountAfter;
+        const BOOL countsMatch = itemCountBefore - (NSInteger)deletes.count + (NSInteger)inserts.count == itemCountAfter;
+        if (!deletesInRange || !insertsInRange || !countsMatch) {
+            [inconsistentSections addIndex:(NSUInteger)section];
+        }
+    }
+
+    BOOL (^isDropped)(NSIndexPath *) = ^BOOL(NSIndexPath *indexPath) {
+        return !isSectionInRange(indexPath) || [inconsistentSections containsIndex:(NSUInteger)indexPath.section];
+    };
+    // Dropping a move between sections changes the counts of both, so both have to reload, which can drop more moves.
+    NSUInteger previousInconsistentSectionCount;
+    do {
+        previousInconsistentSectionCount = inconsistentSections.count;
+        for (IGListMoveIndexPath *move in collector.itemMoves) {
+            if (isDropped(move.from) || isDropped(move.to)) {
+                if (isSectionInRange(move.from)) {
+                    [inconsistentSections addIndex:(NSUInteger)move.from.section];
+                }
+                if (isSectionInRange(move.to)) {
+                    [inconsistentSections addIndex:(NSUInteger)move.to.section];
+                }
+            }
+        }
+    } while (inconsistentSections.count != previousInconsistentSectionCount);
+
+    [collector.itemInserts filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSIndexPath *indexPath, NSDictionary *bindings) {
+        return !isDropped(indexPath);
+    }]];
+    [collector.itemDeletes filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSIndexPath *indexPath, NSDictionary *bindings) {
+        return !isDropped(indexPath);
+    }]];
+    [collector.itemReloads filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(IGListReloadIndexPath *reload, NSDictionary *bindings) {
+        return !isDropped(reload.fromIndexPath) && !isDropped(reload.toIndexPath);
+    }]];
+    [collector.itemMoves filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(IGListMoveIndexPath *move, NSDictionary *bindings) {
+        return !isDropped(move.from) && !isDropped(move.to);
+    }]];
+    const NSUInteger droppedItemUpdateCount = itemUpdateCount - (collector.itemInserts.count + collector.itemDeletes.count
+        + collector.itemReloads.count + collector.itemMoves.count);
+    if (droppedItemUpdateCount == 0) {
+        return;
+    }
+    IGFailure(@"IGListKit dropped %lu item updates and reloaded sections %@ because the updates don't match the item counts of %ld sections",
+              (unsigned long)droppedItemUpdateCount, inconsistentSections, (long)sectionCount);
+    [collector.sectionReloads addIndexes:inconsistentSections];
 }
 
 - (void)_didPerformBatchUpdate:(BOOL)finished {

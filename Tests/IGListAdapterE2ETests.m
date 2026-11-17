@@ -2871,4 +2871,218 @@
     [self waitForExpectationsWithTimeout:30 handler:nil];
 }
 
+- (void)test_whenItemUpdatesDontMatchItemCounts_withReloadInconsistentSectionsExperiment_thatSectionReloads {
+    ((IGListAdapterUpdater *)self.updater).experiments |= IGListExperimentReloadSectionsWithInconsistentItemUpdates;
+    [self setupWithObjects:@[
+        genTestObject(@1, @5),
+        genTestObject(@2, @2)
+    ]];
+    IGTestObject *object = self.dataSource.objects[0];
+    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+
+    // The section reports an item the collection view was never told about, then deletes it.
+    object.value = @6;
+    XCTestExpectation *expectation = genExpectation;
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+        object.value = @5;
+        [batchContext deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:5]];
+    } completion:^(BOOL finished) {
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 5);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 2);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+}
+
+- (void)test_whenItemUpdatesDontMatchItemCounts_withReloadInconsistentSectionsExperiment_thatLaterUpdatesApply {
+    ((IGListAdapterUpdater *)self.updater).experiments |= IGListExperimentReloadSectionsWithInconsistentItemUpdates;
+    [self setupWithObjects:@[
+        genTestObject(@1, @5),
+        genTestObject(@2, @2)
+    ]];
+    IGTestObject *object = self.dataSource.objects[0];
+    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+
+    object.value = @6;
+    XCTestExpectation *batchExpectation = genExpectation;
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+        object.value = @5;
+        [batchContext deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:5]];
+    } completion:^(BOOL finished) {
+        [batchExpectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+
+    self.dataSource.objects = @[
+        genTestObject(@1, @5),
+        genTestObject(@2, @2),
+        genTestObject(@3, @4),
+    ];
+    XCTestExpectation *updateExpectation = genExpectation;
+    [self.adapter performUpdatesAnimated:YES completion:^(BOOL finished) {
+        [self.collectionView layoutIfNeeded];
+        XCTAssertEqual([self.collectionView numberOfSections], 3);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:2], 4);
+        XCTAssertNotNil([self.collectionView cellForItemAtIndexPath:genIndexPath(2, 0)]);
+        [updateExpectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+}
+
+- (void)test_whenItemUpdatesDontMatchItemCounts_withReloadInconsistentSectionsExperiment_thatScrolledSectionsHaveCells {
+    ((IGListAdapterUpdater *)self.updater).experiments |= IGListExperimentReloadSectionsWithInconsistentItemUpdates;
+    NSMutableArray *objects = [NSMutableArray new];
+    for (NSInteger i = 0; i < 30; i++) {
+        [objects addObject:genTestObject(@(i + 1), @2)];
+    }
+    [self setupWithObjects:objects];
+    IGTestObject *object = self.dataSource.objects[0];
+    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+
+    object.value = @3;
+    XCTestExpectation *expectation = genExpectation;
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+        object.value = @2;
+        [batchContext deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:2]];
+    } completion:^(BOOL finished) {
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+
+    self.collectionView.contentOffset = CGPointMake(0, 400);
+    [self.collectionView layoutIfNeeded];
+    XCTAssertNotNil([self.collectionView cellForItemAtIndexPath:genIndexPath(20, 0)]);
+}
+
+- (void)test_whenItemUpdatesMatchItemCounts_withReloadInconsistentSectionsExperiment_thatItemsUpdateWithoutSectionReload {
+    ((IGListAdapterUpdater *)self.updater).experiments |= IGListExperimentReloadSectionsWithInconsistentItemUpdates;
+    [self setupWithObjects:@[
+        genTestObject(@1, @3),
+        genTestObject(@2, @2)
+    ]];
+    IGTestObject *object = self.dataSource.objects[0];
+    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+    UICollectionViewCell *firstCell = [self.collectionView cellForItemAtIndexPath:genIndexPath(0, 0)];
+    XCTAssertNotNil(firstCell);
+
+    XCTestExpectation *expectation = genExpectation;
+    [sectionController.collectionContext performBatchAnimated:NO updates:^(id<IGListBatchContext> batchContext) {
+        object.value = @2;
+        [batchContext deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:2]];
+    } completion:^(BOOL finished) {
+        [self.collectionView layoutIfNeeded];
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
+        XCTAssertEqual([self.collectionView cellForItemAtIndexPath:genIndexPath(0, 0)], firstCell);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+}
+
+- (void)_performBatchWithReloadInconsistentSectionsExperiment:(void (^)(id<IGListBatchContext> batchContext, IGListAdapterUpdater *updater))updates
+                                                   completion:(void (^)(void))completion {
+    IGListAdapterUpdater *updater = (IGListAdapterUpdater *)self.updater;
+    XCTestExpectation *expectation = genExpectation;
+    [self.adapter performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+        updates(batchContext, updater);
+    } completion:^(BOOL finished) {
+        completion();
+        [expectation fulfill];
+    }];
+    // Only NSInternalInconsistencyException is caught inside the update, so run it here to fail instead of crashing.
+    XCTAssertNoThrow([updater update]);
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+}
+
+- (void)test_whenChainedMovesLeaveSectionsInconsistent_withReloadInconsistentSectionsExperiment_thatAllSectionsReload {
+    ((IGListAdapterUpdater *)self.updater).experiments |= IGListExperimentReloadSectionsWithInconsistentItemUpdates;
+    [self setupWithObjects:@[
+        genTestObject(@1, @5),
+        genTestObject(@2, @2),
+        genTestObject(@3, @2)
+    ]];
+    IGTestObject *a = self.dataSource.objects[0];
+    IGTestObject *c = self.dataSource.objects[2];
+    IGListSectionController *sectionControllerA = [self.adapter sectionControllerForObject:a];
+    a.value = @6;
+
+    [self _performBatchWithReloadInconsistentSectionsExperiment:^(id<IGListBatchContext> batchContext, IGListAdapterUpdater *updater) {
+        a.value = @4;
+        c.value = @3;
+        // B->C is recorded before A->B, so B is only found inconsistent after A, and C only after B.
+        [updater moveItemInCollectionView:self.collectionView fromIndexPath:genIndexPath(1, 0) toIndexPath:genIndexPath(2, 0)];
+        [updater moveItemInCollectionView:self.collectionView fromIndexPath:genIndexPath(0, 0) toIndexPath:genIndexPath(1, 0)];
+        [batchContext deleteInSectionController:sectionControllerA atIndexes:[NSIndexSet indexSetWithIndex:5]];
+    } completion:^{
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 4);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 2);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:2], 3);
+    }];
+}
+
+- (void)test_whenItemIndexIsNegative_withReloadInconsistentSectionsExperiment_thatSectionReloads {
+    ((IGListAdapterUpdater *)self.updater).experiments |= IGListExperimentReloadSectionsWithInconsistentItemUpdates;
+    [self setupWithObjects:@[
+        genTestObject(@1, @3),
+        genTestObject(@2, @2)
+    ]];
+    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+
+    [self _performBatchWithReloadInconsistentSectionsExperiment:^(id<IGListBatchContext> batchContext, IGListAdapterUpdater *updater) {
+        [batchContext moveInSectionController:sectionController fromIndex:-1 toIndex:0];
+    } completion:^{
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 2);
+    }];
+}
+
+- (void)test_whenItemIndexIsNotFound_withReloadInconsistentSectionsExperiment_thatSectionReloads {
+    ((IGListAdapterUpdater *)self.updater).experiments |= IGListExperimentReloadSectionsWithInconsistentItemUpdates;
+    [self setupWithObjects:@[
+        genTestObject(@1, @3),
+        genTestObject(@2, @2)
+    ]];
+
+    [self _performBatchWithReloadInconsistentSectionsExperiment:^(id<IGListBatchContext> batchContext, IGListAdapterUpdater *updater) {
+        [updater deleteItemsFromCollectionView:self.collectionView indexPaths:@[genIndexPath(0, NSNotFound)]];
+    } completion:^{
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 2);
+    }];
+}
+
+- (void)test_whenSectionIndexIsOutOfRange_withReloadInconsistentSectionsExperiment_thatItemUpdatesAreDropped {
+    ((IGListAdapterUpdater *)self.updater).experiments |= IGListExperimentReloadSectionsWithInconsistentItemUpdates;
+    [self setupWithObjects:@[
+        genTestObject(@1, @3),
+        genTestObject(@2, @2)
+    ]];
+
+    [self _performBatchWithReloadInconsistentSectionsExperiment:^(id<IGListBatchContext> batchContext, IGListAdapterUpdater *updater) {
+        [updater deleteItemsFromCollectionView:self.collectionView indexPaths:@[genIndexPath(5, 0)]];
+    } completion:^{
+        XCTAssertEqual([self.collectionView numberOfSections], 2);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 2);
+    }];
+}
+
+- (void)test_whenSectionIndexIsOutOfRangeWithDataUpdate_withReloadInconsistentSectionsExperiment_thatItemUpdatesAreDropped {
+    ((IGListAdapterUpdater *)self.updater).experiments |= IGListExperimentReloadSectionsWithInconsistentItemUpdates;
+    [self setupWithObjects:@[
+        genTestObject(@1, @3),
+        genTestObject(@2, @2)
+    ]];
+    // Coalesces a data update into the same transaction, so the transaction has from-objects.
+    self.dataSource.objects = [self.dataSource.objects copy];
+    [self.adapter performUpdatesAnimated:YES completion:nil];
+
+    [self _performBatchWithReloadInconsistentSectionsExperiment:^(id<IGListBatchContext> batchContext, IGListAdapterUpdater *updater) {
+        [updater deleteItemsFromCollectionView:self.collectionView indexPaths:@[genIndexPath(5, 0)]];
+    } completion:^{
+        XCTAssertEqual([self.collectionView numberOfSections], 2);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
+        XCTAssertEqual([self.collectionView numberOfItemsInSection:1], 2);
+    }];
+}
+
 @end
