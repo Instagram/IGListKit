@@ -9,7 +9,7 @@ The preferred method of installation for `IGListKit` is using [CocoaPods](https:
 In order to use the latest release of the framework, add the following to your `Podfile`:
 
 ```ruby
-pod 'IGListKit', '~> 4.0'
+pod 'IGListKit', '~> 5.2.0'
 ```
 
 ### Using `main`
@@ -29,7 +29,7 @@ With the exception of `macOS` (which currently only supports the diffing algorit
 However, if you only want to use the diffing components of this library, then you can use the diffing subspec in your `Podfile`:
 
 ```ruby
-pod 'IGListKit/Diffing', '~> 4.0'
+pod 'IGListKit/Diffing', '~> 5.2.0'
 ```
 
 Regardless of whether you only use the diffing components, or the entire library, the imports are the same:
@@ -38,10 +38,45 @@ Regardless of whether you only use the diffing components, or the entire library
 import IGListKit
 ```
 
+## Swift Package Manager
+
+To install `IGListKit` using [Swift Package Manager](https://swift.org/package-manager/):
+
+### Xcode Project Integration
+
+1. In Xcode, select **File** → **Add Package Dependencies...**
+2. Enter the repository URL: `https://github.com/Instagram/IGListKit.git`
+3. Select the version dependency rule (e.g. Up to Next Major from `5.2.0`).
+4. Select the products you want to add to your app target:
+   - `IGListKit`: The complete data-driven `UICollectionView` framework.
+   - `IGListDiffKit`: Diffing algorithm components only.
+   - `IGListSwiftKit`: Swift extensions and convenience APIs for `IGListKit`.
+
+### Package.swift Manifest
+
+For Swift packages, add `IGListKit` to your `Package.swift` dependencies:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/Instagram/IGListKit.git", from: "5.2.0")
+]
+```
+
+And add the product as a dependency to your target:
+
+```swift
+.target(
+    name: "MyTarget",
+    dependencies: [
+        .product(name: "IGListKit", package: "IGListKit")
+    ]
+)
+```
+
 ## Carthage
 
 If using [Carthage](https://github.com/Carthage/Carthage), add the following to your `Cartfile`:
 
 ```ogdl
-github "Instagram/IGListKit" ~> 4.0
+github "Instagram/IGListKit" ~> 5.2.0
 ```
