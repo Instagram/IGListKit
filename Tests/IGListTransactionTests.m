@@ -119,7 +119,7 @@
 
     @try {
         [batchUpdateTransaction begin];
-    } @catch (NSException *exception) {}
+    } @catch (NSException *) {}
 }
 
 - (void)test_withBatchUpdateTransaction_thatCancellingTransactionBetweenRunLoopsIsCaptured {

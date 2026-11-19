@@ -39,15 +39,15 @@
 
     @try {
         [controller cellClass];
-    } @catch (NSException *e) {}
+    } @catch (NSException *) {}
 
     @try {
         [controller configureCell:cell withViewModel:viewModel];
-    } @catch (NSException *e) {}
+    } @catch (NSException *) {}
 
     @try {
         [controller sizeForViewModel:viewModel];
-    } @catch (NSException *e) {}
+    } @catch (NSException *) {}
 }
 
 - (void)test_whenSetupWithObjects_collectionViewHasSections {

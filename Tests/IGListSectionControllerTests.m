@@ -35,11 +35,11 @@
 
     @try {
         [sectionController cellForItemAtIndex:0];
-    } @catch (NSException *exception) {}
+    } @catch (NSException *) {}
 
     @try {
         [sectionController moveObjectFromIndex:0 toIndex:1];
-    } @catch (NSException *exception) {}
+    } @catch (NSException *) {}
 }
 
 - (void)test_whenCreatedOutsideDataSource_thatCollectionContextIsNil {

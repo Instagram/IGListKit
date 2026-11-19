@@ -967,10 +967,8 @@
 }
 
 - (void)test_whenBatchUpdating_withCellQuery_thatCellIsNil {
-    __block BOOL executed = NO;
     __weak __typeof__(self) weakSelf = self;
     void (^block)(IGTestDelegateController *) = ^(IGTestDelegateController *ic) {
-        executed = YES;
         XCTAssertNil([weakSelf.adapter cellForItemAtIndex:0 sectionController:ic]);
     };
     ((IGTestDelegateDataSource *)self.dataSource).cellConfigureBlock = block;
