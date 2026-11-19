@@ -183,7 +183,7 @@ static void IGListSectionMapValidateDiffIdentifier(NSUInteger section, NSArray<i
     return;
   }
   
-  if (section < 0 || section >= mObjects.count) {
+  if (section >= mObjects.count) {
     return;
   }
   
