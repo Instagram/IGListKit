@@ -17,7 +17,7 @@
 
 - (void)sectionController:(IGListBindingSectionController *)sectionController
    didDeselectItemAtIndex:(NSInteger)index
-                viewModel:(id)viewModel; {
+                viewModel:(id)viewModel {
 }
 
 - (void)sectionController:(nonnull IGListBindingSectionController *)sectionController
